@@ -1,7 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="UTF-8">
   <title>top</title>
   <style>
     body {
@@ -100,7 +101,7 @@
     <div style="display: flex; align-items: center;">
       <div class="search-box">
         <input type="text" placeholder="검색">
-        <i><img src="img/MagnifyingGlass.png"></i>
+        <i><img src="images/MagnifyingGlass.png"></i>
       </div>
 
       <div class="user-menu">
@@ -111,7 +112,5 @@
     </div>
   </header>
 
-</body>
-</html>
 </body>
 </html>

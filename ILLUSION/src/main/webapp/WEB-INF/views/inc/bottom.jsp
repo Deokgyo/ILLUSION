@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>bottom</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <style type="text/css">
 .footer {
   background: linear-gradient(to bottom, #fef0c4, #f5f5f5, #fce5f1);
@@ -74,8 +72,8 @@
 
 
 </style>
-</head>
-<body>
+
+
 <footer class="footer">
   <div class="footer-top">
     <div class="footer-left">
@@ -112,5 +110,3 @@
     <a href="#">문의하기</a>
   </div>
 </footer>
-</body>
-</html>
