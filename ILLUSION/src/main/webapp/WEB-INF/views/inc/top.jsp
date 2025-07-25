@@ -92,7 +92,7 @@
 
     <nav>
       <ul>
-        <li>취업도구</li>
+        <li><a href =" ddd"> </a>취업도구</li>
         <li>채용정보</li>
         <li>커뮤니티</li>
       </ul>
