@@ -282,10 +282,10 @@
                     <li class="dropdown">
                         <a href="#">취업도구</a>
                         <ul class="dropdown-menu">
-                            <li><a href="/tool/resume-generator"><span class="icon">📄</span> 자소서 생성기</a></li>
-                            <li><a href="/tool/resume-refiner"><span class="icon">✨</span> 자소서 다듬기</a></li>
-                            <li><a href="/tool/interview-qa"><span class="icon">🎙️</span> 면접예상 질문 생성기</a></li>
-                            <li><a href="/tool/chatbot"><span class="icon">💬</span> 취업 상담 챗봇</a></li>
+                            <li><a href="/jobTools/resume_generator"><span class="icon">📄</span> 자소서 생성기</a></li>
+                            <li><a href="/jobTools/resume_refiner"><span class="icon">✨</span> 자소서 다듬기</a></li>
+                            <li><a href="/jobTools/ai_interview"><span class="icon">🎙️</span> 면접예상 질문 생성기</a></li>
+                            <li><a href="/jobTools/chatbot"><span class="icon">💬</span> 취업 상담 챗봇</a></li>
                         </ul>
                     </li>
                     <!-- ▲▲▲ HTML 구조에 icon 클래스를 가진 span 태그 추가 ▲▲▲ -->
