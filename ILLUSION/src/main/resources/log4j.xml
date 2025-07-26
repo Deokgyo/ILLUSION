@@ -68,8 +68,8 @@
 	<!-- 기본적인 시스템의 로그 설정 (priority 태그로 로그의 심각도 설정) -->
 	<!-- Root Logger -->
 	<root>
-		<priority value="debug" />
-<!-- 		<priority value="info" /> -->
+<!-- 		<priority value="debug" /> -->
+		<priority value="info" />
 <!-- 		<priority value="warn" /> -->
 		<appender-ref ref="console" />
 	</root>
