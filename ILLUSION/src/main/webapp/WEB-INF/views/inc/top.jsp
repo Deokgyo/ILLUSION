@@ -19,6 +19,7 @@
         color: #333;
         line-height: 1.6;
         background-color: #f8f8f8;
+        min-width: 1200px;
     }
 
     a {
@@ -84,6 +85,7 @@
         padding: 8px 0;
         position: relative;
         transition: color 0.3s ease;
+        white-space: nowrap; 
     }
 
     .main-nav a:hover {
@@ -144,13 +146,13 @@
         justify-content: center;
     }
     
-    .search-button img {
-        width: 20px;
-        height: 20px;
+    .search-button i { /* 이미지 태그에서 i 태그로 변경되어 관련 스타일 수정 */
+        font-size: 18px;
+        color: #555;
         opacity: 0.7;
         transition: opacity 0.3s ease;
     }
-    .search-button:hover img {
+    .search-button:hover i {
         opacity: 1;
     }
 
@@ -167,6 +169,7 @@
         padding: 5px 8px;
         border-radius: 5px;
         transition: all 0.3s ease;
+        white-space: nowrap; /* 사용자 메뉴도 줄바꿈 방지 */
     }
     
     .user-menu a:hover {
