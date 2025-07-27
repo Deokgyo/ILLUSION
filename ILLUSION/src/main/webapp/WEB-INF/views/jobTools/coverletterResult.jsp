@@ -30,7 +30,6 @@
                 <div class="result-meta">
                     <div class="char-count">
                         <i class="fa-solid fa-star"></i>
-                        <%-- 이 부분은 실제 데이터로 변경해야 합니다 --%>
                         <span>700자 (공백 미포함 544자)</span>
                     </div>
                     <div class="action-buttons">
@@ -39,11 +38,6 @@
                     </div>
                 </div>
 
-                <%-- 
-                    생성된 자기소개서 텍스트를 표시하는 영역입니다.
-                    컨트롤러에서 전달받은 모델 데이터를 여기에 출력합니다.
-                    readonly 속성으로 사용자가 수정하지 못하게 막습니다.
-                --%>
                 <textarea id="generated-text" readonly>
 저는 창의적인 디자인에 관심이 많은 소프트웨어 개발자입니다. 현재는 AI를 활용한 이력서 첨삭 플랫폼 'Illusion' 프로젝트를 개발하며, 영어와 한국어 콘텐츠 모두에 대응할 다양한 AI 시각 자료와 로고를 직접 디자인한 경험이 있습니다. 웹 개발 분야에서 Java Spring과 MyBatis를 사용하여 학생 등록과 HTTP 오류 문제 등 실질적인 현장 이슈를 해결한 경험이 있으며, 서비스 계층 아키텍처와 디자인 패턴 적용에도 역량을 키우고 있습니다.
 
