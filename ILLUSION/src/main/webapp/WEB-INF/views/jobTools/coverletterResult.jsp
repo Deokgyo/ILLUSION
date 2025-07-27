@@ -55,9 +55,9 @@
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 
-    <%-- jQuery 및 우리가 만든 JS 파일 로드 --%>
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/result-page.js"></script> <%-- ✅ 새로 만든 결과 페이지 JS 추가 --%>
+    <script src="${pageContext.request.contextPath}/resources/js/result-page.js"></script> 
 </body>
 </html>

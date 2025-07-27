@@ -16,5 +16,10 @@ public class JobTools {
 	public String coverletterResult() {
 		return "jobTools/coverletterResult";
 	}
+	
+	@GetMapping("coverLetterRefiner")
+	public String coverLetterRefiner() {
+		return "jobTools/coverLetterRefiner";
+	}
 }
        
