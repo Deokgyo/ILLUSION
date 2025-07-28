@@ -4,7 +4,7 @@
         <!-- 로고 -->
         <div class="site-logo">
             <a href="./">
-            	    <img src="${pageContext.request.contextPath}/resources/image/test.png" alt="이미지 설명" />
+            	    <img src="${pageContext.request.contextPath}/resources/image/logo.png" alt="이미지 설명" />
             </a>
         </div>
 

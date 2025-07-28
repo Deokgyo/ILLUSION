@@ -20,14 +20,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/test.css"> 
     
-   <style type="text/css">
-   		.btn.disabled, .btn:disabled, fieldset:disabled .btn {
-		opacity:.65;
-}
-   
-   
-   </style>
-    
     
 </head>
 <body>
