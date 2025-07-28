@@ -6,8 +6,10 @@ body {
     flex-direction: column; /* 헤더, 중앙 영역, 푸터를 수직으로 배치 */
     min-height: 100vh;
     margin: 0;
-    background-color: #f9fafb;
-    font-family: 'Pretendard', sans-serif;
+    background-color: var(--body-bg-color);
+/*     font-family: var(--font-family); */
+/*     background-color: #f9fafb; */
+/*     font-family: 'Pretendard', sans-serif; */
 }
 
 /* ✅ 핵심: 헤더와 푸터 사이의 모든 공간을 차지하며, '화면 중앙'에 위치하는 컨테이너 */

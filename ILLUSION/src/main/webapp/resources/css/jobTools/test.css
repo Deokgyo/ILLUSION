@@ -11,7 +11,8 @@
 }
 .form-header .sub-title {
     font-size: 16px;
-    color: #888;
+/*     color: #888; */
+    color: var(--font-sub-color);
     margin-top: 8px;
 }
 
@@ -34,6 +35,7 @@
 .section-header .title {
     font-size: 18px;
     font-weight: 600;
+    color: var(--font-main-color);
 }
 
 /* 기본 input, textarea 스타일 오버라이드 */
@@ -43,11 +45,13 @@
     padding: 12px 16px;
     height: 50px;
     font-size: 16px;
+    color: var(--font-main-color);
     box-shadow: none !important; /* 부트스트랩의 focus 그림자 제거 */
     transition: border-color 0.2s ease;
 }
 .form-control:focus {
-    border-color: #B08968;
+	color: var(--font-sub-color);
+/*     border-color: #B08968; */
 }
 textarea.form-control {
     height: auto; /* textarea는 내용에 따라 높이 조절 */
@@ -66,7 +70,8 @@ textarea.form-control {
     text-align: center;
     padding: 12px;
     background-color: #fff;
-    color: #888;
+    color: var(--font-sub-color);
+/*     color: #888; */
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s;
     font-weight: 500;
@@ -75,8 +80,10 @@ textarea.form-control {
     border-right: 1px solid #E0E0E0;
 }
 .segmented-control .option.active {
-    background-color: #fde68a; /* 활성화 시 노란색 배경 */
-    color: #333;
+	background-color: var(--main-color);
+    color: var(--font-main-color);
+/*     background-color: #fde68a; 활성화 시 노란색 배경 */
+/*     color: #333; */
     font-weight: 600;
 }
 
@@ -88,7 +95,8 @@ textarea.form-control {
 }
 .category-column .col-title {
     font-size: 14px;
-    color: #888;
+/*     color: #888; */
+    color: var(--font-sub-color); 
     margin-bottom: 10px;
     text-align: center;
 }
@@ -100,6 +108,7 @@ textarea.form-control {
     border-radius: 8px;
     padding: 12px;
     background-color: #fff;
+    color: var(--font-main-color);
     cursor: pointer;
     margin-bottom: 10px;
     transition: all 0.2s;
@@ -107,7 +116,8 @@ textarea.form-control {
 .category-options .option-btn.active,
 .category-options .option-btn:hover {
     border-color: #B08968;
-    background-color: #FFF9EB;
+    background-color: var(--body-bg-color);
+/*     background-color: #FFF9EB; */
     color: #B08968;
     font-weight: 600;
 }
@@ -116,19 +126,22 @@ textarea.form-control {
 .selected-tags-area {
     margin-top: 15px;
     padding: 15px;
-    background-color: #f8f9fa;
+/*     background-color: #f8f9fa; */
+    background-color: var(--body-bg-color);
     border-radius: 8px;
     min-height: 50px;
 }
 .selected-tags-area .tag {
     display: inline-flex;
     align-items: center;
-    background-color: #e9ecef;
+/*     background-color: #e9ecef; */
+    background-color: var(--body-bg-color);
     border-radius: 15px;
     padding: 5px 12px;
     font-size: 14px;
     margin-right: 8px;
     margin-bottom: 8px;
+    color: var(--font-main-color);
 }
 .selected-tags-area .tag .close-btn {
     margin-left: 8px;
