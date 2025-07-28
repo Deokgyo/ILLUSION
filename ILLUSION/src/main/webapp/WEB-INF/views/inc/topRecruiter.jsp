@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterMain.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <%--
 	작성자: 박덕교
@@ -8,12 +11,14 @@
 
 <header class="header">
     <div class="header-container">
+    
         <!-- 로고 -->
         <div class="logo">
             <a href="./">
-                <img src="${pageContext.request.contextPath}/resources/image/test.png" alt="ILLUSION 로고" />
+                <img src="${pageContext.request.contextPath}/resources/image/logo.png" alt="ILLUSION 로고" />
             </a>
         </div>
+        
         <!-- 중앙 내비게이션 -->
         <nav class="navigation">
             <ul>
@@ -22,10 +27,11 @@
                 <li><a href="recruiterRegistForm">공고목록</a></li>
             </ul>
         </nav>
+        
         <!-- 우측 사용자 메뉴 -->
         <div class="user-menu">
             <a href="#">기업로그인</a>
-            <a href="#">회원가입</a>
+            <a href="#" class="btn-primary">회원가입</a>
         </div>
     </div>
 </header>
