@@ -2,9 +2,9 @@
 /* --- 기본 설정 --- */
 body {
     margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
+    font-family: var(--font-family);
+    background-color: var(--body-bg-color);
+    color:  var(font-main-color);
 }
 
 .container {
@@ -25,6 +25,7 @@ h1 {
     color: #555;
     text-align: center;
     margin: 0;
+    background-color: var(--background-gradient);
 }
 
 .job-posting {
@@ -54,7 +55,7 @@ h1 {
 
 .company-name-top {
     font-size: 0.9rem;
-    color: #888;
+    color: var(--font-sub-color);
 }
 
 .job-title-section h2 {
@@ -76,12 +77,12 @@ h1 {
     height: 40px;
     font-size: 1.1rem;
     cursor: pointer;
-    color: #555;
+    color: var(--font-sub-color);
 }
 
 .apply-btn {
     background-color: #f9d74a;
-    color: #333;
+    color: var(--font-main-color);
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 8px;
@@ -107,7 +108,7 @@ h1 {
 
 .job-details-grid dt {
     font-weight: 500;
-    color: #888;
+    color: var(--font-sub-color);
 }
 
 .job-details-grid dd {
@@ -122,7 +123,7 @@ h1 {
     border-radius: 8px;
     padding: 30px;
     text-align: center;
-    color: #888;
+    color: var(--font-sub-color);
     margin: 30px 0;
 }
 
@@ -149,7 +150,7 @@ h1 {
 .company-details p {
     margin: 5px 0;
     font-size: 0.9rem;
-    color: #555;
+    color: var(--font-sub-color);
 }
 
 .company-logo {
@@ -180,7 +181,7 @@ h1 {
 .countdown-timer p {
     margin: 0 0 10px 0;
     font-size: 0.9rem;
-    color: #888;
+    color: var(--font-sub-color);
 }
 
 .timer {
@@ -208,7 +209,7 @@ h1 {
 .application-details span {
     display: inline-block;
     width: 80px;
-    color: #888;
+    color: var(--font-sub-color);
 }
 
 /* --- 6. 지원자 통계 --- */
@@ -258,7 +259,7 @@ h1 {
 }
 
 .bar-group .group {
-    color: #888;
+    color: var(--font-sub-color);
     margin-top: 5px;
 }
 

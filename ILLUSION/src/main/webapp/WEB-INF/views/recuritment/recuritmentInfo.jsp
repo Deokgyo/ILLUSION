@@ -18,8 +18,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/recuritmentInfo.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/salaryFilter.css"> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/filterEvent.css">
     
 </head>
 <body>
@@ -39,9 +40,9 @@
 	            </div>
 				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
 				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recuritment/experienceFilter.jsp" />
 				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recuritment/degreeFilter.jsp" />
 	        </header>
 	        
 	        <main>
@@ -192,7 +193,7 @@
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/recuritment/salaryFilter.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recuritment/filterEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 </body>
 </html>
