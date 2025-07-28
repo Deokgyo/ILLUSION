@@ -16,8 +16,8 @@
                         <ul class="dropdown-menu">
                             <li><a href="coverletterCreate"><span class="icon">📄</span> 자소서 생성기</a></li>
                             <li><a href="coverLetterRefiner"><span class="icon">✨</span> 자소서 다듬기</a></li>
-                            <li><a href="/jobTools/ai_interview"><span class="icon">🎙️</span> 면접예상 질문 생성기</a></li>
-                            <li><a href="/jobTools/chatbot"><span class="icon">💬</span> 취업 상담 챗봇</a></li>
+                            <li><a href="interviewCreate"><span class="icon">🎙️</span> 면접예상 질문 생성기</a></li>
+                            <li><a href="chatbot"><span class="icon">💬</span> 취업 상담 챗봇</a></li>
                         </ul>
                     </li>
                     <li><a href="/job-info">채용정보</a></li>

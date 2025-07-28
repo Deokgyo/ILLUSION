@@ -16,14 +16,14 @@
     </div>
     <nav class="sidebar-nav">
         <ul>
-            <li><a href="#"><i class="fa-solid fa-house"></i> 홈</a></li>
+            <li><a href="./"><i class="fa-solid fa-house"></i> 홈</a></li>
             <li class="has-submenu active">
                 <a href="#"><i class="fa-solid fa-briefcase"></i> 취업도구 <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></a>
                 <ul class="submenu">
-                    <li><a href="#">자기소개서 생성기</a></li>
-                    <li><a href="#">자기소개서 다듬기</a></li>
-                    <li><a href="#">AI 면접 예상 질문</a></li>
-                    <li><a href="#">취업 챗봇</a></li>
+                    <li><a href="coverletterCreate">자기소개서 생성기</a></li>
+                    <li><a href="coverLetterRefiner">자기소개서 다듬기</a></li>
+                    <li><a href="interviewCreate">AI 면접 예상 질문</a></li>
+                    <li><a href="chatbot">취업 챗봇</a></li>
                 </ul>
             </li>
             <li><a href="#"><i class="fa-solid fa-comment"></i> 커뮤니티</a></li>
