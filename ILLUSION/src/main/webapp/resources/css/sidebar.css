@@ -31,7 +31,7 @@
 .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
 .sidebar-nav li { margin-bottom: 5px; }
 .sidebar-nav > ul > li > a { display: flex; align-items: center; padding: 14px 18px; text-decoration: none; color: #5D4037; font-weight: 600; border-radius: 10px; transition: background-color 0.2s, color 0.2s; font-size: 16px; }
-.sidebar-nav > ul > li > a:hover { background-color: #FDF4D9; }
+.sidebar-nav > ul > li > a:hover { background-color: #b08968; }
 .sidebar-nav li.active > a { background-color: #B08968; color: #fff; }
 .sidebar-nav a .fa-solid { width: 20px; margin-right: 12px; text-align: center; }
 .sidebar-nav .has-submenu .arrow { margin-left: auto; transition: transform 0.3s ease; }

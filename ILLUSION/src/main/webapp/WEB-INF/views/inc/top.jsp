@@ -43,7 +43,7 @@
                 <li class="separator">|</li>
                 <li><a href="/register">회원가입</a></li>
                 <li class="separator">|</li>
-                <li><a href="/corporate">기업서비스</a></li>
+                <li><a href="recruiterMain">기업서비스</a></li>
             </ul>
         </nav>
     </div>
