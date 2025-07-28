@@ -3,7 +3,9 @@
     <div class="header-container">
         <!-- 로고 -->
         <div class="site-logo">
-            <h1><a href="./">ILLUSION</a></h1>
+            <a href="./">
+            	    <img src="${pageContext.request.contextPath}/resources/image/test.png" alt="이미지 설명" />
+            </a>
         </div>
 
         <!-- 중앙 메뉴: 메인 네비게이션 + 검색창 -->
