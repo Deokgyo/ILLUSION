@@ -1,4 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%--
+	작성자: 박덕교
+	용도 : 기업 페이지 헤더 영역 
+	작성일 : 25-07-28 
+ --%>
+
 <header class="site-header">
     <div class="header-container">
         <!-- 로고 -->
@@ -11,17 +18,9 @@
             <!-- 메인 네비게이션 -->
             <nav class="main-nav">
                 <ul>
-                    <li class="dropdown">
-                        <a href="#">취업도구</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="coverletterCreate"><span class="icon">📄</span> 자소서 생성기</a></li>
-                            <li><a href="coverLetterRefiner"><span class="icon">✨</span> 자소서 다듬기</a></li>
-                            <li><a href="/jobTools/ai_interview"><span class="icon">🎙️</span> 면접예상 질문 생성기</a></li>
-                            <li><a href="/jobTools/chatbot"><span class="icon">💬</span> 취업 상담 챗봇</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/job-info">채용정보</a></li>
-                    <li><a href="/community">커뮤니티</a></li>
+                    <li><a href="recruiterMain">홈</a></li>
+                    <li><a href="recruiterRegistForm">공고등록</a></li>
+                    <li><a href="recruiterList">공고목록</a></li>
                 </ul>
             </nav>
             
@@ -37,11 +36,9 @@
         <!-- 우측 사용자 메뉴 -->
         <nav class="user-menu">
             <ul>
-                <li><a href="/login">로그인</a></li>
+                <li><a href="/login">기업 로그인</a></li>
                 <li class="separator">|</li>
                 <li><a href="/register">회원가입</a></li>
-                <li class="separator">|</li>
-                <li><a href="recruiterMain">기업서비스</a></li>
             </ul>
         </nav>
     </div>
