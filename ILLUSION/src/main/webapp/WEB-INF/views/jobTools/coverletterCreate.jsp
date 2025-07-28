@@ -114,7 +114,6 @@
                     <div class="text-center mt-5">
                         <button type="submit" class="btn btn-yellow btn-lg">자기소개서 생성</button>
                     </div>
-
                 </form>
             </div>
         </main>
