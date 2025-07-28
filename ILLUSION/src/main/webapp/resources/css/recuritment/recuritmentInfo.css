@@ -1,0 +1,268 @@
+@charset "UTF-8";
+/* 기본 & 폰트 설정 */
+body {
+    margin: 0;
+    font-family: var(--main-color);
+    background-color: var(--body-bg-color);
+    color: var(--font-main-color);
+}
+
+.h1 {
+	text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 헤더 & 검색/필터 바 */
+.search-header {
+    background-color: var(--body-bg-color);
+    padding: 20px 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.search-header h1 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.filter-bar-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-box {
+    display: flex;
+    flex-grow: 1;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    padding: 12px 15px;
+    font-size: 1rem;
+}
+
+.search-box input:focus {
+    outline: none;
+}
+
+.search-box .search-btn {
+    border: none;
+    background-color: transparent;
+    padding: 0 15px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #888;
+}
+
+.reset-btn {
+    padding: 12px 20px;
+    border: 1px solid #dee2e6;
+    background-color: var(--body-bg-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.filter-bar-options {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-bar-options button {
+    padding: 10px 18px;
+    border: 1px solid #dee2e6;
+    background-color: var(--body-bg-color);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* 채용 목록 컨트롤 (필터, 정렬) */
+.job-list-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+.sort-options a {
+    text-decoration: none;
+    color: #868e96;
+    margin-left: 15px;
+    font-size: 0.9rem;
+}
+
+.sort-options a.active {
+    color: #000;
+    font-weight: 700;
+}
+
+/* 채용 목록 그리드 */
+.job-listings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* 채용 카드 */
+.job-card {
+    background-color: var(--body-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    padding: 20px;
+}
+
+.company-name {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* 회사별 색상 */
+.samsung { color: #1251f1; }
+.hyundai { color: #002c5f; }
+.naver { color: #03c75a; }
+
+.job-title {
+    margin: 8px 0 15px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #212529;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #868e96;
+}
+
+.apply-btn {
+    text-decoration: none;
+    color: #3682ff;
+    border: 1px solid #a4c5fd;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* 카드 이미지 */
+.card-image img {
+    width: 100%;
+    height: 150px; /* 고정 높이 */
+    object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
+    display: block;
+}
+
+.card-image-naver h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.card-image-naver p {
+    margin: 5px 0 0 0;
+    font-size: 1.1rem;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pagination a {
+    color: #495057;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin: 0 5px;
+    border-radius: 8px;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #e9ecef;
+}
+
+/* 반응형 디자인 (화면이 작아질 때) */
+@media (max-width: 992px) {
+    .job-listings {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .job-listings {
+        grid-template-columns: 1fr;
+    }
+    .filter-bar-main, .job-list-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    .sort-options {
+        text-align: left;
+    }
+}
+
+.salary-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.salary-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 300px;
+  padding: 15px;
+  background: var(--body-bg-color);
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.filter-bar-options {
+  position: relative;   /* 드롭다운 위치 기준을 보장 */
+  overflow: visible;    /* 자식 요소 삐져나와도 보이도록 */
+  z-index: 1;
+}

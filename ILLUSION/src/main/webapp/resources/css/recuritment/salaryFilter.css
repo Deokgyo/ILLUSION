@@ -1,0 +1,30 @@
+.salary-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.salary-dropdown-menu {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    z-index: 1050 !important;
+    background: white !important;
+    border: 1px solid #dee2e6 !important; /* Bootstrap 기본 테두리 색상 */
+    width: 300px !important;
+    padding: 15px !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important; /* Bootstrap 그림자 */
+    margin-top: 5px !important;
+    display: block !important;
+    border-radius: 0.375rem !important; /* Bootstrap 기본 border-radius */
+}
+
+.salary-dropdown-menu.hidden {
+    display: none !important;
+}
+
+/* 필터 버튼들 간격 조정 */
+.filter-bar-options {
+    display: flex;
+    gap: 10px;
+    position: relative;
+}
