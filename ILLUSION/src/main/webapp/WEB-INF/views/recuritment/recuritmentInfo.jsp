@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/recuritmentInfo.css"> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/recuritmentInfo.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/salaryFilter.css"> 
     
 </head>
 <body>
@@ -26,10 +27,9 @@
 
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
-        
 	        <div class="container">
 	        <header class="search-header">
-	            <h1>채용정보</h1>
+	            <h1 class="h1">채용정보</h1>
 	            <div class="filter-bar-main">
 	                <div class="search-box">
 	                    <input type="text" placeholder="검색어를 입력하세요">
@@ -37,23 +37,15 @@
 	                </div>
 	                <button class="reset-btn">초기화</button>
 	            </div>
-	            <div class="filter-bar-options">
-	                <button>지역별</button>
-	                <button>직종별</button>
-	                <button>경력</button>
-	                <button>급여</button>
-	                <button>학력</button>
-	                <button>기업</button>
-	            </div>
+				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
 	        </header>
-	
+	        
 	        <main>
 	            <section class="job-list-controls">
-	                <div class="job-type-filters">
-	                    <button class="active">전체</button>
-	                    <button>신입</button>
-	                    <button>경력</button>
-	                </div>
 	                <div class="sort-options">
 	                    <a href="#" class="active">최신순</a>
 	                    <a href="#">마감순</a>
@@ -200,6 +192,7 @@
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recuritment/salaryFilter.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 </body>
 </html>
