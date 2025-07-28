@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class JobTools {
+public class JobToolsController {
 
 	
 	@GetMapping("coverletterCreate")
@@ -20,6 +20,21 @@ public class JobTools {
 	@GetMapping("coverLetterRefiner")
 	public String coverLetterRefiner() {
 		return "jobTools/coverLetterRefiner";
+	}
+	
+	@GetMapping("interviewCreate")
+	public String interviewCreate() {
+		return "jobTools/interviewCreate";
+	}
+	
+	@GetMapping("interviewResult")
+	public String interviewResult() {
+		return "jobTools/interviewResult";
+	}
+	
+	@GetMapping("chatbot")
+	public String chatbotMain() {
+		return "jobTools/chatbot";
 	}
 }
        
