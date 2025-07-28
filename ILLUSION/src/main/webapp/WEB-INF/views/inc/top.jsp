@@ -20,7 +20,7 @@
                             <li><a href="/jobTools/chatbot"><span class="icon">💬</span> 취업 상담 챗봇</a></li>
                         </ul>
                     </li>
-                    <li><a href="/job-info">채용정보</a></li>
+                    <li><a href="recuritmentInfo">채용정보</a></li>
                     <li><a href="/community">커뮤니티</a></li>
                 </ul>
             </nav>
