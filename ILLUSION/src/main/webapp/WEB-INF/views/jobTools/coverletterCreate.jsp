@@ -20,6 +20,15 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/test.css"> 
     
+   <style type="text/css">
+   		.btn.disabled, .btn:disabled, fieldset:disabled .btn {
+		opacity:.65;
+}
+   
+   
+   </style>
+    
+    
 </head>
 <body>
      <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -112,7 +121,7 @@
                     </div>
 
                     <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-yellow btn-lg">자기소개서 생성</button>
+                        <button type="submit" class="btn btn-yellow btn-lg" disabled="disabled">자기소개서 생성</button>
                     </div>
 
                 </form>

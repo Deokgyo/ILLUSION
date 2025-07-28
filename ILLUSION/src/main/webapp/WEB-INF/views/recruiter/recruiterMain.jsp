@@ -16,29 +16,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <!-- 헤더 섹션 -->
-        <header class="header">
-            <div class="header-container">
-                <div class="logo">
-                    <a href="#">
-                        <h1>ILLUSION</h1>
-                        <span>FIND YOUR JOB THE SMART WAY</span>
-                    </a>
-                </div>
-                <nav class="navigation">
-                    <ul>
-                        <li><a href="#">홈</a></li>
-                        <li><a href="#">공고등록</a></li>
-                        <li><a href="#">공고목록</a></li>
-                    </ul>
-                </nav>
-                <div class="user-menu">
-                    <a href="#">기업로그인</a>
-                    <a href="#">회원가입</a>
-                </div>
-            </div>
-        </header>
-
+      <jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp"></jsp:include>
         <!-- 메인 컨텐츠 -->
         <main>
             <!-- 배너 섹션 -->

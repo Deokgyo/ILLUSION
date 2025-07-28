@@ -12,7 +12,19 @@
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
+	<style type="text/css">
+	.btn-bd-primary {
+		background-color:#FFE585;
+ 		border-radius : 15px;			
+}
+	.btn-bd-primary:hover {
+		background-color: #fcd34d;
+}
+	.btn-bd-primary:disabled {
+		opacity:.65;
+}
 	
+	</style>
 	<title>Home</title>
 </head>
 <body>
@@ -21,10 +33,10 @@
 	</header>
 
 	<h1>
-		일루션 
+		<input class="btn-bd-primary" type="button" value="Input" disabled="disabled">
 	</h1>
 	
-	<P>  일루션 </P>
+	
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
