@@ -18,7 +18,7 @@ public class JobToolsController {
 	}
 	
 	@GetMapping("coverletterRefiner")
-	public String coverLetterRefiner() {
+	public String coverletterRefiner() {
 		return "jobTools/coverletterRefiner";
 	}
 	
