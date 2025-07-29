@@ -1,9 +1,8 @@
 @charset "UTF-8";
-
 /*
  사용 방법  
  css 파일에 컬러 코드 넣어야 할곳에 
-  var(--main-color);
+  var(변수명);
   위와같이 변수명을 적으면 자동으로 색이 적용됨 
 */
 
@@ -27,12 +26,29 @@
   --body-bg-color: #fffef9;
 
   /*그라데이션 */
-  --background-gradient: linear-gradient(#FEEFCA 0%, 
-                                         #EFF3DD 50%, 
-                                         #EDF1E0 63%, 
-                                         #E8EDE7 75%, 
-                                         #FDE2F3 100%);
+  --background-gradient: linear-gradient(#FFF5E1 0%, 
+                                     #F5F8EC 50%, 
+                                     #F3F6EE 63%, 
+                                     #F0F3EF 75%, 
+                                     #FEECF8 100%);
+  --background-gradient-horizontally: linear-gradient(to right, 
+                                     #FEEFCA 0%, 
+                                     #EFF3DD 50%, 
+                                     #EDF1E0 63%, 
+                                     #E8EDE7 75%, 
+                                     #FDE2F3 100%);
+                                     
+                                     
   /* 🆎 폰트 패밀리 */
   --font-family: 'Noto Sans KR', sans-serif; /* 기본 폰트 */
 
+}
+
+
+body{
+	font-family: var(--font-family);
+}
+
+a{
+  text-decoration: none;
 }

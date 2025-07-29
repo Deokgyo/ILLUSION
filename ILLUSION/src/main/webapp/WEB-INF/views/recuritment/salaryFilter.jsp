@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- 급여 필터 드롭다운 UI -->
 <div class="salary-dropdown">
   <button type="button" class="btn btn-outline-secondary toggle-salary-btn">
-    급여별 상세 필터 <i class="bi bi-chevron-down"></i>
+    급여별 <i class="bi bi-chevron-down"></i>
   </button>
   <div class="salary-dropdown-menu hidden">
     <div class="salary-filter">

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/recuritmentDetail.css"> 
     
 </head>

@@ -7,8 +7,10 @@
 .site-footer-v2 {
     width: 100%;
     padding: 40px 0;
-    background: linear-gradient(to bottom, #FEF9E0, #FFEBEE);
-    color: #555;
+/*     background: linear-gradient(to bottom, #FEF9E0, #FFEBEE); */
+    background: var(--background-gradient);
+    /* color: #555; */
+    color: var(--font-sub-color);
     font-size: 13px;
     line-height: 1.8;
 }
@@ -28,11 +30,13 @@
 .footer-title-v2 {
     font-size: 15px;
     font-weight: 500;
-    color: #333;
+    /* color: #333; */
+    color: var(--font-main-color);
     margin-bottom: 12px;
 }
 .footer-top-v2 a {
-    color: #555;
+    /* color: #555; */
+    color: var(--font-sub-color);
     text-decoration: none;
 }
 .footer-top-v2 a:hover {
@@ -56,7 +60,8 @@
     margin: 0;
     padding: 0;
     font-size: 13px;
-    color: #666;
+    /* color: #666; */
+    color: var(--font-sub-color);
 }
 .footer-legal-v2 {
     text-align: center;
@@ -76,11 +81,13 @@
     color: #ccc;
 }
 .footer-legal-v2 a {
-    color: #666;
+    /* color: #666; */
+    color: var(--font-sub-color);
     text-decoration: none;
 }
 .footer-legal-v2 a:hover {
-    color: #000;
+    /* color: #000; */
+    color: var(--font-main-color);
 }
 .social-links-v2 {
     display: flex;

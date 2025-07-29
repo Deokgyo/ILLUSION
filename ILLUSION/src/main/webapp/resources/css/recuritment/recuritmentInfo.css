@@ -101,13 +101,13 @@ body {
 
 .sort-options a {
     text-decoration: none;
-    color: #868e96;
+    color: var(--font-sub-color);
     margin-left: 15px;
     font-size: 0.9rem;
 }
 
 .sort-options a.active {
-    color: #000;
+    color: var(--font-main-color);
     font-weight: 700;
 }
 
@@ -127,6 +127,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease-in-out;
+    border: 2px solid black;
 }
 
 .job-card:hover {
