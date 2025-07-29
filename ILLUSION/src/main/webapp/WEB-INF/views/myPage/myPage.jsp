@@ -40,22 +40,32 @@
 <div class="page-container">
 
 	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
+	
 	<main class="main-content">
 		<div class="form-box">
 			<div class="profile-box">
       <div class="profile-left">
-        <div class="profile-img"><img src="image/profile1.png"></div>
-        <div class="profile-info">
-          <div class="username">일루션님</div>
+        <div class="profile-img"><img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png"></div>
+        <button class="edit-btn"><a href="User_Info_Edit">회원정보수정</a></button>
+      </div>
+      
+      <div class="profile-info">
+          <div class="main-username">일루션님</div>
           <div class="email">illusion@naver.com</div>
-          <div class="token">🪙 30 토큰</div>
-          <button class="edit-btn"><a href="User_Info_Edit">회원정보수정</a></button>
+          <div class="token">🪙 30 토큰</div>   
+          
         </div>
-      </div>
+       
       <div class="profile-right">
-        <div class="action-btn"><a href="resumeWrite">📄 이력서 작성</a></div>
-        <div class="action-btn"><a href="token_pay">💰 토큰 충전</a></div>
-      </div>
+	    <img src="${pageContext.request.contextPath}/resources/mypage_image/resume.png">  
+        <div class="action-btn"><a href="resumeWrite"> 이력서 작성</a></div>
+        </div>
+      <div class="profile-right2"> 
+      	  <img src="${pageContext.request.contextPath}/resources/mypage_image/token.png"> 
+         <div class="action-btn"><a href="token_pay"> 토큰 충전</a></div>
+       </div>
+       
+        
     </div>
 
     <!-- 저장한 파일 -->
