@@ -83,62 +83,78 @@ button {
     margin-left: 20px;
 }
 
-/* 배너 */
-.banner {
-    position: relative; /* 투명 글자 위치 기준 */
-    width: 100%;
-    padding: 120px 0;
-    background: linear-gradient(120deg, #f0f8e4, #fdeff9);
-    text-align: center;
-    overflow: hidden;
+/* 배너 전체 스타일 */
+.hero-banner {
+  position: relative; /* ::before 가상 요소의 위치 기준 */
+  width: 100%;
+  padding: 120px 40px;
+  text-align: center;
+  overflow: hidden; /* 배경 글자가 넘치지 않도록 함 */
+  
+  /* 변수를 사용하여 배경 그라데이션 적용 */
+  background: var(--background-gradient);
 }
 
-/* 배너 배경 투명 글자 */
-.banner::before {
-    content: 'ILLUSION';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20vw; /* 뷰포트 너비에 따라 크기 조절 */
-    font-weight: 900;
-    color: rgba(0, 0, 0, 0.05);
-    z-index: 1;
+/* 배경의 반투명 텍스트 */
+.hero-banner::before {
+  content: 'ILLUSION';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18vw; /* 화면 너비에 따라 크기 조절 */
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.05); /* 투명도 조절 */
+  z-index: 1; /* 콘텐츠보다 뒤에 위치 */
 }
 
-.banner-content {
-    position: relative;
-    z-index: 2;
+/* 실제 콘텐츠 컨테이너 */
+.hero-content {
+  position: relative;
+  z-index: 2; /* 배경 텍스트보다 앞에 위치 */
 }
 
-.banner h2 {
-    font-size: 48px;
-    font-weight: 700;
-    line-height: 1.4;
-    color: #444;
+/* 메인 제목 */
+.hero-content h2 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 25px;
+
+  /* 변수를 사용하여 폰트 색상 적용 */
+  color: var(--font-main-color);
 }
 
-.banner p {
-    font-size: 18px;
-    color: #666;
-    margin-top: 20px;
+/* 서브 텍스트 */
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 40px;
+
+  /* 변수를 사용하여 폰트 색상 적용 */
+  color: var(--font-main-color);
 }
 
-.banner-buttons {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+/* 버튼 컨테이너 */
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
-.banner-buttons button {
-    padding: 15px 60px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+/* 버튼 공통 스타일 */
+.hero-buttons .btn {
+  background-color: #fff;
+  border: 1px solid #EAEAEA;
+  border-radius: 50px; /* 완전한 둥근 모서리 */
+  padding: 15px 60px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  
+  /* 변수를 사용하여 폰트 색상 적용 */
+  color: var(--font-main-color);
 }
 
 /* 채용 공고 특징 섹션 */
@@ -292,105 +308,4 @@ button {
     font-size: 24px;
     font-weight: bold;
     color: #888;
-}
-
-/* 푸터 */
-.footer {
-    background-color: #fdfcfa;
-    color: #666;
-    font-size: 14px;
-    padding: 60px 0 20px;
-    border-top: 1px solid #eee;
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
-}
-
-.footer-left {
-    display: flex;
-    gap: 50px;
-}
-
-.cs-info h4 {
-    font-size: 16px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.cs-info p {
-    line-height: 1.8;
-}
-
-.footer-logo {
-    margin-bottom: 20px;
-}
-
-.footer-logo h2 {
-    font-size: 22px;
-    font-weight: 900;
-    color: #555;
-}
-
-.footer-logo span {
-    font-size: 10px;
-    line-height: 1.4;
-    color: #888;
-}
-
-.company-info address {
-    font-style: normal;
-    line-height: 1.8;
-}
-
-.footer-center {
-    padding-top: 35px;
-    line-height: 1.8;
-}
-
-.footer-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-.social-icons {
-    display: flex;
-    gap: 10px;
-}
-
-.social-icon {
-    width: 36px;
-    height: 36px;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #888;
-}
-
-.footer-bottom {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-.footer-bottom-container{
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
-    text-align: center;
-    font-size: 13px;
-    color: #888;
-}
-
-.footer-bottom a {
-    margin: 0 10px;
 }

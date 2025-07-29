@@ -11,7 +11,7 @@
         <!-- 로고 -->
         <div class="logo">
             <a href="./">
-                <img src="${pageContext.request.contextPath}/resources/image/test.png" alt="ILLUSION 로고" />
+                <img src="${pageContext.request.contextPath}/resources/image/logo.png" alt="ILLUSION 로고" />
             </a>
         </div>
         <!-- 중앙 내비게이션 -->

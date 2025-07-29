@@ -11,7 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-	    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterMain.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterMain.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
 
 </head>
 <body>
@@ -20,16 +21,16 @@
         <!-- 메인 컨텐츠 -->
         <main>
             <!-- 배너 섹션 -->
-            <section class="banner">
-                <div class="banner-content">
-                    <h2>유능한 인재의 발견<br>ILLUSION이 함께합니다</h2>
-                    <p>스마트한 채용 일루션, 지금 시작하세요</p>
-                    <div class="banner-buttons">
-                        <button type="button" class="btn-login">로그인</button>
-                        <button type="button" class="btn-signup">회원가입</button>
-                    </div>
-                </div>
-            </section>
+         <section class="hero-banner">
+  <div class="hero-content">
+    <h2>유능한 인재의 발견<br>ILLUSION이 함께합니다</h2>
+    <p>스마트한 채용 일루션, 지금 시작하세요</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn-login">로그인</a>
+      <a href="#" class="btn-signup">회원가입</a>
+    </div>
+  </div>
+</section>
 
             <!-- 채용 공고 등록 섹션 -->
             <section class="feature-section text-center">
