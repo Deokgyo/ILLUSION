@@ -27,7 +27,7 @@
                 </ul>
             </li>
             <li><a href="#"><i class="fa-solid fa-comment"></i> 커뮤니티</a></li>
-            <li><a href="#"><i class="fa-solid fa-file-alt"></i> 채용정보</a></li>
+            <li><a href="recuritmentInfo"><i class="fa-solid fa-file-alt"></i> 채용정보</a></li>
         </ul>
     </nav>
 </aside>

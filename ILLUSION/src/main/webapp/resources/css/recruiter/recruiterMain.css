@@ -1,311 +1,358 @@
 @charset "UTF-8";
 
-/* 기본 & 폰트 설정 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    color: #333;
-    background-color: #fff;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-ul {
-    list-style: none;
-}
-
-button {
-    font-family: 'Noto Sans KR', sans-serif;
-    cursor: pointer;
-}
-
-.wrapper {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-.text-center {
-    text-align: center;
-}
-
 /* 헤더 */
 .header {
     width: 100%;
     border-bottom: 1px solid #eee;
+    font-family: var(--font-family);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
 }
 
 .header-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 18px 40px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+   
+}
+.logo {
+  transform: translateX(-10px);
+}
+.header-container a { 
+	text-decoration: none;
+	font-size: 20px;
+    font-weight: 500;
+    padding:1em;
+    color: var(--font-main-color);
+    border-radius: 30px;
 }
 
-.logo h1 {
-    font-size: 24px;
-    font-weight: 900;
-    color: #444;
-}
+/* 수정된 호버 효과 (그라데이션 텍스트) */
+.header-container a:hover {
+    /* 1. 원하는 그라데이션을 배경(background)으로 지정합니다. */
+    background: var(--background-gradient-horizontally);
 
-.logo span {
-    font-size: 10px;
-    color: #888;
-    letter-spacing: 0.5px;
+    /* 2. 배경을 텍스트 모양으로 잘라냅니다. (이것이 핵심입니다) */
+    background-clip: text;
+    -webkit-background-clip: text; /* 웹킷 브라우저(크롬, 사파리 등) 호환성을 위해 추가 */
+
+    /* 3. 원래의 글자색을 투명하게 만들어 뒤의 배경(그라데이션)이 보이게 합니다. */
+    color: transparent;
+
+    /* 참고: 이 효과가 잘 적용되려면 대상 요소가 block 또는 inline-block인 것이 좋습니다. */
+    /* a 태그는 기본이 inline이므로, 필요시 display: inline-block;을 추가할 수 있습니다. */
 }
 
 .navigation ul {
+    display: flex;        /* li 요소들을 가로로 나열 */
+    gap: 100px;            /* 항목 간 간격 */
+    list-style: none;     /* 불릿 제거 */
+    padding: 0;           /* 기본 여백 제거 */
+    margin: 0;            /* 기본 여백 제거 */
+}
+
+.navigation ul li a {
+    position: relative; /* ::after 가상 요소의 기준점 */
+    /* 기존 스타일... */
+}
+/* 밑줄 효과를 위한 가상 요소 */
+.navigation ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* 텍스트 바로 아래 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; /* 평소에는 너비가 0 */
+    height: 2px;
+    background: var(--background-gradient-horizontally);
+    transition: width 0.3s ease;
+}
+
+/* 호버 시 밑줄이 중앙에서부터 넓어짐 */
+.navigation ul li a:hover::after {
+    width: 100%;
+}
+
+.user-menu {
     display: flex;
-    gap: 40px;
+    align-items: center;
+    gap: 20px;
+     flex-wrap: nowrap;
 }
 
-.navigation a {
-    font-size: 16px;
-    font-weight: 500;
-    color: #555;
+
+
+
+/*본문 영역*/
+
+main {
+	font-family: var(--font-family);
+	color: var(--font-main-color);
 }
 
-.user-menu a {
-    font-size: 14px;
-    color: #666;
-    margin-left: 20px;
+
+/* 전체 배경 및 레이아웃 */
+.hero-section {
+    position: relative; /* 배경 텍스트의 기준점 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+    margin-top:10px;
+    /* 제공된 그라데이션 변수 사용 */
+    background: var(--background-gradient);
+    overflow: hidden; /* 배경 텍스트가 넘치지 않도록 설정 */
 }
 
-/* 배너 전체 스타일 */
-.hero-banner {
-  position: relative; /* ::before 가상 요소의 위치 기준 */
-  width: 100%;
-  padding: 120px 40px;
-  text-align: center;
-  overflow: hidden; /* 배경 글자가 넘치지 않도록 함 */
-  
-  /* 변수를 사용하여 배경 그라데이션 적용 */
-  background: var(--background-gradient);
+
+/* 배경에 희미하게 깔리는 텍스트 */
+.background-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10rem; /* 매우 큰 폰트 크기 */
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.04); /* 매우 희미한 색상 */
+    z-index: 1; /* 콘텐츠보다 뒤에 위치 */
+    user-select: none; /* 텍스트가 선택되지 않도록 설정 */
 }
 
-/* 배경의 반투명 텍스트 */
-.hero-banner::before {
-  content: 'ILLUSION';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 18vw; /* 화면 너비에 따라 크기 조절 */
-  font-weight: 900;
-  color: rgba(0, 0, 0, 0.05); /* 투명도 조절 */
-  z-index: 1; /* 콘텐츠보다 뒤에 위치 */
-}
-
-/* 실제 콘텐츠 컨테이너 */
+/* 메인 콘텐츠 (텍스트, 버튼) */
 .hero-content {
-  position: relative;
-  z-index: 2; /* 배경 텍스트보다 앞에 위치 */
+    position: relative;
+    z-index: 2; /* 배경 텍스트보다 위에 위치 */
 }
 
-/* 메인 제목 */
-.hero-content h2 {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.4;
-  margin-bottom: 25px;
-
-  /* 변수를 사용하여 폰트 색상 적용 */
-  color: var(--font-main-color);
+/* 메인 타이틀 */
+.hero-title {
+    color: var(--font-main-color);
+    font-size: 3rem; /* 48px */
+    font-weight: 700;
+    line-height: 1.4;
 }
 
-/* 서브 텍스트 */
-.hero-content p {
-  font-size: 18px;
-  margin-bottom: 40px;
+/* 서브 타이틀 */
+.hero-subtitle {
+    color: var(--font-sub-color);
+    
+    /* 이 값을 조절하여 위쪽 여백을 늘립니다. */
+    margin-top: 2.5rem; /* 기존 1.5rem에서 값을 늘림 */
 
-  /* 변수를 사용하여 폰트 색상 적용 */
-  color: var(--font-main-color);
+    margin-bottom: 1rem; 
+    font-size: 1rem;
 }
 
-/* 버튼 컨테이너 */
+/* 버튼 그룹 */
 .hero-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* 버튼 사이 간격 */
 }
 
 /* 버튼 공통 스타일 */
-.hero-buttons .btn {
-  background-color: #fff;
-  border: 1px solid #EAEAEA;
-  border-radius: 50px; /* 완전한 둥근 모서리 */
-  padding: 15px 60px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-  text-decoration: none;
-  
-  /* 변수를 사용하여 폰트 색상 적용 */
-  color: var(--font-main-color);
+.btn {
+    display: inline-block;
+    padding: 14px 40px;
+    
+    /* Corner radius: 161 -> border-radius */
+    border-radius: 161px; 
+    
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    
+    /* Fill: #FAFAFA, Opacity: 70% -> rgba로 배경색만 반투명하게 설정 */
+	background-color: rgba(250, 250, 250, 0.9);
+
+    /* 원본 이미지의 미세한 테두리와 그림자 유지 (필요 없다면 이 두 줄을 삭제하세요) */
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    color: var(--font-sub-color);
 }
 
-/* 채용 공고 특징 섹션 */
-.feature-section {
+/* 버튼 호버 효과 */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    color: var(--font-main-color);
+}
+
+
+
+/* --- 기능 소개 섹션 스타일 --- */
+.features-section {
+    width: 100%;
+    /* 제공된 변수 사용 또는 기본 흰색 배경 */
+    background-color: #ffffff;
     padding: 100px 20px;
-    background-color: #fff;
-}
-
-.feature-section h3 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 60px;
-}
-
-.feature-boxes {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-}
-
-.feature-box {
-    background: #fff;
-    padding: 40px;
-    border-radius: 15px;
-    width: 400px;
-}
-
-.feature-box h4 {
-    font-size: 24px;
-    font-weight: 700;
-    margin: 20px 0 15px;
-}
-
-.feature-box p {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.6;
-}
-
-.icon-placeholder {
-    width: 120px;
-    height: 100px;
-    margin: 0 auto;
-    border-radius: 20px;
-    background: linear-gradient(120deg, #f0f8e4, #fdeff9);
-}
-
-
-/* 기업들이 찾는 이유 섹션 */
-.testimonial-section {
-    padding: 100px 20px;
-    background-color: #f9f9f9;
-}
-
-.testimonial-section h3 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 60px;
-}
-
-.testimonial-cards {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-}
-
-.card {
-  /* --- ★★★ 핵심 수정 사항 ★★★ --- */
-  position: relative; /* ::before 가상 요소의 위치 기준점으로 설정 */
-  /* ---------------------------------- */
-  
-  background-color: #fff;
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  overflow: hidden; /* 테두리가 모서리 밖으로 나가지 않도록 함 */
-  width: 450px; /* 예시 너비 */
-}
-
-/* 상단 그라데이션 테두리 */
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 10px; /* 테두리 두께 */
-  
-  /* 그라데이션 적용 (왼쪽 -> 오른쪽) */
-  background: linear-gradient(
-    to right, 
-    #FEEFCA 0%, 
-    #EFF3DD 50%, 
-    #EDF1E0 63%, 
-    #E8EDE7 75%, 
-    #FDE2F3 100%
-  );
-}
-
-
-.card h4 {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1.5;
-    margin-bottom: 15px;
-}
-
-.card p {
-    font-size: 15px;
-    line-height: 1.7;
-    color: #555;
-}
-
-/* 파트너사 섹션 */
-.partners-section {
-    padding: 100px 20px;
-}
-
-.partners-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.partners-content h3 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.partners-content p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #666;
-}
-
-.partner-logos {
-    max-width: 1000px;
-    margin: 60px auto 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    align-items: center;
-}
-
-.logo-item {
     text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: #888;
 }
+
+.section-title {
+    color: var(--font-main-color, #212529);
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 7rem; /* 카드와의 간격 확보 */
+}
+
+/* 카드들을 담는 그리드 */
+.features-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 모바일 화면 대응 */
+    gap: 10rem; /* 카드 사이의 간격 */
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+/* 개별 카드와 아이콘을 감싸는 아이템 */
+/* ★★★★★ 부모 요소: 위치 기준점 설정이 중요! ★★★★★ */
+.feature-item {
+    position: relative; /* 자식인 아이콘의 위치 기준점이 됨 */
+    width: 380px;
+}
+
+/* 반투명 정보 카드 (투명도 높임 - 추천) */
+.feature-card {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    
+    /* 
+     * [핵심 수정] background의 알파 값을 0.85에서 0.65로 낮췄습니다.
+    */
+/*     background: rgba(255, 255, 255, 0.65); */
+    background: rgba(255, 255, 255, 0.1);
+    
+    /* 
+     * 투명도가 높아졌으므로, 블러(blur) 효과를 조금 더 강하게 주면
+     * 텍스트 가독성을 유지하는 데 도움이 됩니다. (12px -> 15px)
+    */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+/*       backdrop-filter: blur(18px); */
+/*     -webkit-backdrop-filter: blur(18px); */
+    
+    /* 테두리도 배경에 맞춰 조금 더 투명하게 변경 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+    
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+/* 굵은 그라데이션 윗쪽 테두리 역할을 할 가상 요소 */
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */
+}
+
+.feature-card h2 {
+    color: var(--font-main-color, #212529);
+    font-size: 1.5rem;
+    font-weight: 700;
+    
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: var(--font-sub-color, #555555);
+    font-size: 1.2rem;
+    line-height: 1.7;
+}
+
+/* 아이콘의 각 파츠(모양)를 만드는 가상 요소 공통 스타일 */
+
+.icon-background {
+    position: absolute;
+    z-index: 1;
+}
+
+.icon-background::before,
+.icon-background::after {
+    content: '';
+    position: absolute;
+    
+    /* 가로 그라데이션 적용 (이전 요청 반영) */
+    background: var(--background-gradient-horizontally);
+    
+    /* 아이콘 투명도 */
+    opacity: 0.6;
+}
+
+
+/* 1. 왼쪽 아이콘: 클립보드와 펜 모양 */
+.icon-clipboard {
+    width: 280px;
+    height: 300px;
+    top: -125px;  /* 카드의 위쪽으로 얼마나 올라갈지 */
+    left: -119px; /* 카드의 왼쪽으로 얼마나 나갈지 */
+}
+
+/* 클립보드 보드 부분 */
+.icon-clipboard::before {
+    width: 210px;
+    height: 260px;
+    border-radius: 40px; /* 둥근 모서리 */
+    top: 0;
+    left: 0;
+}
+
+/* 펜 부분 */
+.icon-clipboard::after {
+    width: 60px;
+    height: 230px;
+    border-radius: 30px; /* 둥근 모양 */
+    top: 25px;
+    left: 170px;
+    transform: rotate(30deg); /* 30도 기울이기 */
+}
+
+
+/* 2. 오른쪽 아이콘: 서랍 모양 */
+.icon-drawer {
+    width: 250px;
+    height: 240px;
+    top: -125px;   /* 카드의 위쪽으로 얼마나 올라갈지 */
+    right: -119px; /* 카드의 오른쪽으로 얼마나 나갈지 */
+}
+
+/* 위쪽 서랍 */
+.icon-drawer::before {
+    width: 220px;
+    height: 100px;
+    border-radius: 35px; /* 둥근 모서리 */
+    top: 0;
+    left: 0;
+}
+
+/* 아래쪽 서랍 */
+.icon-drawer::after {
+    width: 220px;
+    height: 100px;
+    border-radius: 35px; /* 둥근 모서리 */
+    top: 130px; /* 위쪽 서랍과의 간격 (100px 높이 + 30px 간격) */
+    left: 0;
+}
+
+
+
+
+

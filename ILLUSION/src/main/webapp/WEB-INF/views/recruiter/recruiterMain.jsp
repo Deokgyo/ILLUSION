@@ -10,45 +10,61 @@
     <!-- Google Fonts Noto Sans KR 로드 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterMain.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
-
+      <jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp"></jsp:include>
 </head>
 <body>
     <div class="wrapper">
-      <jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp"></jsp:include>
         <!-- 메인 컨텐츠 -->
         <main>
-            <!-- 배너 섹션 -->
-         <section class="hero-banner">
-  <div class="hero-content">
-    <h2>유능한 인재의 발견<br>ILLUSION이 함께합니다</h2>
-    <p>스마트한 채용 일루션, 지금 시작하세요</p>
-    <div class="hero-buttons">
-      <a href="#" class="btn-login">로그인</a>
-      <a href="#" class="btn-signup">회원가입</a>
-    </div>
-  </div>
-</section>
-
-            <!-- 채용 공고 등록 섹션 -->
-            <section class="feature-section text-center">
-                <h3>지금 채용 공고를 등록하고 관리하며 인재를 만나보세요</h3>
-                <div class="feature-boxes">
-                    <div class="feature-box">
-                        <div class="icon-placeholder clipboard"></div>
-                        <h4>쉽고 빠른 채용 공고</h4>
-                        <p>일루션에서 시작하는 스마트한 채용.<br>공고 등록부터 인재 매칭까지,<br>단계별로 쉽고 빠르게 도와드립니다.</p>
-                    </div>
-                    <div class="feature-box">
-                        <div class="icon-placeholder profile"></div>
-                        <h4>간편한 공고 관리</h4>
-                        <p>일루션에서 시작하는 스마트한 채용.<br>공고 등록부터 인재 매칭까지,<br>단계별로 쉽고 빠르게 도와드립니다.</p>
-                    </div>
-                </div>
-            </section>
-
+            <%--배너 섹션 --%> 
+            <section class="hero-section">
+            
+    			<!-- 배경에 희미하게 보이는 텍스트 -->
+			    <div class="background-text">ILLUSION</div>
+			
+			    <!-- 실제 콘텐츠 영역 -->
+			    <div class="hero-content">
+			        <h1 class="hero-title">
+			            유능한 인재의 발견<br>
+			            ILLUSION이 함께합니다
+			        </h1>
+			        <p class="hero-subtitle">스마트한 채용 일루션, 지금 시작하세요</p>
+			        
+			        <div class="hero-buttons">
+			            <a href="#" class="btn btn-login">로그인</a>
+			            <a href="#" class="btn btn-signup">회원가입</a>
+			        </div>
+			    </div>
+			</section>
+            
+             <!-- 채용 공고 등록 섹션 -->
+             <section class="features-section">
+			    <h1 class="section-title">지금 채용 공고를 등록하고 관리하며 인재를 만나보세요</h1>
+			
+			    <div class="features-grid">
+			        <!-- 첫 번째 기능: 쉽고 빠른 채용 공고 -->
+			        <div class="feature-item">
+			          <div class="icon-background icon-clipboard"></div>
+			            <div class="feature-card">
+			                <h2>쉽고 빠른 채용 공고</h2>
+			                <p>일루션에서 시작하는 스마트한 채용. 공고 등록부터 인재 매칭까지, 단계별로 쉽고 빠르게 도와드립니다.</p>
+			            </div>
+			        </div>
+			
+			        <!-- 두 번째 기능: 간편한 공고 관리 -->
+			        <div class="feature-item">
+			           <div class="icon-background icon-drawer"></div>
+			            <div class="feature-card">
+			                <h2>간편한 공고 관리</h2>
+			                <p>일루션에서 시작하는 스마트한 채용. 공고 등록부터 인재 매칭까지, 단계별로 쉽고 빠르게 도와드립니다.</p>
+			            </div>
+			        </div>
+			    </div>
+			</section>
+			<!-- 채용 공고 등록 섹션  끝-->
+			
+			
             <!-- 일루션을 찾는 이유 섹션 -->
             <section class="testimonial-section">
                 <h3 class="text-center">기업들이 일루션을 찾는 이유</h3>
