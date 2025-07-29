@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterMain.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/topRecruiter.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <%--
@@ -23,8 +23,8 @@
         <nav class="navigation">
             <ul>
                 <li><a href="recruiterMain">홈</a></li>
-                <li><a href="recruiterList">공고등록</a></li>
-                <li><a href="recruiterRegistForm">공고목록</a></li>
+                <li><a href="recruiterRegistForm">공고등록</a></li>
+                <li><a href="recruiterList">공고목록</a></li>
             </ul>
         </nav>
         
