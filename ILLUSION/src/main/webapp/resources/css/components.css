@@ -8,7 +8,8 @@
 .form-box {
     width: 100%;
     padding: 30px;
-    background-color: #fffef9; 
+/*     background-color: #fffef9;  */
+    background-color: var(--body-bg-color);
     border-radius: 12px;      
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
@@ -22,8 +23,17 @@
 
 /* 노란색 버튼 */
 .btn-yellow {
-    background-color: #fde68a;
+/*     background-color: #fde68a; */
+	background-color: var(--main-color);
     border: none;
     padding: 10px 30px;
     font-weight: bold;
 }
+
+.btn-yellow:hover {
+	background-color: var(--main-color-hover);
+}
+
+/* .btn:disabled { */
+/* 	opacity: var(--button-disabled-opacity); */
+/* } */

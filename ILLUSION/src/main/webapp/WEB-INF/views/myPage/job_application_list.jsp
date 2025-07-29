@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>입사지원 현황 리스트</title>
 </head>
 <body>
-
+	<h1>입사지원 현황 리스트</h1>
 </body>
 </html>

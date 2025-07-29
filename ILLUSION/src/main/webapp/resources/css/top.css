@@ -37,12 +37,6 @@ li {
 }
 
 /* 로고 스타일 */
-.site-logo h1 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1A1A1A;
-    letter-spacing: -0.5px;
-}
 
 .site-logo a {
     display: block;
@@ -66,7 +60,8 @@ li {
 .main-nav a {
     font-size: 16px;
     font-weight: 500;
-    color: #4A4A4A;
+    color: var(--font-main-color);
+/*     color: #4A4A4A; */
     padding: 8px 0;
     position: relative;
     transition: color 0.3s ease;
@@ -74,7 +69,8 @@ li {
 }
 
 .main-nav a:hover {
-    color: #007BFF;
+/*     color: #007BFF; */
+    color: var(--main-color-hover);
 }
 
 .main-nav > ul > li:not(.dropdown) > a::after {
@@ -84,7 +80,8 @@ li {
     bottom: 0;
     width: 0;
     height: 2px;
-    background-color: #007BFF;
+/*     background-color: #007BFF; */
+    background-color: var(--main-color);
     transition: width 0.3s ease;
 }
 
@@ -104,7 +101,8 @@ li {
 }
 
 .search-form:focus-within {
-    border-color: #007BFF;
+/*     border-color: #007BFF; */
+    border-color: var(--main-color);
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
@@ -118,7 +116,8 @@ li {
     padding-right: 10px;
 }
 .search-input::placeholder {
-    color: #999;
+/*     color: #999; */
+    color: var(--font-sub-color);
 }
 
 .search-button {
@@ -133,7 +132,8 @@ li {
 
 .search-button i {
     font-size: 18px;
-    color: #555;
+/*     color: #555; */
+    color: var(--font-sub-color);
     opacity: 0.7;
     transition: opacity 0.3s ease;
 }
@@ -150,7 +150,8 @@ li {
 
 .user-menu a {
     font-size: 14px;
-    color: #666;
+/*     color: #666; */
+    color: var(--font-sub-color);
     padding: 5px 8px;
     border-radius: 5px;
     transition: all 0.3s ease;
@@ -164,7 +165,8 @@ li {
 
 .user-menu .separator {
     font-size: 12px;
-    color: #DCDCDC;
+/*     color: #DCDCDC; */
+    color: var(--font-main-color);
 }
 
 /* 드롭다운 메뉴 */
@@ -181,14 +183,16 @@ li {
 .dropdown > a::after {
     content: '▼';
     font-size: 10px;
-    color: #999;
+    color: var(--font-sub-color);
+/*     color: #999; */
     transform-origin: center;
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .dropdown:hover > a::after {
     transform: rotate(180deg);
-    color: #007BFF;
+    color: var(--main-color-hover);
+/*     color: #007BFF; */
 }
 
 .dropdown-menu {
@@ -225,24 +229,28 @@ li {
     border-radius: 8px;
     font-size: 15px;
     font-weight: 500;
-    color: #333;
+    color: var(--font-main-color);
+/*     color: #333; */
     transition: background-color 0.2s ease, color 0.2s ease;
     white-space: nowrap;
 }
 
 .dropdown-menu li a:hover {
     background-color: #F8F9FA;
-    color: #007BFF;
+/*     color: #007BFF; */
+    color: var(--main-color-hover);
 }
 
 .dropdown-menu .icon {
     font-size: 18px;
     width: 20px;
     text-align: center;
-    color: #888;
+    color: var(--font-sub-color);
+/*     color: #888; */
     transition: color 0.2s ease;
 }
 
 .dropdown-menu li a:hover .icon {
-    color: #007BFF;
+/*     color: #007BFF; */
+    color: var(--main-color-hover);
 }

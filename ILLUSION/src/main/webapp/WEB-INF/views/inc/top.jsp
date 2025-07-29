@@ -4,7 +4,7 @@
         <!-- 로고 -->
         <div class="site-logo">
             <a href="./">
-            	    <img src="${pageContext.request.contextPath}/resources/image/test.png" alt="이미지 설명" />
+            	    <img src="${pageContext.request.contextPath}/resources/image/logo.png" alt="이미지 설명" />
             </a>
         </div>
 
@@ -22,7 +22,7 @@
                             <li><a href="chatbot"><span class="icon">💬</span> 취업 상담 챗봇</a></li>
                         </ul>
                     </li>
-                    <li><a href="/job-info">채용정보</a></li>
+                    <li><a href="recuritmentInfo">채용정보</a></li>
                     <li><a href="/community">커뮤니티</a></li>
                 </ul>
             </nav>

@@ -8,7 +8,7 @@
             </div>
             <div class="username">일루션님</div>
             <div class="profile-actions">
-                <a href="#" class="profile-btn">마이페이지</a>
+                <a href="myPage" class="profile-btn">마이페이지</a>
                 <a href="#" class="profile-btn token-btn"><i class="fa-solid fa-star"></i> 10 토큰</a>
                 <a href="#" class="profile-btn">로그아웃</a>
             </div>
@@ -27,7 +27,7 @@
                 </ul>
             </li>
             <li><a href="#"><i class="fa-solid fa-comment"></i> 커뮤니티</a></li>
-            <li><a href="#"><i class="fa-solid fa-file-alt"></i> 채용정보</a></li>
+            <li><a href="recuritmentInfo"><i class="fa-solid fa-file-alt"></i> 채용정보</a></li>
         </ul>
     </nav>
 </aside>

@@ -1,0 +1,54 @@
+@charset "UTF-8";
+/*
+ 사용 방법  
+ css 파일에 컬러 코드 넣어야 할곳에 
+  var(변수명);
+  위와같이 변수명을 적으면 자동으로 색이 적용됨 
+*/
+
+:root {
+  /* 메인 컬러 */
+  --main-color: #FFE585;
+
+  /* 메인 컬러 - 호버 상태 */
+  --main-color-hover: #fcd34d;
+
+  /* 메인 버튼 - 비활성화 상태 (opacity만 사용) */
+  --button-disabled-opacity: 0.65;
+
+  /* 메인 텍스트 컬러 */
+  --font-main-color: #212529;
+
+  /* 서브 텍스트 컬러 (예: 플레이스홀더 등) */
+  --font-sub-color: #888888;
+
+  /* 본문 영역 배경색 */
+  --body-bg-color: #fffef9;
+
+  /*그라데이션 */
+  --background-gradient: linear-gradient(#FFF5E1 0%, 
+                                     #F5F8EC 50%, 
+                                     #F3F6EE 63%, 
+                                     #F0F3EF 75%, 
+                                     #FEECF8 100%);
+  --background-gradient-horizontally: linear-gradient(to right, 
+                                     #FEEFCA 0%, 
+                                     #EFF3DD 50%, 
+                                     #EDF1E0 63%, 
+                                     #E8EDE7 75%, 
+                                     #FDE2F3 100%);
+                                     
+                                     
+  /* 🆎 폰트 패밀리 */
+  --font-family: 'Noto Sans KR', sans-serif; /* 기본 폰트 */
+
+}
+
+
+body{
+	font-family: var(--font-family);
+}
+
+a{
+  text-decoration: none;
+}
