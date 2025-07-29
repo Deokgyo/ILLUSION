@@ -31,6 +31,7 @@
         <!-- 우측 사용자 메뉴 -->
         <div class="user-menu">
             <a href="#">기업로그인</a>
+            <small>|</small>
             <a href="#" class="btn-primary">회원가입</a>
         </div>
     </div>
