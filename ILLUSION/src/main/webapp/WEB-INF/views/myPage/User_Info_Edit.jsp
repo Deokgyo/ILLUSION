@@ -37,7 +37,7 @@
 
 	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	<main class="main-content">
-	  <div class="member-info-container">
+	   <div class="member-info-container">
     <div class="member-info-title">회원 정보</div>
     <table>
       <tr>

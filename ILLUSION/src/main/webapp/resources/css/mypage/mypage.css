@@ -23,13 +23,14 @@ body {
 }
 
 .profile-box {
-  display: flex;
-  justify-content: space-between;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  margin-bottom: 40px;
+    display: flex;
+    justify-content: space-around;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+    flex-direction: row;
 }
 
 .profile-left {
@@ -71,10 +72,10 @@ body {
 }
 
 .profile-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: row;
 }
 
 .action-btn {
