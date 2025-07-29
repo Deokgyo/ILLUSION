@@ -19,8 +19,55 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/test.css"> 
-    
-    
+
+    <style type="text/css">
+			    * {
+			    -webkit-box-sizing: border-box;
+			    -moz-box-sizing: border-box;
+			    box-sizing: border-box;
+			}
+			
+			.buttons {
+			    margin: 10%;
+			    text-align: center;
+			}
+			
+			.btn-hover {
+			    width: 200px;
+			    font-size: 16px;
+			    font-weight: 600;
+			    color: var(--font-main-color);
+			    cursor: pointer;
+			    margin: 20px;
+			    height: 55px;
+			    text-align:center;
+			    border: none;
+			    background-size: 300% 100%;
+			
+			    border-radius: 15px;
+			    moz-transition: all .4s ease-in-out;
+			    -o-transition: all .4s ease-in-out;
+			    -webkit-transition: all .4s ease-in-out;
+			    transition: all .4s ease-in-out;
+			}
+			
+			.btn-hover:hover {
+			    background-position: 100% 0;
+			    moz-transition: all .4s ease-in-out;
+			    -o-transition: all .4s ease-in-out;
+			    -webkit-transition: all .4s ease-in-out;
+			    transition: all .4s ease-in-out;
+			}
+			
+			.btn-hover:focus {
+			    outline: none;
+			}
+			
+			.btn-hover.color-1 {
+			    background-image: var(--background-gradient-horizontally);
+			    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+			}
+        </style>
 </head>
 <body>
      <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -113,7 +160,11 @@
                     </div>
 
                     <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-yellow btn-lg" >자기소개서 생성</button>
+                    <div class="buttons">
+<!--                     	<button class="learn-more" >자기소개서 생성</button> -->
+    					<button class="btn-hover color-1">자기소개서 생성</button>
+<!--                         <button type="submit" class="btn btn-yellow btn-lg" >자기소개서 생성</button> -->
+					</div>
                     </div>
                 </form>
             </div>
