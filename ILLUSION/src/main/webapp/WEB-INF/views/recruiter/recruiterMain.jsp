@@ -10,7 +10,7 @@
     <!-- Google Fonts Noto Sans KR 로드 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterMain.css">
+	<link rel="stylesheet" href="./resources/css/recruiter/recruiterMain.css">
     <jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp"></jsp:include>
     <%-- 효과를 위한 aos 라이브러리 --%>
 	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -27,7 +27,7 @@
         <!-- 메인 컨텐츠 -->
         <main>
             <%--배너 섹션 --%> 
-            <section class="hero-section">
+            <section class="hero-section section-container">
             
     			<!-- 배경에 희미하게 보이는 텍스트 -->
 			    <div class="background-text">ILLUSION</div>
@@ -48,7 +48,7 @@
 			</section>
             
              <!-- 채용 공고 등록 섹션 -->
-             <section class="features-section">
+             <section class="features-section section-container">
 			    <h1 class="section-title">지금 채용 공고를 등록하고 관리하며 인재를 만나보세요</h1>
 			
 			    <div class="features-grid" >
@@ -74,7 +74,7 @@
 			<!-- 채용 공고 등록 섹션  끝-->
 			
 	
-			<section class="reasons-section">
+			<section class="reasons-section section-container">
 				<h2 class="section-title">기업들이 일루션을 찾는 이유</h2>
 				<div class="card-container">
 				
@@ -114,7 +114,7 @@
 			</section>
 
 
-		<section class="partners-section">
+		<section class="partners-section section-container">
 		  <div class="partners-container">
 		    <!-- 왼쪽 텍스트 영역 -->
 		    <div class="partners-text">

@@ -9,6 +9,11 @@ main {
 	color: var(--font-main-color);
 }
 
+.section-container {
+	 max-width: 1200px;
+	margin: 0 auto;
+    padding: 10px 20px;
+}
 
 /* 전체 배경 및 레이아웃 */
 .hero-section {
@@ -299,7 +304,7 @@ main {
   /* 자식 요소(카드)들이 컨테이너의 교차 축(cross-axis)을 꽉 채우도록 늘려줍니다. */
   /* 이 속성 하나로 모든 카드의 높이가 가장 높은 카드를 기준으로 동일해집니다. */
   align-items: stretch; 
-  flex-wrap: wrap; /* 화면 너비가 좁아지면 카드가 다음 줄로 넘어가도록 설정합니다. */
+  flex-wrap: nowrap; /* 화면 너비가 좁아지면 카드가 다음 줄로 넘어가도록 설정합니다. */
   gap: 30px; /* 카드 사이의 간격을 설정합니다. */
 }
 

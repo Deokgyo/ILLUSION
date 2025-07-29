@@ -70,7 +70,7 @@
 			  	<p>우리회사 맞춤 인재</p>
 			</div>
 			<%-- 카드들 담는 컨테이너 --%>
-			<div class="cards-container section-container">
+			<div class="cards-container">
 			<%-- 카드 1개씩 각각 --%>
 				<div class="card">
 					<h1>사용자의 경험을 생각하는 웹 디자이너</h1>
@@ -91,7 +91,7 @@
 					<input type="button" class="btn" value="이력서보기"> 
 				</div>
 				<div class="card">
-					<h1>꼼꼼함과 책임감을 갖춘 행정사무 지원자</h1>
+					<h1>꼼꼼함과 책임감을 갖춘<br> 행정사무 지원자</h1>
 					<p>
 						경력 : 신입<br>
 						학력 : 대졸 | 경영학과<br>
