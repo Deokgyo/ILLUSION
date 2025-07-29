@@ -36,7 +36,6 @@
 	                    <input type="text" placeholder="검색어를 입력하세요">
 	                    <button class="search-btn"><i class="fas fa-search"></i></button>
 	                </div>
-	                <button class="reset-btn">초기화</button>
 	            </div>
 	            <div class="filter-button-wrapper">
 				<jsp:include page="/WEB-INF/views/recuritment/locationFilter.jsp" />
@@ -44,6 +43,7 @@
 				<jsp:include page="/WEB-INF/views/recuritment/experienceFilter.jsp" />
 				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
 				<jsp:include page="/WEB-INF/views/recuritment/degreeFilter.jsp" />
+				<button class="reset-btn">초기화</button>
 				</div>
 	        </header>
 	        

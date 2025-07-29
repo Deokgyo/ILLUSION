@@ -69,12 +69,12 @@ body {
 }
 
 .reset-btn {
-    padding: 12px 20px;
+    padding: 1px 20px;
     border: 1px solid #dee2e6;
     background-color: var(--body-bg-color);
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 500;
+    margin-left:auto;
 }
 
 .filter-bar-options {
