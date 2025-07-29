@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/interviewResult.css"> <%-- ✅ 이 페이지 전용 CSS 추가 --%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/interviewResult.css"> 
 </head>
 <body>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
