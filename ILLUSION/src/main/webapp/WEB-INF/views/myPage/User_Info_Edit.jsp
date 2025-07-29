@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User_Info_Edit</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/mypage.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/User_Info_Edit.css">
 </head>
 <body>
 	<header>
@@ -37,8 +37,42 @@
 
 	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	<main class="main-content">
-	
-	
+	  <div class="member-info-container">
+    <div class="member-info-title">회원 정보</div>
+    <table>
+      <tr>
+        <th>아이디</th>
+        <td>itwillbs3030</td>
+        <td class="right-align"></td>
+      </tr>
+      <tr>
+        <th>이름</th>
+        <td>박덕교</td>
+        <td class="right-align"><button class="edit-button">수정</button></td>
+      </tr>
+      <tr>
+        <th>생년월일</th>
+        <td>19980201</td>
+        <td class="right-align"><button class="edit-button">수정</button></td>
+      </tr>
+      <tr>
+        <th>성별</th>
+        <td>남자</td>
+        <td class="right-align"><button class="edit-button">수정</button></td>
+      </tr>
+      <tr>
+        <th>주소</th>
+        <td>부산시 사상구 사상로 3333 33</td>
+        <td class="right-align"><button class="edit-button">수정</button></td>
+      </tr>
+      <tr>
+        <th>이메일</th>
+        <td>kingejrry@naver.com</td>
+        <td class="right-align"><button class="edit-button">수정</button></td>
+      </tr>
+    </table>
+  </div>
+  
 	
 	</main>
 	</div>

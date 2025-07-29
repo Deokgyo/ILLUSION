@@ -44,12 +44,12 @@
 		<div class="form-box">
 			<div class="profile-box">
       <div class="profile-left">
-        <div class="profile-img"></div>
+        <div class="profile-img"><img src="image/profile1.png"></div>
         <div class="profile-info">
           <div class="username">일루션님</div>
           <div class="email">illusion@naver.com</div>
           <div class="token">🪙 30 토큰</div>
-          <button class="edit-btn"><a href="">회원정보수정</a></button>
+          <button class="edit-btn"><a href="User_Info_Edit">회원정보수정</a></button>
         </div>
       </div>
       <div class="profile-right">
@@ -84,6 +84,7 @@
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 
 </html>

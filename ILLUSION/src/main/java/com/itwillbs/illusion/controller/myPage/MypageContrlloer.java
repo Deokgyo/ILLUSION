@@ -51,7 +51,10 @@ public class MypageContrlloer {
 	public String refund_policy() {
 		return "myPage/refund_policy";
 	}
-	
+	@GetMapping("User_Info_Edit")
+	public String User_Info_Edit() {
+		return "myPage/User_Info_Edit";
+	}
 	
 }
        
