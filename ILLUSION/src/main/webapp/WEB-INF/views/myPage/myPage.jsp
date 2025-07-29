@@ -54,7 +54,7 @@
       </div>
       <div class="profile-right">
         <div class="action-btn"><a href="resumeWrite">📄 이력서 작성</a></div>
-        <div class="action-btn">💰 토큰 충전</div>
+        <div class="action-btn"><a href="token_pay">💰 토큰 충전</a></div>
       </div>
     </div>
 

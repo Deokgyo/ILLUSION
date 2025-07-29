@@ -51,10 +51,17 @@ public class MypageContrlloer {
 	public String refund_policy() {
 		return "myPage/refund_policy";
 	}
+	
+	/*회원정보 수정*/
 	@GetMapping("User_Info_Edit")
 	public String User_Info_Edit() {
 		return "myPage/User_Info_Edit";
 	}
 	
+	/*회원정보 수정*/
+	@GetMapping("token_pay")
+	public String token_pay() {
+		return "myPage/token_pay";
+	}
 }
        
