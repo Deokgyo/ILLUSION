@@ -17,9 +17,9 @@ public class JobToolsController {
 		return "jobTools/coverletterResult";
 	}
 	
-	@GetMapping("coverLetterRefiner")
+	@GetMapping("coverletterRefiner")
 	public String coverLetterRefiner() {
-		return "jobTools/coverLetterRefiner";
+		return "jobTools/coverletterRefiner";
 	}
 	
 	@GetMapping("interviewCreate")

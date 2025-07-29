@@ -78,9 +78,8 @@
             <div class="form-box">
                 <form action="createSelfIntro.do" method="post">
                 
-                    <div class="form-header">
-                        <h2>자기소개서 생성기</h2>
-                        <p class="sub-title">AI가 당신의 경험을 참고하여 매력적인 이력서를 만들어 드립니다.</p>
+                    <div class="page-title-header">
+                        <p class="header-text"><strong>자기소개서 생성기 </strong> AI가 당신의 경험을 참고하여 매력적인 이력서를 만들어 드립니다.</p>
                     </div>
 
                     <!-- 제목 섹션 -->

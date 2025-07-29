@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	ㅇㅇ
+커뮤니티
 </body>
 </html>
