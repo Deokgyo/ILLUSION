@@ -1,41 +1,202 @@
 @charset "UTF-8";
 
 /* ======================================================
- *      사이드바 전용 스타일 (Sidebar)
+ *      사이드바 전체 스타일 (Sidebar container)
  * ====================================================== */
-
 .sidebar {
-    width: 300px;
-    background-color: #FFF9EB;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 30px 20px;
-    box-sizing: border-box;
-    align-self: flex-start;
-    position: sticky;
-    top: 20px;
-    flex-shrink: 0;
+  width: 300px;                       /* 사이드바 고정 너비 */
+  background-color: #FFFDF6;         /* 연한 노란빛 배경색 기존 색 FFF9EB*/
+  border-radius: 20px;               /* 둥근 모서리 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 효과 */
+  padding: 30px 20px;                /* 내부 여백 */
+  box-sizing: border-box;            /* 패딩 포함 너비 계산 */
+  align-self: flex-start;            /* flex 컨테이너 내 위치 지정 */
+  position: sticky;                  /* 스크롤 시 상단 고정 */
+  top: 20px;                        /* 상단에서 20px 여백 */
+  flex-shrink: 0;                   /* 축소 방지 */
 }
-.sidebar-profile-new { text-align: center; margin-bottom: 25px; }
-.sidebar-logo { font-family: 'Times New Roman', serif; font-weight: 600; font-size: 24px; letter-spacing: 2px; color: #A98E72; margin-bottom: 50px; }
-.profile-card { background-color: #fff; border-radius: 24px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07); padding: 20px; position: relative; }
-.profile-image { width: 80px; height: 80px; background-color: #fff; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); position: absolute; top: -40px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; }
-.gradient-icon .fa-user { font-size: 40px; background: linear-gradient(45deg, #FFDAB9, #FFC0CB); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.username { font-size: 18px; font-weight: 700; color: #333; margin-top: 45px; margin-bottom: 20px; }
-.profile-actions { display: flex; flex-direction: column; gap: 10px; }
-.profile-btn { display: block; padding: 12px; border: 1px solid #EBE3D5; background-color: #fff; border-radius: 50px; text-decoration: none; color: #5D4037; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
-.profile-btn:hover { background-color: #FDF4D9; border-color: #B08968; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); }
-.profile-btn.token-btn .fa-star { color: #FFC107; margin-right: 6px; font-size: 13px; }
-.sidebar-nav { border-top: 1px solid #EBE3D5; padding-top: 15px; }
-.sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
-.sidebar-nav li { margin-bottom: 5px; }
-.sidebar-nav > ul > li > a { display: flex; align-items: center; padding: 14px 18px; text-decoration: none; color: #5D4037; font-weight: 600; border-radius: 10px; transition: background-color 0.2s, color 0.2s; font-size: 16px; }
-.sidebar-nav > ul > li > a:hover { background-color: #b08968; }
-.sidebar-nav li.active > a { background-color: #B08968; color: #fff; }
-.sidebar-nav a .fa-solid { width: 20px; margin-right: 12px; text-align: center; }
-.sidebar-nav .has-submenu .arrow { margin-left: auto; transition: transform 0.3s ease; }
-.sidebar-nav li.active .arrow { transform: rotate(180deg); }
-.sidebar-nav .submenu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; background-color: #FFFDF6; border-radius: 8px; margin-top: 5px; }
-.sidebar-nav li.active .submenu { max-height: 500px; padding: 10px 0; }
-.sidebar-nav .submenu a { font-size: 14px; font-weight: 500; color: #795548; padding: 12px 18px 12px 50px; }
-.sidebar-nav .submenu a:hover { color: #3E2723; background-color: transparent; }
+
+/* 사이드바 프로필 영역 - 중앙 정렬 */
+.sidebar-profile-new {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* 사이드바 로고 텍스트 스타일 */
+.sidebar-logo {
+  font-family: 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 2px;
+  color: var(--font-sub-color);
+  margin-bottom: 50px;
+}
+
+/* 프로필 카드 박스 스타일 */
+.profile-card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+  padding: 20px;
+  position: relative;               /* 자식 요소 절대위치 기준 */
+}
+
+/* 프로필 이미지 박스 - 중앙 위치, 그림자 효과 */
+.profile-image {
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: -40px;                      /* 카드 위로 반쯤 올라오게 배치 */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;                   /* 아이콘 중앙 정렬 */
+  align-items: center;
+  justify-content: center;
+}
+
+/* 아이콘에 그라데이션 텍스트 효과 */
+.gradient-icon .fa-user {
+  font-size: 40px;
+  background: linear-gradient(45deg, #FFDAB9, #FFC0CB);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 사용자 이름 텍스트 스타일 */
+.username {
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--font-sub-color);
+  margin-top: 45px;
+  margin-bottom: 20px;
+}
+
+/* 프로필 액션 버튼을 세로 방향으로 배치 */
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;                      /* 버튼 간격 */
+}
+
+/* 프로필 액션 버튼 기본 스타일 */
+.profile-btn {
+  display: block;
+  padding: 12px;
+  border: 1px solid #EBE3D5;
+  background-color: #fff;
+  border-radius: 50px;             /* 둥근 타원형 버튼 */
+  text-decoration: none;
+  color: #5D4037;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+/* 프로필 버튼 호버(마우스 오버) 효과 */
+.profile-btn:hover {
+  background-color: #FDF4D9;
+  border-color: #B08968;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 토큰 버튼내 별 아이콘 스타일 */
+.profile-btn.token-btn .fa-star {
+  color: #FFC107;
+  margin-right: 6px;
+  font-size: 13px;
+}
+
+/* 사이드바 내비게이션 메뉴 - 상단 경계선 및 패딩 */
+.sidebar-nav {
+  border-top: 1px solid #EBE3D5;
+  padding-top: 15px;
+}
+
+/* 내비게이션 메뉴 리스트 초기화 */
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 내비게이션 메뉴 아이템 아래 여백 */
+.sidebar-nav li {
+  margin-bottom: 5px;
+}
+
+/* 메뉴 항목 링크 스타일 */
+.sidebar-nav > ul > li > a {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  text-decoration: none;
+  color: #5D4037;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: background-color 0.2s, color 0.2s;
+  font-size: 16px;
+}
+
+/* 메뉴 항목 호버 시 배경색 변경 */
+.sidebar-nav > ul > li > a:hover {
+  background-color: #b08968;
+}
+
+/* 활성화된 메뉴 항목 스타일 */
+.sidebar-nav li.active > a {
+  background-color: #B08968;
+  color: #fff;
+}
+
+/* 메뉴 아이콘 크기와 여백 조정 */
+.sidebar-nav a .fa-solid {
+  width: 20px;
+  margin-right: 12px;
+  text-align: center;
+}
+
+/* 서브메뉴 화살표 우측 정렬 및 전환 애니메이션 */
+.sidebar-nav .has-submenu .arrow {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+/* 활성화 시 화살표 회전 */
+.sidebar-nav li.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* 서브메뉴 기본 상태 - 숨김 및 애니메이션 */
+.sidebar-nav .submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+  background-color: #FFFDF6;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+/* 서브메뉴 활성화 시 확장 */
+.sidebar-nav li.active .submenu {
+  max-height: 500px;
+  padding: 10px 0;
+}
+
+/* 서브메뉴 항목 링크 스타일 */
+.sidebar-nav .submenu a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #795548;
+  padding: 12px 18px 12px 50px;
+}
+
+/* 서브메뉴 항목 호버 시 텍스트 및 배경 변경 */
+.sidebar-nav .submenu a:hover {
+  color: #3E2723;
+  background-color: transparent;
+}
