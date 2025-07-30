@@ -42,7 +42,7 @@
 	                </div>
 	                <div class="action-buttons">
 	                    <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
-	                    <a href="#" class="apply-btn" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></a>
+	                    <a href="#" class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></a>
 	                    
 	                </div>
 	            </section>
@@ -70,7 +70,8 @@
 	                        <p>대표자명: 박덕교/조영재</p>
 	                        <p>기업 형태: 중소기업</p>
 	                        <p>설립일: 2025년 7월 8일</p>
-	                        <p>기업 주소: 부산시 부산진구 삼한골드게이트 7층</p>
+	                        <p>기업 주소: 부산시 부산진구 삼한골드게이트 7층</p><br>
+	                        <p>(추후 카카오맵 API 추가)</p>   
 	                    </div>
 	                    <div class="company-logo">
 	                        <img src="https://i.ibb.co/L5kQV9j/illusion-logo.png" alt="Illusion Logo">
