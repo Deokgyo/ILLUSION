@@ -58,7 +58,7 @@ li {
 }
 
 /* 메인 네비게이션 */
-.main-nav ul {
+.main-nav>ul {
 	display: flex;
 	gap: 30px;
 	align-items: center;
@@ -190,7 +190,7 @@ li {
   flex-direction: column;
   gap: 10px; 
   position: absolute;
-  top: 25;
+  top: 15%;
   left: 50%;
   background-color: #fff;
   border-radius: 12px;
@@ -240,8 +240,13 @@ li {
 /* 	     COLOR: #333;  */
 	TRANSITION: BACKGROUND-COLOR 0.2S EASE, COLOR 0.2S EASE;
 	WHITE-SPACE: NOWRAP;
- 
 }
+.dropdown-menu li {
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 /* 메뉴 항목에 마우스 올릴 때 */
 .dropdown-menu li a:hover {
   color: var(--font-main-color);
