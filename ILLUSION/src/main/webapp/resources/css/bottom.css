@@ -1,73 +1,97 @@
-@charset "UTF-8";
+@charset "UTF-8";  /* 파일 인코딩 설정 */
 
 /* ======================================================
  *      푸터 전용 스타일 (Footer)
  * ====================================================== */
 
+/* 푸터 전체 기본 스타일 */
 .site-footer-v2 {
     width: 100%;
-    padding: 40px 0;
-/*     background: linear-gradient(to bottom, #FEF9E0, #FFEBEE); */
-    background: var(--background-gradient);
-    /* color: #555; */
-    color: var(--font-sub-color);
-    font-size: 13px;
-    line-height: 1.8;
+    padding: 18px 0 0.8px 0;
+    background: var(--background-gradient);  /* 배경 그라데이션 */
+    color: var(--font-sub-color);            /* 서브 폰트 색상 */
+    font-size: 10px;
+    line-height: 2;
 }
+
+/* 푸터 내부 컨테이너 (중앙 정렬  고정 최대 너비) */
 .footer-container-v2 {
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 25px;
+    padding: 0 20px;
 }
+
+/* 푸터 상단 영역 - 메뉴 및 정보 등 배치 */
 .footer-top-v2 {
     display: flex;
     justify-content: space-between;
-    gap: 40px;
-    padding-bottom: 30px;
+    gap: 20px;
+    font-weight: bold;
+    padding-bottom: 7px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    line-height: 1;
 }
+
+/* 푸터 타이틀(제목) 스타일 */
 .footer-title-v2 {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
-    /* color: #333; */
-    color: var(--font-main-color);
-    margin-bottom: 12px;
+    color: var(--font-sub-color);
+    margin-bottom: 2px;
 }
+
+.footer-column-v2> p {
+	font-size: 15px;
+	line-height: 1.2;
+	margin-bottom: 2px
+}
+
+/* 푸터 상단 링크 기본 스타일 */
 .footer-top-v2 a {
-    /* color: #555; */
     color: var(--font-sub-color);
     text-decoration: none;
 }
+
+/* 푸터 상단 링크 호버 시 밑줄 */
 .footer-top-v2 a:hover {
     text-decoration: underline;
 }
+
+/* 푸터 하단 영역 - 저작권 및 추가 정보 배치 */
 .footer-bottom-v2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 30px;
+    padding-top: 20px;
+    font-weight: bold;
+    line-height: 1.2;
 }
+
+/* 푸터 정보 그룹(로고, 주소 등) 가로 정렬 */
 .footer-info-v2 {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
-.footer-logo-v2 img {
-    height: 40px;
-}
+
+
+/* 푸터 주소 텍스트 스타일 */
 .footer-address p {
-    margin: 0;
-    padding: 0;
-    font-size: 13px;
-    /* color: #666; */
+    font-size: 14px;
     color: var(--font-sub-color);
+    line-height: 0;
 }
+
+/* 저작권 및 법적 고지 텍스트 중앙 정렬 */
 .footer-legal-v2 {
     text-align: center;
-    padding-top: 30px;
-    margin-top: 30px;
+    padding-top: 10px;
+    margin-top: 10px;
+ 
 }
+
+/* 저작권 고지 링크 리스트 가로 정렬 */
 .footer-legal-v2 ul {
     display: inline-flex;
     gap: 8px;
@@ -75,29 +99,49 @@
     padding: 0;
     list-style: none;
 }
+
+/* 저작권 고지 리스트 아이템 구분자(‘|’) */
 .footer-legal-v2 li + li::before {
     content: '|';
     margin-right: 8px;
     color: #ccc;
+    
 }
+
+/* 저작권 고지 링크 기본 스타일 */
 .footer-legal-v2 a {
-    /* color: #666; */
     color: var(--font-sub-color);
     text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
 }
+
+/* 저작권 고지 링크 호버 시 색상 변경 */
 .footer-legal-v2 a:hover {
-    /* color: #000; */
     color: var(--font-main-color);
 }
+
+/* SNS 아이콘 링크 그룹 가로 정렬 */
 .social-links-v2 {
     display: flex;
     align-items: center;
     gap: 12px;
 }
+/* SNS 아이콘 사이즈 크기 조절 */
+/* SNS 아이콘 사이즈 크기 조절 */
+/* SNS 아이콘 사이즈 크기 조절 */
+.social-links-v2 i {
+  font-size: 20px;
+}
+ 
+
+/* SNS 아이콘 이미지 크기 및 애니메이션 */
 .social-links-v2 img {
-    height: 28px;
+    height: 50px;
     transition: opacity 0.3s ease;
 }
+
+/* SNS 아이콘 호버 시 불투명도 조절 */
 .social-links-v2 a:hover img {
     opacity: 0.7;
 }

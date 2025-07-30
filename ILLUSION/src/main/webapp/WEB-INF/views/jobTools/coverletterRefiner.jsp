@@ -16,7 +16,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterRefiner.css"> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterRefiner.css">
+    
+     <style type="text/css">
+	     .gradient-btn{
+	     	width: 18em;
+	     	height: 60px
+	     }
+     </style> 
 </head>
 <body>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -80,7 +87,7 @@
                 </div>
 
                 <div class="submit-button-wrapper">
-                    <button id="refine-submit-btn" class="btn btn-yellow submit-button" disabled>
+                    <button id="refine-submit-btn" class="gradient-btn" disabled>
                         자기소개서 다듬기 (🪙 30토큰 차감)
                     </button>
                 </div>
@@ -91,7 +98,7 @@
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jobTools/coverletterRefiner.js"></script>
+<!--     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+<%--     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script> --%>
+<%--     <script src="${pageContext.request.contextPath}/resources/js/jobTools/coverletterRefiner.js"></script> --%>
 </html>
