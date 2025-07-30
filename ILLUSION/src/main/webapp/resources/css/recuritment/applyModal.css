@@ -1,0 +1,155 @@
+@charset "UTF-8";
+/* =======================================
+    입사지원 모달 스타일 (CSS 변수 적용)
+   ======================================= */
+
+/* 모달 뒷배경 오버레이 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 모달 컨텐츠 영역 */
+.modal-content {
+    background-color: #ffffff; /* NOTE: 컴포넌트 배경색 변수 사용 권장 */
+    padding: 35px 40px;
+    border-radius: 16px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 550px;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+.modal-overlay:not(.hidden) .modal-content {
+    transform: translateY(0);
+}
+
+/* 닫기 버튼 */
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--font-sub-color);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+/* 모달 제목 */
+.modal-title {
+    font-size: 1.5rem;
+    color: var(--font-main-color);
+    text-align: center;
+    margin: 0 0 30px 0;
+}
+
+/* 각 섹션 공통 스타일 */
+.modal-section {
+    margin-bottom: 25px;
+}
+.modal-section h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    color: var(--font-main-color);
+}
+
+/* 옵션(이력서/자소서) 선택 영역 */
+.options-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+.option-label {
+    display: block;
+    padding: 18px;
+    border: 1px solid #e0e0e0; /* NOTE: --border-color 변수 사용 권장 */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+.option-label:hover {
+    border-color: var(--main-color);
+}
+.option-label input[type="checkbox"] {
+    margin-right: 8px;
+}
+/* 체크됐을 때 라벨 스타일 변경 */
+label:has(input:checked) {
+    border-color: var(--main-color-hover);
+    background-color: var(--main-color-light-bg, #fffbeb);
+    font-weight: 500;
+}
+
+/* 첨부파일 영역 */
+.file-drop-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f8f9fa; /* NOTE: --light-gray-bg 변수 사용 권장 */
+    color: var(--font-sub-color);
+}
+.file-drop-area i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+.file-drop-area p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+.file-drop-area span {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+.file-drop-area .file-name-display {
+    margin-top: 10px;
+    font-weight: 500;
+    color: var(--font-main-color);
+}
+.hidden {
+    display: none;
+}
+
+/* 최종 지원 버튼 */
+.modal-submit-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--main-color);
+    color: var(--font-main-color);
+    font-size: 1.1rem;
+    font-family: var(--font-family);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.modal-submit-btn:hover {
+    background-color: var(--main-color-hover);
+}

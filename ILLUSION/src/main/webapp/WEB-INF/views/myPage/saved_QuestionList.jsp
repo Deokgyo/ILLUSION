@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/seved_Question.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/saved_Question.css">
 </head>
 <body>
 	<header>

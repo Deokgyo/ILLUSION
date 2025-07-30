@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="./resources/css/global.css">
+<link rel="stylesheet" href="./resources/css/bottom.css">
+
 <footer class="site-footer-v2">
     <div class="footer-container-v2">
         <div class="footer-top-v2">

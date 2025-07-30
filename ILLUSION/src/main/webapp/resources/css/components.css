@@ -34,6 +34,86 @@
 	background-color: var(--main-color-hover);
 }
 
-/* .btn:disabled { */
-/* 	opacity: var(--button-disabled-opacity); */
-/* } */
+.btn-yellow:disabled {
+	background-color: var(--main-color-hover);
+	opacity: var(--button-disabled-opacity);
+}
+
+/* 페이지 상단에 텍스트 부분 */
+.page-title-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: var(--background-gradient-horizontally);
+    border-radius: 50px;
+}
+
+.page-title-header .header-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--font-main-color);
+    margin: 0;
+}
+
+.page-title-header .header-text strong {
+    font-weight: 700;
+    font-size: 20px
+}
+
+
+/* 그라데이션 버튼 */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.buttons {
+    margin: 10%;
+    text-align: center;
+}
+
+.gradient-btn {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--font-main); 
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 15px;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    /* .color-1의 스타일 통합 */
+    background-image: var(--background-gradient-horizontally);
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+}
+
+.gradient-btn:hover, .gradient-btn:active {
+    background-position: 100% 0;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.gradient-btn:active:not(:disabled) {
+    transform: scale(0.95);
+    background-position: 100% 0;
+}
+
+
+.gradient-btn:focus {
+    outline: none;
+}
+
+.gradient-btn:disabled {
+    opacity: 0.55; 
+    cursor: not-allowed; 
+    background-position: 0 0;
+}

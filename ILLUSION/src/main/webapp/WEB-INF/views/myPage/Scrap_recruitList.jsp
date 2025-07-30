@@ -54,7 +54,7 @@
       </thead>
       <tbody>
         <tr class="selected">
-          <td><input type="checkbox" checked /></td>
+          <td><input type="checkbox" /></td>
           <td>[네이버] 플랫폼 신입 채용</td>
           <td>채용중<br>10명</td>
           <td>25.07.25</td>

@@ -18,9 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/test.css"> 
-    
-    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterCreate.css"> 
 </head>
 <body>
      <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -31,9 +29,8 @@
             <div class="form-box">
                 <form action="createSelfIntro.do" method="post">
                 
-                    <div class="form-header">
-                        <h2>자기소개서 생성기</h2>
-                        <p class="sub-title">AI가 당신의 경험을 참고하여 매력적인 이력서를 만들어 드립니다.</p>
+                    <div class="page-title-header">
+                        <p class="header-text"><strong>자기소개서 생성기 </strong> AI가 당신의 경험을 참고하여 매력적인 이력서를 만들어 드립니다.</p>
                     </div>
 
                     <!-- 제목 섹션 -->
@@ -82,7 +79,6 @@
                             <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
                             <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
                         </div>
-                        <!-- 💡 참고: 위 버튼들과 아래 태그의 연동은 JavaScript가 필요합니다. -->
                     </div>
 
                     <!-- 경력사항 섹션 -->
@@ -113,7 +109,9 @@
                     </div>
 
                     <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-yellow btn-lg" >자기소개서 생성</button>
+                    <div class="buttons">
+    					<button class="gradient-btn">자기소개서 생성</button>
+					</div>
                     </div>
                 </form>
             </div>

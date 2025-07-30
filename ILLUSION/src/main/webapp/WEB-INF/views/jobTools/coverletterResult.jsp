@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
     <%-- 우리가 만든 CSS 파일들 --%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
@@ -25,7 +26,10 @@
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
             <div class="result-box">
-                <h2>생성된 자기소개서</h2>
+            	<div class="page-title-header">
+                	<p class="header-text"><strong>생성된 자기소개서</strong></p>
+            	</div>
+                
 
                 <div class="result-meta">
                     <div class="char-count">

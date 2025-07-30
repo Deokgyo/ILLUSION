@@ -1,30 +1,368 @@
-.salary-dropdown {
-  position: relative;
-  display: inline-block;
+/* =======================================
+    범용 필터 드롭다운 및 태그 스타일 (지정된 CSS 변수 적용)
+   ======================================= */
+
+/* 1. 필터 드롭다운 스타일 */
+
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.salary-dropdown-menu {
-    position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-    z-index: 1050 !important;
-    background: white !important;
-    border: 1px solid #dee2e6 !important; /* Bootstrap 기본 테두리 색상 */
-    width: 300px !important;
-    padding: 15px !important;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important; /* Bootstrap 그림자 */
-    margin-top: 5px !important;
-    display: block !important;
-    border-radius: 0.375rem !important; /* Bootstrap 기본 border-radius */
+/* 필터 토글 버튼 (기본 상태) */
+.toggle-filter-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: var(--font-family);
+    color: var(--font-sub-color);
+    /* NOTE: 컴포넌트 배경색 변수가 없어 흰색을 직접 사용합니다. */
+    background-color: #ffffff; 
+    /* NOTE: 테두리색 변수가 없어 연한 회색을 직접 사용합니다. */
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-.salary-dropdown-menu.hidden {
-    display: none !important;
+/* 필터 토글 버튼 (호버 상태) */
+.toggle-filter-btn:hover {
+    background-color: var(--main-color-hover);
+    color: var(--font-main-color);
+    border-color: var(--main-color-hover);
 }
 
-/* 필터 버튼들 간격 조정 */
-.filter-bar-options {
+/* 드롭다운 메뉴 */
+.filter-dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    z-index: 1000;
+    min-width: 280px;
+    background-color: #ffffff; /* 팝업 가독성을 위해 흰색 배경 사용 */
+    border: 1px solid #dee2e6; /* 테두리색 변수가 없어 직접 사용 */
+    border-radius: 8px;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.1);
+    padding: 1rem;
+}
+
+.filter-dropdown-menu.hidden {
+    display: none;
+}
+
+/* 드롭다운 메뉴 헤더 */
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #dee2e6; /* 테두리색 변수가 없어 직접 사용 */
+    font-weight: bold;
+    color: var(--font-main-color);
+}
+
+/* 초기화 버튼 */
+.filter-reset-btn {
+    font-size: 12px;
+    font-family: var(--font-family);
+    padding: 4px 8px;
+    /* NOTE: 초기화/경고를 위한 전용 색상 변수가 없어 서브 텍스트 색상을 사용합니다. */
+    color: var(--font-sub-color);
+    border: 1px solid #ced4da; /* 테두리색 변수가 없어 직접 사용 */
+    background-color: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.filter-reset-btn:hover {
+    background-color: #e9ecef; /* 호버 색상 변수가 없어 직접 사용 */
+    color: var(--font-main-color);
+}
+
+/* 옵션(체크박스) 영역 */
+.filter-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.filter-options label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    gap: 6px;
+    color: var(--font-main-color);
+}
+
+/* 2. 선택된 필터 태그 스타일 */
+
+/* 태그 컨테이너 */
+.selected-filters-container {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    /* NOTE: --main-color의 연한 버전을 표현할 변수가 없어, 색상 코드를 직접 사용합니다. (FFE585의 연한 톤) */
+    background-color: #fffbeb;
+    border-radius: 12px;
+    margin-top: 20px;
+    min-height: 60px;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: 2px solid gray;
+}
+
+/* '필터:' 라벨 */
+.selected-filters-container .filter-label {
+    font-weight: bold;
+    color: var(--font-main-color);
+    font-size: 14px;
+}
+
+/* 태그들을 감싸는 영역 */
+.tags-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* 개별 태그 */
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background-color: #ffffff; /* 컴포넌트 배경색 변수가 없어 직접 사용 */
+    border: 1px solid #dee2e6; /* 테두리색 변수가 없어 직접 사용 */
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--font-main-color);
+}
+
+/* 태그 삭제 'x' 버튼 */
+.filter-tag .remove-tag-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background-color: #f1f3f5; /* 버튼 배경색 변수가 없어 직접 사용 */
+    border: none;
+    border-radius: 50%;
+    color: var(--font-sub-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-tag .remove-tag-btn:hover {
+    background-color: var(--main-color-hover);
+    color: var(--font-main-color);
+}
+
+/* 지역 필터 드롭다운 메뉴는 더 넓게 설정 */
+.location-filter-menu {
+  min-width: 550px; /* 2단 구조를 위해 너비 확장 */
+  padding: 0; /* 내부 패딩을 없애고 각 섹션에서 관리 */
+}
+
+/* 상단 검색창 */
+.location-search-bar {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color, #dee2e6);
+}
+.location-search-bar input {
+  flex-grow: 1;
+  border: 1px solid var(--main-color, #FFE585);
+  border-right: none;
+  padding: 8px 12px;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+}
+.location-search-bar button {
+  border: 1px solid var(--main-color, #FFE585);
+  background-color: var(--main-color, #FFE585);
+  border-radius: 0 20px 20px 0;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+/* 2단 패널 전체 래퍼 */
+.location-panel-wrapper {
+  display: flex;
+  height: 300px; /* 높이 고정 */
+}
+
+
+/* 왼쪽 패널 (시/도) */
+.region-panel-left {
+  flex: 0 0 120px; /* 너비 120px 고정 */
+  border-right: 1px solid var(--border-color, #dee2e6);
+  overflow-y: auto; /* 내용이 많으면 스크롤 */
+  padding: 0.5rem 0;
+}
+.major-region-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.major-region-item {
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.major-region-item:hover {
+  background-color: #f8f9fa;
+}
+/* 활성화된 시/도 스타일 (이미지처럼 노란색으로) */
+.major-region-item.active {
+  color: var(--font-main-color);
+  background-color: var(--main-color, #FFE585);
+  font-weight: bold;
+}
+
+/* 오른쪽 패널 (시/군/구) */
+.region-panel-right {
+  flex-grow: 1; /* 남은 공간 모두 차지 */
+  display: flex;
+  flex-direction: column;
+}
+/* 오른쪽 패널의 헤더는 패딩 추가 */
+.region-panel-right .filter-header {
+  padding: 1rem 1rem 0.75rem 1rem;
+}
+/* 오른쪽 패널의 옵션 영역은 스크롤 및 패딩 추가 */
+.region-panel-right .filter-options {
+  overflow-y: auto;
+  padding: 0 1rem 1rem 1rem;
+}
+
+/* =======================================
+    직종 필터 UI
+   ======================================= */
+
+/* 상단 검색창 */
+.occupation-search-bar {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color, #dee2e6);
+}
+.occupation-search-bar input {
+  flex-grow: 1;
+  border: 1px solid var(--main-color, #FFE585);
+  border-right: none;
+  padding: 8px 12px;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+}
+.occupation-search-bar button {
+  border: 1px solid var(--main-color, #FFE585);
+  background-color: var(--main-color, #FFE585);
+  border-radius: 0 20px 20px 0;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+/* 2단 패널 전체 래퍼 */
+.occupation-panel-wrapper {
+  display: flex;
+  height: 300px; /* 높이 고정 */
+}
+
+/* =======================================
+    새로운 필터 바 UI 스타일 (추천 방식)
+   ======================================= */
+
+/* 전체 헤더 */
+.search-header {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+/* 상단 검색창 + 초기화 버튼 영역 */
+.filter-bar-main {
     display: flex;
     gap: 10px;
-    position: relative;
+    margin-bottom: 15px;
+}
+
+/* 검색창 */
+.filter-bar-main .search-box {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--main-color);
+    border-radius: 50px;
+    padding: 4px 8px 4px 20px;
+}
+.filter-bar-main .search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 15px;
+    font-family: var(--font-family);
+    color: var(--font-main-color);
+}
+.filter-bar-main .search-box input::placeholder {
+    color: var(--font-sub-color);
+}
+.filter-bar-main .search-box .search-btn {
+    border: none;
+    background: none;
+    font-size: 18px;
+    color: var(--font-main-color);
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* 상단 초기화 버튼 */
+.filter-bar-main .reset-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 20px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 50px;
+    font-family: var(--font-family);
+    color: var(--font-main-color);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* 필터 버튼들을 감싸는 래퍼 */
+.filter-button-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* 버튼이 많아지면 다음 줄로 */
+    gap: 10px;
+}
+
+/* 기존 드롭다운 버튼을 알약(pill) 형태로 변경 */
+/* NOTE: .toggle-filter-btn에 이 스타일이 직접 적용됩니다. */
+.filter-button-wrapper .toggle-filter-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    color: var(--font-main-color);
+    background-color: var(--main-color-light-bg, #fffbeb); /* 변수가 없다면 fallback 색상 사용 */
+    border: 1px solid var(--main-color);
+    border-radius: 50px; /* 캡슐 형태 */
+    transition: all 0.2s ease;
+}
+
+/* 호버 상태 */
+.filter-button-wrapper .toggle-filter-btn:hover {
+    background-color: var(--main-color-hover);
+    border-color: var(--main-color-hover);
+}
+
+/* JS로 드롭다운이 열렸을 때 버튼에 .opened 클래스 추가하여 활성 상태 표현 */
+.filter-button-wrapper .toggle-filter-btn.opened {
+    background-color: var(--main-color);
+    font-weight: bold;
+    border-color: var(--main-color);
 }

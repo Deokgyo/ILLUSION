@@ -4,7 +4,7 @@ body {
     margin: 0;
     font-family: var(--font-family);
     background-color: var(--body-bg-color);
-    color:  var(font-main-color);
+    color: var(--font-main-color);
 }
 
 .container {
@@ -22,7 +22,7 @@ body {
 
 h1 {
     font-size: 1.2rem;
-    color: #555;
+    color: var(--font-main-color);
     text-align: center;
     margin: 0;
     background-color: var(--background-gradient);
@@ -38,7 +38,7 @@ h1 {
 .section-title {
     font-size: 1.1rem;
     font-weight: 700;
-    border-left: 4px solid #f9d74a;
+    border-left: 4px solid var(--main-color-hover);
     padding-left: 10px;
     margin-bottom: 20px;
 }
@@ -81,7 +81,7 @@ h1 {
 }
 
 .apply-btn {
-    background-color: #f9d74a;
+    background-color: var(--main-color-hover);
     color: var(--font-main-color);
     text-decoration: none;
     padding: 10px 20px;
@@ -269,8 +269,8 @@ h1 {
 }
 
 /* 성별 차트 바 */
-.gender-chart .female { height: 60%; background-color: #fcc419; }
-.gender-chart .male { height: 80%; background-color: #fcc419; }
+.gender-chart .female { height: 60%; background-color: var(--main-color-hover); }
+.gender-chart .male { height: 80%; background-color: var(--main-color-hover); }
 
 /* 연봉 차트 바 */
 .salary-chart .bar { background-color: #a5d8ff; width: 25px; }

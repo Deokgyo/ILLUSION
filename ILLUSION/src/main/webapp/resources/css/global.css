@@ -29,11 +29,12 @@
   --body-bg-color: #ffffff;
 
   /*그라데이션 */
-  --background-gradient: linear-gradient(#FFF5E1 0%, 
+  --background-gradient: linear-gradient(to bottom,#FFF5E1 0%, 
                                      #F5F8EC 50%, 
                                      #F3F6EE 63%, 
                                      #F0F3EF 75%, 
                                      #FEECF8 100%);
+                                     
   --background-gradient-horizontally: linear-gradient(to right, 
                                      #FEEFCA 0%, 
                                      #EFF3DD 50%, 
@@ -50,6 +51,7 @@
 
 body{
 	font-family: var(--font-family);
+	margin:0;
 }
 
 a{

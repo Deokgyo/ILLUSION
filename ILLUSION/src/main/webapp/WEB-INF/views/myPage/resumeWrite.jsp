@@ -27,59 +27,132 @@
 <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
+<div class="container">
+        <div class="top-header">이력서 등록</div>
+
+        <div class="resume-form">
+            <div class="section">
+                <div class="section-title-box">이력서 제목</div>
+
+                <div class="profile-section">
+                    <div class="avatar-container">
+                        <div class="avatar-placeholder"></div>
+                        <div class="upload-tag">업로드</div>
+                    </div>
+                    <div class="profile-info">
+                        <h3>일루션</h3>
+                        <div class="info-box">가져 올 정보</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h4 class="form-section-title">학력</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>학교 이름</label>
+                        <input type="text" placeholder="학교명을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label>전공</label>
+                        <input type="text" placeholder="전공을 입력하세요">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>학위</label>
+                        <select>
+                            <option value="">선택</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>상태</label>
+                        <select>
+                            <option value="">선택</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>학점</label>
+                        <div class="gpa-group">
+                             <input type="text" placeholder="학점을 입력하세요 ex) 4.5" style="flex:1;">
+                             <span>/</span>
+                             <select style="flex-basis: 100px;">
+                                <option>4.5</option>
+                                <option>4.3</option>
+                                <option>4.0</option>
+                             </select>
+                        </div>
+                    </div>
+                </div>
+                 <div class="form-row">
+                    <div class="form-group">
+                        <label>입학일</label>
+                        <div class="date-input-container">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>졸업일</label>
+                         <div class="date-input-container">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>추가정보 (선택)</label>
+                    <textarea placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요
+ex) 수석 졸업 등"></textarea>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h4 class="form-section-title">경력사항</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>회사명</label>
+                        <input type="text" placeholder="회사명을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label>직책</label>
+                        <input type="text" placeholder="직책을 입력하세요">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>입사일</label>
+                        <div class="date-input-container">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>종료일</label>
+                        <div class="date-input-container">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>담당 업무 및 성과</label>
+                    <textarea placeholder="주요 담당 업무를 입력하세요"></textarea>
+                </div>
+                <button class="btn btn-add">+ 경력 추가하기</button>
+            </div>
+            
+            <div class="section">
+                 <div class="form-group">
+                    <label>자격증(선택)</label>
+                    <input type="text" placeholder="보유중인 자격증을 입력하세요">
+                </div>
+            </div>
+
+        </div>
+        
+        <button class="btn btn-save">저장</button>
+    </div>
 	
-  <h2 class="form-title">이력서 제목</h2>
-  <input type="text" class="form-input large" placeholder="가져 올 정보" />
-
-  <!-- 학력 -->
-  <section class="form-section">
-    <h3>학력</h3>
-    <div class="form-grid">
-      <input type="text" placeholder="학교명" />
-      <input type="text" placeholder="전공" />
-      <select>
-        <option>학위 선택</option>
-        <option>학사</option>
-        <option>석사</option>
-        <option>박사</option>
-      </select>
-      <select>
-        <option>상태 선택</option>
-        <option>졸업</option>
-        <option>재학</option>
-        <option>중퇴</option>
-      </select>
-      <input type="text" placeholder="학점 (ex. 4.5)" />
-      <div class="form-date-group">
-        <input type="date" /> ~ <input type="date" />
-      </div>
-      <textarea placeholder="기타 상세, 수상경력, 프로젝트 등 (선택)"></textarea>
-    </div>
-  </section>
-
-  <!-- 경력사항 -->
-  <section class="form-section">
-    <h3>경력사항</h3>
-    <div class="form-grid">
-      <input type="text" placeholder="회사명" />
-      <input type="text" placeholder="직책" />
-      <input type="date" placeholder="입사일" />
-      <input type="date" placeholder="종료일" />
-      <textarea placeholder="주요 담당 업무 및 성과"></textarea>
-    </div>
-    <button class="add-btn">+ 경력 추가하기</button>
-  </section>
-
-  <!-- 자격증 -->
-  <section class="form-section">
-    <h3>자격증 <span class="optional">(선택)</span></h3>
-    <input type="text" class="form-input" placeholder="보유한 자격증을 입력하세요" />
-  </section>
-
-  <!-- 저장 -->
-  <div class="submit-wrapper">
-    <button class="save-btn">저장</button>
-  </div>
+ 
 </main>
 </div>
 </body>

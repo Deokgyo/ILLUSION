@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/applyModal.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/recuritmentDetail.css"> 
     
 </head>
@@ -28,7 +29,7 @@
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         
-	         <div class="container">
+	        <div class="container">
 	        <header class="page-header">
 	            <h1>채용 공고</h1>
 	        </header>
@@ -41,7 +42,8 @@
 	                </div>
 	                <div class="action-buttons">
 	                    <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
-	                    <a href="#" class="apply-btn">입사지원 <i class="fa-solid fa-paper-plane"></i></a>
+	                    <a href="#" class="apply-btn" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></a>
+	                    
 	                </div>
 	            </section>
 	
@@ -146,8 +148,11 @@
     </div>
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+    
+    <jsp:include page="/WEB-INF/views/recuritment/applyModal.jsp" />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recuritment/modalEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 </body>
 </html>
