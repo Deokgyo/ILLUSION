@@ -1,8 +1,6 @@
 @charset "UTF-8";
 /* 기본 & 폰트 설정 */
 body {
-    margin: 0;
-    font-family: var(--main-color);
     background-color: var(--body-bg-color);
     color: var(--font-main-color);
 }
@@ -69,12 +67,12 @@ body {
 }
 
 .reset-btn {
-    padding: 12px 20px;
+    padding: 1px 20px;
     border: 1px solid #dee2e6;
     background-color: var(--body-bg-color);
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 500;
+    margin-left:auto;
 }
 
 .filter-bar-options {
@@ -171,6 +169,14 @@ body {
     border-radius: 5px;
     font-size: 0.85rem;
     font-weight: 500;
+}
+
+/* 로고 이미지 */
+.logo-image img {
+    width: 100%;
+    height: 30px; /* 고정 높이 */
+    object-fit: contain;
+    display: block;
 }
 
 /* 카드 이미지 */
