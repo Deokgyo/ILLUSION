@@ -12,13 +12,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
 
     <%-- 우리가 만든 CSS 파일들 --%>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterCreate.css"> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
+
+
+
 </head>
 <body>
      <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -33,7 +36,7 @@
                         <p class="header-text"><strong>자기소개서 생성기 </strong> AI가 당신의 경험을 참고하여 매력적인 이력서를 만들어 드립니다.</p>
                     </div>
 
-                    <!-- 제목 섹션 -->
+                    제목 섹션
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-pen-to-square"></i>
@@ -42,7 +45,7 @@
                         <input type="text" name="title" class="form-control" placeholder="예: 삼성전자 마케팅 직무 자기소개서" required />
                     </div>
 
-                    <!-- 기업명 섹션 -->
+                    기업명 섹션
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-building"></i>
@@ -51,7 +54,7 @@
                         <input type="text" name="company" class="form-control" placeholder="예: 삼성전자" required />
                     </div>
 
-                    <!-- 직무 선택 섹션 -->
+                    직무 선택 섹션
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-square-check"></i>
@@ -81,7 +84,7 @@
                         </div>
                     </div>
 
-                    <!-- 경력사항 섹션 -->
+                    경력사항 섹션
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-comments"></i>
@@ -97,7 +100,7 @@
                         </div>
                     </div>
 
-                    <!-- AI 생성 요구사항 섹션 -->
+                    AI 생성 요구사항 섹션
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-solid fa-list-ul"></i>
