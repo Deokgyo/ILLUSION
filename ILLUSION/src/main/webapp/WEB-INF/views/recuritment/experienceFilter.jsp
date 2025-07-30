@@ -22,7 +22,7 @@
           <input type="checkbox" class="filter-checkbox" name="experience" value="experience1" data-text="신입"> 신입
         </label>
         <label>
-          <input type="checkbox" class="filter-checkbox" name="experience" value="experience2" data-text="1~3년차"> 2천~3천만원
+          <input type="checkbox" class="filter-checkbox" name="experience" value="experience2" data-text="1~3년차"> 1~3년차
         </label>
         <label>
           <input type="checkbox" class="filter-checkbox" name="experience" value="experience3" data-text="4~7년차"> 4~7년차

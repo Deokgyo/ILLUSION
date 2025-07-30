@@ -99,60 +99,40 @@
 	                <div class="stats-container">
 	                    <div class="stat-card">
 	                        <p>지원자 수</p>
-	                        <span class="applicant-count">117명</span>
+	                        <span class="applicant-count">29명</span>
 	                    </div>
 	                    <div class="stat-card">
 	                        <p>성별 현황</p>
-	                        <div class="chart gender-chart">
-	                            <div class="bar-group">
-	                                <span class="label">60</span>
-	                                <div class="bar female"></div>
-	                                <span class="group">여자</span>
-	                            </div>
-	                            <div class="bar-group">
-	                                <span class="label">80</span>
-	                                <div class="bar male"></div>
-	                                <span class="group">남자</span>
-	                            </div>
-	                        </div>
+							<canvas id="pieChart" width="140" height="140"></canvas>
+							<div class="gender-count">
+								<p>여성 : 19명</p>
+								<p>남성 : 12명</p>
+							</div>
 	                    </div>
 	                    <div class="stat-card">
 	                        <p>연봉별 현황</p>
-	                        <div class="chart salary-chart">
-	                            <div class="bar-group">
-	                                <span class="label">4</span>
-	                                <div class="bar s1"></div>
-	                                <span class="group">3,000</span>
-	                            </div>
-	                             <div class="bar-group">
-	                                <span class="label">15</span>
-	                                <div class="bar s2"></div>
-	                                <span class="group">3,200</span>
-	                            </div>
-	                             <div class="bar-group">
-	                                <span class="label">7</span>
-	                                <div class="bar s3"></div>
-	                                <span class="group">3,600</span>
-	                            </div>
-	                             <div class="bar-group">
-	                                <span class="label">16</span>
-	                                <div class="bar s4"></div>
-	                                <span class="group">4,000 이상</span>
-	                            </div>
-	                        </div>
+						<canvas id="barChart" width="230" height="230"></canvas>
 	                    </div>
 	                </div>
 	            </section>
 	        </main>
 	    </div>
     </div>
+    
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
     
     <jsp:include page="/WEB-INF/views/recuritment/applyModal.jsp" />
-
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recuritment/chartEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/recuritment/modalEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+    <script>
+		   	document.addEventListener('DOMContentLoaded', function(){
+			  	pieChart('pieChart');
+			    barChart('barChart');
+	  		});
+    </script>
 </body>
 </html>
