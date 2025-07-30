@@ -46,14 +46,15 @@ li {
 .site-logo a {
 	display: block;
 	padding-left: 5px 8px;
+	align-items: center;
 }
 
 /* 중앙 메뉴 */
 .center-menu {
 	display: flex;
-	align-items: center;
 	gap: 35px;
 	padding: 10px;
+	margin-left: 120px;
 }
 
 /* 메인 네비게이션 */
@@ -96,7 +97,7 @@ li {
 .search-form {
 	margin-top: 50px;
 	border: 2px solid #FFD400;
-	border-radius: 22px;
+	border-radius: 25px;
 	display: flex;
 	align-items: center;
 	background-color: #FFFFFF;
@@ -119,9 +120,11 @@ li {
 	outline: none;
 	border-radius: 22px;
 	font-size: 15px;
-	width: 150px;
+	width: 200px;
+	height: 40px;
 	color: #333;
 	padding-right: 5px;
+	margin-left: 10px;
 }
 
 .search-input::placeholder {
@@ -184,13 +187,14 @@ li {
   flex-direction: column;
   gap: 10px; 
   position: absolute;
-  top: 100%;
+  top: 0;
   left: 50%;
   background-color: #fff;
   border-radius: 12px;
   border: 1px solid #F0F0F0;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  padding: 8px;
+  padding-top: 0;
+  margin-top: 0;
   min-width: 220px;
   z-index: 1000;
   opacity: 0;
@@ -227,7 +231,7 @@ li {
 	GAP: 12PX;
 	PADDING: 12PX 16PX;
 	BORDER-RADIUS: 8PX;
-	FONT-SIZE: 15PX;
+	FONT-SIZE: 19PX;
 	FONT-WEIGHT: 500;
 	COLOR: VAR(--font-sub-color);
 /* 	     COLOR: #333;  */
@@ -253,20 +257,28 @@ li {
 }
 
 /* 우측 사용자 메뉴 */
+.user-menu {
+	margin-left: 100px;
+}
+
+
+
 .user-menu ul {
 	display: flex;
 	align-items: center;
 	gap: 1px;
+	justify-content: flex-end;
 }
 
 .user-menu a {
-	font-size: 24px;
+	font-size: 18px;
 	color: var( --font-sub-color);
 	font-weight: 700;
 	padding: 5px 8px;
 	border-radius: 5px;
 	transition: all 0.3s ease;
 	white-space: nowrap;
+
 	
 }
 
@@ -281,10 +293,3 @@ li {
 	color: var(--font-main-color);
 }
 
-
-
-
-
-
-
-/* SNS 아이콘 사이즈 크기 조절 */
