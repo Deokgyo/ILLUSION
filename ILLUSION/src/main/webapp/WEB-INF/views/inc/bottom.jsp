@@ -22,7 +22,7 @@
         <div class="footer-bottom-v2">
             <div class="footer-info-v2">
                 <div class="footer-address">
-                	<p>ILLUSION</p>
+                	<p>ILLUSION</p> 
                     <p>주식회사 일루션</p>
                     <p>부산시 부산진구 삼한골든게이트 7층</p>
                     <p>사업자번호 : 123456</p>
@@ -44,3 +44,6 @@
         </nav>
     </div>
 </footer>
+
+
+/* SNS 아이콘 사이즈 크기 조절 */

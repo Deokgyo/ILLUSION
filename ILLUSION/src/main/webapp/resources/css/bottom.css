@@ -128,10 +128,12 @@
     gap: 12px;
 }
 /* SNS 아이콘 사이즈 크기 조절 */
+/* SNS 아이콘 사이즈 크기 조절 */
+/* SNS 아이콘 사이즈 크기 조절 */
 .social-links-v2 i {
-  font-size: 20px; 
+  font-size: 20px;
 }
-
+ 
 
 /* SNS 아이콘 이미지 크기 및 애니메이션 */
 .social-links-v2 img {
