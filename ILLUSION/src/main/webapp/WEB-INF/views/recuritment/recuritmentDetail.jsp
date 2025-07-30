@@ -30,9 +30,9 @@
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         
 	        <div class="container">
-	        <header class="page-header">
-	            <h1>채용 공고</h1>
-	        </header>
+	         <div class="page-title-header">
+         	    <p class="header-text"><strong>채용공고 상세페이지</strong></p>
+             </div>
 	
 	        <main class="job-posting">
 	            <section class="job-title-section">
