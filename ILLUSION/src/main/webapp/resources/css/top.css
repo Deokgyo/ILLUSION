@@ -62,13 +62,14 @@ li {
 	display: flex;
 	gap: 30px;
 	align-items: center;
+	margin-top: 30px;
 }
 /* 개별 메뉴 링크(텍스트) */ 
 .main-nav a {
-	font-size:25px;
+	font-size:23px;
 	font-weight: bold;
 	color: var(--font-sub-color);
-	padding: 8px 0;
+	padding: 10px 0;
 	position: relative;
 	transition: color 0.3s ease;
 	white-space: nowrap;
@@ -95,7 +96,7 @@ li {
 
 /* 검색창 */
 .search-form {
-	margin-top: 50px;
+	margin-top: 30px;
 	border: 2px solid #FFD400;
 	border-radius: 25px;
 	display: flex;
@@ -103,6 +104,7 @@ li {
 	background-color: #FFFFFF;
 	padding: 1px 5px;
 	transition: all 0.3s ease;
+	height: 50px;
 }
 
 /* 검색창 포커스 효과 */
@@ -143,10 +145,11 @@ li {
 }
 
 .search-button i {
-	font-size: 15px;
+	font-size: 20px;
 	color: var(- -font-sub-color);
 	opacity: 0.7;
 	transition: opacity 0.3s ease;
+	margin-right: 10px;
 }
 
 .search-button:hover i {
@@ -165,7 +168,7 @@ li {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	font-size: 25px;
+	font-size: 23px;
 }
 
 .dropdown>a::after {
@@ -187,7 +190,7 @@ li {
   flex-direction: column;
   gap: 10px; 
   position: absolute;
-  top: 0;
+  top: 25;
   left: 50%;
   background-color: #fff;
   border-radius: 12px;
@@ -268,6 +271,7 @@ li {
 	align-items: center;
 	gap: 1px;
 	justify-content: flex-end;
+	margin-top: 30px;
 }
 
 .user-menu a {
