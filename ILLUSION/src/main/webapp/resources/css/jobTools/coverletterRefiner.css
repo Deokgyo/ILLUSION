@@ -113,3 +113,8 @@
     opacity: var(--button-disabled-opacity);
     cursor: not-allowed;
 }
+
+.gradient-btn{
+	width: 140px;
+	height: 45px;
+}

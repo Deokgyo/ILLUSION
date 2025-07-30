@@ -17,6 +17,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/chatbot.css">
+    <style type="text/css">
+    	.gradient-btn{
+    		position: absolute;
+		    bottom: 100px;
+		    right: 30px;
+		    width: 150px;
+    	}
+    </style>
 </head>
 <body>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -59,8 +67,8 @@
                 </div>
 
                 <!-- 토큰 충전 버튼 (Floating) -->
-                <button type="button" class="btn btn-token-charge">
-                    <span class="icon">🪙</span> 토큰 충전
+                <button type="button" class="gradient-btn">
+                    토큰 충전 
                 </button>
                 
             </div>

@@ -26,10 +26,10 @@
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
+          	<div class="page-title-header">
+              	<p class="header-text"><strong>생성된 자기소개서</strong></p>
+          	</div>
             <div class="result-box">
-            	<div class="page-title-header">
-                	<p class="header-text"><strong>생성된 자기소개서</strong></p>
-            	</div>
                 
 
                 <div class="result-meta">

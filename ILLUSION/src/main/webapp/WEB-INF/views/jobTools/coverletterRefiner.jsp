@@ -19,12 +19,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterRefiner.css">
     
-     <style type="text/css">
-	     .gradient-btn{
-	     	width: 18em;
-	     	height: 60px
-	     }
-     </style> 
+    
 </head>
 <body>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -32,10 +27,11 @@
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
-            <div class="refiner-box">
-                <div class="page-title-header">
+       		    <div class="page-title-header">
                     <p class="header-text"><strong>자기소개서 다듬기</strong></p>
                 </div>
+            <div class="refiner-box">
+                
                 
                 <nav class="refiner-tabs-nav">
                     <a href="#" class="tab-link active" data-tab="panel-new-resume">새 자소서 다듬기</a>
@@ -57,7 +53,7 @@
                                     <div class="drop-zone-icon"><i class="fa-regular fa-folder-open"></i></div>
                                     <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요</p>
                                 </div>
-                                <div class="upload-button-wrapper"><button class="btn btn-yellow">업로드</button></div>
+                                <div class="upload-button-wrapper"><button class="gradient-btn">업로드</button></div>
                             </div>
                         </div>
 
@@ -89,7 +85,7 @@
 
                 <div class="submit-button-wrapper">
                     <button id="refine-submit-btn" class="gradient-btn" disabled>
-                        자기소개서 다듬기 (🪙 30토큰 차감)
+                        자기소개서 다듬기
                     </button>
                 </div>
 
