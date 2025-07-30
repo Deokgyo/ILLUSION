@@ -17,13 +17,16 @@
   --button-disabled-opacity: 0.65;
 
   /* 메인 텍스트 컬러 */
-  --font-main-color: #212529;
+  --font-main-color: #333333;
 
-  /* 서브 텍스트 컬러 (예: 플레이스홀더 등) */
-  --font-sub-color: #888888;
+  /* 서브 텍스트 컬러 (헤더, 푸터) */
+  --font-sub-color: #797272;
 
+  /* 플레이스홀더 색상 */
+  --font-placeholder-color: #888888;
+ 
   /* 본문 영역 배경색 */
-  --body-bg-color: #fffef9;
+  --body-bg-color: #ffffff;
 
   /*그라데이션 */
   --background-gradient: linear-gradient(#FFF5E1 0%, 
