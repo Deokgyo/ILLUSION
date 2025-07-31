@@ -242,44 +242,8 @@ h1 {
 }
 
 /* --- 차트 스타일 --- */
-.chart {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 100px;
-    gap: 25px;
-}
-
-.bar-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.8rem;
-}
-
-.bar-group .label {
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.bar-group .group {
+.gender-count p{
+	margin: 15px 0;
+    font-size: 0.9rem;
     color: var(--font-sub-color);
-    margin-top: 5px;
 }
-
-.bar {
-    width: 30px;
-    border-radius: 4px;
-}
-
-/* 성별 차트 바 */
-.gender-chart .female { height: 60%; background-color: var(--main-color-hover); }
-.gender-chart .male { height: 80%; background-color: var(--main-color-hover); }
-
-/* 연봉 차트 바 */
-.salary-chart .bar { background-color: #a5d8ff; width: 25px; }
-.salary-chart { gap: 15px; }
-.salary-chart .s1 { height: 20%; }
-.salary-chart .s2 { height: 75%; }
-.salary-chart .s3 { height: 35%; }
-.salary-chart .s4 { height: 80%; }

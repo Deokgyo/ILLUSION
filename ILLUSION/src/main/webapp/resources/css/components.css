@@ -91,7 +91,7 @@
     transition: all .4s ease-in-out;
     /* .color-1의 스타일 통합 */
     background-image: var(--background-gradient-horizontally);
-    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+    box-shadow: 0 4px 15px 0 rgba(159, 175, 174, 0.75);
 }
 
 .gradient-btn:hover, .gradient-btn:active {
