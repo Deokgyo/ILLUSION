@@ -3,210 +3,103 @@
 /* ======================================================
  *      사이드바 전체 스타일 (Sidebar container)
  * ====================================================== */
-.sidebar {
-  width: 300px;                         
-  background-color: #FFFDF6;          
-  border-radius: 20px;               
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 30px 20px;                
-  box-sizing: border-box;            
-  align-self: flex-start;             /* flex 컨테이너 내부일 때만 */
-  position: sticky;                   /* <-- 핵심! */
-  top: 20px;                          /* 상단에서 20px */
-  flex-shrink: 0;                    
-  height: auto;                       /* 높이 자동 */
-  max-height: calc(100vh - 40px);     /* 최대높이: 화면 기준 */
-  overflow-y: auto;                   /* 사이드바가 길면 내부 스크롤 */
+* {
+	margin:0px;
+	padding:0px;
 }
+/* ... (이전과 동일한 .sidebar, 프로필 관련 코드는 생략) ... */
+.sidebar { width: 300px; background-color: #FFFDF6; border-radius: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); padding: 30px 20px; box-sizing: border-box; align-self: flex-start; position: sticky; top: 20px; flex-shrink: 0; height: auto; max-height: calc(100vh - 40px); overflow-y: auto; }
+.sidebar-profile-new { text-align: center; margin-bottom: 25px; }
+.sidebar-logo { font-family: 'Times New Roman', serif; font-weight: 600; font-size: 30px; letter-spacing: 2px; color: var(--font-sub-color); margin-bottom: 50px; }
+.profile-card { background-color: #ffffff; border-radius: 24px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07); padding: 20px; position: relative; margin-top: 90px; }
+.profile-image { width: 130px; height: 130px; background-color: #fff; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); position: absolute; top:-70px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; }
+.profile-image a{ size: 11px; }
+.username { font-size: 25px; font-weight: 700; color: var(--font-sub-color); margin-top: 50px; margin-bottom: 20px; }
+.profile-actions { display: flex; flex-direction: column; gap: 10px; }
+.profile-btn { display: block; padding: 12px; border: 1px solid #EBE3D5; background-color: #fff; border-radius: 50px; text-decoration: none; color:var(--font-sub-color); font-weight: 600; font-size: 17px; transition: all 0.2s ease; }
+.profile-btn:hover { background-color: #FDF4D9; border-color:var (--main-color-hover); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); }
 
 
-/* 사이드바 프로필 영역 - 중앙 정렬 */
-.sidebar-profile-new {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-/* 사이드바 로고 텍스트 스타일 */
-.sidebar-logo {
-  font-family: 'Times New Roman', serif;
-  font-weight: 600;
-  font-size: 30px;
-  letter-spacing: 2px;
-  color: var(--font-sub-color);
-  margin-bottom: 50px;
-}
-
-/* 프로필 카드 박스 스타일 */
-.profile-card {
-  background-color: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
-  padding: 20px;
-  position: relative;               /* 자식 요소 절대위치 기준 */
-  margin-top: 90px;
-}
-
-/* 프로필 이미지 박스 - 중앙 위치, 그림자 효과 */
-.profile-image {
-  width: 130px;
-  height: 130px;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  top:-70px;                      /* 카드 위로 반쯤 올라오게 배치 */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;                   /* 아이콘 중앙 정렬 */
-  align-items: center;
-  justify-content: center;
-}
-
-.profile-image a{
-	size: 11px;
-}
-
-/* 사용자 이름 텍스트 스타일 */
-.username {
-  font-size: 25px;
-  font-weight: 700;
-  color: var(--font-sub-color);
-  margin-top: 50px;
-  margin-bottom: 20px;
-}
-
-/* 프로필 액션 버튼을 세로 방향으로 배치 */
-.profile-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;                      /* 버튼 간격 */
-}
-
-/* 프로필 액션 버튼 기본 스타일 */
-.profile-btn {
-  display: block;
-  padding: 12px;
-  border: 1px solid #EBE3D5;
-  background-color: #fff;
-  border-radius: 50px;             /* 둥근 타원형 버튼 */
-  text-decoration: none;
-  color:var(--font-sub-color);
-  font-weight: 600;
-  font-size: 17px;
-  transition: all 0.2s ease;
-}
-
-/* 프로필 버튼 호버(마우스 오버) 효과 */
-.profile-btn:hover {
-  background-color: #FDF4D9;
-  border-color:var (--main-color-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* 사이드바 내비게이션 메뉴 - 상단 경계선 및 패딩 */
+/* ======================================================
+ *      사이드바 내비게이션 (최종 수정)
+ * ====================================================== */
 .sidebar-nav {
   border-top: 1px solid #EBE3D5;
   padding-top: 15px;
 }
-
-/* 내비게이션 메뉴 리스트 초기화 */
 .sidebar-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  list-style: none; padding: 0; margin: 0;
 }
-
-/* 내비게이션 메뉴 아이템 아래 여백 */
 .sidebar-nav li {
-  margin-bottom: 5px;
+  margin-bottom: 12px;
 }
 
-/* 메뉴 항목 링크 스타일 */
+/* 1. 모든 메인 메뉴의 '기본' 스타일 (하얀색 박스) */
 .sidebar-nav > ul > li > a {
-  display: flex;
-  align-items: center;
-  padding: 13px 15px;
-  text-decoration: none;
-  color:var(--font-main-color);
-  font-weight: 600;
-  border-radius: 10px;
-  transition: background-color 0.2s, color 0.2s;
-  font-size: 20px;
+  display: flex; align-items: center; width: 100%; box-sizing: border-box; background-color: #ffffff; padding: 13px 15px; border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06); /* 흰색 배경에 맞는 은은한 그림자 */
+  text-decoration: none; color:var(--font-main-color); font-weight: 600; font-size: 20px; 
+  transition: all 0.2s ease; /* transition 대상을 all로 변경하여 그림자 변화도 부드럽게 */
 }
 
-/* 메뉴 항목 호버 시 배경색 변경 */
-.sidebar-nav > ul > li > a:hover {
+/* 
+  ▼▼▼▼▼ 수정된 부분 ▼▼▼▼▼
+  2. '현재 카테고리가 아닌' 메뉴에 마우스를 올렸을 때의 스타일
+     - 노란색 배경에 맞는 전용 그림자 추가
+*/
+.sidebar-nav > ul > li:not(.current-category) > a:hover {
   background-color: #FFE585;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 노란색 배경에 맞는 살짝 더 진한 그림자 */
 }
 
-/* 활성화된 메뉴 항목 스타일 */
-.sidebar-nav li.active > a {
-  background-color:var( --main-color);
-  color: #fff;
-}
-
-/* 메뉴 아이콘 크기와 여백 조정 */
-.sidebar-nav a .fa-solid {
-  width: 20px;
-  margin-right: 12px;
-  text-align: center;
-}
-
-/* 서브메뉴 화살표 우측 정렬 및 전환 애니메이션 */
-.sidebar-nav .has-submenu .arrow {
-  margin-left: auto;
-  transition: transform 0.3s ease;
-}
-
-/* 활성화 시 화살표 회전 */
-.sidebar-nav li.active .arrow {
-  transform: rotate(180deg);
-}
-
-/* 서브메뉴 기본 상태 - 숨김 및 애니메이션 */
-.sidebar-nav .submenu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-in-out;
-  background-color: #FFFDF6;
-  border-radius: 8px;
-  margin-top: 5px;
-  
-}
-
-/* 서브메뉴 활성화 시 확장 */
-.sidebar-nav li.active .submenu {
-  max-height: 500px;
-  padding: 10px 0;
-}
-
-/* 서브메뉴 항목 링크 스타일 */
-.sidebar-nav .submenu a {
-  font-size: 18px;
-  font-weight: 500;
+/* 
+  ▼▼▼▼▼ 수정된 부분 ▼▼▼▼▼
+  3. '현재 카테고리인' 메뉴의 스타일 (노란색 박스)
+     - 노란색 배경에 맞는 전용 그림자 추가
+*/
+.sidebar-nav li.current-category > a {
+  background-color: #FFE585;
   color: var(--font-main-color);
-  padding: 12px 18px 12px 50px;
-  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 노란색 배경에 맞는 살짝 더 진한 그림자 */
 }
 
-/* 서브메뉴 항목 호버 시 텍스트 및 배경 변경 */
+/* 메뉴 아이콘 & 화살표 */
+.sidebar-nav a .fa-solid { width: 20px; margin-right: 12px; text-align: center; }
+.sidebar-nav .has-submenu .arrow { margin-left: auto; transition: transform 0.3s ease; }
+.sidebar-nav li.active .arrow { transform: rotate(180deg); }
+
+
+/* ======================================================
+ *      서브메뉴 스타일 (최종 수정)
+ * ====================================================== */
+.sidebar-nav .submenu {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; background-color: transparent; margin-top: 5px;
+}
+.sidebar-nav li.active .submenu {
+  max-height: 500px; padding-top: 10px; padding-bottom: 10px;
+}
+.sidebar-nav .submenu li {
+    margin-bottom: 8px;
+}
+.sidebar-nav .submenu li:last-child {
+    margin-bottom: 0;
+}
+
+/* 4. 서브메뉴 항목의 '기본' 스타일 */
+.sidebar-nav .submenu a {
+  display: block; background-color: #ffffff; border-radius: 12px; 
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06); /* 흰색 배경에 맞는 은은한 그림자 */
+  font-size: 18px; font-weight: 500; color: var(--font-main-color); padding: 14px 20px;
+  transition: all 0.2s ease;
+}
+
+/* 
+  ▼▼▼▼▼ 수정된 부분 ▼▼▼▼▼
+  5. 서브메뉴 항목에 마우스를 올렸을 때의 스타일
+     - 노란색 배경에 맞는 전용 그림자 추가
+*/
 .sidebar-nav .submenu a:hover {
-  color: #000000;
-  background-color: transparent;
-  
-}
-
-
-/* 글자 박스 */
-.text-box {
-  border: none;   /* 테두리 색상은 원하는 대로 */
-  background: #ffffff;         /* 박스 배경색 */
-  border-radius: 8px;         /* 둥근 모서리 */
-  padding: 10px 8px;          /* 여백 (상하/좌우) */
-  margin-bottom: 15px;
-  font-weight: bold;
-  display: inline-block;       /* 글자만큼 네모 */
-  margin-left: 6px;            /* 아이콘과 박스 사이 간격 */
-  box-shadow: 0 6px 4px rgba(0,0,0,0.15); /* 그림자(원하면) */
+  background-color: #FFE585;
+  color: var(--font-main-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 노란색 배경에 맞는 살짝 더 진한 그림자 */
 }

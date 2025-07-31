@@ -47,16 +47,14 @@
 					  	<h2>10</h2>
 					  	<input type="button" value="공고관리" class="gradient-btn">
 					  </div>
-					 </div>  
-				 
-					<div class="section-dash02">
+					</div>
+					<div class="section-dash01">
 						<div class="section-content">
 							<h1>공고목록</h1>
 						</div>
 					</div>
-				
-					<div class="section-dash03">
-						<%-- 페이지 상단 프로필 정보 --%>
+					<%-- 페이지 상단 프로필 정보 --%>
+					<div class="section-dash02">
 							<h1>박덕교님</h1>
 					</div>
 				</div>
@@ -163,11 +161,11 @@
 		</section>
 		
 		<%--메인 하단 5가지 팁 --%>
-		<section class="tip-section section-container">
+		<section class="tip-section">
 			<div class="section-name">
 			  	<p>좋은 인재를 고르는 5가지 팁</p>
-			  	<hr>
 			</div>
+			  	<hr>
 			<div class="tips-container">
 				<div class="tip">
 					<h1>제목</h1>
