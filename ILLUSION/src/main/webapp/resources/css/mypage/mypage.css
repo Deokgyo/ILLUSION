@@ -106,14 +106,19 @@ body {
 }
 
 .profile-right {
-	display: flex;
-	justify-content: column;
-	gap: 10px;
-	flex-direction: column;
-	border: 1px solid #FFE585;
-	padding: 10px;
-	border-radius: 10px;
+    display: flex;
+    justify-content: column;
+    gap: 21px;
+    flex-direction: column;
+    border: 3px solid #FFE585;
+    padding: 22px;
+    border-radius: 10px;
+    width: 170px;
+    height: 200px;
+    font-size: 12px;
+    text-align: center;
 }
+
 
 .profile-right img {
 	width: 110px;
@@ -121,7 +126,7 @@ body {
 }
 
 
-.gradient-icon {
+.gradient-icon1 {
     font-size: 100px;
     background: linear-gradient(to right, #FEEFCA 10%, #EFF3DD 50%, #EDF1E0 63%, #E8EDE7 75%, #FDE2F3 100%);
     -webkit-background-clip: text;

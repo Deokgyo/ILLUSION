@@ -60,13 +60,13 @@
         </div>
        
       <div class="profile-right">
-      <i class="fa-solid fa-file-lines gradient-icon"></i>
+      <i class="fa-solid fa-file-lines gradient-icon1"></i>
       
 <%-- 	    <img src="${pageContext.request.contextPath}/resources/mypage_image/resume3.png">   --%>
         <div class="btn-yellow"><a href="resumeWrite"> 이력서 작성</a></div>
         </div>
       <div class="profile-right"> 
-      <i class="fa-solid fa-coins gradient-icon"></i>
+      <i class="fa-solid fa-coins gradient-icon1"></i>
          <div class="btn-yellow"><a href="token_pay"> 토큰 충전</a></div>
        </div>
     </div>
