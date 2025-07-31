@@ -40,7 +40,9 @@
 
 
   <div class="interest-section">
-    <h2>입사 지원 현황</h2>
+    <div class="page-title-header">
+                <p class="header-text"><strong>입사 지원 현황</strong></p>
+            </div>
     <table class="interest-table">
       <thead>
         <tr>
@@ -62,7 +64,7 @@
           <td>🔖</td>
         </tr>
         <tr class="highlight">
-          <td><input type="checkbox" checked></td>
+          <td><input type="checkbox"></td>
           <td>[네이버] 풀텍스 신입 채용</td>
           <td>채용중</td>
           <td>25.07.25</td>

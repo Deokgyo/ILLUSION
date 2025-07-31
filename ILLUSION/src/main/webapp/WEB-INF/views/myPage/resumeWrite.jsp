@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/components.css">
+    <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/resumeWrite.css">
 </head>
 <header>
@@ -27,8 +29,11 @@
 <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
+        <div class="page-title-header">
+                <p class="header-text"><strong>이력서 등록</strong></p>
+            </div>
 <div class="container">
-        <div class="top-header">이력서 등록</div>
+        
 
         <div class="resume-form">
             <div class="section">

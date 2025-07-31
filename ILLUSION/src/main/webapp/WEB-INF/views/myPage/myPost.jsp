@@ -39,7 +39,9 @@
 		<main class="main-content">
 			<!-- 여기에 메인내용 -->
 			<div class="board-container">
-				<h2 class="board-title">내가 쓴 게시물</h2>
+				<div class="page-title-header">
+                <p class="header-text"><strong>내가 쓴 게시물</strong></p>
+            </div>
 
 				<div class="board-filter">
 					<select>

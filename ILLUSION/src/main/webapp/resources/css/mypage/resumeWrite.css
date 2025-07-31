@@ -193,7 +193,10 @@
         
         
         .btn-save {
-            background-color: #ffd645;
+            background-color: #FFE87C;
             color: #333;
             margin-top: 20px;
         }
+        .btn-save:hover {
+			background-color: #ffd95c;
+		}

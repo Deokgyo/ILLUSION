@@ -63,5 +63,15 @@ public class MypageContrlloer {
 	public String token_pay() {
 		return "myPage/token_pay";
 	}
+	/*이력서 상세보기 */
+	@GetMapping("savedResumeDetail")
+	public String savedResumeDetail() {
+		return "myPage/savedResumeDetail";
+	}
+	/*자소서 상세보기 */
+	@GetMapping("savedCLDetail")
+	public String savedCLDetail() {
+		return "myPage/savedCLDetail";
+	}
 }
        

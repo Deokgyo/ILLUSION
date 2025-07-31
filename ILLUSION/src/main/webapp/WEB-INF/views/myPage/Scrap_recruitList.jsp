@@ -38,8 +38,11 @@
 	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	<main class="main-content">
 	<div class="favorite-container">
-  <h2 class="favorite-title">관심공고 목록</h2>
-
+	
+<!--   <h2 class="favorite-title">관심공고 목록</h2> -->
+<div class="page-title-header">
+                <p class="header-text"><strong>관심공고 목록</strong></p>
+            </div>
   <div class="table-box">
     <table class="favorite-table">
       <thead>

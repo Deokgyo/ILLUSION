@@ -1,9 +1,10 @@
 @charset "UTF-8";
+
 body {
-  margin: 0;
-  font-family: 'Pretendard', sans-serif;
-  background: #fff;
-  color: #333;
+	margin: 0;
+	font-family: 'Pretendard', sans-serif;
+	background: #fff;
+	color: #333;
 }
 
 /* .mypage-container { */
@@ -14,170 +15,191 @@ body {
 /*   box-shadow: 0 4px 20px rgba(0,0,0,0.05); */
 /*   background: linear-gradient(to bottom, #fff8e5, #fdf5fa); */
 /* } */
-
 .title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 30px;
-  font-weight: bold;
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 30px;
+	font-weight: bold;
 }
 
 .profile-box {
-    display: flex;
-    justify-content: space-around;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 40px;
-    flex-direction: row;
-    gap:10px;
+	display: flex;
+	justify-content: space-around;
+	background: #fff;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	margin-bottom: 40px;
+	flex-direction: row;
+	gap: 10px;
 }
 
 .profile-left {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .profile-img {
-  width: 120px;             /* 프로필 이미지 박스 너비 */
-  height: 130px;            /* 프로필 이미지 박스 높이 */
-  border: 1px solid #FFE585;  /* 테두리 표시 */
-  overflow: hidden;         /* 이미지 넘칠 경우 숨김 */
+	width: 120px; /* 프로필 이미지 박스 너비 */
+	height: 130px; /* 프로필 이미지 박스 높이 */
+	border: 1px solid #FFE585; /* 테두리 표시 */
+	overflow: hidden; /* 이미지 넘칠 경우 숨김 */
 }
 
 .profile-img img {
-  width: 100%;          /* 너비를 부모에 100% 맞춤 */
-  height: 100%;         /* 높이를 부모에 100% 맞춤 */
-  object-fit: cover;    /* 비율을 유지하며 부모 요소를 '가득' 채움 (넘치는 부분은 잘림) */
-
+	width: 100%; /* 너비를 부모에 100% 맞춤 */
+	height: 100%; /* 높이를 부모에 100% 맞춤 */
+	object-fit: cover; /* 비율을 유지하며 부모 요소를 '가득' 채움 (넘치는 부분은 잘림) */
 }
+
 .profile-info {
-            display: flex;
-            flex-direction: column; /* 이름, 이메일 등을 세로로 쌓음 */
-            align-items: flex-start; /* 왼쪽 정렬 */
-            flex-grow: 1;            /* 남는 공간을 모두 차지하여 오른쪽 섹션을 밀어냄 */
-            padding: 0 20px;         /* 좌우 여백을 주어 답답하지 않게 함 */
+	display: flex;
+	flex-direction: column; /* 이름, 이메일 등을 세로로 쌓음 */
+	align-items: flex-start; /* 왼쪽 정렬 */
+	flex-grow: 1; /* 남는 공간을 모두 차지하여 오른쪽 섹션을 밀어냄 */
+	padding: 0 20px; /* 좌우 여백을 주어 답답하지 않게 함 */
 }
 
 .profile-info .main-username {
-  font-weight: bold;
-  font-size: 30px;
+	font-weight: bold;
+	font-size: 30px;
 }
 
 .profile-info .email {
-  font-size: 14px;
-  color: #666;
+	font-size: 14px;
+	color: #666;
 }
 
 .token {
-  margin: 6px 0;
-  color: #333;
+	margin: 6px 0;
+	color: #333;
+}
+
+.token img {
+	width: 20px;
+	height: 20px;
+	object-fit: contain;
 }
 
 .edit-btn {
-  background: #ffffff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  box-shadow: -0.3px 2.1px 2px 0px gray;
+	background: #ffffff;
+	border: none;
+	padding: 6px 12px;
+	border-radius: 6px;
+	font-size: 13px;
+	cursor: pointer;
+	box-shadow: -0.3px 2.1px 2px 0px gray;
 }
 
 .profile-right {
-    display: flex;
-    justify-content: column;
-    gap: 10px;
-    flex-direction: column;
-    border: 1px solid #FFE585;
-    padding:10px;
-    border-radius: 10px;
+	display: flex;
+	justify-content: column;
+	gap: 10px;
+	flex-direction: column;
+	border: 1px solid #FFE585;
+	padding: 10px;
+	border-radius: 10px;
 }
-.profile-right img{
+
+.profile-right img {
 	width: 110px;
-    height: 100px;
+	height: 100px;
 }
 
 .profile-right2 {
-    display: flex;
-    justify-content: column;
-    gap: 10px;
-    flex-direction: column;
-    border: 1px solid #FFE585;
-    padding:10px;
-    border-radius: 10px;
+	display: flex;
+	justify-content: column;
+	gap: 10px;
+	flex-direction: column;
+	border: 1px solid #FFE585;
+	padding: 10px;
+	border-radius: 10px;
 }
-.profile-right2 img{
+
+.profile-right2 img {
 	width: 110px;
-    height: 100px;
+	height: 100px;
 }
 
 .action-btn {
-  background: #ffffff;
-  padding: 10px;
-  text-align: center;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: -0.3px 2.1px 2px 0px gray;
+	background: #ffffff;
+	padding: 10px;
+	text-align: center;
+	border-radius: 10px;
+	font-weight: bold;
+	cursor: pointer;
+	box-shadow: -0.3px 2.1px 2px 0px gray;
 }
-
-
+.save-box{
+	background: #fff;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	margin-bottom: 40px;
+}
 .section {
-  margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 .section h2 {
-  margin-bottom: 15px;
-  font-size: 18px;
-  border-left: 5px solid #fddde6;
-  padding-left: 10px;
+	margin-bottom: 15px;
+	font-size: 18px;
+	border-left: 5px solid #fddde6;
+	padding-left: 10px;
 }
 
 .grid {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
 }
 
 .file-card {
-  flex: 1 1 calc(33% - 12px);
-  background: #fff;
-  border-radius: 10px;
-  padding: 15px;
-  text-align: center;
-  font-weight: 500;
-  background: #fffdf7;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  height: 100px;
-  font-size: 27px;
-  
+	flex: 1 1 calc(33% - 12px);
+	background: #fff;
+    border: solid #ffffff;
+	border-radius: 10px;
+	padding: 15px;
+	text-align: center;
+	font-weight: 500;
+	background: #fffdf7;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	height: 100px;
+	font-size: 27px;
 }
+
+.file-card:hover {
+	background-color: #FDF4D9;
+	border-color: #B08968;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05)
+}
+
 .action-btn a {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-  
-}
- .file-card a {
-  display: flex;
-  text-decoration: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-}
-.edit-btn a{
 	display: block;
-  text-decoration: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
+	text-decoration: none;
+	color: inherit;
+	width: 100%;
+	height: 100%;
+}
+
+.file-card a {
+	display: flex;
+	text-decoration: none;
+	color: inherit;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.edit-btn a {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+	width: 100%;
+	height: 100%;
 }
