@@ -60,17 +60,19 @@
         </div>
        
       <div class="profile-right">
-	    <img src="${pageContext.request.contextPath}/resources/mypage_image/resume.png">  
-        <div class="action-btn"><a href="resumeWrite"> 이력서 작성</a></div>
+      <i class="fa-solid fa-file-lines gradient-icon1"></i>
+      
+<%-- 	    <img src="${pageContext.request.contextPath}/resources/mypage_image/resume3.png">   --%>
+        <div class="btn-yellow"><a href="resumeWrite"> 이력서 작성</a></div>
         </div>
-      <div class="profile-right2"> 
-      	  <img src="${pageContext.request.contextPath}/resources/mypage_image/token.png"> 
-         <div class="action-btn"><a href="token_pay"> 토큰 충전</a></div>
+      <div class="profile-right"> 
+      <i class="fa-solid fa-coins gradient-icon1"></i>
+         <div class="btn-yellow"><a href="token_pay"> 토큰 충전</a></div>
        </div>
-       
-        
     </div>
-
+	
+	
+	
     <!-- 저장한 파일 -->
     <div class="save-box">
     <div class="section">

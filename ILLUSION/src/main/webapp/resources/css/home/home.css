@@ -1,6 +1,6 @@
 /* 메인 컨텐츠를 화면 중앙에 정렬 */
 .center-content {
-  min-height: 70vh; /* 헤더/푸터 제외 영역 확보 */
+  min-height: 50vh; /* 헤더/푸터 제외 영역 확보 */
   display: flex;
   flex-direction: column;
   align-items: center;

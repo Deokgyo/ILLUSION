@@ -21,7 +21,7 @@
 	href="${pageContext.request.contextPath}/resources/css/top.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bottom.css">
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/home/home.css">
 <style type="text/css">
 .btn-bd-primary {
@@ -46,8 +46,9 @@
 
 	<main class="center-content">
 		<h1>
-			<span class="bg-text">ILLUSION</span>
-			<span class="highlight">ILLUSION이 채용의<br> 시작을 바꿉니다</span>
+			<span class="bg-text">ILLUSION</span> <span class="highlight">ILLUSION이
+				채용의<br> 시작을 바꿉니다
+			</span>
 		</h1>
 		<p class="desc">이력서부터 면접까지, 당신의 커리어를 스마트하게 설계하세요.</p>
 		<div class="btn-group">
@@ -58,7 +59,7 @@
 			<span>📝 자기소개서 생성하기</span> <span>✏️ 자기소개서 다듬기</span> <span>🤖
 				AI 면접 예상질문 생성</span> <span>💬 취업상담 챗봇</span>
 		</div>
-		
+
 	</main>
 
 

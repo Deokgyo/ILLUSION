@@ -22,7 +22,7 @@
 .resume-list-header {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  background-color: #fff4c4;
+  background-color: #FFE585;
   padding: 12px 16px;
   font-weight: 600;
   font-size: 14px;
@@ -59,7 +59,7 @@
 }
 
 .edit-btn {
-  background-color: #fff4c4;
+  background-color:#FFE585;
   border: none;
   padding: 8px 14px;
   border-radius: 8px;
@@ -70,7 +70,7 @@
 }
 
 .edit-btn:hover {
-  background-color: #ffd95c;
+  background-color: #fcd34d;
 }
 
 .resume-footer {
@@ -81,7 +81,7 @@
 }
 
 .delete-btn {
-  background-color: #FFE87C;
+  background-color:#FFE585;
   border: none;
   padding: 10px 20px;
   font-weight: bold;
@@ -91,7 +91,7 @@
 }
 
 .delete-btn:hover {
-  background-color: #ffd95c;
+  background-color: #fcd34d;
 }
 
 .pagination {
