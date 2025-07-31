@@ -120,7 +120,7 @@ body {
 .job-card {
     background-color: var(--body-bg-color);
     border-radius: 12px;
-    box-shadow: 0 20px 20px rgba(0,0,0,0.09);
+    box-shadow: var(--main-box-shadow);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -247,7 +247,7 @@ body {
   padding: 15px;
   background: var(--body-bg-color);
   border: 1px solid #ccc;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--main-box-shadow);
   z-index: 1000;
 }
 

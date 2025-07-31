@@ -14,7 +14,7 @@
     background-color: var(--body-bg-color);
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 4px 15px 0 rgba(159, 175, 174, 0.75); /* 기본 그림자 */
+    box-shadow: var(--main-box-shadow); /* 기본 그림자 */
     position: relative;
     overflow: hidden;
     z-index: 1;

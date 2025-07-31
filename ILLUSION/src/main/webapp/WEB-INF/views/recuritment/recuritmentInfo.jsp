@@ -48,17 +48,15 @@
 				<jsp:include page="/WEB-INF/views/recuritment/degreeFilter.jsp" />
 				<button class="reset-btn">초기화</button>
 				</div>
+				<div class="selected-filters-container">
+				    <span class="filter-label">필터:</span>
+				    <div class="tags-wrapper" id="selected-tags-area">
+				        <!-- 동적으로 필터 태그가 여기에 추가됩니다 -->
+				        <!-- 예시: <div class="filter-tag" data-value="2000-3000">💼 2천~3천만원 <button class="remove-tag-btn">×</button></div> -->
+	
+				    </div>
+				</div>
 	        </header>
-	        
-	        <!-- 선택된 필터 태그가 표시될 컨테이너 -->
-			<div class="selected-filters-container">
-			    <span class="filter-label">필터:</span>
-			    <div class="tags-wrapper" id="selected-tags-area">
-			        <!-- 동적으로 필터 태그가 여기에 추가됩니다 -->
-			        <!-- 예시: <div class="filter-tag" data-value="2000-3000">💼 2천~3천만원 <button class="remove-tag-btn">×</button></div> -->
-
-			    </div>
-			</div>
 	        
 	        <main>
 	            <section class="job-list-controls">

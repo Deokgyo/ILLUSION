@@ -32,7 +32,7 @@ h1 {
     background-color: #fff;
     border-radius: 12px;
     padding: 30px 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--main-box-shadow);
 }
 
 .section-title {
