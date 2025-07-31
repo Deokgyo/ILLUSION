@@ -12,6 +12,7 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--main-box-shadow);
+/*     box-shadow: 0 4px 12px rgba(0,0,0,0.05); */
 /*     background:  */
 /*         linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), */
 /*         var(--background-gradient); */

@@ -29,10 +29,10 @@
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	        <div class="container">
-	        <header class="search-header">
 	         <div class="page-title-header">
          	    <p class="header-text"><strong>채용정보</strong></p>
              </div>
+	        <header class="search-header">
 	            
 	            <div class="filter-bar-main">
 	                <div class="search-box">

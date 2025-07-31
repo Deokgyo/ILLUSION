@@ -9,7 +9,7 @@
     background-color: #fff;
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: var(--main-box-shadow);
 }
 .search-input-group {
     display: flex;
@@ -96,7 +96,7 @@
 
 /* 게시글 목록 */
 .post-list {
-    border-top: 2px solid #333;
+    border-top: 2px solid var(--font-font-color);
 }
 .post-item {
     display: flex;
