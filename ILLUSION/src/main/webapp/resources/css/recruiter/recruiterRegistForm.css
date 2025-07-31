@@ -8,6 +8,17 @@ main {
   	margin: 20 auto;
 }
 
+.dash-container{
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+.recruit-info-section{
+		display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 .dashboard-layout{
 /* 	display:flex; */
 /* 	align-items: center; */
@@ -23,7 +34,7 @@ main {
 }
 
 /*섹션 공통 설정*/
-.section-container, .tips-container {
+.tips-container {
 	display: flex;
 	align-items: center;
 	flex-direction: row;
@@ -53,15 +64,11 @@ main {
     border-radius: 20px;	  /* 카드 모서리 둥글기 */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);/* 그림자 */
 	padding: 40px; /* 카드 안쪽 여백 (예시) */
-	    justify-content: space-between;
+    justify-content: space-between;
+    gap: 30px;
 	
 }
 
-.card-content {
-    flex-grow: 1; /* 이 속성이 핵심입니다! */
-    width: 100%;  /* 내용이 부모 너비에 맞게 채워지도록 설정 */
-    height: 154px;
-}
 
 * {
 	margin: 0px;

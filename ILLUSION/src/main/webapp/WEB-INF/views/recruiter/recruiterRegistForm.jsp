@@ -29,116 +29,136 @@
 	
 	<main>
 		<%-- 메인 상단 공고현황 & 프로필 정보 묶음 --%>
-		<div class="dashboard-layout">
 		
-			<div class="section-name">
-			  	<p>현재 상황을 한눈에 보세요!</p>
-			</div>
 			<%-- 페이지 상단 공고현황 섹션 --%>
 			<section class="recruit-info-section section-container">
-			
-				<div class="section-dash01">
-				  <%-- 대시보드 안내문구 --%>
-				  <div class="section-content">
-				  	<h1>공고 현황</h1>
-				  	<p>진행중 공고</p>
-				  	<h2>10</h2>
-					<hr>				  	
-				  	<p>미열람 이력서</p>
-				  	<h2>10</h2>
-				  	<input type="button" value="공고관리" class="gradient-btn">
-				  </div>
-				 </div>  
-				<div class="section-dash02">
-					<div class="section-content">
-						<h1>공고목록</h1>
+				<div class="section-name">
+				  	<p>현재 상황을 한눈에 보세요!</p>
+				</div>
+				<div class="dash-container">
+					<div class="section-dash01">
+					  <%-- 대시보드 안내문구 --%>
+					  <div class="section-content">
+					  	<h1>공고 현황</h1>
+					  	<p>진행중 공고</p>
+					  	<h2>10</h2>
+						<hr>				  	
+					  	<p>미열람 이력서</p>
+					  	<h2>10</h2>
+					  	<input type="button" value="공고관리" class="gradient-btn">
+					  </div>
+					 </div>  
+				 
+					<div class="section-dash02">
+						<div class="section-content">
+							<h1>공고목록</h1>
+						</div>
 					</div>
-				</div>   
+				
+					<div class="section-dash03">
+						<%-- 페이지 상단 프로필 정보 --%>
+							<h1>박덕교님</h1>
+					</div>
+				</div>
 			</section>
 			
-			<%-- 페이지 상단 프로필 정보 --%>
-			<section class="profile-section section-container">
-				<h1>박덕교님</h1>
-			</section>
-		</div>
 		<%-- 페이지 상단 공고현황 섹션 끝--%>
 		
 		
-		<%-- 메인 중간 회사 맞춤 인재 --%>
-		<section class="company-fit-section">
-			<div class="section-name">
-			  	<p>우리회사 맞춤 인재</p>
-			</div>
-			<%-- 카드들 담는 컨테이너 --%>
-			<div class="cards-container">
-			<%-- 카드 1개씩 각각 --%>
-				  <div class="card">
-				    <%-- 제목과 내용을 div.card-content로 감싸줍니다. --%>
-				    <div class="card-content">
-				        <h1>사용자의 경험을 생각하는 웹 디자이너</h1>
-				        <p>
-				            경력 : 신입<br>
-				            학력 : 대졸 | 시각디자인학과<br>
-				            거주지 : 부산
-				        </p>
-				    </div>
-				    <input type="button" class="gradient-btn" value="이력서보기"> 
-				</div>
-				<div class="card">
-					<div class="card-content">
-						<h1>문제 해결에 강한 백엔드 개발자</h1>
-						<p>
-							경력 : 2년<br>
-							학력 : 대졸 | 컴퓨터공학과<br>
-							거주지 : 김해
-						</p>
-					</div>
-					<input type="button" class="gradient-btn" value="이력서보기"> 
-				</div>
-				<div class="card">
-					<div class="card-content">
-						<h1>꼼꼼함과 책임감을 갖춘<br> 행정사무 지원자</h1>
-						<p>
-							경력 : 신입<br>
-							학력 : 대졸 | 경영학과<br>
-							거주지 : 서울
-						</p>
-					</div>
-					<input type="button" class="gradient-btn" value="이력서보기"> 
-				</div>
-				<div class="card">
-					<div class="card-content">
-						<h1>데이터로 문제를 해결하는 분석가</h1>
-						<p>
-							경력 : 5년<br>
-							학력 : 대졸 | 통계학<br>
-							거주지 : 부산
-						</p>
-					</div>
-					<input type="button" class="gradient-btn" value="이력서보기"> 
-				</div>
-				<div class="card">
-					<div class="card-content">				
-						<h1>정확하고 책임감 있는 생산현장 사원</h1>
-						<p>
-							경력 : 2년<br>
-							학력 : 고졸<br>
-							거주지 : 울산
-						</p>
-					</div>
-					<input type="button" class="gradient-btn" value="이력서보기"> 
-				</div>
-				<div class="card">
-					<div class="card-content">
-						<h1>학생 눈높이에 맞춘 영어교육 전문가</h1>
-						<p>
-							경력 : 신입<br>
-							학력 : 대졸 | 교육학<br>
-							거주지 : 서울
-						</p>
-					</div>
-					<input type="button" class="gradient-btn" value="이력서보기"> 
-				</div>
+	<section class="company-fit-section">
+	    <div class="section-name">
+	        <p>우리회사 맞춤 인재</p>
+	    </div>
+	    
+	    <%-- 카드들 담는 컨테이너 --%>
+	    <div class="cards-container">
+	    
+	       		<%-- 카드 1 --%>
+			    <div class="card">
+		        	<div class="card-title">
+		            	<h1>문제 해결에 강한 백엔드 개발자</h1>
+		            </div>
+		            <div class="card-content">
+	                    <p>
+	                        경력 : 2년<br>
+	                        학력 : 대졸 | 컴퓨터공학과<br>
+	                        거주지 : 부산
+	                    </p>
+	                </div>
+	            	<input type="button" class="gradient-btn" value="이력서보기">
+	       		</div>
+            
+	       		<%-- 카드 2 --%>
+			    <div class="card">
+		        	<div class="card-title">
+		            	<h1>문제 해결에 강한 백엔드 개발자</h1>
+		            </div>
+		            <div class="card-content">
+	                    <p>
+	                        경력 : 2년<br>
+	                        학력 : 대졸 | 컴퓨터공학과<br>
+	                        거주지 : 부산
+	                    </p>
+	                </div>
+	            	<input type="button" class="gradient-btn" value="이력서보기">
+	       		</div>
+	            
+	       		<%-- 카드 3 --%>
+			    <div class="card">
+		               <div class="card-title">
+		                    <h1>문제 해결에 강한 백엔드 개발자</h1>
+		                </div>
+		                <div class="card-content">
+		                    <p>
+		                        경력 : 2년<br>
+		                        학력 : 대졸 | 컴퓨터공학과<br>
+		                        거주지 : 부산
+		                    </p>
+		                </div>
+	            	<input type="button" class="gradient-btn" value="이력서보기">
+		        </div>
+	       		<%-- 카드 4 --%>
+		        <div class="card">
+		               <div class="card-title">
+		                    <h1>문제 해결에 강한 백엔드 개발자</h1>
+		                </div>
+		                <div class="card-content">
+		                    <p>
+		                        경력 : 2년<br>
+		                        학력 : 대졸 | 컴퓨터공학과<br>
+		                        거주지 : 부산
+		                    </p>
+		                </div>
+	            	<input type="button" class="gradient-btn" value="이력서보기">
+		        </div>
+	        	<%-- 카드 5 --%>
+		        <div class="card">
+		               <div class="card-title">
+		                    <h1>문제 해결에 강한 백엔드 개발자</h1>
+		                </div>
+		                <div class="card-content">
+		                    <p>
+		                        경력 : 2년<br>
+		                        학력 : 대졸 | 컴퓨터공학과<br>
+		                        거주지 : 부산
+		                    </p>
+		                </div>
+	            	<input type="button" class="gradient-btn" value="이력서보기">
+		        </div>
+	        	<%-- 카드 6 --%>
+		        <div class="card">
+		               <div class="card-title">
+		                    <h1>문제 해결에 강한 백엔드 개발자</h1>
+		                </div>
+		                <div class="card-content">
+		                    <p>
+		                        경력 : 2년<br>
+		                        학력 : 대졸 | 컴퓨터공학과<br>
+		                        거주지 : 부산
+		                    </p>
+		                </div>
+	            	<input type="button" class="gradient-btn" value="이력서보기">
+		        </div>
 			</div>
 		</section>
 		
