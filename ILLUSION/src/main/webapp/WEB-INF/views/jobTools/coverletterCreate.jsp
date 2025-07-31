@@ -24,8 +24,7 @@
 
 </head>
 <body>
-	<i class="fa-solid fa-trash" style="background-image : var(--background-gradient)"></i>
-     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
