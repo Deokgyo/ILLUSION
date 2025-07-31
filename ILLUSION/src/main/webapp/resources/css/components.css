@@ -92,7 +92,7 @@
     font-weight: 600;
     color: var(--font-main); 
     cursor: pointer;
-    margin: 20px;
+/*     margin: 20px; */
     height: 55px;
     text-align:center;
     border: none;
