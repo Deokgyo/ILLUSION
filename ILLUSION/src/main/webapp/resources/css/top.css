@@ -46,28 +46,30 @@ li {
 .site-logo a {
 	display: block;
 	padding-left: 5px 8px;
+	align-items: center;
 }
 
 /* 중앙 메뉴 */
 .center-menu {
 	display: flex;
-	align-items: center;
 	gap: 35px;
 	padding: 10px;
+	margin-left: 120px;
 }
 
 /* 메인 네비게이션 */
-.main-nav ul {
+.main-nav>ul {
 	display: flex;
 	gap: 30px;
 	align-items: center;
+	margin-top: 30px;
 }
 /* 개별 메뉴 링크(텍스트) */ 
 .main-nav a {
-	font-size:25px;
+	font-size:23px;
 	font-weight: bold;
 	color: var(--font-sub-color);
-	padding: 8px 0;
+	padding: 10px 0;
 	position: relative;
 	transition: color 0.3s ease;
 	white-space: nowrap;
@@ -94,14 +96,15 @@ li {
 
 /* 검색창 */
 .search-form {
-	margin-top: 50px;
+	margin-top: 30px;
 	border: 2px solid #FFD400;
-	border-radius: 22px;
+	border-radius: 25px;
 	display: flex;
 	align-items: center;
 	background-color: #FFFFFF;
 	padding: 1px 5px;
 	transition: all 0.3s ease;
+	height: 50px;
 }
 
 /* 검색창 포커스 효과 */
@@ -119,9 +122,11 @@ li {
 	outline: none;
 	border-radius: 22px;
 	font-size: 15px;
-	width: 150px;
+	width: 200px;
+	height: 40px;
 	color: #333;
 	padding-right: 5px;
+	margin-left: 10px;
 }
 
 .search-input::placeholder {
@@ -140,10 +145,11 @@ li {
 }
 
 .search-button i {
-	font-size: 15px;
+	font-size: 20px;
 	color: var(- -font-sub-color);
 	opacity: 0.7;
 	transition: opacity 0.3s ease;
+	margin-right: 10px;
 }
 
 .search-button:hover i {
@@ -162,7 +168,7 @@ li {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	font-size: 25px;
+	font-size: 23px;
 }
 
 .dropdown>a::after {
@@ -184,13 +190,14 @@ li {
   flex-direction: column;
   gap: 10px; 
   position: absolute;
-  top: 100%;
+  top: 15%;
   left: 50%;
   background-color: #fff;
   border-radius: 12px;
   border: 1px solid #F0F0F0;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  padding: 8px;
+  padding-top: 0;
+  margin-top: 0;
   min-width: 220px;
   z-index: 1000;
   opacity: 0;
@@ -227,14 +234,19 @@ li {
 	GAP: 12PX;
 	PADDING: 12PX 16PX;
 	BORDER-RADIUS: 8PX;
-	FONT-SIZE: 15PX;
+	FONT-SIZE: 19PX;
 	FONT-WEIGHT: 500;
 	COLOR: VAR(--font-sub-color);
 /* 	     COLOR: #333;  */
 	TRANSITION: BACKGROUND-COLOR 0.2S EASE, COLOR 0.2S EASE;
 	WHITE-SPACE: NOWRAP;
- 
 }
+.dropdown-menu li {
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 /* 메뉴 항목에 마우스 올릴 때 */
 .dropdown-menu li a:hover {
   color: var(--font-main-color);
@@ -253,20 +265,29 @@ li {
 }
 
 /* 우측 사용자 메뉴 */
+.user-menu {
+	margin-left: 100px;
+}
+
+
+
 .user-menu ul {
 	display: flex;
 	align-items: center;
 	gap: 1px;
+	justify-content: flex-end;
+	margin-top: 30px;
 }
 
 .user-menu a {
-	font-size: 24px;
+	font-size: 18px;
 	color: var( --font-sub-color);
 	font-weight: 700;
 	padding: 5px 8px;
 	border-radius: 5px;
 	transition: all 0.3s ease;
 	white-space: nowrap;
+
 	
 }
 
@@ -281,10 +302,3 @@ li {
 	color: var(--font-main-color);
 }
 
-
-
-
-
-
-
-/* SNS 아이콘 사이즈 크기 조절 */

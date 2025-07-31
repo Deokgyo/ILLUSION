@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 20px auto;
     padding: 0 20px;
 }
@@ -32,7 +32,7 @@ h1 {
     background-color: #fff;
     border-radius: 12px;
     padding: 30px 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .section-title {
@@ -171,10 +171,11 @@ h1 {
 }
 
 .countdown-timer {
-    flex-basis: 40%;
-    background-color: #fff9e0;
+    flex-basis: 35%;
+    background-color: var(--body-bg-color);
+    border: 1px solid #e9ecef;
     border-radius: 8px;
-    padding: 20px;
+    padding: 40px;
     text-align: center;
 }
 
@@ -187,7 +188,7 @@ h1 {
 .timer {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #d9480f;
+    color: var(--main-color);
 }
 
 .application-details {
@@ -220,9 +221,11 @@ h1 {
 }
 
 .stat-card {
+    flex-basis: 35%;
+    background-color: var(--body-bg-color);
     border: 1px solid #e9ecef;
     border-radius: 8px;
-    padding: 20px;
+    padding: 45px;
     text-align: center;
 }
 
@@ -232,50 +235,14 @@ h1 {
 }
 
 .applicant-count {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: #2087c9;
+    color: var(--main-color);
 }
 
 /* --- 차트 스타일 --- */
-.chart {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 100px;
-    gap: 25px;
-}
-
-.bar-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.8rem;
-}
-
-.bar-group .label {
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.bar-group .group {
+.gender-count p{
+	margin: 15px 0;
+    font-size: 0.9rem;
     color: var(--font-sub-color);
-    margin-top: 5px;
 }
-
-.bar {
-    width: 30px;
-    border-radius: 4px;
-}
-
-/* 성별 차트 바 */
-.gender-chart .female { height: 60%; background-color: var(--main-color-hover); }
-.gender-chart .male { height: 80%; background-color: var(--main-color-hover); }
-
-/* 연봉 차트 바 */
-.salary-chart .bar { background-color: #a5d8ff; width: 25px; }
-.salary-chart { gap: 15px; }
-.salary-chart .s1 { height: 20%; }
-.salary-chart .s2 { height: 75%; }
-.salary-chart .s3 { height: 35%; }
-.salary-chart .s4 { height: 80%; }

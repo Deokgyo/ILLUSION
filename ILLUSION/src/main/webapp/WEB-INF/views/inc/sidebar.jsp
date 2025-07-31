@@ -21,7 +21,7 @@
                 <a href="#"><i class="fa-solid fa-briefcase"></i> 취업도구 <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></a>
                 <ul class="submenu">
                     <li><a href="coverletterCreate">자기소개서 생성기</a></li>
-                    <li><a href="coverLetterRefiner">자기소개서 다듬기</a></li>
+                    <li><a href="coverletterRefiner">자기소개서 다듬기</a></li>
                     <li><a href="interviewCreate">AI 면접 예상 질문</a></li>
                     <li><a href="chatbot">취업 챗봇</a></li>
                 </ul>

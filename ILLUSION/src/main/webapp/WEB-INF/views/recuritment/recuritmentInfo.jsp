@@ -30,13 +30,15 @@
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	        <div class="container">
 	        <header class="search-header">
-	            <h1 class="h1">채용정보</h1>
+	         <div class="page-title-header">
+         	    <p class="header-text"><strong>채용정보</strong></p>
+             </div>
+	            
 	            <div class="filter-bar-main">
 	                <div class="search-box">
 	                    <input type="text" placeholder="검색어를 입력하세요">
 	                    <button class="search-btn"><i class="fas fa-search"></i></button>
 	                </div>
-	                <button class="reset-btn">초기화</button>
 	            </div>
 	            <div class="filter-button-wrapper">
 				<jsp:include page="/WEB-INF/views/recuritment/locationFilter.jsp" />
@@ -44,6 +46,7 @@
 				<jsp:include page="/WEB-INF/views/recuritment/experienceFilter.jsp" />
 				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
 				<jsp:include page="/WEB-INF/views/recuritment/degreeFilter.jsp" />
+				<button class="reset-btn">초기화</button>
 				</div>
 	        </header>
 	        
@@ -69,122 +72,141 @@
 	            <section class="job-listings">
 	                <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name samsung">SAMSUNG</h2>
+							<div class="logo-image">
+								<img src="${pageContext.request.contextPath}/resources/image/logo-samsung.jpg" alt="Samsung Building">
+							</div>
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/30</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/images/samsung.jpg" alt="Samsung Building">
+	                        <img src="${pageContext.request.contextPath}/resources/image/samsung.jpg" alt="Samsung Building">
 	                    </div>
 	                </article>
 	
 	                <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name hyundai">HYUNDAI</h2>
+	                        <div class="logo-image">
+								<img src="${pageContext.request.contextPath}/resources/image/logo-hyundai.jpg" alt="Samsung Building">
+							</div>
 	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/10</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a>
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/images/hyundai.jpg" alt="Hyundai Building">
+	                        <img src="${pageContext.request.contextPath}/resources/image/hyundai.jpg" alt="Hyundai Building">
 	                    </div>
 	                </article>
 	
 	                <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name naver">NAVER</h2>
+	                        <div class="logo-image">
+								<img src="${pageContext.request.contextPath}/resources/image/logo-naver.jpg" alt="Samsung Building">
+							</div>
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>상시채용</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a>
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/images/naver.jpg" alt="naver font">
+	                        <img src="${pageContext.request.contextPath}/resources/image/naver.jpg" alt="naver font">
 	                    </div>
 	                </article>
 	
 	                 <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name samsung">SAMSUNG</h2>
+	                        <div class="logo-image">
+								<img src="${pageContext.request.contextPath}/resources/image/logo-samsung.jpg" alt="Samsung Building">
+							</div>
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/30</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a>
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/images/samsung.jpg" alt="Samsung Building">
+	                        <img src="${pageContext.request.contextPath}/resources/image/samsung.jpg" alt="naver font">
 	                    </div>
 	                </article>
+	                
 	                <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name hyundai">HYUNDAI</h2>
+		                    <div class="logo-image">
+		                        <img src="${pageContext.request.contextPath}/resources/image/logo-hyundai.jpg" alt="Samsung Building">
+		                    </div>
 	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/10</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a>
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                         <img src="${pageContext.request.contextPath}/resources/images/hyundai.jpg" alt="Hyundai Building">
+	                         <img src="${pageContext.request.contextPath}/resources/image/hyundai.jpg" alt="Hyundai Building">
 	                    </div>
 	                </article>
 	                <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name naver">NAVER</h2>
+	                        <div class="logo-image">
+								<img src="${pageContext.request.contextPath}/resources/image/logo-naver.jpg" alt="Samsung Building">
+							</div>
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>상시채용</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a>
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/images/naver.jpg" alt="naver font">
+	                        <img src="${pageContext.request.contextPath}/resources/image/naver.jpg" alt="naver font">
 	                    </div>
 	                </article>
 	                <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name samsung">SAMSUNG</h2>
+	                        <div class="logo-image">
+								<img src="${pageContext.request.contextPath}/resources/image/logo-samsung.jpg" alt="Samsung Building">
+							</div>
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/30</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a>
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/images/samsung.jpg" alt="Samsung Building">
+	                        <img src="${pageContext.request.contextPath}/resources/image/samsung.jpg" alt="Samsung Building">
 	                    </div>
 	                </article>
 	                <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name hyundai">HYUNDAI</h2>
+	                        <div class="logo-image">
+								<img src="${pageContext.request.contextPath}/resources/image/logo-hyundai.jpg" alt="Samsung Building">
+							</div>
 	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/10</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a>
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                         <img src="${pageContext.request.contextPath}/resources/images/hyundai.jpg" alt="Hyundai Building">
+	                         <img src="${pageContext.request.contextPath}/resources/image/hyundai.jpg" alt="Hyundai Building">
 	                    </div>
 	                </article>
 	                <article class="job-card">
 	                    <div class="card-header">
-	                        <h2 class="company-name naver">NAVER</h2>
+	                        <div class="logo-image">
+								<img src="${pageContext.request.contextPath}/resources/image/logo-naver.jpg" alt="Samsung Building">
+							</div>
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>상시채용</span>
-	                            <a href="recuritmentDetail" class="apply-btn">입사지원</a>
+	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/images/naver.jpg" alt="naver font">
+	                        <img src="${pageContext.request.contextPath}/resources/image/naver.jpg" alt="naver font">
 	                    </div>
 	                </article>
 	            </section>

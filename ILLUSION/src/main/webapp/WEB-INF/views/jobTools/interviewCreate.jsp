@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -6,8 +7,10 @@
     <meta charset="UTF-8">
     <title>AI 면접 예상질문 생성</title>
 
+	<%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
@@ -24,11 +27,10 @@
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
+            <div class="page-title-header">
+            	<p class="header-text"><strong>AI 면접 예상질문</strong> AI가 이력서에 맞춰 면접 예상질문을 만들어 드립니다</p>
+        	</div>
             <div class="interview-generator-box">
-                
-                <div class="page-title-header">
-                	<p class="header-text"><strong>AI 면접 예상질문</strong> AI가 이력서에 맞춰 면접 예상질문을 만들어 드립니다</p>
-            	</div>
                 
                 <!-- 탭 네비게이션 -->
                 <nav class="tabs-nav">
@@ -85,9 +87,8 @@
 
                 <!-- 하단 생성 버튼 -->
                 <div class="submit-button-wrapper">
-                    <button class="btn btn-yellow submit-button">
-                        <span class="icon">✨</span>
-                        예상질문 생성 (🪙 30토큰 차감)
+                    <button class="gradient-btn">
+                        예상질문 생성
                     </button>
                 </div>
 
