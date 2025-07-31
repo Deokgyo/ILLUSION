@@ -46,7 +46,7 @@
   border-radius: 10px;
   transition: background-color 0.2s, color 0.2s;
   font-size: 20px;
-  justify-content : center;
+  justify-content : flex-start;
 }
 
 /* 
@@ -71,7 +71,10 @@
 }
 
 /* 메뉴 아이콘 & 화살표 */
-.sidebar-nav a .fa-solid { width: 20px; margin-right: 12px; text-align: center; }
+.sidebar-nav a .fa-solid { 
+	width: 20px; 
+	margin-right: 12px; 
+	text-align: center; }
 .sidebar-nav .has-submenu .arrow { margin-left: auto; transition: transform 0.3s ease; }
 .sidebar-nav li.active .arrow { transform: rotate(180deg); }
 
@@ -80,10 +83,17 @@
  *      서브메뉴 스타일 (최종 수정)
  * ====================================================== */
 .sidebar-nav .submenu {
-  max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; background-color: transparent; margin-top: 5px;
+  max-height: 0; 
+  overflow: hidden; 
+  transition: max-height 0.4s ease-in-out; 
+  background-color: transparent; 
+  margin-top: 5px;
 }
+
 .sidebar-nav li.active .submenu {
-  max-height: 500px; padding-top: 10px; padding-bottom: 10px;
+  max-height: 500px; 
+  padding-top: 10px; 
+  padding-bottom: 10px;
 }
 .sidebar-nav .submenu li {
     margin-bottom: 8px;
@@ -106,7 +116,7 @@
      - 노란색 배경에 맞는 전용 그림자 추가
 */
 .sidebar-nav .submenu a:hover {
-  background-color: #FFE585;
+  background-color: #fff7d7;
   color: var(--font-main-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 노란색 배경에 맞는 살짝 더 진한 그림자 */
 }
