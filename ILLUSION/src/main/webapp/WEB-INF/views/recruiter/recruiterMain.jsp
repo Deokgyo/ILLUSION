@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet" href="./resources/css/recruiter/recruiterMain.css">
+	<link rel="stylesheet" href="./resources/css/top.css">
     <jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp"></jsp:include>
     <%-- 효과를 위한 aos 라이브러리 --%>
 	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
