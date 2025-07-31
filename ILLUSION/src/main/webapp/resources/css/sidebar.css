@@ -133,6 +133,7 @@
   border-radius: 10px;
   transition: background-color 0.2s, color 0.2s;
   font-size: 20px;
+  justify-content : center;
 }
 
 /* 메뉴 항목 호버 시 배경색 변경 */

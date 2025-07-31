@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>채용공고 페이지</title>
+    <title>관리자 메인페이지</title>
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -62,88 +62,7 @@
 	
 	            <!-- 메인 콘텐츠가 표시될 영역 -->
 	            <main class="admin-content">
-		            <main class="dashboard-content">
-		
-		        <!-- =======================
-		             상단 요약 카드 그리드
-		            ======================== -->
-		        <section class="stats-grid">
-		            <!-- 6개의 카드를 동일한 구조로 배치합니다. -->
-		            <div class="stat-card">
-		                <div class="stat-info">
-		                    <span class="stat-title">구직자 회원수</span>
-		                    <p class="stat-value">800명</p>
-		                </div>
-		                <div class="stat-icon">
-		                    <i class="bi bi-person fs-1"></i>
-		                </div>
-		            </div>
-		            <div class="stat-card">
-		                <div class="stat-info">
-		                    <span class="stat-title">구인자 회원수</span>
-		                    <p class="stat-value">100명</p>
-		                </div>
-		                <div class="stat-icon">
-		                    <i class="bi bi-briefcase fs-1"></i>
-		                </div>
-		            </div>
-		            <div class="stat-card">
-		                <div class="stat-info">
-		                    <span class="stat-title">등록된 공고수</span>
-		                    <p class="stat-value">500개</p>
-		                </div>
-		                <div class="stat-icon">
-		                    <i class="bi bi-clipboard-check fs-1"></i>
-		                </div>
-		            </div>
-		            <div class="stat-card">
-		                <div class="stat-info">
-		                    <span class="stat-title">매출액</span>
-		                    <p class="stat-value">5000 만원</p>
-		                </div>
-		                <div class="stat-icon">
-		                    <i class="bi bi-coin fs-1"></i>
-		                </div>
-		            </div>
-		            <div class="stat-card">
-		                <div class="stat-info">
-		                    <span class="stat-title">AI 첨삭 건수</span>
-		                    <p class="stat-value">340건</p>
-		                </div>
-		                <div class="stat-icon">
-		                    <i class="bi bi-filetype-ai fs-1"></i>
-		                </div>
-		            </div>
-		            <div class="stat-card">
-		                <div class="stat-info">
-		                    <span class="stat-title">문의 접수</span>
-		                    <p class="stat-value">10건</p>
-		                </div>
-		                <div class="stat-icon">
-		                    <i class="bi bi-person-exclamation fs-1"></i>
-		                </div>
-		            </div>
-		        </section>
-		
-		        <!-- =======================
-		             하단 차트 그리드
-		            ======================== -->
-		        <section class="charts-grid">
-		            <div class="chart-card">
-		                <h4 class="chart-title">매출액 추이</h4>
-		                <div class="chart-container">
-		                    <canvas id="salesChart"></canvas>
-		                </div>
-		            </div>
-		            <div class="chart-card">
-		                <h4 class="chart-title">AI 이용 건수 추이</h4>
-		                 <div class="chart-container">
-		                    <canvas id="aiUsageChart"></canvas>
-		                </div>
-		            </div>
-		        </section>
-		
-		    		</main>
+
 	            </main>
 	            
 	            <!-- 메인 푸터 -->
@@ -154,8 +73,6 @@
 	        </div>
 	    </div>
 	</div>
-	
-	<!-- 📊 차트를 그리는 스크립트 파일 -->
-    <script src="${pageContext.request.contextPath}/resources/js/admin/dashboard-charts.js"></script>    
+
 </body>
 </html>
