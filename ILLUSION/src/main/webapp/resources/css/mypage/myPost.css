@@ -33,7 +33,7 @@
 .board-header {
   display: grid;
   grid-template-columns: 1fr 5fr 2fr 2fr;
-  background-color: #FFE87C;
+  background-color: #FFE585;
   padding: 12px 16px;
   font-weight: 600;
   font-size: 14px;
@@ -79,7 +79,7 @@
 
 .edit-btn,
 .delete-btn {
-  background-color: #FFE87C;
+  background-color: #FFE585;
   border: none;
   padding: 6px 12px;
   border-radius: 6px;
@@ -91,7 +91,7 @@
 
 .edit-btn:hover,
 .delete-btn:hover {
-  background-color: #ffd95c;
+  background-color: #fcd34d;
 }
 
 .board-pagination {

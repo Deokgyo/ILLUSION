@@ -120,6 +120,14 @@ body {
 	height: 100px;
 }
 
+
+.gradient-icon {
+    font-size: 100px;
+    background: linear-gradient(to right, #FEEFCA 10%, #EFF3DD 50%, #EDF1E0 63%, #E8EDE7 75%, #FDE2F3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .profile-right2 {
 	display: flex;
 	justify-content: column;
