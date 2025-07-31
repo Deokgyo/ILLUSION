@@ -8,8 +8,21 @@
     background-color: var(--body-bg-color);
     border-radius: 12px;
     padding: 30px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: var(--main-box-shadow);
+    position: relative;
+    overflow: hidden;
 }
+
+.interview-generator-box::before{
+	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */	
+}
+
 
 .interview-generator-box .form-header {
     text-align: center;
