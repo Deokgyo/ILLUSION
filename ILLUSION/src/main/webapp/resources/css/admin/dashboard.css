@@ -1,0 +1,61 @@
+@charset "UTF-8";
+/* =======================
+    그리드 레이아웃
+   ======================== */
+.dashboard-content { padding: 20px; }
+.stats-grid, .charts-grid { display: grid; gap: 80px; }
+.stats-grid { grid-template-columns: repeat(3, 1fr); margin-bottom: 24px; }
+.charts-grid { grid-template-columns: repeat(2, 1fr); }
+
+/* =======================
+    카드 공통 스타일
+   ======================== */
+.stat-card, .chart-card {
+    background-color: var(--body-bg-color);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px 0 rgba(159, 175, 174, 0.75); /* 기본 그림자 */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환 효과 */
+    margin: 50px solid;
+}
+
+/* ✨ 호버 시 그라데이션 효과를 위한 가상 요소 (기본 상태는 투명) */
+.stat-card::before, .chart-card::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: var(--background-gradient-horizontally);
+    z-index: -1;
+    border-radius: 20px;
+    opacity: 0; /* 평소에는 투명하게 */
+    transition: opacity 0.3s ease; /* 투명도 전환 효과 */
+}
+
+/* ✨ 카드 호버 시 효과 ✨ */
+.stat-card:hover, .chart-card:hover {
+    transform: translateY(-8px); /* 위로 살짝 떠오르는 효과 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* 그림자 더 진하게 */
+}
+
+.stat-card:hover::before, .chart-card:hover::before {
+    opacity: 0.7; /* 호버 시에만 그라데이션 나타나도록 */
+}
+
+/* =======================
+    상단 요약 카드
+   ======================== */
+.stat-card { display: flex; justify-content: space-between; align-items: center; }
+.stat-title { font-size: 14px; color: var(--font-sub-color); margin-bottom: 8px; }
+.stat-value { font-size: 26px; font-weight: 700; color: var(--font-main-color); margin: 0; }
+.stat-icon img { opacity: 0.3; transition: opacity 0.3s ease; }
+.stat-card:hover .stat-icon img { opacity: 0.8; } /* 호버 시 아이콘도 진하게 */
+
+/* =======================
+    하단 차트 카드
+   ======================== */
+.chart-card { display: flex; flex-direction: column; margin-top: 150px}
+.chart-title { font-size: 16px; font-weight: 700; margin: 0 0 15px 0; color: var(--font-main-color); }
+.chart-container { position: relative; flex-grow: 1; } /* 캔버스가 부모 높이에 맞춰지도록 */
