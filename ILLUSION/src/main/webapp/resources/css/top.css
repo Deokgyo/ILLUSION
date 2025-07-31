@@ -28,18 +28,15 @@ li {
 }
 
 /* 헤더 내부 컨텐츠 */
+/* 헤더 내부 컨텐츠 (수정) */
 .header-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	max-width: 1280px;
-	margin: 0 auto;
-	padding: 0 12px;
-}
-
-.header-container ul{
-	margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 모든 자식 요소를 수직 중앙 정렬 */
+    width: 100%;
+    max-width: 1280px;
+    margin: 10px auto;
+    gap: 30px;
 }
 
 /* 로고 스타일 */
@@ -49,31 +46,44 @@ li {
 	align-items: center;
 }
 
-/* 중앙 메뉴 */
+/* 중앙 메뉴 (수정) */
 .center-menu {
-	display: flex;
-	gap: 35px;
-	padding: 10px;
-	margin-left: 120px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: 86px;
+    /* transform: translate(44px);  <-- 이 줄을 삭제하거나 주석 처리하세요. */
 }
 
 /* 메인 네비게이션 */
 .main-nav>ul {
-	display: flex;
-	gap: 30px;
-	align-items: center;
-	margin-top: 30px;
+    display: flex;
+gap: 30px;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: center;
 }
 /* 개별 메뉴 링크(텍스트) */ 
 .main-nav a {
 	font-size:23px;
 	font-weight: bold;
 	color: var(--font-sub-color);
-	padding: 10px 0;
+/* 	padding: 10px 0; */
+	padding: 0;
 	position: relative;
 	transition: color 0.3s ease;
 	white-space: nowrap;
 }
+
+nav.main-nav {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 /* 메뉴 호버(색상 강조) */
 .main-nav a:hover {
 	color: var(--font-main-color);
@@ -96,15 +106,16 @@ li {
 
 /* 검색창 */
 .search-form {
-	margin-top: 30px;
-	border: 2px solid #FFD400;
-	border-radius: 25px;
-	display: flex;
-	align-items: center;
-	background-color: #FFFFFF;
-	padding: 1px 5px;
-	transition: all 0.3s ease;
-	height: 50px;
+    /* margin-top: 0px; */
+    border: 2px solid #FFD400;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 0px;
+    transition: all 0.3s ease;
+    height: 50px;
+    margin: 0px;
 }
 
 /* 검색창 포커스 효과 */
@@ -118,15 +129,16 @@ li {
 
 /* 입력란 스타일 */
 .search-input {
-	border: none;
-	outline: none;
-	border-radius: 22px;
-	font-size: 15px;
-	width: 200px;
-	height: 40px;
-	color: #333;
-	padding-right: 5px;
-	margin-left: 10px;
+    border: none;
+    outline: none;
+    border-radius: 22px;
+    font-size: 15px;
+    width: 200px;
+    height: 40px;
+    color: #333;
+    /* padding-right: 5px; */
+    margin-left: 10px;
+    padding: 0px;
 }
 
 .search-input::placeholder {
@@ -190,22 +202,21 @@ li {
   flex-direction: column;
   gap: 10px; 
   position: absolute;
-  top: 15%;
+  top: 100%;
   left: 50%;
   background-color: #fff;
   border-radius: 12px;
   border: 1px solid #F0F0F0;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   padding-top: 0;
-  margin-top: 0;
+  margin-top: 10;
   min-width: 220px;
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transform: translate(-50%, 10px);
+  transform: translateX(-50%);
   transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
   /* 외곽선 위쪽에만 그라데이션 바 생성 (가상요소 활용) */
-  position: absolute;
   overflow: hidden; /* 아래 ::before의 둥근 상단을 위해 필요 */
 }
 
@@ -224,7 +235,7 @@ li {
 .dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0);
+transform: translateX(-50%);
   line-height: 1; 
 }
 
@@ -266,7 +277,7 @@ li {
 
 /* 우측 사용자 메뉴 */
 .user-menu {
-	margin-left: 100px;
+/* 	margin-left: 100px; */
 }
 
 
@@ -274,16 +285,18 @@ li {
 .user-menu ul {
 	display: flex;
 	align-items: center;
-	gap: 1px;
+	gap: 7px;
 	justify-content: flex-end;
-	margin-top: 30px;
+/* 	margin-top: 30px; */
+	margin:0px;
+	padding: 0px;
 }
 
 .user-menu a {
 	font-size: 18px;
 	color: var( --font-sub-color);
 	font-weight: 700;
-	padding: 5px 8px;
+/* 	padding: 5px 8px; */
 	border-radius: 5px;
 	transition: all 0.3s ease;
 	white-space: nowrap;

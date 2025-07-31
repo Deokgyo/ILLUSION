@@ -31,7 +31,7 @@
         	<ul>
 	            <li><a href="#">기업로그인</a></li>
 	            <li class="separator">|</li>
-	            <li><a href="#" class="btn-primary">회원가입</a></li>
+	            <li><a href="#">회원가입</a></li>
             </ul>
         </nav>
     </div>

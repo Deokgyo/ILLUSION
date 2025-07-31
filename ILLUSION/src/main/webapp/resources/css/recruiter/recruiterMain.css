@@ -10,7 +10,6 @@ main {
 }
 
 .section-container {
-	 max-width: 1200px;
 	margin: 0 auto;
     padding: 10px 20px;
 }
@@ -23,7 +22,6 @@ main {
     align-items: center;
     text-align: center;
     padding: 60px 20px;
-    margin-top:10px;
     /* 제공된 그라데이션 변수 사용 */
     background: var(--background-gradient);
     overflow: hidden; /* 배경 텍스트가 넘치지 않도록 설정 */
@@ -418,7 +416,7 @@ main {
   font-size: 26px; /* 폰트 크기를 설정합니다. */
   font-weight: 700; /* 폰트 두께를 bold로 설정합니다. */
   color: var(--font-main-color); /* 메인 텍스트 색상을 적용합니다. */
-  margin-bottom: 20px; /* 설명과의 간격을 위해 하단 마진을 줍니다. */
+  margin-bottom: 42px; /* 설명과의 간격을 위해 하단 마진을 줍니다. */
   text-align: center;
 }
 
@@ -443,7 +441,7 @@ main {
     결과적으로 3개의 동일한 너비의 열이 생성됩니다.
   */
   grid-template-columns: repeat(3, 1fr);
-  gap: 53px 0px; /* 로고들 사이의 간격을 설정합니다. (상하 40px, 좌우 60px) */
+  gap: 38px 0px; /* 로고들 사이의 간격을 설정합니다. (상하 40px, 좌우 60px) */
 }
 
 /* 
