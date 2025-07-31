@@ -17,7 +17,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/communityMain.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community/communityMain.css">
+    
+    <style type="text/css">
+    	.page-link {
+/*     		color: var(--main-color); */
+			color: var(--font-sub-color);
+    	}
+    </style>
 </head>
 <body>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -52,7 +59,7 @@
                         <li><a>최신순</a></li>
                     </ul>
                 </div>
-                <a href="#" class="btn btn-yellow"><i class="fa-regular fa-pen-to-square"></i> 글쓰기</a>
+                <a href="communityWrite" class="btn btn-yellow"><i class="fa-regular fa-pen-to-square"></i> 글쓰기</a>
             </div>
 
             <!-- 게시글 목록 -->
@@ -67,7 +74,7 @@
 					<div class="post-content">
 						<div class="post-title-wrapper">
 							<p class="post-title">
-								<a href="#">자기소개서 처음 쓰는데 어떤 방식으로 쓰면 좋을까요?</a>
+								<a href="communityDetail">자기소개서 처음 쓰는데 어떤 방식으로 쓰면 좋을까요?</a>
 							</p>
 						</div>
 						<div class="post-meta">
@@ -89,7 +96,7 @@
 					<div class="post-content">
 						<div class="post-title-wrapper">
 							<p class="post-title">
-								<a href="#">면접 보러 가는데 주의사항 있을까요?</a>
+								<a href="communityDetail">면접 보러 가는데 주의사항 있을까요?</a>
 							</p>
 						</div>
 						<div class="post-meta">
@@ -111,7 +118,7 @@
 					<div class="post-content">
 						<div class="post-title-wrapper">
 							<p class="post-title">
-								<a href="#">아이티윌 합격 하신 분 계신가요?</a>
+								<a href="communityDetail">아이티윌 합격 하신 분 계신가요?</a>
 							</p>
 						</div>
 						<div class="post-meta">
@@ -126,6 +133,21 @@
 				<!-- 페이지네이션 -->
 				<nav>
 					<a>«</a> <a>1</a> <a>2</a> <a>3</a> <a>4</a> <a>5</a> <a>»</a>
+				</nav>
+				
+				
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination justify-content-center">
+				    <li class="page-item disabled">
+				      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+				    </li>
+				    <li class="page-item"><a class="page-link" href="#">1</a></li>
+				    <li class="page-item"><a class="page-link" href="#">2</a></li>
+				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				    <li class="page-item">
+				      <a class="page-link" href="#">Next</a>
+				    </li>
+				  </ul>
 				</nav>
 		</main>
     </div>
