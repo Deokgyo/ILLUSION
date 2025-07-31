@@ -6,28 +6,20 @@
     <meta charset="UTF-8">
     <title>AI 취업 상담 챗봇</title>
    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
  	
  	<%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css"> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css"> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/chatbot.css">
-    <style type="text/css">
-    	.gradient-btn{
-    		position: absolute;
-		    bottom: 100px;
-		    right: 30px;
-		    width: 150px;
-    	}
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/chatbot.css"> 
 </head>
 <body>
-    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>  
 
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
@@ -50,7 +42,7 @@
                         </div>
                     </div>
                     
-                    <!-- 대화 화면 -->
+                    <!-- 대화 화면 (JS로 .chat-initial-view를 숨기고 이걸 보여줌) -->
                     <div class="chat-conversation-view">
                         <div class="chat-messages">
                             <!-- 말풍선이 동적으로 추가될 영역 -->
@@ -58,24 +50,31 @@
                     </div>
                 </div>
 
-                <!-- 하단 입력 폼 (Floating) -->
-                <div class="chat-input-form-wrapper">
-                    <form class="chat-input-form">
-                        <input type="text" id="message-input" class="form-control" placeholder="메시지를 입력하세요">
-                        <button type="submit" class="btn btn-send"><i class="fa-solid fa-arrow-up"></i></button>
-                    </form>
-                </div>
-
-                <!-- 토큰 충전 버튼 (Floating) -->
-                <button type="button" class="gradient-btn">
-                    토큰 충전 
-                </button>
+                <!-- ✅ 수정: 화면 하단 고정 입력 영역 전체를 감싸는 컨테이너 -->
+				<div class="bottom-action-container">
+				
+				    <!-- ✅ 수정: 입력창과 버튼을 나란히 정렬할 Flexbox 래퍼 -->
+				    <div class="action-wrapper">
+				
+				        <!-- 1. 메시지 입력창 -->
+				        <form class="message-input-form" onsubmit="return false;">
+				            <input type="text" id="message-input" placeholder="메시지를 입력하세요">
+				            <button type="submit" class="btn-send"><i class="fa-solid fa-arrow-up"></i></button>
+				        </form>
+				
+				        <!-- 2. 토큰 충전 버튼 (입력창의 형제 요소로 이동) -->
+				        <button type="button" class="gradient-btn">
+				            <img src="${pageContext.request.contextPath}/resources/image/token.jpg"> 토큰 충전
+				        </button>
+				
+				    </div>
+				</div>
                 
             </div>
         </main>
     </div>
 
-    <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+    <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer> 
 
     <!-- 토큰 부족 시 나타날 모달 -->
     <div id="token-modal" class="modal-overlay">
@@ -92,6 +91,6 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jobTools/chatbot.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/chatbot.js"></script> <%-- ✅ 경로 수정 --%>
 </body>
 </html>

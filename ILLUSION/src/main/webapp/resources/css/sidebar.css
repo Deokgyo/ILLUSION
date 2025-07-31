@@ -36,10 +36,17 @@
 
 /* 1. 모든 메인 메뉴의 '기본' 스타일 (하얀색 박스) */
 .sidebar-nav > ul > li > a {
-  display: flex; align-items: center; width: 100%; box-sizing: border-box; background-color: #ffffff; padding: 13px 15px; border-radius: 12px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06); /* 흰색 배경에 맞는 은은한 그림자 */
-  text-decoration: none; color:var(--font-main-color); font-weight: 600; font-size: 20px; 
-  transition: all 0.2s ease; /* transition 대상을 all로 변경하여 그림자 변화도 부드럽게 */
+
+  display: flex;
+  align-items: center;
+  padding: 13px 15px;
+  text-decoration: none;
+  color:var(--font-main-color);
+  font-weight: 600;
+  border-radius: 10px;
+  transition: background-color 0.2s, color 0.2s;
+  font-size: 20px;
+  justify-content : center;
 }
 
 /* 
