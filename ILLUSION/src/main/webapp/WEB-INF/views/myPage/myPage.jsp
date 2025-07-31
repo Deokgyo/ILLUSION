@@ -42,6 +42,9 @@
 	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	
 	<main class="main-content">
+	<div class="page-title-header">
+                <p class="header-text"><strong>마이페이지 </strong></p>
+            </div>
 		<div class="form-box">
 			<div class="profile-box">
       <div class="profile-left">
@@ -52,7 +55,7 @@
       <div class="profile-info">
           <div class="main-username">일루션님</div>
           <div class="email">illusion@naver.com</div>
-          <div class="token">🪙 30 토큰</div>   
+          <div class="token"><img src="${pageContext.request.contextPath}/resources/mypage_image/token.png"> 30 토큰</div>   
           
         </div>
        
@@ -69,6 +72,7 @@
     </div>
 
     <!-- 저장한 파일 -->
+    <div class="save-box">
     <div class="section">
       <h1>저장한 파일</h1>
       <div class="grid">
@@ -87,8 +91,9 @@
         <div class="file-card"><a href="myPost">🗒️ 내가 쓴 게시글</a></div>
       </div>
     </div>
-			
+				
 		</div>
+	</div>
 	</main>
 </div>
 <footer>

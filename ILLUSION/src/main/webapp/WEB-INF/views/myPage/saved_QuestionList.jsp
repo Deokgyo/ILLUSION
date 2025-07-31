@@ -38,7 +38,10 @@
 		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 		<main class="main-content">
 			<div class="ai-interview-container">
-				<h2 class="ai-title">저장된 AI 면접 예상질문</h2>
+			<div class="page-title-header">
+        <p class="header-text"><strong>저장된 AI 면접 예상질문 </strong> </p>
+    </div>
+
 
 				<!-- 질문 블록 -->
 				<div class="question-block">

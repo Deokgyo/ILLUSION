@@ -29,16 +29,19 @@
 	href="${pageContext.request.contextPath}/resources/css/mypage/token_pay.css">
 </head>
 <body>
-	<header>
+<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
-	
 	<div class="page-container">
 
-	
+	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	<main class="main-content">
+	<div class="page-title-header">
+                <p class="header-text"><strong>토큰 충전 </strong></p>
+            </div>
+	
 	   <div class="charge-container">
-        <div class="main-title">토큰 충전</div>
+       
 
         <div class="token-options">
             <div class="token-option" onclick="selectToken(this)">
@@ -62,11 +65,15 @@
         </div>
 
         <div class="payment-options">
-            <div class="payment-option"></div>
-             <div class="payment-option">
-                <img class="kakaopay-logo" src="https://logok.org/wp-content/uploads/2023/04/Kakaopay-logo.png" alt="kakaopay logo">
-            </div>
-            <div class="payment-option"></div>
+              <div class="payment-option">
+    			<img src="${pageContext.request.contextPath}/resources/mypage_image/kakao.png" alt="kakaopay">
+			</div>
+			  <div class="payment-option">
+					<img src="${pageContext.request.contextPath}/resources/mypage_image/naver.png" alt="naver">   
+				  </div>
+			<div class="payment-option">
+				    <img src="${pageContext.request.contextPath}/resources/mypage_image/toss.png" alt="toss">
+			 </div>
         </div>
         
         <div class="card-select-box">

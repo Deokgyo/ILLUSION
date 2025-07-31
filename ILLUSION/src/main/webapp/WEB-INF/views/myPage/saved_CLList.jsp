@@ -37,21 +37,25 @@
 	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	<main class="main-content">
 	<div class="resume-list-container">
-  <h2 class="resume-title">자기 소개서 목록</h2>
+ <div class="page-title-header">
+        <p class="header-text"><strong>자소서현황 </strong> </p>
+    </div>
 
   <div class="resume-list">
     <div class="resume-list-header">
       <span>선택</span>
-      <span>이력서 제목</span>
+      <span>자기소개서 제목</span>
       <span>관리</span>
     </div>
 
     <div class="resume-item">
       <input type="checkbox" />
+      <a href="savedCLDetail" class="resume-link">
       <div class="resume-info">
         <div class="title">따뜻한 마음을 가진 개발자</div>
         <div class="date">25.07.25</div>
       </div>
+      </a>
       <button class="edit-btn">수정</button>
     </div>
 
