@@ -37,8 +37,11 @@
 
 	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	<main class="main-content">
+	<div class="page-title-header">
+                <p class="header-text"><strong>회원정보 수정 </strong></p>
+            </div>
 	   <div class="member-info-container">
-    <div class="member-info-title">회원 정보</div>
+    
     <table>
       <tr>
         <th>아이디</th>
