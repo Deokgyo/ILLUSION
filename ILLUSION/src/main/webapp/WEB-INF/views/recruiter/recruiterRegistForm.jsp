@@ -72,58 +72,71 @@
 			<%-- 카드들 담는 컨테이너 --%>
 			<div class="cards-container">
 			<%-- 카드 1개씩 각각 --%>
+				  <div class="card">
+				    <%-- 제목과 내용을 div.card-content로 감싸줍니다. --%>
+				    <div class="card-content">
+				        <h1>사용자의 경험을 생각하는 웹 디자이너</h1>
+				        <p>
+				            경력 : 신입<br>
+				            학력 : 대졸 | 시각디자인학과<br>
+				            거주지 : 부산
+				        </p>
+				    </div>
+				    <input type="button" class="gradient-btn" value="이력서보기"> 
+				</div>
 				<div class="card">
-					<h1>사용자의 경험을 생각하는 웹 디자이너</h1>
-					<p>
-						경력 : 신입<br>
-						학력 : 대졸 | 시각디자인학과<br>
-						거주지 : 부산
-					</p>
+					<div class="card-content">
+						<h1>문제 해결에 강한 백엔드 개발자</h1>
+						<p>
+							경력 : 2년<br>
+							학력 : 대졸 | 컴퓨터공학과<br>
+							거주지 : 김해
+						</p>
+					</div>
 					<input type="button" class="gradient-btn" value="이력서보기"> 
 				</div>
 				<div class="card">
-					<h1>문제 해결에 강한 백엔드 개발자</h1>
-					<p>
-						경력 : 2년<br>
-						학력 : 대졸 | 컴퓨터공학과<br>
-						거주지 : 김해
-					</p>
+					<div class="card-content">
+						<h1>꼼꼼함과 책임감을 갖춘<br> 행정사무 지원자</h1>
+						<p>
+							경력 : 신입<br>
+							학력 : 대졸 | 경영학과<br>
+							거주지 : 서울
+						</p>
+					</div>
 					<input type="button" class="gradient-btn" value="이력서보기"> 
 				</div>
 				<div class="card">
-					<h1>꼼꼼함과 책임감을 갖춘<br> 행정사무 지원자</h1>
-					<p>
-						경력 : 신입<br>
-						학력 : 대졸 | 경영학과<br>
-						거주지 : 서울
-					</p>
+					<div class="card-content">
+						<h1>데이터로 문제를 해결하는 분석가</h1>
+						<p>
+							경력 : 5년<br>
+							학력 : 대졸 | 통계학<br>
+							거주지 : 부산
+						</p>
+					</div>
 					<input type="button" class="gradient-btn" value="이력서보기"> 
 				</div>
 				<div class="card">
-					<h1>데이터로 문제를 해결하는 분석가</h1>
-					<p>
-						경력 : 5년<br>
-						학력 : 대졸 | 통계학<br>
-						거주지 : 부산
-					</p>
+					<div class="card-content">				
+						<h1>정확하고 책임감 있는 생산현장 사원</h1>
+						<p>
+							경력 : 2년<br>
+							학력 : 고졸<br>
+							거주지 : 울산
+						</p>
+					</div>
 					<input type="button" class="gradient-btn" value="이력서보기"> 
 				</div>
 				<div class="card">
-					<h1>정확하고 책임감 있는 생산현장 사원</h1>
-					<p>
-						경력 : 2년<br>
-						학력 : 고졸<br>
-						거주지 : 울산
-					</p>
-					<input type="button" class="gradient-btn" value="이력서보기"> 
-				</div>
-				<div class="card">
-					<h1>학생 눈높이에 맞춘 영어교육 전문가</h1>
-					<p>
-						경력 : 신입<br>
-						학력 : 대졸 | 교육학<br>
-						거주지 : 서울
-					</p>
+					<div class="card-content">
+						<h1>학생 눈높이에 맞춘 영어교육 전문가</h1>
+						<p>
+							경력 : 신입<br>
+							학력 : 대졸 | 교육학<br>
+							거주지 : 서울
+						</p>
+					</div>
 					<input type="button" class="gradient-btn" value="이력서보기"> 
 				</div>
 			</div>
