@@ -47,9 +47,47 @@
 	background-color: var(--main-color-hover);
 }
 
+
+
 .btn-yellow:disabled {
 	background-color: var(--main-color-hover);
 	opacity: var(--button-disabled-opacity);
+}
+.btn-yellow.btn:active {
+    background-color: var(--main-color-hover) !important;
+    color: inherit;  /* 필요 시 텍스트 색상 유지 */
+    transform: scale(0.95);
+    
+}
+
+/* 공통 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pagination a {
+    color: #495057;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin: 0 5px;
+    border-radius: 8px;
+}
+
+.pagination a.active {
+    background-color: var(--main-color-hover);
+    color: white;
+    font-weight: bold;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #e9ecef;
+}
+
+.page-arrow {
+	font-size: 23px;
 }
 
 /* 페이지 상단에 텍스트 부분 */

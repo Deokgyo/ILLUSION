@@ -50,7 +50,7 @@
                             <div class="content-area">
                                 <div class="drop-zone">
                                     <input type="file" id="file-input-hidden" style="display:none;"/>
-                                    <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: silver"></i></div>
+                                    <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
                                     <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요</p>
                                 </div>
                                 <div class="upload-button-wrapper"><button class="gradient-btn">업로드</button></div>

@@ -30,7 +30,7 @@
                 <div class="chat-messages-area">
                     <!-- 초기 화면 -->
                     <div class="chat-initial-view">
-                        <div class="intro-icon"><i class="fa-regular fa-comments"></i></div>
+                        <div class="intro-icon"><i class="fa-regular fa-comments" style="color: #d3d3d3"></i></div>
                         <div class="suggested-questions">
                             <h3>어떤 도움이 필요하신가요?</h3>
                             <ul>
@@ -64,7 +64,7 @@
 				
 				        <!-- 2. 토큰 충전 버튼 (입력창의 형제 요소로 이동) -->
 				        <button type="button" class="gradient-btn">
-				            <img src="${pageContext.request.contextPath}/resources/image/token.jpg"> 토큰 충전
+				            <i class='far fa-gem' style= "color : var(--main-color)"></i> 토큰 충전
 				        </button>
 				
 				    </div>
@@ -91,6 +91,6 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/chatbot.js"></script> <%-- ✅ 경로 수정 --%>
+    <script src="${pageContext.request.contextPath}/resources/js/chatbot.js"></script>
 </body>
 </html>
