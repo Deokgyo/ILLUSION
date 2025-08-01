@@ -96,5 +96,7 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 </body>
 </html>

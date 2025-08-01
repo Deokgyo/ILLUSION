@@ -46,7 +46,7 @@
   <div class="table-box">
     <table class="favorite-table">
       <thead>
-        <tr>
+        <tr >
           <th>선택</th>
           <th>공고 제목</th>
           <th>공고 상태</th>
@@ -57,7 +57,7 @@
       </thead>
       <tbody>
         <tr class="row-link" data-href="recruitmentDetail">
-          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" class="checkbox"/></td>
           <td>[네이버] 플랫폼 신입 채용</td>
           <td>채용중</td>
           <td>25.07.25</td>
@@ -65,24 +65,24 @@
           
           <td><button class="bookmark active">🔖</button></td>
         </tr>
-        <tr>
-          <td><input type="checkbox" /></td>
+        <tr class="row-link">
+          <td><input type="checkbox"class="checkbox" /></td>
           <td>[삼성전자] 백엔드 경력 채용</td>
           <td>채용중</td>
           <td>25.07.25</td>
           <td>25.08.01</td>
           <td><button class="bookmark">🔖</button></td>
         </tr>
-        <tr>
-          <td><input type="checkbox" /></td>
+        <tr class="row-link">
+          <td><input type="checkbox"class="checkbox" /></td>
           <td>[네이버] 플랫폼 신입 채용</td>
           <td>마감</td>
           <td>25.07.25</td>
           <td>25.08.01</td>
           <td><button class="bookmark">🔖</button></td>
         </tr>
-        <tr>
-          <td><input type="checkbox" /></td>
+        <tr class="row-link">
+          <td><input type="checkbox" class="checkbox" /></td>
           <td>[네이버] 플랫폼 신입 채용</td>
           <td>채용중</td>
           <td>25.07.25</td>
@@ -127,5 +127,7 @@
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 </body>
 </html>

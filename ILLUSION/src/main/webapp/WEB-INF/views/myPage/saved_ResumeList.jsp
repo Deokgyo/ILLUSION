@@ -50,18 +50,18 @@
     </div>
 
     <div class="resume-item">
-      <input type="checkbox" />
+      <input type="checkbox" class="checkbox"/>
      <a href="savedResumeDetail" class="resume-link">
       <div class="resume-info">
         <div class="title">따뜻한 마음을 가진 개발자</div>
         <div class="date">25.07.25</div>
       </div>
       </a>
-      <button class="edit-btn">수정</button>
+      <button class="edit-btn"onclick="location.href='resumeWrite';">수정</button>
     </div>
 
     <div class="resume-item">
-      <input type="checkbox" />
+      <input type="checkbox" class="checkbox"/>
       <div class="resume-info">
         <div class="title">다양한 경험이 있는 개발자</div>
         <div class="date">25.07.25</div>
@@ -70,7 +70,7 @@
     </div>
 
     <div class="resume-item">
-      <input type="checkbox" />
+      <input type="checkbox" class="checkbox"/>
       <div class="resume-info">
         <div class="title">뚝심있는 개발자</div>
         <div class="date">25.07.25</div>
@@ -79,7 +79,7 @@
     </div>
 
     <div class="resume-item">
-      <input type="checkbox" />
+      <input type="checkbox" class="checkbox"/>
       <div class="resume-info">
         <div class="title">친구 같은 개발자</div>
         <div class="date">25.07.25</div>
@@ -90,7 +90,9 @@
 
   <div class="resume-footer">
     <button class="delete-btn">삭제</button>
-    <div class="pagination">
+    
+  </div>
+  <div class="pagination">
       &laquo;
       <span class="page active">1</span>
       <span class="page">2</span>
@@ -99,12 +101,17 @@
       <span class="page">5</span>
       &raquo;
     </div>
-  </div>
 </div>
 </main>
 </div>
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+<script type="text/javascript">
+document.getElementById(".edit-btn").onclick = function () {
+  location.href = "resumeWrite";
+}
+</script>
 </html>

@@ -51,6 +51,9 @@
 .board-item:last-child {
   border-bottom: none;
 }
+.board-item:hover{
+	background-color: #fff8d0;
+}
 
 .post-info {
   display: flex;
@@ -101,7 +104,12 @@
   gap: 8px;
   font-size: 14px;
 }
-
+.checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: #fcd34d;
+    margin: auto;
+}
 .page {
   cursor: pointer;
   padding: 4px 8px;
