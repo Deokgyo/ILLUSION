@@ -57,7 +57,7 @@
         <div class="date">25.07.25</div>
       </div>
       </a>
-      <button class="edit-btn">수정</button>
+      <button class="edit-btn"onclick="location.href='resumeWrite';">수정</button>
     </div>
 
     <div class="resume-item">
@@ -106,5 +106,11 @@
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+<script type="text/javascript">
+document.getElementById(".edit-btn").onclick = function () {
+  location.href = "resumeWrite";
+}
+</script>
 </html>

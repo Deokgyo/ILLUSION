@@ -27,6 +27,10 @@
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/savedResumeDetail.css">
+	<style type="text/css">
+	.form-box {padding: 0px;}
+	.
+	</style>
 </head>
 <body>
 	<header>
@@ -37,11 +41,12 @@
 
 	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	<main class="main-content">
+	<div class="page-title-header">
+                <p class="header-text"><strong>마이페이지 </strong></p>
+            </div>
+	<div class="form-box">
 	<div class="container">
-    
-      <div class="header">따뜻한 마음을 가진 개발자</div>
-   
-
+    <div class="form-box">
     <div class="profile-card-1">
       <div class="profile-img">
         <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
@@ -54,7 +59,7 @@
         <div>주소 : 부산시 부산진구 삼한골든게이트 7층</div>
       </div>
     </div>
-
+</div>
     <div class="section">
       <div class="section-title">학력</div>
       <table class="info-table">
@@ -98,15 +103,19 @@
         </tbody>
       </table>
     </div>
+	
+  <div class="button-wrapper">
+  <button class="list-btn">목록</button>
 
-    <div class="button-group">
-     <a href="saved_ResumeList"><button class="btn">목록</button></a>
-      <button class="btn">수정</button>
-      <button class="btn delete">삭제</button>
-    </div>
+  <div class="right-buttons">
+  
+    <button class="edit-btn" onclick="location.href='resumeWrite';">수정</button>
+    <button class="delete-btn">삭제</button>
+  </div>
+</div>
   </div>
 	
-	
+	</div>
 	</main>
 	</div>
 
@@ -115,5 +124,10 @@
 </footer>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+<script type="text/javascript">
+document.getElementById(".edit-btn").onclick = function () {
+  location.href = "resumeWrite";
+}
+</script>
 </body>
 </html>
