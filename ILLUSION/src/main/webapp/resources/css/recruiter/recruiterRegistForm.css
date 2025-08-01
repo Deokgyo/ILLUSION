@@ -1,241 +1,141 @@
-@charset "UTF-8";
-/*본문 영역*/
+/* = a====================================================
+ *      0. 기본 및 전체 페이지 스타일
+ * ====================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 모든 요소의 크기 계산 방식을 통일 (매우 중요) */
+}
 
 main {
-	font-family: var(--font-family);
-	color: var(--font-main-color);
-     max-width: 1200px;
-  	margin: 20 auto;
-  	display:flex;
-  	flex-direction: column;
-  	gap:30px;
+  font-family: var(--font-family, 'Noto Sans KR', sans-serif);
+  color: #333;
+  max-width: 1280px; /* 콘텐츠의 최대 너비 설정 */
+  margin: 40px auto; /* 페이지 좌우 중앙 정렬 및 상하 여백 */
+  display: flex;
+  flex-direction: column;
+  gap: 60px; /* 각 섹션("대시보드", "맞춤인재" 등) 사이의 간격 */
 }
 
-.dash-container{
-	display: grid;
-    
-    /* 
-      여기가 핵심입니다.
-      세 개의 열을 만들고, 그 비율을 1:2:1로 설정합니다.
-    */
-	grid-template-columns: 1fr 2fr 1fr;
-    
-    /* 열 사이의 간격을 설정합니다. */
-	gap: 30px; 
-
+/* ======================================================
+ *      1. 폼 전체 컨테이너 (main)
+ * ====================================================== */
+main.registration-form-container {
+  width: 100%;
+  max-width: 900px; /* 폼의 최대 너비 제한 */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* 헤더와 바디 사이의 간격 */
+  margin: 20px auto;
 }
-.section-dash01,
-.section-dash02
- {
-		  /* 1. 기본 스타일: 모양과 배경 */
-  background-color: #ffffff; /* 카드 배경색 흰색 */
-  border-radius: 20px;	   /* 카드 모서리 둥글기 (값 조절 가능) */
-  
-  /* 2. 그림자 효과: 카드에 깊이감을 줍니다. */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 
-  /* 3. 포지셔닝: ::before 가상 요소를 카드 내부에 위치시키기 위함 */
-  position: relative;
+/* ======================================================
+ *      2. "공고 등록" 헤더 스타일 (section)
+ * ====================================================== */
+.form-header {
+  /* ✨수정✨: 그라데이션 변수 적용 */
+  background: var(--background-gradient-horizontally);
   
-  /* 4. 넘침 처리: ::before 요소가 둥근 모서리를 따라 잘리도록 함 */
-  overflow: hidden;
+  /* 모양 및 그림자 */
+  border-radius: 50px; /* 타원형 모양 */
+  box-shadow: var(--main-box-shadow);
 
-  /* 내용물이 카드 경계에 붙지 않도록 안쪽 여백을 줍니다. */
+  /* 내부 h1 태그를 위한 설정 */
+  padding: 15px 30px;
+}
+
+.form-header h1 {
+  /* ✨수정✨: 폰트 색상 변수 적용 */
+  color: var(--font-main-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0; /* h1의 기본 마진 제거 */
+}
+
+
+/* ======================================================
+ *      3. 하얀색 폼 바디 스타일
+ * ====================================================== */
+.form-body {
+  /* ✨수정✨: 배경색 및 그림자 변수 적용 */
+  background-color: var(--body-bg-color);
+  box-shadow: var(--main-box-shadow);
+  
+  border-radius: 20px;
+  width: 100%;
+  min-height: 75vh; /* 폼의 최소 높이를 화면 높이의 75%로 설정 */
   padding: 30px;
-	
-}
 
-
-.section-dash01::before {
-  content: ""; /* 가상 요소 생성을 위해 필수 */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 6px; /* 그라데이션 바의 두께 */
+  /* 내부 placeholder 텍스트를 위한 스타일 (나중에 삭제 가능) */
+  display: flex;
+/*   justify-content: center; */
+/*   align-items: center; */
+  flex-direction: column;
   
-  /* 그라데이션 색상 적용 (이전에 사용하던 변수 활용) */
-  background: var(--background-gradient-horizontally);
-}
-
-.section-dash02::before {
-  content: ""; /* 가상 요소 생성을 위해 필수 */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 6px; /* 그라데이션 바의 두께 */
-  
-  /* 그라데이션 색상 적용 (이전에 사용하던 변수 활용) */
-  background: var(--background-gradient-horizontally);
-}
-
-.section-dash02 > .section-content {
-	
-	width: 100%;
-	display:flex;
-	align-items: center;
-	flex-direction: column;
-	margin:0;	
-}
-
-.dashboard-layout{
-/* 	display:flex; */
-/* 	align-items: center; */
-/* 	flex-direction: row; */
-/* 	flex-wrap: wrap; */
-/* 	justify-content: space-between; */
-/* 	margin:30px auto; */
-	display:flex;
-	align-items: center;
-	flex-direction: row;
-	justify-content: center;
-	flex-wrap: wrap;
-}
-
-.tips-container {
-display: flex;
-	flex-wrap: wrap; /* 화면이 좁아지면 자동으로 줄바꿈 */
-	gap: 2.5em;      /* 각 팁 사이의 간격 */
-	align-items: flex-start; /* 높이가 달라도 위쪽을 기준으로 정렬 */
-}
-
-.recruit-info-section,
-.company-fit-section
- {
-	display: flex;
-    flex-direction: column;
-    gap: 15px;
+  /* 그라데이션 테두리 설정을 위한 추가  */
+  position:relative; /*폼바디 바로 위에 오게설정*/
+   overflow: hidden; /*테두리 넘치는 부분 억제*/
 }
 
 
-
-
-.cards-container{
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 20px;
-/* 	place-items: center center; */
-}
-
-.card {
-	position: relative;
-	display: flex;
- 	flex-direction: column; /* 아이템을 세로로 쌓음 */
- 	align-items: center;     /* 가로 중앙 정렬 */
- 	background-color: #ffffff;/* 카드 배경색 흰색 */
-    border-radius: 20px;	  /* 카드 모서리 둥글기 */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);/* 그림자 */
-	padding: 40px; /* 카드 안쪽 여백 (예시) */
-    justify-content: space-between;
-    gap: 30px;
-	
-}
-
-
-* {
-	margin: 0px;
-	padding: 0px;
-}
-
-
-
-/*카드 상단 테두리 그라데이션을 위한 임의요소 추가및 설정*/
-.card::before {
-	content: "";
+/* 그라데이션 테두리 요소 추가  */
+.form-body::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 6px;
-    background: var(--background-gradient-horizontally);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    display: flex;
-	flex-direction: column; /* 아이템을 세로로 배치 */
-	justify-content: space-between; /* 아이템 사이의 공간을 균등하게 배분 */
-}
-
-.card>h1 {
-	text-align: center;
-	word-wrap: break-word; 
-	word-break: keep-all;
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */
 }
 
 
-
-
-.section-name{
-	font-weight: bold;
+.form-body .placeholder-text {
+    /* ✨수정✨: 플레이스홀더 색상 변수 적용 */
+    color: var(--font-placeholder-color);
     font-size: 1.2rem;
-	width: 100%;
-	margin-top:0;
 }
 
 
+/* ======================================================
+ *      4. 아이콘 수정 
+ * ====================================================== */
+ .icon {
+ 	font-size:20px;
+ 	color:var(--main-color);
+ }
+ 
+/* ======================================================
+ *      5. 폰트 수정 
+ * ====================================================== */
+.title{
+	font-size:18px
+}
 
+/* ======================================================
+ *      6. 인풋 타입 관련 설정
+ * ====================================================== */
+.form-control {
+	border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    height: 50px;
+    font-size: 16px;
+    color: var(--font-main-color);
+    box-shadow: none !important;
+    transition: border-color 0.2s;
+    width:100%;
+}
 
-/* 섹션 안에 내용물 설정 */
-.section-content {
-    display: grid; 
-    text-align: center; /*텍스트 중앙 정렬*/
-    align-content: center; /* 버튼,hr 중앙 정렬 */
-    gap: 17px; /*간격 설정*/
-    justify-content: center;
-    font-size: 20px; /* 폰트 크기 설정 */
+.form-control:focus {
+	color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #ffc107;
+    outline: 0;
 }
 
 
-/*구분선*/
-hr {
-  background-color: #fff;
-  padding: 0;
-}
-
-hr.hr-1 {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-}
-
-/* 
-  1. 전체를 감싸는 큰 흰색 박스 (.tip-section) 
-*/
-.tip-section {
-		display: flex;
-    flex-direction: column;
-    gap: 15px;	
-  background-color: #ffffff;
-  border-radius: 30px; /* 아주 둥근 모서리 */
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 */
-  padding: 40px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-
-.tip {
-  flex: 1; /* 컨테이너 안에서 유연하게 공간을 차지 */
-  min-width: 200px; /* 너무 좁아지지 않도록 최소 너비 설정 */
-}
-
-/*
-  6. 각 팁의 제목 (h3)
-*/
-.tip h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #444;
-  margin: 0 0 8px 0;
-}
-
-/*
-  7. 각 팁의 내용 (p)
-*/
-.tip p {
-  font-size: 0.95rem;
-  color: #666;
-  line-height: 1.7; /* 줄 간격을 넓혀 가독성 향상 */
-  margin: 0;
-}
-
+ 
+ 
+ 

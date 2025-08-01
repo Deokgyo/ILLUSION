@@ -20,6 +20,7 @@
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterList.css">
 	
 	<title>Home</title>
 </head>
@@ -28,9 +29,7 @@
 		<jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp" />
 	</header>
 
-	
-	<h1>채용 공고 목록 페이지</h1>
-	
+
 	
 	
 	

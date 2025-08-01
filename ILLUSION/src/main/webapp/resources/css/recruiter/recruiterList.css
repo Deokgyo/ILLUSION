@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+/* ======================================================
+ *      프로필 카드 공통 스타일
+ * ====================================================== */
+
+/* 페이지 배경 및 전체 레이아웃 (예시) */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: #f8f9fa; /* 예시 배경색 */
+}
+
+/* 1. 전체 프로필 카드의 기본 틀 */
+.profile-card {
+  background-color: #ffffff;
+  border-radius: 25px; /* 이미지처럼 둥근 모서리 */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 */
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 800px; /* 카드가 너무 넓어지는 것을 방지 */
+  position: relative; /* 가상 요소(::before)의 기준점 */
+  overflow: hidden; /* 둥근 모서리 바깥으로 나가는 요소를 잘라냄 */
+  box-sizing: border-box;
+}
+
+/* 2. 카드 상단의 그라데이션 바 (가상 요소로 구현) */
+.profile-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 8px; /* 그라데이션 바의 두께 */
+  background: linear-gradient(90deg, #FDE68A 0%, #F5C6A2 50%, #E9A1BF 100%);
+}
+
+/* 3. 위아래 구분선 스타일 */
+.divider {
+  border: none;
+  height: 1px;
+  background-color: #e9ecef;
+}
+.top-divider { margin: 20px 0; }
+.bottom-divider { margin: 20px 0 0 0; }
+
+
+/* ======================================================
+ *      프로필 상세 정보 리스트 (CSS Grid 핵심)
+ * ====================================================== */
+
+/* 4. 정보 리스트 컨테이너 (ul) */
+.profile-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 5. 각 정보 항목(li) - Grid 컨테이너로 설정 */
+.detail-item {
+  display: grid;
+  /* 컬럼 구성: 라벨(140px), 값(나머지 공간), 버튼(자동 크기) */
+  grid-template-columns: 140px 1fr auto;
+  align-items: center;
+  gap: 25px; /* 컬럼 사이의 간격 */
+  font-size: 1.1rem;
+}
+
+/* 
+  6. 정보 라벨(span.item-label) 스타일
+     - 각 행의 첫 번째 컬럼
+     - 각자 배경색을 가지지만, 행 간격이 없어 하나의 블록처럼 보임
+*/
+.item-label {
+  background-color: #fde68a; /* 노란색 배경 */
+  font-weight: 600;
+  color: #343a40;
+  padding: 20px;
+  box-sizing: border-box;
+}
+/* 첫 번째 라벨의 위쪽 모서리만 둥글게 */
+.detail-item:first-child .item-label {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+/* 마지막 라벨의 아래쪽 모서리만 둥글게 */
+.detail-item:last-child .item-label {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* 7. 정보 값(span.item-value) 스타일 */
+.item-value {
+  color: #495057;
+  letter-spacing: 0.5px;
+}
+
+/* 8. '수정' 버튼(button.btn-edit) 스타일 */
+.btn-edit {
+  background-color: #fff4cc;
+  color: #c79100;
+  border: 1px solid #ffe8a3;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-edit:hover {
+  background-color: #ffe8a3;
+  color: #a17600;
+  transform: translateY(-1px);
+}
