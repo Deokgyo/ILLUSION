@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 
 /* ======================================================
@@ -10,7 +11,22 @@
     border-radius: 12px;
     padding: 25px;
     box-shadow: var(--main-box-shadow);
+    position: relative;
+    overflow: "hidden";
 }
+
+
+.community-search::before{
+  	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */	
+}
+
 .search-input-group {
     display: flex;
     align-items: center;
@@ -104,6 +120,9 @@
     gap: 20px;
     padding: 20px 10px;
     border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    box-shadow: var(--main-box-shadow)
 }
 .post-author {
     text-align: center;

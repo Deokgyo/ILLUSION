@@ -11,7 +11,7 @@
             <div class="profile-actions">
                 <a href="myPage" class="profile-btn">마이페이지</a>
                 <a href="#" class="profile-btn token-btn"> 
-                <img src="${pageContext.request.contextPath}/resources/image/token.jpg" alt="토큰 이미지"> 10 토큰</a>
+                <i class='far fa-gem' style= "color : var(--main-color)"></i> 10 토큰</a>
                 <a href="#" class="profile-btn">로그아웃</a>
             </div>
         </div>

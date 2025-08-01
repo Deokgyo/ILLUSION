@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
 
 
-
 </head>
 <body>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>

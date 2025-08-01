@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community/communityDetail.css">
+    
+    <style type="text/css">
+    	.post-author-profile img{
+    		width: 50px;
+    	}
+    </style>
 </head>
 <body>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -34,7 +40,9 @@
             <div class="post-detail-container">
                 <!-- 게시글 영역 -->
                 <div class="post-header">
-                    <div class="post-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
+<!--                     <div class="post-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div> -->
+                    <div class="post-author-profile"><img src="${pageContext.request.contextPath}/resources/image/logop.png"/></div>
+
                     <div class="post-title-area">
                         <div class="author-name">admin</div>
                         <h2 class="post-title">아이티윌 합격 하신 분 계신가요?</h2>
@@ -48,19 +56,17 @@
                     안녕하세요. 아이티윌 면접보고 온 사람입니다.<br>
                     면접 후 일주일 이내 연락을 준다고 했는데 아직 연락을 못 받아서요 합격 연락 오신 분 있으신가요?
                 </div>
-
+				<div class="post-btn">
+					    <div class="post-actions">
+                        <!-- 작성자 본인일 경우 노출 -->
+                        <a href="#" class="btn btn-yellow">수정</a>
+                        <a href="#" class="btn btn-yellow">삭제</a>
+                    </div>
+				</div>
                 <div class="post-footer">
                     <div class="post-meta-info">
                         <span><i class="fa-regular fa-comment-dots"></i> 3</span>
                         <span><i class="fa-regular fa-eye"></i> 조회수 17</span>
-                    </div>
-                    <div class="post-actions">
-                        <!-- 작성자 본인일 경우 노출 -->
-                        <a href="#" >수정</a>
-                        <a href="#" >삭제</a>
-                        <!--// 작성자 본인일 경우 노출 -->
-
-                        <a href="#" id="report-btn">게시물 신고</a>
                     </div>
                 </div>
                 <!--// 게시글 영역 -->
@@ -79,6 +85,7 @@
                                 <div class="author-name">ioi</div>
                                 <p class="comment-text">저도 아직 못 받았어요ㅠ</p>
                             </div>
+                            
                         </div>
                         <!--// 댓글 아이템 -->
                     </div>
@@ -86,15 +93,15 @@
                 <!--// 댓글 영역 -->
 
                 <!-- 페이지네이션 -->
-                <nav>
-                   <a>1</a>
-                   <a>1</a>
-                   <a>1</a>
-                   <a>1</a>
-                   <a>1</a>
-                   <a>1</a>
-               </nav>
-
+                <nav class="pagination">
+		            <a href="#" class="page-arrow">&laquo;</a>
+		            <a href="#" class="active">1</a>
+		            <a href="#">2</a>
+		            <a href="#">3</a>
+		            <a href="#">4</a>
+		            <a href="#">5</a>
+		            <a href="#" class="page-arrow">&raquo;</a>
+	       		</nav>
             </div>
         </main>
     </div>
