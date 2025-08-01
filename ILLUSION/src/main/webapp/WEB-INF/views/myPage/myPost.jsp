@@ -59,22 +59,25 @@
 
 					<!-- 게시물 항목 1 -->
 					<div class="board-item">
-						<input type="checkbox" />
+						<input type="checkbox"class="checkbox" />
+						<a href="communityDetail">
 						<div class="post-info">
-							<div class="post-title">아이템 합격 하신 분</div>
+							<div class="post-title">아이티월 합격 하신 분</div>
 							<div class="meta">
 								<span>25.07.25</span> <span>💬 3</span> <span>조회수 17</span>
 							</div>
+							
 						</div>
+						</a>
 						<div class="post-actions">
-							<button class="edit-btn">수정</button>
+							<button class="edit-btn"onclick="location.href='communityWrite';">수정</button>
 							<button class="delete-btn">삭제</button>
 						</div>
 					</div>
 
 					<!-- 게시물 항목 2 -->
 					<div class="board-item">
-						<input type="checkbox" />
+						<input type="checkbox" class="checkbox"/>
 						<div class="post-info">
 							<div class="post-title">자소서 합격 팁 좀 알려주세요</div>
 							<div class="meta">
@@ -82,7 +85,7 @@
 							</div>
 						</div>
 						<div class="post-actions">
-							<button class="edit-btn">수정</button>
+							<button class="edit-btn"onclick="location.href='communityWrite';">수정</button>
 							<button class="delete-btn">삭제</button>
 						</div>
 					</div>
@@ -105,5 +108,12 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+<script type="text/javascript">
+document.getElementById(".edit-btn").onclick = function () {
+  location.href = "communityWrite";
+}
+</script>
 </body>
 </html>
