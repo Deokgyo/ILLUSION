@@ -21,7 +21,7 @@
 
 
 /* ======================================================
- *      사이드바 내비게이션 (최종 수정)
+ *      사이드바 내비게이션
  * ====================================================== */
 .sidebar-nav {
   border-top: 1px solid #EBE3D5;
@@ -36,87 +36,74 @@
 
 /* 1. 모든 메인 메뉴의 '기본' 스타일 (하얀색 박스) */
 .sidebar-nav > ul > li > a {
-
-  display: flex;
-  align-items: center;
-  padding: 13px 15px;
-  text-decoration: none;
-  color:var(--font-main-color);
-  font-weight: 600;
-  border-radius: 10px;
-  transition: background-color 0.2s, color 0.2s;
-  font-size: 20px;
-  justify-content : flex-start;
+  display: flex; align-items: center; width: 100%; box-sizing: border-box; background-color: #ffffff; padding: 13px 15px; border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06); 
+  text-decoration: none; color:var(--font-main-color); font-weight: 600; font-size: 20px; 
+  transition: all 0.2s ease;
 }
 
-/* 
-  ▼▼▼▼▼ 수정된 부분 ▼▼▼▼▼
-  2. '현재 카테고리가 아닌' 메뉴에 마우스를 올렸을 때의 스타일
-     - 노란색 배경에 맞는 전용 그림자 추가
-*/
+/* 2. '현재 카테고리가 아닌' 메뉴에 마우스를 올렸을 때의 스타일 */
 .sidebar-nav > ul > li:not(.current-category) > a:hover {
   background-color: #FFE585;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 노란색 배경에 맞는 살짝 더 진한 그림자 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 
-  ▼▼▼▼▼ 수정된 부분 ▼▼▼▼▼
-  3. '현재 카테고리인' 메뉴의 스타일 (노란색 박스)
-     - 노란색 배경에 맞는 전용 그림자 추가
-*/
+/* 3. '현재 카테고리인' 메뉴의 스타일 (노란색 박스) */
 .sidebar-nav li.current-category > a {
   background-color: #FFE585;
   color: var(--font-main-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 노란색 배경에 맞는 살짝 더 진한 그림자 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* 메뉴 아이콘 & 화살표 */
-.sidebar-nav a .fa-solid { 
-	width: 20px; 
-	margin-right: 12px; 
-	text-align: center; }
+.sidebar-nav a .fa-solid { width: 20px; margin-right: 12px; text-align: center; }
 .sidebar-nav .has-submenu .arrow { margin-left: auto; transition: transform 0.3s ease; }
 .sidebar-nav li.active .arrow { transform: rotate(180deg); }
 
 
 /* ======================================================
- *      서브메뉴 스타일 (최종 수정)
+ *      서브메뉴 스타일 (겹침 문제 해결)
  * ====================================================== */
 .sidebar-nav .submenu {
-  max-height: 0; 
-  overflow: hidden; 
-  transition: max-height 0.4s ease-in-out; 
-  background-color: transparent; 
-  margin-top: 5px;
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; background-color: transparent; margin-top: 5px;
 }
-
 .sidebar-nav li.active .submenu {
   max-height: 500px; 
-  padding-top: 10px; 
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
+
+/* 
+  ▼▼▼▼▼ 수정된 부분 1 ▼▼▼▼▼
+  - li 태그는 투명한 껍데기 + 간격 조절 역할만 담당합니다.
+  - 배경색, 그림자 등 모든 시각적 스타일을 제거합니다.
+*/
 .sidebar-nav .submenu li {
     margin-bottom: 8px;
+    background-color: transparent; /* 배경색 없음 */
+    box-shadow: none; /* 그림자 없음 */
+    border-radius: 0; /* 둥근 모서리 없음 */
 }
 .sidebar-nav .submenu li:last-child {
     margin-bottom: 0;
 }
 
-/* 4. 서브메뉴 항목의 '기본' 스타일 */
+/* 
+  ▼▼▼▼▼ 수정된 부분 2 ▼▼▼▼▼
+  - a 태그가 '박스'의 모든 시각적 스타일을 담당합니다.
+*/
 .sidebar-nav .submenu a {
-  display: block; background-color: #ffffff; border-radius: 12px; 
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06); /* 흰색 배경에 맞는 은은한 그림자 */
+  display: block; 
+  background-color: #ffffff; /* 흰색 배경 */
+  border-radius: 12px; /* 둥근 모서리 */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06); /* 그림자 */
   font-size: 18px; font-weight: 500; color: var(--font-main-color); padding: 14px 20px;
   transition: all 0.2s ease;
 }
 
-/* 
-  ▼▼▼▼▼ 수정된 부분 ▼▼▼▼▼
-  5. 서브메뉴 항목에 마우스를 올렸을 때의 스타일
-     - 노란색 배경에 맞는 전용 그림자 추가
-*/
+/* 5. 서브메뉴 항목에 마우스를 올렸을 때의 스타일 */
 .sidebar-nav .submenu a:hover {
-  background-color: #fff7d7;
+  background-color: #FFE585;
   color: var(--font-main-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 노란색 배경에 맞는 살짝 더 진한 그림자 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+

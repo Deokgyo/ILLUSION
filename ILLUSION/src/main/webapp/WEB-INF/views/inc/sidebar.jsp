@@ -21,11 +21,6 @@
 	        <%-- '홈' 메뉴 --%>
 	       <li><a href="./"><i class="fa-solid fa-house"></i> 홈</a></li>
 	
-	       <%-- 
-	         '자기소개서 생성기' 페이지는 '취업도구' 카테고리에 속하므로,
-	         '취업도구'를 감싸는 <li>에 "current-category" 클래스를 추가합니다.
-	         메뉴가 열려있다면 "active" 클래스도 함께 있어야 합니다.
-	       --%>
 	       <li class="has-submenu current-category">
 	           <a href="#">
 	               <i class="fa-solid fa-briefcase"></i> 
@@ -34,10 +29,10 @@
 	           </a>
 	           <ul class="submenu">
 	               <%-- 이제 하위 메뉴에는 특별한 클래스가 필요 없습니다. --%>
-	               <li><a href="coverletterCreate">자기소개서 생성기</a></li>
-	               <li><a href="coverletterRefiner">자기소개서 다듬기</a></li>
-	               <li><a href="interviewCreate">AI 면접 예상 질문</a></li>
-	               <li><a href="chatbot">취업 챗봇</a></li>
+	               <li class="submenu"><a href="coverletterCreate">자기소개서 생성기</a></li>
+	               <li class="submenu"><a href="coverletterRefiner">자기소개서 다듬기</a></li>
+	               <li class="submenu"><a href="interviewCreate">AI 면접 예상 질문</a></li>
+	               <li class="submenu"><a href="chatbot">취업 챗봇</a></li>
 	           </ul>
 	       </li>
 	       
