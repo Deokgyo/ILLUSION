@@ -22,7 +22,12 @@ main {
     
     /* 열 사이의 간격을 설정합니다. */
 	gap: 30px; 
-	  /* 1. 기본 스타일: 모양과 배경 */
+
+}
+.section-dash01,
+.section-dash02
+ {
+		  /* 1. 기본 스타일: 모양과 배경 */
   background-color: #ffffff; /* 카드 배경색 흰색 */
   border-radius: 20px;	   /* 카드 모서리 둥글기 (값 조절 가능) */
   
@@ -37,10 +42,11 @@ main {
 
   /* 내용물이 카드 경계에 붙지 않도록 안쪽 여백을 줍니다. */
   padding: 20px;
-
+	
 }
 
-.dash-container::before {
+
+.section-dash01::before {
   content: ""; /* 가상 요소 생성을 위해 필수 */
   position: absolute;
   top: 0;
@@ -52,15 +58,25 @@ main {
   background: var(--background-gradient-horizontally);
 }
 
-.section-dash02 {
+.section-dash02::before {
+  content: ""; /* 가상 요소 생성을 위해 필수 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px; /* 그라데이션 바의 두께 */
+  
+  /* 그라데이션 색상 적용 (이전에 사용하던 변수 활용) */
+  background: var(--background-gradient-horizontally);
+}
+
+.section-dash02 > .section-content {
 	width: 50%;
 	display:flex;
 	align-items: center;
 	flex-direction: column;
 	margin:0;	
 }
-
-
 
 .dashboard-layout{
 /* 	display:flex; */
@@ -77,14 +93,12 @@ main {
 }
 
 .tips-container {
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	justify-content: space-around;
-	flex-wrap: wrap;
+display: flex;
+	flex-wrap: wrap; /* 화면이 좁아지면 자동으로 줄바꿈 */
+	gap: 2.5em;      /* 각 팁 사이의 간격 */
+	align-items: flex-start; /* 높이가 달라도 위쪽을 기준으로 정렬 */
 }
 
-.tip-section,
 .recruit-info-section,
 .company-fit-section
  {
@@ -92,6 +106,8 @@ main {
     flex-direction: column;
     gap: 15px;
 }
+
+
 
 
 .cards-container{
@@ -146,9 +162,7 @@ main {
 }
 
 
-.tips-container {
-	gap: 5em;
-}
+
 
 .section-name{
 	font-weight: bold;
@@ -178,8 +192,44 @@ hr.hr-1 {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
+/* 
+  1. 전체를 감싸는 큰 흰색 박스 (.tip-section) 
+*/
+.tip-section {
+		display: flex;
+    flex-direction: column;
+    gap: 15px;	
+  background-color: #ffffff;
+  border-radius: 30px; /* 아주 둥근 모서리 */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 */
+  padding: 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 
+.tip {
+  flex: 1; /* 컨테이너 안에서 유연하게 공간을 차지 */
+  min-width: 200px; /* 너무 좁아지지 않도록 최소 너비 설정 */
+}
 
+/*
+  6. 각 팁의 제목 (h3)
+*/
+.tip h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #444;
+  margin: 0 0 8px 0;
+}
 
+/*
+  7. 각 팁의 내용 (p)
+*/
+.tip p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.7; /* 줄 간격을 넓혀 가독성 향상 */
+  margin: 0;
+}
 

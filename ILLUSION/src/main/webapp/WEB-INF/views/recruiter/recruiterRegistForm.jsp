@@ -55,6 +55,7 @@
 					</div>
 					<%-- 페이지 상단 프로필 정보 --%>
 					<div class="section-dash02">
+						<div class="section-content"></div>
 							<h1>박덕교님</h1>
 					</div>
 				</div>
@@ -163,27 +164,27 @@
 		<%--메인 하단 5가지 팁 --%>
 		<section class="tip-section">
 			<div class="section-name">
-			  	<p>좋은 인재를 고르는 5가지 팁</p>
+			  	<p>좋은 인재를 고르는 4가지 팁</p>
 			</div>
 			  	<hr>
-			<div class="tips-container">
-				<div class="tip">
-					<h1>제목</h1>
-					<p>내용</p>
-				</div>			
-				<div class="tip">
-					<h1>제목</h1>
-					<p>내용</p>
-				</div>			
-				<div class="tip">
-					<h1>제목</h1>
-					<p>내용</p>
-				</div>			
-				<div class="tip">
-					<h1>제목</h1>
-					<p>내용</p>
-				</div>			
-			</div>			
+				<div class="tips-container">
+				    <div class="tip">
+				        <h3>1. 핵심 역량에 집중하세요</h3>
+				        <p>우리 회사가 필요로 하는 기술과 경험을 갖춘 지원자인지 확인해보세요.</p>
+				    </div>			
+				    <div class="tip">
+				        <h3>2. 직무 이해도가 높은 지원자를 찾으세요</h3>
+				        <p>단순히 자격 조건만 보는 것이 아니라, 해당 직무에 대한 열정과 이해도가 있는지를 체크하세요.</p>
+				    </div>			
+				    <div class="tip">
+				        <h3>3. 장기적인 성장 가능성을 고려하세요</h3>
+				        <p>지금 당장 잘하는 인재보다, 회사와 함께 성장할 수 있는 가능성 있는 인재를 눈여겨보세요.</p>
+				    </div>			
+				    <div class="tip">
+				        <h3>4. 회사 문화에 어울리는 사람인지 판단하세요</h3>
+				        <p>실력도 중요하지만, 조직과 잘 어울릴 수 있는 사람인지도 좋은 인재를 판단하는 중요한 기준입니다.</p>
+				    </div>			
+				</div>	
 		</section>
 		<%--메인 하단 5가지 팁 끝--%>
 		
