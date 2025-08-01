@@ -19,6 +19,19 @@
     <link rel="stylesheet" href="./resources/css/bottom.css">
     <link rel="stylesheet" href="./resources/css/recruiter/recruiterRegistForm.css">
     <link rel="stylesheet" href="./resources/css/components.css">
+    <script src="${pageContext.request.contextPath }/resources/js/jquery-3.7.1.js"></script>
+	<script type="text/javascript">
+		 $(document).ready(function(){
+	         // id가 goList인 버튼에 클릭 이벤트 추가
+	         $('#goList').click(function() {
+	             // 원하는 URL로 이동
+	             location.href = 'recruiterList';
+	         });
+	     });
+	</script>
+
+
+
 	<title>Home</title>
 </head>
 
@@ -50,13 +63,25 @@
 					</div>
 					<div class="section-dash01">
 						<div class="section-content">
-							<h1>공고목록</h1>
+							<div class="rec-title">
+								<h1>공고목록</h1>
+							</div>
+							<div class="rec-list">
+								<ul>
+									<li>[아이티윌] 백엔드 풀타임 강사 채용</li>
+									<li>[아이티윌] 인포데스크 근무자 구인</li>
+									<li>[아이티윌] 청소미화원 구인</li>
+									<li>[아이티윌] 데이터베이스 강사 채용</li>
+								</ul>
+							</div>
+							<input type="button" value="전체 공고 목록" class="gradient-btn" id="goList">
 						</div>
 					</div>
 					<%-- 페이지 상단 프로필 정보 --%>
 					<div class="section-dash02">
-						<div class="section-content"></div>
+						<div class="section-content">
 							<h1>박덕교님</h1>
+						</div>
 					</div>
 				</div>
 			</section>
