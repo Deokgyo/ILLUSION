@@ -28,9 +28,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/mypage.css">
 <style type="text/css">
-#main {
-	
-}
+ .form-box {
+    margin-bottom: 30px;
+  }
 </style>
 </head>
 <header>
@@ -70,10 +70,11 @@
          <div class="btn-yellow"><a href="token_pay"> 토큰 충전</a></div>
        </div>
     </div>
-	
+	</div>
 	
 	
     <!-- 저장한 파일 -->
+    <div class="form-box">
     <div class="save-box">
     <div class="section">
       <h1>저장한 파일</h1>
@@ -83,8 +84,9 @@
         <div class="file-card"><a href="saved_QuestionList">🎤 저장된 면접 예상 질문</a></div>
       </div>
     </div>
-
+	</div>
     <!-- 활동기록 -->
+    
     <div class="section">
       <h1>활동기록</h1>
       <div class="grid">
@@ -93,9 +95,9 @@
         <div class="file-card"><a href="myPost">🗒️ 내가 쓴 게시글</a></div>
       </div>
     </div>
-				
+	
 		</div>
-	</div>
+	
 	</main>
 </div>
 <footer>

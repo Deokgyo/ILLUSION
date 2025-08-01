@@ -43,24 +43,25 @@
 
   <div class="resume-list">
     <div class="resume-list-header">
-      <span>선택</span>
+      <span style="margin:auto;">선택</span>
       <span>자기소개서 제목</span>
-      <span>관리</span>
+      <span style="margin:auto;">관리</span>
     </div>
 
     <div class="resume-item">
-      <input type="checkbox" />
+      <input type="checkbox" class="checkbox" />
       <a href="savedCLDetail" class="resume-link">
       <div class="resume-info">
         <div class="title">따뜻한 마음을 가진 개발자</div>
         <div class="date">25.07.25</div>
       </div>
       </a>
-      <button class="edit-btn">수정</button>
-    </div>
-
+     
+    <button class="edit-btn" onclick="location.href='coverletterCreate';">수정</button>
+      
+    </div>	
     <div class="resume-item">
-      <input type="checkbox" />
+      <input type="checkbox" class="checkbox"/>
       <div class="resume-info">
         <div class="title">다양한 경험이 있는 개발자</div>
         <div class="date">25.07.25</div>
@@ -69,7 +70,7 @@
     </div>
 
     <div class="resume-item">
-      <input type="checkbox" />
+      <input type="checkbox"class="checkbox" />
       <div class="resume-info">
         <div class="title">뚝심있는 개발자</div>
         <div class="date">25.07.25</div>
@@ -78,7 +79,7 @@
     </div>
 
     <div class="resume-item">
-      <input type="checkbox" />
+      <input type="checkbox" class="checkbox"/>
       <div class="resume-info">
         <div class="title">친구 같은 개발자</div>
         <div class="date">25.07.25</div>
@@ -89,7 +90,9 @@
 
   <div class="resume-footer">
     <button class="delete-btn">삭제</button>
-    <div class="pagination">
+    
+  </div>
+  <div class="pagination">
       &laquo;
       <span class="page active">1</span>
       <span class="page">2</span>
@@ -98,7 +101,6 @@
       <span class="page">5</span>
       &raquo;
     </div>
-  </div>
 </div>
 </main>
 </div>
@@ -106,4 +108,21 @@
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
 
+<script type="text/javascript">
+document.getElementById(".edit-btn").onclick = function () {
+  location.href = "coverletterCreate";
+}
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('tr.row-link').forEach(function (row) {
+      row.addEventListener('click', function (e) {
+        // 북마크나 체크박스를 클릭할 땐 무시
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+        const href = row.getAttribute('data-href');
+        if (href) window.location.href = href;
+      });
+    });
+  });
+</script>	
 </html>
