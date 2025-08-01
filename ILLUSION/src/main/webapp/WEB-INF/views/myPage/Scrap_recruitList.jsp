@@ -94,7 +94,7 @@
   </div>
 
   <div class="action-buttons">
-    <button class="delete-btn">삭제</button>
+    <button class="delete-btn" onclick="confirm('저장하시겠습니까?')">삭제</button>
   </div>
 
   <div class="pagination">

@@ -181,3 +181,27 @@ body {
 .submit-btn:hover {
 	background-color: #fcc419;
 }
+.custom-select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fafafa;
+  color: #333;
+  appearance: none; /* 브라우저 기본 화살표 제거 (선택) */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  margin-bottom: 20px;
+}
+.policyCSS{
+	font-size: 24px;
+    color: 000000;
+}
+.policyCSS:hover{
+	color: gray;
+}

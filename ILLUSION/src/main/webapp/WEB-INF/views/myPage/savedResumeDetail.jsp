@@ -110,7 +110,7 @@
   <div class="right-buttons">
   
     <button class="edit-btn" onclick="location.href='resumeWrite';">수정</button>
-    <button class="delete-btn">삭제</button>
+    <button class="delete-btn" onclick="confirm('삭제하시겠습니까?')">삭제</button>
   </div>
 </div>
   </div>

@@ -91,7 +91,7 @@
     </table>
   
   </div>
-  <button class="delete-btn">삭제</button>
+  <button class="delete-btn" onclick="confirm('저장하시겠습니까?')">삭제</button>
 
     <div class="pagination">
       <a href="#">«</a>

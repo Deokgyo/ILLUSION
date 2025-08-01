@@ -71,7 +71,7 @@
 										src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
 								</div>
 							</td>
-							<td class="right-align"><button class="edit-button">수정</button></td>
+							<td class="right-align"><button class="edit-button" onclick="confirm('저장하시겠습니까?')">수정</button></td>
 						</tr>
 						<tr>
 							<th>아이디</th>

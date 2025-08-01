@@ -50,7 +50,7 @@
 							어떤 이유로 취득하게 되었나요?</span>
 						<div class="button-group">
 							<button class="copy-btn">복사</button>
-							<button class="delete-btn">삭제</button>
+							<button class="delete-btn" onclick="confirm('저장하시겠습니까?')">삭제</button>
 						</div>
 					</div>
 
@@ -71,7 +71,7 @@
 							어떤 이유로 취득하게 되었나요?</span>
 						<div class="button-group">
 							<button class="copy-btn">복사</button>
-							<button class="delete-btn">삭제</button>
+							<button class="delete-btn" onclick="confirm('삭제하시겠습니까?')">삭제</button>
 						</div>
 					</div>
 					<textarea class="user-answer" placeholder="내가 작성한 답변"></textarea>
