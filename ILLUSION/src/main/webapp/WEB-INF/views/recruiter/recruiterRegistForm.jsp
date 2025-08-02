@@ -14,11 +14,8 @@
     <link rel="stylesheet" href="./resources/css/bottom.css">
     <link rel="stylesheet" href="./resources/css/recruiter/recruiterRegistForm.css">
     <link rel="stylesheet" href="./resources/css/components.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/filterEvent.css">
-    <script src="${pageContext.request.contextPath }/resources/js/jquery-3.7.1.js"></script>
-	<script type="text/javascript">
-		
-	</script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/filterEvent.css">
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	<%-- --------------- 브라우저 볼때 탭 영역 ----------- --%>
 	<title>Home</title> <%-- 문구 수정 --%>
 	<link rel="icon" href="/favicon.ico" type="image/x-icon"> <%-- 사진추가 --%>
@@ -40,15 +37,19 @@
             	
             	<section class="subject">
 	        	    <%-- 제목 입력 인풋 섹션 --%>
-		            <i class="icon fa-regular fa-pen-to-square"></i>
-		            <h3 class="title">제목</h3>
+	        	    <div class="title-undefined">
+			            <i class="icon fa-regular fa-pen-to-square icon"></i>
+			            <h3 class="title">제목</h3>
+		            </div>
 		            <input type="text" name="recruit_subject" class="form-control" placeholder="제목을 입력해주세요 (50자 이내)">
 				</section>
 				
 				<%-- 채용 유형 섹션--%>
 				<section class="recruit-type">
-					<i class="fas fa-business-time icon"></i>
-					<h3 class="title">채용 유형</h3>
+					<div class="title-undefined">
+						<i class="fas fa-business-time icon"></i>
+						<h3 class="title">채용 유형</h3>
+					</div>
 		        	<select name="category" class="form-select category-select" required>
 		        		<option disabled selected>채용 유형 선택</option>
 		        		<option value="">정규직</option>
@@ -62,8 +63,10 @@
 	        	
 	        	<%-- 근무 시간 섹션 --%>
 	        	<section class="work-time">
-		        	<i class="fa-regular fa-clock icon"></i>
-		        	<h3 class="title">근무 시간</h3>
+	        		<div class="title-undefined">
+			        	<i class="fa-regular fa-clock icon"></i>
+			        	<h3 class="title">근무 시간</h3>
+		        	</div>
 		        	<select name="category" class="form-select category-select" required>
 		        		<option disabled selected>근무 시간 선택</option>
 		        		<option value="">09:00 ~ 18:00</option>
@@ -76,60 +79,142 @@
         	
         	<%-- --------------------------------근무 지역 섹션--------------------------- --%>
         	<section class="work-location">
-        		
-				<i class="fa-solid fa-street-view icon"></i>
-	        	<h3 class="title">근무 지역</h3>
+        		<div class="title-undefined">
+					<i class="fa-solid fa-street-view icon"></i>
+		        	<h3 class="title">근무 지역</h3>
+	        	</div>
+	        	<div class="location-part">
+				    <%-- 상단 검색창 --%>
+				    <div class="location-search-bar_my">
+	                		<input type="text" class="form-control" id="search-input" placeholder="지역을 입력하세요">
+	               			<button type="submit" class="search-btn" formaction="새롭게 수정해야함"><i class="fa-solid fa-magnifying-glass"></i></button>
+	      		    <hr class="divider">
+				    </div>
+			    	
+					<%-- 근무 지역 셀렉트박스--%>
+					<%-- 왼쪽: 시/도 목록 --%>
+					<div class="region-panel-left">
+						<ul id="major-region-list">
+					    <%-- 이 부분은 JS로 동적 생성하거나, JSP로 직접 출력할 수 있습니다. --%>
+							<li class="major-region-item active" data-region-code="seoul">서울</li>
+							<li class="major-region-item" data-region-code="busan">부산</li>
+							<li class="major-region-item" data-region-code="daegu">대구</li>
+					<%-- (기타 시/도 생략) --%>
+						</ul>	
+					</div>
 	        	
-			    <%-- 상단 검색창 --%>
-			    <div class="location-search-bar">
-					<form id="search-form">
-                		<input type="text" id="search-input" placeholder="지역을 입력하세요">
-               			<button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-					</form>
-      		    <hr class="divider">
-			    </div>
-		    	
-				<%-- 근무 지역 셀렉트박스--%>
-				<%-- 왼쪽: 시/도 목록 --%>
-				<div class="region-panel-left">
-					<ul id="major-region-list">
-				    <%-- 이 부분은 JS로 동적 생성하거나, JSP로 직접 출력할 수 있습니다. --%>
-						<li class="major-region-item active" data-region-code="seoul">서울</li>
-						<li class="major-region-item" data-region-code="busan">부산</li>
-						<li class="major-region-item" data-region-code="daegu">대구</li>
-				<%-- (기타 시/도 생략) --%>
-					</ul>	
-				</div>
-        	
-				<%-- 오른쪽: 시/군/구 목록 --%>
-				<div class="region-panel-right">
-					<div class="filter-header">
-				<%-- '전체' 체크박스 추가 --%>
-						<label><input type="checkbox" id="check-all-sub-regions"> 전체</label>
-						<button type="button" class="btn btn-sm btn-outline-danger filter-reset-btn">초기화</button>
+					<%-- 오른쪽: 시/군/구 목록 --%>
+					<div class="region-panel-right">
+						<div class="filter-header">
+					<%-- '전체' 체크박스 추가 --%>
+							<label><input type="checkbox" id="check-all-sub-regions"> 전체</label>
+							<button type="button" class="filter-reset-btn">초기화<i class="fa-solid fa-arrows-rotate"></i></button>
+						</div>
+						<div class="filter-options" id="sub-region-list">
+					<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
+						</div>
+						<input type="hidden" id="selected-locations" name="locations">
 					</div>
-					<div class="filter-options" id="sub-region-list">
-				<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
-					</div>
-					<input type="hidden" id="selected-locations" name="locations">
 				</div>
         	</section>
         	<%-- -------------------------------근무 지역 섹션 끝--------------------------- --%>
-        	
-        	
-        	<%-- 채용 인원 섹션 --%>
+        	<%-- -------------------------------직무 선택 섹션----------------------------- --%>
+			<section class="occupation">
+				<div class="title-undefined">
+					<i class="icon fa-regular fa-square-check"></i>
+		        	<h3 class="title">직무 선택</h3>
+	        	</div>
+				<div class="category-grid">
+				    <div class="category-column">
+				        <h4 class="col-title">직무 카테고리</h4>
+				        <div class="category-options">
+				            <div class="option-btn">디자인</div>
+				            <div class="option-btn active">개발자</div>
+				            <div class="option-btn">마케팅</div>
+				        </div>
+				    </div>			
+                   <div class="category-column">
+	                   <h4 class="col-title">세부 직무</h4>
+	                   <div class="category-options">
+	                       <div class="option-btn">마케팅 기획</div>
+	                       <div class="option-btn active">백엔드</div>
+	                       <div class="option-btn">컨설턴트</div>
+	                   </div>
+	               </div>
+                  <div class="selected-tags-area">
+                          <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
+                          <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
+                     </div>
+	           </div>
+			</section>
+        	<%-- -------------------------------직무 선택 섹션 끝--------------------------- --%>
+        	<%-- -------------------------------채용 인원 섹션----------------------------- --%>
         	<section class="recruit-quota">
-        		<i class="fa-solid fa-street-view icon"></i>
-        		<h3 class="title">채용 인원</h3>
-        		<!-- 체크박스 들어올 곳 -->
-        		<span>미정(0명)</span>
+        		<div class="title-undefined">
+	        		<i class="fa-solid fa-street-view icon"></i>
+	        		<h3 class="title">채용 인원</h3>
+	        		<input class="form-check-input" type="checkbox" id="check-direct-input">
+	        		<span>미정(0명)</span>
+        		</div>
 	            <input type="text" name="recruit_subject" class="form-control" placeholder="채용인원 입력(단위:명)">
         	</section>
-        	
-        	
-        	
-        	
-        	
+        	<%-- -------------------------------채용 인원 섹션 끝----------------------------- --%>
+        	<%-- -------------------------------경력 섹션 ---------------------------------- --%>
+        	<section class="work-time">
+        		<div class="title-undefined">
+		        	<i class="fa-solid fa-briefcase icon"></i>
+		        	<h3 class="title">경력 조건</h3>
+	        	</div>
+	        	<select name="category" class="form-select category-select" required>
+	        		<option disabled selected>경력 조건 선택</option>
+	        		<option value="">경력</option>
+	        		<option value="">신입</option>
+	        		<option value="">무관</option>
+	        	</select>
+       		</section>
+        	<%-- -------------------------------경력 섹션 끝--------------------------------- --%>
+        	<%-- -------------------------------학력 섹션 ---------------------------------- --%>
+    	    <section class="work-time">
+        		<div class="title-undefined">
+		        	<i class="fa-solid fa-briefcase icon"></i>
+		        	<h3 class="title">학력</h3>
+	        	</div>
+	        	<select name="category" class="form-select category-select" required>
+	        		<option disabled selected>학력 선택</option>
+	        		<option value="">고등학교 졸</option>
+	        		<option value="">전문대 졸</option>
+	        		<option value="">대학교 졸</option>
+	        		<option value="">석사</option>
+	        		<option value="">박사</option>
+	        		<option value="">학력 무관</option>
+	        	</select>
+       		</section>
+        	<%-- -------------------------------학력 섹션 끝----------------------------- --%>
+        	<%-- -------------------------------급여 섹션 ---------------------------------- --%>
+    	   	<section class="work-time">
+        		<div class="title-undefined">
+		        	<i class="fa-solid fa-hand-holding-dollar icon"></i>
+		        	<h3 class="title">급여</h3>
+	        	</div>
+	        	<select name="category" class="form-select category-select" required>
+	        		<option disabled selected>급여 선택</option>
+	        		<option value="">1000 ~ 2000 만원</option>
+	        		<option value="">2000 ~ 3000 만원</option>
+	        		<option value="">3000 ~ 4000 만원</option>
+	        		<option value="">4000 ~ 5000 만원</option>
+	        		<option value="">5000 ~ 6000 만원</option>
+	        		<option value="">면접 후 협의</option>
+	        	</select>
+       		</section>
+        	<%-- -------------------------------급여 섹션 끝----------------------------- --%>
+        	<%-- -------------------------------채용 공고 내용 섹션------------------------ --%>
+        	<section class="work-time">
+	 		    <div class="title-undefined">
+	            	<i class="icon fa-regular fa-pen-to-square icon"></i>
+	            	<h3 class="title">채용 정보 상세 입력</h3>
+	            </div>
+        </section>
+       	<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%>            
         	
         	
         	
@@ -141,5 +226,6 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	
 </body>
 </html>

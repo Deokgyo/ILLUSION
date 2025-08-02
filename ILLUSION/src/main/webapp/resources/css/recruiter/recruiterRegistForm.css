@@ -68,16 +68,19 @@ main.registration-form-container {
   padding: 30px;
 
   /* 내부 placeholder 텍스트를 위한 스타일 (나중에 삭제 가능) */
-  display: flex;
+/*   display: flex; */
 /*   justify-content: center; */
 /*   align-items: center; */
-  flex-direction: column;
+/*   flex-direction: column; */
   
   /* 그라데이션 테두리 설정을 위한 추가  */
   position:relative; /*폼바디 바로 위에 오게설정*/
    overflow: hidden; /*테두리 넘치는 부분 억제*/
 }
 
+section {
+	margin-bottom:2rem;
+}
 
 /* 그라데이션 테두리 요소 추가  */
 .form-body::before {
@@ -137,19 +140,31 @@ main.registration-form-container {
 }
 
 /* ======================================================
+ *      아이콘 + 섹션 제목 공통 설정 
+ * ====================================================== */
+
+.title-undefined {
+	display: flex; /* 같은 행 설정 */
+	flex-direction: row; /* 같은 행 설정 */	
+	gap:5px; /* 사이 간격 설정 */
+	margin-bottom:10px; /* 아래에 요소와 간격 설정 */
+}
+
+
+/* ======================================================
  *      근무 지역 선택 전체 컨테이너 (.work-location)
  * ====================================================== */
  
- work-location {
+
+.location-part{
   width: 100%;
-  max-width: 800px;
+/*   max-width: 800px; */
   background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/*   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
   border: 1px solid #e2e8f0;
-  padding: 25px;
-
-  /* ✨핵심✨: 내부 요소들을 배치하기 위해 Grid 사용 */
+  padding: 15px 15px;
+/* ✨핵심✨: 내부 요소들을 배치하기 위해 Grid 사용 */
   display: grid;
   grid-template-areas:
     "icon   title"
@@ -157,39 +172,38 @@ main.registration-form-container {
     "left   right";
   grid-template-columns: auto 1fr; /* 아이콘만큼, 나머지 공간 */
   grid-template-rows: auto auto 1fr;
-  gap: 15px 10px;
+/*   gap: 10px 10px; */
+column-gap: 10px;
   height: 550px;
 }
- 
+
  /* 1-2. 상단 검색 바 */
-.location-search-bar {
+.location-search-bar_my {
+  display: flex;
   grid-area: search;
+  margin-bottom:10px;
+  padding:0px
 }
 
-#search-form {
-  display: flex;
-  align-items: center;
-  border: 2px solid #e2e8f0;
-  border-radius: 50px;
-  transition: border-color 0.2s ease;
-}
-#search-form:focus-within {
-  border-color: #fde68a;
-}
-#search-input {
+.location-search-bar_my input {
   flex-grow: 1;
-  border: none;
+  border: 1px solid var(--main-color, #FFE585);
+  border-right: none;
+  padding: 8px 12px;
+  border-radius: 20px 0 0 20px;
   outline: none;
-  padding: 12px 20px;
-  font-size: 1rem;
-  background: transparent;
 }
+
 .search-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 12px 20px;
-  color: #94a3b8;
+  border: 1px solid var(--main-color);
+  background-color: var(--main-color);
+    color: var(--font-main-color);
+    width: 50px;
+    height: 50px;
+  border-radius: 0 20px 20px 0;
+    font-size: 18px;
+    transition: background-color 0.2s;
+    cursor: pointer;
 }
  
  /* ======================================================
@@ -201,7 +215,8 @@ main.registration-form-container {
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   overflow-y: auto;
-  height: 350px;
+  height: 100%;
+  width: 100%;
 }
 #major-region-list {
   list-style: none;
@@ -232,7 +247,7 @@ main.registration-form-container {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  height: 350px;
+	height: 100%;
 }
 .filter-header {
   display: flex;
@@ -242,16 +257,33 @@ main.registration-form-container {
   border-bottom: 1px solid #e2e8f0;
   flex-shrink: 0;
 }
+
 .filter-reset-btn {
-  /* 필요에 따라 버튼 스타일 추가 */
-  background: none; border: 1px solid #cbd5e1; padding: 4px 8px; border-radius: 6px; cursor: pointer;
+    font-size: 15px;
+    font-family: var(--font-family);
+    /* NOTE: 초기화/경고를 위한 전용 색상 변수가 없어 서브 텍스트 색상을 사용합니다. */
+    color: var(--font-sub-color);
+    border:none !important;
+    background-color: transparent;
+/*     border-radius: 4px; */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
+
+.filter-reset-btn:hover {
+    background-color: #e9ecef; /* 호버 색상 변수가 없어 직접 사용 */
+    color: var(--font-main-color);
+}
+.filter-header{
+	padding:15px 20px 12px !important;
+}
+
 #sub-region-list {
-  padding: 20px;
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 15px;
+	padding: 20px;
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	gap: 15px;
 }
 
 /* 체크박스 공통 스타일 */
@@ -276,5 +308,78 @@ main.registration-form-container {
 ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 6px;}
 ::-webkit-scrollbar-thumb:hover { background: #aaa; }
 
+ /* ======================================================
+ *      직무 선택
+ * ====================================================== */
 
- 
+
+/* 직무 선택 버튼 스타일 */
+.category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+.category-column .col-title {
+    font-size: 14px;
+/*     color: #888; */
+    color: var(--font-sub-color); 
+/*     margin-bottom: 10px; */
+    text-align: center;
+}
+.category-options .option-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #fff;
+    color: var(--font-main-color);
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+}
+.category-options .option-btn.active,
+.category-options .option-btn:hover {
+    border-color: #B08968;
+    background-color: var(--body-bg-color);
+/*     background-color: #FFF9EB; */
+    color: #B08968;
+    font-weight: 600;
+}
+
+/* 선택된 키워드 (태그 스타일) */
+.selected-tags-area {
+/*     margin-top: 15px; */
+/*     padding: 5px; */
+/*     background-color: #f8f9fa; */
+    background-color: var(--body-bg-color);
+    border-radius: 8px;
+/*     min-height: 50px; */
+}
+.selected-tags-area .tag {
+    display: inline-flex;
+    align-items: center;
+/*     background-color: #e9ecef; */
+    background-color: var(--body-bg-color);
+    border-radius: 15px;
+/*     padding: 5px 5px; */
+    font-size: 14px;
+/*     margin-right: 8px; */
+/*     margin-bottom: 8px; */
+    color: var(--font-main-color);
+}
+.selected-tags-area .tag .close-btn {
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+ /* ======================================================
+ *      채용 인원 선택
+ * ====================================================== */
+
+.form-check-input {
+	margin-left:10px
+}
+
