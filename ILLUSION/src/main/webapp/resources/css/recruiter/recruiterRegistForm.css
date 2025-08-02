@@ -110,7 +110,8 @@ main.registration-form-container {
  *      5. 폰트 수정 
  * ====================================================== */
 .title{
-	font-size:18px
+	font-size:18px;
+	font-weight:600;
 }
 
 /* ======================================================
@@ -135,7 +136,145 @@ main.registration-form-container {
     outline: 0;
 }
 
+/* ======================================================
+ *      근무 지역 선택 전체 컨테이너 (.work-location)
+ * ====================================================== */
+ 
+ work-location {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  padding: 25px;
 
+  /* ✨핵심✨: 내부 요소들을 배치하기 위해 Grid 사용 */
+  display: grid;
+  grid-template-areas:
+    "icon   title"
+    "search search"
+    "left   right";
+  grid-template-columns: auto 1fr; /* 아이콘만큼, 나머지 공간 */
+  grid-template-rows: auto auto 1fr;
+  gap: 15px 10px;
+  height: 550px;
+}
  
+ /* 1-2. 상단 검색 바 */
+.location-search-bar {
+  grid-area: search;
+}
+
+#search-form {
+  display: flex;
+  align-items: center;
+  border: 2px solid #e2e8f0;
+  border-radius: 50px;
+  transition: border-color 0.2s ease;
+}
+#search-form:focus-within {
+  border-color: #fde68a;
+}
+#search-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  background: transparent;
+}
+.search-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px 20px;
+  color: #94a3b8;
+}
  
+ /* ======================================================
+ *      지역 선택 패널 (좌/우)
+ * ====================================================== */
+ /* 2-1. 왼쪽 시/도 패널 */
+.region-panel-left {
+  grid-area: left;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow-y: auto;
+  height: 350px;
+}
+#major-region-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+}
+.major-region-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #475569;
+  transition: background-color 0.2s ease;
+}
+.major-region-item:hover {
+  background-color: #f8fafc;
+}
+.major-region-item.active {
+  background-color: #fffbeb;
+  color: #ca8a04;
+  font-weight: 700;
+}
+
+/* 2-2. 오른쪽 시/군/구 패널 */
+.region-panel-right {
+  grid-area: right;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 350px;
+}
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+.filter-reset-btn {
+  /* 필요에 따라 버튼 스타일 추가 */
+  background: none; border: 1px solid #cbd5e1; padding: 4px 8px; border-radius: 6px; cursor: pointer;
+}
+#sub-region-list {
+  padding: 20px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+/* 체크박스 공통 스타일 */
+#sub-region-list label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #334155;
+}
+#sub-region-list label input {
+  margin-right: 8px;
+}
+
+/* 숨김 클래스 */
+.hidden {
+  display: none !important;
+}
+
+/* 커스텀 스크롤바 */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 6px;}
+::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+
  
