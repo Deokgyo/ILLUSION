@@ -107,6 +107,8 @@ section {
  .icon {
  	font-size:20px;
  	color:var(--main-color);
+ 	width: 30px !important;
+ 	padding: 0px !important;
  }
  
 /* ======================================================
@@ -341,10 +343,10 @@ column-gap: 10px;
 }
 .category-options .option-btn.active,
 .category-options .option-btn:hover {
-    border-color: #B08968;
+    border-color: var(--main-color);
     background-color: var(--body-bg-color);
 /*     background-color: #FFF9EB; */
-    color: #B08968;
+    color: var(--main-color-hover);
     font-weight: 600;
 }
 
@@ -383,3 +385,52 @@ column-gap: 10px;
 	margin-left:10px
 }
 
+ /* ======================================================
+ *      세부 공고 입력 
+ * ====================================================== */
+
+.recruit-detail{
+	display: flex;
+	flex-direction: column;
+}
+
+
+.toolbar {
+	display: flex;
+	justify-content: flex-end;
+	max-width: inherit;
+}
+
+.toolbar > button {
+	border:0.3px !important;
+	background-color: var(--body-bg-color);
+	margin-top: 15px;
+}
+
+.toolbar > button:hover {
+	color:var(--main-color);
+}
+
+.btn:active {
+	color:var(--main-color) !important;
+	border: none !important;
+}
+
+ .editor {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto;
+     border-radius: 15px;
+     display: flex;
+     flex-direction: column;
+     
+}
+
+ .editor:focus {
+ 	color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: var(--main-color);
+    outline: 0;
+ }

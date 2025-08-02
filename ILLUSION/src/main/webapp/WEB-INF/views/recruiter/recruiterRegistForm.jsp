@@ -4,10 +4,13 @@
 <%@ page session="false" %>
 <html>
 <head>
+	<%-- js 관련 설정들 --%>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
     <%-- 외부 라이브러리 CSS --%>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
+    
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="./resources/css/global.css">
     <link rel="stylesheet" href="./resources/css/top.css">
@@ -15,7 +18,8 @@
     <link rel="stylesheet" href="./resources/css/recruiter/recruiterRegistForm.css">
     <link rel="stylesheet" href="./resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/filterEvent.css">
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+	
+	
 	<%-- --------------- 브라우저 볼때 탭 영역 ----------- --%>
 	<title>Home</title> <%-- 문구 수정 --%>
 	<link rel="icon" href="/favicon.ico" type="image/x-icon"> <%-- 사진추가 --%>
@@ -208,14 +212,42 @@
        		</section>
         	<%-- -------------------------------급여 섹션 끝----------------------------- --%>
         	<%-- -------------------------------채용 공고 내용 섹션------------------------ --%>
-        	<section class="work-time">
+        	<section class="recruit-detail">
 	 		    <div class="title-undefined">
 	            	<i class="icon fa-regular fa-pen-to-square icon"></i>
 	            	<h3 class="title">채용 정보 상세 입력</h3>
 	            </div>
-        </section>
-       	<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%>            
+			
+				<div class="editor" id="editor" contenteditable="true">
+				  담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요.
+				</div>
+				<textarea name="content" id="hiddenContent" hidden></textarea>
+		           	<div class="toolbar">
+					  <button type="button" onclick="format('bold')"><i class="fa-solid fa-bold icon btn"></i></button>
+					  <button type="button" onclick="format('italic')"><i class="fa-solid fa-italic icon btn"></i></button>
+					  <button type="button" onclick="document.getElementById('upload').click()"><i class="fa-solid fa-arrow-up-from-bracket icon btn"></i></button>
+					  <input type="file" accept="image/*" id="upload" hidden>
+					</div>
+<!-- 	            <textarea name="content" placeholder="담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요."></textarea> -->
+       		</section>
+       		<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%>            
+       		<%----------------------------------마감 날짜 섹션------------------------------ --%>
+ 		    <div class="title-undefined">
+            	<i class="fa-regular fa-calendar-days icon"></i>
+            	<h3 class="title">공고 마감 날짜</h3>
+            	
+            	<input type="text" id="datePicker" class="form-control"  />
+            </div>
+       		<%----------------------------------마감 날짜 섹션 끝---------------------------- --%>
+       		<%----------------------------------문의 email 섹션------------------------------ --%>
+ 		    <div class="title-undefined">
+           		<i class="fa-regular fa-envelope icon"></i>
+            	<h3 class="title">문의 E-mail</h3>
+            </div>
+            <input type="text" name="email" class="form-control" placeholder="E-mail을 입력해주세요">
+       		<%----------------------------------문의 email 섹션 끝---------------------------- --%>
         	
+        	<button>제출</button>
         	
         	
         	</form>
@@ -226,6 +258,97 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	<script>
+$(function () {
 	
+  //실제로 사용자가 작성한 세부 내용이 전달되기 위한 설정 
+  $('form').on('submit', () => {
+	 const editorContent = $('#editor').html();
+	 $('#hiddenContent').val(editorContent);
+  });
+	
+  const $editor = $('#editor');
+  const $upload = $('#upload');
+
+  // 툴바 명령 실행
+  document.format = (command, value = null) => {
+    document.execCommand(command, false, value);
+  };
+
+  // 파일 업로드 버튼
+  $upload.on('change', function () {
+    const file = this.files[0];
+    if (file && file.type.startsWith('image/')) {
+      uploadImageToServer(file).then(function (url) {
+        insertImage(url);
+      });
+    }
+  });
+
+  // 이미지 삽입 함수
+  function insertImage(url) {
+    const $img = $('<img>').attr('src', url);
+    insertAtCursor($img[0]);
+  }
+
+  // 커서 위치에 이미지 삽입
+  function insertAtCursor(node) {
+    const sel = window.getSelection();
+    if (sel.rangeCount) {
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(node);
+      range.setStartAfter(node);
+      range.setEndAfter(node);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  }
+
+  // 이미지 업로드 (서버 대신 base64 예시)
+  function uploadImageToServer(file) {
+    return new Promise(function (resolve) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        resolve(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // 드래그앤드롭 이미지
+  $editor.on('dragover', function (e) {
+    e.preventDefault();
+  });
+
+  $editor.on('drop', function (e) {
+    e.preventDefault();
+    const file = e.originalEvent.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      uploadImageToServer(file).then(function (url) {
+        insertImage(url);
+      });
+    }
+  });
+
+  // 붙여넣기 이미지 처리
+  $editor.on('paste', function (e) {
+    const items = e.originalEvent.clipboardData.items;
+    for (const item of items) {
+      if (item.type.startsWith('image/')) {
+        const file = item.getAsFile();
+        uploadImageToServer(file).then(function (url) {
+          insertImage(url);
+        });
+        e.preventDefault();
+      }
+    }
+  });
+  
+
+  
+  
+});
+</script>
 </body>
 </html>
