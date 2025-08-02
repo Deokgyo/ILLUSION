@@ -109,7 +109,7 @@
 						<button type="button" class="btn btn-sm btn-outline-danger filter-reset-btn">초기화</button>
 					</div>
 					<div class="filter-options" id="sub-region-list">
-				<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>
+				<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
 					</div>
 					<input type="hidden" id="selected-locations" name="locations">
 				</div>
