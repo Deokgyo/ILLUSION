@@ -179,39 +179,41 @@
        		</section>
         	<%-- -------------------------------경력 섹션 끝--------------------------------- --%>
         	<%-- -------------------------------학력 섹션 ---------------------------------- --%>
-    	    <section class="work-time">
-        		<div class="title-undefined">
-		        	<i class="fa-solid fa-briefcase icon"></i>
-		        	<h3 class="title">학력</h3>
-	        	</div>
-	        	<select name="category" class="form-select category-select" required>
-	        		<option disabled selected>학력 선택</option>
-	        		<option value="">고등학교 졸</option>
-	        		<option value="">전문대 졸</option>
-	        		<option value="">대학교 졸</option>
-	        		<option value="">석사</option>
-	        		<option value="">박사</option>
-	        		<option value="">학력 무관</option>
-	        	</select>
-       		</section>
-        	<%-- -------------------------------학력 섹션 끝----------------------------- --%>
-        	<%-- -------------------------------급여 섹션 ---------------------------------- --%>
-    	   	<section class="work-time">
-        		<div class="title-undefined">
-		        	<i class="fa-solid fa-hand-holding-dollar icon"></i>
-		        	<h3 class="title">급여</h3>
-	        	</div>
-	        	<select name="category" class="form-select category-select" required>
-	        		<option disabled selected>급여 선택</option>
-	        		<option value="">1000 ~ 2000 만원</option>
-	        		<option value="">2000 ~ 3000 만원</option>
-	        		<option value="">3000 ~ 4000 만원</option>
-	        		<option value="">4000 ~ 5000 만원</option>
-	        		<option value="">5000 ~ 6000 만원</option>
-	        		<option value="">면접 후 협의</option>
-	        	</select>
-       		</section>
-        	<%-- -------------------------------급여 섹션 끝----------------------------- --%>
+	    	<div class="edusalary">   
+	    	    <section class="work-time">
+	        		<div class="title-undefined">
+			        	<i class="fa-solid fa-briefcase icon"></i>
+			        	<h3 class="title">학력</h3>
+		        	</div>
+		        	<select name="category" class="form-select category-select" required>
+		        		<option disabled selected>학력 선택</option>
+		        		<option value="">고등학교 졸</option>
+		        		<option value="">전문대 졸</option>
+		        		<option value="">대학교 졸</option>
+		        		<option value="">석사</option>
+		        		<option value="">박사</option>
+		        		<option value="">학력 무관</option>
+		        	</select>
+	       		</section>
+	        	<%-- -------------------------------학력 섹션 끝----------------------------- --%>
+	        	<%-- -------------------------------급여 섹션 ---------------------------------- --%>
+	    	   	<section class="salary">
+	        		<div class="title-undefined">
+			        	<i class="fa-solid fa-hand-holding-dollar icon"></i>
+			        	<h3 class="title">급여</h3>
+		        	</div>
+		        	<select name="category" class="form-select category-select" required>
+		        		<option disabled selected>급여 선택</option>
+		        		<option value="">1000 ~ 2000 만원</option>
+		        		<option value="">2000 ~ 3000 만원</option>
+		        		<option value="">3000 ~ 4000 만원</option>
+		        		<option value="">4000 ~ 5000 만원</option>
+		        		<option value="">5000 ~ 6000 만원</option>
+		        		<option value="">면접 후 협의</option>
+		        	</select>
+	       		</section>
+        	</div>
+	        	<%-- -------------------------------급여 섹션 끝----------------------------- --%>
         	<%-- -------------------------------채용 공고 내용 섹션------------------------ --%>
         	<section class="recruit-detail">
 	 		    <div class="title-undefined">

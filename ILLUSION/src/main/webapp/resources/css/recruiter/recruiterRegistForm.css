@@ -66,7 +66,7 @@ main.registration-form-container {
   width: 100%;
   min-height: 75vh; /* 폼의 최소 높이를 화면 높이의 75%로 설정 */
   padding: 30px;
-
+height: 2755px;
   /* 내부 placeholder 텍스트를 위한 스타일 (나중에 삭제 가능) */
 /*   display: flex; */
 /*   justify-content: center; */
@@ -75,7 +75,7 @@ main.registration-form-container {
   
   /* 그라데이션 테두리 설정을 위한 추가  */
   position:relative; /*폼바디 바로 위에 오게설정*/
-   overflow: visible; /*테두리 넘치는 부분 억제*/
+   overflow: hidden /*테두리 넘치는 부분 억제*/
 }
 
 section {
@@ -84,13 +84,15 @@ section {
 
 /* 그라데이션 테두리 요소 추가  */
 .form-body::before {
-    content: '';
+	content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 7px; /* 테두리 두께 */
-    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */
+    height: 6px;
+    background: var(--background-gradient-horizontally);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 
@@ -446,7 +448,7 @@ column-gap: 10px;
      display: flex;
      flex-direction: column;
      
-}
+} 
 
  .editor:focus {
  	color: var(--bs-body-color);
@@ -455,8 +457,15 @@ column-gap: 10px;
     outline: 0;
  }
  
+ .deadLine {
+ 	overflow: visible;
+ }
  
  .email {
   display: flex;
   flex-direction: column;
+ }
+ 
+ .btn-yellow {
+ margin-top: 40px;
  }
