@@ -6,6 +6,8 @@
 <head>
 	<%-- js 관련 설정들 --%>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegist.js"></script>
+	
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
@@ -100,9 +102,9 @@
 					<div class="region-panel-left">
 						<ul id="major-region-list">
 					    <%-- 이 부분은 JS로 동적 생성하거나, JSP로 직접 출력할 수 있습니다. --%>
-							<li class="major-region-item active" data-region-code="seoul">서울</li>
-							<li class="major-region-item" data-region-code="busan">부산</li>
-							<li class="major-region-item" data-region-code="daegu">대구</li>
+<!-- 							<li class="major-region-item" data-region-code="seoul">서울</li> -->
+<!-- 							<li class="major-region-item" data-region-code="busan">부산</li> -->
+<!-- 							<li class="major-region-item" data-region-code="daegu">대구</li> -->
 					<%-- (기타 시/도 생략) --%>
 						</ul>	
 					</div>
@@ -115,7 +117,7 @@
 							<button type="button" class="filter-reset-btn">초기화<i class="fa-solid fa-arrows-rotate"></i></button>
 						</div>
 						<div class="filter-options" id="sub-region-list">
-					<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
+						<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
 						</div>
 						<input type="hidden" id="selected-locations" name="locations">
 					</div>
