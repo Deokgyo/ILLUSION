@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminModal.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/dashboard.css">
     
@@ -128,7 +129,7 @@
 		                        <td>
 		                            <div class="action-buttons">
 		                                <button class="btn btn-edit">변경</button>
-		                                <button class="btn btn-view">보기</button>
+		                                <a href="adminMemberDetail" class="btn btn-view">보기</a>
 		                                <button class="btn btn-delete">삭제</button>
 		                            </div>
 		                        </td>
@@ -144,7 +145,7 @@
 		                        <td>
 		                            <div class="action-buttons">
 		                                <button class="btn btn-edit">변경</button>
-		                                <button class="btn btn-view">보기</button>
+		                                <a href="adminMemberDetail" class="btn btn-view">보기</a>
 		                                <button class="btn btn-delete">삭제</button>
 		                            </div>
 		                        </td>
@@ -160,7 +161,7 @@
 		                        <td>
 		                            <div class="action-buttons">
 		                                <button class="btn btn-edit">변경</button>
-		                                <button class="btn btn-view">보기</button>
+		                                <a href="adminMemberDetail" class="btn btn-view">보기</a>
 		                                <button class="btn btn-delete">삭제</button>
 		                            </div>
 		                        </td>
@@ -181,5 +182,8 @@
 	    </div>
 	</div>
 
+	<jsp:include page="/WEB-INF/views/admin/adminModal.jsp"></jsp:include>
+	
+	<script src="${pageContext.request.contextPath}/resources/js/admin/adminModal.js"></script>
 </body>
 </html>

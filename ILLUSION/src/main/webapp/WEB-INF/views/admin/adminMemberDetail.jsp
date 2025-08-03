@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>관리자 공고 관리</title>
+    <title>관리자 회원 관리</title>
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMemberDetail.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/dashboard.css">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -63,88 +64,67 @@
 	
 	            <!-- 메인 콘텐츠가 표시될 영역 -->
 	            <main class="admin-content">
-        
-		        <!-- 1. 페이지 헤더 -->
+	            
+	            <!-- 1. 페이지 헤더 -->
 		         <div class="page-title-header">
-	         	    <p class="header-text"><strong>공고 목록</strong></p>
+	         	    <p class="header-text"><strong>구직자/기업 회원목록</strong></p>
 	             </div>
-		
-		        <!-- 2. 필터 및 검색 바 -->
-		        <div class="control-bar">
-		            <div class="filters">
-		                <div class="filter-group view-options">
-		                    <select name="view-count" id="view-count">
-		                        <option value="10">10</option>
-		                        <option value="30">30</option>
-		                        <option value="50">50</option>
-		                    </select>
-		                    <span>건씩 보기</span>
-		                </div>
-		                <div class="filter-group">
-		                    <span class="filter-title">일자별</span>
-		                    <label><input type="radio" name="recurit-type" value="all" checked> 전체</label>
-		                    <label><input type="radio" name="recurit-type" value="personal"> 등록일 순</label>
-		                    <label><input type="radio" name="recurit-type" value="corporate"> 마감일 순</label>
-		                </div>
-		            </div>
-		            <div class="search-box">
-		                <input type="text" placeholder="기업 명, 공고 제목 검색">
-		                <button type="button">🔍</button>
-		            </div>
-		        </div>
-		
-		        <!-- 3. 회원 목록 테이블 -->
-		        <div class="table-wrapper">
-		            <table>
-		                <thead>
-		                    <tr>
-		                        <th>No.</th>
-		                        <th>기업명</th>
-		                        <th>공고제목</th>
-		                        <th>등록일</th>
-		                        <th>마감일</th>
-		                        <th>등록자</th>
-		                        <th>조회수</th>
-		                        <th>관리</th>
-		                    </tr>
-		                </thead>
-		                <tbody>
-		                    <!-- 반복될 데이터 행 (예시) -->
-		                    <tr>
-		                        <td>1</td>
-		                        <td>Samsung</td>
-		                        <td>경력, 신입 개발자 채용</td>
-		                        <td>2025-07-31</td>
-		                        <td>2025-08-30</td>
-		                        <td>이재용</td>
-		                        <td>30</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                            	<a href="recuritmentDetail" class="btn btn-view">공고 상세보기</a>
-		                                <button class="btn btn-delete">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <tr>
-		                        <td>2</td>
-		                        <td>Hyundai</td>
-		                        <td>경력, 신입 개발자 채용</td>
-		                        <td>2025-07-31</td>
-		                        <td>2025-08-30</td>
-		                        <td>정주영</td>
-		                        <td>15</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <a href="recuritmentDetail" class="btn btn-view">공고 상세보기</a>
-		                                <button class="btn btn-delete">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <!-- ... 추가 데이터 행 ... -->
-		                </tbody>
-		            </table>
-		        </div>
-
+        
+			        <div class="detail-layout">
+			            <!-- =======================
+			                 왼쪽 정보 컬럼
+			                ======================== -->
+			            <div class="form-column left">
+			                <div class="form-group">
+			                    <label>아이디</label>
+			                    <div class="form-value">honeyCombo</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>이름</label>
+			                    <div class="form-value">김교촌</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>이메일</label>
+			                    <div class="form-value">kyochon@chicken.com</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>주소</label>
+			                    <div class="form-value">부산 부산진구 동천로 109 삼한골든게이트 7층</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>성별</label>
+			                    <div class="form-value">남</div>
+			                </div>
+			                 <div class="form-group">
+			                    <label>회원 유형</label>
+			                    <div class="form-value">개인회원</div>
+			                </div>
+			                 <div class="form-group">
+			                    <label>가입일자</label>
+			                    <div class="form-value">2025-01-10</div>
+			                </div>
+			            </div>
+			
+			            <!-- =======================
+			                 오른쪽 정보 컬럼
+			                ======================== -->
+			            <div class="form-column right">
+			                	<img src="${pageContext.request.contextPath}/resources/image/kyochon.jpg" class="image-placeholder">
+			                 <div class="form-group">
+			                    <label>기업이름</label>
+			                    <div class="form-value">교촌치킨</div>
+			                </div>
+			                 <div class="form-group">
+			                    <label>회원 상태</label>
+			                    <div class="form-value">정상</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>탈퇴일자</label>
+			                    <div class="form-value">미탈퇴</div>
+			                </div>
+			            </div>
+			        </div>
+		      
 	            </main>
 	            
 	            <!-- 메인 푸터 -->
@@ -155,6 +135,5 @@
 	        </div>
 	    </div>
 	</div>
-
 </body>
 </html>

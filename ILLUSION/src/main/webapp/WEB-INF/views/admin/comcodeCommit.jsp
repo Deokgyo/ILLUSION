@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>관리자 공고 관리</title>
+    <title>관리자 회원 관리</title>
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/comcodeCommit.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/dashboard.css">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -63,87 +64,73 @@
 	
 	            <!-- 메인 콘텐츠가 표시될 영역 -->
 	            <main class="admin-content">
-        
-		        <!-- 1. 페이지 헤더 -->
-		         <div class="page-title-header">
-	         	    <p class="header-text"><strong>공고 목록</strong></p>
-	             </div>
-		
-		        <!-- 2. 필터 및 검색 바 -->
-		        <div class="control-bar">
-		            <div class="filters">
-		                <div class="filter-group view-options">
-		                    <select name="view-count" id="view-count">
-		                        <option value="10">10</option>
-		                        <option value="30">30</option>
-		                        <option value="50">50</option>
-		                    </select>
-		                    <span>건씩 보기</span>
-		                </div>
-		                <div class="filter-group">
-		                    <span class="filter-title">일자별</span>
-		                    <label><input type="radio" name="recurit-type" value="all" checked> 전체</label>
-		                    <label><input type="radio" name="recurit-type" value="personal"> 등록일 순</label>
-		                    <label><input type="radio" name="recurit-type" value="corporate"> 마감일 순</label>
-		                </div>
-		            </div>
-		            <div class="search-box">
-		                <input type="text" placeholder="기업 명, 공고 제목 검색">
-		                <button type="button">🔍</button>
-		            </div>
-		        </div>
-		
-		        <!-- 3. 회원 목록 테이블 -->
-		        <div class="table-wrapper">
-		            <table>
-		                <thead>
-		                    <tr>
-		                        <th>No.</th>
-		                        <th>기업명</th>
-		                        <th>공고제목</th>
-		                        <th>등록일</th>
-		                        <th>마감일</th>
-		                        <th>등록자</th>
-		                        <th>조회수</th>
-		                        <th>관리</th>
-		                    </tr>
-		                </thead>
-		                <tbody>
-		                    <!-- 반복될 데이터 행 (예시) -->
-		                    <tr>
-		                        <td>1</td>
-		                        <td>Samsung</td>
-		                        <td>경력, 신입 개발자 채용</td>
-		                        <td>2025-07-31</td>
-		                        <td>2025-08-30</td>
-		                        <td>이재용</td>
-		                        <td>30</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                            	<a href="recuritmentDetail" class="btn btn-view">공고 상세보기</a>
-		                                <button class="btn btn-delete">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <tr>
-		                        <td>2</td>
-		                        <td>Hyundai</td>
-		                        <td>경력, 신입 개발자 채용</td>
-		                        <td>2025-07-31</td>
-		                        <td>2025-08-30</td>
-		                        <td>정주영</td>
-		                        <td>15</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <a href="recuritmentDetail" class="btn btn-view">공고 상세보기</a>
-		                                <button class="btn btn-delete">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <!-- ... 추가 데이터 행 ... -->
-		                </tbody>
-		            </table>
-		        </div>
+	            
+			        <form id="common-code-form">
+			            
+				        <!-- 1. 페이지 헤더 -->
+				         <div class="page-title-header">
+			         	    <p class="header-text"><strong>공통코드 목록</strong></p>
+			             </div>
+			
+			            <!-- 2. 코드 타입 입력 섹션 -->
+			            <div class="form-section">
+			                <div class="form-group">
+			                    <label for="code-type-id">코드 타입 ID</label>
+			                    <input type="text" id="code-type-id" placeholder="코드타입 입력">
+			                </div>
+			                <div class="form-group">
+			                    <label for="code-type-name">코드 타입 명</label>
+			                    <input type="text" id="code-type-name" placeholder="코드 타입 명 입력">
+			                </div>
+			                <div class="form-group">
+			                    <label for="code-type-desc">설명 입력</label>
+			                    <input type="text" id="code-type-desc" placeholder="설명 입력">
+			                </div>
+			            </div>
+			
+			            <hr class="divider">
+			
+			            <!-- 3. 공통 코드 입력 섹션 (동적 테이블) -->
+			            <div class="form-section">
+			                <div class="table-header">
+			                    <h3>공통 코드 입력</h3>
+			                    <div class="table-controls">
+			                        <button type="button" class="btn btn-add-row">행추가</button>
+			                        <button type="button" class="btn btn-delete-row">삭제</button>
+			                    </div>
+			                </div>
+			                
+			                <div class="table-wrapper">
+			                    <table>
+			                        <thead>
+			                            <tr>
+			                                <th><input type="checkbox" id="check-all-rows"></th>
+			                                <th>No.</th>
+			                                <th>공통코드 ID 입력</th>
+			                                <th>공통코드 명</th>
+			                                <th>설명</th>
+			                            </tr>
+			                        </thead>
+			                        <tbody id="common-code-tbody">
+			                            <!-- JavaScript로 동적으로 추가될 행의 시작점 -->
+			                            <tr>
+			                                <td><input type="checkbox" class="row-check"></td>
+			                                <td class="row-num">1</td>
+			                                <td><input type="text" placeholder="공통 코드 ID 입력"></td>
+			                                <td><input type="text" placeholder="공통 코드 명 입력"></td>
+			                                <td><input type="text" placeholder="설명 입력"></td>
+			                            </tr>
+			                        </tbody>
+			                    </table>
+			                </div>
+			            </div>
+			
+			            <!-- 4. 최종 등록 버튼 -->
+			            <div class="form-actions">
+			                <button type="submit" class="btn btn-submit">등록하기</button>
+			            </div>
+			
+			        </form>
 
 	            </main>
 	            
@@ -155,6 +142,7 @@
 	        </div>
 	    </div>
 	</div>
-
+	
+	<script src="common-code-form.js"></script>
 </body>
 </html>

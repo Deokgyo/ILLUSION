@@ -41,4 +41,14 @@ public class AdminController {
 		return "admin/comcodeRegist";
 	}
 	
+	@GetMapping("adminMemberDetail")
+	public String adminMemberDetail() {
+		return "admin/adminMemberDetail";
+	}
+	
+	@GetMapping("comcodeCommit")
+	public String comcodeCommit() {
+		return "admin/comcodeCommit";
+	}
+	
 }
