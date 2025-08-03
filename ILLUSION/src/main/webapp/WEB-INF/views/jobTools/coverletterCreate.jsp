@@ -95,20 +95,24 @@
 					    </div>
 					
 					    <div id="experience-fields" class="mt-3">
-    
-					    <div id="experience-level-select" class="form-control dropdown-select">
-					        <span>경력 기간 선택</span>
-					        <i class="fa-solid fa-chevron-down"></i>
+					        
+					        <!-- ✅ 수정: 드롭다운 관련 요소들을 wrapper로 다시 묶어줍니다 -->
+					        <div class="dropdown-wrapper">
+					            <div id="experience-level-select" class="form-control dropdown-select">
+					                <span>경력 기간 선택</span>
+					                <i class="fa-solid fa-chevron-down"></i>
+					            </div>
+					            <div class="form-dropdown-menu">
+					                <div class="form-dropdown-item" data-value="1">1년 미만</div>
+					                <div class="form-dropdown-item" data-value="2">1년 이상 ~ 2년 미만</div>
+					                <div class="form-dropdown-item" data-value="3">2년 이상 ~ 3년 미만</div>
+					                <div class="form-dropdown-item" data-value="4">4년 이상</div>
+					            </div>
+					        </div>
+					        
+					        <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
+					        <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />
 					    </div>
-					    <div class="dropdown-menu">
-					        <div class="dropdown-item" data-value="1">1년 미만</div>
-					        <div class="dropdown-item" data-value="2">1년 이상 ~ 2년 미만</div>
-					        <div class="dropdown-item" data-value="3">2년 이상 ~ 3년 미만</div>
-					        <div class="dropdown-item" data-value="4">4년 이상</div>
-					    </div>
-						    <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
-						    <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />
-						</div>
 					</div>
 
 <!--                     AI 생성 요구사항 섹션 -->
@@ -162,7 +166,7 @@
             </div>
             <p>결제페이지로 이동하시겠습니까?</p>
             <div class="modal-buttons">
-                <button class="btn btn-secondary btn-no">아니요</button>
+                <button class="btn btn-yellow btn-no">아니요</button>
                 <a href="/payment" class="btn btn-yellow">네</a>
             </div>
         </div>

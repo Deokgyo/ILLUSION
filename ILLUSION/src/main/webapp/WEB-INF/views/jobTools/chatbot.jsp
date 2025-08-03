@@ -60,7 +60,7 @@
 				        </form>
 				
 				        <!-- 2. 토큰 충전 버튼 -->
-				        <button type="button" class="gradient-btn">
+				        <button type="button" class="gradient-btn btn-token-charge">
 				            <i class='far fa-gem' style= "color : var(--main-color)"></i> 토큰 충전
 				        </button>
 				
@@ -73,15 +73,18 @@
 
      <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer> 
 
-    <div id="token-modal" class="modal-overlay hidden">
+     <!-- '토큰 부족' 모달 (이미 표준 구조) -->
+     <div id="token-modal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-btn" aria-label="닫기">×</button>
-	
-            <h4><i class="fa-solid fa-circle-info" style="color: var(--main-color)"></i> 토큰이 부족합니다</h4>
+            <button class="close-modal-btn btn-no">×</button>
+            <div class="modal-header">
+                <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
+                <h4>토큰이 부족합니다</h4>
+            </div>
             <p>결제페이지로 이동하시겠습니까?</p>
-            <div class="btn-group mt-3">
-                <button class="btn btn-yellow btn-no">아니요</button>
-                <button class="btn btn-yellow btn-yes">네</button>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary btn-no">아니요</button>
+                <a href="/payment" class="btn btn-yellow">네</a>
             </div>
         </div>
     </div>

@@ -14,26 +14,23 @@ $(function() {
         }
     });
     
-  	 // --- 1-1. 경력 기간 드롭다운 기능 (수정 완료) ---
-	// 이 코드는 현재 HTML 구조에 완벽하게 동작하므로 수정할 필요 없습니다.
-		const $dropdownSelect = $('#experience-level-select');
-		const $dropdownMenu = $dropdownSelect.next('.dropdown-menu');
-		
-		// 드롭다운 헤더 클릭 시 메뉴 토글
-		$dropdownSelect.on('click', function(e) {
-		    e.stopPropagation(); 
-		    $dropdownMenu.slideToggle(200);
-		});
-
-	// 드롭다운 아이템 클릭 시
-	$dropdownMenu.on('click', '.dropdown-item', function() {
+  	 // --- 1-1. 경력 기간 드롭다운 기능 (최종 수정본) ---
+	const $dropdownSelect = $('#experience-level-select');
+	
+	$dropdownSelect.on('click', function(e) {
+	    e.stopPropagation(); 
+	    $(this).closest('.dropdown-wrapper').find('.form-dropdown-menu').slideToggle(200);
+	});
+	
+	$('.dropdown-wrapper').on('click', '.form-dropdown-item', function() {
 	    const selectedText = $(this).text();
-	    $dropdownSelect.find('span').text(selectedText);
+	    $(this).closest('.form-dropdown-menu').siblings('.dropdown-select').find('span').text(selectedText);
+	    $(this).closest('.form-dropdown-menu').slideUp(200);
 	});
 	
 	$(document).on('click', function(e) {
-	    if (!$dropdownMenu.is(e.target) && $dropdownMenu.has(e.target).length === 0) {
-	        $dropdownMenu.slideUp(200);
+	    if ($('.dropdown-wrapper').has(e.target).length === 0) {
+	        $('.form-dropdown-menu').slideUp(200);
 	    }
 	});
 
@@ -91,7 +88,7 @@ $(function() {
     // --- 5. 생성 버튼 클릭 및 모달 로직 ---
 	$generateBtn.on('click', function(e) {
 	    e.preventDefault();
-	    const userTokens = 50;
+	    const userTokens = 20;
 	    if (userTokens < 30) {
 	        $('#token-modal').css('display', 'flex').fadeTo(300, 1);
 	    } else {

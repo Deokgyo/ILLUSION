@@ -153,35 +153,35 @@ textarea.form-control {
  *      경력 기간 선택 드롭다운 스타일
  * ====================================================== */
 
-#experience-fields {
-    position: relative; /* 드롭다운 메뉴의 위치 기준점 */
+.dropdown-wrapper {
+    position: relative;
 }
 
-.dropdown-menu {
-    display: none; 
+.dropdown-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.form-dropdown-menu {
     position: absolute;
-    width: 100%; 
-    top: 50px; 
-    left: 0; 
-    margin-top: 5px; 
-    z-index: 1000; 
+    top: 100%; /* 기준점(.dropdown-wrapper) 바로 아래에 위치 */
+    left: 0;
+    width: 100%;
     background-color: #fff;
     border: 1px solid #E0E0E0;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 8px 0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    z-index: 10;
+    display: none;
 }
 
-.dropdown-item {
+.form-dropdown-item {
     padding: 12px 16px;
     cursor: pointer;
-    color: var(--font-main-color);
 }
-.dropdown-item:hover {
-    background-color: #f8f9fa; /* 호버 시 배경색 변경 */
-}
-#experience-level-select {
-    position: relative; 
-    z-index: 2; /* 다른 형제 요소들보다 높은 값을 줍니다. */
-    background-color: #fff; /* 배경색이 없으면 투명하게 처리되어 아래 요소가 보일 수 있으므로 확실하게 지정합니다. */
+.form-dropdown-item:hover {
+    background-color: var(--main-color);
 }
