@@ -43,7 +43,7 @@
                             <span class="q-text">자격증은 어떤 이유로 취득하게 되었나요?</span>
                         </div>
                         <div class="card-actions">
-                            <button class="btn btn-outline-secondary">저장</button>
+                            <button class="btn btn-yellow">저장</button>
                             <button class="btn btn-yellow">복사</button>
                         </div>
                     </div>

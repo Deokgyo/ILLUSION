@@ -168,3 +168,98 @@
     cursor: not-allowed; 
     background-position: 0 0;
 }
+
+/* ======================================================
+ *      모달 스타일
+ * ====================================================== */
+/* 모달 뒷배경 오버레이 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* 기본적으로 숨김 (애니메이션 준비) */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+/* hidden 클래스가 없을 때만 보이도록 처리 */
+.modal-overlay:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ======================================================
+ *              공통 모달 스타일 (Modal)
+ * ====================================================== */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; align-items: center; justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    position: relative; /* 닫기 버튼의 기준점 */
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-modal-btn:hover {
+    color: #333;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.modal-header .icon {
+    font-size: 24px;
+    color: var(--main-color);
+}
+.modal-header h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modal-content p {
+    color: var(--font-sub-color);
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* 버튼 사이 간격 */
+}
+.modal-buttons .btn {
+    flex: 1; /* 버튼이 공간을 균등하게 차지 */
+}
