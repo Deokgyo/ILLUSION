@@ -93,8 +93,6 @@
 				    <%-- 상단 검색창 --%>
 				    <div class="location-search-bar_my">
 	                		<input type="text" class="form-control" id="search-input" placeholder="지역을 입력하세요">
-	               			<button type="submit" class="search-btn" formaction="새롭게 수정해야함"><i class="fa-solid fa-magnifying-glass"></i></button>
-	      		    <hr class="divider">
 				    </div>
 			    	
 					<%-- 근무 지역 셀렉트박스--%>
@@ -151,6 +149,7 @@
                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
                      </div>
+                     <input type="hidden" id="selected-occupation" name="occupations">
 	           </div>
 			</section>
         	<%-- -------------------------------직무 선택 섹션 끝--------------------------- --%>

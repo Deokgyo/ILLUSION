@@ -188,13 +188,15 @@ column-gap: 10px;
 }
 
 .location-search-bar_my input {
-  flex-grow: 1;
-  border: 1px solid var(--main-color, #FFE585);
-  border-right: none;
-  padding: 8px 12px;
-  border-radius: 20px 0 0 20px;
-  outline: none;
+  border-radius: 20px;
 }
+
+.location-search-bar_my input:hover {
+  border: 1px solid var(--main-color, #FFE585);
+  border-radius: 20px;
+}
+
+
 
 .search-btn {
   border: 1px solid var(--main-color);

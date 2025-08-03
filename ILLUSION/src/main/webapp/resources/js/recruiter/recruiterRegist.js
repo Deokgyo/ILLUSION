@@ -160,4 +160,65 @@ function handleSearchInput() {
   });
   $resetBtnEl.on('click', handleResetClick);
   $searchInputEl.on('input', handleSearchInput);
+  
+  
+  //-------------------------------------------------------- 
+  //                   직무 선택 
+  //-------------------------------------------------------- 
+  
+  // 1. 직무 데이터 삽입
+	const occupationsData = {
+	  'design': { 
+		name: '디자인',
+	    job: ['그래픽 디자인', 'UI/UX 디자인', '3D 디자인', '제품 디자인', '애니메이션']
+	  },
+	  'developer': {
+	    name: '개발',
+	    job: ['프론트엔드 개발', '백엔드 개발', '풀스택 개발', '앱 개발', '게임 개발', '컴퓨터 수리공']
+	  },
+	  'marketing': {
+	    name: '마케팅',
+	    job: ['브랜드 마케팅', '퍼포먼스 마케팅', '콘텐츠 마케팅', '디지털 마케팅', '시장 조사']
+	  },
+	  'sales': {
+	    name: '영업',
+	    job: ['B2B 영업', 'B2C 영업', '해외 영업', '영업 기획', '영업 관리', '폰팔이']
+	  },
+	  'hr': {
+	    name: '인사/총무',
+	    job: ['채용', '인사 기획', '급여/복리후생', '노무 관리', '총무']
+	  },
+	  'finance': {
+	    name: '재무/회계',
+	    job: ['회계', '세무', '자금 관리', '재무 분석', 'IR']
+	  },
+	  'cs': {
+	    name: '고객지원',
+	    job: ['고객 상담', '고객 CS기획', 'VOC 관리', 'AS 관리']
+	  },
+	  'planning': {
+	    name: '기획',
+	    job: ['서비스 기획', '제품 기획', '사업 기획', '전략 기획']
+	  }
+	};
+	
+	//2. 변수 정리 
+	
+	
+	//3. 데이터 동적 렌더링 작업 
+	//3-1) 직무 렌더링 
+	// 저장된 데이터를 가져와서, 자바스크립트로 <div class="option-btn">추가 + 밸류 값과 html도 넣어야함 
+	// 상위 요소를 가져와서 추가하는  기능인 append (막내에 추가) a메서드 이용 
+	
+	occupationsData.
+	
+	const $occupation = $('<div class="option-btn"></div>').text();
+	
+	$('.category-options').append()
+	
+	
+	//3-2) 세부직무 렌더링
+	
+  
+  
 });
