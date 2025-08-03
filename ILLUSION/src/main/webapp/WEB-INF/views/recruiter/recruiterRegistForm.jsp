@@ -7,7 +7,7 @@
 	<%-- js 관련 설정들 --%>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegist.js"></script>
-	
+	 <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
@@ -39,7 +39,7 @@
 		
 		<!-- 2. 실제 폼 내용이 들어갈 하얀색 바디 div -->
         <div class="form-body">
-        	<form action="" method="post">
+        	<form action="recruiterRegistForm" method="get">
             	
             	<section class="subject">
 	        	    <%-- 제목 입력 인풋 섹션 --%>
@@ -123,7 +123,7 @@
         	</section>
         	<%-- -------------------------------근무 지역 섹션 끝--------------------------- --%>
         	<%-- -------------------------------직무 선택 섹션----------------------------- --%>
-			<section class="occupation">
+			<section class="occupation-section">
 				<div class="title-undefined">
 					<i class="icon fa-regular fa-square-check"></i>
 		        	<h3 class="title">직무 선택</h3>
@@ -131,18 +131,18 @@
 				<div class="category-grid">
 				    <div class="category-column">
 				        <h4 class="col-title">직무 카테고리</h4>
-				        <div class="category-options">
-				            <div class="option-btn">디자인</div>
-				            <div class="option-btn active">개발자</div>
-				            <div class="option-btn">마케팅</div>
+				        <div class="category-options" id="occupations">
+<!-- 				            <div class="option-btn occupation">디자인</div> -->
+<!-- 				            <div class="option-btn active">개발자</div> -->
+<!-- 				            <div class="option-btn">마케팅</div> -->
 				        </div>
 				    </div>			
                    <div class="category-column">
 	                   <h4 class="col-title">세부 직무</h4>
-	                   <div class="category-options">
-	                       <div class="option-btn">마케팅 기획</div>
-	                       <div class="option-btn active">백엔드</div>
-	                       <div class="option-btn">컨설턴트</div>
+	                   <div class="category-options" id="jobs">
+<!-- 	                       <div class="option-btn job" >마케팅 기획</div> -->
+<!-- 	                       <div class="option-btn active job" >백엔드</div> -->
+<!-- 	                       <div class="option-btn">컨설턴트</div> -->
 	                   </div>
 	               </div>
                   <div class="selected-tags-area">
@@ -233,24 +233,26 @@
        		</section>
        		<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%>            
        		<%----------------------------------마감 날짜 섹션------------------------------ --%>
- 		    <div class="title-undefined">
-            	<i class="fa-regular fa-calendar-days icon"></i>
-            	<h3 class="title">공고 마감 날짜</h3>
-            	
-            	<input type="text" id="datePicker" class="form-control"  />
-            </div>
+	 		<section class="deadLine">
+	 		    <div class="title-undefined">
+	            	<i class="fa-regular fa-calendar-days icon"></i>
+	            	<h3 class="title">공고 마감 날짜</h3>
+	            </div>
+	            	<input id="datepicker" class="form-control" placeholder="날짜 선택"/>
+	        </section>    
        		<%----------------------------------마감 날짜 섹션 끝---------------------------- --%>
        		<%----------------------------------문의 email 섹션------------------------------ --%>
- 		    <div class="title-undefined">
-           		<i class="fa-regular fa-envelope icon"></i>
-            	<h3 class="title">문의 E-mail</h3>
-            </div>
-            <input type="text" name="email" class="form-control" placeholder="E-mail을 입력해주세요">
+ 		    <section class="email">
+	 		    <div class="title-undefined">
+	           		<i class="fa-regular fa-envelope icon"></i>
+	            	<h3 class="title">문의 E-mail</h3>
+	            </div>
+	            <input type="text" name="email" class="form-control" placeholder="E-mail을 입력해주세요">
+       		</section>
        		<%----------------------------------문의 email 섹션 끝---------------------------- --%>
-        	
-        	<button>제출</button>
-        	
-        	
+        	<div class="btn-container">
+        		<button class="btn-yellow"> 제출 </button>
+        	</div>
         	</form>
         </div>
 	</main>
@@ -259,97 +261,14 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
-	<script>
-$(function () {
-	
-  //실제로 사용자가 작성한 세부 내용이 전달되기 위한 설정 
-  $('form').on('submit', () => {
-	 const editorContent = $('#editor').html();
-	 $('#hiddenContent').val(editorContent);
-  });
-	
-  const $editor = $('#editor');
-  const $upload = $('#upload');
-
-  // 툴바 명령 실행
-  document.format = (command, value = null) => {
-    document.execCommand(command, false, value);
-  };
-
-  // 파일 업로드 버튼
-  $upload.on('change', function () {
-    const file = this.files[0];
-    if (file && file.type.startsWith('image/')) {
-      uploadImageToServer(file).then(function (url) {
-        insertImage(url);
+	    <script>
+      const picker = new easepick.create({
+        element: document.getElementById('datepicker'),
+        css: [
+          'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+        ],
       });
-    }
-  });
-
-  // 이미지 삽입 함수
-  function insertImage(url) {
-    const $img = $('<img>').attr('src', url);
-    insertAtCursor($img[0]);
-  }
-
-  // 커서 위치에 이미지 삽입
-  function insertAtCursor(node) {
-    const sel = window.getSelection();
-    if (sel.rangeCount) {
-      const range = sel.getRangeAt(0);
-      range.deleteContents();
-      range.insertNode(node);
-      range.setStartAfter(node);
-      range.setEndAfter(node);
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
-  }
-
-  // 이미지 업로드 (서버 대신 base64 예시)
-  function uploadImageToServer(file) {
-    return new Promise(function (resolve) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        resolve(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  // 드래그앤드롭 이미지
-  $editor.on('dragover', function (e) {
-    e.preventDefault();
-  });
-
-  $editor.on('drop', function (e) {
-    e.preventDefault();
-    const file = e.originalEvent.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      uploadImageToServer(file).then(function (url) {
-        insertImage(url);
-      });
-    }
-  });
-
-  // 붙여넣기 이미지 처리
-  $editor.on('paste', function (e) {
-    const items = e.originalEvent.clipboardData.items;
-    for (const item of items) {
-      if (item.type.startsWith('image/')) {
-        const file = item.getAsFile();
-        uploadImageToServer(file).then(function (url) {
-          insertImage(url);
-        });
-        e.preventDefault();
-      }
-    }
-  });
-  
-
-  
-  
-});
-</script>
+    </script>
+	
 </body>
 </html>

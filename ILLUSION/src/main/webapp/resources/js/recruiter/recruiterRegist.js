@@ -32,7 +32,7 @@ $(function () {
     $subRegionListEl.empty();
     const region = locationsData[regionCode];
     if (!region) return;
-
+	
     region.subregions.forEach((subregion, index) => {
       const $label = $('<label>');
       const $checkbox = $('<input type="checkbox">').val(`${region.name} ${subregion}`);
@@ -167,40 +167,89 @@ function handleSearchInput() {
   //-------------------------------------------------------- 
   
   // 1. 직무 데이터 삽입
-	const occupationsData = {
-	  'design': { 
-		name: '디자인',
-	    job: ['그래픽 디자인', 'UI/UX 디자인', '3D 디자인', '제품 디자인', '애니메이션']
+const occupationsData = {
+	  design: { 
+	    name: '디자인',
+	    jobs: [
+	      { code: 'graphic', label: '그래픽 디자인' },
+	      { code: 'uiux', label: 'UI/UX 디자인' },
+	      { code: '3d', label: '3D 디자인' },
+	      { code: 'product_design', label: '제품 디자인' },
+	      { code: 'animation', label: '애니메이션' }
+	    ]
 	  },
-	  'developer': {
+	  developer: {
 	    name: '개발',
-	    job: ['프론트엔드 개발', '백엔드 개발', '풀스택 개발', '앱 개발', '게임 개발', '컴퓨터 수리공']
+	    jobs: [
+	      { code: 'frontend', label: '프론트엔드 개발' },
+	      { code: 'backend', label: '백엔드 개발' },
+	      { code: 'fullstack', label: '풀스택 개발' },
+	      { code: 'app', label: '앱 개발' },
+	      { code: 'game', label: '게임 개발' },
+	      { code: 'pc_repair', label: '컴퓨터 수리공' }
+	    ]
 	  },
-	  'marketing': {
+	  marketing: {
 	    name: '마케팅',
-	    job: ['브랜드 마케팅', '퍼포먼스 마케팅', '콘텐츠 마케팅', '디지털 마케팅', '시장 조사']
+	    jobs: [
+	      { code: 'brand', label: '브랜드 마케팅' },
+	      { code: 'performance', label: '퍼포먼스 마케팅' },
+	      { code: 'content', label: '콘텐츠 마케팅' },
+	      { code: 'digital', label: '디지털 마케팅' },
+	      { code: 'research', label: '시장 조사' }
+	    ]
 	  },
-	  'sales': {
+	  sales: {
 	    name: '영업',
-	    job: ['B2B 영업', 'B2C 영업', '해외 영업', '영업 기획', '영업 관리', '폰팔이']
+	    jobs: [
+	      { code: 'b2b', label: 'B2B 영업' },
+	      { code: 'b2c', label: 'B2C 영업' },
+	      { code: 'global', label: '해외 영업' },
+	      { code: 'sales_planning', label: '영업 기획' },
+	      { code: 'sales_admin', label: '영업 관리' },
+	      { code: 'phone_sales', label: '폰팔이' }
+	    ]
 	  },
-	  'hr': {
+	  hr: {
 	    name: '인사/총무',
-	    job: ['채용', '인사 기획', '급여/복리후생', '노무 관리', '총무']
+	    jobs: [
+	      { code: 'recruit', label: '채용' },
+	      { code: 'hr_planning', label: '인사 기획' },
+	      { code: 'pay_benefit', label: '급여/복리후생' },
+	      { code: 'labor', label: '노무 관리' },
+	      { code: 'general', label: '총무' }
+	    ]
 	  },
-	  'finance': {
+	  finance: {
 	    name: '재무/회계',
-	    job: ['회계', '세무', '자금 관리', '재무 분석', 'IR']
+	    jobs: [
+	      { code: 'accounting', label: '회계' },
+	      { code: 'tax', label: '세무' },
+	      { code: 'fund', label: '자금 관리' },
+	      { code: 'analysis', label: '재무 분석' },
+	      { code: 'ir', label: 'IR' }
+	    ]
 	  },
-	  'cs': {
+	  cs: {
 	    name: '고객지원',
-	    job: ['고객 상담', '고객 CS기획', 'VOC 관리', 'AS 관리']
+	    jobs: [
+	      { code: 'support', label: '고객 상담' },
+	      { code: 'cs_planning', label: '고객 CS기획' },
+	      { code: 'voc', label: 'VOC 관리' },
+	      { code: 'as', label: 'AS 관리' }
+	    ]
 	  },
-	  'planning': {
+	  planning: {
 	    name: '기획',
-	    job: ['서비스 기획', '제품 기획', '사업 기획', '전략 기획']
+	    jobs: [
+	      { code: 'service_plan', label: '서비스 기획' },
+	      { code: 'product_plan', label: '제품 기획' },
+	      { code: 'biz_plan', label: '사업 기획' },
+	      { code: 'strategy', label: '전략 기획' }
+	    ]
 	  }
 	};
+
 	
 	//2. 변수 정리 
 	
@@ -209,16 +258,181 @@ function handleSearchInput() {
 	//3-1) 직무 렌더링 
 	// 저장된 데이터를 가져와서, 자바스크립트로 <div class="option-btn">추가 + 밸류 값과 html도 넣어야함 
 	// 상위 요소를 가져와서 추가하는  기능인 append (막내에 추가) a메서드 이용 
-	
-	occupationsData.
-	
-	const $occupation = $('<div class="option-btn"></div>').text();
-	
-	$('.category-options').append()
-	
-	
+	$.each(occupationsData, (key,value) => {
+		const $occupationKey = key; // 직종 밸류값 
+		const $occupationName = value.name; // 직종 한글로 보여줄거 
+		
+		// 직종 한글로 보여줄거,. 밸류값 추가 
+		const $occupationDiv = $('<div class="option-btn occupation"></div>')
+			.html($occupationName)
+			.attr('data-value',$occupationKey);
+		// 카테고리에 넣기 
+		$('#occupations').append( $occupationDiv)
+	});
+		
 	//3-2) 세부직무 렌더링
+	// 대분류의 값에 의해서 그안에 값들만 출력이 되어야 함 
+	// 대분류의 활성화 된 name의 값을 가져와서, 같은 객체에 속한 job의 값을 배열을 순회하며 가져와야함 
+	// 대분류의 값이 뭐가 선택된건지 어떻게 알 것인가? active 라는 클래스를 통해 그 name값을 가져와서 
+	// 가져ㅛ온 name값으로 어디의 배열을 순회해서 추가할것인지 설정 해야함 
+	// => 대분류 온클릭 이벤트 함수 내부에서 실행됨 
+	function renderJobs($activeKey) {
+		$('#jobs').empty();
+		const $jobObj = occupationsData[$activeKey].jobs;
+		$.each($jobObj, function(_,value) {
+			const $jobsDiv = $('<div class="option-btn job"></div>')
+			.html(value.label)
+			.val(value.code);
+			$('#jobs').append($jobsDiv);
+		});
+	}
+	
+	
+	// 4. 이벤트 관리  
+	
+	// 4-1) 대분류 클릭시 active 클래스 주기 (3-2에서 파생됨)
+	// active는 어떻게 동적으로 넣을 것인가? 
+	// 온클릭 이벤트 사용해서, 클릭 할시 active 라는 클래스를 추가할 것 
+	
+	// 직무 부분 온클릭 이벤트
+	$('.occupation').on('click', occupationActive);
+	
+	function occupationActive() {
+		$('.occupation').removeClass('active');
+		$(this).addClass('active');
+		const $activeKey = $(this).data('value');
+		renderJobs($activeKey); // 소분류 렌더링 함수 실행
+	}
+	
+	//4-2) 세부 직무 부분 온클릭 이벤트  	
+	$('.job').on('click', jobActive);
+	// * 가독성을 위해 함수 선언부를 분리하였음 
+	function jobActive () {
+		$('.job').removeClass('active');
+		$(this).addClass('active');
+	}
+	
+  //-------------------------------------------------------- 
+  //                   세부 공고 내용 관련 js  
+  //-------------------------------------------------------- 
+	
+	 //실제로 사용자가 작성한 세부 내용이 전달되기 위한 설정 
+  $('form').on('submit', () => {
+	 const editorContent = $('#editor').html();
+	 $('#hiddenContent').val(editorContent);
+  });
+	
+  const $editor = $('#editor');
+  const $upload = $('#upload');
+
+  // 툴바 명령 실행
+  document.format = (command, value = null) => {
+    document.execCommand(command, false, value);
+  };
+
+  // 파일 업로드 버튼
+  $upload.on('change', function () {
+    const file = this.files[0];
+    if (file && file.type.startsWith('image/')) {
+      uploadImageToServer(file).then(function (url) {
+        insertImage(url);
+      });
+    }
+  });
+
+  // 이미지 삽입 함수
+  function insertImage(url) {
+    const $img = $('<img>').attr('src', url);
+    insertAtCursor($img[0]);
+  }
+
+  // 커서 위치에 이미지 삽입
+  function insertAtCursor(node) {
+    const sel = window.getSelection();
+    if (sel.rangeCount) {
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(node);
+      range.setStartAfter(node);
+      range.setEndAfter(node);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  }
+
+  // 이미지 업로드 (서버 대신 base64 예시)
+  function uploadImageToServer(file) {
+    return new Promise(function (resolve) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        resolve(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // 드래그앤드롭 이미지
+  $editor.on('dragover', function (e) {
+    e.preventDefault();
+  });
+
+  $editor.on('drop', function (e) {
+    e.preventDefault();
+    const file = e.originalEvent.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      uploadImageToServer(file).then(function (url) {
+        insertImage(url);
+      });
+    }
+  });
+
+  // 붙여넣기 이미지 처리
+  $editor.on('paste', function (e) {
+    const items = e.originalEvent.clipboardData.items;
+    for (const item of items) {
+      if (item.type.startsWith('image/')) {
+        const file = item.getAsFile();
+        uploadImageToServer(file).then(function (url) {
+          insertImage(url);
+        });
+        e.preventDefault();
+      }
+    }
+  });
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
   
   
-});
+  
+  
+  
+});// 윈도우 레디 
