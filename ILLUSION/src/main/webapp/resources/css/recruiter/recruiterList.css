@@ -281,8 +281,20 @@ main {
 	 min-height: 573px; 
 }
 
+th.gridjs-th-sort:focus, th.gridjs-th-sort:hover {
+    background-color: var(--main-color-hover);
+}
+
+.gridjs-tr:hover, .gridjs-tr:focus {
+	 background-color: var(--main-color-hover) !important;
+}
+.gridjs-tr:hover .gridjs-td {
+  background-color: #fff3c0;
+}
+
 /* 노란 헤더 */
 th.gridjs-th {
+	border:none !important;
 	background-color: var(--main-color);
 }
 .custom-grid {
@@ -293,6 +305,12 @@ th.gridjs-th {
 .gridjs-wrapper {
   max-height: none !important;
 }
+
+td.gridjs-td {
+	border: none !important;
+}
+
+
 
 .grid-custom-table thead tr {
   background-color: #ffe179;
