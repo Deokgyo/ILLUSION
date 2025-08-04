@@ -57,8 +57,8 @@
 	            <!-- 메인 헤더 -->
 	            <header class="admin-header">
 	                <div class="user-actions">
-	                    <a href="#">로그아웃</a>
-	                    <a href="#">사용자 화면</a>
+	                    <a href="./">로그아웃</a>
+	                    <a href="./">사용자 화면</a>
 	                </div>
 	            </header>
 	
@@ -85,7 +85,7 @@
 			                </div>
 			                <div class="form-group">
 			                    <label>이메일</label>
-			                    <div class="form-value">kyochon@chicken.com</div>
+			                    <div class="form-value"><a href="mailto:kyochon@chicken.com">kyochon@chicken.com</a></div>
 			                </div>
 			                <div class="form-group">
 			                    <label>주소</label>

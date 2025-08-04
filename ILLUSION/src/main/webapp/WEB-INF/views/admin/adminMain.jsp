@@ -55,8 +55,8 @@
 	            <!-- 메인 헤더 -->
 	            <header class="admin-header">
 	                <div class="user-actions">
-	                    <a href="#">로그아웃</a>
-	                    <a href="#">사용자 화면</a>
+	                    <a href="./">로그아웃</a>
+	                    <a href="./">사용자 화면</a>
 	                </div>
 	            </header>
 	

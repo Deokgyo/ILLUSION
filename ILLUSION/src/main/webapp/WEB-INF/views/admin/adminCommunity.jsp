@@ -56,8 +56,8 @@
 	            <!-- 메인 헤더 -->
 	            <header class="admin-header">
 	                <div class="user-actions">
-	                    <a href="#">로그아웃</a>
-	                    <a href="#">사용자 화면</a>
+	                    <a href="./">로그아웃</a>
+	                    <a href="./">사용자 화면</a>
 	                </div>
 	            </header>
 	
@@ -152,7 +152,13 @@
 		                </tbody>
 		            </table>
 		        </div>
-
+		        
+		        <!-- 페이지네이션 -->
+				<nav class="pagination">
+					<a href="#" class="page-arrow">&laquo;</a> <a href="#"
+						class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
+						href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+				</nav>
 	            </main>
 	            
 	            <!-- 메인 푸터 -->
