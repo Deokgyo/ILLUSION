@@ -4,6 +4,10 @@
 	
 }
 
+ul {
+	padding:0px;
+	margin: 0px;
+}
 
 main {
   font-family: var(--font-family, 'Noto Sans KR', sans-serif);
@@ -28,10 +32,10 @@ main {
 	min-height: 75vh; /* 폼의 최소 높이를 화면 높이의 75%로 설정 */
 	padding: 30px;
 	height: 100%;
-  	gap:25px;
+/*   	gap:113px; */
 	/* 그라데이션 테두리 설정을 위한 추가  */
 	position:relative; /*폼바디 바로 위에 오게설정*/
-	overflow: hidden /*테두리 넘치는 부분 억제*/
+	overflow: hidden; /*테두리 넘치는 부분 억제*/
 }
 
 
@@ -57,6 +61,7 @@ main {
     flex-direction: column;
     align-items: center;
     gap: 25px;
+    margin: 0px 70px;
 }
 
 .logo>img {
@@ -97,7 +102,7 @@ main {
 	width: 1px;
 	height: 100%; /* 원하는 선 높이 */
 	background-color: var(--font-sub-color); /* 검정색 선 */
-	opacity: 0.3;
+	opacity: 0.1;
 }
 
 /* ======================================================
@@ -105,8 +110,23 @@ main {
  * ====================================================== */
 
 
+form {
+	margin: 0px 70px;
+}
+
+/* box-right 전체 배치 */
+
+.box-right {
+	display:flex;
+	flex-direction: column;	
+	gap: 15px;
+	min-width: 347.41px;
+}
+
+
+
 /* tab 부분  */
-ul {
+.tab>ul {
 	margin: 0px;
 	padding: 0px;
 }
@@ -145,6 +165,15 @@ ul {
 	display: flex;
     flex-direction: column;
     gap: 12px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.login-input>li:last-child {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    flex-direction: row;
 }
 
 /* 버튼 부분 */
@@ -153,17 +182,38 @@ ul {
 	width: 100%
 }
 
+.form-control {
+	border: 1px solid var(--font-sub-color);
+    border-radius: 8px;
+/*     padding: 12px 16px; */
+/*     height: 50px; */
+    font-size: 16px;
+    color: var(--font-main-color);
+/*     box-shadow: none !important; */
+    transition: border-color 0.2s;
+/* 	width: 373px; */
+}
+.form-control:focus {
+	color: var(--font-main-color);
+    background-color: var(--body-bg-color);
+    border-color: var(--main-color);
+    outline: 0;
+    box-shadow: 0 0 0 .1rem var(--main-color-hover);
+} 
 /* 아이디 비번 찾기 */
 .find {
 	display: flex;
 	flex-direction: row;
+	gap:10px;
+	    margin: 0px;
+    padding: 0px;
 }
 
 .find>li>a {
 	text-decoration: none;
 }
 
-/* 소셜 계정으로 로그인 구분자 설정   */
+/* 소셜 계정으로 로그인 */
 .social-login {
 	display: flex;
 	flex-direction: row;
@@ -178,5 +228,16 @@ ul {
 	opacity: 0.3;
 }
 
+.box-right img {
+	width: 40px;
+	height: 40px;
+}
 
+.social-logo {
+	display: flex;
+	flex-direction: row;
+	gap:10px;
+	align-items: center;
+	justify-content: center;
+}
 
