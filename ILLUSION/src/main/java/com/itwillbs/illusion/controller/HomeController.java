@@ -34,5 +34,13 @@ public class HomeController {
 		return "home/login";
 	}
 	
+	@GetMapping("register")
+	public String register() {
+		return "home/register";
+	}
+	
+	
+	
+	
 	
 }

@@ -88,7 +88,7 @@ footer, header {
 
 /* ------------------------------ILLUSION 기능------------------------- */
 
-/* ------------------------ 컨텐츠 전체 래퍼 ------------------------ */
+/*  컨텐츠 전체 래퍼  */
 .illusion-feature-wrap {
 	width: 100%;
 	display: flex;
@@ -99,7 +99,7 @@ footer, header {
 	background: #fcfbfe; /* 연한 배경색 */
 }
 
-/* -------------------------- 상단 타이틀 --------------------------- */
+/*  상단 타이틀 */
 .illusion-feature-title {
 	font-size: 60px;
 	font-weight: bold;
@@ -110,7 +110,7 @@ footer, header {
 	text-align: center;
 }
 
-/* --------------------------- 각 기능 박스 --------------------------- */
+/*  각 기능 박스 */
 .illusion-feature-box {
 	position: relative; /* ::before 위치 기준 */
 	overflow: hidden; /* 상단 그라데이션 바 및 내부 콘텐츠 오버플로우 방지 */
@@ -129,7 +129,7 @@ footer, header {
 	padding: 28px 24px;
 }
 
-/* -------- 상단 그라데이션 바 (박스 상단에 컬러 포인트 효과) -------- */
+/*  상단 그라데이션 바 (박스 상단에 컬러 포인트 효과) -------- */
 .illusion-feature-box::before {
 	content: "";
 	position: absolute;
@@ -339,18 +339,18 @@ footer, header {
 
 .team-job-listings {
   padding: 32px 0;
-  background: #fafbfc;
+  background: rgb(255, 255, 255);
   display: flex;
   flex-wrap: wrap;              /* 여러 줄로 감싸기 */
-  gap: 32px;                    /* 카드 사이 간격 */
+  gap: 50px;                    /* 카드 사이 간격 */
   justify-content: center;      /* 양쪽 여백 균등하게 */
 }
 
 /* 제목 스타일 */
 .team-job-title-main {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
-  color: #444;
+  color: var(--font-sub-color);
   margin-bottom: 40px;
   font-family: "Noto Sans KR", sans-serif;
   text-align: center;
@@ -360,19 +360,31 @@ footer, header {
 /* 카드 스타일 */
 .team-job-card {
   flex: 0 0 calc(50% - 16px);   /* 한 줄에 2개! (gap 감안) */
-  max-width: 480px;
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   transition: box-shadow 0.2s;
   cursor: pointer;
   margin-bottom: 24px;
-  padding: 24px;
+  width: 500px;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
 }
 
+.team-job-card::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 10px;
+	background: var(--background-gradient-horizontally);
+	border-radius: 16px 16px 0 0; /* 위쪽 모서리만 둥글게 */
+	}
+	
 .team-job-card:hover {
   box-shadow: 0 8px 32px rgba(60, 72, 88, 0.18);
 }
@@ -380,38 +392,45 @@ footer, header {
 /* 카드 상단 헤더 영역 */
 .team-card-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 20px;;
   padding: 0 0 16px 0;
 }
 
 /* 로고 이미지 */
 .team-logo-image img {
-  width: 48px;
-  height: 48px;
+    width: 198px;
+    height: 118px;
   object-fit: contain;
   border-radius: 10px;
-  background: #f4f4f6;
+  background: #ffffff;
   padding: 5px;
 }
 
 /* 카드 안 텍스트 */
 .team-job-title {
   flex: 1;
-  font-size: 1.05rem;
+  font-size: 30px;
   font-weight: 600;
   color: #26313d;
-  margin: 0 8px 0 0;
+  margin-right: 155px;
+}
+
+p {
+	margin-bottom: 0px !important;
 }
 
 .team-card-meta {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
   gap: 4px;
+  margin-left: 245px;
+  
 }
 .team-card-meta span {
-  font-size: 0.95rem;
+  font-size: 20px;
   color: #687587;
   margin-bottom: 2px;
 }
@@ -421,7 +440,7 @@ footer, header {
   background: #ffe066;
   color: #16354d;
   border-radius: 14px;
-  font-size: 0.95rem;
+  font-size:20px;
   font-weight: 700;
   padding: 6px 18px;
   text-align: center;
@@ -436,7 +455,7 @@ footer, header {
 
 .team-card-image {
   width: 100%;
-  height: 110px;
+  height: 110%;
   border-radius: 0 0 20px 20px;
   overflow: hidden;
   margin-top: 10px;

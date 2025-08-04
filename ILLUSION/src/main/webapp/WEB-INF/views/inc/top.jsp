@@ -41,7 +41,7 @@
             <ul>
                 <li><a href="login">로그인</a></li>
                 <li class="separator">|</li>
-                <li><a href="/register">회원가입</a></li>
+                <li><a href="register">회원가입</a></li>
                 <li class="separator">|</li>
                 <li><a href="recruiterMain">기업서비스</a></li>
             </ul>
