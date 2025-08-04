@@ -100,7 +100,7 @@ $(function() {
 	    $('#confirm-modal').fadeOut();
 	    $('#loading-overlay').css('display', 'flex').fadeTo(300, 1);
 	    setTimeout(function() {
-	        alert("AI 생성 중...");
+	        alert("창닫기");
 	        $('#loading-overlay').fadeOut();
 	    }, 2000);
 	});

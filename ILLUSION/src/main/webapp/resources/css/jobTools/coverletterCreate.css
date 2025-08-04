@@ -185,3 +185,24 @@ textarea.form-control {
 .form-dropdown-item:hover {
     background-color: var(--main-color);
 }
+
+#loading-overlay .spinner-border {
+	margin: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    border-radius: 20px; 
+    padding: 50px 40px; 
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+#loading-overlay .modal-content h4 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
