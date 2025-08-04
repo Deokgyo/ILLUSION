@@ -42,8 +42,8 @@
 			        <p class="hero-subtitle">스마트한 채용 일루션, 지금 시작하세요</p>
 			        
 			        <div class="hero-buttons">
-			            <a href="#" class="btn btn-login">로그인</a>
-			            <a href="#" class="btn btn-signup">회원가입</a>
+			            <a href="login" class="btn btn-login">로그인</a>
+			            <a href="register" class="btn btn-signup">회원가입</a>
 			        </div>
 			    </div>
 			</section>
