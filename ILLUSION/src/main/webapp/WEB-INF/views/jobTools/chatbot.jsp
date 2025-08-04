@@ -6,28 +6,20 @@
     <meta charset="UTF-8">
     <title>AI 취업 상담 챗봇</title>
    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
  	
  	<%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css"> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css"> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/chatbot.css">
-    <style type="text/css">
-    	.gradient-btn{
-    		position: absolute;
-		    bottom: 100px;
-		    right: 30px;
-		    width: 150px;
-    	}
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/chatbot.css"> 
 </head>
 <body>
-    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>  
 
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
@@ -38,7 +30,7 @@
                 <div class="chat-messages-area">
                     <!-- 초기 화면 -->
                     <div class="chat-initial-view">
-                        <div class="intro-icon"><i class="fa-regular fa-comments"></i></div>
+                        <div class="intro-icon"><i class="fa-regular fa-comments" style="color: #d3d3d3"></i></div>
                         <div class="suggested-questions">
                             <h3>어떤 도움이 필요하신가요?</h3>
                             <ul>
@@ -50,7 +42,7 @@
                         </div>
                     </div>
                     
-                    <!-- 대화 화면 -->
+                    <!-- 대화 화면 (JS로 .chat-initial-view를 숨기고 이걸 보여줌) -->
                     <div class="chat-conversation-view">
                         <div class="chat-messages">
                             <!-- 말풍선이 동적으로 추가될 영역 -->
@@ -58,34 +50,41 @@
                     </div>
                 </div>
 
-                <!-- 하단 입력 폼 (Floating) -->
-                <div class="chat-input-form-wrapper">
-                    <form class="chat-input-form">
-                        <input type="text" id="message-input" class="form-control" placeholder="메시지를 입력하세요">
-                        <button type="submit" class="btn btn-send"><i class="fa-solid fa-arrow-up"></i></button>
-                    </form>
-                </div>
-
-                <!-- 토큰 충전 버튼 (Floating) -->
-                <button type="button" class="gradient-btn">
-                    토큰 충전 
-                </button>
+				<div class="bottom-action-container">
+				    <div class="action-wrapper">
+				
+				        <!-- 1. 메시지 입력창 -->
+				        <form class="message-input-form" onsubmit="return false;">
+				            <input type="text" id="message-input" placeholder="메시지를 입력하세요">
+				            <button type="submit" class="btn-send"><i class="fa-solid fa-arrow-up"></i></button>
+				        </form>
+				
+				        <!-- 2. 토큰 충전 버튼 -->
+				        <button type="button" class="gradient-btn btn-token-charge">
+				            <i class='far fa-gem' style= "color : var(--main-color)"></i> 토큰 충전
+				        </button>
+				
+				    </div>
+				</div>
                 
             </div>
         </main>
     </div>
 
-    <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer> 
 
-    <!-- 토큰 부족 시 나타날 모달 -->
-    <div id="token-modal" class="modal-overlay">
+     <!-- '토큰 부족' 모달 (이미 표준 구조) -->
+     <div id="token-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
-            <h4>토큰이 부족합니다</h4>
+            <button class="close-modal-btn btn-no">×</button>
+            <div class="modal-header">
+                <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
+                <h4>토큰이 부족합니다</h4>
+            </div>
             <p>결제페이지로 이동하시겠습니까?</p>
-            <div class="btn-group mt-3">
-                <button class="btn btn-outline-secondary btn-no">아니요</button>
-                <button class="btn btn-yellow btn-yes">네</button>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary btn-no">아니요</button>
+                <a href="/payment" class="btn btn-yellow">네</a>
             </div>
         </div>
     </div>

@@ -45,7 +45,7 @@
             </div>
     <table class="interest-table">
       <thead>
-        <tr>
+        <tr >
           <th>선택</th>
           <th>공고 제목</th>
           <th>공고 상태</th>
@@ -55,32 +55,32 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><input type="checkbox"></td>
+        <tr class="trcss">
+          <td><input type="checkbox"class="checkbox"></td>
           <td>[삼성전자] 백엔드 경력 채용</td>
           <td>채용중</td>
           <td>25.07.25</td>
           <td>25.08.01</td>
           <td>🔖</td>
         </tr>
-        <tr class="highlight">
-          <td><input type="checkbox"></td>
+        <tr class="trcss">
+          <td><input type="checkbox"class="checkbox"></td>
           <td>[네이버] 풀텍스 신입 채용</td>
           <td>채용중</td>
           <td>25.07.25</td>
           <td>25.08.01</td>
           <td>🔖</td>
         </tr>
-        <tr>
-          <td><input type="checkbox"></td>
+        <tr class="trcss">
+          <td><input type="checkbox"class="checkbox"></td>
           <td>[네이버] 풀텍스 신입 채용</td>
           <td>마감</td>
           <td>25.07.25</td>
           <td>25.08.01</td>
           <td>🔖</td>
         </tr>
-        <tr>
-          <td><input type="checkbox"></td>
+        <tr class="trcss">
+          <td><input type="checkbox"class="checkbox"></td>
           <td>[네이버] 풀텍스 신입 채용</td>
           <td>채용중</td>
           <td>25.07.25</td>
@@ -89,7 +89,9 @@
         </tr>
       </tbody>
     </table>
-    <button class="delete-btn">삭제</button>
+  
+  </div>
+  <button class="delete-btn">삭제</button>
 
     <div class="pagination">
       <a href="#">«</a>
@@ -100,8 +102,6 @@
       <a href="#">5</a>
       <a href="#">»</a>
     </div>
-  </div>
-
 	
 	
 	</main>

@@ -28,10 +28,11 @@ body {
 	display: flex;
 	justify-content: space-around;
 	background: #fff;
-	padding: 20px;
+/* 	padding: 20px; */
 	border-radius: 12px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-	margin-bottom: 40px;
+/* 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); */
+	margin-bottom: 20px;
+	margin-top: 10px;
 	flex-direction: row;
 	gap: 10px;
 }
@@ -106,18 +107,31 @@ body {
 }
 
 .profile-right {
-	display: flex;
-	justify-content: column;
-	gap: 10px;
-	flex-direction: column;
-	border: 1px solid #FFE585;
-	padding: 10px;
-	border-radius: 10px;
+    display: flex;
+    justify-content: column;
+    gap: 21px;
+    flex-direction: column;
+    border: 3px solid #FFE585;
+    padding: 22px;
+    border-radius: 10px;
+    width: 170px;
+    height: 200px;
+    font-size: 12px;
+    text-align: center;
 }
+
 
 .profile-right img {
 	width: 110px;
 	height: 100px;
+}
+
+
+.gradient-icon1 {
+    font-size: 100px;
+    background: linear-gradient(to right, #FEEFCA 10%, #EFF3DD 50%, #EDF1E0 63%, #E8EDE7 75%, #FDE2F3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .profile-right2 {
@@ -149,8 +163,8 @@ body {
 	background: #fff;
 	padding: 20px;
 	border-radius: 12px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-	margin-bottom: 40px;
+/* 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); */
+/* 	margin-bottom: 40px; */
 }
 
 .section {
@@ -186,7 +200,7 @@ body {
 
 .file-card:hover {
 	background-color: #FDF4D9;
-	border-color: #B08968;
+/* 	border-color: #B08968; */
 	transform: translateY(-2px);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05)
 }

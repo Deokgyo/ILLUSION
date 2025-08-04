@@ -148,3 +148,40 @@ textarea.form-control {
     cursor: pointer;
     font-weight: bold;
 }
+
+/* ======================================================
+ *      경력 기간 선택 드롭다운 스타일
+ * ====================================================== */
+
+.dropdown-wrapper {
+    position: relative;
+}
+
+.dropdown-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.form-dropdown-menu {
+    position: absolute;
+    top: 100%; /* 기준점(.dropdown-wrapper) 바로 아래에 위치 */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #E0E0E0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    z-index: 10;
+    display: none;
+}
+
+.form-dropdown-item {
+    padding: 12px 16px;
+    cursor: pointer;
+}
+.form-dropdown-item:hover {
+    background-color: var(--main-color);
+}

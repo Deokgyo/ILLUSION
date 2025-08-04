@@ -154,9 +154,8 @@ ex) 수석 졸업 등"></textarea>
 
         </div>
         
-        <button class="btn btn-save">저장</button>
+        <button class="btn btn-save" onclick="location.href='savedResumeDetail';">저장</button>
     </div>
-	
  
 </main>
 </div>
@@ -164,4 +163,11 @@ ex) 수석 졸업 등"></textarea>
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+<script type="text/javascript">
+document.getElementById(".edit-btn").onclick = function () {
+  location.href = "savedResumeDetail";
+}
+</script>
 </html>

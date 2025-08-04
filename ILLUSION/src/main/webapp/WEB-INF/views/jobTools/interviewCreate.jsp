@@ -61,7 +61,7 @@
                     <!-- 패널 2: 파일 업로드 -->
                     <div id="panel-file-upload" class="tab-panel">
                         <div class="drop-zone">
-                            <div class="drop-zone-icon"><i class="fa-regular fa-folder-open"></i></div>
+                            <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
                             <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요</p>
                         </div>
                         <div class="upload-button-wrapper">

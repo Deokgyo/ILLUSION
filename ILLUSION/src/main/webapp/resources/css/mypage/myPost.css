@@ -33,7 +33,7 @@
 .board-header {
   display: grid;
   grid-template-columns: 1fr 5fr 2fr 2fr;
-  background-color: #FFE87C;
+  background-color: #FFE585;
   padding: 12px 16px;
   font-weight: 600;
   font-size: 14px;
@@ -50,6 +50,9 @@
 
 .board-item:last-child {
   border-bottom: none;
+}
+.board-item:hover{
+	background-color: #fff8d0;
 }
 
 .post-info {
@@ -79,7 +82,7 @@
 
 .edit-btn,
 .delete-btn {
-  background-color: #FFE87C;
+  background-color: #FFE585;
   border: none;
   padding: 6px 12px;
   border-radius: 6px;
@@ -91,7 +94,7 @@
 
 .edit-btn:hover,
 .delete-btn:hover {
-  background-color: #ffd95c;
+  background-color: #fcd34d;
 }
 
 .board-pagination {
@@ -101,7 +104,12 @@
   gap: 8px;
   font-size: 14px;
 }
-
+.checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: #fcd34d;
+    margin: auto;
+}
 .page {
   cursor: pointer;
   padding: 4px 8px;

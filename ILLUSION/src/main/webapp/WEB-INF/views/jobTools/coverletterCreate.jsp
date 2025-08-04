@@ -17,15 +17,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterCreate.css"> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterCreate.css"> 
 
 
 </head>
 <body>
-	<i class="fa-solid fa-trash" style="background-image : var(--background-gradient)"></i>
-     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
@@ -83,22 +81,39 @@
                             <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
                         </div>
                     </div>
-
-<!--                     경력사항 섹션 -->
-                    <div class="form-section">
-                        <div class="section-header">
-                            <i class="icon fa-regular fa-comments"></i>
-                            <h3 class="title">경력사항</h3>
-                        </div>
-                        <div class="segmented-control">
-                            <div class="option">신입</div>
-                            <div class="option active">경력</div>
-                        </div>
-                        <div class="mt-3">
-                            <input type="text" name="prevCompany" class="form-control mb-2" placeholder="이전 회사명" />
-                            <input type="text" name="prevJob" class="form-control" placeholder="직책/직무" />
-                        </div>
-                    </div>
+					
+					<!-- 경력사항 섹션 -->
+					<div class="form-section">
+					    <div class="section-header">
+					        <i class="icon fa-regular fa-comments"></i>
+					        <h3 class="title">경력사항</h3>
+					    </div>
+					    
+					    <div id="experience-toggle" class="segmented-control">
+					        <div class="option" data-value="new">신입</div>
+					        <div class="option active" data-value="experienced">경력</div>
+					    </div>
+					
+					    <div id="experience-fields" class="mt-3">
+					        
+					        <!-- ✅ 수정: 드롭다운 관련 요소들을 wrapper로 다시 묶어줍니다 -->
+					        <div class="dropdown-wrapper">
+					            <div id="experience-level-select" class="form-control dropdown-select">
+					                <span>경력 기간 선택</span>
+					                <i class="fa-solid fa-chevron-down"></i>
+					            </div>
+					            <div class="form-dropdown-menu">
+					                <div class="form-dropdown-item" data-value="1">1년 미만</div>
+					                <div class="form-dropdown-item" data-value="2">1년 이상 ~ 2년 미만</div>
+					                <div class="form-dropdown-item" data-value="3">2년 이상 ~ 3년 미만</div>
+					                <div class="form-dropdown-item" data-value="4">4년 이상</div>
+					            </div>
+					        </div>
+					        
+					        <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
+					        <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />
+					    </div>
+					</div>
 
 <!--                     AI 생성 요구사항 섹션 -->
                     <div class="form-section">
@@ -113,7 +128,7 @@
 
                     <div class="text-center mt-5">
                     <div class="buttons">
-    					<button class="gradient-btn">자기소개서 생성</button>
+    					<button class="gradient-btn" id="generate-btn">자기소개서 생성</button>
 					</div>
                     </div>
                 </form>
@@ -122,8 +137,52 @@
     </div>
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+    
+    <!-- ======================================================
+     *                       모달 창 영역
+     * ====================================================== -->
+    
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn btn-no">×</button>
+            <div class="modal-header">
+                <h4><i class='far fa-gem' style= "color : var(--main-color)"></i> 토큰 30개 차감!</h4>
+            </div>
+            <p>자기소개서를 생성하시겠습니까?</p>
+            <div class="modal-buttons">
+                <button class="btn btn-yellow btn-no">아니요</button>
+                <button id="confirm-yes-btn" class="btn btn-yellow">네</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- '토큰 부족' 모달 (이미 표준 구조) -->
+    <div id="token-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn btn-no">×</button>
+            <div class="modal-header">
+                <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
+                <h4>토큰이 부족합니다</h4>
+            </div>
+            <p>결제페이지로 이동하시겠습니까?</p>
+            <div class="modal-buttons">
+                <button class="btn btn-yellow btn-no">아니요</button>
+                <a href="/payment" class="btn btn-yellow">네</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- '로딩' 모달 -->
+    <div id="loading-overlay" class="modal-overlay">
+        <div class="modal-content text-center">
+            <div class="spinner-border text-warning mb-3"></div>
+            <h4>자기소개서 초안이 생성중입니다</h4>
+            <p>AI가 최고의 자기소개서를 만들기 위해 노력하고 있어요!</p>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jobTools/coverletterCreate.js"></script>
 </body>
 </html>

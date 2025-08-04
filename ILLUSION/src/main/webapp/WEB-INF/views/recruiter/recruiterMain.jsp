@@ -50,7 +50,7 @@
             
              <!-- 채용 공고 등록 섹션 -->
              <section class="features-section section-container">
-			    <h1 class="section-title">지금 채용 공고를 등록하고 관리하며 인재를 만나보세요</h1>
+			    <h1 class="section-title" data-aos="fade-up">지금 채용 공고를 등록하고 관리하며 인재를 만나보세요</h1>
 			
 			    <div class="features-grid" >
 			        <!-- 첫 번째 기능: 쉽고 빠른 채용 공고 -->
@@ -76,7 +76,7 @@
 			
 	
 			<section class="reasons-section section-container">
-				<h2 class="section-title">기업들이 일루션을 찾는 이유</h2>
+				<h2 class="section-title" data-aos="fade-up">기업들이 일루션을 찾는 이유</h2>
 				<div class="card-container">
 				
 				<!-- 첫 번째 카드 -->
@@ -119,7 +119,7 @@
 		  <div class="partners-container">
 		    <!-- 왼쪽 텍스트 영역 -->
 		    <div class="partners-text">
-		      <h2 class="partners-title">기업들이 일루션과 함께하는 파트너사</h2>
+		      <h2 class="partners-title" data-aos="fade-up">기업들이 일루션과 함께하는 파트너사</h2>
 		      <p class="partners-description" data-aos="fade-up">
 		        일루션은 다양한 산업군의 파트너들과 함께<br>
 		        신뢰할 수 있는 채용 생태계를 만들어갑니다.<br>

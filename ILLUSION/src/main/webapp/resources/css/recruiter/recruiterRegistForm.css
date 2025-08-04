@@ -1,66 +1,89 @@
-@charset "UTF-8";
-/*본문 영역*/
+/* = a====================================================
+ *      0. 기본 및 전체 페이지 스타일
+ * ====================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 모든 요소의 크기 계산 방식을 통일 (매우 중요) */
+}
 
 main {
-	font-family: var(--font-family);
-	color: var(--font-main-color);
-     max-width: 1200px;
-  	margin: 0 auto;
- 	 padding: 0 20px;
+  font-family: var(--font-family, 'Noto Sans KR', sans-serif);
+  color: #333;
+  max-width: 1280px; /* 콘텐츠의 최대 너비 설정 */
+  margin: 40px auto; /* 페이지 좌우 중앙 정렬 및 상하 여백 */
+  display: flex;
+  flex-direction: column;
+  gap: 60px; /* 각 섹션("대시보드", "맞춤인재" 등) 사이의 간격 */
 }
 
-.dashboard-layout{
-/* 	display:flex; */
-/* 	align-items: center; */
-/* 	flex-direction: row; */
-/* 	flex-wrap: wrap; */
-/* 	justify-content: space-between; */
-/* 	margin:30px auto; */
-	display:flex;
-	align-items: center;
-	flex-direction: row;
-	justify-content: center;
-	flex-wrap: wrap;
-	margin-bottom: 30px;
+/* ======================================================
+ *      1. 폼 전체 컨테이너 (main)
+ * ====================================================== */
+main.registration-form-container {
+  width: 100%;
+  max-width: 900px; /* 폼의 최대 너비 제한 */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* 헤더와 바디 사이의 간격 */
+  margin: 20px auto;
 }
 
-/*섹션 공통 설정*/
-.section-container, .tips-container {
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	margin-bottom: 30px;
+/* ======================================================
+ *      2. "공고 등록" 헤더 스타일 (section)
+ * ====================================================== */
+.form-header {
+  /* ✨수정✨: 그라데이션 변수 적용 */
+  background: var(--background-gradient-horizontally);
+  
+  /* 모양 및 그림자 */
+  border-radius: 50px; /* 타원형 모양 */
+  box-shadow: var(--main-box-shadow);
+
+  /* 내부 h1 태그를 위한 설정 */
+  padding: 15px 30px;
+}
+
+.form-header h1 {
+  /* ✨수정✨: 폰트 색상 변수 적용 */
+  color: var(--font-main-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0; /* h1의 기본 마진 제거 */
 }
 
 
-
-.cards-container{
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 20px;
-/* 	place-items: center center; */
+/* ======================================================
+ *      3. 하얀색 폼 바디 스타일
+ * ====================================================== */
+.form-body {
+  /* ✨수정✨: 배경색 및 그림자 변수 적용 */
+  background-color: var(--body-bg-color);
+  box-shadow: var(--main-box-shadow);
+  
+  border-radius: 20px;
+  width: 100%;
+  min-height: 75vh; /* 폼의 최소 높이를 화면 높이의 75%로 설정 */
+  padding: 30px;
+height: 2755px;
+  /* 내부 placeholder 텍스트를 위한 스타일 (나중에 삭제 가능) */
+/*   display: flex; */
+/*   justify-content: center; */
+/*   align-items: center; */
+/*   flex-direction: column; */
+  
+  /* 그라데이션 테두리 설정을 위한 추가  */
+  position:relative; /*폼바디 바로 위에 오게설정*/
+   overflow: hidden /*테두리 넘치는 부분 억제*/
 }
 
-.card {
-	position: relative;
-	display: flex;
- 	flex-direction: column; /* 아이템을 세로로 쌓음 */
- 	justify-content: center; /* 세로 중앙 정렬 */
- 	align-items: center;     /* 가로 중앙 정렬 */
- 	background-color: #ffffff;/* 카드 배경색 흰색 */
-    border-radius: 20px;	  /* 카드 모서리 둥글기 */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);/* 그림자 */
-	padding: 20px; /* 카드 안쪽 여백 (예시) */
+section {
+	margin-bottom:2rem;
 }
 
-.card .btn {
-	margin-top: auto; /* 이 속성이 마법을 부립니다! */
-}
-
-/*카드 상단 테두리 그라데이션을 위한 임의요소 추가및 설정*/
-.card::before {
+/* 그라데이션 테두리 요소 추가  */
+.form-body::before {
 	content: "";
     position: absolute;
     top: 0;
@@ -70,66 +93,379 @@ main {
     background: var(--background-gradient-horizontally);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    display: flex;
-	flex-direction: column; /* 아이템을 세로로 배치 */
-	justify-content: space-between; /* 아이템 사이의 공간을 균등하게 배분 */
 }
 
-.card>h1 {
-	text-align: center;
-		word-wrap: break-word; 
-	word-break: keep-all;
-}
 
-.tips-container {
-	gap: 5em;
-}
-
-.section-name{
-	font-weight: bold;
+.form-body .placeholder-text {
+    /* ✨수정✨: 플레이스홀더 색상 변수 적용 */
+    color: var(--font-placeholder-color);
     font-size: 1.2rem;
-	width: 100%;
-	margin-top:0;
 }
 
-.section-dash01 {
-	width: 50%;
-	display:flex;
-	align-items: center;
+
+/* ======================================================
+ *      4. 아이콘 수정 
+ * ====================================================== */
+ .icon {
+ 	font-size:20px;
+ 	color:var(--main-color);
+ 	width: 30px !important;
+ 	padding: 0px !important;
+ }
+ 
+/* ======================================================
+ *      5. 폰트 수정 
+ * ====================================================== */
+.title{
+	font-size:18px;
+	font-weight:600;
+}
+
+/* ======================================================
+ *      6. 인풋 타입 관련 설정
+ * ====================================================== */
+.form-control {
+	border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    height: 50px;
+    font-size: 16px;
+    color: var(--font-main-color);
+    box-shadow: none !important;
+    transition: border-color 0.2s;
+    width:100%;
+}
+
+.form-control:focus {
+	color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #ffc107;
+    outline: 0;
+}
+
+
+/* 제출 버튼 설정  */
+.btn-container {
+	display: flex;
+	justify-content: center;
+/* 	width: 100% */
+}
+.btn-yellow {
+	width: 50% !important;
+	border-radius: 10px
+}
+
+
+/* ======================================================
+ *      아이콘 + 섹션 제목 공통 설정 
+ * ====================================================== */
+
+.title-undefined {
+	display: flex; /* 같은 행 설정 */
+	flex-direction: row; /* 같은 행 설정 */	
+	gap:5px; /* 사이 간격 설정 */
+	margin-bottom:10px; /* 아래에 요소와 간격 설정 */
+}
+
+
+/* ======================================================
+ *      근무 지역 선택 전체 컨테이너 (.work-location)
+ * ====================================================== */
+ 
+
+.location-part{
+  width: 100%;
+/*   max-width: 800px; */
+  background-color: #ffffff;
+  border-radius: 16px;
+/*   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
+  border: 1px solid #e2e8f0;
+  padding: 15px 15px;
+/* ✨핵심✨: 내부 요소들을 배치하기 위해 Grid 사용 */
+  display: grid;
+  grid-template-areas:
+    "icon   title"
+    "search search"
+    "left   right";
+  grid-template-columns: auto 1fr; /* 아이콘만큼, 나머지 공간 */
+  grid-template-rows: auto auto 1fr;
+/*   gap: 10px 10px; */
+column-gap: 10px;
+  height: 550px;
+}
+
+ /* 1-2. 상단 검색 바 */
+.location-search-bar_my {
+  display: flex;
+  grid-area: search;
+  margin-bottom:10px;
+  padding:0px
+}
+
+.location-search-bar_my input {
+  border-radius: 20px;
+}
+
+.location-search-bar_my input:hover {
+  border: 1px solid var(--main-color, #FFE585);
+  border-radius: 20px;
+}
+
+
+
+.search-btn {
+  border: 1px solid var(--main-color);
+  background-color: var(--main-color);
+    color: var(--font-main-color);
+    width: 50px;
+    height: 50px;
+  border-radius: 0 20px 20px 0;
+    font-size: 18px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+ 
+ 
+ .filter-header {
+ 	margin-bottom:0px !important;
+ }
+ 
+ /* ======================================================
+ *      지역 선택 패널 (좌/우)
+ * ====================================================== */
+ /* 2-1. 왼쪽 시/도 패널 */
+.region-panel-left {
+  grid-area: left;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
+#major-region-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+}
+.major-region-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #475569;
+  transition: background-color 0.2s ease;
+}
+.major-region-item:hover {
+  background-color: #f8fafc;
+}
+.major-region-item.active {
+  background-color: #fffbeb;
+  color: #ca8a04;
+  font-weight: 700;
+}
+
+/* 2-2. 오른쪽 시/군/구 패널 */
+.region-panel-right {
+  grid-area: right;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+	height: 100%;
+}
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.filter-reset-btn {
+    font-size: 15px;
+    font-family: var(--font-family);
+    /* NOTE: 초기화/경고를 위한 전용 색상 변수가 없어 서브 텍스트 색상을 사용합니다. */
+    color: var(--font-sub-color);
+    border:none !important;
+    background-color: transparent;
+/*     border-radius: 4px; */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.filter-reset-btn:hover {
+    background-color: #e9ecef; /* 호버 색상 변수가 없어 직접 사용 */
+    color: var(--font-main-color);
+}
+.filter-header{
+	padding:15px 20px 12px !important;
+}
+
+#sub-region-list {
+	padding: 20px;
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	gap: 15px;
+}
+
+/* 체크박스 공통 스타일 */
+#sub-region-list label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #334155;
+}
+#sub-region-list label input {
+  margin-right: 8px;
+}
+
+/* 숨김 클래스 */
+.hidden {
+  display: none !important;
+}
+
+/* 커스텀 스크롤바 */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 6px;}
+::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+ /* ======================================================
+ *      직무 선택
+ * ====================================================== */
+
+
+/* 직무 선택 버튼 스타일 */
+.category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+.category-column .col-title {
+    font-size: 14px;
+/*     color: #888; */
+    color: var(--font-sub-color); 
+/*     margin-bottom: 10px; */
+    text-align: center;
+}
+.category-options .option-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #fff;
+    color: var(--font-main-color);
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+}
+.category-options .option-btn.active,
+.category-options .option-btn:hover {
+    border-color: var(--main-color);
+    background-color: var(--body-bg-color);
+/*     background-color: #FFF9EB; */
+    color: var(--main-color-hover);
+    font-weight: 600;
+}
+
+/* 선택된 키워드 (태그 스타일) */
+.selected-tags-area {
+/*     margin-top: 15px; */
+/*     padding: 5px; */
+/*     background-color: #f8f9fa; */
+    background-color: var(--body-bg-color);
+    border-radius: 8px;
+/*     min-height: 50px; */
+}
+.selected-tags-area .tag {
+    display: inline-flex;
+    align-items: center;
+/*     background-color: #e9ecef; */
+    background-color: var(--body-bg-color);
+    border-radius: 15px;
+/*     padding: 5px 5px; */
+    font-size: 14px;
+/*     margin-right: 8px; */
+/*     margin-bottom: 8px; */
+    color: var(--font-main-color);
+}
+.selected-tags-area .tag .close-btn {
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+ /* ======================================================
+ *      채용 인원 선택
+ * ====================================================== */
+
+.form-check-input {
+	margin-left:10px
+}
+
+ /* ======================================================
+ *      세부 공고 입력 
+ * ====================================================== */
+
+.recruit-detail{
+	display: flex;
 	flex-direction: column;
-	margin:0;	
-}
-
-.section-dash02 {
-	width: 50%;
-	display:flex;
-	align-items: center;
-	flex-direction: column;
-	margin:0;	
-}
-
-/* 섹션 안에 내용물 설정 */
-.section-content {
-	max-width: 100px;
-	text-align: center;
-	border: 1em solid;
 }
 
 
-/*구분선*/
-hr {
-  background-color: #fff;
-  padding: 0;
+.toolbar {
+	display: flex;
+	justify-content: flex-end;
+	max-width: inherit;
 }
 
-hr.hr-1 {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+.toolbar > button {
+	border:0.3px !important;
+	background-color: var(--body-bg-color);
+	margin-top: 15px;
 }
 
+.toolbar > button:hover {
+	color:var(--main-color);
+}
 
+.btn:active {
+	color:var(--main-color) !important;
+	border: none !important;
+}
 
+ .editor {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto;
+     border-radius: 15px;
+     display: flex;
+     flex-direction: column;
+     
+} 
 
-
-
+ .editor:focus {
+ 	color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: var(--main-color);
+    outline: 0;
+ }
+ 
+ .deadLine {
+ 	overflow: visible;
+ }
+ 
+ .email {
+  display: flex;
+  flex-direction: column;
+ }
+ 
+ .btn-yellow {
+ margin-top: 40px;
+ }

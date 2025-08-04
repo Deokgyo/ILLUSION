@@ -35,7 +35,7 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   align-items: center;
-  margin-bottom: 30px;
+/*   margin-bottom: 30px; */
 }
 
 .profile-img img {
@@ -79,7 +79,7 @@ body {
 }
 
 .btn {
-  background-color: #fef0c4;
+  background-color: #FFE585;
   border: none;
   padding: 10px 20px;
   margin: 0 8px;
@@ -89,14 +89,51 @@ body {
   transition: background 0.3s;
 }
 
-.btn:hover {
-  background-color: #ffe9a1;
+.list-btn:hover {
+  background-color: #fcd34d;
 }
 
 .btn.delete {
-  background-color: #fce5f1;
+  background-color: #FFE585;
 }
 
-.btn.delete:hover {
-  background-color: #fbd2e7;
+.edit-btn:hover,.delete-btn:hover {
+  background-color: #fcd34d;
+}
+.button-wrapper {
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+
+.list-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FFE585;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.right-buttons {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.edit-btn,
+.delete-btn {
+  background-color: #FFE585;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 10px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
 }

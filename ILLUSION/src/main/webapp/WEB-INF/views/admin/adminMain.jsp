@@ -30,7 +30,7 @@
 	            ======================== -->
 	        <aside class="admin-sidebar">
 	            <div class="sidebar-header">
-	                <a href="./" class="logo">
+	                <a href="./adminMain" class="logo">
 	                    <!-- 로고 이미지를 나중에 추가하세요 -->
 	                    <img src="${pageContext.request.contextPath}/resources/image/logo.png" alt="이미지 설명" />
 	                </a>
@@ -38,12 +38,12 @@
 	            
 	            <nav class="sidebar-nav">
 	                <ul>
-	                    <li><button class="nav-item"><span>회원 관리</span><!-- <span>▼</span> --></button></li>
-	                    <li><button class="nav-item"><span>공고 관리</span></button></li>
-	                    <li><button class="nav-item"><span>게시글 관리</span></button></li>
-	                    <li><button class="nav-item"><span>고객 문의</span></button></li>
-	                    <li><button class="nav-item"><span>결제 이력</span></button></li>
-	                    <li><button class="nav-item"><span>공통 코드 관리</span></button></li>
+	                    <li><a href="./adminMember" class="nav-item">회원 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminRecuritment" class="nav-item">공고 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminCommunity" class="nav-item">게시글 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminSupport" class="nav-item">고객 문의<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminPayment" class="nav-item">결제 이력<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./comcodeRegist" class="nav-item">공통 코드 관리<!-- <span>▼</span> --></a></li>
 	                </ul>
 	            </nav>
 	        </aside>

@@ -28,9 +28,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/mypage.css">
 <style type="text/css">
-#main {
-	
-}
+ .form-box {
+    margin-bottom: 30px;
+  }
 </style>
 </head>
 <header>
@@ -60,18 +60,21 @@
         </div>
        
       <div class="profile-right">
-	    <img src="${pageContext.request.contextPath}/resources/mypage_image/resume.png">  
-        <div class="action-btn"><a href="resumeWrite"> 이력서 작성</a></div>
+      <i class="fa-solid fa-file-lines gradient-icon1"></i>
+      
+<%-- 	    <img src="${pageContext.request.contextPath}/resources/mypage_image/resume3.png">   --%>
+        <div class="btn-yellow"><a href="resumeWrite"> 이력서 작성</a></div>
         </div>
-      <div class="profile-right2"> 
-      	  <img src="${pageContext.request.contextPath}/resources/mypage_image/token.png"> 
-         <div class="action-btn"><a href="token_pay"> 토큰 충전</a></div>
+      <div class="profile-right"> 
+      <i class="fa-solid fa-coins gradient-icon1"></i>
+         <div class="btn-yellow"><a href="token_pay"> 토큰 충전</a></div>
        </div>
-       
-        
     </div>
-
+	</div>
+	
+	
     <!-- 저장한 파일 -->
+    <div class="form-box">
     <div class="save-box">
     <div class="section">
       <h1>저장한 파일</h1>
@@ -81,8 +84,9 @@
         <div class="file-card"><a href="saved_QuestionList">🎤 저장된 면접 예상 질문</a></div>
       </div>
     </div>
-
+	</div>
     <!-- 활동기록 -->
+    
     <div class="section">
       <h1>활동기록</h1>
       <div class="grid">
@@ -91,9 +95,9 @@
         <div class="file-card"><a href="myPost">🗒️ 내가 쓴 게시글</a></div>
       </div>
     </div>
-				
+	
 		</div>
-	</div>
+	
 	</main>
 </div>
 <footer>
