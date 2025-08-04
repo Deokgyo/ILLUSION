@@ -147,6 +147,8 @@ form {
   color: var(--font-sub-color);
   cursor: pointer;
   border-bottom: 2px solid var(--font-sub-color);
+  width: 100%;
+    text-align: center;
 }
 
 .type:hover {
