@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>채용공고 페이지</title>
+    <title>관리자 메인페이지</title>
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">

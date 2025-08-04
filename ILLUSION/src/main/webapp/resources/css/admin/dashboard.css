@@ -27,7 +27,7 @@
     content: '';
     position: absolute;
     top: -2px; left: -2px; right: -2px; bottom: -2px;
-    background: var(--background-gradient-horizontally);
+/*     background: var(--background-gradient-horizontally); */
     z-index: -1;
     border-radius: 20px;
     opacity: 0; /* 평소에는 투명하게 */

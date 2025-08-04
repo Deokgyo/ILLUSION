@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>관리자 회원 관리</title>
+    <title>공통 코드 추가</title>
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -19,9 +19,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/comcodeCommit.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/dashboard.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
 <body>
@@ -69,7 +66,7 @@
 			            
 				        <!-- 1. 페이지 헤더 -->
 				         <div class="page-title-header">
-			         	    <p class="header-text"><strong>공통코드 목록</strong></p>
+			         	    <p class="header-text"><strong>공통코드 추가</strong></p>
 			             </div>
 			
 			            <!-- 2. 코드 타입 입력 섹션 -->

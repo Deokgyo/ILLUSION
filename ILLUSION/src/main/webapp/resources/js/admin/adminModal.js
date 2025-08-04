@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // 필요한 요소들을 모두 선택합니다.
-    const editButtons = document.querySelectorAll('.btn-edit'); // 모든 '변경' 버튼
+    const editButtons = document.querySelectorAll('.btn-yellow'); // 모든 '변경' 버튼
     const modalBackdrop = document.getElementById('edit-modal-backdrop'); // 모달 배경
     const closeButton = modalBackdrop.querySelector('.close-btn'); // 모달의 닫기(X) 버튼
     const cancelButton = modalBackdrop.querySelector('.btn-cancel'); // 모달의 취소 버튼
