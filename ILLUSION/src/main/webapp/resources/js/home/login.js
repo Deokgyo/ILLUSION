@@ -32,6 +32,9 @@ $(function() {
 	
 	// 1-2) 소셜 로그인 추가 
 	function addSocialLogin() {
+		// 존재하는 경우 방어 
+		if ($('.social-login').length > 0) return;
+		// 추가할 요소들 
   		const socialHTML = 
 			`<div class="social-login">
 		      <div class="mini-divider"></div>
@@ -43,6 +46,6 @@ $(function() {
 		      <li><a href="kakao"><img src="./resources/image/kakaoLogin.png" alt=""></a></li>
 		      <li><a href="google"><img src="./resources/image/googleLogin.png" alt=""></a></li>
 		    </ul>`;
-
+		 // 막내 부분에 추가 
 	 	 $('.box-right').append(socialHTML);
 	}
