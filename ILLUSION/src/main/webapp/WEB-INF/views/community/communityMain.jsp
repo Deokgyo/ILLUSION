@@ -71,6 +71,7 @@
 					<div class="tag-item">면접 팁</div>
 					<div class="tag-item">면접 후기</div>
 					<div class="tag-item">합격 후기</div>
+					<div class="tag-item">문의 사항</div>
 				</div>
 			</div>
 			
@@ -142,6 +143,25 @@
 							<span class="meta-item">
 							<i class="fa-regular fa-comment-dots"></i> 3</span> 
 							<span class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="post-item">
+					<div class="post-author">
+						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
+						<span class="author-name">김교촌</span>
+					</div>
+					<div class="post-content">
+						<div class="post-title-wrapper">
+							<p class="post-title">
+								<a href="communityDetail">일반 문의 드립니다 !</a>
+							</p>
+						</div>
+						<div class="post-meta">
+							<span class="meta-item"><i
+								class="fa-regular fa-comment-dots"></i> 3</span> <span
+								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
 						</div>
 					</div>
 				</div>

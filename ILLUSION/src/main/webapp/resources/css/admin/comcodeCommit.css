@@ -49,10 +49,29 @@
 .table-controls { display: flex; gap: 8px; }
 .table-controls .btn {
     padding: 6px 14px; border: none; border-radius: 6px;
-    font-size: 13px; cursor: pointer; color: white;
+    font-size: 13px; cursor: pointer; color: var(--font-main-color);
 }
-.btn-add-row { background-color: var(--main-color); color: var(--font-main-color); }
-.btn-delete-row { background-color: #dc3545; }
+.btn-add-row {
+	background-color: var(--main-color);
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+}
+.btn-delete-row {
+	background-color: var(--main-color);
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+}
+
+.btn-add-row:hover {
+	background-color: var(--main-color-hover);
+}
+
+.btn-delete-row:hover {
+	background-color: var(--main-color-hover);
+}
+
 
 table { width: 100%; border-collapse: collapse; }
 th, td { padding: 8px; text-align: center; vertical-align: middle; }

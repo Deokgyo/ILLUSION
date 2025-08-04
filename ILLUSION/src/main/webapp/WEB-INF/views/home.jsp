@@ -177,7 +177,7 @@
         <p class="team-job-title">경력, 신입 엔지니어 채용</p>
         <div class="team-card-meta">
           <span>~9/10</span>
-          <a href="recuritmentDetail" class="team-btn-yellow">입사지원</a>
+          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
         </div>
       </div>
       <div class="team-card-image">
@@ -193,7 +193,7 @@
         <p class="team-job-title">경력, 신입 엔지니어 채용</p>
         <div class="team-card-meta">
           <span>~9/10</span>
-          <a href="recuritmentDetail" class="team-btn-yellow">입사지원</a>
+          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
         </div>
       </div>
       <div class="team-card-image">
@@ -212,7 +212,7 @@
         <p class="team-job-title">경력, 신입 엔지니어 채용</p>
         <div class="team-card-meta">
           <span>~9/10</span>
-          <a href="recuritmentDetail" class="team-btn-yellow">입사지원</a>
+          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
         </div>
       </div>
       <div class="team-card-image">
@@ -228,7 +228,7 @@
         <p class="team-job-title">경력, 신입 엔지니어 채용</p>
         <div class="team-card-meta">
           <span>~9/10</span>
-          <a href="recuritmentDetail" class="team-btn-yellow">입사지원</a>
+          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
         </div>
       </div>
       <div class="team-card-image">

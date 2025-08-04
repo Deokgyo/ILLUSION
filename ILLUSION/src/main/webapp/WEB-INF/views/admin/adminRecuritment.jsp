@@ -18,9 +18,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/dashboard.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
 <body>
@@ -39,12 +36,12 @@
 	            
 	            <nav class="sidebar-nav">
 	                <ul>
-	                    <li><a href="./adminMember" class="nav-item">회원 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminRecuritment" class="nav-item">공고 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminCommunity" class="nav-item">게시글 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminSupport" class="nav-item">고객 문의<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminPayment" class="nav-item">결제 이력<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./comcodeRegist" class="nav-item">공통 코드 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminMember" class="btn-yellow">회원 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminRecuritment" class="btn-yellow">공고 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminCommunity" class="btn-yellow">게시글 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminSupport" class="btn-yellow">고객 문의<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminPayment" class="btn-yellow">결제 이력<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./comcodeRegist" class="btn-yellow">공통 코드 관리<!-- <span>▼</span> --></a></li>
 	                </ul>
 	            </nav>
 	        </aside>
@@ -119,10 +116,8 @@
 		                        <td>이재용</td>
 		                        <td>30</td>
 		                        <td>
-		                            <div class="action-buttons">
-		                            	<a href="recuritmentDetail" class="btn btn-view">공고 상세보기</a>
-		                                <button class="btn btn-delete">삭제</button>
-		                            </div>
+		                            <a href="recruitmentDetail" class="btn btn-yellow">공고 상세보기</a>
+		                            <button class="btn btn-yellow">삭제</button>
 		                        </td>
 		                    </tr>
 		                    <tr>
@@ -134,10 +129,8 @@
 		                        <td>정주영</td>
 		                        <td>15</td>
 		                        <td>
-		                            <div class="action-buttons">
-		                                <a href="recuritmentDetail" class="btn btn-view">공고 상세보기</a>
-		                                <button class="btn btn-delete">삭제</button>
-		                            </div>
+	                                <a href="recruitmentDetail" class="btn btn-yellow">공고 상세보기</a>
+	                                <button class="btn btn-yellow">삭제</button>
 		                        </td>
 		                    </tr>
 		                    <!-- ... 추가 데이터 행 ... -->

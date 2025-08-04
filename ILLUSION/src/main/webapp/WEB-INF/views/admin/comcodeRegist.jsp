@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>관리자 메인페이지</title>
+    <title>공통 코드 관리</title>
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -18,9 +18,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/dashboard.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
 <body>
@@ -39,12 +36,12 @@
 	            
 	            <nav class="sidebar-nav">
 	                <ul>
-	                    <li><a href="./adminMember" class="nav-item">회원 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminRecuritment" class="nav-item">공고 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminCommunity" class="nav-item">게시글 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminSupport" class="nav-item">고객 문의<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminPayment" class="nav-item">결제 이력<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./comcodeRegist" class="nav-item">공통 코드 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminMember" class="btn-yellow">회원 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminRecuritment" class="btn-yellow">공고 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminCommunity" class="btn-yellow">게시글 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminSupport" class="btn-yellow">고객 문의<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminPayment" class="btn-yellow">결제 이력<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./comcodeRegist" class="btn-yellow">공통 코드 관리<!-- <span>▼</span> --></a></li>
 	                </ul>
 	            </nav>
 	        </aside>
@@ -76,8 +73,8 @@
 			                <button type="button">🔍</button>
 			            </div>
 			            <div class="action-buttons-top">
-			            	<a href="comcodeCommit" class="btn btn-add">공통코드 추가 ❐</a>
-			                <button class="btn btn-delete-selected">공통코드 삭제 🗑️</button>
+			            	<a href="comcodeCommit" class="btn btn-yellow">공통코드 추가 ❐</a>
+			                <button class="btn btn-yellow">공통코드 삭제 🗑️</button>
 			            </div>
 			        </div>
 			        
@@ -119,8 +116,8 @@
 			                        <td>1</td>
 			                        <td>
 			                            <div class="action-buttons">
-			                                <button class="btn btn-edit">수정</button>
-			                                <button class="btn btn-delete">삭제</button>
+			                            	<a href="comcodeCommit" class="btn btn-yellow">수정</a>
+			                                <button class="btn btn-yellow">삭제</button>
 			                            </div>
 			                        </td>
 			                    </tr>
@@ -142,8 +139,8 @@
 			                        <td>2</td>
 			                        <td>
 			                            <div class="action-buttons">
-			                                <button class="btn btn-edit">수정</button>
-			                                <button class="btn btn-delete">삭제</button>
+			                                <a href="comcodeCommit" class="btn btn-yellow">수정</a>
+			                                <button class="btn btn-yellow">삭제</button>
 			                            </div>
 			                        </td>
 			                    </tr>
@@ -165,8 +162,8 @@
 			                        <td>2</td>
 			                        <td>
 			                            <div class="action-buttons">
-			                                <button class="btn btn-edit">수정</button>
-			                                <button class="btn btn-delete">삭제</button>
+			                                <a href="comcodeCommit" class="btn btn-yellow">수정</a>
+			                                <button class="btn btn-yellow">삭제</button>
 			                            </div>
 			                        </td>
 			                    </tr>
@@ -188,8 +185,8 @@
 			                        <td>2</td>
 			                        <td>
 			                            <div class="action-buttons">
-			                                <button class="btn btn-edit">수정</button>
-			                                <button class="btn btn-delete">삭제</button>
+			                                <a href="comcodeCommit" class="btn btn-yellow">수정</a>
+			                                <button class="btn btn-yellow">삭제</button>
 			                            </div>
 			                        </td>
 			                    </tr>

@@ -42,7 +42,7 @@
         <!-- 모달 푸터 (액션 버튼) -->
         <div class="modal-footer">
             <button class="btn btn-cancel" type="button">취소</button>
-            <button class="btn btn-save" type="button">저장</button>
+            <button class="btn btn-yellow" type="button">저장</button>
         </div>
         
     </div>
