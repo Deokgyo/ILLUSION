@@ -56,10 +56,11 @@
                     안녕하세요. 아이티윌 면접보고 온 사람입니다.<br>
                     면접 후 일주일 이내 연락을 준다고 했는데 아직 연락을 못 받아서요 합격 연락 오신 분 있으신가요?
                 </div>
+                
 				<div class="post-btn">
 					    <div class="post-actions">
                         <!-- 작성자 본인일 경우 노출 -->
-                        <a href="#" class="btn btn-yellow">수정</a>
+                        <a href="communityModify" class="btn btn-yellow">수정</a>
                         <a href="#" class="btn btn-yellow">삭제</a>
                     </div>
 				</div>
@@ -75,9 +76,10 @@
                 <div class="comment-section">
                     <div class="comment-header">댓글 1</div>
                     <div class="comment-form">
-                        <textarea class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
-                        <button class="btn btn-yellow">등록</button>
+                        <textarea id="cmt_textarea" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
+                        <button id="cmt_regist" class="btn btn-yellow">등록</button>
                     </div>
+                    
                     <div class="comment-list">
                         <div class="comment-item">
                             <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
@@ -85,12 +87,10 @@
                                 <div class="author-name">ioi</div>
                                 <p class="comment-text">저도 아직 못 받았어요ㅠ</p>
                             </div>
-                            
                         </div>
-                        <!--// 댓글 아이템 -->
                     </div>
+                    
                 </div>
-                <!--// 댓글 영역 -->
 
                 <!-- 페이지네이션 -->
                 <nav class="pagination">
@@ -108,31 +108,8 @@
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 
-    <div id="report-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h3>신고 사유</h3>
-            <div class="mb-3">
-                <select class="form-select">
-                    <option selected>신고 사유를 선택해주세요</option>
-                    <option value="1">욕설</option>
-                    <option value="2">비방</option>
-                    <option value="3">스팸</option>
-                    <option value="4">홍보</option>
-                    <option value="5">기타</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <textarea class="form-control" rows="4" placeholder="상세 사유를 입력해주세요"></textarea>
-            </div>
-            <div class="d-flex justify-content-end gap-2">
-                <button type="button" class="btn btn-secondary btn-cancel">취소</button>
-                <button type="button" class="btn btn-yellow">신고</button>
-            </div>
-        </div>
-    </div>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/community/detail.js"></script> 
+    <script src="${pageContext.request.contextPath}/resources/js/community/communityDetail.js"></script> 
 </body>
 </html>

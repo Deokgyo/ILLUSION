@@ -115,6 +115,7 @@
     border-bottom: 1px solid #f0f0f0;
     box-shadow: var(--main-box-shadow);
     border-radius: 15px;
+    margin-bottom: 20px;
 }
 .comment-item:last-child {
     border-bottom: none;

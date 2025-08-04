@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>커뮤니티 글쓰기</title>
+    <title>커뮤니티 글 수정</title>
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -74,7 +74,7 @@
 		        <!-- 하단 버튼 영역 -->
 		        <div class="form-actions">
 		            <button type="button" class="btn btn-yellow" onclick="history.back()">취소</button>
-		            <button type="submit" class="btn btn-yellow">게시하기</button>
+		            <button type="submit" class="btn btn-yellow">수정하기</button>
 		        </div>
 		
 		    </form>

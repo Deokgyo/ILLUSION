@@ -1,6 +1,6 @@
 $(function() {
 
-    // --- 1. 경력사항 선택 (신입/경력) 기능 ---
+    // 경력사항 선택 (신입/경력) 기능
     $('#experience-toggle .option').on('click', function() {
         const $this = $(this);
         const selectedValue = $this.data('value');
@@ -14,7 +14,7 @@ $(function() {
         }
     });
     
-  	 // --- 1-1. 경력 기간 드롭다운 기능 (최종 수정본) ---
+  	 // 경력 기간 드롭다운 기능
 	const $dropdownSelect = $('#experience-level-select');
 	
 	$dropdownSelect.on('click', function(e) {
@@ -34,7 +34,7 @@ $(function() {
 	    }
 	});
 
-    // --- 2. 직무 선택 및 태그 추가/삭제 기능 ---
+    // 직무 선택 및 태그 추가/삭제 기능 
     $('.category-options .option-btn').on('click', function() {
         const $this = $(this);
         const keyword = $this.text().trim();
@@ -62,7 +62,7 @@ $(function() {
         $tag.remove();
     });
 
-    // --- 4. 폼 유효성 검사 및 생성 버튼 활성화 ---
+    // 폼 유효성 검사 및 생성 버튼 활성화 
     const $generateBtn = $('#generate-btn');
     const $form = $('#resume-form'); 
 
@@ -85,10 +85,10 @@ $(function() {
         }
     });
 
-    // --- 5. 생성 버튼 클릭 및 모달 로직 ---
+    // 5. 생성 버튼 클릭 및 모달 로직 
 	$generateBtn.on('click', function(e) {
 	    e.preventDefault();
-	    const userTokens = 20;
+	    const userTokens = 50;
 	    if (userTokens < 30) {
 	        $('#token-modal').css('display', 'flex').fadeTo(300, 1);
 	    } else {

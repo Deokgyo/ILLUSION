@@ -65,27 +65,27 @@ $(function() {
     });
 
     // --- 4. 버튼 활성화/비활성화 로직 ---
-    function updateButtonState() {
-        let isButtonEnabled = false;
-        
-        // "새 자소서 다듬기" 탭이 활성화된 경우
-        if ($('#panel-new-resume').hasClass('active')) {
-            const isFileCheckedAndHasValue = $checkFileUpload.is(':checked') && $fileInput[0].files.length > 0;
-            const isDirectCheckedAndHasValue = $checkDirectInput.is(':checked') && $textarea.val().trim() !== '';
-            
-            if (isFileCheckedAndHasValue || isDirectCheckedAndHasValue) {
-                isButtonEnabled = true;
-            }
-        }
-        // "저장된 자소서" 탭이 활성화된 경우
-        else if ($('#panel-saved-resume').hasClass('active')) {
-            if ($resumeList.find('.resume-item.active').length > 0) {
-                isButtonEnabled = true;
-            }
-        }
-        
-        $submitBtn.prop('disabled', !isButtonEnabled);
-    }
+//    function updateButtonState() {
+//        let isButtonEnabled = false;
+//        
+//        // "새 자소서 다듬기" 탭이 활성화된 경우
+//        if ($('#panel-new-resume').hasClass('active')) {
+//            const isFileCheckedAndHasValue = $checkFileUpload.is(':checked') && $fileInput[0].files.length > 0;
+//            const isDirectCheckedAndHasValue = $checkDirectInput.is(':checked') && $textarea.val().trim() !== '';
+//            
+//            if (isFileCheckedAndHasValue || isDirectCheckedAndHasValue) {
+//                isButtonEnabled = true;
+//            }
+//        }
+//        // "저장된 자소서" 탭이 활성화된 경우
+//        else if ($('#panel-saved-resume').hasClass('active')) {
+//            if ($resumeList.find('.resume-item.active').length > 0) {
+//                isButtonEnabled = true;
+//            }
+//        }
+//        
+//        $submitBtn.prop('disabled', !isButtonEnabled);
+//    }
 
     // 파일이나 텍스트 입력 시 버튼 상태 업데이트
     $fileInput.on('change', updateButtonState);

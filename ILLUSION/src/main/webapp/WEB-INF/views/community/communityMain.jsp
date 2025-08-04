@@ -160,6 +160,6 @@
 
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script	src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/community.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/community/communityMain.js"></script>
 </body>
 </html>

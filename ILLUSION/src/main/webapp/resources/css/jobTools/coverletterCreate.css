@@ -30,7 +30,7 @@
 }
 .section-header .icon {
     font-size: 20px;
-    color: #B08968; /* 사이드바와 톤을 맞춘 아이콘 색상 */
+    color: var(--main-color-hover); /* 사이드바와 톤을 맞춘 아이콘 색상 */
 }
 .section-header .title {
     font-size: 18px;
@@ -115,10 +115,10 @@ textarea.form-control {
 }
 .category-options .option-btn.active,
 .category-options .option-btn:hover {
-    border-color: #B08968;
+    border-color: var(--main-color-hover);
     background-color: var(--body-bg-color);
 /*     background-color: #FFF9EB; */
-    color: #B08968;
+    color: var(--main-color-hover);
     font-weight: 600;
 }
 
