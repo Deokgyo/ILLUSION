@@ -29,7 +29,7 @@
         <!-- 우측 사용자 메뉴 -->
         <nav class="user-menu">
         	<ul>
-	            <li><a href="#">기업로그인</a></li>
+	            <li><a href="login">기업로그인</a></li>
 	            <li class="separator">|</li>
 	            <li><a href="#">회원가입</a></li>
             </ul>

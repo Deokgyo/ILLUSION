@@ -24,10 +24,15 @@ public class HomeController {
 		return "home";
 	}
 	
-	
 	@GetMapping("errorPage")
     public String errorPage() {
         return "errorPage"; 
     }
+	
+	@GetMapping("login")
+	public String login() {
+		return "home/login";
+	}
+	
 	
 }

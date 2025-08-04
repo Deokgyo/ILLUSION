@@ -39,7 +39,7 @@
         <!-- 우측 사용자 메뉴 -->
         <nav class="user-menu">
             <ul>
-                <li><a href="/login">로그인</a></li>
+                <li><a href="login">로그인</a></li>
                 <li class="separator">|</li>
                 <li><a href="/register">회원가입</a></li>
                 <li class="separator">|</li>
