@@ -152,7 +152,7 @@ function handleSearchInput() {
 
   // 이벤트 연결
   $majorRegionListEl.on('click', handleMajorRegionClick);
-  $subRegionListEl.on('change', handleSubRegionChange);
+  $subRegionListEl.on('change	', handleSubRegionChange);
   $checkAllCheckboxEl.on('change', function () {
     const checked = $(this).is(':checked');
     $subRegionListEl.find('input[type="checkbox"]').prop('checked', checked);

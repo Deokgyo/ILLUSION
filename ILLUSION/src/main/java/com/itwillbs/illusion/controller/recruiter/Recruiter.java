@@ -14,6 +14,13 @@ public class Recruiter {
 		return "recruiter/recruiterMain"; 
 	}
 	
+	// 기업 정보 수정으로 이동 
+	@GetMapping("recruiterInfoEdit")
+	public String recruiterInfoEdit() {
+		return "recruiter/recruiterInfoEdit";
+	}
+	
+	
 	
 	// =======================================================================
 	// 							공고 등록 관련
