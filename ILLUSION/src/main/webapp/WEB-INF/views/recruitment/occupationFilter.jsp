@@ -7,8 +7,8 @@
   
   <div class="filter-dropdown-menu location-filter-menu hidden">
     <%-- 상단 검색창 --%>
-    <div class="occupation-search-bar">
-      <input type="text" placeholder="직종을 입력하세요">
+    <div class="search-input-wrapper">
+      <input type="text" id="location-search-input" placeholder="직종을 입력하세요">
       <button>🔍</button>
     </div>
 

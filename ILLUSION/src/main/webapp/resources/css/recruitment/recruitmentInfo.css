@@ -141,15 +141,17 @@ body {
     font-weight: 700;
 }
 
-/* 회사별 색상 */
-.samsung { color: #1251f1; }
-.hyundai { color: #002c5f; }
-.naver { color: #03c75a; }
-
 .job-title {
     margin: 8px 0 15px 0;
     font-size: 1.1rem;
     font-weight: 500;
+    color: #212529;
+}
+
+.sub-title {
+	margin: 0px 0 0px 0;
+    font-size: 0.9rem;
+    font-weight: 400;
     color: #212529;
 }
 

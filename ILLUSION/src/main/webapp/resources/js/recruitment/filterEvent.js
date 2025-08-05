@@ -15,6 +15,8 @@ $(function() {
             $('.filter-dropdown-menu').addClass('hidden');
         }
     });
+    
+    
 
     /* =======================================
         지역 필터 전용 로직
@@ -28,10 +30,11 @@ $(function() {
     };
 
     const $locationFilter = $('.filter-dropdown[data-filter-type="location"]');
-    if ($locationFilter.length) { // 지역 필터가 페이지에 존재할 때만 로직 실행
+    if ($locationFilter.length) {
         const $majorRegionList = $locationFilter.find('#major-region-list');
         const $subRegionList = $locationFilter.find('#sub-region-list');
         const $checkAll = $locationFilter.find('#check-all-sub-regions');
+        const $searchInput = $locationFilter.find('#location-search-input'); // 검색창 input 요소 선택
 
         function populateSubRegions(regionCode) {
             const subRegions = locationData[regionCode] || [];
@@ -55,12 +58,30 @@ $(function() {
             const regionCode = $this.data('region-code');
             populateSubRegions(regionCode);
             $checkAll.prop('checked', false);
+            $searchInput.val(''); // 대분류 변경 시 검색창 초기화
         });
 
         $checkAll.on('change', function() {
             const isChecked = $(this).is(':checked');
-            $subRegionList.find('.filter-checkbox').prop('checked', isChecked).trigger('change');
+            // "전체" 체크 시 현재 보이는 항목만 체크하도록 수정
+            $subRegionList.find('label:visible .filter-checkbox').prop('checked', isChecked).trigger('change');
         });
+
+        /* ===== 검색 기능 추가 ===== */
+        $searchInput.on('keyup', function() {
+            const searchTerm = $(this).val().toLowerCase().trim(); // 입력값을 소문자로 변환하고 양쪽 공백 제거
+
+            // 하위 지역 목록의 각 라벨을 순회하며 필터링
+            $subRegionList.find('label').each(function() {
+                const subRegionText = $(this).text().trim();
+                if (subRegionText.includes(searchTerm)) {
+                    $(this).show(); // 입력값을 포함하면 보여주기
+                } else {
+                    $(this).hide(); // 포함하지 않으면 숨기기
+                }
+            });
+        });
+
 
         populateSubRegions('seoul');
     }
@@ -76,7 +97,8 @@ $(function() {
         const $majorRegionList = $occupationFilter.find('#major-region-list');
         const $subRegionList = $occupationFilter.find('#sub-region-list');
         const $checkAll = $occupationFilter.find('#check-all-sub-regions');
-
+        const $searchInput = $occupationFilter.find('#location-search-input'); // 검색창 input 요소 선택
+	
         function populateSubRegions(regionCode) {
             const subRegions = occupationData[regionCode] || [];
             $subRegionList.empty();
@@ -105,9 +127,24 @@ $(function() {
             const isChecked = $(this).is(':checked');
             $subRegionList.find('.filter-checkbox').prop('checked', isChecked).trigger('change');
         });
+        
+        $searchInput.on('keyup', function() {
+        const searchTerm = $(this).val().toLowerCase().trim(); // 입력값을 소문자로 변환하고 양쪽 공백 제거
+	        // 하위 지역 목록의 각 라벨을 순회하며 필터링
+	        $subRegionList.find('label').each(function() {
+	            const subRegionText = $(this).text().trim();
+	            if (subRegionText.includes(searchTerm)) {
+	                $(this).show(); // 입력값을 포함하면 보여주기
+	            } else {
+	                $(this).hide(); // 포함하지 않으면 숨기기
+	            }
+	        });
+        });
 
         populateSubRegions('occupation1');
     }
+    
+    
 
     /* =======================================
         범용 이벤트 핸들러 (이벤트 위임 방식 적용)
