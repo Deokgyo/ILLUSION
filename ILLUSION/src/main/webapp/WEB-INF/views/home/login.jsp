@@ -35,7 +35,6 @@
 			<article class="box-left">
 				<div class="logo">
 					<img alt="" src="./resources/image/logo2.png">
-
 				</div>
 			 	<div class="welcom">
 					<h1>채용의 모든 솔루션, <span>일루션</span>에서 시작됩니다</h1>

@@ -165,7 +165,7 @@
 
 .resume-item:hover, .resume-item.active {
 	border-color: var(--main-color-hover);
-	background-color: var(--body-bg-color);
+	background-color: #fffbeb;
 }
 
 .resume-item .icon {

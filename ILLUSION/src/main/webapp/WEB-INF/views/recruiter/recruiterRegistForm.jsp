@@ -39,7 +39,7 @@
 		
 		<!-- 2. 실제 폼 내용이 들어갈 하얀색 바디 div -->
         <div class="form-body">
-        	<form action="recruiterRegistForm" method="get">
+        	<form action="recruiterRegistForm" method="post">
             	
             	<section class="subject">
 	        	    <%-- 제목 입력 인풋 섹션 --%>
@@ -58,12 +58,12 @@
 					</div>
 		        	<select name="category" class="form-select category-select" required>
 		        		<option disabled selected>채용 유형 선택</option>
-		        		<option value="">정규직</option>
-		        		<option value="">계약직</option>
-		        		<option value="">파트타임</option>
-		        		<option value="">프리랜서</option>
-		        		<option value="">파견직</option>
-		        		<option value="">인턴</option>
+		        		<option value="reg">정규직</option>
+		        		<option value="con">계약직</option>
+		        		<option value="part">파트타임</option>
+		        		<option value="free">프리랜서</option>
+		        		<option value="pa">파견직</option>
+		        		<option value="intern">인턴</option>
 		        	</select>
 	        	</section>
 	        	
@@ -73,13 +73,13 @@
 			        	<i class="fa-regular fa-clock icon"></i>
 			        	<h3 class="title">근무 시간</h3>
 		        	</div>
-		        	<select name="category" class="form-select category-select" required>
+		        	<select name="workTime" class="form-select category-select" required>
 		        		<option disabled selected>근무 시간 선택</option>
-		        		<option value="">09:00 ~ 18:00</option>
-		        		<option value="">09:00 ~ 13:00</option>
-		        		<option value="">14:00 ~ 18:00</option>
-		        		<option value="">22:00 ~ 06:00</option>
-		        		<option value="">자율 근무 / 협의</option>
+		        		<option value="9to18">09:00 ~ 18:00</option>
+		        		<option value="9to13">09:00 ~ 13:00</option>
+		        		<option value="14to18">14:00 ~ 18:00</option>
+		        		<option value="22to06">22:00 ~ 06:00</option>
+		        		<option value="free">자율 근무 / 협의</option>
 		        	</select>
         		</section>
         	
@@ -111,13 +111,13 @@
 					<div class="region-panel-right">
 						<div class="filter-header">
 					<%-- '전체' 체크박스 추가 --%>
-							<label><input type="checkbox" id="check-all-sub-regions"> 전체</label>
+							<label><input type="checkbox" id="check-all-sub-regions" class="checkbox"><span>전체</span></label>
 							<button type="button" class="filter-reset-btn">초기화<i class="fa-solid fa-arrows-rotate"></i></button>
 						</div>
 						<div class="filter-options" id="sub-region-list">
 						<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
 						</div>
-						<input type="hidden" id="selected-locations" name="locations">
+						<input type="hidden" id="selected-locations" name="location">
 					</div>
 				</div>
         	</section>

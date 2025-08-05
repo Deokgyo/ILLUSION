@@ -35,7 +35,7 @@ $(function () {
 	
     region.subregions.forEach((subregion, index) => {
       const $label = $('<label>');
-      const $checkbox = $('<input type="checkbox">').val(`${region.name} ${subregion}`);
+      const $checkbox = $('<input type="checkbox" class="checkbox">').val(`${region.name} ${subregion}`);
 //      if (index === 0) {
 //        $checkbox.attr('data-is-select-all', 'true');
 //      }

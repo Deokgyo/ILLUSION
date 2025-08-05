@@ -56,7 +56,8 @@
 				        <!-- 1. 메시지 입력창 -->
 				        <form class="message-input-form" onsubmit="return false;">
 				            <input type="text" id="message-input" placeholder="메시지를 입력하세요">
-				            <button type="submit" class="btn-send"><i class="fa-solid fa-arrow-up"></i></button>
+<!-- 				            <button type="submit" class="btn-send"><i class="fa-solid fa-arrow-up"></i></button> -->
+				            <button type="submit" class="gradient-btn"><i class="fa-solid fa-arrow-up"></i></button>
 				        </form>
 				
 				        <!-- 2. 토큰 충전 버튼 -->
@@ -79,7 +80,7 @@
             <button class="close-modal-btn btn-no">×</button>
             <div class="modal-header">
                 <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
-                <h4>토큰이 부족합니다</h4>
+                <h4>토큰을 충전합니다</h4>
             </div>
             <p>결제페이지로 이동하시겠습니까?</p>
             <div class="modal-buttons">

@@ -44,7 +44,7 @@
                         
                         <div id="section-file-upload" class="input-method-section">
                             <label for="check-file-upload" class="section-header">
-                                <input class="form-check-input" type="checkbox" id="check-file-upload" checked>
+                                <input type="radio" class="radiobox" name="cl_input_method"/>
                                 <span>파일 업로드</span>
                             </label>
                             <div class="content-area">
@@ -59,7 +59,7 @@
 
                         <div id="section-direct-input" class="input-method-section">
                             <label for="check-direct-input" class="section-header">
-                                <input class="form-check-input" type="checkbox" id="check-direct-input">
+                                <input type="radio" class="radiobox" name="cl_input_method"/>
                                 <span>자기소개서 내용</span>
                             </label>
                             <div class="content-area">
@@ -84,10 +84,11 @@
                 </div>
 
                 <div class="submit-button-wrapper">
-                    <button id="refine-submit-btn" class="gradient-btn" disabled>
+                    <button id="refine-submit-btn" class="gradient-btn">
                         자기소개서 다듬기
                     </button>
                 </div>
+                
 
             </div>
         </main>

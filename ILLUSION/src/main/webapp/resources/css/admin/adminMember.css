@@ -162,10 +162,3 @@ td a {
     color: var(--font-main-color);
 }
 
-.btn-edit { background-color: var(--main-color); }
-.btn-view { background-color: var(--main-color); }
-.btn-delete { background-color: #dc3545; color: white; }
-
-.btn:hover {
-    filter: brightness(0.95);
-}

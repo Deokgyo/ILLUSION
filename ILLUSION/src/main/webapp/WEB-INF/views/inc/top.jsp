@@ -22,7 +22,7 @@
                             <li><a href="chatbot"><span class="icon">💬</span> 취업 상담 챗봇</a></li>
                         </ul>
                     </li>
-                    <li><a href="recuritmentInfo">채용정보</a></li>
+                    <li><a href="recruitmentInfo">채용정보</a></li>
                     <li><a href="communityMain">커뮤니티</a></li>
                 </ul>
             </nav>
