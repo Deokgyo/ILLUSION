@@ -63,81 +63,190 @@
 	</main>
 
 	<!------------------------------ILLUSION 기능------------------------->
-	<div class="illusion-container">
-		<h1 class="illusion-title">ILLUSION의 기능</h1>
+	<div class="illusion-feature-wrap">
+		<div class="illusion-feature-title">ILLUSION의 기능</div>
 
-		<div class="illusion-feature-list">
-
-			<div class="feature-card">
-				<div class="feature-icon icon1"></div>
-				<div class="feature-content">
-					<h2 class="feature-title">자기소개서 생성기</h2>
-					<p class="feature-desc">버튼만으로 경험과 직무에 맞춘 맞춤형 자기소개서를 편리하게 생성하는
-						자기소개서 생성기</p>
-					<button class="feature-btn">자세히 보기</button>
-				</div>
+		<!-- 기능 1 -->
+		<div class="illusion-feature-box">
+			<div class="illusion-feature-icon">
+				<img
+					src="${pageContext.request.contextPath}/resources/image/home/Vector.jpg"
+					alt="기능 이미지">
 			</div>
-
-			<div class="feature-card">
-				<div class="feature-icon icon2"></div>
-				<div class="feature-content">
-					<h2 class="feature-title">자기소개서 다듬기</h2>
-					<p class="feature-desc">직접 작성한 자기소개서와 문서파일을 온라인으로 업로드하면 감정이 들어간
-						피드백과 첨삭을 받을 수 있습니다.</p>
-					<button class="feature-btn">자세히 보기</button>
+			<div class="illusion-feature-content">
+				<div class="illusion-feature-name">자기소개서 생성기</div>
+				<div class="illusion-feature-desc">
+					"사용자의 경험과 강점을 분석해 맞춤형 자기소개서를<br> 빠르게 생성하는 AI 자기소개서 생성기"
 				</div>
+				<button class="illusion-feature-btn">자세히 보기</button>
 			</div>
-
-			<div class="feature-card">
-				<div class="feature-icon icon3"></div>
-				<div class="feature-content">
-					<h2 class="feature-title">AI 면접 예상 질문</h2>
-					<p class="feature-desc">직무와 맞춤형 정보로 AI가 면접에 나올 법한 주요 질문을 미리 모아
-						제공해드립니다.</p>
-					<button class="feature-btn">자세히 보기</button>
-				</div>
-			</div>
-
-			<div class="feature-card">
-				<div class="feature-icon icon4"></div>
-				<div class="feature-content">
-					<h2 class="feature-title">취업상담 챗봇</h2>
-					<p class="feature-desc">학습된 데이터를 토대로, 맞춤 피드백 및 취업 멘토처럼 취업에 관한
-						고민상담이 가능한 챗봇입니다.</p>
-					<button class="feature-btn">자세히 보기</button>
-				</div>
-			</div>
-
 		</div>
+
+		<div class="illusion-feature-box">
+			<div class="illusion-feature-icon">
+				<img
+					src="${pageContext.request.contextPath}/resources/image/home/done.jpg"
+					alt="기능 이미지">
+			</div>
+			<div class="illusion-feature-content">
+				<div class="illusion-feature-name">자기소개서 다듬기</div>
+				<div class="illusion-feature-desc">"지원 직무와 회사 맞춤형으로 논리적이고 감정이
+					돋보이는 문장으로 자동 첨삭해 드립니다."</div>
+				<button class="illusion-feature-btn">자세히 보기</button>
+			</div>
+		</div>
+
+		<!-- 기능 3 -->
+		<div class="illusion-feature-box">
+			<div class="illusion-feature-icon">
+				<img
+					src="${pageContext.request.contextPath}/resources/image/home/AI.jpg"
+					alt="기능 이미지">
+			</div>
+			<div class="illusion-feature-content">
+				<div class="illusion-feature-name">AI 면접 예상 질문</div>
+				<div class="illusion-feature-desc">"매번 달라지는 최신 트렌드를 반영한 직무/분기
+					업종 맞춤 AI 면접 예상질문 생성 기능"</div>
+				<button class="illusion-feature-btn">자세히 보기</button>
+			</div>
+		</div>
+
+		<!-- 기능 4 -->
+		<div class="illusion-feature-box">
+			<div class="illusion-feature-icon">
+				<img
+					src="${pageContext.request.contextPath}/resources/image/home/Chat.jpg"
+					alt="기능 이미지">
+			</div>
+			<div class="illusion-feature-content">
+				<div class="illusion-feature-name">취업상담 챗봇</div>
+				<div class="illusion-feature-desc">"채용 트렌드 분석, 지원서 작성, 면접 대비까지
+					취업 전 과정을 챗봇이 친절하게 안내합니다."</div>
+				<button class="illusion-feature-btn">자세히 보기</button>
+			</div>
+		</div>
+
 	</div>
 
 
+	<!-------------------------- 자주묻는 질문 ----------------------------->
+	<div class="clean-faq-list">
+		<div class="clean-faq-title">자주묻는 질문</div>
+
+		<div class="clean-faq-box">
+			<button class="clean-faq-question" type="button">
+				<span class="clean-faq-q-text">Q.ILLUSION에는 어떤 기능이 있나요?</span> <span
+					class="clean-faq-plus">+</span>
+			</button>
+			<div class="clean-faq-answer">A. ILLUSION에는 자소서 다듬기, 생성기 등이
+				있습니다.</div>
+		</div>
+
+		<div class="clean-faq-box">
+			<button class="clean-faq-question" type="button">
+				<span class="clean-faq-q-text">Q.회원가입은 어떻게 하나요?</span> <span
+					class="clean-faq-plus">+</span>
+			</button>
+			<div class="clean-faq-answer">A. 상단 메뉴의 ‘회원가입’ 버튼을 눌러 이메일과
+				비밀번호로 간단히 가입 가능합니다.</div>
+		</div>
+
+		<div class="clean-faq-box">
+			<button class="clean-faq-question" type="button">
+				<span class="clean-faq-q-text">Q.모바일에서도 사용할 수 있나요?</span> <span
+					class="clean-faq-plus">+</span>
+			</button>
+			<div class="clean-faq-answer">A. 네, 모바일 브라우저에서도 동일하게 사용하실 수
+				있습니다.</div>
+		</div>
+	</div>
+
+	<!--------------------------채용정보 ----------------------------->
 
 
+	<section class="team-job-listings">
+  <h2 class="team-job-title-main">지금 핫한 채용정보는?</h2>
+  
+  <!-- 1줄: 네이버, 현대 -->
+  <div class="team-job-row">
+    <article class="team-job-card">
+      <div class="team-card-header">
+        <div class="team-logo-image">
+          <img src="/illusion/resources/image/logo-naver.jpg" alt="NAVER">
+        </div>
+        <p class="team-job-title">경력, 신입 엔지니어 채용</p>
+        <div class="team-card-meta">
+          <span>~9/10</span>
+          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
+        </div>
+      </div>
+      <div class="team-card-image">
+        <img src="/illusion/resources/image/naver.jpg" alt="NAVER 광고">
+      </div>
+    </article>
 
+    <article class="team-job-card">
+      <div class="team-card-header">
+        <div class="team-logo-image">
+          <img src="/illusion/resources/image/logo-hyundai.jpg" alt="HYUNDAI">
+        </div>
+        <p class="team-job-title">경력, 신입 엔지니어 채용</p>
+        <div class="team-card-meta">
+          <span>~9/10</span>
+          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
+        </div>
+      </div>
+      <div class="team-card-image">
+        <img src="/illusion/resources/image/hyundai.jpg" alt="HYUNDAI 광고">
+      </div>
+    </article>
+  </div>
 
+  <!-- 2줄: 삼성, 우성정공 -->
+  <div class="team-job-row">
+    <article class="team-job-card">
+      <div class="team-card-header">
+        <div class="team-logo-image">
+          <img src="/illusion/resources/image/logo-samsung.jpg" alt="SAMSUNG">
+        </div>
+        <p class="team-job-title">경력, 신입 엔지니어 채용</p>
+        <div class="team-card-meta">
+          <span>~9/10</span>
+          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
+        </div>
+      </div>
+      <div class="team-card-image">
+        <img src="/illusion/resources/image/samsung.jpg" alt="SAMSUNG 광고">
+      </div>
+    </article>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <article class="team-job-card">
+      <div class="team-card-header">
+        <div class="team-logo-image">
+          <img src="/illusion/resources/image/logo-hyundai.jpg" alt="HYUNDAI">
+        </div>
+        <p class="team-job-title">경력, 신입 엔지니어 채용</p>
+        <div class="team-card-meta">
+          <span>~9/10</span>
+          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
+        </div>
+      </div>
+      <div class="team-card-image">
+        <img src="/illusion/resources/image/hyundai.jpg" alt="HYUNDAI 광고">
+      </div>
+    </article>
+  </div>
+</section>
 
 
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/home/home.js"></script>
+
 </body>
 </html>

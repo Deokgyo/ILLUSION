@@ -20,55 +20,79 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community/communityMain.css">
     
     <style type="text/css">
-    	.page-link {
-/*     		color: var(--main-color); */
-			color: var(--font-sub-color);
-    	}
+    	.post-author img {
+			width: 40px;
+		}
+
+		.post-author {
+			display: flex;
+			flex-direction: column;
+		}
+		
+		hr {
+  background-color: #fff;
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 30px;
+ 
+}
+		
+		hr.hr-11 {
+  border: 0;
+  border-top: 1px dashed #8c8c8c;
+  border-bottom: 1px dashed #fff;
+}
+		
     </style>
 </head>
 <body>
-    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+	<header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
 
-    <div class="page-container">
-        <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
-        <main class="main-content">
+	<div class="page-container">
+		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
+		<main class="main-content">
 
-            <div class="page-title-header">
-                <p class="header-text"><strong>커뮤니티</strong></p>
-            </div>
-            <!-- 검색 및 필터 영역 -->
-            <div class="community-search mt-4">
-                <div class="search-input-group">
-                    <input type="text" placeholder="관심있는 내용을 검색해 보세요">
-                    <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-                <div class="filter-tags">
-                    <div class="tag-item active">전체</div>
-                    <div class="tag-item">자소서 팁</div>
-                    <div class="tag-item">면접 팁</div>
-                    <div class="tag-item">면접 후기</div>
-                    <div class="tag-item">합격 후기</div>
-                </div>
-            </div>
+			<div class="page-title-header">
+				<p class="header-text">
+					<strong>커뮤니티</strong>
+				</p>
+			</div>
+			<!-- 검색 및 필터 영역 -->
+			<div class="community-search mt-4">
+				<div class="search-input-group">
+					<input type="text" placeholder="관심있는 내용을 검색해 보세요">
+					<button>
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
+				</div>
+				<div class="filter-tags">
+					<div class="tag-item active">전체</div>
+					<div class="tag-item">자소서 팁</div>
+					<div class="tag-item">면접 팁</div>
+					<div class="tag-item">면접 후기</div>
+					<div class="tag-item">합격 후기</div>
+					<div class="tag-item">문의 사항</div>
+				</div>
+			</div>
+			
+			<!-- 정렬 및 글쓰기 버튼 -->
+			<div class="board-actions">
+				<div class="sort-options">
+					<ul>
+						<li class="active"><a>인기순</a></li>
+						<li><a>최신순</a></li>
+					</ul>
+				</div>
+				<a href="communityWrite" class="btn btn-yellow"><i
+					class="fa-regular fa-pen-to-square"></i> 글쓰기</a>
+			</div>
+			<hr class="hr-11">
 
-            <!-- 정렬 및 글쓰기 버튼 -->
-            <div class="board-actions">
-                <div class="sort-options">
-                    <ul>
-                        <li class="active"><a>인기순</a></li>
-                        <li><a>최신순</a></li>
-                    </ul>
-                </div>
-                <a href="communityWrite" class="btn btn-yellow"><i class="fa-regular fa-pen-to-square"></i> 글쓰기</a>
-            </div>
-
-            <!-- 게시글 목록 -->
+			<!-- 게시글 목록 -->
 			<div class="post-list">
 				<div class="post-item">
 					<div class="post-author">
-						<div class="profile-img">
-							<i class="fa-solid fa-user fa-lg" style="color: #ccc;"></i>
-						</div>
+						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
 						<span class="author-name">admin</span>
 					</div>
 					<div class="post-content">
@@ -80,17 +104,14 @@
 						<div class="post-meta">
 							<span class="meta-item"><i
 								class="fa-regular fa-comment-dots"></i> 3</span> <span
-								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수
-								17</span>
+								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
 						</div>
 					</div>
 				</div>
 
 				<div class="post-item">
 					<div class="post-author">
-						<div class="profile-img">
-							<i class="fa-solid fa-user fa-lg" style="color: #ccc;"></i>
-						</div>
+						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
 						<span class="author-name">admin</span>
 					</div>
 					<div class="post-content">
@@ -102,17 +123,14 @@
 						<div class="post-meta">
 							<span class="meta-item"><i
 								class="fa-regular fa-comment-dots"></i> 3</span> <span
-								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수
-								17</span>
+								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
 						</div>
 					</div>
 				</div>
 
 				<div class="post-item">
 					<div class="post-author">
-						<div class="profile-img">
-							<i class="fa-solid fa-user fa-lg" style="color: #ccc;"></i>
-						</div>
+						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
 						<span class="author-name">admin</span>
 					</div>
 					<div class="post-content">
@@ -122,40 +140,46 @@
 							</p>
 						</div>
 						<div class="post-meta">
-							<span class="meta-item"><i
-								class="fa-regular fa-comment-dots"></i> 3</span> <span
-								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수
-								17</span>
+							<span class="meta-item">
+							<i class="fa-regular fa-comment-dots"></i> 3</span> 
+							<span class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
 						</div>
 					</div>
 				</div>
+				
+				<div class="post-item">
+					<div class="post-author">
+						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
+						<span class="author-name">김교촌</span>
+					</div>
+					<div class="post-content">
+						<div class="post-title-wrapper">
+							<p class="post-title">
+								<a href="communityDetail">일반 문의 드립니다 !</a>
+							</p>
+						</div>
+						<div class="post-meta">
+							<span class="meta-item"><i
+								class="fa-regular fa-comment-dots"></i> 3</span> <span
+								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
-				<!-- 페이지네이션 -->
-				<nav>
-					<a>«</a> <a>1</a> <a>2</a> <a>3</a> <a>4</a> <a>5</a> <a>»</a>
-				</nav>
-				
-				
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination justify-content-center">
-				    <li class="page-item disabled">
-				      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#">Next</a>
-				    </li>
-				  </ul>
-				</nav>
+			<!-- 페이지네이션 -->
+			<nav class="pagination">
+				<a href="#" class="page-arrow">&laquo;</a> <a href="#"
+					class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
+					href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+			</nav>
 		</main>
-    </div>
+	</div>
 
-    <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/community.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script	src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/community/communityMain.js"></script>
 </body>
 </html>

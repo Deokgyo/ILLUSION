@@ -30,7 +30,7 @@
                 <div class="chat-messages-area">
                     <!-- 초기 화면 -->
                     <div class="chat-initial-view">
-                        <div class="intro-icon"><i class="fa-regular fa-comments"></i></div>
+                        <div class="intro-icon"><i class="fa-regular fa-comments" style="color: #d3d3d3"></i></div>
                         <div class="suggested-questions">
                             <h3>어떤 도움이 필요하신가요?</h3>
                             <ul>
@@ -50,21 +50,19 @@
                     </div>
                 </div>
 
-                <!-- ✅ 수정: 화면 하단 고정 입력 영역 전체를 감싸는 컨테이너 -->
 				<div class="bottom-action-container">
-				
-				    <!-- ✅ 수정: 입력창과 버튼을 나란히 정렬할 Flexbox 래퍼 -->
 				    <div class="action-wrapper">
 				
 				        <!-- 1. 메시지 입력창 -->
 				        <form class="message-input-form" onsubmit="return false;">
 				            <input type="text" id="message-input" placeholder="메시지를 입력하세요">
-				            <button type="submit" class="btn-send"><i class="fa-solid fa-arrow-up"></i></button>
+<!-- 				            <button type="submit" class="btn-send"><i class="fa-solid fa-arrow-up"></i></button> -->
+				            <button type="submit" class="gradient-btn"><i class="fa-solid fa-arrow-up"></i></button>
 				        </form>
 				
-				        <!-- 2. 토큰 충전 버튼 (입력창의 형제 요소로 이동) -->
-				        <button type="button" class="gradient-btn">
-				            <img src="${pageContext.request.contextPath}/resources/image/token.jpg"> 토큰 충전
+				        <!-- 2. 토큰 충전 버튼 -->
+				        <button type="button" class="gradient-btn btn-token-charge">
+				            <i class='far fa-gem' style= "color : var(--main-color)"></i> 토큰 충전
 				        </button>
 				
 				    </div>
@@ -74,23 +72,26 @@
         </main>
     </div>
 
-    <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer> 
+     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer> 
 
-    <!-- 토큰 부족 시 나타날 모달 -->
-    <div id="token-modal" class="modal-overlay">
+     <!-- '토큰 부족' 모달 (이미 표준 구조) -->
+     <div id="token-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
-            <h4>토큰이 부족합니다</h4>
+            <button class="close-modal-btn btn-no">×</button>
+            <div class="modal-header">
+                <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
+                <h4>토큰을 충전합니다</h4>
+            </div>
             <p>결제페이지로 이동하시겠습니까?</p>
-            <div class="btn-group mt-3">
-                <button class="btn btn-outline-secondary btn-no">아니요</button>
-                <button class="btn btn-yellow btn-yes">네</button>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary btn-no">아니요</button>
+                <a href="/payment" class="btn btn-yellow">네</a>
             </div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/chatbot.js"></script> <%-- ✅ 경로 수정 --%>
+    <script src="${pageContext.request.contextPath}/resources/js/jobTools/chatbot.js"></script>
 </body>
 </html>

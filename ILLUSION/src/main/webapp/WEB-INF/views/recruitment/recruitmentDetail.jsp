@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/applyModal.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/recuritmentDetail.css"> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/applyModal.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/recruitmentDetail.css"> 
     
 </head>
 <body>
@@ -123,11 +123,11 @@
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
     
-    <jsp:include page="/WEB-INF/views/recuritment/applyModal.jsp" />
+    <jsp:include page="/WEB-INF/views/recruitment/applyModal.jsp" />
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/recuritment/chartEvent.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/recuritment/modalEvent.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recruitment/chartEvent.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recruitment/modalEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     <script>
 		   	document.addEventListener('DOMContentLoaded', function(){

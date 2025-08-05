@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+/* ======================================================
+ *      오류 페이지 전용 스타일
+ * ====================================================== */
+
+/* ✅ main-content를 수직/수평 중앙 정렬 컨테이너로 활용 */
+.main-content.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* 오류 메시지를 담는 박스 */
+.error-box {
+    width: 100%;
+    max-width: 800px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: var(--main-box-shadow);
+    border-radius: 12px;
+}
+
+/* 경고 아이콘 */
+.error-icon {
+    font-size: 60px;
+    color: var(--main-color);
+    margin-bottom: 30px;
+}
+
+/* 오류 메시지 텍스트 */
+.error-message h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--font-main-color);
+    margin-bottom: 15px;
+}
+
+.error-message p {
+    font-size: 16px;
+    color: var(--font-sub-color);
+    line-height: 1.8;
+}
+
+/* 홈 페이지로 이동 버튼 */
+.btn-home {
+    margin-top: 40px;
+    padding: 15px 50px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+}

@@ -51,7 +51,7 @@ main {
 
 /* 메인 타이틀 */
 .hero-title {
-    color: var(--font-main-color);
+    color: var(--font-sub-color);
     font-size: 90px; /* 48px */
     font-weight: 700;
     line-height: 1.4;

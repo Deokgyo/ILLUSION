@@ -111,7 +111,7 @@
     border-color: var(--main-color-hover);
     outline: none;
 }
-.message-input-form .btn-send {
+.message-input-form .gradient-btn {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -128,6 +128,11 @@
     justify-content: center;
 }
 
+.message-input-form .gradient-btn:active {
+    transform: translateY(-50%) scale(0.95);
+    
+    transition: transform 0.1s ease;
+}
 /* 토큰 충전 버튼 */
 .btn-token-charge {
     border-radius: 25px;
@@ -140,28 +145,7 @@
     margin-right: 8px;
 }
 
-
-/* ======================================================
- *      모달 스타일
- * ====================================================== */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.5); z-index: 1000; display: none;
-    align-items: center; justify-content: center;
-}
-.modal-content {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 30px;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-.modal-content .icon {
-    font-size: 24px;
-    color: var(--main-color);
-    margin-bottom: 15px;
-}
-.modal-content .btn-group button {
-    margin: 0 5px;
+.modal-content{
+	margin: auto;
+	margin-top: 500px;
 }

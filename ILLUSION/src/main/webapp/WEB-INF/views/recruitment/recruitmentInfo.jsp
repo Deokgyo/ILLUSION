@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/recuritmentInfo.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/filterEvent.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/recruitmentInfo.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/filterEvent.css">
     
 </head>
 <body>
@@ -41,24 +41,22 @@
 	                </div>
 	            </div>
 	            <div class="filter-button-wrapper">
-				<jsp:include page="/WEB-INF/views/recuritment/locationFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recuritment/occupationFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recuritment/experienceFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recuritment/salaryFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recuritment/degreeFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recruitment/locationFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recruitment/occupationFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recruitment/experienceFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recruitment/salaryFilter.jsp" />
+				<jsp:include page="/WEB-INF/views/recruitment/degreeFilter.jsp" />
 				<button class="reset-btn">초기화</button>
 				</div>
+				<div class="selected-filters-container">
+				    <span class="filter-label">필터:</span>
+				    <div class="tags-wrapper" id="selected-tags-area">
+				        <!-- 동적으로 필터 태그가 여기에 추가됩니다 -->
+				        <!-- 예시: <div class="filter-tag" data-value="2000-3000">💼 2천~3천만원 <button class="remove-tag-btn">×</button></div> -->
+	
+				    </div>
+				</div>
 	        </header>
-	        
-	        <!-- 선택된 필터 태그가 표시될 컨테이너 -->
-			<div class="selected-filters-container">
-			    <span class="filter-label">필터:</span>
-			    <div class="tags-wrapper" id="selected-tags-area">
-			        <!-- 동적으로 필터 태그가 여기에 추가됩니다 -->
-			        <!-- 예시: <div class="filter-tag" data-value="2000-3000">💼 2천~3천만원 <button class="remove-tag-btn">×</button></div> -->
-
-			    </div>
-			</div>
 	        
 	        <main>
 	            <section class="job-list-controls">
@@ -78,7 +76,7 @@
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/30</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -94,7 +92,7 @@
 	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/10</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -110,7 +108,7 @@
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>상시채용</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -126,7 +124,7 @@
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/30</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -142,7 +140,7 @@
 	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/10</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -157,7 +155,7 @@
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>상시채용</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -172,7 +170,7 @@
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/30</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -187,7 +185,7 @@
 	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
 	                        <div class="card-meta">
 	                            <span>~9/10</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -202,7 +200,7 @@
 	                        <p class="job-title">경력, 신입 개발자 채용</p>
 	                        <div class="card-meta">
 	                            <span>상시채용</span>
-	                            <a href="recuritmentDetail" class="btn-yellow">입사지원</a>
+	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a>
 	                        </div>
 	                    </div>
 	                    <div class="card-image">
@@ -212,22 +210,19 @@
 	            </section>
 	        </main>
 	
-	        <nav class="pagination">
-	            <a href="#" class="page-arrow">&laquo;</a>
-	            <a href="#" class="active">1</a>
-	            <a href="#">2</a>
-	            <a href="#">3</a>
-	            <a href="#">4</a>
-	            <a href="#">5</a>
-	            <a href="#" class="page-arrow">&raquo;</a>
-	        </nav>
+			<!-- 페이지네이션 -->
+			<nav class="pagination">
+				<a href="#" class="page-arrow">&laquo;</a> <a href="#"
+					class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
+					href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+			</nav>
 	    </div>
     </div>
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/recuritment/filterEvent.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recruitment/filterEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 </body>
 </html>

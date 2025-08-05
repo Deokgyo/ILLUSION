@@ -2,6 +2,7 @@ package com.itwillbs.illusion.controller.recruiter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Recruiter {
@@ -13,10 +14,28 @@ public class Recruiter {
 		return "recruiter/recruiterMain"; 
 	}
 	
-	// 공고 등록 페이지로 이동
+	// 기업 정보 수정으로 이동 
+	@GetMapping("recruiterInfoEdit")
+	public String recruiterInfoEdit() {
+		return "recruiter/recruiterInfoEdit";
+	}
+	
+	
+	
+	// =======================================================================
+	// 							공고 등록 관련
+	// =======================================================================
+	
+	// 공고 등록 페이지로 이동함 
 	@GetMapping("recruiterRegistForm")
 	public String recruiterRegistForm() {
 		return "recruiter/recruiterRegistForm";
+	}
+	
+	// 공고 등록 폼 제출 
+	@PostMapping("recruiterRegistForm")
+	public String recruiterRegistForm(String str) {
+		return "redirect:/recruiterList";
 	}
 	
 	// 기업 회원이 작성한 목록 페이지로 이동

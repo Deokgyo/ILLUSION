@@ -44,13 +44,13 @@
                         
                         <div id="section-file-upload" class="input-method-section">
                             <label for="check-file-upload" class="section-header">
-                                <input class="form-check-input" type="checkbox" id="check-file-upload" checked>
+                                <input type="radio" class="radiobox" name="cl_input_method"/>
                                 <span>파일 업로드</span>
                             </label>
                             <div class="content-area">
                                 <div class="drop-zone">
                                     <input type="file" id="file-input-hidden" style="display:none;"/>
-                                    <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: silver"></i></div>
+                                    <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
                                     <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요</p>
                                 </div>
                                 <div class="upload-button-wrapper"><button class="gradient-btn">업로드</button></div>
@@ -59,7 +59,7 @@
 
                         <div id="section-direct-input" class="input-method-section">
                             <label for="check-direct-input" class="section-header">
-                                <input class="form-check-input" type="checkbox" id="check-direct-input">
+                                <input type="radio" class="radiobox" name="cl_input_method"/>
                                 <span>자기소개서 내용</span>
                             </label>
                             <div class="content-area">
@@ -84,10 +84,11 @@
                 </div>
 
                 <div class="submit-button-wrapper">
-                    <button id="refine-submit-btn" class="gradient-btn" disabled>
+                    <button id="refine-submit-btn" class="gradient-btn">
                         자기소개서 다듬기
                     </button>
                 </div>
+                
 
             </div>
         </main>
@@ -95,7 +96,7 @@
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 
-<!--     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
-<%--     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script> --%>
-<%--     <script src="${pageContext.request.contextPath}/resources/js/jobTools/coverletterRefiner.js"></script> --%>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jobTools/coverletterRefiner.js"></script>
 </html>

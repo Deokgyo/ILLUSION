@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -19,6 +20,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/community/communityWrite.css">
+    
+
 </head>
 <body>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
@@ -70,8 +73,8 @@
 		
 		        <!-- 하단 버튼 영역 -->
 		        <div class="form-actions">
-		            <button type="submit" class="gradient-btn">게시하기</button>
-		            <button type="button">취소</button>
+		            <button type="button" class="btn btn-yellow" onclick="history.back()">취소</button>
+		            <button type="submit" class="btn btn-yellow">게시하기</button>
 		        </div>
 		
 		    </form>

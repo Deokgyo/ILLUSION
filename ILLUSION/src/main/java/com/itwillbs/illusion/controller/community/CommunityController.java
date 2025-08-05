@@ -14,6 +14,10 @@ public class CommunityController {
 	public String communityWrite() {
 		return "community/communityWrite";
 	}
+	@GetMapping("communityModify")
+	public String communityModify() {
+		return "community/communityModify";
+	}
 	@GetMapping("communityDetail")
 	public String communityDetail() {
 		return "community/communityDetail";

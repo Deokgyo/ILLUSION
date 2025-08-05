@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>관리자 메인페이지</title>
+    <title>관리자 결제 관리</title>
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -17,9 +17,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/dashboard.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
     
 </head>
 <body>
@@ -38,12 +36,12 @@
 	            
 	            <nav class="sidebar-nav">
 	                <ul>
-	                    <li><a href="./adminMember" class="nav-item">회원 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminRecuritment" class="nav-item">공고 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminCommunity" class="nav-item">게시글 관리<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminSupport" class="nav-item">고객 문의<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./adminPayment" class="nav-item">결제 이력<!-- <span>▼</span> --></a></li>
-	                    <li><a href="./comcodeRegist" class="nav-item">공통 코드 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminMember" class="btn-yellow">회원 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminRecuritment" class="btn-yellow">공고 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminCommunity" class="btn-yellow">게시글 관리<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminSupport" class="btn-yellow">고객 문의<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./adminPayment" class="btn-yellow">결제 이력<!-- <span>▼</span> --></a></li>
+	                    <li><a href="./comcodeRegist" class="btn-yellow">공통 코드 관리<!-- <span>▼</span> --></a></li>
 	                </ul>
 	            </nav>
 	        </aside>
@@ -55,14 +53,97 @@
 	            <!-- 메인 헤더 -->
 	            <header class="admin-header">
 	                <div class="user-actions">
-	                    <a href="#">로그아웃</a>
-	                    <a href="#">사용자 화면</a>
+	                    <a href="./">로그아웃</a>
+	                    <a href="./">사용자 화면</a>
 	                </div>
 	            </header>
 	
 	            <!-- 메인 콘텐츠가 표시될 영역 -->
 	            <main class="admin-content">
+        
+		        <!-- 1. 페이지 헤더 -->
+		         <div class="page-title-header">
+	         	    <p class="header-text"><strong>회원 결제 목록</strong></p>
+	             </div>
+		
+		        <!-- 2. 필터 및 검색 바 -->
+		        <div class="control-bar">
+		            <div class="filters">
+		                <div class="filter-group view-options">
+		                    <select name="view-count" id="view-count">
+		                        <option value="10">10</option>
+		                        <option value="30">30</option>
+		                        <option value="50">50</option>
+		                    </select>
+		                    <span>건씩 보기</span>
+		                </div>
+		                <div class="filter-group">
+		                    <span class="filter-title">상태</span>
+		                    <label><input type="radio" name="user-status" value="all" checked> 전체</label>
+		                    <label><input type="radio" name="user-status" value="active"> 결제</label>
+		                    <label><input type="radio" name="user-status" value="inactive"> 환불</label>
+		                </div>
+		            </div>
+		            <div class="search-box">
+		                <input type="text" placeholder="회원 이름, 아이디 검색">
+		                <button type="button">🔍</button>
+		            </div>
+		        </div>
+		
+		        <!-- 3. 회원 목록 테이블 -->
+		        <div class="table-wrapper">
+		            <table>
+		                <thead>
+		                    <tr>
+		                        <th>No.</th>
+		                        <th>결제상태</th>
+		                        <th>회원 아이디</th>
+		                        <th>이름</th>
+		                        <th>결제 / 환불 금액</th>
+		                        <th>결제 / 환불 후 토큰</th>
+		                        <th>결제 / 환불 일시</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                    <!-- 반복될 데이터 행 (예시) -->
+		                    <tr>
+		                        <td>1</td>
+		                        <td><span class="badge badge-active">결제</span></td>
+		                        <td>honeyCombo</td>
+		                        <td>김교촌</td>
+		                        <td>5,000원</td>
+		                        <td>1,000개</td>
+		                        <td>2025-07-30</td>
+		                    </tr>
+		                    <tr>
+		                        <td>2</td>
+		                        <td><span class="badge badge-active">결제</span></td>
+		                        <td>iwannagohome</td>
+		                        <td>박집에가고싶</td>
+		                        <td>10,000원</td>
+		                        <td>1,500개</td>
+		                        <td>2025-07-31</td>
+		                    </tr>
+		                    <tr>
+		                        <td>3</td>
+		                        <td><span class="badge badge-inactive">환불</span></td>
+		                        <td>honeyCombo</td>
+		                        <td>김교촌</td>
+		                        <td>5,000원</td>
+		                        <td>500개</td>
+		                        <td>2025-07-31</td>
+		                    </tr>          
+		                    <!-- ... 추가 데이터 행 ... -->
+		                </tbody>
+		            </table>
+		        </div>
 
+			    <!-- 페이지네이션 -->
+				<nav class="pagination">
+					<a href="#" class="page-arrow">&laquo;</a> <a href="#"
+						class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
+						href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+				</nav>
 	            </main>
 	            
 	            <!-- 메인 푸터 -->

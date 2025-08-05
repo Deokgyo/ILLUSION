@@ -11,7 +11,7 @@
             <div class="profile-actions">
                 <a href="myPage" class="profile-btn">마이페이지</a>
                 <a href="#" class="profile-btn token-btn"> 
-                <img src="${pageContext.request.contextPath}/resources/image/token.jpg" alt="토큰 이미지"> 10 토큰</a>
+                <i class='far fa-gem' style= "color : var(--main-color)"></i> 10 토큰</a>
                 <a href="#" class="profile-btn">로그아웃</a>
             </div>
         </div>
@@ -37,7 +37,7 @@
 	       </li>
 	       
 	       <%-- 다른 메뉴들 --%>
-	        <li><a href="recuritmentInfo"><i class="fa-solid fa-file-lines"></i> 채용정보</a></li>
+	        <li><a href="recruitmentInfo"><i class="fa-solid fa-file-lines"></i> 채용정보</a></li>
 	        <li><a href="communityMain"><i class="fa-solid fa-comments"></i> 커뮤니티</a></li>
 	    </ul>
 	</nav>

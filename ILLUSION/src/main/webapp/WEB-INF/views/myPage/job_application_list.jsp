@@ -45,7 +45,7 @@
             </div>
     <table class="interest-table">
       <thead>
-        <tr >
+        <tr>
           <th>선택</th>
           <th>공고 제목</th>
           <th>공고 상태</th>
