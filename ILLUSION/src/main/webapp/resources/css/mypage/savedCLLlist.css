@@ -4,10 +4,10 @@
 	max-width: 1060px;
 	margin: 0 auto;
 	padding: 30px;
-	font-family: 'Pretendard', sans-serif;
+	font-family: var(--font-family);
 	background: #fff;
 	border-radius: 16px;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+	box-shadow: var(--main-box-shadow);
 }
 
 .resume-title {
@@ -23,7 +23,7 @@
 .resume-list-header {
 	display: grid;
 	grid-template-columns: 1fr 4fr 1fr;
-	background-color: #FFE585;
+	background-color: var(--main-color);
 	padding: 12px 16px;
 	font-weight: 600;
 	font-size: 14px;
@@ -36,10 +36,6 @@
 	align-items: center;
 	padding: 16px;
 	border-bottom: 1px solid #eee;
-}
-
-.resume-item:hover {
-	background-color: #fff8d0;
 }
 
 .resume-item:last-child {
@@ -57,14 +53,16 @@
 	font-weight: 500;
 	color: #333;
 }
-
+.resume-item:hover{
+	background-color: #fff8d0;
+}
 .resume-info .date {
 	font-size: 12px;
 	color: #888;
 }
 
 .edit-btn {
-	background-color: #FFE585;
+	background-color: var(--main-color);
 	border: none;
 	padding: 8px 14px;
 	border-radius: 8px;
@@ -75,7 +73,14 @@
 }
 
 .edit-btn:hover {
-	background-color: #fcd34d;
+	background-color: var(--main-color-hover);
+}
+
+.checkbox {
+	width: 20px;
+	height: 20px;
+	accent-color: #fcd34d;
+	margin: auto;
 }
 
 .resume-footer {
@@ -86,7 +91,7 @@
 }
 
 .delete-btn {
-	background-color: #FFE585;
+	background-color:var(--main-color);
 	border: none;
 	padding: 10px 20px;
 	font-weight: bold;
@@ -96,17 +101,14 @@
 }
 
 .delete-btn:hover {
-	background-color: #fcd34d;
+	background-color: var(--main-color-hover);
 }
-.checkbox {
-    width: 20px;
-    height: 20px;
-    accent-color: #fcd34d;
-    margin: auto;
-}
-.pagination {
 
-margin: 0 auto;
+.pagination {
+	/*   display: flex; */
+	/*   gap: 8px; */
+	/*   font-size: 14px; */
+	margin: 0 auto;
 	width: fit-content;
 	display: flex;
 	gap: 8px;
@@ -123,3 +125,4 @@ margin: 0 auto;
 	font-weight: bold;
 	text-decoration: underline;
 }
+

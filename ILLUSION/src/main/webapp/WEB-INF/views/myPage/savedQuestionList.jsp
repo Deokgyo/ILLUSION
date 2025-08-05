@@ -17,8 +17,7 @@
 	href="${pageContext.request.contextPath}/resources/css/top.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/layout.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/header.css">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 <link rel="stylesheet"
@@ -26,7 +25,13 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/saved_Question.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/savedQuestionList.css">
+<style type="text/css">
+ .form-box {
+   padding: 0px;
+  	
+  }
+</style>
 </head>
 <body>
 	<header>
@@ -37,12 +42,11 @@
 
 		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 		<main class="main-content">
-			<div class="ai-interview-container">
 			<div class="page-title-header">
         <p class="header-text"><strong>저장된 AI 면접 예상질문 </strong> </p>
     </div>
-
-
+			<div class="form-box">
+			<div class="ai-interview-container">
 				<!-- 질문 블록 -->
 				<div class="question-block">
 					<div class="question-header">
@@ -89,7 +93,7 @@
 			</div>
 
 
-
+		</div>
 		</main>
 	</div>
 

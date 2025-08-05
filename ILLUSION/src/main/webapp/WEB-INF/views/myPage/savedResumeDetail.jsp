@@ -17,8 +17,7 @@
 	href="${pageContext.request.contextPath}/resources/css/top.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/layout.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/header.css">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 <link rel="stylesheet"
@@ -28,8 +27,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/savedResumeDetail.css">
 	<style type="text/css">
-	.form-box {padding: 0px;}
-	.
+	.form-box {padding: 0px;
+	box-shadow: var(--main-box-shadow);}
+	
 	</style>
 </head>
 <body>

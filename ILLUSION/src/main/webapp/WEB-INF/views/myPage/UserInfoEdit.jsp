@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>User_Info_Edit</title>
+<title>회원정보 수정</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -18,18 +18,16 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/layout.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/header.css">
-<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bottom.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/User_Info_Edit.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/UserInfoEdit.css">
 <style type="text/css">
 .form-box {
-	padding: 0px;
+	padding: 40px;
 	padding-right: 10px;
 }
 
@@ -60,9 +58,11 @@
 					<strong>회원정보 수정 </strong>
 				</p>
 			</div>
+			
 			<div class="form-box">
 				<div class="member-info-container">
-					<table>
+				<hr>
+					<table class="info-table">
 						<tr>
 							<th>프로필 이미지</th>
 							<td>
@@ -75,36 +75,40 @@
 						</tr>
 						<tr>
 							<th>아이디</th>
-							<td rowspan="1">itwillbs3030</td>
+							<td rowspan="1"><span class="bg-text">itwillbs3030</span></td>
 
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td>홍길동</td>
+							<td ><span class="bg-text">홍길동 </span></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 						<tr>
 							<th>생년월일</th>
-							<td>19980201</td>
+							<td><span class="bg-text">19980201</span></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td>남자</td>
+							<td><span class="bg-text">남자</span></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 						<tr>
 							<th>주소</th>
-							<td>부산시 사상구 사상로 3333 33</td>
+							<td><span class="bg-text">부산시 사상구 사상로 3333 33</span></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td>kingejrry@naver.com</td>
+							<td><span class="bg-text">kingejrry@naver.com</span></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 					</table>
+					
 				</div>
+				<hr>
+				<button class="passwd-button">비밀번호 수정</button>
+				<button class="infodelete-button">회원탈퇴</button>
 			</div>
 
 		</main>

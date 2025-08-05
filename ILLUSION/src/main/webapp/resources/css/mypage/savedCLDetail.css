@@ -1,11 +1,6 @@
 @charset "UTF-8";
 
-body {
-  margin: 0;
-  font-family: 'Pretendard', sans-serif;
-  background-color: #fff;
-  color: #333;
-}
+
 
 .qna-container {
   max-width: 1060px;
@@ -25,7 +20,7 @@ body {
 .qna-box {
   background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--main-box-shadow);
   padding: 20px;
 }
 
@@ -49,7 +44,7 @@ body {
 }
 
 .q-symbol {
-  background-color: #fce395;
+  background-color: var(--main-color);
   color: #555;
   font-weight: bold;
   border-radius: 50%;
@@ -86,7 +81,7 @@ body {
 }
 
 .btn {
-  background-color: #fef0c4;
+  background-color: var(--main-color);
   border: none;
   padding: 10px 20px;
   margin: 0 8px;
@@ -97,13 +92,6 @@ body {
 }
 
 .btn:hover {
-  background-color: #ffe9a1;
+  background-color: var(--main-color-hover);
 }
 
-.btn.delete {
-  background-color: #fce5f1;
-}
-
-.btn.delete:hover {
-  background-color: #fbd2e7;
-}

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>입사 지원 현황</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/job_application_list.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/jobapplicationlist.css">
 </head>
 <body>
 	<header>
@@ -39,10 +39,10 @@
 	<main class="main-content">
 
 
-  <div class="interest-section">
     <div class="page-title-header">
                 <p class="header-text"><strong>입사 지원 현황</strong></p>
             </div>
+  <div class="interest-section">
     <table class="interest-table">
       <thead>
         <tr>

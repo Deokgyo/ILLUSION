@@ -18,7 +18,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/layout.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/header.css">
+	href="${pageContext.request.contextPath}/resources/css/top.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 <link rel="stylesheet"
@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/Scrap_recruitList.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/ScraprecruitList.css">
 </head>
 <body>
 	<header>

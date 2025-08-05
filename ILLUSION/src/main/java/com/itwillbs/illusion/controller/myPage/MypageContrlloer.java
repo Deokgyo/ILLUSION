@@ -15,30 +15,30 @@ public class MypageContrlloer {
 		return "myPage/resumeWrite";
 	}
 	/* 이력서 목록 */
-	@GetMapping("saved_ResumeList")
-	public String saved_ResumeList() {
-		return "myPage/saved_ResumeList";
+	@GetMapping("savedResumeList")
+	public String savedResumeList() {
+		return "myPage/savedResumeList";
 	}
 	/* 자소서 목록 */
-	@GetMapping("saved_CLList")
-	public String saved_CLList() {
-		return "myPage/saved_CLList";
+	@GetMapping("savedCLList")
+	public String savedCLList() {
+		return "myPage/savedCLList";
 	}
 	/* 면접예상질문 리스트 */
-	@GetMapping("saved_QuestionList")
-	public String saved_QuestionList() {
-		return "myPage/saved_QuestionList";
+	@GetMapping("savedQuestionList")
+	public String savedQuestionList() {
+		return "myPage/savedQuestionList";
 	}
 	/* 스크랩공고 목록 */
-	@GetMapping("Scrap_recruitList")
-	public String Scrap_recruitList() {
-		return "myPage/Scrap_recruitList";
+	@GetMapping("ScraprecruitList")
+	public String ScraprecruitList() {
+		return "myPage/ScraprecruitList";
 	}
 	
 	/*입사지원현황 */
-	@GetMapping("job_application_list")
-	public String job_application_list() {
-		return "myPage/job_application_list";
+	@GetMapping("jobapplicationlist")
+	public String jobapplicationlist() {
+		return "myPage/jobapplicationlist";
 	}
 	/*내가쓴글*/
 	@GetMapping("myPost")
@@ -47,21 +47,21 @@ public class MypageContrlloer {
 	}
 	
 	/* 환불 정책  */
-	@GetMapping("refund_policy")
-	public String refund_policy() {
-		return "myPage/refund_policy";
+	@GetMapping("refundpolicy")
+	public String refundpolicy() {
+		return "myPage/refundpolicy";
 	}
 	
 	/*회원정보 수정*/
-	@GetMapping("User_Info_Edit")
-	public String User_Info_Edit() {
-		return "myPage/User_Info_Edit";
+	@GetMapping("UserInfoEdit")
+	public String UserInfoEdit() {
+		return "myPage/UserInfoEdit";
 	}
 	
 	/*회원정보 수정*/
-	@GetMapping("token_pay")
-	public String token_pay() {
-		return "myPage/token_pay";
+	@GetMapping("tokenpay")
+	public String tokenpay() {
+		return "myPage/tokenpay";
 	}
 	/*이력서 상세보기 */
 	@GetMapping("savedResumeDetail")

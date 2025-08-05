@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/token_pay.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/tokenpay.css">
 </head>
 <body>
 	<header>
@@ -91,8 +91,8 @@
 						<option value="bccard">bc카드</option>
 						
 					</select>
-				<div>
-				<input type="checkbox"> <a href="refund_policy" class="policyCSS">결제 및 환불 정책에 동의합니다.</a>
+				<div class="policyCSS1">
+				<input type="checkbox" class="checkbox"> <a href="refund_policy" class="policyCSS">결제 및 환불 정책에 동의합니다.</a>
 				
 				</div>
 

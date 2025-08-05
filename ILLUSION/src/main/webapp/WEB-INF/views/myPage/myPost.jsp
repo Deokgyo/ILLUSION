@@ -28,6 +28,11 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/myPost.css">
 </head>
+<style type="text/css">
+ .form-box {
+   padding: 0px;
+  }
+</style>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
@@ -38,10 +43,11 @@
 		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 		<main class="main-content">
 			<!-- 여기에 메인내용 -->
-			<div class="board-container">
 				<div class="page-title-header">
                 <p class="header-text"><strong>내가 쓴 게시물</strong></p>
             </div>
+			<div class="form-box">
+			<div class="board-container">
 
 				<div class="board-filter">
 					<select>
@@ -54,7 +60,7 @@
 
 				<div class="board-list">
 					<div class="board-header">
-						<span>선택</span> <span>게시물 제목</span> <span>작성일</span> <span>관리</span>
+						<span>선택</span> <span>게시물 제목</span> <span>관리</span>
 					</div>
 
 					<!-- 게시물 항목 1 -->
@@ -101,7 +107,7 @@
 			</div>
 
 
-
+		</div>
 		</main>
 	</div>
 

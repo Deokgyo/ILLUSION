@@ -2,6 +2,7 @@
 
 /* background-color: var(--body-bg-color); */
 /* 색깔 변수로 입력하기 var(--body-bg-color); */
+
 body {
 	margin: 0;
 	font-family: 'Pretendard', sans-serif;
@@ -17,6 +18,7 @@ body {
 /*   box-shadow: 0 4px 20px rgba(0,0,0,0.05); */
 /*   background: linear-gradient(to bottom, #fff8e5, #fdf5fa); */
 /* } */
+
 .title {
 	text-align: center;
 	font-size: 24px;
@@ -30,7 +32,7 @@ body {
 	background: #fff;
 /* 	padding: 20px; */
 	border-radius: 12px;
-/* 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); */
+ 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); 
 	margin-bottom: 20px;
 	margin-top: 10px;
 	flex-direction: row;
@@ -47,7 +49,7 @@ body {
 .profile-img {
 	width: 120px; /* 프로필 이미지 박스 너비 */
 	height: 130px; /* 프로필 이미지 박스 높이 */
-	border: 1px solid #FFE585; /* 테두리 표시 */
+	border: 1px solid var(--main-color-hover); /* 테두리 표시 */
 	overflow: hidden; /* 이미지 넘칠 경우 숨김 */
 }
 
@@ -111,7 +113,7 @@ body {
     justify-content: column;
     gap: 21px;
     flex-direction: column;
-    border: 3px solid #FFE585;
+    border: 3px solid var(--main-color-hover);
     padding: 22px;
     border-radius: 10px;
     width: 170px;
@@ -139,7 +141,7 @@ body {
 	justify-content: column;
 	gap: 10px;
 	flex-direction: column;
-	border: 1px solid #FFE585;
+	border: 1px solid var(--main-color-hover);
 	padding: 10px;
 	border-radius: 10px;
 }

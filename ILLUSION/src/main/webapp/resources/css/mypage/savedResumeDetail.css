@@ -1,11 +1,6 @@
 @charset "UTF-8";
 
-body {
-  margin: 0;
-  font-family: 'Pretendard', sans-serif;
-  background-color: #ffffff;
-  color: #333;
-}
+
 
 .container {
   max-width: 1060px;
@@ -79,7 +74,7 @@ body {
 }
 
 .btn {
-  background-color: #FFE585;
+  background-color: var(--main-color);
   border: none;
   padding: 10px 20px;
   margin: 0 8px;
@@ -90,15 +85,15 @@ body {
 }
 
 .list-btn:hover {
-  background-color: #fcd34d;
+  background-color:var(--main-color-hover);
 }
 
 .btn.delete {
-  background-color: #FFE585;
+  background-color:var(--main-color);
 }
 
 .edit-btn:hover,.delete-btn:hover {
-  background-color: #fcd34d;
+  background-color:var(--main-color-hover);
 }
 .button-wrapper {
   position: relative;
@@ -110,7 +105,7 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #FFE585;
+  background-color:var(--main-color);
   border: none;
   padding: 10px 24px;
   border-radius: 14px;
@@ -128,7 +123,7 @@ body {
 
 .edit-btn,
 .delete-btn {
-  background-color: #FFE585;
+  background-color:var(--main-color);
   border: none;
   padding: 10px 20px;
   margin-left: 10px;

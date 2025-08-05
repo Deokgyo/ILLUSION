@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자기소개서 상세페이지</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -18,7 +18,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/layout.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/header.css">
+	href="${pageContext.request.contextPath}/resources/css/top.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 <link rel="stylesheet"
@@ -27,6 +27,11 @@
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/savedCLDetail.css">
+<style type="text/css">
+.form-box{
+box-shadow: var(--main-box-shadow);
+}
+</style>
 </head>
 <body>
 	<header>
@@ -64,7 +69,7 @@
     <div class="button-group">
       <a href="saved_CLList"><button class="btn">목록</button></a>
       <button class="btn">수정</button>
-      <button class="btn delete">삭제</button>
+      <button class="btn">삭제</button>
     </div>
   </div>
 	

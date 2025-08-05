@@ -14,7 +14,6 @@
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet"
@@ -42,7 +41,7 @@
                 <div class="profile-section">
                     <div class="avatar-container">
                         <div class="avatar-placeholder"></div>
-                        <div class="upload-tag">업로드</div>
+                        <button class="upload-tag">업로드</button>
                     </div>
                     <div class="profile-info">
                         <h3>일루션</h3>

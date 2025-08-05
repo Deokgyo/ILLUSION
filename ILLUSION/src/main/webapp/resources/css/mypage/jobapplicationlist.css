@@ -1,16 +1,11 @@
 @charset "UTF-8";
 
-body {
-	margin: 0;
-	padding: 40px;
-	font-family: 'Pretendard', sans-serif;
-	background: #fff;
-	color: #333;
-}
+
 
 .interest-section {
-	width: 1060px;
+	width: 100%;
 	text-align: center;
+	box-shadow:  var(--main-box-shadow);
 }
 
 .trcss {
@@ -37,12 +32,11 @@ body {
 	border-collapse: collapse;
 	border-radius: 16px;
 	overflow: hidden;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 	margin-bottom: 10px;
 }
 
 .interest-table thead tr {
-	background-color: #FFE585;
+	background-color: var(--main-color);
 }
 
 .interest-table th, .interest-table td {
@@ -60,7 +54,7 @@ body {
 }
 
 .delete-btn {
-	background-color: #FFE585;
+	background-color: var(--main-color);
 	border: none;
 	border-radius: 8px;
 	padding: 10px 20px;
@@ -70,7 +64,7 @@ body {
 }
 
 .delete-btn:hover {
-	background-color: #fcd34d
+	background-color: var(--main-color-hover);
 }
 
 .pagination {
