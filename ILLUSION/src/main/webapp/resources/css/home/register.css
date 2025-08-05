@@ -73,7 +73,7 @@
 .member-tabs {
    display: flex;
    gap: 0;
-   width: 65%;
+   width: 43%;
    margin: 0 auto;
    border-bottom: 3px solid #eae5ca;
    justify-content: center;
@@ -86,22 +86,22 @@
    outline: none;
    font-size: 21px;
    font-weight: 700;
-   color: #e2c066;
+   color: var(--font-sub-color);
    padding: 9px 0 6px 0;
    cursor: pointer;
    border-bottom: 3px solid transparent;
    transition: color 0.18s, border-bottom 0.18s;
 }
 
-.tab-btn.active {
+.active {
    color: #efcc60;
    border-bottom: 3px solid #ffe162;
    background: none;
 }
 
-.tab-btn:not(.active) {
-   color: #d1ccb5;
-}
+/* .tab-btn:not(.active) { */
+/*    color: #d1ccb5; */
+/* } */
 
 /* ===== 회원가입 전체 박스 (흰색) ===== */
 .signup-form-box {
@@ -114,6 +114,7 @@
    padding: 38px 32px 28px 32px;
    overflow: hidden;
    position: relative;
+   width: 45%;
 }
 .signup-form-box::before{
 	content: "";
@@ -139,22 +140,24 @@
   margin-bottom: 12px;
 }
 .form-row label {
-    width: 54px;
-    margin-right: 10px;
+  width: 90px;           /* 너비는 폼에 맞게 조절 */
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;      /* 줄높이로 인풋과 높이 맞춰줌 */
+  margin-bottom: 0;      /* 꼭 0으로! */
+  height: 38px;          /* input 높이에 맞춤. */
+  display: flex;
+  align-items: center;
 }
-.form-row input,
-.form-row select {
-   width: 260px; /* 입력창 너비 */
-  padding: 6px;
-  vertical-align: middle;
-}
+
 label {
    font-size: 14px;
    font-weight: 800;
    margin-bottom: 2.5px;
 }
 
-input[type=text], input[type=password], input[type=email], input[type=date],
+input[type=text], input[type=password],input[type=date],
    select {
    border: 0.6px solid #1e1e1e42;
    border-radius: 20px;
@@ -164,28 +167,60 @@ input[type=text], input[type=password], input[type=email], input[type=date],
    outline: none;
    margin-bottom: 3px;
    transition: border 0.14s;
+   width: 60%;
 }
-
+.gender-row > label {
+  margin-right: 10px; /* 원하는 만큼 간격 조절, 예: 10px */
+}
 input:focus, select:focus {
    border: 1.3px solid #fbe162;
 }
-
-select {
-   height: 41px;
+input[type=date]{
+   width: 30%;
 }
-
+select {
+   height: 35px;
+}
+.gender-row > label {
+  margin-right: 10px; /* 원하는 만큼 간격 조절, 예: 10px */
+}
 /* ====== 2열 레이아웃 ====== */
 .flex-row {
    display: flex;
    gap: 11px;
 }
-
-.flex-half {
-   flex: 1;
-   display: flex;
-   flex-direction: column;
+.gender-row>label{
+	margin-right: -50px;
 }
-
+.flex-half {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+.form-row.addr input[type="text"] {
+    margin-bottom: -8px;
+    margin-left: 97px;
+    width: 50%;
+    padding: 5px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    box-sizing: border-box;
+    margin-top: -7px;
+}
+.form-row.address-row {
+	margin-bottom: 3px;
+}
+.address-row input{
+	margin-bottom: 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    box-sizing: border-box;
+    width: 20%;
+    height: 38px;
+    margin-right: 40px;
+}
 .flex-half-right {
    flex: 1;
    display: flex;
@@ -214,20 +249,67 @@ select {
    gap: 7px;
    align-items: center;
 }
-
+.email-flex input[type=email1]{
+	margin-bottom: -8px;
+    margin-left: 1px;
+    width: 50%;
+    padding: 4px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    box-sizing: border-box;
+    margin-top: -7px;
+}
+.email-flex input[type=email2]{
+	margin-bottom: -8px;
+    margin-left: 20px;
+    width: 50%;
+    padding: 4px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    box-sizing: border-box;
+    margin-top: -20px;
+}
 button.btn-yellow {
-   background: #fbe162;
-   color: #605619;
-   font-weight: 700;
-   border: none;
-   border-radius: 30px;
-   padding: 8px 15px;
-   font-size: 15px;
-   margin-left: 2px;
-   cursor: pointer;
-   transition: background 0.16s;
+  background: #fbe162;
+    color: #605619;
+    font-weight: 700;
+    border: none;
+    border-radius: 30px;
+    padding: 6px 5px;
+    font-size: 15px;
+    margin-left: -7px;
+    cursor: pointer;
+    transition: background 0.16s;
+    width: 100px;
+}
+#emailcode-btn {
+	margin-top: -14px;
 }
 
+button {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.btn-yellow1 {
+  background: #fbe162;
+    color: #605619;
+    font-weight: 700;
+    border: none;
+    border-radius: 30px;
+    padding: 6px 5px;
+    font-size: 15px;
+    margin-left: -7px;
+    cursor: pointer;
+    transition: background 0.16s;
+    width: 119px;
+    height: 31px;
+    margin-left: 2px;
+    vertical-align: middle;
+}
 button.btn-yellow:hover {
    background: #ffeb96;
 }
