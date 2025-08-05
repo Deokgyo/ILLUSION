@@ -105,7 +105,7 @@
     </div>
 	
   <div class="button-wrapper">
-  <button class="list-btn"onclick="location.href='saved_ResumeList';">목록</button>
+  <button class="list-btn"onclick="location.href='savedResumeList';">목록</button>
 
   <div class="right-buttons">
   
@@ -129,7 +129,7 @@ document.getElementById(".edit-btn").onclick = function () {
   location.href = "resumeWrite";
 }
 document.getElementById(".list-btn").onclick = function () {
-	  location.href = "saved_ResumeList";
+	  location.href = "savedResumeList";
 }
 </script>
 </body>

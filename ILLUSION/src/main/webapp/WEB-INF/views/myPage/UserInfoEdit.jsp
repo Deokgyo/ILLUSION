@@ -107,8 +107,8 @@
 					
 				</div>
 				<hr>
-				<button class="passwd-button">비밀번호 수정</button>
-				<button class="infodelete-button">회원탈퇴</button>
+				<button class="passwd-button" onclick="location.href='changePasswd';">비밀번호 수정</button>
+				<button class="infodelete-button" onclick="location.href='deleteMember';">회원탈퇴</button>
 			</div>
 
 		</main>

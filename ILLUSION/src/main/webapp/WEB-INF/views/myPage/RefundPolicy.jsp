@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/mypage.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/RefundPolicy.css">
 </head>
 <body>
 

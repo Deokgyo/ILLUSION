@@ -47,9 +47,9 @@ public class MypageContrlloer {
 	}
 	
 	/* 환불 정책  */
-	@GetMapping("refundpolicy")
-	public String refundpolicy() {
-		return "myPage/refundpolicy";
+	@GetMapping("RefundPolicy")
+	public String RefundPolicy() {
+		return "myPage/RefundPolicy";
 	}
 	
 	/*회원정보 수정*/
@@ -58,7 +58,7 @@ public class MypageContrlloer {
 		return "myPage/UserInfoEdit";
 	}
 	
-	/*회원정보 수정*/
+	/*토큰 결제*/
 	@GetMapping("tokenpay")
 	public String tokenpay() {
 		return "myPage/tokenpay";
@@ -72,6 +72,16 @@ public class MypageContrlloer {
 	@GetMapping("savedCLDetail")
 	public String savedCLDetail() {
 		return "myPage/savedCLDetail";
+	}
+	/*비밀번호변경 */
+	@GetMapping("changePasswd")
+	public String changePasswd() {
+		return "myPage/changePasswd";
+	}
+	/*회원탈퇴 */
+	@GetMapping("deleteMember")
+	public String deleteMember() {
+		return "myPage/deleteMember";
 	}
 }
        

@@ -92,7 +92,7 @@
 						
 					</select>
 				<div class="policyCSS1">
-				<input type="checkbox" class="checkbox"> <a href="refund_policy" class="policyCSS">결제 및 환불 정책에 동의합니다.</a>
+				<input type="checkbox" class="checkbox"> <a href="RefundPolicy" class="policyCSS">결제 및 환불 정책에 동의합니다.</a>
 				
 				</div>
 
