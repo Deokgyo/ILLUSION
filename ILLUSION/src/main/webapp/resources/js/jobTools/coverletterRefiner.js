@@ -15,7 +15,7 @@ $(function() {
     const $textarea = $('#direct-input-textarea');
     const $resumeList = $('#panel-saved-resume .resume-list');
 
-    // --- 1. 탭 전환 기능 ---
+    // 1. 탭 전환 기능 
     $tabs.on('click', function(e) {
         e.preventDefault();
         const targetPanelId = $(this).data('tab');
@@ -29,7 +29,7 @@ $(function() {
         updateButtonState(); // 탭 전환 시에도 버튼 상태 체크
     });
 
-    // --- 2. 체크박스 상호 비활성화 기능 ---
+    // 2. 체크박스 상호 비활성화 기능
     $checkFileUpload.on('change', function() {
         if ($(this).is(':checked')) {
             $checkDirectInput.prop('checked', false);
@@ -52,7 +52,7 @@ $(function() {
         updateButtonState();
     });
 
-    // --- 3. 저장된 자소서 선택 기능 ---
+    // 3. 저장된 자소서 선택 기능 
     $resumeList.on('click', '.resume-item', function() {
         // 이미 active 상태인 것을 또 누르면 선택 해제 (토글)
         if ($(this).hasClass('active')) {
@@ -89,10 +89,10 @@ $(function() {
 
     // 파일이나 텍스트 입력 시 버튼 상태 업데이트
     $fileInput.on('change', updateButtonState);
-    $textarea.on('input', updateButtonState); // 'keyup'보다 'input'이 붙여넣기 등에도 반응하여 더 좋음
+    $textarea.on('input', updateButtonState);
 
     // 초기 상태 설정
-    $checkFileUpload.trigger('change'); // 페이지 로드 시 파일 업로드를 기본 선택 상태로 만듦
+    $checkFileUpload.trigger('change');
     updateButtonState(); // 페이지 로드 시 버튼 상태 초기화
 
 });

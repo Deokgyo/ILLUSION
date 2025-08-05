@@ -90,81 +90,27 @@
 
 			<!-- 게시글 목록 -->
 			<div class="post-list">
-				<div class="post-item">
-					<div class="post-author">
-						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
-						<span class="author-name">admin</span>
-					</div>
-					<div class="post-content">
-						<div class="post-title-wrapper">
-							<p class="post-title">
-								<a href="communityDetail">자기소개서 처음 쓰는데 어떤 방식으로 쓰면 좋을까요?</a>
-							</p>
+				<c:forEach var="board" items="${boardList}">
+					<div class="post-item">
+						<div class="post-author">
+							<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
+											<!-- * 회원테이블과 조인 -->
+							<span class="author-name">admin</span> 
 						</div>
-						<div class="post-meta">
-							<span class="meta-item"><i
-								class="fa-regular fa-comment-dots"></i> 3</span> <span
-								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="post-item">
-					<div class="post-author">
-						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
-						<span class="author-name">admin</span>
-					</div>
-					<div class="post-content">
-						<div class="post-title-wrapper">
-							<p class="post-title">
-								<a href="communityDetail">면접 보러 가는데 주의사항 있을까요?</a>
-							</p>
-						</div>
-						<div class="post-meta">
-							<span class="meta-item"><i
-								class="fa-regular fa-comment-dots"></i> 3</span> <span
-								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
+						<div class="post-content">
+							<div class="post-title-wrapper">
+								<p class="post-title">
+									<a href="communityDetail">${board.board_content }</a>
+								</p>
+							</div>
+							<div class="post-meta">
+								<span class="meta-item"><i
+									class="fa-regular fa-comment-dots"></i> 3</span> <span
+									class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 ${board.board_viewcnt }</span>
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="post-item">
-					<div class="post-author">
-						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
-						<span class="author-name">admin</span>
-					</div>
-					<div class="post-content">
-						<div class="post-title-wrapper">
-							<p class="post-title">
-								<a href="communityDetail">아이티윌 합격 하신 분 계신가요?</a>
-							</p>
-						</div>
-						<div class="post-meta">
-							<span class="meta-item">
-							<i class="fa-regular fa-comment-dots"></i> 3</span> 
-							<span class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
-						</div>
-					</div>
-				</div>
-				
-				<div class="post-item">
-					<div class="post-author">
-						<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
-						<span class="author-name">김교촌</span>
-					</div>
-					<div class="post-content">
-						<div class="post-title-wrapper">
-							<p class="post-title">
-								<a href="communityDetail">일반 문의 드립니다 !</a>
-							</p>
-						</div>
-						<div class="post-meta">
-							<span class="meta-item"><i
-								class="fa-regular fa-comment-dots"></i> 3</span> <span
-								class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 17</span>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 
 			<!-- 페이지네이션 -->

@@ -1,8 +1,5 @@
 $(function() {
     
-    // ======================================================
-    //      요소 변수 선언
-    // ======================================================
     const $initialView = $('.chat-initial-view');
     const $conversationView = $('.chat-conversation-view');
     const $chatMessages = $('.chat-messages');
@@ -12,17 +9,8 @@ $(function() {
     const $tokenModal = $('#token-modal');
     const $tokenRechargeBtn = $('.btn-token-charge');
 
-
-    // ======================================================
-    //      시뮬레이션용 변수 (나중에 서버 데이터로 대체)
-    // ======================================================
-    // 이 값을 false로 바꾸면, 메시지 전송 시 토큰 부족 모달이 뜹니다.
     let hasTokens = true; 
 
-
-    // ======================================================
-    //      기능 함수
-    // ======================================================
 
     // 모달 열기
     function openTokenModal() {
@@ -54,11 +42,6 @@ $(function() {
         $chatArea.scrollTop($chatArea[0].scrollHeight);
     }
 
-
-    // ======================================================
-    //      이벤트 핸들러
-    // ======================================================
-    
     // 1. 추천 질문 클릭 시
     $('.suggested-questions a').on('click', function(e) {
         e.preventDefault();
@@ -72,7 +55,6 @@ $(function() {
         startConversation();
         addMessage(questionText, 'user');
         
-        // 1초 후 봇 답변 시뮬레이션
         setTimeout(() => addMessage("네, '" + questionText + "'에 대해 답변해 드릴게요! 잠시만 기다려주세요.", 'bot'), 1000);
     });
     
@@ -81,7 +63,7 @@ $(function() {
         e.preventDefault();
         const messageText = $messageInput.val().trim();
         
-        if (messageText === '') return; // 입력 내용이 없으면 무시
+        if (messageText === '') return; 
         
         if (!hasTokens) {
             openTokenModal(); 
@@ -90,7 +72,7 @@ $(function() {
 
         startConversation();
         addMessage(messageText, 'user');
-        $messageInput.val(''); // 입력창 비우기
+        $messageInput.val(''); 
         
         // 1초 후 봇 답변 시뮬레이션
         setTimeout(() => addMessage("흥미로운 질문이네요! 잠시만요.", 'bot'), 1000);

@@ -16,4 +16,6 @@ public class BoardVO {
 	private Date board_create_at;
 	private Date board_update_date;
 	private int board_viewcnt;
+	
+	private MemberVO member;
 }

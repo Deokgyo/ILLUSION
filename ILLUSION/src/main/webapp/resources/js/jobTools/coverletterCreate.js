@@ -8,9 +8,9 @@ $(function() {
         $this.addClass('active').siblings().removeClass('active');
 
         if (selectedValue === 'experienced') {
-            $('#experience-fields').slideDown(300); // 300ms 동안 부드럽게 나타남
+            $('#experience-fields').slideDown(300); 
         } else {
-            $('#experience-fields').slideUp(300); // 300ms 동안 부드럽게 사라짐
+            $('#experience-fields').slideUp(300); 
         }
     });
     
