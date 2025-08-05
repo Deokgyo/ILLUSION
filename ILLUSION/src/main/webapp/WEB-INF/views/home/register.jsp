@@ -57,10 +57,11 @@
 	</div>
 	<div class="member-tabs">
 		<button class="tab-btn active">개인 회원</button>
-		<button class="tab-btn">기업 회원</button>
+		<button class="tab-btn" id="companyTab">기업 회원</button>
 	</div>
+	<div id="bizNumberBox" style="display: none; margin-top: 20px;">
+		<label>사업자등록번호 <input type="text" name="bizNumber"></label>
 	</div>
-
 	<div class="signup-form-box">
 		<form class="signup-form" autocomplete="off">
 			<div class="form-row">
