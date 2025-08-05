@@ -19,7 +19,6 @@
 .profile-btn { display: block; padding: 12px; border: 1px solid #EBE3D5; background-color: #fff; border-radius: 50px; text-decoration: none; color:var(--font-sub-color); font-weight: 600; font-size: 17px; transition: all 0.2s ease; }
 .profile-btn:hover { background-color: #FDF4D9; border-color:var (--main-color-hover); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); }
 
-
 /* ======================================================
  *      사이드바 내비게이션
  * ====================================================== */

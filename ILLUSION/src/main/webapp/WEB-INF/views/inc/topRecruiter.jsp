@@ -33,7 +33,7 @@
 	            <li><a href="">000님 환영함</a></li>
 	            <li class="separator">|</li>
 <!-- 	            <li><a href="#">회원가입</a></li> -->
-	            <li><a href="recruiterInfoEdit">정보 수정</a></li>
+	            <li><a href="recruiterInfo">정보 수정</a></li>
             </ul>
         </nav>
     </div>

@@ -15,9 +15,9 @@ public class Recruiter {
 	}
 	
 	// 기업 정보 수정으로 이동 
-	@GetMapping("recruiterInfoEdit")
-	public String recruiterInfoEdit() {
-		return "recruiter/recruiterInfoEdit";
+	@GetMapping("recruiterInfo")
+	public String recruiterInfo() {
+		return "recruiter/recruiterInfo";
 	}
 	
 	

@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+
+.profile-img {
+	width: 120px;
+	height: 130px;
+	border: 1px solid #FFE585;
+	overflow: hidden;
+}
+
+.profile-img img {
+	width: 100%; 
+	height: 100%;
+	object-fit: cover;
+}
+
+.gridjs-container {
+	padding: 0px !important;
+}
+
+.gridjs-table {
+	border: none !important;
+}
+
+.gridjs-th,
+.gridjs-td {
+	border: none !important;
+	padding: 0;
+	
+}
+
+.member-info-container .gridjs-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.member-info-container .gridjs-table th,
+.member-info-container .gridjs-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.member-info-container .gridjs-table th:nth-child(1),
+.member-info-container .gridjs-table td:nth-child(1) {
+  width: 50px !important;
+}
+
+.member-info-container .gridjs-table thead th:nth-child(2),
+.member-info-container .gridjs-table tbody td:nth-child(2) {
+  width: 100px !important;
+}
+.gridjs-th {
+	background-color: var(--main-color);
+	padding: 8px 12px;
+}
+
+.gridjs-td {
+/* 	padding: 8px; */
+	width: 107px;
+}
+
+th.gridjs-th .gridjs-th-content {
+	width: 100px;
+}
+
+.cell-inner {
+	display: inline-block;
+	background-color: #FFFDF6;
+	padding: 6px 10px;
+	border-radius: 4px;
+	max-width: 95%;
+	vertical-align: middle;
+	  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.right-align {
+	text-align: right;
+	padding-right: 25px
+}
