@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.illusion.mapper.RecruitMapper">
+	
+	<select id="selectRecruitList">
+		SELECT 
+			r.recruit_idx,
+			loc.code_name AS location,
+			occ.code_name as occupation,
+			r.start_date,
+			r.end_date,
+			r.views_count,
+			r.recruit_subject
+		FROM 
+			recruit r LEFT JOIN common_code loc ON r.location = loc.code
+		    LEFT JOIN common_code occ ON r.occupation = occ.code
+		ORDER BY
+			r.recruit_idx;
+	</select>
+	
+	
+</mapper>

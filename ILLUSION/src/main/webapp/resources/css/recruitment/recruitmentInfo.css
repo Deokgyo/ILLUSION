@@ -142,21 +142,37 @@ body {
 }
 
 .job-title {
-    margin: 8px 0 15px 0;
+    margin: 8px 0 2px 0;
     font-size: 1.1rem;
     font-weight: 500;
     color: #212529;
 }
 
 .sub-title {
-	margin: 0px 0 0px 0;
+	margin: -18px 0 0px 0;
     font-size: 0.9rem;
     font-weight: 400;
     color: #212529;
 }
 
+.views-count{
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #868e96;
+}
+
 .card-meta {
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #868e96;
+}
+
+.sub-font{
+	display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;

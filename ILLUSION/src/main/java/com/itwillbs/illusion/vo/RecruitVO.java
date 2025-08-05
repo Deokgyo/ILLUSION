@@ -1,11 +1,14 @@
 package com.itwillbs.illusion.vo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class RecruitVO {
 	private int recruit_idx;
 	private int recruiter_member_idx;
@@ -14,8 +17,8 @@ public class RecruitVO {
 	private String experience;
 	private String salary;
 	private String degree;
-	private LocalDateTime start_date;
-	private LocalDateTime end_date;
+	private LocalDate start_date;
+	private LocalDate end_date;
 	private int views_count;
 	private int app_count;
 	private String share_url;
