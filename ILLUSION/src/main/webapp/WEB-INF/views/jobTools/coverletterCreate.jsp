@@ -52,7 +52,7 @@
                         <input type="text" name="company" class="form-control" placeholder="예: 삼성전자" required />
                     </div>
 
-<!--                     직무 선택 섹션 -->
+	                <!-- 직무 선택 섹션 -->
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-square-check"></i>
@@ -76,9 +76,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="selected-tags-area">
-                            <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
-                            <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
+                        <div class="detailed-job-selection">
+                            <div class="detailed-job-title">선택한 직무</div>
+                            <div class="selected-tags-area">
+                                <div class="tag"><span>선택한 키워드</span><span class="close-btn">×</span></div>
+                                <div class="tag"><span>선택한 키워드</span><span class="close-btn">×</span></div>
+                            </div>
                         </div>
                     </div>
 					
@@ -96,7 +99,6 @@
 					
 					    <div id="experience-fields" class="mt-3">
 					        
-					        <!-- ✅ 수정: 드롭다운 관련 요소들을 wrapper로 다시 묶어줍니다 -->
 					        <div class="dropdown-wrapper">
 					            <div id="experience-level-select" class="form-control dropdown-select">
 					                <span>경력 기간 선택</span>

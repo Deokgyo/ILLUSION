@@ -1,0 +1,30 @@
+package com.itwillbs.illusion.vo;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import lombok.Data;
+
+@Data
+public class RecruitVO {
+	private int recruit_idx;
+	private int recruiter_member_idx;
+	private String occupation;
+	private String location;
+	private String experience;
+	private String salary;
+	private String degree;
+	private LocalDateTime start_date;
+	private LocalDateTime end_date;
+	private int views_count;
+	private int app_count;
+	private String share_url;
+	private String recruit_context;
+	private String recruit_subject;
+	private String recruit_type;
+	private int recruit_hiring_num;
+	private LocalTime start_time;
+	private LocalTime end_time;
+	private String recruiter_member_pnum;
+	private LocalDateTime post_create_at;
+}

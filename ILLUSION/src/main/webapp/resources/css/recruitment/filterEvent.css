@@ -168,12 +168,12 @@
 }
 
 /* 상단 검색창 */
-.location-search-bar {
+.search-input-wrapper {
   display: flex;
   padding: 1rem;
   border-bottom: 1px solid var(--border-color, #dee2e6);
 }
-.location-search-bar input {
+.search-input-wrapper input {
   flex-grow: 1;
   border: 1px solid var(--main-color, #FFE585);
   border-right: none;
@@ -181,7 +181,7 @@
   border-radius: 20px 0 0 20px;
   outline: none;
 }
-.location-search-bar button {
+.search-input-wrapper button {
   border: 1px solid var(--main-color, #FFE585);
   background-color: var(--main-color, #FFE585);
   border-radius: 0 20px 20px 0;
