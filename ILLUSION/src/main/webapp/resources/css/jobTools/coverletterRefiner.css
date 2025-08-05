@@ -95,7 +95,13 @@
     border-radius: 10px;
     padding: 30px;
     text-align: center;
+    cursor: pointer;
 }
+
+.drop-zone:hover {
+	border-color: var(--main-color);
+}
+
 .drop-zone-icon { font-size: 30px; color: #a9c2e0; margin-bottom: 10px; }
 .drop-zone-text { color: var(--font-sub-color); }
 .upload-button-wrapper { text-align: right; margin-top: 15px; }
@@ -113,8 +119,8 @@
 }
 .resume-item { display: flex; align-items: center; gap: 12px; border: 1px solid #E0E0E0; border-radius: 8px; padding: 15px; cursor: pointer; transition: all 0.2s; }
 .resume-item .icon { font-size: 20px; color: var(--main-color); }
-.resume-item:hover { border-color: var(--main-color-hover); background-color: var(--body-bg-color); }
-.resume-item.active { border: 2px solid var(--main-color-hover); background-color: var(--body-bg-color); font-weight: 600; }
+.resume-item:hover { border-color: var(--main-color-hover); background-color: #fffbeb; }
+.resume-item.active { border: 2px solid var(--main-color-hover); background-color: #fffbeb; font-weight: 600; }
 
 /* 하단 버튼 */
 .submit-button-wrapper {

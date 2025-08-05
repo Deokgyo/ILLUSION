@@ -162,11 +162,10 @@
 	cursor: pointer;
 	transition: all 0.2s;
 }
+.resume-item:hover { border-color: var(--main-color-hover); background-color: #fffbeb; }
+.resume-item.active { border: 2px solid var(--main-color-hover); background-color: #fffbeb; font-weight: 600; }
 
-.resume-item:hover, .resume-item.active {
-	border-color: var(--main-color-hover);
-	background-color: #fffbeb;
-}
+
 
 .resume-item .icon {
 	font-size: 20px;

@@ -79,7 +79,7 @@
 			<div class="board-actions">
 				<div class="sort-options">
 					<ul>
-						<li class="active"><a>인기순</a></li>
+						<li class="active"><a>조회순</a></li>
 						<li><a>최신순</a></li>
 					</ul>
 				</div>
