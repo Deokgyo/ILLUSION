@@ -93,12 +93,13 @@
 				</div>
 			</div>
 			<div class="form-row">
-				<label for="birth">생년월일</label> <input type="date" id="birth" required>
+				<label for="birth">생년월일</label> <input type="date" id="birth"
+					required>
 			</div>
 			<div class="form-row address-row">
-				<label for="zipcode">주소</label>
-					<input type="text" id="zipcode" placeholder="" class="zip-input">
-					<button class="btn-yellow">주소 찾기</button>
+				<label for="zipcode">주소</label> <input type="text" id="zipcode"
+					placeholder="" class="zip-input">
+				<button class="btn-yellow">주소 찾기</button>
 			</div>
 			<div class="form-row addr">
 				<input type="text" placeholder="주소를 입력해 주세요">
@@ -111,19 +112,21 @@
 					<label for="email">이메일 주소</label>
 					<div class="email-flex">
 						<input type="email1" id="email" placeholder="이메일 입력" required>
-						<button type="button" class="btn-yellow1" id="email-btn">인증 메일 발송</button>
+						<button type="button" class="btn-yellow1" id="email-btn">인증
+							메일 발송</button>
 					</div>
 				</div>
 			</div>
-				<div class="flex-half">
-					<label for="emailcode">인증번호 확인</label>
-					<div class="email-flex">
-						<input type="email2" id="emailcode" maxlength="6"
-							placeholder="인증번호를 입력하세요">
-						<button type="button" class="btn-yellow1" id="emailcode-btn">인증 번호 확인</button>
-					</div>
+			<div class="flex-half">
+				<label for="emailcode">인증번호 확인</label>
+				<div class="email-flex">
+					<input type="email2" id="emailcode" maxlength="6"
+						placeholder="인증번호를 입력하세요">
+					<button type="button" class="btn-yellow1" id="emailcode-btn">인증
+						번호 확인</button>
 				</div>
-			
+			</div>
+
 
 			<div class="form-terms">
 				<div class="terms-title">이용 약관</div>
@@ -131,18 +134,19 @@
 					<label><input type="checkbox" id="agree-all"> 전체 동의</label>
 				</div>
 				<div class="terms-row">
-					<label><input type="checkbox" required> 이용 약관 동의
-						(필수)</label> <a href="#" class="terms-link">내용 보기</a>
+					<label><input type="checkbox" class="agree-each" required>
+						이용 약관 동의 (필수)</label> <a href="#" class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
-					<label><input type="checkbox" required> 개인정보 처리 동의
-						(필수)</label> <a href="#" class="terms-link">내용 보기</a>
+					<label><input type="checkbox" class="agree-each" required>
+						개인정보 처리 동의 (필수)</label> <a href="#" class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
-					<label><input type="checkbox"> 마케팅 동의 (선택)</label> <a
-						href="#" class="terms-link">내용 보기</a>
+					<label><input type="checkbox" class="agree-each">
+						마케팅 동의 (선택)</label> <a href="#" class="agreeCheck">내용 보기</a>
 				</div>
 			</div>
+
 			<button class="signup-btn" type="submit">회원가입</button>
 		</form>
 	</div>
