@@ -25,21 +25,21 @@ $(document).ready(function() {
 		});
 	});
 
-
 	$(function() {
-		// '개인 회원' 탭 클릭 시 사업자등록번호 입력창 숨김
-		$('.tab-btn active').on('click', function() {
-			$('#bizNumberBox').hide();
+		$('#companyTab').on('click', function() {
+			$('#personalTab').removeClass('selected');
+			$(this).addClass('selected');
+			$('#companyBox').fadeIn(120);
 		});
 
-		// '기업 회원' 탭 클릭 시 사업자등록번호 입력창 보임
-		$('#companyTab').on('click', function() {
-			$('#bizNumberBox').show();
+		$('#personalTab').on('click', function() {
+			$('#companyTab').removeClass('selected');
+			$(this).addClass('selected');
+			$('#companyBox').fadeOut(120);
 		});
 	});
 
 
+
 });
-//
-//const tabs = document.querySelectorAll('.tab-btn');
-//
+
