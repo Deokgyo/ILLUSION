@@ -66,12 +66,9 @@
 					</button>
 				</div>
 				<div class="filter-tags">
-					<div class="tag-item active">전체</div>
-					<div class="tag-item">자소서 팁</div>
-					<div class="tag-item">면접 팁</div>
-					<div class="tag-item">면접 후기</div>
-					<div class="tag-item">합격 후기</div>
-					<div class="tag-item">문의 사항</div>
+					<c:forEach var="list" items="${categoryList }">
+		                <option class="tag-item" value="자소서 팁">${list}</option>
+	                </c:forEach>
 				</div>
 			</div>
 			
@@ -95,17 +92,17 @@
 						<div class="post-author">
 							<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
 											<!-- * 회원테이블과 조인 -->
-							<span class="author-name">admin</span> 
+							<span class="author-name">${board.member_name }</span> 
 						</div>
 						<div class="post-content">
 							<div class="post-title-wrapper">
 								<p class="post-title">
-									<a href="communityDetail">${board.board_content }</a>
+									<a href="communityDetail?board_idx=${board.board_idx }">${board.board_title }</a>
 								</p>
 							</div>
 							<div class="post-meta">
 								<span class="meta-item"><i
-									class="fa-regular fa-comment-dots"></i> 3</span> <span
+									class="fa-regular fa-comment-dots"></i> ${board.cmt_count }</span> <span
 									class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 ${board.board_viewcnt }</span>
 							</div>
 						</div>

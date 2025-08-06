@@ -44,18 +44,15 @@
                     <div class="post-author-profile"><img src="${pageContext.request.contextPath}/resources/image/logop.png"/></div>
 
                     <div class="post-title-area">
-                        <div class="author-name">admin</div>
-                        <h2 class="post-title">아이티윌 합격 하신 분 계신가요?</h2>
+                        <div class="author-name">${board.member_name }</div>
+                        <h2 class="post-title">${board.board_title }</h2>
                     </div>
-                    <div class="post-date">2025년 7월 23일</div>
+                    <div class="post-date">${board.board_create_at }</div>
                 </div>
                 
                 <div class="divider"></div>
 
-                <div class="post-body">
-                    안녕하세요. 아이티윌 면접보고 온 사람입니다.<br>
-                    면접 후 일주일 이내 연락을 준다고 했는데 아직 연락을 못 받아서요 합격 연락 오신 분 있으신가요?
-                </div>
+                <div class="post-body">${board.board_content }</div>
                 
 				<div class="post-btn">
 					    <div class="post-actions">
@@ -67,30 +64,31 @@
                 <div class="post-footer">
                     <div class="post-meta-info">
                         <span><i class="fa-regular fa-comment-dots"></i> 3</span>
-                        <span><i class="fa-regular fa-eye"></i> 조회수 17</span>
+                        <span><i class="fa-regular fa-eye"></i> 조회수 ${board.board_viewcnt}</span>
                     </div>
                 </div>
                 <!--// 게시글 영역 -->
 
                 <!-- 댓글 영역 -->
-                <div class="comment-section">
-                    <div class="comment-header">댓글 1</div>
-                    <div class="comment-form">
-                        <textarea id="cmt_textarea" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
-                        <button id="cmt_regist" class="btn btn-yellow">등록</button>
-                    </div>
-                    
-                    <div class="comment-list">
-                        <div class="comment-item">
-                            <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
-                            <div class="comment-content">
-                                <div class="author-name">ioi</div>
-                                <p class="comment-text">저도 아직 못 받았어요ㅠ</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
+<!--                 <form action="cmtWrite" method="POST"> -->
+	                <div class="comment-section">	
+	                    <div class="comment-header">댓글 1</div>
+	                    <div class="comment-form">
+	                        <textarea id="cmt_textarea" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
+	                        <button type="submit" id="cmt_regist" class="btn btn-yellow">등록</button>
+	                    </div>
+	                    
+	                    <div class="comment-list">
+	                        <div class="comment-item">
+	                            <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
+	                            <div class="comment-content">
+	                                <div class="author-name">ioi</div>
+	                                <p class="comment-text">저도 아직 못 받았어요ㅠ</p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+<!--                 </form> -->
 
                 <!-- 페이지네이션 -->
                 <nav class="pagination">

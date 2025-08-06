@@ -2,12 +2,72 @@
 <!DOCTYPE mapper 
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+	
 <mapper namespace="com.itwillbs.illusion.mapper.BoardMapper">
 	<select id="selectBoardList">
-		SELECT * 
+		SELECT 
+			   board_idx
+			 , board_title
+			 , board_content
+			 , board_create_at
+			 , board_viewcnt
+			 , cmt_count
+			 , member_id
+			 , member_name
 		  FROM board b
-		  JOIN member m ON b.member_idx = m.member_idx  
+		  JOIN member m ON b.member_idx = m.member_idx
+	  ORDER BY board_idx desc
+		    
 	</select>
+	
+	<select id="selectBoard">
+		 SELECT 
+		 	    board_idx
+			  , board_title
+			  , board_content
+			  , board_create_at
+			  , board_viewcnt
+			  , member_id
+			  , member_name
+		   FROM board b
+		   JOIN member m ON b.member_idx = m.member_idx
+		  WHERE board_idx = #{board_idx}
+	</select>
+	
+	<insert id="boardWrite">
+		INSERT INTO board 
+			( board_idx
+			, board_title
+			, board_content
+			, board_type
+			, member_idx )
+		VALUES 
+			( #{board_idx}
+			, #{title}
+			, #{content} 
+			, #{category}
+			, 1 )
+	</insert>
+	
+	<select id="selectCategory">
+		SELECT code_name
+		  FROM common_code
+		 WHERE code_group_id = "board_type";
+	</select>
+	
+	<insert id="cmtWrite">
+		INSERT INTO comment
+			( cmt_idx
+			, member_idx
+			, board_idx
+			, cmt_content)
+		VALUES
+			( #{cmt_idx}
+			, #{member_idx}
+			, #{board_idx}
+			, #{cmt_content})	
+		
+		 
+	</insert>
 	
 </mapper>	
