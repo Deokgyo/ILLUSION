@@ -5,7 +5,7 @@
 
 <mapper namespace="com.itwillbs.illusion.mapper.RecruitMapper">
 	
-	<select id="selectRecruitList">
+	<select id="selectRecruitList" resultType="com.itwillbs.illusion.vo.RecruitVO">
 		SELECT 
 			r.recruit_idx,
 			loc.code_name AS location,
@@ -18,7 +18,24 @@
 			recruit r LEFT JOIN common_code loc ON r.location = loc.code
 		    LEFT JOIN common_code occ ON r.occupation = occ.code
 		ORDER BY
-			r.recruit_idx;
+			r.recruit_idx DESC;
+	</select>
+	
+	<select id="selectRecruitIndex" resultType="com.itwillbs.illusion.vo.RecruitVO">
+		SELECT 
+			r.recruit_idx,
+			loc.code_name AS location,
+			occ.code_name as occupation,
+			r.start_date,
+			r.end_date,
+			r.views_count,
+			r.recruit_subject
+		FROM 
+			recruit r LEFT JOIN common_code loc ON r.location = loc.code
+		    LEFT JOIN common_code occ ON r.occupation = occ.code
+		WHERE 
+			r.recruit_idx = #{recruit_idx}
+		
 	</select>
 	
 	

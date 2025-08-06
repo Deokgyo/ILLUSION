@@ -29,7 +29,15 @@ public class RecruitmentController {
 	
 	// 채용공고 상세페이지 이동
 	@GetMapping("recruitmentDetail")
-	public String recruitmentDetail() {
+	public String recruitmentDetail(int recruit_idx, Model model) {
+		
+		RecruitVO recruit = service.selectRecruitIndex(recruit_idx);
+		
+		System.out.println("@!$@!$!@$");
+		System.out.println(recruit);
+		
+		model.addAttribute("recruit", recruit);
+		
 		return "recruitment/recruitmentDetail";
 	}
 }

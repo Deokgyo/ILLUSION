@@ -26,8 +26,6 @@
 <body>
      <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
 	
-	<h3>${recruitList }</h3>
-	
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	        <div class="container">
@@ -84,7 +82,7 @@
 		                        	<p>마감일 : ${r.end_date }</p> <%-- 공고 시작일 마감일 --%>
 		                        </div>
 		                        <div class="card-meta">
-		                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
+		                            <a href="recruitmentDetail?recruit_idx=${r.recruit_idx }" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
 		                        </div>
 		                    </div>
 		                    <div class="card-image">
@@ -92,145 +90,6 @@
 		                    </div>
 		                </article>
 	                </c:forEach>
-	
-	                <article class="job-card">
-	                    <div class="card-header">
-	                        <div class="logo-image">
-								<img src="${pageContext.request.contextPath}/resources/image/logo-hyundai.jpg" alt="Hyundai Logo">
-							</div>
-	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
-	                        <p class="sub-title">지역 : 부산시 남포동</p><span class="sub-title">직종 : 엔지니어</span>
-	                        <p class="job-title">${r.recruit_subject }</p>
-	                        <p class="views-count">조회수 : ${r.views_count }</p>
-	                        <p class="sub-title">지역 : ${r.location }</p><span class="sub-title">직종 : ${r.occupation }</span>
-	                        <div class="sub-font">
-	                        	<p>시작일 : ${r.start_date }</p> <%-- 공고 시작일 마감일 --%>
-	                        	<p>마감일 : ${r.end_date }</p> <%-- 공고 시작일 마감일 --%>
-	                        </div>
-	                        <div class="card-meta">
-	                        <span>마감일 : 2025/09/30</span>
-	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-	                        </div>
-	                    </div>
-	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/image/hyundai.jpg" alt="Hyundai Building">
-	                    </div>
-	                </article>
-	
-	                <article class="job-card">
-	                    <div class="card-header">
-	                        <div class="logo-image">
-								<img src="${pageContext.request.contextPath}/resources/image/logo-naver.jpg" alt="Naver Logo">
-							</div>
-	                        <p class="job-title">경력, 신입 개발자 채용</p>
-	                        <p class="sub-title">지역 : 성남시 분당동</p><span class="sub-title">직종 : 백엔드</span>
-	                        <div class="card-meta">
-	                        <span>마감일 : 2025/09/30</span>
-	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-	                        </div>
-	                    </div>
-	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/image/naver.jpg" alt="naver font">
-	                    </div>
-	                </article>
-	
-	                 <article class="job-card">
-	                    <div class="card-header">
-	                        <div class="logo-image">
-								<img src="${pageContext.request.contextPath}/resources/image/logo-samsung.jpg" alt="Samsung Logo">
-							</div>
-	                        <p class="job-title">경력, 신입 개발자 채용</p>
-	                        <p class="sub-title">지역 : 서울시 강남구</p><span class="sub-title">직종 : 백엔드</span>
-	                        <div class="card-meta">
-	                        <span>마감일 : 2025/09/30</span>
-	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-	                        </div>
-	                    </div>
-	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/image/samsung.jpg" alt="Samsung Building">
-	                    </div>
-	                </article>
-	                
-	                <article class="job-card">
-	                    <div class="card-header">
-		                    <div class="logo-image">
-		                        <img src="${pageContext.request.contextPath}/resources/image/logo-hyundai.jpg" alt="Hyundai Logo">
-		                    </div>
-	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
-	                        <p class="sub-title">지역 : 부산시 남포동</p><span class="sub-title">직종 : 엔지니어</span>
-	                        <div class="card-meta">
-	                        <span>마감일 : 2025/09/30</span>
-	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-	                        </div>
-	                    </div>
-	                    <div class="card-image">
-	                         <img src="${pageContext.request.contextPath}/resources/image/hyundai.jpg" alt="Hyundai Building">
-	                    </div>
-	                </article>
-	                <article class="job-card">
-	                    <div class="card-header">
-	                        <div class="logo-image">
-								<img src="${pageContext.request.contextPath}/resources/image/logo-naver.jpg" alt="Naver Logo">
-							</div>
-	                        <p class="job-title">경력, 신입 개발자 채용</p>
-	                        <p class="sub-title">지역 : 성남시 분당동</p><span class="sub-title">직종 : 백엔드</span>
-	                        <div class="card-meta">
-	                        <span>마감일 : 2025/09/30</span>
-	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-	                        </div>
-	                    </div>
-	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/image/naver.jpg" alt="naver font">
-	                    </div>
-	                </article>
-	                <article class="job-card">
-	                    <div class="card-header">
-	                        <div class="logo-image">
-								<img src="${pageContext.request.contextPath}/resources/image/logo-samsung.jpg" alt="Samsung Logo">
-							</div>
-	                        <p class="job-title">경력, 신입 개발자 채용</p>
-	                        <p class="sub-title">지역 : 서울시 강남구</p><span class="sub-title">직종 : 백엔드</span>
-	                        <div class="card-meta">
-	                        <span>마감일 : 2025/09/30</span>
-	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-	                        </div>
-	                    </div>
-	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/image/samsung.jpg" alt="Samsung Building">
-	                    </div>
-	                </article>
-	                <article class="job-card">
-	                    <div class="card-header">
-	                        <div class="logo-image">
-								<img src="${pageContext.request.contextPath}/resources/image/logo-hyundai.jpg" alt="Hyundai Logo">
-							</div>
-	                        <p class="job-title">경력, 신입 엔지니어 채용</p>
-	                        <p class="sub-title">지역 : 부산시 남포동</p><span class="sub-title">직종 : 엔지니어</span>
-	                        <div class="card-meta">
-	                        <span>마감일 : 2025/09/30</span>
-	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-	                        </div>
-	                    </div>
-	                    <div class="card-image">
-	                         <img src="${pageContext.request.contextPath}/resources/image/hyundai.jpg" alt="Hyundai Building">
-	                    </div>
-	                </article>
-	                <article class="job-card">
-	                    <div class="card-header">
-	                        <div class="logo-image">
-								<img src="${pageContext.request.contextPath}/resources/image/logo-naver.jpg" alt="Naver Logo">
-							</div>
-	                        <p class="job-title">경력, 신입 개발자 채용</p>
-	                        <p class="sub-title">지역 : 성남시 분당동</p><span class="sub-title">직종 : 백엔드</span>
-	                        <div class="card-meta">
-	                        <span>마감일 : 2025/09/30</span>
-	                            <a href="recruitmentDetail" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-	                        </div>
-	                    </div>
-	                    <div class="card-image">
-	                        <img src="${pageContext.request.contextPath}/resources/image/naver.jpg" alt="naver font">
-	                    </div>
-	                </article>
 	            </section>
 	        </main>
 	

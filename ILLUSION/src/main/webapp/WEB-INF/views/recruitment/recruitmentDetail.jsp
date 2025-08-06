@@ -30,6 +30,7 @@
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         
 	        <div class="container">
+	        <h2>${recruit }</h2>
 	         <div class="page-title-header">
          	    <p class="header-text"><strong>채용공고 상세페이지</strong></p>
              </div>
@@ -56,6 +57,7 @@
 	                <dl><dt>근무 시간</dt><dd>08:00 ~ 18:00</dd></dl>
 	                <dl><dt>근무 형태</dt><dd>정규직</dd></dl>
 	                <dl><dt>근무 요일</dt><dd>월 ~ 금</dd></dl>
+	                <dl><dt>채용 인원</dt><dd>0명</dd></dl>
 	            </section>
 	
 	            <section class="job-description">
@@ -70,7 +72,8 @@
 	                        <p>대표자명: 박덕교/조영재</p>
 	                        <p>기업 형태: 중소기업</p>
 	                        <p>설립일: 2025년 7월 8일</p>
-	                        <p>기업 주소: 부산시 부산진구 삼한골드게이트 7층</p><br>
+	                        <p>기업 주소: 부산시 부산진구 삼한골드게이트 7층</p>
+	                        <p>회사 이메일 : 000-0000-0000</p><br>
 	                        <p>(추후 카카오맵 API 추가)</p>   
 	                    </div>
 	                    <div class="company-logo">

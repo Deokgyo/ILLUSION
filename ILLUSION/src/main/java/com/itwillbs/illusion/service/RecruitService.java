@@ -21,4 +21,8 @@ public class RecruitService {
 		return mapper.selectRecruitList();
 	}
 	
+	public RecruitVO selectRecruitIndex(int recruit_idx) {
+		return mapper.selectRecruitIndex(recruit_idx);
+	}
+	
 }

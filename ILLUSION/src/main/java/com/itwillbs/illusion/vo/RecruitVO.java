@@ -21,7 +21,6 @@ public class RecruitVO {
 	private LocalDate end_date;
 	private int views_count;
 	private int app_count;
-	private String share_url;
 	private String recruit_context;
 	private String recruit_subject;
 	private String recruit_type;
@@ -30,4 +29,5 @@ public class RecruitVO {
 	private LocalTime end_time;
 	private String recruiter_member_pnum;
 	private LocalDateTime post_create_at;
+	private String company_name;
 }
