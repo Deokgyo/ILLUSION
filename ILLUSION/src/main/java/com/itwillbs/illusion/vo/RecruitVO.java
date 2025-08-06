@@ -30,4 +30,15 @@ public class RecruitVO {
 	private String recruiter_member_pnum;
 	private LocalDateTime post_create_at;
 	private String company_name;
+    private String province;
+	private String city_district;
+	private String road_address;
+	private String detail_address;
+	private String full_address;
+	private String ceo_name;
+	private String company_type;
+	private LocalDate company_estab_date;
+	private String recruiter_member_email;
+	
+	
 }

@@ -33,9 +33,6 @@ public class RecruitmentController {
 		
 		RecruitVO recruit = service.selectRecruitIndex(recruit_idx);
 		
-		System.out.println("@!$@!$!@$");
-		System.out.println(recruit);
-		
 		model.addAttribute("recruit", recruit);
 		
 		return "recruitment/recruitmentDetail";
