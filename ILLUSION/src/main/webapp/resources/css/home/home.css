@@ -100,7 +100,7 @@ footer, header {
 }
 
 /*  상단 타이틀 */
-.illusion-feature-title {
+div.illusion-feature-title {
 	font-size: 60px;
 	font-weight: bold;
 	color: var(--font-sub-color); /* 서브 컬러 변수 */
@@ -112,10 +112,13 @@ footer, header {
 
 /*  각 기능 박스 */
 .illusion-feature-box {
+	opacity: 0 ; /* 기본은 안보이게 */
+	transform: translateY(40px); /* 약간 아래로 위치 */
+	transition: opacity 0.7s ease, transform 0.7s ease; /* 자연스러운 전환 */
 	position: relative; /* ::before 위치 기준 */
 	overflow: hidden; /* 상단 그라데이션 바 및 내부 콘텐츠 오버플로우 방지 */
-	width: 400%;
-	height: 305px;
+	width: 100%;
+	height: 295px;
 	max-width: 60%;
 	min-width: 220px;
 	margin-bottom: 28px;
@@ -129,6 +132,10 @@ footer, header {
 	padding: 28px 24px;
 }
 
+.illusion-feature-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 /*  상단 그라데이션 바 (박스 상단에 컬러 포인트 효과) -------- */
 .illusion-feature-box::before {
 	content: "";
@@ -170,7 +177,7 @@ footer, header {
 	position: relative;
 	left: 10px; /* 오른쪽으로 10px 이동 */
 	transition: left 0.3s;
-	margin-left: 165px;
+	margin-left: 135px;
 	width: 170px;;
 	height: 170px;
 }
@@ -198,14 +205,14 @@ footer, header {
 }
 
 .illusion-feature-name {
-	font-size: 30px;
+	font-size: 25px;
 	font-weight: bold;
 	margin-bottom: 4px;
 	color: var(--font-main-color);
 }
 
 .illusion-feature-desc {
-	font-size: 20px;
+	font-size: 16px;
 	color: var(--font-main-color);
 	word-break: keep-all; /* 단어 단위 줄 바꿈 방지 */
 }
@@ -336,42 +343,41 @@ footer, header {
 }
 
 /* --------------------------채용정보 ----------------------------- */
-
 .team-job-listings {
-  padding: 32px 0;
-  background: rgb(255, 255, 255);
-  display: flex;
-  flex-wrap: wrap;              /* 여러 줄로 감싸기 */
-  gap: 50px;                    /* 카드 사이 간격 */
-  justify-content: center;      /* 양쪽 여백 균등하게 */
+	padding: 32px 0;
+	background: rgb(255, 255, 255);
+	display: flex;
+	flex-wrap: wrap; /* 여러 줄로 감싸기 */
+	gap: 50px; /* 카드 사이 간격 */
+	justify-content: center; /* 양쪽 여백 균등하게 */
 }
 
 /* 제목 스타일 */
 .team-job-title-main {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--font-sub-color);
-  margin-bottom: 40px;
-  font-family: "Noto Sans KR", sans-serif;
-  text-align: center;
-  width: 100%;
+	font-size: 3rem;
+	font-weight: 700;
+	color: var(--font-sub-color);
+	margin-bottom: 40px;
+	font-family: "Noto Sans KR", sans-serif;
+	text-align: center;
+	width: 100%;
 }
 
 /* 카드 스타일 */
 .team-job-card {
-  flex: 0 0 calc(50% - 16px);   /* 한 줄에 2개! (gap 감안) */
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.2s;
-  cursor: pointer;
-  margin-bottom: 24px;
-  width: 500px;
-  height: 500px;
-  position: relative;
-  overflow: hidden;
+	flex: 0 0 calc(50% - 16px); /* 한 줄에 2개! (gap 감안) */
+	background: #fff;
+	border-radius: 20px;
+	box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
+	display: flex;
+	flex-direction: column;
+	transition: box-shadow 0.2s;
+	cursor: pointer;
+	margin-bottom: 24px;
+	width: 500px;
+	height: 500px;
+	position: relative;
+	overflow: hidden;
 }
 
 .team-job-card::before {
@@ -383,38 +389,38 @@ footer, header {
 	height: 10px;
 	background: var(--background-gradient-horizontally);
 	border-radius: 16px 16px 0 0; /* 위쪽 모서리만 둥글게 */
-	}
-	
+}
+
 .team-job-card:hover {
-  box-shadow: 0 8px 32px rgba(60, 72, 88, 0.18);
+	box-shadow: 0 8px 32px rgba(60, 72, 88, 0.18);
 }
 
 /* 카드 상단 헤더 영역 */
 .team-card-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;;
-  padding: 0 0 16px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;;
+	padding: 0 0 16px 0;
 }
 
 /* 로고 이미지 */
 .team-logo-image img {
-    width: 198px;
-    height: 118px;
-  object-fit: contain;
-  border-radius: 10px;
-  background: #ffffff;
-  padding: 5px;
+	width: 198px;
+	height: 118px;
+	object-fit: contain;
+	border-radius: 10px;
+	background: #ffffff;
+	padding: 5px;
 }
 
 /* 카드 안 텍스트 */
 .team-job-title {
-  flex: 1;
-  font-size: 30px;
-  font-weight: 600;
-  color: #26313d;
-  margin-right: 155px;
+	flex: 1;
+	font-size: 30px;
+	font-weight: 600;
+	color: #26313d;
+	margin-right: 155px;
 }
 
 p {
@@ -422,50 +428,52 @@ p {
 }
 
 .team-card-meta {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 4px;
-  margin-left: 245px;
-  
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	gap: 4px;
+	margin-left: 245px;
 }
+
 .team-card-meta span {
-  font-size: 20px;
-  color: #687587;
-  margin-bottom: 2px;
+	font-size: 20px;
+	color: #687587;
+	margin-bottom: 2px;
 }
 
 .team-btn-yellow {
-  display: inline-block;
-  background: #ffe066;
-  color: #16354d;
-  border-radius: 14px;
-  font-size:20px;
-  font-weight: 700;
-  padding: 6px 18px;
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 0 1px 5px rgba(220, 180, 50, 0.07);
-  transition: background 0.15s, color 0.15s;
+	display: inline-block;
+	background: #ffe066;
+	color: #16354d;
+	border-radius: 14px;
+	font-size: 20px;
+	font-weight: 700;
+	padding: 6px 18px;
+	text-align: center;
+	text-decoration: none;
+	box-shadow: 0 1px 5px rgba(220, 180, 50, 0.07);
+	transition: background 0.15s, color 0.15s;
 }
+
 .team-btn-yellow:hover {
-  background: #ffd43b;
-  color: #000;
+	background: #ffd43b;
+	color: #000;
 }
 
 .team-card-image {
-  width: 100%;
-  height: 110%;
-  border-radius: 0 0 20px 20px;
-  overflow: hidden;
-  margin-top: 10px;
-  background: #f4f6fb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	width: 100%;
+	height: 110%;
+	border-radius: 0 0 20px 20px;
+	overflow: hidden;
+	margin-top: 10px;
+	background: #f4f6fb;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
+
 .team-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }

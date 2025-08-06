@@ -87,7 +87,8 @@
 						placeholder="이름을 입력해주세요" required>
 				</div>
 				<div class="flex-half gender-row">
-					<label for="gender">성별</label> <select id="gender" required>
+					<label for="gender">성별</label> 
+					<select id="gender" required>
 						<option value="">선택</option>
 						<option value="male">남성</option>
 						<option value="female">여성</option>
