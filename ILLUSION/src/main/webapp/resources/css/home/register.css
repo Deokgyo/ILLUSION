@@ -104,7 +104,7 @@
 /* ===== 회원가입 전체 박스 (흰색) ===== */
 .signup-form-box {
 	max-width: 470%;
-	margin: 40px auto;
+	margin: 25px auto;
 	background: #fff;
 	border-radius: 14px;
 	box-shadow: 0 7px 28px rgba(199, 167, 70, 0.11), 0 2px 9px
@@ -113,6 +113,7 @@
 	overflow: hidden;
 	position: relative;
 	width: 45%;
+	
 }
 
 .signup-form-box::before {
@@ -122,8 +123,8 @@
 	left: 0;
 	right: 0;
 	height: 10px;
-	background: var(- -background-gradient-horizontally);
-	border-radius: 16px 16px 0 0; /* 위쪽 모서리만 둥글게 */
+	background: var(--background-gradient-horizontally);
+	border-radius: 14px 16px 0 0; /* 위쪽 모서리만 둥글게 */
 }
 
 .signup-form {
@@ -206,14 +207,14 @@ select {
 
 .form-row.addr input[type="text"] {
 	margin-bottom: -8px;
-	margin-left: 97px;
-	width: 50%;
-	padding: 5px;
-	font-size: 15px;
-	border: 1px solid #ccc;
-	border-radius: 50px;
-	box-sizing: border-box;
-	margin-top: -7px;
+    margin-left: 97px;
+    width: 45%;
+    padding: 5px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    box-sizing: border-box;
+    margin-top: -7px;
 }
 
 .form-row.address-row {
@@ -222,13 +223,13 @@ select {
 
 .address-row input {
 	margin-bottom: 0;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 50px;
-	box-sizing: border-box;
-	width: 20%;
-	height: 38px;
-	margin-right: 40px;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    box-sizing: border-box;
+    width: 20%;
+    height: 33px;
+    margin-right: 60px;
 }
 
 .flex-half-right {
@@ -259,29 +260,33 @@ select {
 	gap: 7px;
 	align-items: center;
 }
-
+.form-row addr input[type="text"]{
+	margin: 20px;
+}
 .email-flex input[type=email1] {
-	margin-bottom: -8px;
-	margin-left: 1px;
-	width: 50%;
-	padding: 4px;
-	font-size: 15px;
-	border: 1px solid #ccc;
-	border-radius: 50px;
-	box-sizing: border-box;
-	margin-top: -7px;
+	margin-bottom: -12px;
+    margin-left: 1px;
+    width: 50%;
+    padding: 7px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    box-sizing: border-box;
+    margin-top: -7px;
+    height: 34px;
 }
 
 .email-flex input[type=email2] {
-	margin-bottom: -8px;
-	margin-left: 20px;
-	width: 50%;
-	padding: 4px;
-	font-size: 15px;
-	border: 1px solid #ccc;
-	border-radius: 50px;
-	box-sizing: border-box;
-	margin-top: -20px;
+	    margin-bottom: -8px;
+    margin-left: 20px;
+    width: 47%;
+    padding: 9px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    box-sizing: border-box;
+    margin-top: -20px;
+    height: 34px;
 }
 
 button.btn-yellow {
@@ -342,12 +347,15 @@ input[readonly] {
 }
 
 /* ====== 약관 (구역) ====== */
-.form-terms {
-	background: #f8f6ea;
-	border-radius: 7px;
-	padding: 15px 11px 7px 11px;
-	margin: 17px 0 7px 0;
+
+.terms-divider {
+  border-top: 1px solid #222222;  /* 위쪽만 연한 회색선 */
+  margin: 24px 0 16px 0;  /* 위아래 여백 (조절 가능) */
 }
+.form-terms {
+    border-radius: 7px;
+    padding: 11px 11px 7px 11px;
+    margin: -21px 0 7px 0;}
 
 .terms-title {
 	font-size: 15px;
@@ -361,11 +369,19 @@ input[readonly] {
 	gap: 8px;
 	margin-top: 2px;
 }
+.agree-label {
+  margin-left: 8px;   /* 텍스트만 오른쪽으로 이동 */
+}
+
+.agree-label2 {
+  margin-left: 2px;   /* 텍스트만 오른쪽으로 이동 */
+}
 
 .terms-row label {
+	flex: 2;
 	font-weight: 400px;
 	font-size: 14px;
-	margin: 0;
+	margin-bottom: 3px;
 }
 
 .terms-link {
@@ -374,6 +390,16 @@ input[readonly] {
 	text-decoration: underline;
 	cursor: pointer;
 	margin-left: 6px;
+}
+
+.agreeCheck {
+	display: flex;
+	align-items: center; /* "내용 보기"와 ▼ 한 줄 수직중앙 */
+	font-size: 15px;
+	color: #333;
+	text-decoration: none;
+	margin-right: 60%; /* label과의 간격 */
+	cursor: pointer;
 }
 
 #agree-all {
@@ -388,8 +414,8 @@ input[readonly] {
 	font-size: 17px;
 	font-weight: 900;
 	letter-spacing: 1px;
-	color: #fff;
-	background: linear-gradient(90deg, #ffeb96, #fbe162 60%);
+	color: var(--font-sub-color);
+	background: var(--background-gradient-horizontally);
 	border: none;
 	border-radius: 8px;
 	cursor: pointer;
@@ -397,10 +423,10 @@ input[readonly] {
 	transition: background 0.12s, color 0.09s;
 }
 
-.signup-btn:hover {
-	background: linear-gradient(90deg, #fff6c1, #ffeba3 60%);
-	color: #bfa01d;
-}
+/* .signup-btn:hover { */
+/* 	background:#D9D9D9; */
+/* 	color: var(--font-sub-color); */
+/* } */
 
 @media ( max-width : 570px) {
 	.signup-form-box {
@@ -454,10 +480,10 @@ input[readonly] {
 
 /* 입력박스의 라벨 텍스트 스타일 - 아래 여백 및 폰트 크기 */
 .input-box label {
-    margin-bottom: 7px;
-    font-size: 16px;
-    margin-left: -30;
-    margin-right: 21px;
+	margin-bottom: 7px;
+	font-size: 16px;
+	margin-left: -30;
+	margin-right: 21px;
 }
 
 /* 사업자등록번호 인풋 폼 스타일 - 너비, 패딩, 테두리, 둥근 모서리, 폰트 크기 */
@@ -465,4 +491,7 @@ input[readonly] {
 	margin-bottom: 10px;
 	font-size: 16px;
 	margin-right: 10px;
+}
+#companyBox {
+  display: none;
 }
