@@ -90,10 +90,10 @@ public class CommunityController {
 	@PostMapping("cmtWrite")
 	public String cmtWrite(Model model
 						,int board_idx
-						,@Param("comment") String comment) {
+						,@RequestParam("comment") String comment) {
 		
-		System.out.println(comment + "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ");
-		System.out.println(board_idx + "sssssssss");
+		System.out.println(comment);
+		System.out.println(board_idx);
 		
 		
 //		List<String> list = new ArrayList<String>();
