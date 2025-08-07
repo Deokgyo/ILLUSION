@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>환불 정책</title>
+<title>Insert title here</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -27,19 +27,22 @@
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/RefundPolicy.css">
-	<style type="text/css">
-	
-	
-	</style>
 </head>
 <body>
+	<header>
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+	</header>
 	
-	  <div class="refund-container">
+	<div class="page-container">
+
+	
+	<main class="main-content">
 	  <div class="page-title-header">
 			<p class="header-text"><strong>환불 정책 </strong></p>
         </div>
-    	    
-
+	<div class="form-box">
+	 <div class="refund-container">
+	
         <main class="policy-card">
             <h2>ILLUSION 환불 정책 안내문</h2>
 
@@ -92,5 +95,15 @@
             <button class="refund-button">환불</button>
         </div>
     </div>
+	
+	</div>
+	</main>
+	</div>
+
+<footer>
+	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
+</footer>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 </body>
 </html>
