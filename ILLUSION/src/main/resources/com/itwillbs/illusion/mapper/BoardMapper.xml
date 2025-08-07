@@ -17,9 +17,8 @@
 		  FROM board b
 		  JOIN member m ON b.member_idx = m.member_idx
 	  ORDER BY board_idx desc
-		    
 	</select>
-	
+
 	<select id="selectBoard">
 		 SELECT 
 		 	    board_idx
@@ -57,17 +56,15 @@
 	
 	<insert id="cmtWrite">
 		INSERT INTO comment
-			( cmt_idx
-			, member_idx
+			( 
+			  member_idx
 			, board_idx
 			, cmt_content)
 		VALUES
-			( #{cmt_idx}
-			, #{member_idx}
+			(
+			  #{member_idx}
 			, #{board_idx}
 			, #{cmt_content})	
-		
-		 
 	</insert>
 	
 </mapper>	
