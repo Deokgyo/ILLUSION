@@ -175,7 +175,7 @@
 .custom-select {
   width: 100%;
   padding: 12px 16px;
-  font-size: 16px;
+  font-size: 17px;
   border: 1px solid #ddd;
   border-radius: 10px;
   background-color: #fafafa;
@@ -188,6 +188,7 @@
   background-position: right 12px center;
   background-size: 20px;
   margin-bottom: 20px;
+  
 }
 .policyCSS{
 	font-size: 24px;
