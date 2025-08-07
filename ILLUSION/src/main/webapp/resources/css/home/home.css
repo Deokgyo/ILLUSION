@@ -94,9 +94,10 @@ footer, header {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-top: 48px;
-	padding-bottom: 48px;
-	background: #fcfbfe; /* 연한 배경색 */
+	padding-top: 100px;
+	margin-top: 50px; padding-bottom : 48px;
+	background: #fcfbfe;
+	padding-bottom: 48px; /* 연한 배경색 */
 }
 
 /*  상단 타이틀 */
@@ -112,9 +113,9 @@ div.illusion-feature-title {
 
 /*  각 기능 박스 */
 .illusion-feature-box {
-	opacity: 0 ; /* 기본은 안보이게 */
-	transform: translateY(40px); /* 약간 아래로 위치 */
-	transition: opacity 0.7s ease, transform 0.7s ease; /* 자연스러운 전환 */
+	opacity: 0; /* 기본은 안보이게 */
+	transform: translateY(580px) scale(1.1);
+	transition: opacity 1.4s ease, transform 1.4s ease; /* 자연스러운 전환 */
 	position: relative; /* ::before 위치 기준 */
 	overflow: hidden; /* 상단 그라데이션 바 및 내부 콘텐츠 오버플로우 방지 */
 	width: 100%;
@@ -133,8 +134,8 @@ div.illusion-feature-title {
 }
 
 .illusion-feature-box.visible {
-  opacity: 1;
-  transform: translateY(0);
+	opacity: 1;
+	transform: none;
 }
 /*  상단 그라데이션 바 (박스 상단에 컬러 포인트 효과) -------- */
 .illusion-feature-box::before {
@@ -328,8 +329,11 @@ div.illusion-feature-title {
 /* 답변 내용 활성화 시 확장됨 */
 .clean-faq-answer.active {
 	max-height: 250px;
-	padding: 8px 0 0 0;
+	padding: 8px 0 0 0; 
+	font-siz : 20px;
+	margin: 3px 3px 36px;
 }
+
 
 /* 활성화된 질문과 답변 간 간격 조정 */
 .clean-faq-question.active+.clean-faq-answer {
@@ -367,8 +371,6 @@ div.illusion-feature-title {
 .team-job-card {
 	flex: 0 0 calc(50% - 16px); /* 한 줄에 2개! (gap 감안) */
 	background: #fff;
-	border-radius: 20px;
-	box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
 	display: flex;
 	flex-direction: column;
 	transition: box-shadow 0.2s;
@@ -378,7 +380,12 @@ div.illusion-feature-title {
 	height: 500px;
 	position: relative;
 	overflow: hidden;
-}
+	transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow
+		0.4s cubic-bezier(0.19, 1, 0.22, 1);
+	box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+	background: #fff;
+	border-radius: 12px;
+	will-change: transform, box-shadow;}
 
 .team-job-card::before {
 	content: "";
@@ -392,7 +399,9 @@ div.illusion-feature-title {
 }
 
 .team-job-card:hover {
-	box-shadow: 0 8px 32px rgba(60, 72, 88, 0.18);
+	transform: translateY(-10px) scale(1.05);
+	box-shadow: 0 16px 32px rgba(0,0,0,0.20), 0 1.5px 8px rgba(0,0,0,0.08);
+	z-index: 3;
 }
 
 /* 카드 상단 헤더 영역 */
