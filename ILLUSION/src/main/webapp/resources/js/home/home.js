@@ -27,21 +27,25 @@ $(function() {
 			var scrollTop = $(window).scrollTop();
 			var windowHeight = $(window).height();
 
-			$('.illusion-feature-box').each(function() {
+			$('.illusion-feature-box').each(function(idx) {
 				var elemTop = $(this).offset().top;
-				var triggerPoint = elemTop - windowHeight + 50;
 
-				if (scrollTop > triggerPoint) {
-					$(this).addClass('visible');      // 화면에 보이면 클래스 추가해서 떠오르게
+				if (scrollTop > 0 && scrollTop + windowHeight > elemTop + 50) {
+					var delay = idx * 150; // 150ms 간격으로 딜레이
+					$(this).css('transition-delay', delay + 'ms');
+					$(this).addClass('visible');
 				} else {
-					$(this).removeClass('visible');   // 화면 밖으로 나가면 다시 숨기기
+					$(this).css('transition-delay', '0ms');
+					$(this).removeClass('visible');
 				}
 			});
 		});
 
-		// 페이지 로드 시 바로 확인해서 화면에 보이면 보이게 처리 (필요시)
 		$(window).trigger('scroll');
 	});
+
+
+
 
 
 

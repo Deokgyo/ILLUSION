@@ -85,7 +85,7 @@
 				
 					
 					 <select id="job" name="job" class="custom-select">
-						<option value="lottecard">카드선택</option>
+						<option value="lottecard">카드사 선택</option>
 						<option value="lottecard">롯데카드</option>
 						<option value="samsungcard">삼성카드</option>
 						<option value="bccard">bc카드</option>
