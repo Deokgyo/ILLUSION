@@ -44,15 +44,15 @@
                     <div class="post-author-profile"><img src="${pageContext.request.contextPath}/resources/image/logop.png"/></div>
 
                     <div class="post-title-area">
-                        <div class="author-name">${board.member_name }</div>
-                        <h2 class="post-title">${board.board_title }</h2>
+                        <div class="author-name"></div>
+                        <h2 class="post-title"></h2>
                     </div>
-                    <div class="post-date">${board.board_create_at }</div>
+                    <div class="post-date"></div>
                 </div>
                 
                 <div class="divider"></div>
 
-                <div class="post-body">${board.board_content }</div>
+                <div class="post-body"></div>
                 
 				<div class="post-btn">
 					    <div class="post-actions">
@@ -64,7 +64,7 @@
                 <div class="post-footer">
                     <div class="post-meta-info">
                         <span><i class="fa-regular fa-comment-dots"></i> 3</span>
-                        <span><i class="fa-regular fa-eye"></i> 조회수 ${board.board_viewcnt}</span>
+                        <span><i class="fa-regular fa-eye"></i></span>
                     </div>
                 </div>
                 <!--// 게시글 영역 -->
@@ -72,21 +72,24 @@
                 <!-- 댓글 영역 -->
                 <form action="cmtWrite" method="POST">
 	                <div class="comment-section">	
-	                    <div class="comment-header">댓글 1</div>
+	                    <div class="comment-header" id="cmt_count"></div>
 	                    <div class="comment-form">
-	                    	<input type="hidden" name="board_idx" value="${board.board_idx}">
+	                    	<input type="hidden" id="board_idx" name="board_idx" value="${param.board_idx }">
+	                    	<input type="hidden" id="member_idx" name="member_idx" value="1"> <!-- TODO 로그인 기능 완성되면 수정 -->
 	                        <textarea id="cmt_textarea" name="comment" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
 	                        <button type="submit" id="cmt_regist" class="btn btn-yellow">등록</button>
 	                    </div>
 	                    
 	                    <div class="comment-list">
-	                        <div class="comment-item">
-	                            <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
-	                            <div class="comment-content">
-	                                <div class="author-name">ioi</div>
-	                                <p class="comment-text">저도 아직 못 받았어요ㅠ</p>
-	                            </div>
-	                        </div>
+<%-- 	                    <c:forEach var="cmt" items=""> --%>
+		                        <div class="comment-item">
+		                            <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
+		                            <div class="comment-content">
+		                                <div class="author-name"></div>
+		                                <p class="comment-text"></p>
+		                            </div>
+		                        </div>
+<%-- 	                    </c:forEach> --%>
 	                    </div>
 	                </div>
                 </form>
@@ -106,7 +109,6 @@
     </div>
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/community/communityDetail.js"></script> 

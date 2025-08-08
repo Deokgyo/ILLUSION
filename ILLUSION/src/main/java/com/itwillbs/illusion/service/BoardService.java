@@ -31,7 +31,15 @@ public class BoardService {
 		return mapper.selectCategory();
 	}
 	
-	public List<String> cmtWrite(int board_idx){
-		return mapper.cmtWrite(board_idx);
+	public int cmtWrite(Map<String, String> map){
+		return mapper.cmtWrite(map);
+	}
+	
+	public List<Map<String, String>> selectComment(int board_idx){
+		return mapper.selectComment(board_idx);
+	}
+	
+	public int countComment(int board_idx) {
+		return mapper.countComment(board_idx);
 	}
 }

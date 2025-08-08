@@ -18,5 +18,9 @@ public interface BoardMapper {
 	
 	public List<String> selectCategory();
 	
-	public List<String> cmtWrite(int board_idx);
+	public int cmtWrite(Map<String, String> map);
+	
+	public List<Map<String, String>> selectComment(int board_idx);
+	
+	public int countComment(int board_idx);
 }
