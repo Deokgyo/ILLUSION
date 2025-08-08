@@ -196,7 +196,7 @@ h1 {
 .timer {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--main-color);
+    color: var(--font-main-color);
 }
 
 .application-details {
@@ -245,7 +245,7 @@ h1 {
 .applicant-count {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--main-color);
+    color: var(--font-main-color);
 }
 
 /* --- 차트 스타일 --- */

@@ -31,7 +31,7 @@
         
 	        <div class="container">
 	         <div class="page-title-header">
-         	    <p class="header-text"><strong>채용공고 상세페이지 1</strong></p>
+         	    <p class="header-text"><strong>채용공고 상세페이지</strong></p>
              </div>
 			
 	        <main class="job-posting">

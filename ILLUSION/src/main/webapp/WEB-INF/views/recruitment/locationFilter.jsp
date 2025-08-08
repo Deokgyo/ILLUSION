@@ -9,7 +9,6 @@
     <%-- 상단 검색창 --%>
     <div class="search-input-wrapper">
       <input type="text" id="location-search-input" placeholder="지역을 입력하세요">
-      <button>🔍</button>
     </div>
 
     <%-- 2단 패널 컨테이너 --%>

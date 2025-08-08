@@ -67,8 +67,44 @@
 		LEFT JOIN address a ON c.address_idx = a.address_idx
 	WHERE 
 		r.recruit_idx = #{recruit_idx};
-		
 	</select>
+	
+	<select id="applyModal" resultType="com.itwillbs.illusion.vo.ApplyVO">
+	SELECT
+		a.apply_idx,
+	    r.resume_idx,
+	    c.cl_idx,
+		r.resume_title,
+	    c.cl_title,
+	    a.apply_files_path,
+	    a.member_idx
+	FROM apply a
+		LEFT JOIN resume r ON a.resume_idx = r.resume_idx
+		LEFT JOIN cover_letter c ON a.cl_idx = c.cl_idx
+		LEFT JOIN member m ON m.member_idx = a.member_idx
+	WHERE 
+		a.recruit_idx = 1
+	AND 
+		a.member_idx = 1;
+	</select>
+	
+	<insert id="insertApply">
+	<selectKey keyProperty="apply_idx" resultType="int" order="BEFORE">
+	SELECT IFNULL(MAX(apply_idx), 0) + 1
+	  FROM apply
+	</selectKey>
+	INSERT INTO apply
+	VALUES (#{apply_idx},
+			1, <!-- 추후 #{member_idx}로 변경  -->
+			#{recruit_idx},
+			#{resume_idx},
+			#{cl_idx},
+			#{apply_files_path},
+			#{apply_date},
+			#{apply_status},
+			#{is_viewed});
+		
+	</insert>
 	
 	
 </mapper>
