@@ -1,22 +1,46 @@
 package com.itwillbs.illusion.controller.myPage;
 
+import java.time.LocalTime;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.itwillbs.illusion.service.ResumeService;
+import com.itwillbs.illusion.vo.ResumeVO;
 
 @Controller
 public class MypageContrlloer {
+	@Autowired
+	ResumeService service;
+	
 	@GetMapping("myPage")
 	public String myPage(){
 		return "myPage/myPage";
 	}
 	/* 이력서 등록 */
 	@GetMapping("resumeWrite")
-	public String resumeWrite() {
+	public String resumeWriteForm() {
 		return "myPage/resumeWrite";
+	}
+	@PostMapping("resumeWrite")
+	public String resumeWrite(@RequestParam Map<String, Object> paramMap) {
+	    // 서비스 호출 - insert 시 useGeneratedKeys로 resume_idx 채워줌
+	    service.insertResume(paramMap);
+	    
+	    // 생성된 resume_idx 값 가져와서 상세보기로 이동
+	    return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") 
+	       + "&member_idx=" + paramMap.get("member_idx");
 	}
 	/* 이력서 목록 */
 	@GetMapping("savedResumeList")
-	public String savedResumeList() {
+	public String savedResumeList(Model model) {
+		
 		return "myPage/savedResumeList";
 	}
 	/* 자소서 목록 */
@@ -65,7 +89,13 @@ public class MypageContrlloer {
 	}
 	/*이력서 상세보기 */
 	@GetMapping("savedResumeDetail")
-	public String savedResumeDetail() {
+	public String savedResumeDetail(@RequestParam int resume_idx
+								   ,@RequestParam int member_idx
+								   ,Model model) {
+		Map<String, Object> member = service.selectMember(member_idx);
+		model.addAttribute("member", member);
+        Map<String, Object> resume = service.selectResume(resume_idx);
+        model.addAttribute("resume", resume);		
 		return "myPage/savedResumeDetail";
 	}
 	/*자소서 상세보기 */

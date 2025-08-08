@@ -31,13 +31,16 @@
         <div class="page-title-header">
                 <p class="header-text"><strong>이력서 등록</strong></p>
             </div>
-<div class="container">
-        
-
+            
+	<div class="container">
+       <form action="resumeWrite" name="resumeForm" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="member_idx" value="1">
         <div class="resume-form">
             <div class="section">
-                <div class="section-title-box">이력서 제목</div>
-
+            <div class="form-row">
+                <div class="form-group">
+                <input type="text" name="resume_title" placeholder="제목을 입력하세요"></div>
+			</div>
                 <div class="profile-section">
                     <div class="avatar-container">
                         <div class="avatar-placeholder"></div>
@@ -55,32 +58,39 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>학교 이름</label>
-                        <input type="text" placeholder="학교명을 입력하세요">
+                        <input type="text" name="school_name" placeholder="학교명을 입력하세요">
                     </div>
                     <div class="form-group">
                         <label>전공</label>
-                        <input type="text" placeholder="전공을 입력하세요">
+                        <input type="text" name="major" placeholder="전공을 입력하세요">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>학위</label>
-                        <select>
-                            <option value="">선택</option>
+                        <select >
+                                <option value="" selected disabled>-- 선택 --</option>
+                                <option>전문학사</option>
+                                <option>학사</option>
+                                <option>석사</option>
+                                <option>박사</option>       
                         </select>
                     </div>
                     <div class="form-group">
                         <label>상태</label>
-                        <select>
-                            <option value="">선택</option>
-                        </select>
+                       <select name="degree">
+						    <option value="" selected disabled>-- 선택 --</option>
+						    <option value="재학">재학</option>
+						    <option value="중퇴">중퇴</option>
+						    <option value="졸업">졸업</option>
+						</select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>학점</label>
                         <div class="gpa-group">
-                             <input type="text" placeholder="학점을 입력하세요 ex) 4.5" style="flex:1;">
+                             <input type="text" name ="grade" placeholder="학점을 입력하세요 ex) 4.5" style="flex:1;">
                              <span>/</span>
                              <select style="flex-basis: 100px;">
                                 <option>4.5</option>
@@ -94,13 +104,13 @@
                     <div class="form-group">
                         <label>입학일</label>
                         <div class="date-input-container">
-                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
+                            <input type="text" name="enroll_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>졸업일</label>
                          <div class="date-input-container">
-                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
+                            <input type="text" name="graduation_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -116,24 +126,34 @@ ex) 수석 졸업 등"></textarea>
                 <div class="form-row">
                     <div class="form-group">
                         <label>회사명</label>
-                        <input type="text" placeholder="회사명을 입력하세요">
+                        <input name="company_name" type="text" placeholder="회사명을 입력하세요">
                     </div>
                     <div class="form-group">
                         <label>직책</label>
-                        <input type="text" placeholder="직책을 입력하세요">
+                        <input name="position" type="text" placeholder="직책을 입력하세요">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>입사일</label>
+                        <label>경력</label>
                         <div class="date-input-container">
-                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
+                             <select name="degree">
+						    <option value="" selected disabled>-- 선택 --</option>
+						    <option value="신입">신입</option>
+						    <option value="1~3년차">1~3년차</option>
+						    <option value="4~7년차">4~7년차</option>
+						    <option value="4~7년차">4~7년차</option>
+						    <option value="8+년차">8+년차</option>
+						    <option value="경력무관">경력무관</option>
+						    <option value="인턴">인턴</option>
+						    <option value="인턴">계약직</option>
+						</select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>종료일</label>
+                        <label>직종</label>
                         <div class="date-input-container">
-                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="">
+                         <input name="company_name" type="text" placeholder="직종을 입력하세요">    
                         </div>
                     </div>
                 </div>
@@ -153,9 +173,10 @@ ex) 수석 졸업 등"></textarea>
 
         </div>
         
-        <button class="btn btn-save" onclick="if(confirm('저장하시겠습니까?')) location.href='savedResumeDetail';">저장</button>
+        <button type="submit" class="btn btn-save" 
+        onclick="if(confirm('저장하시겠습니까?')) location.href='savedResumeDetail?resume_idx=${resume_idx}&member_idx=${member_idx}';">저장</button>
     </div>
- 
+</form>
 </main>
 </div>
 </body>

@@ -52,12 +52,12 @@
         <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
       </div>
       <div class="profile-info">
-        <div class="name">ILLUSION</div>
-        <div>생년월일 : 2000.07.26</div>
-        <div>전화번호 : 010-1234-5676</div>
-        <div>이메일 : illusion@naver.com</div>
-        <div>주소 : 부산시 부산진구 삼한골든게이트 7층</div>
-      </div>
+        <div class="name">${member['member_name']}</div>
+			<div>${member['resume_birth']}</div>
+			<div>${member['member_phone']}</div>
+			<div>${member['member_email']}</div>
+			<div>${member['address_idx']}</div>
+		</div>
     </div>
 </div>
     <div class="section">
@@ -73,10 +73,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td>${resume.school_name}</td>
+            <td>${resume.major}</td>
+            <td>${resume.enroll_date} ~ ${resume.graduation_date}</td>
+            <td>${resume.degree}</td>
           </tr>    
         </tbody>
       </table>

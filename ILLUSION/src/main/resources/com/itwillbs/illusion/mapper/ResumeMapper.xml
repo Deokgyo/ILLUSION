@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.illusion.mapper.ResumeMapper">
+
+    <insert id="insertResume" parameterType="map" useGeneratedKeys="true" keyProperty="resume_idx">
+        INSERT INTO resume (
+            member_idx,
+            resume_title,
+            resume_create_at,
+            resume_img,
+            school_name,
+            major,
+            grade,
+            degree,
+            enroll_date,
+            graduation_date
+        ) VALUES (
+            1,
+            #{resume_title},
+            NOW(),
+            #{resume_img},
+            #{school_name},
+            #{major},
+            #{grade},
+            #{degree},
+            #{enroll_date},
+            #{graduation_date}
+        )
+    </insert>
+
+    <select id="selectResume" parameterType="int" resultType="map">
+        SELECT * FROM resume WHERE resume_idx = #{resume_idx}
+    </select>
+    <select id="selectMember" parameterType="int" resultType="map">
+        SELECT * FROM member WHERE member_idx = #{member_idx}
+    </select>
+
+</mapper>
