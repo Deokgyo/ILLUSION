@@ -99,7 +99,7 @@ body {
 }
 
 .edit-btn {
-	background: #ffffff;
+	background: var(--main-color);
 	border: none;
 	padding: 6px 12px;
 	border-radius: 6px;
@@ -107,7 +107,7 @@ body {
 	cursor: pointer;
 	box-shadow: -0.3px 2.1px 2px 0px gray;
 }
-
+.edit-btn:hover {background: var(--main-color-hover);}
 .profile-right {
     display: flex;
     justify-content: column;
@@ -189,7 +189,7 @@ body {
 .file-card {
 	flex: 1 1 calc(33% - 12px);
 	background: #fff;
-	border: solid #ffffff;
+	border: 1px solid #EBE3D5;
 	border-radius: 10px;
 	padding: 15px;
 	text-align: center;

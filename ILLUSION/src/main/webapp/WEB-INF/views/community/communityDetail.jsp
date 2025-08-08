@@ -70,11 +70,12 @@
                 <!--// 게시글 영역 -->
 
                 <!-- 댓글 영역 -->
-<!--                 <form action="cmtWrite" method="POST"> -->
+                <form action="cmtWrite" method="POST">
 	                <div class="comment-section">	
 	                    <div class="comment-header">댓글 1</div>
 	                    <div class="comment-form">
-	                        <textarea id="cmt_textarea" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
+	                    	<input type="hidden" name="board_idx" value="${board.board_idx}">
+	                        <textarea id="cmt_textarea" name="comment" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
 	                        <button type="submit" id="cmt_regist" class="btn btn-yellow">등록</button>
 	                    </div>
 	                    
@@ -88,7 +89,7 @@
 	                        </div>
 	                    </div>
 	                </div>
-<!--                 </form> -->
+                </form>
 
                 <!-- 페이지네이션 -->
                 <nav class="pagination">

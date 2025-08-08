@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.service.BoardService;
 import com.itwillbs.illusion.vo.BoardVO;
@@ -85,15 +87,21 @@ public class CommunityController {
 	}
 	
 	// 커뮤니티 게시글 댓글 작성
-//	@PostMapping("cmtWrite")
-//	public String cmtWrite(Model model, int board_idx) {
-//		
+	@PostMapping("cmtWrite")
+	public String cmtWrite(Model model
+						,int board_idx
+						,@RequestParam("comment") String comment) {
+		
+		System.out.println(comment);
+		System.out.println(board_idx);
+		
+		
 //		List<String> list = new ArrayList<String>();
 //		System.out.println(list + " asdadsada");
-//		service.cmtWrite(board_idx);
-//		
-//		return "redirect:communityDetail?board_idx=${board_idx}";
-//	}
+//		service.cmtWrite(1);
+		
+		return "redirect:communityDetail?board_idx=" + board_idx;
+	}
 	
 	
 	

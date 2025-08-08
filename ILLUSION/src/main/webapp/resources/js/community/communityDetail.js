@@ -1,13 +1,12 @@
 $(function(){
- $('#cmt_regist').on('click', function() {
-		commentRegist();
-    });
-    
-    
-    
-    
-    function commentRegist(){
-		const commentText = $('#cmt_textarea').val();
+    $('form').on('submit', function(e) {
+        const commentText = $('#cmt_textarea').val().trim();
+
+        if (!commentText) {
+            alert("댓글을 입력하세요.");
+            e.preventDefault();
+            return;
+        }
 
         const newCmt = 
         `
@@ -23,11 +22,6 @@ $(function(){
         `;
 
         $('.comment-list').prepend(newCmt);
-        
         $('.comment-list .comment-item:first-child').slideDown(300);
-
-        $('#cmt_textarea').val('');
-	}
-	
-
+    });
 });

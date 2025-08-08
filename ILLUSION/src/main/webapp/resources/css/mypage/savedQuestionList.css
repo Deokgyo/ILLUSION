@@ -19,6 +19,12 @@
 	margin-bottom: 20px;
 }
 
+textarea:focus{
+	border: 1px solid var(--main-color);
+	outline: none; /* 기본 파란 아웃라인 제거 */
+	box-shadow: 0 0 3px var(--main-color);
+}
+
 .question-block {
 	border: 1px solid #eee;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -63,11 +69,11 @@
 }
 
 .delete-btn:hover {
-	background-color:var(--main-color-hover);
+	background-color: var(--main-color-hover);
 }
 
 .copy-btn:hover {
-	background-color:var(--main-color-hover);
+	background-color: var(--main-color-hover);
 }
 
 .user-answer {
