@@ -58,7 +58,7 @@
 					    <div class="post-actions">
                         <!-- 작성자 본인일 경우 노출 -->
                         <a href="communityModify" class="btn btn-yellow">수정</a>
-                        <a href="#" class="btn btn-yellow">삭제</a>
+                        <a href="#" class="btn btn-yellow">삭제 </a>
                     </div>
 				</div>
                 <div class="post-footer">
