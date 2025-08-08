@@ -78,7 +78,7 @@
 				<div class="illusion-feature-desc">
 					"사용자의 경험과 강점을 분석해 맞춤형 자기소개서를<br> 빠르게 생성하는 AI 자기소개서 생성기"
 				</div>
-				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/coverletter'">자세히 보기</button>
+				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/coverletterCreate'">자세히 보기</button>
 			</div>
 		</div>
 
@@ -92,7 +92,7 @@
 				<div class="illusion-feature-name">자기소개서 다듬기</div>
 				<div class="illusion-feature-desc">"지원 직무와 회사 맞춤형으로 논리적이고 감정이
 					돋보이는 문장으로 자동 첨삭해 드립니다."</div>
-				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/Refiner'">자세히 보기</button>
+				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/coverletterRefiner'">자세히 보기</button>
 			</div>
 		</div>
 
@@ -107,7 +107,7 @@
 				<div class="illusion-feature-name">AI 면접 예상 질문</div>
 				<div class="illusion-feature-desc">"매번 달라지는 최신 트렌드를 반영한 직무/분기
 					업종 맞춤 AI 면접 예상질문 생성 기능"</div>
-				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/interview'">자세히 보기</button>
+				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/interviewResult'">자세히 보기</button>
 			</div>
 		</div>
 

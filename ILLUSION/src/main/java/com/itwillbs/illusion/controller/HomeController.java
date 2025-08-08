@@ -54,33 +54,12 @@ public class HomeController {
 		return "recruitment/recruitmentInfo";
 	}
 	
-	// 자세히 보기 자소서 생성기 이동 
-	@GetMapping("coverletter")
-	public String coverletter() {
-		return "jobTools/coverletterCreate";
+	// 회원가입  
+	@PostMapping("registersu")
+	public String registersu() {
+		return "home/register";
 	}
-	
-	// 자세히 보기 자소서 다듬기 이동 
-	@GetMapping("Refiner")
-	public String Refiner() {
-		return "jobTools/coverletterRefiner";
-		}
-	
-	// 자세히 보기 면접질문 이동 
-	@GetMapping("interview")
-	public String interview() {
-		return "jobTools/interviewCreate";
-		}
-	
-	// 자세히 보기 챗봇 이동 
-		@GetMapping("chatbot")
-		public String chatbot() {
-			return "jobTools/chatbot";
-			}
 		
-	
-	
-	
 	
 	
 	

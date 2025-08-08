@@ -60,25 +60,26 @@
 		<button class="tab-btn" id="companyTab">기업 회원</button>
 	</div>
 	<div class="signup-form-box">
-		<form class="signup-form" autocomplete="off">
+		<form action="${pageContext.request.contextPath}/registersu" method="post" class="signup-form" autocomplete="off" >
 			<div class="input-box" id="companyBox">
 				<label for="companyNumber">사업자등록번호</label> <input type="text"
 					id="companyNumber" placeholder="사업자등록번호 입력">
 			</div>
 			<div class="form-row">
 				<label for="userid">아이디</label> <input type="text" id="userid"
-					maxlength="20" placeholder="4~20 자리 / 영문, 숫자, 특수문자(_)·(.) 입력 가능"
-					required>
+					maxlength="20" placeholder="4~20 자리 / 영문, 숫자, 특수문자 ?!@ 입력 가능" required>
+					<span id="UserIdSuccess"></span>
 			</div>
 			<div class="form-row">
 				<label for="userpw">비밀번호</label> <input type="password" id="userpw"
 					maxlength="16" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" required>
+					<span id="userPwSuccess"></span>
 			</div>
 			<div class="form-row flex-row">
 				<div class="flex-half">
 					<label for="userpw2">비밀번호 확인</label> <input type="password"
-						id="userpw2" maxlength="16"
-						placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" required>
+						id="userpw2" maxlength="16" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" required>
+						<span id="userPwSuccess2"></span>
 				</div>
 			</div>
 			<div class="form-row flex-row">
