@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.illusion.service.BoardService;
 import com.itwillbs.illusion.vo.BoardVO;
@@ -33,16 +34,22 @@ public class CommunityController {
 		
 		model.addAttribute("categoryList", categoryList);
 	    model.addAttribute("boardList", boardList);
-
+	    
 	    return "community/communityMain";
 	}
 	
+	// 커뮤니티 게시글 상세 페이지 이동
 	@GetMapping("communityDetail")
 	public String communityDetail(Model model, int board_idx) {
+		Map<String, String> boardMap = service.selectBoard(board_idx);
+		List<Map<String, String>> cmtList = service.selectComment(board_idx);
+		int cmtCount = service.countComment(board_idx);
 		
-		Map<String, String> map = service.selectBoard(board_idx);
+		System.out.println(cmtCount);
 		
-		model.addAttribute("board", map);
+		model.addAttribute("board", boardMap);
+		model.addAttribute("cmtList", cmtList);
+		model.addAttribute("cmtCount", cmtCount);
 		
 		return "community/communityDetail";
 	}
@@ -51,11 +58,11 @@ public class CommunityController {
 	@GetMapping("communityWrite")
 	public String communityWrite(Model model) {
 		
-		List<String> categoryList = new ArrayList<String>();
-		
-		categoryList = service.selectCategory();
-		
-		model.addAttribute("categoryList", categoryList);
+//		List<String> categoryList = new ArrayList<String>();
+//		
+//		categoryList = service.selectCategory();
+//		
+//		model.addAttribute("categoryList", categoryList);
 		
 		return "community/communityWrite";
 	}
@@ -71,9 +78,6 @@ public class CommunityController {
 	public String boardWrite(String content, 
 							 String title, 
 							 String category) {
-		System.out.println(content);
-		System.out.println(title);
-		System.out.println(category);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
@@ -85,22 +89,34 @@ public class CommunityController {
 		
 		return "redirect:communityMain";
 	}
+
 	
 	// 커뮤니티 게시글 댓글 작성
+	@ResponseBody
 	@PostMapping("cmtWrite")
-	public String cmtWrite(Model model
-						,int board_idx
+	public void cmtWrite(Model model
+						,String board_idx
+						,String member_idx
 						,@RequestParam("comment") String comment) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("comment", comment);
+		map.put("board_idx", board_idx);
+		map.put("member_idx", member_idx);
 		
 		System.out.println(comment);
 		System.out.println(board_idx);
+		System.out.println(member_idx);
 		
+		service.cmtWrite(map);
 		
-//		List<String> list = new ArrayList<String>();
-//		System.out.println(list + " asdadsada");
-//		service.cmtWrite(1);
-		
-		return "redirect:communityDetail?board_idx=" + board_idx;
+//		return "redirect:communityDetail?board_idx=" + board_idx;
+	}
+	
+	@ResponseBody
+	@GetMapping("cmtWrite")
+	public List<Map<String, String>> getCmtList(String board_idx) {
+		return service.selectComment(Integer.parseInt(board_idx));
 	}
 	
 	
