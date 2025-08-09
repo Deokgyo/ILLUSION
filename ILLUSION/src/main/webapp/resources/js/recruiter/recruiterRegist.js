@@ -148,7 +148,6 @@ function handleSearchInput() {
       .get()
       .join(', ');
     $selectedLocationsInputEl.val(values);
-    console.log($selectedLocationsInputEl.val(values));
   }
 
   // 이벤트 연결
@@ -250,8 +249,6 @@ const occupationsData = {
 	    ]
 	  }
 	};
-
-	
 	//2. 변수 정리 
 	
 	
@@ -283,7 +280,7 @@ const occupationsData = {
 		$.each($jobObj, function(_,value) {
 			const $jobsDiv = $('<div class="option-btn job"></div>')
 			.html(value.label)
-			.val(value.code);
+			.attr('data-code', value.code);
 			$('#jobs').append($jobsDiv);
 		});
 	}
@@ -297,7 +294,6 @@ const occupationsData = {
 	
 	// 직무 부분 온클릭 이벤트
 	$('.occupation').on('click', occupationActive);
-	
 	function occupationActive() {
 		$('.occupation').removeClass('active');
 		$(this).addClass('active');
@@ -306,12 +302,23 @@ const occupationsData = {
 	}
 	
 	//4-2) 세부 직무 부분 온클릭 이벤트  	
-	$('.job').on('click', jobActive);
+	$(document).on('click', '.job', jobActive);
 	// * 가독성을 위해 함수 선언부를 분리하였음 
 	function jobActive () {
-		$('.job').removeClass('active');
-		$(this).addClass('active');
-	}
+		let $jobvalue = "";
+		if (!($(this).hasClass('active'))) {
+			$(this).addClass('active');
+			// 5. 활성화 된 값 input hidden value에 넣기 
+			$jobvalue = $('.job.active').map(function() {
+				return $(this).data('code');
+			}).get().join(', ');
+			console.log('잡밸류값' + $jobvalue);
+			$('#selected-occupation').val($jobvalue);
+		} else {
+			$(this).removeClass('active');
+		}
+	}	
+	
 	
   //-------------------------------------------------------- 
   //                   세부 공고 내용 관련 js  
@@ -401,39 +408,11 @@ const occupationsData = {
     }
   });
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-  
-  
-  
-  
   
 });// 윈도우 레디 
+	
+	
+
+	
+
+

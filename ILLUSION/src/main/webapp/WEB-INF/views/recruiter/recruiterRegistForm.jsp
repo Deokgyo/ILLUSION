@@ -4,10 +4,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<%-- js 관련 설정들 --%>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegist.js"></script>
-	 <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
+	
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
@@ -19,7 +16,7 @@
     <link rel="stylesheet" href="./resources/css/bottom.css">
     <link rel="stylesheet" href="./resources/css/recruiter/recruiterRegistForm.css">
     <link rel="stylesheet" href="./resources/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/filterEvent.css">
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/filterEvent.css"> --%>
 	
 	
 	<%-- --------------- 브라우저 볼때 탭 영역 ----------- --%>
@@ -149,7 +146,7 @@
                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
                      </div>
-                     <input type="hidden" id="selected-occupation" name="occupations">
+                     <input type="hidden" id="selected-occupation" name="occupation">
 	           </div>
 			</section>
         	<%-- -------------------------------직무 선택 섹션 끝--------------------------- --%>
@@ -263,6 +260,11 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	
+	<%-- js 관련 설정들 --%>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegist.js"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
 	    <script>
       const picker = new easepick.create({
         element: document.getElementById('datepicker'),
