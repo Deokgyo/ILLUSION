@@ -17,10 +17,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterInfo.css">
-	
-	
-
-</head>
+ </head>
 
 <body>
 	<header>

@@ -56,14 +56,14 @@
 						<i class="fas fa-business-time icon"></i>
 						<h3 class="title">채용 유형</h3>
 					</div>
-		        	<select name="category" class="form-select category-select" required>
+		        	<select name="recruit_type" class="form-select category-select" required>
 		        		<option disabled selected>채용 유형 선택</option>
-		        		<option value="reg">정규직</option>
-		        		<option value="con">계약직</option>
-		        		<option value="part">파트타임</option>
-		        		<option value="free">프리랜서</option>
-		        		<option value="pa">파견직</option>
-		        		<option value="intern">인턴</option>
+		        		<option value="RCT001">정규직</option>
+		        		<option value="RCT002">계약직</option>
+		        		<option value="RCT004">프리랜서</option>
+		        		<option value="RCT003">인턴</option>
+		        		<option value="RCT005">파트타임</option>
+		        		<option value="RCT006">파견직</option>
 		        	</select>
 	        	</section>
 	        	
@@ -75,11 +75,11 @@
 		        	</div>
 		        	<select name="workTime" class="form-select category-select" required>
 		        		<option disabled selected>근무 시간 선택</option>
-		        		<option value="9to18">09:00 ~ 18:00</option>
-		        		<option value="9to13">09:00 ~ 13:00</option>
-		        		<option value="14to18">14:00 ~ 18:00</option>
-		        		<option value="22to06">22:00 ~ 06:00</option>
-		        		<option value="free">자율 근무 / 협의</option>
+		        		<option value="WT001">09:00 ~ 18:00</option>
+		        		<option value="WT002">09:00 ~ 13:00</option>
+		        		<option value="WT003">14:00 ~ 18:00</option>
+		        		<option value="WT004">22:00 ~ 06:00</option>
+		        		<option value="WT005">자율 근무 / 협의</option>
 		        	</select>
         		</section>
         	
@@ -117,7 +117,7 @@
 						<div class="filter-options" id="sub-region-list">
 						<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
 						</div>
-						<input type="hidden" id="selected-locations" name="location">
+						<input type="hidden" id="selected-locations" name="full_address">
 					</div>
 				</div>
         	</section>

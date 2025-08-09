@@ -148,6 +148,7 @@ function handleSearchInput() {
       .get()
       .join(', ');
     $selectedLocationsInputEl.val(values);
+    console.log($selectedLocationsInputEl.val(values));
   }
 
   // 이벤트 연결

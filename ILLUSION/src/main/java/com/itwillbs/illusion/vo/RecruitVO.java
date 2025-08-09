@@ -40,5 +40,4 @@ public class RecruitVO {
 	private LocalDate company_estab_date;
 	private String recruiter_member_email;
 	
-	
 }

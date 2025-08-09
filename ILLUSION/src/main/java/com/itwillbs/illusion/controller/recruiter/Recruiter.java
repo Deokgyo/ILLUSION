@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.itwillbs.illusion.vo.RecruitVO;
+
 @Controller
 public class Recruiter {
 
@@ -34,7 +36,7 @@ public class Recruiter {
 	
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")
-	public String recruiterRegistForm(String str) {
+	public String recruiterRegistForm(RecruitVO recruit) {
 		return "redirect:/recruiterList";
 	}
 	
