@@ -36,6 +36,13 @@ public class HomeController {
 		return "home/login";
 	}
 	
+	//로그인 이동 
+	@GetMapping("idPwFind")
+	public String idPwFind() {
+		return "home/idPwFind";
+	}
+	
+	
 	// 회원가입 이동 
 	@GetMapping("register")
 	public String register() {
