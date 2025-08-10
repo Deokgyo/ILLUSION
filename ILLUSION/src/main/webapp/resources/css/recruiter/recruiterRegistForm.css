@@ -66,7 +66,7 @@ main.registration-form-container {
   width: 100%;
   min-height: 75vh; /* 폼의 최소 높이를 화면 높이의 75%로 설정 */
   padding: 30px;
-height: 2755px;
+    height: 100%;
   /* 내부 placeholder 텍스트를 위한 스타일 (나중에 삭제 가능) */
 /*   display: flex; */
 /*   justify-content: center; */
@@ -295,7 +295,12 @@ column-gap: 10px;
   border-bottom: 1px solid #e2e8f0;
   flex-shrink: 0;
 }
-
+.allLabel {
+	display:flex;
+	flex-direction: row;
+	gap:8px;	
+	align-items: center;
+}
 .filter-reset-btn {
     font-size: 15px;
     font-family: var(--font-family);
@@ -338,6 +343,11 @@ column-gap: 10px;
 /* 숨김 클래스 */
 .hidden {
   display: none !important;
+}
+
+
+.all {
+	transform: translateY(-2.25px);
 }
 
 /* 커스텀 스크롤바 */
@@ -480,11 +490,8 @@ column-gap: 10px;
  	overflow: visible;
  }
  
- .email {
-  display: flex;
-  flex-direction: column;
- }
+/*  .email { */
+/*   display: flex; */
+/*   flex-direction: column; */
+/*  } */
  
- .btn-yellow {
- margin-top: 40px;
- }

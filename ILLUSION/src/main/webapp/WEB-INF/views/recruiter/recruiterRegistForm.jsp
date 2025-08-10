@@ -108,7 +108,7 @@
 					<div class="region-panel-right">
 						<div class="filter-header">
 					<%-- '전체' 체크박스 추가 --%>
-							<label><input type="checkbox" id="check-all-sub-regions" class="checkbox"><span>전체</span></label>
+							<label class="allLabel"><input type="checkbox" id="check-all-sub-regions" class="checkbox"><span class="all">전체</span></label>
 							<button type="button" class="filter-reset-btn">초기화<i class="fa-solid fa-arrows-rotate"></i></button>
 						</div>
 						<div class="filter-options" id="sub-region-list">
@@ -244,13 +244,13 @@
 	        </section>    
        		<%----------------------------------마감 날짜 섹션 끝---------------------------- --%>
        		<%----------------------------------문의 email 섹션------------------------------ --%>
- 		    <section class="email">
-	 		    <div class="title-undefined">
-	           		<i class="fa-regular fa-envelope icon"></i>
-	            	<h3 class="title">문의 E-mail</h3>
-	            </div>
-	            <input type="text" name="email" class="form-control" placeholder="E-mail을 입력해주세요">
-       		</section>
+<!--  		    <section class="email"> -->
+<!-- 	 		    <div class="title-undefined"> -->
+<!-- 	           		<i class="fa-regular fa-envelope icon"></i> -->
+<!-- 	            	<h3 class="title">문의 E-mail</h3> -->
+<!-- 	            </div> -->
+<!-- 	            <input type="text" name="email" class="form-control" placeholder="E-mail을 입력해주세요"> -->
+<!--        		</section> -->
        		<%----------------------------------문의 email 섹션 끝---------------------------- --%>
         	<div class="btn-container">
         		<button class="btn-yellow"> 제출 </button>
