@@ -306,7 +306,17 @@ const occupationsData = {
 	//4-2) 세부 직무 부분 온클릭 이벤트  & 인풋 타입 히든에 값 넣기 	
 	$(document).on('click', '.job', function () {
 		jobActive(this);
+		updateKeyword(this);
 		updateJobValue();
+	});
+	
+	$(document).on('click', '.close-btn', function() {
+		const keyword = $(this).siblings('span').text().trim(); // 선택한 키워드
+		$(`.job.active`).filter(function() {
+	  		return $(this).text().trim() === keyword;
+	  	}).removeClass('active');
+	  $(this).closest('.tag').remove();
+	  updateJobValue();
 	});
 	
 	function jobActive (el) {
@@ -324,6 +334,20 @@ const occupationsData = {
 			}).get().join(', ');
 		$('#selected-occupation').val($jobValue);
 	}
+	
+	function updateKeyword(el) {
+		// 액티브된 세부 직무의 밸류 값을 추출
+		// 요소 만드는 메서드에 액티브된 세무 직무의 밸류 값을 넣어서 생성하게 만들기 
+		let keyword = $(el).text();
+		if ($(el).hasClass('active')) {
+            let tagHTML = `<div class="tag" data-keyword="${keyword}"><span>${keyword}</span><span class="close-btn">x</span></div>`;
+            $('.selected-tags-area').append(tagHTML);
+		} else {
+			//현재 선택된 keyword 값과 같은 <span>태그의 값을 가진ㄴ div 요소 제거 
+			$(`.tag[data-keyword="${keyword}"]`).remove();			
+		}
+	}
+	
 
 	//-------------------------------------------------------- 
 	//                   채용 인원 관련  
@@ -337,6 +361,8 @@ const occupationsData = {
 		let check = undecided.is(':checked');
 		hireNum.prop('disabled', check).val(check ? 0 : '');
 	}
+	
+	
 //-------------------------------------------------------- 
 //                   세부 공고 내용 관련 js  
 //-------------------------------------------------------- 
@@ -424,6 +450,9 @@ const occupationsData = {
       }
     }
   });
+	
+
+	
 	
   
 });// 윈도우 레디 

@@ -143,8 +143,8 @@
 	                   </div>
 	               </div>
                   <div class="selected-tags-area">
-                          <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
-                          <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div>
+<!--                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div> -->
+<!--                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div> -->
                      </div>
                      <input type="hidden" id="selected-occupation" name="occupation">
 	           </div>
@@ -167,11 +167,13 @@
 		        	<i class="fa-solid fa-briefcase icon"></i>
 		        	<h3 class="title">경력 조건</h3>
 	        	</div>
-	        	<select name="category" class="form-select category-select" required>
+	        	<select name="experience" class="form-select category-select" required>
 	        		<option disabled selected>경력 조건 선택</option>
-	        		<option value="">경력</option>
-	        		<option value="">신입</option>
-	        		<option value="">무관</option>
+	        		<option value="EXP001">신입</option>
+	        		<option value="EXP002">1~3년차</option>
+	        		<option value="EXP003">4~7년차</option>
+	        		<option value="EXP004">8+년차</option>
+	        		<option value="EXP005">경력 무관</option>
 	        	</select>
        		</section>
         	<%-- -------------------------------경력 섹션 끝--------------------------------- --%>
@@ -184,12 +186,12 @@
 		        	</div>
 		        	<select name="category" class="form-select category-select" required>
 		        		<option disabled selected>학력 선택</option>
-		        		<option value="">고등학교 졸</option>
-		        		<option value="">전문대 졸</option>
-		        		<option value="">대학교 졸</option>
-		        		<option value="">석사</option>
-		        		<option value="">박사</option>
-		        		<option value="">학력 무관</option>
+		        		<option value="DEG001">고등학교 졸</option>
+		        		<option value="DEG002">전문대 졸</option>
+		        		<option value="DEG003">대학교 졸</option>
+		        		<option value="DEG004">석사</option>
+		        		<option value="DEG005">박사</option>
+		        		<option value="DEG006">학력 무관</option>
 		        	</select>
 	       		</section>
 	        	<%-- -------------------------------학력 섹션 끝----------------------------- --%>
@@ -199,14 +201,15 @@
 			        	<i class="fa-solid fa-hand-holding-dollar icon"></i>
 			        	<h3 class="title">급여</h3>
 		        	</div>
-		        	<select name="category" class="form-select category-select" required>
+		        	<select name="salary" class="form-select category-select" required>
 		        		<option disabled selected>급여 선택</option>
-		        		<option value="">1000 ~ 2000 만원</option>
-		        		<option value="">2000 ~ 3000 만원</option>
-		        		<option value="">3000 ~ 4000 만원</option>
-		        		<option value="">4000 ~ 5000 만원</option>
-		        		<option value="">5000 ~ 6000 만원</option>
-		        		<option value="">면접 후 협의</option>
+		        		<option value="SAL001">2000만원 이하</option>
+		        		<option value="SAL002">2000 ~ 3000만원</option>
+		        		<option value="SAL003">3000 ~ 4000만원</option>
+		        		<option value="SAL004">4000 ~ 5000만원</option>
+		        		<option value="SAL005">5000 ~ 6000만원</option>
+		        		<option value="SAL006">6000만원 이상</option>
+		        		<option value="SAL007">면접 후 협의</option>
 		        	</select>
 	       		</section>
         	</div>
@@ -216,18 +219,18 @@
 	 		    <div class="title-undefined">
 	            	<i class="icon fa-regular fa-pen-to-square icon"></i>
 	            	<h3 class="title">채용 정보 상세 입력</h3>
-	            </div>
-			
-				<div class="editor" id="editor" contenteditable="true">
-				  담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요.
-				</div>
-				<textarea name="content" id="hiddenContent" hidden></textarea>
 		           	<div class="toolbar">
 					  <button type="button" onclick="format('bold')"><i class="fa-solid fa-bold icon btn"></i></button>
 					  <button type="button" onclick="format('italic')"><i class="fa-solid fa-italic icon btn"></i></button>
 					  <button type="button" onclick="document.getElementById('upload').click()"><i class="fa-solid fa-arrow-up-from-bracket icon btn"></i></button>
 					  <input type="file" accept="image/*" id="upload" hidden>
 					</div>
+	            </div>
+			
+				<div class="editor" id="editor" contenteditable="true">
+				  담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요.
+				</div>
+				<textarea name="content" id="hiddenContent" hidden></textarea>
 <!-- 	            <textarea name="content" placeholder="담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요."></textarea> -->
        		</section>
        		<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%>            
@@ -237,7 +240,7 @@
 	            	<i class="fa-regular fa-calendar-days icon"></i>
 	            	<h3 class="title">공고 마감 날짜</h3>
 	            </div>
-	            	<input id="datepicker" class="form-control" placeholder="날짜 선택"/>
+	            	<input type="date" name="end_date" class="form-control" placeholder="날짜 선택"/>
 	        </section>    
        		<%----------------------------------마감 날짜 섹션 끝---------------------------- --%>
        		<%----------------------------------문의 email 섹션------------------------------ --%>

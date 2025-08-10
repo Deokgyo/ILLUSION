@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +20,7 @@ public class RecruitVO {
 	private String salary;
 	private String degree;
 	private LocalDate start_date;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate end_date;
 	private int views_count;
 	private int app_count;

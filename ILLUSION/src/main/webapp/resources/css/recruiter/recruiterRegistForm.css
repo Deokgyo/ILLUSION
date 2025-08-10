@@ -392,6 +392,10 @@ column-gap: 10px;
 /*     background-color: #f8f9fa; */
     background-color: var(--body-bg-color);
     border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+    grid-column: 1 / span 2;
 /*     min-height: 50px; */
 }
 .selected-tags-area .tag {
@@ -434,12 +438,14 @@ column-gap: 10px;
 	display: flex;
 	justify-content: flex-end;
 	max-width: inherit;
+	margin-bottom: 8px;
+	margin-left: auto;
 }
 
 .toolbar > button {
 	border:0.3px !important;
 	background-color: var(--body-bg-color);
-	margin-top: 15px;
+/* 	margin-top: 15px; */
 }
 
 .toolbar > button:hover {
