@@ -4,27 +4,47 @@
 	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.itwillbs.illusion.mapper.BoardMapper">
+	
+	<!-- 커뮤니티 메인페이지 정보 조회 -->
 	<select id="selectBoardList">
 		SELECT 
 			   board_idx
 			 , board_title
 			 , board_content
-			 , board_create_at
+			 , DATE_FORMAT(board_create_at, '%Y-%m-%d') AS board_create_at
 			 , board_viewcnt
+			 , board_type
 			 , cmt_count
 			 , member_id
 			 , member_name
 		  FROM board b
 		  JOIN member m ON b.member_idx = m.member_idx
-	  ORDER BY board_idx desc
+	      <where>
+	        <choose>
+	            <when test="categoryCode != null and categoryCode != '' and categoryCode != 'BRD001'">
+	                b.board_type = #{categoryCode}
+	            </when>
+	            <otherwise>
+	            </otherwise>
+        	</choose>
+         </where>
+		 <choose>
+	        <when test="sort != null and sort == 'views'">
+	            ORDER BY b.board_viewcnt DESC, b.board_idx DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY b.board_create_at DESC
+	        </otherwise>
+    	</choose>
 	</select>
 
+	<!-- 게시물 상세페이지 정보 조회 -->
 	<select id="selectBoard">
 		 SELECT 
 		 	    board_idx
 			  , board_title
 			  , board_content
-			  , board_create_at
+			  , DATE_FORMAT(board_create_at, '%Y-%m-%d') AS board_create_at
 			  , board_viewcnt
 			  , m.member_idx
 			  , member_id
@@ -49,8 +69,11 @@
 			, 1 ) <!-- 수정필요 -->
 	</insert>
 	
+	<!-- 카테고리 목록조회 -->
 	<select id="selectCategory">
-		SELECT code_name
+		SELECT 
+			   code
+		     , code_name
 		  FROM common_code
 		 WHERE code_group_id = "board_type";
 	</select>
@@ -66,20 +89,43 @@
 			, #{comment} )	
 	</insert>
 	
+	<delete id="boardDelete">
+		DELETE FROM board
+		 WHERE board_idx = #{board_idx} 
+	</delete>
+	
 	<select id="selectComment">
 		 SELECT 
 		 		cmt_content
-		      , member_name 	    
+		      , member_id	    
 		   FROM comment c 
 		   JOIN member m ON c.member_idx = m.member_idx
 		  WHERE c.board_idx = #{board_idx} 
+	   ORDER BY cmt_idx desc
 		   
 	</select>
 	
-	<select id="countComment">
-		SELECT count(*)
-		  FROM comment c
-	 	  JOIN member m ON c.member_idx = m.member_idx
-		 WHERE c.board_idx = #{board_idx} 
-	</select>
+<!-- 	<select id="countComment"> -->
+<!-- 		SELECT count(*) -->
+<!-- 		  FROM comment c -->
+<!-- 	 	  JOIN member m ON c.member_idx = m.member_idx -->
+<!-- 		 WHERE c.board_idx = #{board_idx}  -->
+<!-- 	</select> -->
+
+	<!-- 댓글 개수 업데이트 -->
+	<update id="updateCommentCount">
+		UPDATE board
+      	   SET cmt_count = (SELECT COUNT(*) 
+                                FROM comment 
+                               WHERE board_idx = #{board_idx})
+         WHERE board_idx = #{board_idx}
+	</update>
+
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseViewCount">
+		UPDATE board
+		   SET board_viewcnt = board_viewcnt + 1
+		 WHERE board_idx = #{board_idx}
+	</update>
 </mapper>	

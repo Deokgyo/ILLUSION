@@ -66,22 +66,46 @@
 					</button>
 				</div>
 				<div class="filter-tags">
-					<c:forEach var="list" items="${categoryList }">
-		                <option class="tag-item" value="자소서 팁">${list}</option>
+					<c:forEach var="category" items="${categoryList }">
+		                <a href="communityMain?categoryCode=${category.code}"
+		                  class="tag-item ${empty param.categoryCode && category.code eq 'BRD001' 
+                  							|| param.categoryCode eq category.code ? 'active' : ''}">
+		                	${category.code_name}
+		                </a>
 	                </c:forEach>
 				</div>
 			</div>
 			
 			<!-- 정렬 및 글쓰기 버튼 -->
 			<div class="board-actions">
-				<div class="sort-options">
-					<ul>
-						<li class="active"><a>조회순</a></li>
-						<li><a>최신순</a></li>
-					</ul>
-				</div>
-				<a href="communityWrite" class="btn btn-yellow"><i
-					class="fa-regular fa-pen-to-square"></i> 글쓰기</a>
+			    <div class="sort-options">
+			        <ul>
+			            <c:url var="latestSortUrl" value="communityMain">
+			                <c:if test="${not empty selectedCategoryCode}">
+			                    <c:param name="categoryCode" value="${selectedCategoryCode}" />
+			                </c:if>
+			                <c:param name="sort" value="latest" />
+			            </c:url>
+			
+			            <li class="${empty sort or sort == 'latest' ? 'active' : ''}">
+			                <a href="${latestSortUrl}">최신순</a>
+			            </li>
+			            
+			            <c:url var="viewsSortUrl" value="communityMain">
+			                <c:if test="${not empty selectedCategoryCode}">
+			                    <c:param name="categoryCode" value="${selectedCategoryCode}" />
+			                </c:if>
+			                <c:param name="sort" value="views" />
+			            </c:url>
+			            
+			            <li class="${sort == 'views' ? 'active' : ''}">
+			                <a href="${viewsSortUrl}">조회순</a>
+			            </li>
+			        </ul>
+			    </div>
+			    <a href="communityWrite" class="btn btn-yellow">
+			        <i class="fa-regular fa-pen-to-square"></i> 글쓰기
+			    </a>
 			</div>
 			<hr class="hr-11">
 
@@ -101,9 +125,9 @@
 								</p>
 							</div>
 							<div class="post-meta">
-								<span class="meta-item"><i
-									class="fa-regular fa-comment-dots"></i> ${board.cmt_count }</span> <span
-									class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 ${board.board_viewcnt }</span>
+								<span class="meta-item"><i class="fa-regular fa-comment-dots"></i>댓글 ${board.cmt_count }&nbsp; |</span> 
+								<span class="meta-item"><i class="fa-regular fa-eye"></i>조회수 ${board.board_viewcnt }&nbsp; |</span>
+								<span class="meta-item">작성일 ${board.board_create_at }</span>
 							</div>
 						</div>
 					</div>

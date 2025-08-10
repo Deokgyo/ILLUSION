@@ -40,31 +40,30 @@
             <div class="post-detail-container">
                 <!-- 게시글 영역 -->
                 <div class="post-header">
-<!--                     <div class="post-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div> -->
                     <div class="post-author-profile"><img src="${pageContext.request.contextPath}/resources/image/logop.png"/></div>
 
                     <div class="post-title-area">
-                        <div class="author-name"></div>
-                        <h2 class="post-title"></h2>
+                        <div class="author-name">${board.member_id }</div>
+                        <h2 class="post-title">${board.board_title }</h2>
                     </div>
-                    <div class="post-date"></div>
+                    <div class="post-date">작성일&nbsp;|  ${board.board_create_at }</div>
                 </div>
                 
                 <div class="divider"></div>
 
-                <div class="post-body"></div>
+                <div class="post-body">${board.board_content }</div>
                 
 				<div class="post-btn">
 					    <div class="post-actions">
                         <!-- 작성자 본인일 경우 노출 -->
                         <a href="communityModify" class="btn btn-yellow">수정</a>
-                        <a href="#" class="btn btn-yellow">삭제 </a>
+                        <button id="delete_btn" class="btn btn-yellow">삭제</button>
                     </div>
 				</div>
                 <div class="post-footer">
                     <div class="post-meta-info">
-                        <span><i class="fa-regular fa-comment-dots"></i> 3</span>
-                        <span><i class="fa-regular fa-eye"></i></span>
+<!--                         <span><i class="fa-regular fa-comment-dots"></i> 3</span> -->
+                        <span><i class="fa-regular fa-eye"></i> ${board.board_viewcnt }</span>
                     </div>
                 </div>
                 <!--// 게시글 영역 -->
@@ -81,15 +80,13 @@
 	                    </div>
 	                    
 	                    <div class="comment-list">
-<%-- 	                    <c:forEach var="cmt" items=""> --%>
-		                        <div class="comment-item">
-		                            <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
-		                            <div class="comment-content">
-		                                <div class="author-name"></div>
-		                                <p class="comment-text"></p>
-		                            </div>
-		                        </div>
-<%-- 	                    </c:forEach> --%>
+	                        <div class="comment-item">
+	                            <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
+	                            <div class="comment-content">
+	                                <div class="author-name"></div>
+	                                <p class="comment-text"></p>
+	                            </div>
+	                        </div>
 	                    </div>
 	                </div>
                 </form>
