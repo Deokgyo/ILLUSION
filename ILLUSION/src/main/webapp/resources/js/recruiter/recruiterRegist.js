@@ -170,9 +170,10 @@ function handleSearchInput() {
 const occupationsData = {
 	  design: { 
 	    name: '디자인',
+	    code: 'JOB002',
 	    jobs: [
-	      { code: 'graphic', label: '그래픽 디자인' },
-	      { code: 'uiux', label: 'UI/UX 디자인' },
+	      { code: 'JOB002002', label: '그래픽 디자인' },
+	      { code: 'JOB002001', label: 'UI/UX 디자인' },
 	      { code: '3d', label: '3D 디자인' },
 	      { code: 'product_design', label: '제품 디자인' },
 	      { code: 'animation', label: '애니메이션' }
@@ -180,11 +181,12 @@ const occupationsData = {
 	  },
 	  developer: {
 	    name: '개발',
+	    code: 'JOB001',
 	    jobs: [
-	      { code: 'frontend', label: '프론트엔드 개발' },
-	      { code: 'backend', label: '백엔드 개발' },
+	      { code: 'JOB001001', label: '프론트엔드 개발' },
+	      { code: 'JOB001002', label: '백엔드 개발' },
 	      { code: 'fullstack', label: '풀스택 개발' },
-	      { code: 'app', label: '앱 개발' },
+	      { code: 'JOB001003', label: '앱 개발' },
 	      { code: 'game', label: '게임 개발' },
 	      { code: 'pc_repair', label: '컴퓨터 수리공' }
 	    ]
@@ -265,7 +267,7 @@ const occupationsData = {
 			.html($occupationName)
 			.attr('data-value',$occupationKey);
 		// 카테고리에 넣기 
-		$('#occupations').append( $occupationDiv)
+		$('#occupations').append($occupationDiv)
 	});
 		
 	//3-2) 세부직무 렌더링
@@ -301,28 +303,43 @@ const occupationsData = {
 		renderJobs($activeKey); // 소분류 렌더링 함수 실행
 	}
 	
-	//4-2) 세부 직무 부분 온클릭 이벤트  	
-	$(document).on('click', '.job', jobActive);
-	// * 가독성을 위해 함수 선언부를 분리하였음 
-	function jobActive () {
-		let $jobvalue = "";
-		if (!($(this).hasClass('active'))) {
-			$(this).addClass('active');
-			// 5. 활성화 된 값 input hidden value에 넣기 
-			$jobvalue = $('.job.active').map(function() {
-				return $(this).data('code');
-			}).get().join(', ');
-			console.log('잡밸류값' + $jobvalue);
-			$('#selected-occupation').val($jobvalue);
+	//4-2) 세부 직무 부분 온클릭 이벤트  & 인풋 타입 히든에 값 넣기 	
+	$(document).on('click', '.job', function () {
+		jobActive(this);
+		updateJobValue();
+	});
+	
+	function jobActive (el) {
+		if (!($(el).hasClass('active'))) {
+			$(el).addClass('active');
 		} else {
-			$(this).removeClass('active');
+			$(el).removeClass('active');
 		}
 	}	
 	
+	// 5. 활성화 된 값 input hidden value에 넣기 
+	function updateJobValue () {
+		let $jobValue = $('.job.active').map(function() {
+			return $(this).data('code');
+			}).get().join(', ');
+		$('#selected-occupation').val($jobValue);
+	}
+
+	//-------------------------------------------------------- 
+	//                   채용 인원 관련  
+	//-------------------------------------------------------- 
+	let hireNum = $('[name="recruit_hiring_num"]');
+	let undecided =$('#undecided');
+	hireNum.attr({min: 0, step: 1});
+	undecided.on('click', setUndecided);
 	
-  //-------------------------------------------------------- 
-  //                   세부 공고 내용 관련 js  
-  //-------------------------------------------------------- 
+	function setUndecided () {
+		let check = undecided.is(':checked');
+		hireNum.prop('disabled', check).val(check ? 0 : '');
+	}
+//-------------------------------------------------------- 
+//                   세부 공고 내용 관련 js  
+//-------------------------------------------------------- 
 	
 	 //실제로 사용자가 작성한 세부 내용이 전달되기 위한 설정 
   $('form').on('submit', () => {

@@ -155,10 +155,10 @@
         		<div class="title-undefined">
 	        		<i class="fa-solid fa-street-view icon"></i>
 	        		<h3 class="title">채용 인원</h3>
-	        		<input class="form-check-input" type="checkbox" id="check-direct-input">
+	        		<input class="form-check-input" type="checkbox" id="undecided">
 	        		<span>미정(0명)</span>
         		</div>
-	            <input type="text" name="recruit_subject" class="form-control" placeholder="채용인원 입력(단위:명)">
+	            <input type="number" name="recruit_hiring_num" class="form-control" placeholder="채용인원 입력(단위:명)">
         	</section>
         	<%-- -------------------------------채용 인원 섹션 끝----------------------------- --%>
         	<%-- -------------------------------경력 섹션 ---------------------------------- --%>
