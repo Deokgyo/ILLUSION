@@ -25,4 +25,15 @@ public class RecruiterService {
 		return mapper.getlocDetailList(location);
 	}
 	
+	
+	// 직무 대분류 가져오기 
+	public List<Map<String, String>> getOccupation() {
+		return mapper.getOccupation();
+	}
+	
+	// 직무 소분류 가져오기 
+	
+	public List<Map<String, String>> getJobList(String occupation) {
+		return mapper.getJobList(occupation);
+	}
 }

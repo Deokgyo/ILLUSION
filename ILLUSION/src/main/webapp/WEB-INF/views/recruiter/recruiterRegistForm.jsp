@@ -132,9 +132,11 @@
 				    <div class="category-column">
 				        <h4 class="col-title">직무 카테고리</h4>
 				        <div class="category-options" id="occupations">
+				        	<c:forEach var="occupation" items="${occupationList}">
+					    		<div class="option-btn occupation" data-value="${occupation.code}">${occupation.code_name}</div>
+					    	</c:forEach>
 <!-- 				            <div class="option-btn occupation">디자인</div> -->
 <!-- 				            <div class="option-btn active">개발자</div> -->
-<!-- 				            <div class="option-btn">마케팅</div> -->
 				        </div>
 				    </div>			
                    <div class="category-column">
@@ -271,14 +273,6 @@
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegistForm.js"></script>
 	 <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
-	    <script>
-      const picker = new easepick.create({
-        element: document.getElementById('datepicker'),
-        css: [
-          'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
-        ],
-      });
-    </script>
 	
 </body>
 </html>
