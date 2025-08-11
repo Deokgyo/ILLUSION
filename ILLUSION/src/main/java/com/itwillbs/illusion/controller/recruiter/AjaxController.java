@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itwillbs.illusion.service.RecruiterService;
 
 @RestController
-public class LocationController {
+public class AjaxController {
 	
 	@Autowired
 	RecruiterService service;
 	
 	@GetMapping("getlocDetailList")
 	public List<Map<String, String>> getlocDetailList(@RequestParam String location) {
-		// location 대분류 val 값을 가져와서 이거 쿼리문에 써야함 
-		// 값을 보내기 위해 리스트에 담음 
 		List<Map<String, String>> locDetailList = service.getlocDetailList(location);
-		
-		System.out.println(locDetailList);
-//		List<Map<String, String>> locDetailList = new ArrayList<Map<String,String>>();
-		
 		return locDetailList;
+	}
+	
+	@GetMapping("getJobList")
+	public List<Map<String, String>> getJobList(@RequestParam String occupation) {
+		List<Map<String, String>> getJobList = service.getJobList(occupation);
+		return getJobList;
 	}
 }
