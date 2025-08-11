@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itwillbs.illusion.mapper.RecruiterMapper">
+	
+	<!-- 대분류 값 가져오기  -->
+	<select id="getLocation">
+		SELECT code, code_name
+		  FROM common_code
+		 WHERE code_group_id = 'location'
+		   AND parent_code_id is null;
+	</select>
+	
+	<!-- 소분류값 가져오기 -->
+	<select id="getlocDetailList">
+		SELECT code, code_name
+		  FROM common_code
+		 WHERE code_group_id = 'location'
+		<choose>
+		  <when test="location != null">
+		    AND (
+		      (#{location} REGEXP '^[0-9]+$' AND parent_code_id = #{location})
+		      OR
+		      (#{location} NOT REGEXP '^[0-9]+$' AND code_name LIKE CONCAT('%', #{location}, '%'))
+		    )
+		  </when>
+		  <otherwise>
+		  	and 1 = 1
+		  </otherwise>
+		</choose>
+	</select>
+
+
+
+
+
+
+
+</mapper>

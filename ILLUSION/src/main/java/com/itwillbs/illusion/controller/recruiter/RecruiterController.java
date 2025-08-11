@@ -1,14 +1,25 @@
 package com.itwillbs.illusion.controller.recruiter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.illusion.service.RecruiterService;
 import com.itwillbs.illusion.vo.RecruitVO;
 
 @Controller
-public class Recruiter {
-
+public class RecruiterController {
+	
+	@Autowired
+	RecruiterService service;
 	
 	// 기업 메인 페이지로 이동 
 	@GetMapping("recruiterMain") 
@@ -30,9 +41,13 @@ public class Recruiter {
 	
 	// 공고 등록 페이지로 이동함 
 	@GetMapping("recruiterRegistForm")
-	public String recruiterRegistForm() {
+	public String recruiterRegistForm(Model model) {
+		// 디비 공통코드에서 주소 값 가져오기 
+		List<Map<String, String>> locationList = service.getLocation();
+		model.addAttribute("locationList", locationList);
 		return "recruiter/recruiterRegistForm";
 	}
+	
 	
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")

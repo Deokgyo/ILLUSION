@@ -1,60 +1,90 @@
 $(function () {
-  // 1. 데이터
-  const locationsData = {
-    'seoul': { name: '서울', subregions: ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'] },
-    'busan': { name: '부산', subregions: ['강서구', '금정구', '기장군', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구'] },
-    'daegu': { name: '대구', subregions: ['남구', '달서구', '달성군', '동구', '북구', '서구', '수성구', '중구'] },
-    'incheon': { name: '인천', subregions: ['연수구', '남동구'] }
-  }; 
-  // 2. 요소 선택
-  const $majorRegionListEl = $('#major-region-list');
-  const $subRegionListEl = $('#sub-region-list');
-  const $searchInputEl = $('#search-input');
-  const $resetBtnEl = $('.filter-reset-btn');
-  const $checkAllCheckboxEl = $('#check-all-sub-regions');
-  const $selectedLocationsInputEl = $('#selected-locations');
-
-  // 3-1. 대분류 지역 렌더링
-  function renderMajorRegions() {
-    Object.keys(locationsData).forEach(key => {
-      const name = locationsData[key].name;
-      $('<li>')
-        .addClass('major-region-item')
-        .attr('data-region-code', key)
-        .text(name)
-        .appendTo($majorRegionListEl);
-    });
-  }
-  renderMajorRegions();
-
-  // 3-2. 소분류 지역 렌더링
-  function renderSubRegions(regionCode) {
-    $subRegionListEl.empty();
-    const region = locationsData[regionCode];
-    if (!region) return;
+	//1. 제출시 유효성 검사 
+	$('form').on('submit', validCheck);
+	function validCheck(e) {
+	  let isValid = true;
+	 console.log($('.valid'));	
+	  $('.valid').each(function() {
+	    if ($(this).val().trim() == '') {
+		 console.log($('.valid').val());	
+	      alert('모든 항목을 입력해주세요!');
+	      isValid = false;
+	      return false; // .each 중단
+	    }
+	  });
 	
-    region.subregions.forEach((subregion, index) => {
-      const $label = $('<label>');
-      const $checkbox = $('<input type="checkbox" class="checkbox">').val(`${region.name} ${subregion}`);
-//      if (index === 0) {
-//        $checkbox.attr('data-is-select-all', 'true');
-//      }
-      $label.append($checkbox).append(`${subregion}`).addClass('sub');
-      $subRegionListEl.append($label);
-    });
-  }
+	  if (!isValid) {
+	    e.preventDefault(); // 이벤트 한 번만 막기
+		debugger;
+	  }
+	}
 
-  // 이벤트 핸들러: 대분류 클릭
-  function handleMajorRegionClick(e) {
-    const $target = $(e.target);
-    if (!$target.hasClass('major-region-item')) return;
+  	// 2. 요소 선택
+	const $majorRegionListEl = $('#major-region-list');
+	const $subRegionListEl = $('#sub-region-list');
+	const searchInputEl = $('#search-input');
+	const $resetBtnEl = $('.filter-reset-btn');
+	const $checkAllCheckboxEl = $('#check-all-sub-regions');
+	const $selectedLocationsInputEl = $('#selected-locations');
 
-    $('.major-region-item').removeClass('active');
-    $target.addClass('active');
+  	// 3. 이벤트 연결
+	$majorRegionListEl.on('click', handleMajorRegionClick);
+	$subRegionListEl.on('change', handleSubRegionChange);
+	$checkAllCheckboxEl.on('change', function () {
+		const checked = $(this).is(':checked');
+		$subRegionListEl.find('input[type="checkbox"]').prop('checked', checked);
+		updateSelectedValues();
+	});
+	$resetBtnEl.on('click', handleResetClick);
+	searchInputEl.on('keyup', handleSearchInput);
 
-    const regionCode = $target.data('region-code');
-    renderSubRegions(regionCode);
-    updateCheckAllState();
+	// 3-1. 대분류 지역 렌더링
+	// => el 식으로 대체함 
+
+	// 대분류 클릭 함수 
+	function handleMajorRegionClick(e) {
+	    const $target = $(e.target);
+	    // 클릭시 active 효과 주기 
+	    if (!$target.hasClass('major-region-item')) return;
+	    $('.major-region-item').removeClass('active');
+	    $target.addClass('active');
+		// 클릭시 세부 데이터 가져오기 
+		const location = $(e.target).val();
+		ajaxReq('getlocDetailList', 'GET', 'location', location, renderSubRegions);
+		
+	    updateCheckAllState();
+	}
+  
+  	// ajax 호출 함수 
+	function ajaxReq(url, method, key, value, func) {
+		$.ajax({
+			url: url,
+			method: method,
+			data: { [key] : value },
+			dataType: 'json',
+			success: function(res) {
+				if (value == '') {
+					console.log(value);
+					$('.sub').hide();
+				} else {
+					func(res);
+				}
+			},
+			error : function() {
+				alert('실패!');
+			}	
+		});
+	}
+  
+  
+  // 3-2. 소분류 지역 렌더링 함수
+  function renderSubRegions(locDetailList) {
+	$('#sub-region-list').empty();
+	let sub = [];
+	for (let loc of locDetailList) {
+		sub.push($(`<label class="sub"><input type="checkbox" class="checkbox" value='${loc.code}'>${loc.code_name}</label>`));
+	}
+		$('#sub-region-list').append(sub);
   }
 
   // 이벤트 핸들러: 소분류 변경
@@ -79,66 +109,24 @@ $(function () {
   }
 
   // 검색 필터
-function handleSearchInput() {
-  const searchTerm = $searchInputEl.val().toLowerCase();
-
-  // 모든 대분류 비활성화
-  $('.major-region-item').removeClass('active');
-
-  // 1. 대분류 이름과 매칭되는 경우
-  let matchedRegionCode = null;
-
-  // 대분류 이름으로 매칭되는지 먼저 확인
-  Object.keys(locationsData).forEach(regionCode => {
-    const region = locationsData[regionCode];
-    const regionName = region.name.toLowerCase();
-
-    if (regionName.includes(searchTerm) && !matchedRegionCode) {
-      matchedRegionCode = regionCode;
-    }
-  });
-
-  if (matchedRegionCode) {
-    // 대분류 검색일 경우 → 전체 구 보여줌
-    renderSubRegions(matchedRegionCode);
-    $(`.major-region-item[data-region-code="${matchedRegionCode}"]`).addClass('active');
-    $('.sub').show(); // 모든 구 다 보이기
-    return;
-  }
-
-  // 2. 대분류 이름이 아니면, 구 이름으로 검색
-  Object.keys(locationsData).forEach(regionCode => {
-    const region = locationsData[regionCode];
-    const hasMatch = region.subregions.some(sub => sub.toLowerCase().includes(searchTerm));
-    if (hasMatch && !matchedRegionCode) matchedRegionCode = regionCode;
-  });
-
-  if (matchedRegionCode) {
-    renderSubRegions(matchedRegionCode);
-    $(`.major-region-item[data-region-code="${matchedRegionCode}"]`).addClass('active');
-
-    // 구 이름 필터링
-    $('.sub').each(function () {
-      const text = $(this).text().toLowerCase();
-      $(this).toggle(text.includes(searchTerm));
-    });
-  } else {
-    // 검색어로 아무것도 못 찾으면 전체 숨김
-    $('.sub').hide();
-  }
-}
-
+	function handleSearchInput() {
+	// 사용자가 값을 검색하면 그 값과 일치하는 code_name 값을 가진 데이터를 디비에서 불러와서 출력함 이것도 ajax 네 ... 
+	// 사용자가 검색한 값 변수에 저장함 
+		let keyword = searchInputEl.val().trim();
+		ajaxReq('getlocDetailList', 'GET', 'location', keyword, renderSubRegions);
+	}
+	
   // 체크 상태 동기화
-  function updateCheckAllState() {
-    const $all = $subRegionListEl.find('input[type="checkbox"]:not([data-is-select-all])');
-    const $checked = $all.filter(':checked');
-    const $selectAllInList = $subRegionListEl.find('input[data-is-select-all]');
-
-    const isAllChecked = $all.length > 0 && $all.length === $checked.length;
-
-    $selectAllInList.prop('checked', isAllChecked);
-    $checkAllCheckboxEl.prop('checked', isAllChecked);
-  }
+	function updateCheckAllState() {
+	    const $all = $subRegionListEl.find('input[type="checkbox"]:not([data-is-select-all])');
+	    const $checked = $all.filter(':checked');
+	    const $selectAllInList = $subRegionListEl.find('input[data-is-select-all]');
+	
+	    const isAllChecked = $all.length > 0 && $all.length === $checked.length;
+	
+	    $selectAllInList.prop('checked', isAllChecked);
+	    $checkAllCheckboxEl.prop('checked', isAllChecked);
+	}
 
   // 선택된 값 hidden input에 반영
   function updateSelectedValues() {
@@ -150,16 +138,6 @@ function handleSearchInput() {
     $selectedLocationsInputEl.val(values);
   }
 
-  // 이벤트 연결
-  $majorRegionListEl.on('click', handleMajorRegionClick);
-  $subRegionListEl.on('change	', handleSubRegionChange);
-  $checkAllCheckboxEl.on('change', function () {
-    const checked = $(this).is(':checked');
-    $subRegionListEl.find('input[type="checkbox"]').prop('checked', checked);
-    updateSelectedValues();
-  });
-  $resetBtnEl.on('click', handleResetClick);
-  $searchInputEl.on('input', handleSearchInput);
   
   
   //-------------------------------------------------------- 

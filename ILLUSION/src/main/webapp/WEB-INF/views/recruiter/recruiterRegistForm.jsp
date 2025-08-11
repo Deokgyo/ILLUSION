@@ -44,7 +44,7 @@
 			            <i class="icon fa-regular fa-pen-to-square icon"></i>
 			            <h3 class="title">제목</h3>
 		            </div>
-		            <input type="text" name="recruit_subject" class="form-control" placeholder="제목을 입력해주세요 (50자 이내)">
+		            <input type="text" id="subject" name="recruit_subject" class="form-control valid" placeholder="제목을 입력해주세요 (50자 이내)">
 				</section>
 				
 				<%-- 채용 유형 섹션--%>
@@ -53,7 +53,7 @@
 						<i class="fas fa-business-time icon"></i>
 						<h3 class="title">채용 유형</h3>
 					</div>
-		        	<select name="recruit_type" class="form-select category-select" required>
+		        	<select name="recruit_type" class="form-select category-select valid" required>
 		        		<option disabled selected>채용 유형 선택</option>
 		        		<option value="RCT001">정규직</option>
 		        		<option value="RCT002">계약직</option>
@@ -70,7 +70,7 @@
 			        	<i class="fa-regular fa-clock icon"></i>
 			        	<h3 class="title">근무 시간</h3>
 		        	</div>
-		        	<select name="workTime" class="form-select category-select" required>
+		        	<select name="workTime" class="form-select category-select valid" required>
 		        		<option disabled selected>근무 시간 선택</option>
 		        		<option value="WT001">09:00 ~ 18:00</option>
 		        		<option value="WT002">09:00 ~ 13:00</option>
@@ -88,15 +88,18 @@
 	        	</div>
 	        	<div class="location-part">
 				    <%-- 상단 검색창 --%>
-				    <div class="location-search-bar_my">
-	                		<input type="text" class="form-control" id="search-input" placeholder="지역을 입력하세요">
-				    </div>
+<!-- 				    <div class="location-search-bar_my"> -->
+<!-- 	                		<input type="text" class="form-control" id="search-input" placeholder="지역을 입력하세요"> -->
+<!-- 				    </div> -->
 			    	
 					<%-- 근무 지역 셀렉트박스--%>
 					<%-- 왼쪽: 시/도 목록 --%>
 					<div class="region-panel-left">
 						<ul id="major-region-list">
 					    <%-- 이 부분은 JS로 동적 생성하거나, JSP로 직접 출력할 수 있습니다. --%>
+					    	<c:forEach var="location" items="${locationList}">
+					    		<li class="major-region-item" value="${location.code}">${location.code_name}</li>
+					    	</c:forEach>
 <!-- 							<li class="major-region-item" data-region-code="seoul">서울</li> -->
 <!-- 							<li class="major-region-item" data-region-code="busan">부산</li> -->
 <!-- 							<li class="major-region-item" data-region-code="daegu">대구</li> -->
@@ -114,7 +117,7 @@
 						<div class="filter-options" id="sub-region-list">
 						<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
 						</div>
-						<input type="hidden" id="selected-locations" name="full_address">
+						<input type="hidden" id="selected-locations" class="valid" name="full_address">
 					</div>
 				</div>
         	</section>
@@ -146,7 +149,7 @@
 <!--                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div> -->
 <!--                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div> -->
                      </div>
-                     <input type="hidden" id="selected-occupation" name="occupation">
+                     <input type="hidden" id="selected-occupation" class="valid" name="occupation">
 	           </div>
 			</section>
         	<%-- -------------------------------직무 선택 섹션 끝--------------------------- --%>
@@ -158,7 +161,7 @@
 	        		<input class="form-check-input" type="checkbox" id="undecided">
 	        		<span>미정(0명)</span>
         		</div>
-	            <input type="number" name="recruit_hiring_num" class="form-control" placeholder="채용인원 입력(단위:명)">
+	            <input type="number" name="recruit_hiring_num" class="form-control valid" placeholder="채용인원 입력(단위:명)">
         	</section>
         	<%-- -------------------------------채용 인원 섹션 끝----------------------------- --%>
         	<%-- -------------------------------경력 섹션 ---------------------------------- --%>
@@ -167,7 +170,7 @@
 		        	<i class="fa-solid fa-briefcase icon"></i>
 		        	<h3 class="title">경력 조건</h3>
 	        	</div>
-	        	<select name="experience" class="form-select category-select" required>
+	        	<select name="experience" class="form-select category-select valid" required>
 	        		<option disabled selected>경력 조건 선택</option>
 	        		<option value="EXP001">신입</option>
 	        		<option value="EXP002">1~3년차</option>
@@ -184,7 +187,7 @@
 			        	<i class="fa-solid fa-briefcase icon"></i>
 			        	<h3 class="title">학력</h3>
 		        	</div>
-		        	<select name="category" class="form-select category-select" required>
+		        	<select name="category" class="form-select category-select valid" required>
 		        		<option disabled selected>학력 선택</option>
 		        		<option value="DEG001">고등학교 졸</option>
 		        		<option value="DEG002">전문대 졸</option>
@@ -201,7 +204,7 @@
 			        	<i class="fa-solid fa-hand-holding-dollar icon"></i>
 			        	<h3 class="title">급여</h3>
 		        	</div>
-		        	<select name="salary" class="form-select category-select" required>
+		        	<select name="salary" class="form-select category-select valid" required>
 		        		<option disabled selected>급여 선택</option>
 		        		<option value="SAL001">2000만원 이하</option>
 		        		<option value="SAL002">2000 ~ 3000만원</option>
@@ -230,7 +233,7 @@
 				<div class="editor" id="editor" contenteditable="true">
 				  담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요.
 				</div>
-				<textarea name="content" id="hiddenContent" hidden></textarea>
+				<textarea name="content" id="hiddenContent" class="valid" hidden></textarea>
 <!-- 	            <textarea name="content" placeholder="담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요."></textarea> -->
        		</section>
        		<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%>            
@@ -240,7 +243,7 @@
 	            	<i class="fa-regular fa-calendar-days icon"></i>
 	            	<h3 class="title">공고 마감 날짜</h3>
 	            </div>
-	            	<input type="date" name="end_date" class="form-control" placeholder="날짜 선택"/>
+	            	<input type="date" name="end_date" class="form-control valid" placeholder="날짜 선택"/>
 	        </section>    
        		<%----------------------------------마감 날짜 섹션 끝---------------------------- --%>
        		<%----------------------------------문의 email 섹션------------------------------ --%>
@@ -253,7 +256,7 @@
 <!--        		</section> -->
        		<%----------------------------------문의 email 섹션 끝---------------------------- --%>
         	<div class="btn-container">
-        		<button class="btn-yellow"> 제출 </button>
+        		<input type="submit" id="submit" class="btn-yellow" value="제출">
         	</div>
         	</form>
         </div>
@@ -266,7 +269,7 @@
 	
 	<%-- js 관련 설정들 --%>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegist.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegistForm.js"></script>
 	 <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
 	    <script>
       const picker = new easepick.create({

@@ -259,7 +259,7 @@ column-gap: 10px;
 #major-region-list {
   list-style: none;
   margin: 0;
-  padding: 10px 0;
+  padding: 0px 0px;
 }
 .major-region-item {
   padding: 12px 20px;
