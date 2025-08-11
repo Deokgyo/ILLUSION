@@ -14,16 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MailClient {
+public class ilMailClient {
 
 	@Autowired
-	private MailAuth mailAuth;
+	private ilMailAuth mailAuth;
 
 	// 메일 발송에 사용될 설정 정보
 	private final String HOST = "smtp.gmail.com"; // 메일 발송 서버 주소
 	// => 메일 송신 프로토콜: SMTP(Simple Mail Transfer Protocol) <-> 수신 프로토콜: POP3, IMAP
 	private final String PORT = "587"; // Gmail SMTP 서비스 포트번호(각 메일 서버마다 번호 다름)
-	private final String SENDER_ADDRESS = "dwcha6005@gmail.com"; // 발신자 메일 주소
+	private final String SENDER_ADDRESS = "wldnjs010309@gmail.com"; // 발신자 메일 주소
 
 	public void sendMail(String receiver, String subject, String content) {
 
@@ -53,7 +53,7 @@ public class MailClient {
 
 			// 6. 전송할 메일에 대한 상세 내용 설정
 			// 1) 발신자 정보 설정
-			Address senderAddr = new InternetAddress(SENDER_ADDRESS, "아이티윌");
+			Address senderAddr = new InternetAddress(SENDER_ADDRESS, "일루션");
 			// => UnsupportedEncodingException 예외 처리 필요
 			// => 기본적으로 상용 메일 서비스에서는 발신자 메일 주소 변경이 불가능(스팸메일 정책 때문)
 			// 다른 메일 주소를 입력하더라도 실제 SMTP 서버에 로그인되는 계정으로 발송됨

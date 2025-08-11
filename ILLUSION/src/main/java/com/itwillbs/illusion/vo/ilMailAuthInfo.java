@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
  * */
 @Data
 @AllArgsConstructor
-public class MailAuthInfo {
+public class ilMailAuthInfo {
 
 	private String email;
 	private String auth_code;

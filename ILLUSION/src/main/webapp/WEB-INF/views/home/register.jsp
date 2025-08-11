@@ -108,30 +108,25 @@
 					찾기</button>
 			</div>
 			<div class="form-row addr">
-				<input type="text" id="address1" name="address1"
-					placeholder="주소를 입력해 주세요">
+				<input type="text" id="address1" name="address1" placeholder="주소를 입력해 주세요">
 			</div>
 			<div class="form-row addr">
-				<input type="text" id="address2" name="address2"
-					placeholder="나머지 주소">
+				<input type="text" id="address2" name="address2" placeholder="나머지 주소">
 			</div>
 			<div class="form-row flex-row">
 				<div class="flex-half">
 					<label for="email">이메일 주소</label>
 					<div class="email-flex">
 						<input type="email1" id="email" placeholder="이메일 입력" required>
-						<button type="button" class="btn-yellow1" id="email-btn">인증
-							메일 발송</button>
+						<button type="button" class="btn-yellow1" id="email-btn">인증 메일 발송</button>
 					</div>
 				</div>
 			</div>
 			<div class="flex-half">
 				<label for="emailcode">인증번호 확인</label>
 				<div class="email-flex">
-					<input type="email2" id="emailcode" maxlength="6"
-						placeholder="인증번호를 입력하세요">
-					<button type="button" class="btn-yellow1" id="emailcode-btn">인증
-						번호 확인</button>
+					<input type="email2" id="emailcode" maxlength="6" placeholder="인증번호를 입력하세요">
+					<button type="button" class="btn-yellow1" id="checkAuthBtn">인증 번호 확인</button>
 				</div>
 			</div>
 

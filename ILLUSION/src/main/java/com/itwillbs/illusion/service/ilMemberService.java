@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itwillbs.illusion.mapper.MemberMapper;
-import com.itwillbs.illusion.vo.MailAuthInfo;
-import com.itwillbs.illusion.vo.MemberVO;
+import com.itwillbs.illusion.mapper.ilMemberMapper;
+import com.itwillbs.illusion.vo.ilMailAuthInfo;
+import com.itwillbs.illusion.vo.ilMemberVO;
 
 @Service
-public class MemberService {
+public class ilMemberService {
 
 	@Autowired
-	MemberMapper mapper;
+	ilMemberMapper mapper;
 
-	public MemberVO getMemberInfo(String id) {
+	public ilMemberVO getMemberInfo(String id) {
 		return mapper.getMemberInfo(id);
 	}
 
@@ -28,11 +28,11 @@ public class MemberService {
 		return mapper.checkId(id);
 	}
 
-	public int insertMember(MemberVO member) {
+	public int insertMember(ilMemberVO member) {
 		return mapper.insertMember(member);
 	}
 
-	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo) {
+	public int insertMailAuthInfo(ilMailAuthInfo mailAuthInfo) {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
 
@@ -42,12 +42,12 @@ public class MemberService {
 	// (개발자가 별도로 commit 또는 rollback 작업을 지시하지 않아도 자동으로 처리)
 	// => 주의! root-context.xml 파일에 마이바티스 설정 항목에 트렌잭션 설정 추가 필요!
 	@Transactional
-	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
+	public boolean requestEmailAuth(ilMailAuthInfo mailAuthInfo) {
 
 		boolean isAuthSuccess = false;
 
 		// DB에 인증번호 select
-		MailAuthInfo dbMailAuthInfo = mapper.selectMailAuthInfo(mailAuthInfo);
+		ilMailAuthInfo dbMailAuthInfo = mapper.selectMailAuthInfo(mailAuthInfo);
 
 		if (dbMailAuthInfo != null) { // 이메일에 대한 인증코드가 존재할 경우
 			String auth_code = mailAuthInfo.getAuth_code();

@@ -50,7 +50,7 @@ $(document).ready(function() {
 		$("#userpw").on('keyup', checkUserPass);
 		$("#userpw2").on('keyup', checkUserPass2);
 
-		$('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
+//		$('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
 
 		function checkUserId() {
 			let id = $("#userid").val().trim()
@@ -152,6 +152,67 @@ $(document).ready(function() {
 		}
 	}); // 유효성
 
+	$(document).ready(function() {
 
+		let isEmailVerified = false; // 이메일 인증 성공 여부 저장 변수
+
+		// [1] 인증번호 발송 버튼 클릭 시 이벤트
+		$("#email-btn").click(function() {
+			const emailVal = $("#email").val().trim();
+			if (emailVal === "") {
+				alert("이메일을 입력하세요.");
+				return;
+			}
+
+			// 이메일 인증번호 발송 요청
+			$.ajax({
+				type: "POST",
+				url: "/member/email-auth",
+				data: JSON.stringify({ member_email: emailVal }),
+				contentType: "application/json",
+				success: function(res) {
+					if (res.result) {
+						alert("인증번호가 발송되었습니다. 이메일을 확인해주세요.");
+					} else {
+						alert("인증번호 발송에 실패했습니다.");
+					}
+				},
+				error: function() {
+					alert("서버와 통신 중 오류가 발생했습니다.");
+				}
+			});
+		});
+
+		// [2] 인증번호 확인 버튼 클릭 시 이벤트
+		$("#checkAuthBtn").click(function() {
+			const emailVal = $("#email").val().trim();
+			const codeVal = $("#emailcode").val().trim();
+
+			if (emailVal === "" || codeVal === "") {
+				alert("이메일과 인증번호를 모두 입력하세요.");
+				return;
+			}
+
+			// 인증번호 검증 요청
+			$.ajax({
+				type: "POST",
+				url: "/member/email-auth-check",
+				data: JSON.stringify({ email: emailVal, auth_code: codeVal }),
+				contentType: "application/json",
+				success: function(res) {
+					if (res.result) {
+						alert("이메일 인증 성공!");
+						isEmailVerified = true;
+					} else {
+						alert("인증번호가 맞지 않거나 만료되었습니다.");
+						isEmailVerified = false;
+					}
+				},
+				error: function() {
+					alert("서버와 통신 중 오류가 발생했습니다.");
+				}
+			});
+		});
+	});
 
 });

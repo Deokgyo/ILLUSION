@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MemberVO {
+public class ilMemberVO {
 	private int member_idx;
 	private String member_name;
 	private String member_id;

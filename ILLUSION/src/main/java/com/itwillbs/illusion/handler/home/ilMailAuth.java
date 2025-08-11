@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 // 자바 메일 기능 사용 시 메일서버(ex. 네이버, Gmail 등)
 // 인증을 위한 정보를 관리하는 클래스 정의
 @Component
-public class MailAuth extends Authenticator {
+public class ilMailAuth extends Authenticator {
 
 	PasswordAuthentication passwordAuthentication;
 	/*
@@ -30,7 +30,7 @@ public class MailAuth extends Authenticator {
 		 * */
 		
 		passwordAuthentication = new PasswordAuthentication(
-				"dwcha6005@gmail.com", "ercofutmkfzxtkzr");
+				"wldnjs010309@gmail.com", "xngkkyszqrgquybg");
 		
 		return passwordAuthentication;
 		
