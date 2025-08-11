@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,37 +66,26 @@
 					</div>
 
 					<!-- 게시물 항목 1 -->
+					<c:forEach var="board" items="${boardList}">
 					<div class="board-item">
 						<input type="checkbox"class="checkbox" />
-						<a href="communityDetail">
+						<a href="communityDetail?board_idx=${board.board_idx}&member_idx=1">
 						<div class="post-info">
-							<div class="post-title">아이티월 합격 하신 분</div>
+							<div class="post-title">${board.board_title}</div>
 							<div class="meta">
-								<span>25.07.25</span> <span>💬 3</span> <span>조회수 17</span>
+								<span>${board.board_create_at }</span> <span>💬${board.cmt_count }</span> <span>조회수${board.board_viewcnt } </span>
 							</div>
 							
 						</div>
 						</a>
 						<div class="post-actions">
-							<button class="edit-btn"onclick="location.href='communityWrite';">수정</button>
+							<button class="edit-btn"onclick="location.href='communityModify?board_idx=${board.board_idx}';">수정</button>
 							<button class="delete-btn" onclick="confirm('삭제 하시겠습니까?')">삭제</button>
 						</div>
 					</div>
-
-					<!-- 게시물 항목 2 -->
-					<div class="board-item">
-						<input type="checkbox" class="checkbox"/>
-						<div class="post-info">
-							<div class="post-title">자소서 합격 팁 좀 알려주세요</div>
-							<div class="meta">
-								<span>25.07.25</span> <span>💬 3</span> <span>조회수 17</span>
-							</div>
-						</div>
-						<div class="post-actions">
-							<button class="edit-btn"onclick="location.href='communityWrite';">수정</button>
-							<button class="delete-btn">삭제</button>
-						</div>
-					</div>
+					</c:forEach>
+					
+					
 
 					<!-- 나머지 항목 동일하게 추가 -->
 				</div>

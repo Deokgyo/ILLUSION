@@ -5,37 +5,103 @@
 
 <mapper namespace="com.itwillbs.illusion.mapper.ResumeMapper">
 
-    <insert id="insertResume" parameterType="map" useGeneratedKeys="true" keyProperty="resume_idx">
-        INSERT INTO resume (
-            member_idx,
-            resume_title,
-            resume_create_at,
-            resume_img,
-            school_name,
-            major,
-            grade,
-            degree,
-            enroll_date,
-            graduation_date
-        ) VALUES (
-            1,
-            #{resume_title},
-            NOW(),
-            #{resume_img},
-            #{school_name},
-            #{major},
-            #{grade},
-            #{degree},
-            #{enroll_date},
-            #{graduation_date}
-        )
-    </insert>
+	<insert id="insertResume" parameterType="map"
+		useGeneratedKeys="true" keyProperty="resume_idx">
+		INSERT INTO resume (
+		member_idx,
+		resume_title,
+		resume_create_at,
+		resume_img,
+		school_name,
+		major,
+		grade,
+		degree,
+		enroll_date,
+		graduation_date
+		) VALUES (
+		#{member_idx},
+		#{resume_title},
+		NOW(),
+		#{resume_img},
+		#{school_name},
+		#{major},
+		#{grade},
+		#{degree},
+		#{enroll_date},
+		#{graduation_date}
+		)
+	</insert>
+	<insert id="insertResume_exp_info" parameterType="map">
+		INSERT INTO resume_exp_info(
+		resume_idx,
+		company_name,
+		occupation,
+		position,
+		experience
+		) values(
+		#{resume_idx},
+		#{company_name},
+		#{occupation},
+		#{position},
+		#{experience}
+		)
 
-    <select id="selectResume" parameterType="int" resultType="map">
-        SELECT * FROM resume WHERE resume_idx = #{resume_idx}
-    </select>
-    <select id="selectMember" parameterType="int" resultType="map">
-        SELECT * FROM member WHERE member_idx = #{member_idx}
-    </select>
+	</insert>
 
+	<select id="selectResumeExpInfoList" parameterType="int"
+		resultType="map">
+		SELECT
+		resume_idx,
+		company_name,
+		occupation,
+		position,
+		experience
+		FROM
+		resume_exp_info
+		WHERE
+		resume_idx = #{resume_idx}
+	</select>
+	
+	<select id="selectResumelist" resultType="map">
+		SELECT resume_idx, resume_title, resume_create_at
+		FROM resume
+	</select>
+	
+	
+	<select id="selectResume" parameterType="int" resultType="map">
+		SELECT * FROM resume WHERE resume_idx = #{resume_idx}
+	</select>
+	
+
+	<select id="selectMember" parameterType="int" resultType="map">
+		SELECT * FROM member WHERE member_idx = #{member_idx}
+	</select>
+	
+	
+	
+	<!-- 예상면접질문 -->
+	<select id="questList" resultType="map">
+		SELECT question_idx, question_text, board_create_at, board_viewcnt,cmt_count
+		FROM question
+	</select>
+	
+	
+	
+	<!-- 커뮤니티 목록 -->
+	<select id="selectboard" resultType="map">
+		SELECT board_idx, board_title, board_create_at, board_viewcnt,cmt_count
+		FROM board
+	</select>
+	
+	
+	
+	<!-- 자소서 -->
+	<select id="selectcl" parameterType="int" resultType="map">
+		SELECT * FROM cover_letter WHERE cl_idx = #{cl_idx}
+	</select>
+	
+	<select id="selectcllist" resultType="map">
+		SELECT cl_idx, cl_title, generation_date
+		FROM cover_letter
+	</select>
 </mapper>

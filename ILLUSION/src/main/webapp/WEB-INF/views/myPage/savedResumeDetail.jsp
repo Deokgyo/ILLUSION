@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,18 +89,20 @@
         <thead>
           <tr>
             <th>회사명</th>
-            <th>직급</th>
-            <th>담당업무</th>
-            <th>근무기간</th>
+            <th>직위</th>
+            <th>직종</th>
+            <th>경력</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-          </tr>
+          <c:forEach var="exp" items="${resume_exp_info_list}">
+			  <tr>
+			    <td>${exp.company_name}</td>
+			    <td>${exp.position}</td>
+			    <td>${exp.occupation}</td>
+			    <td>${exp.experience}</td>
+			  </tr>
+			</c:forEach>
         </tbody>
       </table>
     </div>
