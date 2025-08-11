@@ -34,7 +34,6 @@ public class RecruiterController {
 	}
 	
 	
-	
 	// =======================================================================
 	// 							공고 등록 관련
 	// =======================================================================
@@ -45,9 +44,12 @@ public class RecruiterController {
 		// 디비 공통코드에서 주소 값 가져오기 
 		List<Map<String, String>> locationList = service.getLocation();
 		model.addAttribute("locationList", locationList);
+		
+		// 디비 직무 가져오기 
+		List<Map<String, String>> occupationList = service.getOccupation();
+		model.addAttribute("occupationList", occupationList);
 		return "recruiter/recruiterRegistForm";
 	}
-	
 	
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")

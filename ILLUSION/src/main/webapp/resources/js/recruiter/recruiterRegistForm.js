@@ -1,149 +1,23 @@
 $(function () {
-	//1. 제출시 유효성 검사 
-	$('form').on('submit', validCheck);
-	function validCheck(e) {
-	  let isValid = true;
-	 console.log($('.valid'));	
-	  $('.valid').each(function() {
-	    if ($(this).val().trim() == '') {
-		 console.log($('.valid').val());	
-	      alert('모든 항목을 입력해주세요!');
-	      isValid = false;
-	      return false; // .each 중단
-	    }
-	  });
-	
-	  if (!isValid) {
-	    e.preventDefault(); // 이벤트 한 번만 막기
-		debugger;
-	  }
-	}
-
-  	// 2. 요소 선택
-	const $majorRegionListEl = $('#major-region-list');
-	const $subRegionListEl = $('#sub-region-list');
-	const searchInputEl = $('#search-input');
-	const $resetBtnEl = $('.filter-reset-btn');
-	const $checkAllCheckboxEl = $('#check-all-sub-regions');
-	const $selectedLocationsInputEl = $('#selected-locations');
-
-  	// 3. 이벤트 연결
-	$majorRegionListEl.on('click', handleMajorRegionClick);
-	$subRegionListEl.on('change', handleSubRegionChange);
-	$checkAllCheckboxEl.on('change', function () {
+	// 제출 유효성 검사 
+	$('form').on('submit', onSubmitRequired);
+		
+	// 근무 지역 선택
+	$('#sub-region-list').on('change', handleSubRegionChange);
+	$('#major-region-list').on('click', handleMajorRegionClick);
+	$('.filter-reset-btn').on('click', handleResetClick);
+	$('#search-input').on('keyup', handleSearchInput);
+	$('#check-all-sub-regions').on('change', function () {
 		const checked = $(this).is(':checked');
-		$subRegionListEl.find('input[type="checkbox"]').prop('checked', checked);
+		$('#sub-region-list').find('input[type="checkbox"]').prop('checked', checked);
 		updateSelectedValues();
 	});
-	$resetBtnEl.on('click', handleResetClick);
-	searchInputEl.on('keyup', handleSearchInput);
-
-	// 3-1. 대분류 지역 렌더링
-	// => el 식으로 대체함 
-
-	// 대분류 클릭 함수 
-	function handleMajorRegionClick(e) {
-	    const $target = $(e.target);
-	    // 클릭시 active 효과 주기 
-	    if (!$target.hasClass('major-region-item')) return;
-	    $('.major-region-item').removeClass('active');
-	    $target.addClass('active');
-		// 클릭시 세부 데이터 가져오기 
-		const location = $(e.target).val();
-		ajaxReq('getlocDetailList', 'GET', 'location', location, renderSubRegions);
-		
-	    updateCheckAllState();
-	}
-  
-  	// ajax 호출 함수 
-	function ajaxReq(url, method, key, value, func) {
-		$.ajax({
-			url: url,
-			method: method,
-			data: { [key] : value },
-			dataType: 'json',
-			success: function(res) {
-				if (value == '') {
-					console.log(value);
-					$('.sub').hide();
-				} else {
-					func(res);
-				}
-			},
-			error : function() {
-				alert('실패!');
-			}	
-		});
-	}
-  
-  
-  // 3-2. 소분류 지역 렌더링 함수
-  function renderSubRegions(locDetailList) {
-	$('#sub-region-list').empty();
-	let sub = [];
-	for (let loc of locDetailList) {
-		sub.push($(`<label class="sub"><input type="checkbox" class="checkbox" value='${loc.code}'>${loc.code_name}</label>`));
-	}
-		$('#sub-region-list').append(sub);
-  }
-
-  // 이벤트 핸들러: 소분류 변경
-  function handleSubRegionChange(e) {
-    const $target = $(e.target);
-    if (!$target.is(':checkbox')) return;
-
-    if ($target.data('is-select-all') === true || $target.data('is-select-all') === 'true') {
-      const checked = $target.is(':checked');
-      $subRegionListEl.find('input[type="checkbox"]').prop('checked', checked);
-    }
-
-    updateCheckAllState();
-    updateSelectedValues();
-  }
-
-  // 초기화 버튼
-  function handleResetClick() {
-    $subRegionListEl.find('input[type="checkbox"]').prop('checked', false);
-    $checkAllCheckboxEl.prop('checked', false);
-    updateSelectedValues();
-  }
-
-  // 검색 필터
-	function handleSearchInput() {
-	// 사용자가 값을 검색하면 그 값과 일치하는 code_name 값을 가진 데이터를 디비에서 불러와서 출력함 이것도 ajax 네 ... 
-	// 사용자가 검색한 값 변수에 저장함 
-		let keyword = searchInputEl.val().trim();
-		ajaxReq('getlocDetailList', 'GET', 'location', keyword, renderSubRegions);
-	}
 	
-  // 체크 상태 동기화
-	function updateCheckAllState() {
-	    const $all = $subRegionListEl.find('input[type="checkbox"]:not([data-is-select-all])');
-	    const $checked = $all.filter(':checked');
-	    const $selectAllInList = $subRegionListEl.find('input[data-is-select-all]');
-	
-	    const isAllChecked = $all.length > 0 && $all.length === $checked.length;
-	
-	    $selectAllInList.prop('checked', isAllChecked);
-	    $checkAllCheckboxEl.prop('checked', isAllChecked);
-	}
-
-  // 선택된 값 hidden input에 반영
-  function updateSelectedValues() {
-    const values = $subRegionListEl
-      .find('input[type="checkbox"]:not([data-is-select-all]):checked')
-      .map(function () { return this.value; })
-      .get()
-      .join(', ');
-    $selectedLocationsInputEl.val(values);
-  }
-
-  
-  
-  //-------------------------------------------------------- 
-  //                   직무 선택 
-  //-------------------------------------------------------- 
-  
+	  
+//-------------------------------------------------------- 
+//                   직무 선택 
+//-------------------------------------------------------- 
+	  
   // 1. 직무 데이터 삽입
 const occupationsData = {
 	  design: { 
@@ -236,17 +110,17 @@ const occupationsData = {
 	//3-1) 직무 렌더링 
 	// 저장된 데이터를 가져와서, 자바스크립트로 <div class="option-btn">추가 + 밸류 값과 html도 넣어야함 
 	// 상위 요소를 가져와서 추가하는  기능인 append (막내에 추가) a메서드 이용 
-	$.each(occupationsData, (key,value) => {
-		const $occupationKey = key; // 직종 밸류값 
-		const $occupationName = value.name; // 직종 한글로 보여줄거 
-		
-		// 직종 한글로 보여줄거,. 밸류값 추가 
-		const $occupationDiv = $('<div class="option-btn occupation"></div>')
-			.html($occupationName)
-			.attr('data-value',$occupationKey);
-		// 카테고리에 넣기 
-		$('#occupations').append($occupationDiv)
-	});
+//	$.each(occupationsData, (key,value) => {
+//		const $occupationKey = key; // 직종 밸류값 
+//		const $occupationName = value.name; // 직종 한글로 보여줄거 
+//		
+//		// 직종 한글로 보여줄거,. 밸류값 추가 
+//		const $occupationDiv = $('<div class="option-btn occupation"></div>')
+//			.html($occupationName)
+//			.attr('data-value',$occupationKey);
+//		// 카테고리에 넣기 
+//		$('#occupations').append($occupationDiv)
+//	});
 		
 	//3-2) 세부직무 렌더링
 	// 대분류의 값에 의해서 그안에 값들만 출력이 되어야 함 
@@ -254,16 +128,7 @@ const occupationsData = {
 	// 대분류의 값이 뭐가 선택된건지 어떻게 알 것인가? active 라는 클래스를 통해 그 name값을 가져와서 
 	// 가져ㅛ온 name값으로 어디의 배열을 순회해서 추가할것인지 설정 해야함 
 	// => 대분류 온클릭 이벤트 함수 내부에서 실행됨 
-	function renderJobs($activeKey) {
-		$('#jobs').empty();
-		const $jobObj = occupationsData[$activeKey].jobs;
-		$.each($jobObj, function(_,value) {
-			const $jobsDiv = $('<div class="option-btn job"></div>')
-			.html(value.label)
-			.attr('data-code', value.code);
-			$('#jobs').append($jobsDiv);
-		});
-	}
+
 	
 	
 	// 4. 이벤트 관리  
@@ -274,12 +139,8 @@ const occupationsData = {
 	
 	// 직무 부분 온클릭 이벤트
 	$('.occupation').on('click', occupationActive);
-	function occupationActive() {
-		$('.occupation').removeClass('active');
-		$(this).addClass('active');
-		const $activeKey = $(this).data('value');
-		renderJobs($activeKey); // 소분류 렌더링 함수 실행
-	}
+	
+	
 	
 	//4-2) 세부 직무 부분 온클릭 이벤트  & 인풋 타입 히든에 값 넣기 	
 	$(document).on('click', '.job', function () {
@@ -435,8 +296,151 @@ const occupationsData = {
   
 });// 윈도우 레디 
 	
+// 함수 선언 부 
+
+//==============================1 . 유효성 검사 ============================================
+
+	 const requiredFields = [
+		{ selector: '#subject', message: '제목을 입력해주세요.' },
+		{ selector: 'select[name="recruit_type"]', message: '채용 유형을 선택해주세요.' },
+	    { selector: 'select[name="workTime"]', message: '근무 시간을 선택해주세요.' },
+	    { selector: '#selected-locations', message: '근무 지역을 선택해주세요.' },
+	    { selector: 'input[name="occupation"]', message: '채용 직무를 선택해주세요.' },
+	    { selector: 'input[name="recruit_hiring_num"]', message: '채용 인원을 선택해주세요.' },
+	    { selector: 'select[name="experience"]', message: '경력 조건을 선택해주세요.' },
+	    { selector: 'select[name="category"]', message: '학력을 선택해주세요.' },
+	    { selector: 'select[name="salary"]', message: '급여를 선택해주세요.' },
+	    { selector: 'input[name="end_date"]', message: '공고 마감 날짜를 선택해주세요.' }
+  	];
+
+ 	function isEmpty(value) {
+		return !value || value.trim() == '';
+  	}
+  	
+	function onSubmitRequired(e) {
+  		for (const field of requiredFields) {
+    		const el = $(field.selector);
+    		if (el.length == 0) continue; // 엘리먼트 없으면 패스
+		    const val = el.val();
+		    if (isEmpty(val)) {
+		      alert(field.message);
+		      el.focus();
+		      e.preventDefault();
+		      return false;
+		    }
+		 }
+		return true;
+	}
+
+//==============================2. 근무 지역 선택 ========================================
 	
-
+	// ajax 호출 함수 
+	function ajaxReq(url, method, key, value, func) {
+		$.ajax({
+			url: url, method: method,
+			data: { [key] : value },dataType: 'json',
+			success: function(res) {
+				func(res);
+			},
+			error : function() {
+				alert('실패!');
+			}	
+		});
+	}
 	
-
-
+	function updateCheckAllState() {
+		let subRegionList = $('#sub-region-list');
+		let checkAllCheckbox = $('#check-all-sub-regions');
+	    const $all = subRegionList.find('input[type="checkbox"]:not([data-is-select-all])');
+	    const $checked = $all.filter(':checked');
+	    const $selectAllInList = subRegionList.find('input[data-is-select-all]');
+	    const isAllChecked = $all.length > 0 && $all.length === $checked.length;
+	    $selectAllInList.prop('checked', isAllChecked);
+	    checkAllCheckbox.prop('checked', isAllChecked);
+	}	
+	
+	// 3-2. 소분류 지역 렌더링 함수
+  	function renderSubRegions(locDetailList) {
+		$('#sub-region-list').empty();
+		let sub = [];
+		for (let loc of locDetailList) {
+			sub.push($(`<label class="sub"><input type="checkbox" class="checkbox" value='${loc.code}'>${loc.code_name}</label>`));
+		}
+		$('#sub-region-list').append(sub);
+	 }
+	
+	// 대분류 클릭 함수 
+	function handleMajorRegionClick(e) {
+	    const $target = $(e.target);
+	    // 클릭시 active 효과 주기 
+	    if (!$target.hasClass('major-region-item')) return;
+	    $('.major-region-item').removeClass('active');
+	    $target.addClass('active');
+		// 클릭시 세부 데이터 가져오기 
+		const location = $(e.target).val();
+		ajaxReq('getlocDetailList', 'GET', 'location', location, renderSubRegions);
+		
+	    updateCheckAllState();
+	}
+	
+	// 이벤트 핸들러: 소분류 변경
+	function handleSubRegionChange(e) {
+	    const $target = $(e.target);
+	    let subRegionList = $('#sub-region-list');
+	    if (!$target.is(':checkbox')) return;
+	
+	    if ($target.data('is-select-all') == true 
+	    	|| $target.data('is-select-all') == 'true') {
+	     const checked = $target.is(':checked');
+	     subRegionList.find('input[type="checkbox"]').prop('checked', checked);
+	    }
+		updateCheckAllState();
+		updateSelectedValues();
+   	}
+	
+	// 선택된 값 hidden input에 반영
+	function updateSelectedValues() {
+		let values = $('#sub-region-list')
+		  .find('input[type="checkbox"]:not([data-is-select-all]):checked')
+		  .map(function () { return this.value; })
+		  .get()
+		  .join(', ');
+		let selectedLocationsInput = $('#selected-locations');
+		selectedLocationsInput.val(values);
+	}
+	
+	// 초기화 기능 
+	function handleResetClick() {
+		let subRegionList = $('#sub-region-list');
+		let checkAllCheckbox = $('#check-all-sub-regions');
+	    subRegionList.find('input[type="checkbox"]').prop('checked', false);
+	    checkAllCheckbox.prop('checked', false);
+	    updateSelectedValues();
+	}
+	
+	// 검색 필터
+	function handleSearchInput() {
+	// 사용자가 값을 검색하면 그 값과 일치하는 code_name 값을 가진 데이터를 디비에서 불러와서 출력함 이것도 ajax 네 ... 
+	// 사용자가 검색한 값 변수에 저장함 
+		let keyword = searchInputEl.val().trim();
+		ajaxReq('getlocDetailList', 'GET', 'location', keyword, renderSubRegions);
+	}
+	
+	// -=============== 직무 영역 ================
+	function occupationActive() {
+		$('.occupation').removeClass('active');
+		$(this).addClass('active');
+		const occupation = $(this).data('value');
+		ajaxReq('getJobList', 'GET', 'occupation', occupation, renderJobs);
+	}
+	
+	function renderJobs(getJobList) {
+		$('#jobs').empty();
+		let joblist = [];
+		for(let job of getJobList) {
+			joblist.push($(`<div class="option-btn job" data-code='${job.code}'>${job.code_name}</div>`));
+		}
+		$('#jobs').append(joblist);
+	}
+	
+	

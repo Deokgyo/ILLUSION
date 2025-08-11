@@ -31,7 +31,22 @@
 		  </otherwise>
 		</choose>
 	</select>
-
+	
+	<!-- 직무 대분류 값 가져오기  -->
+	<select id="getOccupation">
+		SELECT code, code_name
+		  FROM common_code
+		 WHERE code_group_id = 'OCCUPATION'
+		   AND parent_code_id is null
+	</select>
+	
+	<!--  직무 소분류 값 가져오기 -->
+	<select id="getJobList">
+		SELECT code, code_name
+		  FROM common_code
+		 WHERE code_group_id = 'occupation'	
+		   AND parent_code_id = #{occupation};
+	</select>
 
 
 

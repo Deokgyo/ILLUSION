@@ -367,6 +367,13 @@ column-gap: 10px;
     grid-template-columns: 1fr 1fr;
     gap: 5px;
 }
+
+.category-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;   /* flex/grid 컨텍스트에서 자식이 줄어들 수 있게 */
+}
+
 .category-column .col-title {
     font-size: 14px;
 /*     color: #888; */
@@ -387,6 +394,17 @@ column-gap: 10px;
     margin-bottom: 10px;
     transition: all 0.2s;
 }
+
+#occupations.category-options {
+  max-height: 320px;   /* 또는 height: 320px; */
+  overflow-y: auto;
+}
+
+#jobs.category-options {
+  max-height: 320px;   /* 또는 height: 320px; */
+  overflow-y: auto;
+}
+
 .category-options .option-btn.active{
     border-color: var(--main-color);
     background-color: var(--body-bg-color);
