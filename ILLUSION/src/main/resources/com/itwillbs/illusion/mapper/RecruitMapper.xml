@@ -18,7 +18,19 @@
 			recruit r LEFT JOIN common_code loc ON r.location = loc.code
 		    LEFT JOIN common_code occ ON r.occupation = occ.code
 		ORDER BY
-			r.recruit_idx DESC;
+        <choose>
+            <when test="sort == 'end_date'">
+                r.end_date ASC, r.recruit_idx DESC
+            </when>
+            
+            <when test="sort == 'views'">
+                r.views_count DESC, r.recruit_idx DESC
+            </when>
+            
+            <otherwise>
+                r.recruit_idx DESC
+            </otherwise>
+        </choose>
 	</select>
 	
 	<select id="selectRecruitIndex" resultType="com.itwillbs.illusion.vo.RecruitVO">

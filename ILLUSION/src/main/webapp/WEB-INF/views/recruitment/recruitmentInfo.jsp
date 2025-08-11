@@ -59,9 +59,9 @@
 	        <main>
 	            <section class="job-list-controls">
 	                <div class="sort-options">
-	                    <a href="#" class="active">최신순</a>
-	                    <a href="#">마감순</a>
-	                    <a href="#">조회순</a>
+	                    <a href="/recruitmentInfo?sort=latest" class="${sort == 'latest' ? 'active' : ''}">마감순</a>
+	                    <a href="/recruitmentInfo?sort=end_date" class="${sort == 'end_date' ? 'active' : ''}">마감순</a>
+	                    <a href="/recruitmentInfo?sort=views" class="${sort == 'views' ? 'active' : ''}">마감순</a>
 	                </div>
 	            </section>
 	
