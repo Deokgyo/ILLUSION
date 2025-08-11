@@ -20,6 +20,7 @@ $(document).ready(function() {
 			$agreeAll.prop('checked', $checkboxes.length === $checkboxes.filter(':checked').length);
 		});
 	});
+
 	// 기업회원 클릭 시 사업자등록번호 띄우기
 	$(function() {
 		$('#companyTab').on('click', function() {
@@ -34,6 +35,7 @@ $(document).ready(function() {
 			$('#companyBox').fadeOut(120);
 		});
 	});
+
 	// 아이디 유효성 체크
 	$(function() {
 
@@ -48,7 +50,7 @@ $(document).ready(function() {
 		$("#userpw").on('keyup', checkUserPass);
 		$("#userpw2").on('keyup', checkUserPass2);
 
-		$('form').on('submit', checkSubmit);	// 최종 가입 버튼 클릭 이벤트
+		$('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
 
 		function checkUserId() {
 			let id = $("#userid").val().trim()
@@ -76,66 +78,80 @@ $(document).ready(function() {
 			}
 
 		}
+
 		//비밀번호 유효성
 		function checkUserPass() {
 			let passwd = $("#userpw").val();
 
-			// 패스워드 조합 및 길이 규칙: 영문자, 숫자, 특수문자(!@#$%) 8 ~ 16자
-			let lengthRegex = /^[A-Za-z0-9!@#$%]{7,15}$/;
-			if (lengthRegex.exec(passwd)) {
 
-				let count = 0;
-				let engUpperRegex = /[A-Z]/;
-				let engLowerRegex = /[a-z]/;
-				//			let numRegex = /[0-9]/;
-				let numRegex = /[\d]/;
-				let specRegex = /[!@#$%]/;
+			if (passwd == null || passwd == "") {
+				//alert(passwd);
+				$("#userPwSuccess").text("");
+			} else {
+				// 패스워드 조합 및 길이 규칙: 영문자, 숫자, 특수문자(!@#$%) 8 ~ 16자
+				let lengthRegex = /^[A-Za-z0-9!@#$%]{7,15}$/;
+				if (lengthRegex.exec(passwd)) {
 
-				if (engUpperRegex.exec(passwd)) count++;
-				if (engLowerRegex.exec(passwd)) count++;
-				if (numRegex.exec(passwd)) count++;
-				if (specRegex.exec(passwd)) count++;
+					let count = 0;
+					let engUpperRegex = /[A-Z]/;
+					let engLowerRegex = /[a-z]/;
+					//         let numRegex = /[0-9]/;
+					let numRegex = /[\d]/;
+					let specRegex = /[!@#$%]/;
 
-				switch (count) {
-					case 4:
-						$("#userPwSuccess").text("안전").css("color", "blue");
-						isCheckPass = true;
-						break;
-					case 3:
-						$("#userPwSuccess").text("보통").css("color", "green");
-						isCheckPass = true;
-						break;
-					case 2:
-						$("#userPwSuccess").text("위험").css("color", "orange");
-						isCheckPass = true;
-						break;
-					case 1:
-						$("#userPwSuccess").text("사용불가").css("color", "red");
-						isCheckPass = false;
-						break;
+					if (engUpperRegex.exec(passwd)) count++;
+					if (engLowerRegex.exec(passwd)) count++;
+					if (numRegex.exec(passwd)) count++;
+					if (specRegex.exec(passwd)) count++;
+
+					switch (count) {
+						case 4:
+							$("#userPwSuccess").text("안전").css("color", "blue");
+							isCheckPass = true;
+							break;
+						case 3:
+							$("#userPwSuccess").text("보통").css("color", "green");
+							isCheckPass = true;
+							break;
+						case 2:
+							$("#userPwSuccess").text("위험").css("color", "orange");
+							isCheckPass = true;
+							break;
+						case 1:
+							$("#userPwSuccess").text("사용불가").css("color", "red");
+							isCheckPass = false;
+							break;
+					}
+
+				} else {
+					$("#userPwSuccess")
+						.text("영문자, 숫자, 특수문자(!@#$%) 필수!")
+						.css("color", "red");
+					isCheckPass = false;
 				}
 
-			} else {
-				$("#userPwSuccess")
-					.text("영문자, 숫자, 특수문자(!@#$%) 필수!")
-					.css("color", "red");
-				isCheckPass = false;
+				checkUserPass2();
 			}
-
-			checkUserPass2();
 		}
-		function checkUserPass2(){
-		let passwd = $("#userpw").val();
-		let passwd2 = $("#userpw").val();
-		
-		if (passwd == passwd2) {
-			$("#userPwSuccess").text("비밀번호 일치").css("color", "blue");
-			isCheckPass2 = true;
-		} else {
-			$("#userPwSuccess").text("비밀번호 불일치").css("color", "red");
-			isCheckPass2 = false;
-		}
-	}
 
+		function checkUserPass2() {
+			let passwd = $("#userpw").val();
+			let passwd2 = $("#userpw2").val();
+
+			if (passwd2 == null || passwd2 == "") {
+				$("#userPwSuccess2").text("");
+			} else {
+				if (passwd == passwd2) {
+					$("#userPwSuccess2").text("비밀번호 일치").css("color", "blue");
+					isCheckPass2 = true;
+				} else {
+					$("#userPwSuccess2").text("비밀번호 불일치").css("color", "red");
+					isCheckPass2 = false;
+				}
+			}
+		}
 	}); // 유효성
+
+
+
 });
