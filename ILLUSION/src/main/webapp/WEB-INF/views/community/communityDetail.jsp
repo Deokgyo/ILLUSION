@@ -56,7 +56,7 @@
 				<div class="post-btn">
 					    <div class="post-actions">
                         <!-- 작성자 본인일 경우 노출 -->
-                        <a href="communityModify" class="btn btn-yellow">수정</a>
+                        <a href="communityModify?board_idx=${board.board_idx}" class="btn btn-yellow">수정</a>
                         <button id="delete_btn" class="btn btn-yellow">삭제</button>
                     </div>
 				</div>
@@ -86,6 +86,9 @@
 	                                <div class="author-name"></div>
 	                                <p class="comment-text"></p>
 	                            </div>
+	                            <div class="comment-actions">
+									<button class="delete-comment-btn">×</button>
+								</div>
 	                        </div>
 	                    </div>
 	                </div>

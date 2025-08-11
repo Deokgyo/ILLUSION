@@ -62,7 +62,15 @@ public class CommunityController {
 	
 	// 커뮤니티 글 수정 페이지 이동
 	@GetMapping("communityModify")
-	public String communityModify() {
+	public String communityModify(Model model,  @RequestParam int board_idx) {
+//		model.addAttribute("board_idx", board_idx); 
+		
+		List<Map<String, String>> categoryList = service.selectCategory();
+		model.addAttribute("categoryList", categoryList);
+		
+		Map<String, String> boardMap = service.selectBoard(board_idx);
+		model.addAttribute("board", boardMap);
+		
 		return "community/communityModify";
 	}
 	

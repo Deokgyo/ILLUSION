@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -35,15 +34,15 @@
             </div>
 
           <div class="form-box write-form-box">
-		    <form action="/community/write.do" method="post">
-		    
+		    <form action="boardModify" method="post">
+		    	<input type="hidden" id="board_idx" name="board_idx" value="${board.board_idx}">
 		        <!-- 제목 섹션 -->
 		        <div class="write-form-section">
 		            <div class="section-header">
 		                <i class="icon fa-regular fa-pen-to-square"></i>
 		                <h3 class="title">제목</h3>
 		            </div>
-		            <input type="text" name="title" class="form-control title-input" placeholder="제목을 입력해주세요" required />
+		            <input type="text" id="title" name="title" class="form-control title-input" placeholder="제목을 입력해주세요" value=${board.board_title } required />
 		        </div>
 		
 		        <!-- 카테고리 섹션 -->
@@ -52,13 +51,12 @@
 		                <i class="icon fa-regular fa-square-check"></i>
 		                <h3 class="title">카테고리</h3>
 		            </div>
-		            <select name="category" class="form-select category-select" required>
+		            <select id="category" name="category" class="form-select category-select" required>
 		                <option value="" disabled selected>카테고리 선택</option>
-		                <option value="자소서 팁">자소서 팁</option>
-		                <option value="면접 후기">면접 후기</option>
-		                <option value="합격 후기">합격 후기</option>
-		                <option value="면접 팁">면접 팁</option>
-		                <option value="공지사항">공지사항</option>
+		                
+		                <c:forEach var="category" items="${categoryList }" >
+			                <option value="${category.code }">${category.code_name}</option>
+		                </c:forEach>
 		            </select>
 		        </div>
 		
@@ -68,7 +66,7 @@
 		                <i class="icon fa-solid fa-list"></i> 
 		                <h3 class="title">내용 작성</h3>
 		            </div>
-		            <textarea name="content" class="form-control content-textarea" placeholder="내용을 입력해 주세요" required></textarea>
+		            <textarea name="content" id="content" class="form-control content-textarea" placeholder="내용을 입력해 주세요" required>${board.board_content }</textarea>
 		        </div>
 		
 		        <!-- 하단 버튼 영역 -->
@@ -87,5 +85,6 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+     <script src="${pageContext.request.contextPath}/resources/js/community/communityModify.js"></script> 
 </body>
 </html>

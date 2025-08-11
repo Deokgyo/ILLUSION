@@ -78,6 +78,7 @@
 		 WHERE code_group_id = "board_type";
 	</select>
 	
+	<!-- 댓글 작성 -->
 	<insert id="cmtWrite">
 		INSERT INTO comment
 			( member_idx
@@ -89,14 +90,30 @@
 			, #{comment} )	
 	</insert>
 	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM comment
+		 WHERE cmt_idx = #{cmt_idx}
+	</delete>
+	
+	<!-- 게시글 삭제 -->
 	<delete id="boardDelete">
 		DELETE FROM board
 		 WHERE board_idx = #{board_idx} 
 	</delete>
 	
+	<update id="boardUpdate">
+		UPDATE board
+		   SET board_title = #{title},
+		   	   board_type = #{category},
+		       board_content = #{content}
+		 WHERE board_idx = #{board_idx}
+	</update>
+	
 	<select id="selectComment">
 		 SELECT 
-		 		cmt_content
+		 		cmt_idx
+		 	  ,	cmt_content
 		      , member_id	    
 		   FROM comment c 
 		   JOIN member m ON c.member_idx = m.member_idx

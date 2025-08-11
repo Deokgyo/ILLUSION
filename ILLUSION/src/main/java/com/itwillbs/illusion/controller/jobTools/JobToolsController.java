@@ -12,6 +12,11 @@ public class JobToolsController {
 		return "jobTools/coverletterCreate";
 	}
 	
+	@GetMapping("coverletterModify")
+	public String coverletterModify() {
+		return "jobTools/coverletterModify";
+	}
+	
 	@GetMapping("coverletterResult")
 	public String coverletterResult() {
 		return "jobTools/coverletterResult";

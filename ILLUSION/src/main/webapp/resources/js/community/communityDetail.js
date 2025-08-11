@@ -11,6 +11,11 @@ $(function() {
 	
 	$('form').on('submit', cmtSubmit); // 댓글 작성
 	$('#delete_btn').on('click', boardDelete); // 게시글 삭제
+	$('.comment-list').on('click', '.delete-comment-btn', function() {
+	    const cmt_idx = $(this).data('comment-id'); 
+	    console.log(cmt_idx)
+	    deleteComment(cmt_idx);
+	});
 	
 	// ----- functions ---------
     	
@@ -48,7 +53,7 @@ $(function() {
         });
 	}
 	
-	// 댓글 조회
+	// 댓글 가져오기
 	function getCmtList() {
 
         $.ajax({
@@ -56,12 +61,31 @@ $(function() {
             type: 'GET',
             dataType: 'json',
             success: function(res) {
-				debugger;
 				createCommentHtml(res);
 				updateCommentCount(res.length);
             },
             error: function(xhr, textStatus, errorThrown) {
                 alert('댓글 등록 중 오류가 발생했습니다.');
+            }
+        });
+	}
+	// 댓글 삭제
+	function deleteComment(cmt_idx) {
+		if (!confirm('정말로 이 댓글을 삭제하시겠습니까?')) {
+	        	return;
+	    	}
+
+        $.ajax({
+            url: `api/boards/${board_idx}/comments/${cmt_idx}`,
+            type: 'DELETE',
+//            dataType: 'json',
+            success: function(res) {
+				alert("삭제 성공");
+				getCmtList();	
+            },
+            error: function(xhr, textStatus, errorThrown) {
+	            debugger;
+                alert('댓글 삭제 중 오류가 발생했습니다.');
             }
         });
 	}
@@ -104,6 +128,9 @@ $(function() {
                         <div class="author-name">${e.member_id}</div>
                         <p class="comment-text">${e.cmt_content}</p>
                     </div>
+	                <div class="comment-actions">
+						<button type="button" class="delete-comment-btn" data-comment-id="${e.cmt_idx}">×</button>
+					</div>
                 </div>
                 `;					
 			})
