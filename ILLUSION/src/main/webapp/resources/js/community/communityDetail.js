@@ -13,7 +13,6 @@ $(function() {
 	$('#delete_btn').on('click', boardDelete); // 게시글 삭제
 	$('.comment-list').on('click', '.delete-comment-btn', function() {
 	    const cmt_idx = $(this).data('comment-id'); 
-	    console.log(cmt_idx)
 	    deleteComment(cmt_idx);
 	});
 	

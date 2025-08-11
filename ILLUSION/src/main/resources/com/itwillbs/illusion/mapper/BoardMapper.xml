@@ -102,6 +102,7 @@
 		 WHERE board_idx = #{board_idx} 
 	</delete>
 	
+	<!-- 게시글 수정 -->
 	<update id="boardUpdate">
 		UPDATE board
 		   SET board_title = #{title},
@@ -110,6 +111,7 @@
 		 WHERE board_idx = #{board_idx}
 	</update>
 	
+	<!-- 댓글 조회 -->
 	<select id="selectComment">
 		 SELECT 
 		 		cmt_idx
@@ -119,7 +121,6 @@
 		   JOIN member m ON c.member_idx = m.member_idx
 		  WHERE c.board_idx = #{board_idx} 
 	   ORDER BY cmt_idx desc
-		   
 	</select>
 	
 <!-- 	<select id="countComment"> -->

@@ -45,7 +45,7 @@ public class CommentApiController {
 	}
 	
 	// 댓글 삭제
-	@DeleteMapping("/api/boards/{board_idx}/comments/{cmt_idx}")
+	@DeleteMapping("/{cmt_idx}")
 	public String deleteComment(
 			@PathVariable("board_idx") int board_idx,
 			@PathVariable("cmt_idx") int cmt_idx) {
