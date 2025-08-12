@@ -80,7 +80,7 @@
 	
 	
 	<!-- 예상면접질문 -->
-	<select id="questList" resultType="map">
+	<select id="selectquestList" resultType="map">
 		SELECT question_idx, question_text, board_create_at, board_viewcnt,cmt_count
 		FROM question
 	</select>

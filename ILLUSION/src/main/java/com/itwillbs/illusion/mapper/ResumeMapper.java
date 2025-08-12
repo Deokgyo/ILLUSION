@@ -18,10 +18,13 @@ public interface ResumeMapper {
 	
 	
 	/* 예상면접질문 */
-	List<Map<String, Object>> questList();
+	List<Map<String, Object>> selectquestList();
 
 	/* 커뮤니티 */
 	List<Map<String, Object>> selectboard();
+	
+	
+	
 	
 	
 	
