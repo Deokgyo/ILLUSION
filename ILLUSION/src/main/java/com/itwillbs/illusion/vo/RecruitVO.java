@@ -43,5 +43,6 @@ public class RecruitVO {
 	private String company_type;
 	private LocalDate company_estab_date;
 	private String recruiter_member_email;
-	private MultipartFile[] img;
+	private MultipartFile file;
+	private String recruit_file;
 }

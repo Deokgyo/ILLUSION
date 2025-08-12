@@ -55,7 +55,11 @@ public class RecruiterController {
 	@PostMapping("recruiterRegistForm")
 	public String recruiterRegistForm(RecruitVO recruit) {
 		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
-		System.out.println(recruit.getRecruit_context());
+		System.out.println(recruit);
+		
+		int insertCnt = service.insertRecruitment(recruit);
+		
+		
 		return "redirect:/recruiterList";
 	}
 	

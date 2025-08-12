@@ -10,15 +10,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs4.min.css" rel="stylesheet">
     <%-- 우리가 만든 CSS 파일들 --%>
-    <link rel="stylesheet" href="./resources/css/global.css">
-    <link rel="stylesheet" href="./resources/css/top.css">
-    <link rel="stylesheet" href="./resources/css/bottom.css">
-    <link rel="stylesheet" href="./resources/css/recruiter/recruiterRegistForm.css">
-    <link rel="stylesheet" href="./resources/css/components.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterRegistForm.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
 <%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recuritment/filterEvent.css"> --%>
 	
 	
@@ -116,7 +114,7 @@
 						<div class="filter-options" id="sub-region-list">
 						<%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>  
 						</div>
-						<input type="hidden" id="selected-locations" class="valid" name="full_address">
+						<input type="hidden" id="selected-locations" class="valid" name="location">
 					</div>
 				</div>
         	</section>
@@ -154,7 +152,7 @@
 	        		<i class="fa-solid fa-street-view icon"></i>
 	        		<h3 class="title">채용 인원</h3>
 	        		<input class="form-check-input" type="checkbox" id="undecided">
-	        		<span style="margin-left: 19px">미정(0명)</span>
+	        		<span>미정(0명)</span>
         		</div>
 	            <input type="number" name="recruit_hiring_num" class="form-control valid" placeholder="채용인원 입력(단위:명)">
         	</section>
@@ -264,11 +262,11 @@
 	
 	<%-- js 관련 설정들 --%>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegistForm.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegistForm.js"></script>
+	
 	
 </body>
 </html>

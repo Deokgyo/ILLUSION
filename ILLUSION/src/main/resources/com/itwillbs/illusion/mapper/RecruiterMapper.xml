@@ -47,7 +47,11 @@
 		 WHERE code_group_id = 'occupation'	
 		   AND parent_code_id = #{occupation};
 	</select>
-
+	
+	
+<!-- 	<insert id="insertRecruitment"> -->
+		
+<!-- 	</insert> -->
 
 
 

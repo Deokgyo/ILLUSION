@@ -1,4 +1,5 @@
 $(function () {
+	
 	// 1. 제출 유효성 검사 
 //	$('form').on('submit', onSubmitRequired);
 		
@@ -51,30 +52,29 @@ $(function () {
 	        ['para', ['ul', 'ol']],
 	        ['view', ['codeview']]
       	],
-      	callback : {
+      	callbacks : {
 			onImageUpload : function(files) {
-				let img = new FormData();
-	      		img.append('file', files[0]);
+				
+				let file = new FormData();
+	      		file.append('file', files[0]);
 	      		
 	      		$.ajax({
 					url: 'imgUpload',
 					method: 'POST',
-					data: img,
+					data: file,
 					processData : false,
 					contentType : false,
 					enctype: 'multipart/form-data',
 					dataType : 'json',
 					success : function(data) {
-						$('#summernote').summernote('insertImage', data.url)
 						console.log(data);
+						$('#summernote').summernote('insertImage', data.url)
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						debugger;
+						alert('실패');
 					}
-					
-						
-		
 				})
-	      		
-//	      		ajaxReq("imgUpload", "post", "img", img, renderImg)
-	      		
 			}
 		}
     });
@@ -84,8 +84,10 @@ $(function () {
 
 // 함수 선언 부 
 
-function renderImg() {
-	debugger;
+
+
+function renderImg(files) {
+	
 }
 
 
