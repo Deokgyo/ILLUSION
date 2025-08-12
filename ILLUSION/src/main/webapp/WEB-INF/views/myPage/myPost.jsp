@@ -80,7 +80,7 @@
 						</a>
 						<div class="post-actions">
 							<button class="edit-btn"onclick="location.href='communityModify?board_idx=${board.board_idx}';">수정</button>
-							<button class="delete-btn" onclick="confirm('삭제 하시겠습니까?')">삭제</button>
+							<button class="delete-btn" onclick="deleteBoard(${board.board_idx})">삭제</button>
 						</div>
 					</div>
 					</c:forEach>
@@ -107,10 +107,32 @@
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-<script type="text/javascript">
-document.getElementById(".edit-btn").onclick = function () {
-  location.href = "communityWrite";
-}
-</script>
+	<script>
+	function deleteBoard(board_idx) {
+		  if(!board_idx) {
+		    alert('잘못된 게시글 번호입니다.');
+		    return;
+		  }
+		  console.log('삭제할 번호:', board_idx);
+		  if(confirm('삭제하시겠습니까?')) {
+			  
+		    fetch("/illusion/boardDelete/" + board_idx, {
+		      method: 'DELETE'
+		    })
+		    .then(response => {
+		      console.log(response.status);
+		      if(response.ok) {
+		        alert('삭제 성공');
+		        location.reload();
+		      } else {
+		    	  debugger;
+		        alert('삭제 실패, 상태 코드: ' + response.status);
+		      }
+		    })
+		    .catch(() => alert('네트워크 오류'));
+		  }
+		}
+
+	</script>
 </body>
 </html>

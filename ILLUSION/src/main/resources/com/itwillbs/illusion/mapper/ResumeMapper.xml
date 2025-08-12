@@ -47,6 +47,35 @@
 		)
 
 	</insert>
+	<update id="updateResume" parameterType="map"
+		useGeneratedKeys="true" keyProperty="resume_idx">
+			UPDATE resume
+		SET 
+		    member_idx = #{member_idx},
+		    resume_title = #{resume_title},
+		    resume_create_at = #{resume_create_at},
+		    resume_img = #{resume_img},
+		    school_name = #{school_name},
+		    major = #{major},
+		    grade = #{grade},
+		    degree = #{degree},
+		    enroll_date = #{enroll_date},
+		    graduation_date = #{graduation_date}
+		WHERE resume_idx = #{resume_idx}
+	</update>
+	
+	<update id="updateResume_exp_info" parameterType="map">
+			UPDATE resume_exp_info
+		SET
+			resume_idx = #{resume_idx},
+	        company_name = #{company_name},
+	        position = #{position},
+	        experience = #{experience},
+	        occupation = #{occupation}
+	    WHERE exp_idx = #{exp_idx}
+	</update>
+
+
 
 	<select id="selectResumeExpInfoList" parameterType="int"
 		resultType="map">
@@ -79,10 +108,12 @@
 	
 	
 	
+	
+	
 	<!-- 예상면접질문 -->
 	<select id="selectquestList" resultType="map">
-		SELECT question_idx, question_text, board_create_at, board_viewcnt,cmt_count
-		FROM question
+		SELECT answer_idx, question_idx, member_idx, answer_text, ai_feedback, answer_create_at
+		FROM answer
 	</select>
 	
 	
