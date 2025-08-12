@@ -17,6 +17,8 @@ public class AjaxController {
 	
 	@Autowired
 	RecruiterService service;
+	// 업로드 할 가상 경로 
+	String virtualPath = "/resources/upload";
 	
 	@GetMapping("getlocDetailList")
 	public List<Map<String, String>> getlocDetailList(@RequestParam String location) {
