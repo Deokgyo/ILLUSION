@@ -1,131 +1,177 @@
 $(function() {
 
-    // 경력사항 선택 (신입/경력) 기능
-    $('#experience-toggle .option').on('click', function() {
+    // =========================================================================
+    // 1. 경력 사항 관련 기능
+    // =========================================================================
+
+    // 신입/경력 선택 토글 
+    $('#experience-toggle').on('click', '.option', function() {
         const $this = $(this);
         const selectedValue = $this.data('value');
 
+        // (UI 처리) 클릭된 버튼에 'active' 클래스를 주고, 다른 버튼에선 제거합니다.
         $this.addClass('active').siblings().removeClass('active');
+        
+        // (데이터 처리) 숨겨진 input에 선택된 값 ('new' 또는 'experienced')을 저장합니다.
+        $('#experience-type-value').val(selectedValue);
 
+        // '경력'을 선택했을 때만 경력 상세 입력 필드를 보여줍니다.
         if (selectedValue === 'experienced') {
-            $('#experience-fields').slideDown(300); 
+            $('#experience-fields').slideDown(300);
         } else {
-            $('#experience-fields').slideUp(300); 
+            $('#experience-fields').slideUp(300);
         }
     });
+
+    // 경력 기간 커스텀 드롭다운
+    $('#experience-level-select').on('click', function(e) {
+        e.stopPropagation(); 
+        $(this).closest('.dropdown-wrapper').find('.form-dropdown-menu').slideToggle(200);
+    });
     
-  	 // 경력 기간 드롭다운 기능
-	const $dropdownSelect = $('#experience-level-select');
-	
-	$dropdownSelect.on('click', function(e) {
-	    e.stopPropagation(); 
-	    $(this).closest('.dropdown-wrapper').find('.form-dropdown-menu').slideToggle(200);
-	});
-	
-	$('.dropdown-wrapper').on('click', '.form-dropdown-item', function() {
-	    const selectedText = $(this).text();
-	    $(this).closest('.form-dropdown-menu').siblings('.dropdown-select').find('span').text(selectedText);
-	    $(this).closest('.form-dropdown-menu').slideUp(200);
-	});
-	
-	$(document).on('click', function(e) {
-	    if ($('.dropdown-wrapper').has(e.target).length === 0) {
-	        $('.form-dropdown-menu').slideUp(200);
-	    }
-	});
-	
-	//================================ 3.직무 선택영역 ==================================
-	
-	//=============0. ajax 호출 함수 ===============
-	function ajaxReq(url, method, key, value, func) {
-		$.ajax({
-			url: url, method: method,
-			data: { [key] : value },dataType: 'json',
-			success: function(res) {
-				func(res);
-			},
-			error : function() {
-				alert('실패!');
-			}	
-		});
-	}
-	
-	//3. 직무 선택
-	//3-1) 직무 부분 온클릭 이벤트
-	$('.occupation').on('click', occupationActive);
-	//3-2) 세부 직무 부분 온클릭 이벤트  
-	$(document).on('click', '.job', function () {
-		jobActive(this);
-		updateKeyword(this);
-		updateJobValue();
-	});
-	//3-3) 키워드 삭제 버튼 이벤트 
-	$(document).on('click', '.close-btn', function() {
-		deleteKeyword(this);
-		updateJobValue();
-	});
-	
-	$('.occupation').first().trigger('click');
-	
-	function occupationActive() {
-		$('.occupation').removeClass('active');
-		$(this).addClass('active');
-		const occupation = $(this).data('value');
-		ajaxReq('getJobList', 'GET', 'occupation', occupation, renderJobs);
-	}
-	
-	function renderJobs(getJobList) {
-		$('#jobs').empty();
-		let joblist = [];
-		for(let job of getJobList) {
-			joblist.push($(`<div class="option-btn job" data-code='${job.code}'>
-				${job.code_name}</div>`));
-		}
-		$('#jobs').append(joblist);
-	}
-	
-	// 세부 직무 active 주기 
-	function jobActive (el) {
-		if (!($(el).hasClass('active'))) {
-			$(el).addClass('active');
-		} else {
-			$(el).removeClass('active');
-		}
-	}
-	
-	// 키워드 추가하기 
-	function updateKeyword(el) {
-		// 액티브된 세부 직무의 밸류 값을 추출
-		// 요소 만드는 메서드에 액티브된 세무 직무의 밸류 값을 넣어서 생성하게 만들기 
-		let keyword = $(el).text();
-		if ($(el).hasClass('active')) {
-	        let tagHTML = `<div class="tag" data-keyword="${keyword}"><span>${keyword}</span>
-	        	<span class="close-btn">x</span></div>`;
-	        $('.selected-tags-area').append(tagHTML);
-		} else {
-			//현재 선택된 keyword 값과 같은 <span>태그의 값을 가진 div 요소 제거 
-			$(`.tag[data-keyword="${keyword}"]`).remove();			
-		}
-	}
-	
-	// 활성화 된 값 input hidden value에 넣기 
-	function updateJobValue () {
-		let $jobValue = $('.job.active').map(function() {
-			return $(this).data('code');
-			}).get().join(', ');
-		$('#selected-occupation').val($jobValue);
-	}
-	
-	// 키워드 삭제
-	function deleteKeyword (el) {
-		const keyword = $(el).siblings('span').text().trim(); // 선택한 키워드
-		$(`.job.active`).filter(function() {
-	  		return $(el).text().trim() === keyword;
-	  	}).removeClass('active');
-	  $(el).closest('.tag').remove();
-	}
-	
-	
+    $('.form-dropdown-menu').on('click', '.form-dropdown-item', function() {
+        const selectedValue = $(this).data('value'); // data-value 속성 값 가져오기
+        const selectedText = $(this).text(); // 화면에 보이는 텍스트 가져오기
+
+        $('#experience-level-value').val(selectedValue);
+        $('#experience-level-select > span').text(selectedText);
+        $(this).closest('.form-dropdown-menu').slideUp(200);
+    });
+    
+    // 드롭다운 메뉴 바깥 영역을 클릭하면 메뉴를 닫습니다.
+    $(document).on('click', function(e) {
+        // 클릭된 요소가 드롭다운 영역(.dropdown-wrapper) 내부가 아닐 경우에만
+        if ($('.dropdown-wrapper').has(e.target).length === 0) {
+            $('.form-dropdown-menu').slideUp(200);
+        }
+    });
+
+
+    // =========================================================================
+    // 2. 직무 선택 관련 기능 (AJAX 사용)
+    // =========================================================================
+
+    // 공통 AJAX 요청 함수 
+    function ajaxReq(url, method, data, func) {
+        $.ajax({
+            url: url,
+            method: method,
+            data: data, // 데이터를 객체로 받도록 수정
+            dataType: 'json',
+            success: function(res) {
+                func(res); // 성공 시 콜백 함수 실행
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                alert('데이터를 불러오는 데 실패했습니다.');
+            }   
+        });
+    }
+
+    // 직무 선택 로직을 위한 함수들
+    
+    // 직무 카테고리 클릭 시 동작하는 메인 함수
+    function activateOccupation() {
+        $('.occupation').removeClass('active');
+        $(this).addClass('active');
+        const occupationCode = $(this).data('value');
+        
+        // 선택된 직무 카테고리에 맞는 세부 직무 목록을 서버에 요청
+        ajaxReq('getJobList', 'GET', { occupation: occupationCode }, renderJobs);
+    }
+
+    // 서버에서 받은 세부 직무 목록을 화면에 렌더링하는 함수
+    function renderJobs(jobList) {
+        const $jobsContainer = $('#jobs');
+        $jobsContainer.empty(); // 기존 목록 초기화
+        
+        if (jobList && jobList.length > 0) {
+            const jobElements = jobList.map(function(job) {
+                return `<div class="option-btn job" data-code='${job.code}'>${job.code_name}</div>`;
+            });
+            $jobsContainer.append(jobElements.join(''));
+        }
+    }
+
+    // 세부 직무 클릭 시 'active' 클래스를 토글하고, 선택된 태그와 hidden input 값을 업데이트
+    function handleJobClick() {
+        $(this).toggleClass('active');
+        updateSelectedJobTags();
+        updateHiddenJobInput();
+    }
+    
+    // 선택된 세부 직무에 맞춰 화면 하단의 태그를 업데이트하는 함수
+    function updateSelectedJobTags() {
+        const $tagsArea = $('.selected-tags-area');
+        $tagsArea.empty(); // 태그 영역 초기화
+        
+        $('.job.active').each(function() {
+            const keyword = $(this).text();
+            const tagHTML = `<div class="tag" data-keyword="${keyword}"><span>${keyword}</span><span class="close-btn">x</span></div>`;
+            $tagsArea.append(tagHTML);
+        });
+    }
+
+    // 태그의 'x' 버튼 클릭 시 해당 태그와 직무 선택을 해제하는 함수
+    function deleteJobTag() {
+        const keyword = $(this).closest('.tag').data('keyword');
+        
+        // 태그에 해당하는 직무 버튼을 찾아서 'active' 클래스 제거
+        $('.job.active').filter(function() {
+            return $(this).text() === keyword;
+        }).removeClass('active');
+        
+        // 태그 자체를 삭제
+        $(this).closest('.tag').remove();
+        
+        // hidden input 값 다시 업데이트
+        updateHiddenJobInput();
+    }
+    
+    // (데이터 처리) 'active' 상태인 모든 세부 직무의 코드 값을 콤마(,)로 연결하여 hidden input에 저장
+    function updateHiddenJobInput() {
+        const selectedJobCodes = $('.job.active').map(function() {
+            return $(this).data('code');
+        }).get().join(','); // 콤마로 구분된 문자열로 만듦
+        
+        $('#selected-occupation').val(selectedJobCodes);
+    }
+
+    $('.occupation').on('click', activateOccupation);
+    $(document).on('click', '.job', handleJobClick); // 동적으로 생성되므로 document에 위임
+    $(document).on('click', '.close-btn', deleteJobTag); // 동적으로 생성되므로 document에 위임
+
+    if ($('.occupation').length > 0) {
+        $('.occupation').first().trigger('click');
+    }
+
+
+    // 최종 폼 제출 기능 (AJAX)
+    $('#coverletter-form').on('submit', function(e) {
+        e.preventDefault();
+
+        const formData = $(this).serialize();
+        
+        console.log('서버로 전송될 최종 데이터:', formData);
+        
+        debugger;
+
+        $.ajax({
+            type: 'POST',                       // 폼의 method와 동일하게 설정
+            url: $(this).attr('action'),        // 폼의 action 속성에 지정된 URL로 요청
+            data: formData,                     // 직렬화된 폼 데이터
+            success: function(response) {
+                console.log('AJAX 요청 성공. 결과 페이지로 이동합니다.');
+                window.location.href = 'coverletterResult'; 
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX 요청 실패:', status, error);
+                alert('자기소개서 생성 중 오류가 발생했습니다.');
+            }
+        });
+    });
+
+});
 //
 //    // 직무 선택 및 태그 추가/삭제 기능 
 //    $('.category-options .option-btn').on('click', function() {
@@ -200,5 +246,3 @@ $(function() {
 //	
 //	$('.btn-no').on('click', function() {
 //	    $(this).closest('.modal-overlay').fadeOut();
-//	});
-});

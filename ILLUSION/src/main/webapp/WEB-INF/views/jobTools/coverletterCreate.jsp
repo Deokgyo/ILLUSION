@@ -31,7 +31,7 @@
                 <p class="header-text"><strong>자기소개서 생성기 </strong> AI가 당신의 경험을 참고하여 매력적인 이력서를 만들어 드립니다.</p>
             </div>
             <div class="form-box">
-                <form action="coverletterGenerate" method="POST">
+                <form action="coverletterGenerate" method="POST" id="coverletter-form">
                 
 
 <!--                     제목 섹션 -->
@@ -101,11 +101,11 @@
 					            <div class="form-dropdown-menu">
 					            
 					            	<c:forEach var="exp" items="${expList}">
-					            		<div class="form-dropdown-item" data-exp-value="${exp.code }">${exp.code_name }</div>
+					            		<div class="form-dropdown-item" data-value="${exp.code }">${exp.code_name }</div>
 					            	</c:forEach>
-					            	<input id="" type="hidden" value="">
 					            </div>
 					        </div>
+					        <input type="hidden" name="experience" id="experience-level-value">
 					        
 					        <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
 					        <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />

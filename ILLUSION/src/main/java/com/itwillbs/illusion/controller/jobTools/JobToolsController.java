@@ -35,8 +35,8 @@ public class JobToolsController {
 	@PostMapping("coverletterGenerate")
 	public String coverletterGenerate(Model model, 
 										String title, String company, 
-										String prevCompany, String prevJob,
-										String maxLength, String keywords, String question) {
+										String prevCompany, String prevJob, String occupation,
+										String maxLength, String keywords, String question, String experience) {
 		
 		
 		System.out.println("title" + title);
@@ -44,6 +44,11 @@ public class JobToolsController {
 		System.out.println("maxLength" + maxLength);
 		System.out.println("keywords" + keywords);
 		System.out.println("question" + question);
+		System.out.println("occupation" + occupation);
+		System.out.println("experience" + experience);
+		System.out.println("prevCompany" + prevCompany);
+		System.out.println("prevJob" + prevJob);
+		
 		
 		return "redirect:coverletterResult";
 	}
