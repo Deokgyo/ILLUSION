@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,5 +43,5 @@ public class RecruitVO {
 	private String company_type;
 	private LocalDate company_estab_date;
 	private String recruiter_member_email;
-	
+	private MultipartFile[] file;
 }

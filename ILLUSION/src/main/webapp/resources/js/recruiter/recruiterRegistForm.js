@@ -1,10 +1,10 @@
 $(function () {
 	// 1. 제출 유효성 검사 
-	$('form').on('submit', onSubmitRequired);
+//	$('form').on('submit', onSubmitRequired);
 		
 	// 2.근무 지역 선택
-	$('#sub-region-list').on('change', handleSubRegionChange);
 	$('#major-region-list').on('click', handleMajorRegionClick);
+	$('#sub-region-list').on('change', handleSubRegionChange);
 	$('.filter-reset-btn').on('click', handleResetClick);
 	$('#search-input').on('keyup', handleSearchInput);
 	$('#check-all-sub-regions').on('change', function () {
@@ -22,117 +22,78 @@ $(function () {
 		updateKeyword(this);
 		updateJobValue();
 	});
+	
 	//3-3) 키워드 삭제 버튼 이벤트 
 	$(document).on('click', '.close-btn', function() {
 		deleteKeyword(this);
 		updateJobValue();
 	});
-
+	
 	//4. 채용 인원 선택 
 	//4-1) 최솟값, 정수만 입력 
 	$('[name="recruit_hiring_num"]').attr({min: 0, step: 1});
 	//4-2)미정 체크박스 설정시 
 	$('#undecided').on('click', setUndecided);
 	
-//-------------------------------------------------------- 
-//                   세부 공고 내용 관련 js  
-//-------------------------------------------------------- 
+	// 날짜 설정 관련
+	$('[name="end_date"]').on('change', dateValid);
 	
-	//실제로 사용자가 작성한 세부 내용이 전달되기 위한 설정 
-	$('form').on('submit', () => {
-		const editorContent = $('#editor').html();
-		$('#hiddenContent').val(editorContent);
-	});
-	
-	const $editor = $('#editor');
-	const $upload = $('#upload');
-
-  // 툴바 명령 실행
-  document.format = (command, value = null) => {
-    document.execCommand(command, false, value);
-  };
-
-  // 파일 업로드 버튼
-  $upload.on('change', function () {
-    const file = this.files[0];
-    if (file && file.type.startsWith('image/')) {
-      uploadImageToServer(file).then(function (url) {
-        insertImage(url);
-      });
-    }
-  });
-
-  // 이미지 삽입 함수
-  function insertImage(url) {
-    const $img = $('<img>').attr('src', url);
-    insertAtCursor($img[0]);
-  }
-
-  // 커서 위치에 이미지 삽입
-  function insertAtCursor(node) {
-    const sel = window.getSelection();
-    if (sel.rangeCount) {
-      const range = sel.getRangeAt(0);
-      range.deleteContents();
-      range.insertNode(node);
-      range.setStartAfter(node);
-      range.setEndAfter(node);
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
-  }
-
-  // 이미지 업로드 (서버 대신 base64 예시)
-  function uploadImageToServer(file) {
-    return new Promise(function (resolve) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        resolve(e.target.result);
-      };
-      reader.readAsDataURL(file);
+	//-------------------------------------------------------- 
+	//                   서머노트, 이미지 업로드  
+	//-------------------------------------------------------- 
+    $('#summernote').summernote({
+		lang: 'ko-KR',
+		height: 300,   // 에디터 높이 설정
+		placeholder: '여기에 내용을 입력하세요',
+		toolbar: [
+	        ['style', ['bold', 'italic', 'underline', 'clear']],
+	        ['insert', ['picture']],
+	        ['para', ['ul', 'ol']],
+	        ['view', ['codeview']]
+      	],
+      	callback : {
+			onImageUpload : function(files) {
+				let img = new FormData();
+	      		img.append('file', files[0]);
+	      		
+	      		$.ajax({
+					url: 'imgUpload',
+					method: 'POST',
+					data: img,
+					processData : false,
+					contentType : false,
+					enctype: 'multipart/form-data',
+					dataType : 'json',
+					success : function(data) {
+						$('#summernote').summernote('insertImage', data.url)
+						console.log(data);
+					}
+					
+						
+		
+				})
+	      		
+//	      		ajaxReq("imgUpload", "post", "img", img, renderImg)
+	      		
+			}
+		}
     });
-  }
-
-  // 드래그앤드롭 이미지
-  $editor.on('dragover', function (e) {
-    e.preventDefault();
-  });
-
-  $editor.on('drop', function (e) {
-    e.preventDefault();
-    const file = e.originalEvent.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      uploadImageToServer(file).then(function (url) {
-        insertImage(url);
-      });
-    }
-  });
-
-  // 붙여넣기 이미지 처리
-  $editor.on('paste', function (e) {
-    const items = e.originalEvent.clipboardData.items;
-    for (const item of items) {
-      if (item.type.startsWith('image/')) {
-        const file = item.getAsFile();
-        uploadImageToServer(file).then(function (url) {
-          insertImage(url);
-        });
-        e.preventDefault();
-      }
-    }
-  });
 	
-	
-  
-});// 윈도우 레디 
-	
+
+});// 윈도우 레디
+
 // 함수 선언 부 
+
+function renderImg() {
+	debugger;
+}
+
 
 //=============0. ajax 호출 함수 ===============
 function ajaxReq(url, method, key, value, func) {
 	$.ajax({
 		url: url, method: method,
-		data: { [key] : value },dataType: 'json',
+		data: { [key] : value }, dataType: 'json',
 		success: function(res) {
 			func(res);
 		},
@@ -141,7 +102,6 @@ function ajaxReq(url, method, key, value, func) {
 		}	
 	});
 }
-	
 //==============================1 . 유효성 검사 ============================================
  const requiredFields = [
 	{ selector: '#subject', message: '제목을 입력해주세요.' },
@@ -174,7 +134,6 @@ function onSubmitRequired(e) {
 	 }
 	return true;
 }
-	
 //==============================2. 근무 지역 선택 ========================================
 function updateCheckAllState() {
 	let subRegionList = $('#sub-region-list');
@@ -208,7 +167,6 @@ function handleMajorRegionClick(e) {
 	// 클릭시 세부 데이터 가져오기 
 	const location = $(e.target).val();
 	ajaxReq('getlocDetailList', 'GET', 'location', location, renderSubRegions);
-	
     updateCheckAllState();
 }
 
@@ -249,8 +207,6 @@ function handleResetClick() {
 
 // 검색 필터
 function handleSearchInput() {
-// 사용자가 값을 검색하면 그 값과 일치하는 code_name 값을 가진 데이터를 디비에서 불러와서 출력함 이것도 ajax 네 ... 
-// 사용자가 검색한 값 변수에 저장함 
 	let keyword = searchInputEl.val().trim();
 	ajaxReq('getlocDetailList', 'GET', 'location', keyword, renderSubRegions);
 }
@@ -318,4 +274,13 @@ function deleteKeyword (el) {
 function setUndecided () {
 	let check = $('#undecided').is(':checked');
 	$('[name="recruit_hiring_num"]').prop('disabled', check).val(check ? 0 : '');
+}
+
+//================================5. 날짜 선택 영역 ==========================
+function dateValid() { 
+	let date = new Date($('[name="end_date"]').val()) 
+	if (date < $.now()) {
+		alert('마감일은 오늘 이후로 설정하세요');
+		$('[name="end_date"]').val('');
+	}
 }

@@ -54,8 +54,8 @@ public class RecruiterController {
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")
 	public String recruiterRegistForm(RecruitVO recruit) {
-//		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
-//		System.out.println(recruit.getEnd_date());
+		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
+		System.out.println(recruit.getRecruit_context());
 		return "redirect:/recruiterList";
 	}
 	
