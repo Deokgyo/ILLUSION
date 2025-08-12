@@ -22,15 +22,11 @@ public class RecruitmentController {
 	// 채용정보 페이지 이동
 	@GetMapping("recruitmentInfo")
 	public String recruitmentInfo(Model model,
-			 @RequestParam(value="sort", defaultValue="latest") String sort) {
+			 @RequestParam(value="sort", defaultValue="latest") String sort) { // 분류 필터링
 		
-		// 채용정보 리스트 model에 담기
 		List<RecruitVO> recruitList = service.selectRecruitList(sort);
 		model.addAttribute("recruitList", recruitList);
 		model.addAttribute("sort", sort);
-		
-		System.out.println("@#%#@%#@%");
-		System.out.println(sort);
 		
 		return "recruitment/recruitmentInfo";
 	}

@@ -7,9 +7,9 @@
   
   <div class="filter-dropdown-menu location-filter-menu hidden">
     <%-- 상단 검색창 --%>
-    <div class="search-input-wrapper">
-      <input type="text" id="location-search-input" placeholder="지역을 입력하세요">
-    </div>
+<!--     <div class="search-input-wrapper"> -->
+<!--       <input type="text" id="location-search-input" placeholder="지역을 입력하세요"> -->
+<!--     </div> -->
 
     <%-- 2단 패널 컨테이너 --%>
     <div class="location-panel-wrapper">
@@ -17,9 +17,22 @@
       <div class="region-panel-left">
         <ul id="major-region-list">
           <%-- 이 부분은 JS로 동적 생성하거나, JSP로 직접 출력할 수 있습니다. --%>
-          <li class="major-region-item active" data-region-code="seoul">서울</li>
-          <li class="major-region-item" data-region-code="busan">부산</li>
-          <li class="major-region-item" data-region-code="daegu">대구</li>
+          <li class="major-region-item active" data-region-code="11">서울특별시</li>
+          <li class="major-region-item" data-region-code="21">부산광역시</li>
+          <li class="major-region-item" data-region-code="22">대구광역시</li>
+          <li class="major-region-item" data-region-code="23">인천광역시</li>
+          <li class="major-region-item" data-region-code="24">광주광역시</li>
+          <li class="major-region-item" data-region-code="25">대전광역시</li>
+          <li class="major-region-item" data-region-code="26">울산광역시</li>
+          <li class="major-region-item" data-region-code="31">경기도</li>
+          <li class="major-region-item" data-region-code="32">강원도</li>
+          <li class="major-region-item" data-region-code="33">충청북도</li>
+          <li class="major-region-item" data-region-code="34">충청남도</li>
+          <li class="major-region-item" data-region-code="35">전라북도</li>
+          <li class="major-region-item" data-region-code="36">전라남도</li>
+          <li class="major-region-item" data-region-code="37">경상북도</li>
+          <li class="major-region-item" data-region-code="38">경상남도</li>
+          <li class="major-region-item" data-region-code="39">제주도</li>
           <%-- (기타 시/도 생략) --%>
         </ul>
       </div>
