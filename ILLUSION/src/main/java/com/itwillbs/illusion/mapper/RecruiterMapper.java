@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.illusion.vo.RecruitVO;
+
 @Mapper
 public interface RecruiterMapper {
 	// 대분류 값 가져오기 
@@ -19,4 +21,8 @@ public interface RecruiterMapper {
 	
 	// 직무 소분류 값 가져오기 
 	public List<Map<String, String>> getJobList(@Param("occupation") String occupation);
+	
+	// 공고 등록 
+	public int insertRecruitment(RecruitVO recruit);
+	
 }

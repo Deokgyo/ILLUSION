@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.mapper.RecruiterMapper;
+import com.itwillbs.illusion.vo.RecruitVO;
 
 @Service
 public class RecruiterService {
@@ -36,4 +37,12 @@ public class RecruiterService {
 	public List<Map<String, String>> getJobList(String occupation) {
 		return mapper.getJobList(occupation);
 	}
+	
+	// 공고 등록 
+	
+	public int insertRecruitment(RecruitVO recruit) {
+		return mapper.insertRecruitment(recruit);
+	}
+	
+	
 }

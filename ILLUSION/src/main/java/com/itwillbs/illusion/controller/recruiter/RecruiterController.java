@@ -41,7 +41,7 @@ public class RecruiterController {
 	// 공고 등록 페이지로 이동함 
 	@GetMapping("recruiterRegistForm")
 	public String recruiterRegistForm(Model model) {
-		// 디비 공통코드에서 주소 값 가져오기 
+		// 디비 공통코드에서 주소 값 가져오기 s
 		List<Map<String, String>> locationList = service.getLocation();
 		model.addAttribute("locationList", locationList);
 		
@@ -55,7 +55,11 @@ public class RecruiterController {
 	@PostMapping("recruiterRegistForm")
 	public String recruiterRegistForm(RecruitVO recruit) {
 		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
-		System.out.println(recruit.getRecruit_context());
+		System.out.println(recruit);
+		
+		int insertCnt = service.insertRecruitment(recruit);
+		
+		
 		return "redirect:/recruiterList";
 	}
 	
