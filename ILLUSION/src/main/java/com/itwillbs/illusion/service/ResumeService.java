@@ -49,8 +49,9 @@ public class ResumeService {
 	   
 	   
 	   /* 예상면접질문 */
-	   public List<Map<String, Object>> questList() {
-		   return mapper.questList();
+	   public List<Map<String, Object>> selectquestList() {
+		   return mapper.selectquestList();
+	   }
 	   
 	   
 	 

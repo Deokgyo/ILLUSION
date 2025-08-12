@@ -64,13 +64,13 @@ public class MypageContrlloer {
 		return "myPage/savedCLList";
 	}
 	/* 면접예상질문 리스트 */
-//	@GetMapping("savedQuestionList")
-//	public String savedQuestionList(Model model) {
-//		List<Map<String,Object>> questList = service.selectquestList();
-//		model.addAttribute("QuestList", questList);
-//		
-//		return "myPage/savedQuestionList";
-//	}
+	@GetMapping("savedQuestionList")
+	public String savedQuestionList(Model model) {
+		List<Map<String,Object>> questList = service.selectquestList();
+		model.addAttribute("QuestList", questList);
+		
+		return "myPage/savedQuestionList";
+	}
 	/* 스크랩공고 목록 */
 	@GetMapping("ScraprecruitList")
 	public String ScraprecruitList() {
