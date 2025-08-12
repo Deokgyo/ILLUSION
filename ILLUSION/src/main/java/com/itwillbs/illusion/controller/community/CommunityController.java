@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.service.BoardService;
+import com.itwillbs.illusion.vo.PageInfo;
 
 @Controller
 public class CommunityController {
@@ -24,16 +25,46 @@ public class CommunityController {
 	@GetMapping("communityMain")
 	public String communityMain(Model model, 
 								@RequestParam(value="categoryCode", required = false) String categoryCode,
-								@RequestParam(value="sort", defaultValue = "latest") String sort) {
+								@RequestParam(value="sort", defaultValue = "latest") String sort,
+								@RequestParam(defaultValue = "1") int pageNum) {
+		
+		// 페이지 네이션
+		int listLimit = 10;
+		int startRow = (pageNum - 1) * listLimit;
+		
+		int listCount = service.getBoardListCount();
+		System.out.println("listCount -----------------" + listCount);
+		int pageListLimit = 10;
+		
+		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
+		
+		if (maxPage == 0) {
+			maxPage = 1;
+		}
+		
+		int startPage = (pageNum - 1 ) / pageListLimit * pageListLimit + 1;
+		int endPage = startPage + pageListLimit - 1;
+		
+		if (endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage, pageNum);
+		model.addAttribute("pageInfo", pageInfo);
+
+		// 카테고리 리스트 가져오기
 		List<Map<String, String>> categoryList = service.selectCategory();
 		model.addAttribute("categoryList", categoryList);
-
-		List<Map<String, String>> boardList = service.selectBoardList(categoryCode, sort);
+		
+		// 게시글 리스트 가져오기
+		List<Map<String, Object>> boardList = service.selectBoardList(categoryCode, sort, startRow, listLimit);
 		model.addAttribute("boardList", boardList);
 
 		model.addAttribute("selectedCategoryCode", categoryCode);
 		model.addAttribute("sort", sort);
-
+		
+		
+		
 		return "community/communityMain";
 	}
 	

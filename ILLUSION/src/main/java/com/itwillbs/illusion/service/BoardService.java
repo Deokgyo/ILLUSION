@@ -16,13 +16,14 @@ public class BoardService {
 	
 	@Autowired
 	BoardMapper mapper;
-	
+	 
 	// 게시글 전체 조회
-	public List<Map<String, String>> selectBoardList(String categoryCode, String sort) {
-		Map<String, String> map = new HashMap<String, String>();
+	public List<Map<String, Object>> selectBoardList(String categoryCode, String sort, int startRow, int listLimit) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("categoryCode", categoryCode);
 		map.put("sort", sort);
-		
+		map.put("startRow", startRow);
+		map.put("listLimit", listLimit);
 		
         return mapper.selectBoardList(map);
     }
@@ -55,6 +56,10 @@ public class BoardService {
 	// 게시글 삭제
 	public void boardDelete(int board_idx) {
 		mapper.boardDelete(board_idx);
+	}
+	
+	public int getBoardListCount() {
+		return mapper.getBoardListCount();
 	}
 	
 	

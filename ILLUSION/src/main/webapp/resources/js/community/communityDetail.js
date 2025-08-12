@@ -77,7 +77,6 @@ $(function() {
         $.ajax({
             url: `api/boards/${board_idx}/comments/${cmt_idx}`,
             type: 'DELETE',
-//            dataType: 'json',
             success: function(res) {
 				alert("삭제 성공");
 				getCmtList();	

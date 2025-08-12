@@ -116,8 +116,16 @@ textarea.form-control {
     font-weight: 600;
 }
 
+#occupations.category-options {
+  max-height: 320px;   /* 또는 height: 320px; */
+  overflow-y: auto;
+}
+#jobs.category-options {
+  max-height: 320px;   /* 또는 height: 320px; */
+  overflow-y: auto;
+}
 
-/* '세부 직무'와 태그를 감싸는 전체 컨테이너 */
+
 .detailed-job-selection {
     display: flex;
     align-items: center;
@@ -125,6 +133,19 @@ textarea.form-control {
     border-radius: 8px;
     padding: 10px 15px;
     min-height: 50px; 
+    flex-wrap: wrap; /* 세부 직무명이 길어질 때 줄바꿈 허용 */
+    margin: 40px 0px ;
+}
+
+.selected-tags-area {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 8px; 
+    margin-top: 0; 
+    padding: 0;
+    background-color: transparent;
+    flex: 1; /* 가로 공간 모두 사용 */
+    align-items: center; /* 태그 세로 가운데 정렬 */
 }
 
 /* '세부 직무' 타이틀 */
@@ -134,16 +155,6 @@ textarea.form-control {
     color: var(--font-main-color);
     margin-right: 20px;
     white-space: nowrap; /* 줄바꿈 방지 */
-}
-
-/* 선택된 키워드(태그)를 감싸는 영역 */
-.selected-tags-area {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 8px; 
-    margin-top: 0; 
-    padding: 0;    
-    background-color: transparent; 
 }
 
 /* 개별 태그 스타일 */

@@ -20,7 +20,7 @@ public class BoardApiController {
 	
 	@Autowired
 	BoardService service;
-	
+		
 	@DeleteMapping
     public String deleteBoard(@PathVariable int board_idx) {
         // TODO 권한검사
@@ -29,6 +29,7 @@ public class BoardApiController {
         
         return "삭제성공";
     }
+	
 	
 	// PutMapping 담에 다시 시도해보기
 	@PostMapping
