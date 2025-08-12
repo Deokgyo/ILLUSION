@@ -36,6 +36,7 @@ $(function() { // $(document).ready()의 축약형
     /* 드롭다운 토글 기능 */
     $('.toggle-filter-btn').on('click', function(event) {
         const $currentMenu = $(this).siblings('.filter-dropdown-menu');
+        
         // 현재 메뉴를 제외한 다른 모든 메뉴는 닫음
         $('.filter-dropdown-menu').not($currentMenu).addClass('hidden');
         $currentMenu.toggleClass('hidden');
@@ -168,4 +169,62 @@ $(function() { // $(document).ready()의 축약형
         const initialRegionCode = $majorRegionList.find('.active').data('region-code') || '11';
         ajaxRequest('getlocDetailList', 'GET', { location: initialRegionCode }, populateSubRegionCheckboxes);
     }
+    
+        /**
+     * 서버에서 받은 코드 목록으로 체크박스 UI를 생성하여 타겟 영역에 채워넣는 함수
+     * @param {jQuery} $targetElement - 체크박스가 삽입될 JQuery 객체
+     * @param {string} filterName - 체크박스의 name 속성에 들어갈 값 (예: 'locations')
+     * @param {Array} codeData - 서버에서 받은 공통 코드 데이터 배열
+     */
+    function populateFilterOptions($targetElement, filterName, codeData) {
+        $targetElement.empty(); // 기존 내용 비우기
+        
+        if (!codeData || codeData.length === 0) {
+            $targetElement.append('<div>옵션이 없습니다.</div>');
+            return;
+        }
+
+        codeData.forEach(code => {
+            const newCheckboxHTML = `
+                <label>
+                    <input type="checkbox" class="filter-checkbox" 
+                           name="${filterName}" value="${code.code}" data-text="${code.code_name}">
+                    ${code.code_name}
+                </label>
+            `;
+            $targetElement.append(newCheckboxHTML);
+        });
+    }
+
+    /**
+     * 페이지에 있는 모든 동적 필터들을 초기화하는 메인 함수
+     */
+    function initializeDynamicFilters() {
+        // data-group-id 속성을 가진 모든 필터 드롭다운을 찾아서 반복 실행
+        $('.filter-dropdown[data-group-id]').each(function() {
+            const $filterDropdown = $(this);
+            const groupId = $(this).data('group-id'); // 예: "LOCATION", "OCCUPATION"
+            const filterName = $filterDropdown.data('filter-type') + 's'; // 예: "locations", "occupations"
+            const $optionsTarget = $filterDropdown.find('[data-target="options-list"]');
+            const requestUrl = contextPath + '/api/codes/' + groupId;
+
+            if (groupId && $optionsTarget.length) {
+	
+			console.log(`API 요청 시작: groupId = ${groupId}`); 
+                // 각 필터에 맞는 범용 API를 호출하여 데이터를 가져온다.
+                ajaxRequest(
+                    requestUrl, // ✨ Controller에 만든 범용 API URL
+                    'GET',
+                    { groupId: groupId },
+                    function(response) {
+                        // 성공 시, 받아온 데이터로 체크박스를 생성하는 함수 호출
+                        populateFilterOptions($optionsTarget, filterName, response);
+                    }
+                );
+            }
+        });
+    }
+    
+    initializeDynamicFilters();
+    
 });

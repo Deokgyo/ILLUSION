@@ -18,8 +18,8 @@
       <div class="region-panel-left">
         <ul id="major-region-list">
           <%-- 이 부분은 JS로 동적 생성하거나, JSP로 직접 출력할 수 있습니다. --%>
-          <li class="major-region-item active" data-region-code="occupation1">개발</li>
-          <li class="major-region-item" data-region-code="occupation2">디자인</li>
+          <li class="major-region-item active" data-region-code="JOB010">IT·인터넷·데이터</li>
+          <li class="major-region-item" data-region-code="JOB020">경영·사무·금융</li>
           <%-- (기타 시/도 생략) --%>
         </ul>
       </div>

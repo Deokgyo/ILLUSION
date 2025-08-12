@@ -8,7 +8,7 @@ import com.itwillbs.illusion.vo.CommonCodeVO;
 @Mapper
 public interface CommonCodeMapper {
 
-	List<CommonCodeVO> findSubCodesByParentCode(String parentCode);
+	List<CommonCodeVO> findCodesByGroupId(String groupId);
 	
 //	List<CommonCodeVO> findLocationsByName(String keyword);
 

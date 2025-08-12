@@ -5,15 +5,18 @@
 	
 <mapper namespace="com.itwillbs.illusion.mapper.CommonCodeMapper">
 	
-	<select id="findSubCodesByParentCode" resultType="com.itwillbs.illusion.vo.CommonCodeVO">
-	    SELECT
-            code_group_id, code, code_name, parent_code_id
+	<select id="findCodesByGroupId" parameterType="string" resultType="com.itwillbs.illusion.vo.CommonCodeVO">
+        SELECT
+        	code_group_id,
+            code,
+            code_name,
+            parent_code_id
         FROM
             common_code
         WHERE
-            parent_code_id = #{parentCode}
+            code_group_id = #{groupId}
         ORDER BY
-            code_name ASC
+            code ASC
 	</select>
 	
 <!-- 	<select id="findLocationsByName" resultType="com.itwillbs.illusion.vo.CommonCodeVO"> -->

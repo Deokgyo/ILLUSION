@@ -14,8 +14,8 @@ public class CommonCodeService {
 	@Autowired
     private CommonCodeMapper Mapper;
 
-    public List<CommonCodeVO> getSubRegionsByParentCode(String parentCode) {
-        return Mapper.findSubCodesByParentCode(parentCode);
+    public List<CommonCodeVO> getCodesByGroupId(String groupId) {
+        return Mapper.findCodesByGroupId(groupId);
     }
     
 //    public List<CommonCodeVO> searchLocationsByName(String keyword) {

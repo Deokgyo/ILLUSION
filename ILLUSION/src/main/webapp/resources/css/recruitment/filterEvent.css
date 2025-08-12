@@ -37,7 +37,7 @@
     top: 110%;
     left: 0;
     z-index: 1000;
-    min-width: 280px;
+    min-width: 300px;
     background-color: #ffffff; /* 팝업 가독성을 위해 흰색 배경 사용 */
     border: 1px solid #dee2e6; /* 테두리색 변수가 없어 직접 사용 */
     border-radius: 8px;
