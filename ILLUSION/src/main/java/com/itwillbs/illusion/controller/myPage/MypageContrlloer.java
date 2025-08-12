@@ -11,17 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.illusion.service.BoardService;
 import com.itwillbs.illusion.service.ResumeService;
 import com.itwillbs.illusion.vo.ResumeVO;
 
 @Controller
 public class MypageContrlloer {
 	@Autowired
-	ResumeService service;
+	ResumeService resumeService;
+	
+	@Autowired
+	BoardService service;
 	
 	@GetMapping("myPage")
 	public String myPage(){
@@ -44,37 +51,63 @@ public class MypageContrlloer {
 //	    paramMap.put("member_idx", memberIdx);
 		
 	    // 서비스 호출 - insert 시 useGeneratedKeys로 resume_idx 채워줌
-	    service.insertResumeAndExpInfo(paramMap);
+	    resumeService.insertResumeAndExpInfo(paramMap);
 
 	    return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") 
+	       + "&member_idx=" + paramMap.get("member_idx");
+	}
+	
+	/* 이력서 수정*/
+	@GetMapping("resumeUpdate")
+	public String resumeUpdate(@RequestParam int resume_idx, Model model) {
+	    Map<String, Object> resume = resumeService.selectResume(resume_idx);
+	    model.addAttribute("resume", resume);
+	    List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
+        model.addAttribute("resume_exp_info_list", resumeExpInfoList);
+	    return "myPage/resumeUpdate";
+	}
+	/* 이력서 수정*/
+	@PostMapping("resumeUpdate")
+	public String resumeUpdate(@RequestParam Map<String, Object> paramMap
+							,HttpSession session
+							,int resume_idx
+							,Model model) {
+		
+		
+        Map<String, Object> resume = resumeService.selectResume(resume_idx);
+        model.addAttribute("resume", resume);
+		resumeService.updateResumeAndExpInfo(paramMap);
+		
+		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") 
 	       + "&member_idx=" + paramMap.get("member_idx");
 	}
 	/* 이력서 목록 */
 	@GetMapping("savedResumeList")
 	public String savedResumeList(Model model) {
-	    List<Map<String,Object>> resumeList = service.selectResumelist();
+	    List<Map<String,Object>> resumeList = resumeService.selectResumelist();
 	    model.addAttribute("resumeList", resumeList);
+	    
 	    return "myPage/savedResumeList";
 	}
 	/* 자소서 목록 */
 	@GetMapping("savedCLList")
 	public String savedCLList(Model model) {
-		List<Map<String,Object>> clList = service.selectcllist();
+		List<Map<String,Object>> clList = resumeService.selectcllist();
 		model.addAttribute("clList", clList);
 		return "myPage/savedCLList";
 	}
 	/* 면접예상질문 리스트 */
 	@GetMapping("savedQuestionList")
 	public String savedQuestionList(Model model) {
-		List<Map<String,Object>> questList = service.selectquestList();
+		List<Map<String,Object>> questList = resumeService.selectquestList();
 		model.addAttribute("QuestList", questList);
 		
 		return "myPage/savedQuestionList";
 	}
 	/* 스크랩공고 목록 */
-	@GetMapping("ScraprecruitList")
-	public String ScraprecruitList() {
-		return "myPage/ScraprecruitList";
+	@GetMapping("scraprecruitList")
+	public String scraprecruitList() {
+		return "myPage/scraprecruitList";
 	}
 	
 	/*입사지원현황 */
@@ -85,22 +118,31 @@ public class MypageContrlloer {
 	/*내가쓴글*/
 	@GetMapping("myPost")
 	public String myPost(Model model) {
-		List<Map<String,Object>> boardList = service.selectboard();
+		List<Map<String,Object>> boardList = resumeService.selectboard();
 	    model.addAttribute("boardList", boardList);
 		
 		return "myPage/myPost";
 	}
 	
+	@DeleteMapping("/boardDelete/{board_idx}")
+	@ResponseBody
+	public String deleteBoard(@PathVariable int board_idx) {
+	    service.boardDelete(board_idx);
+	    System.out.println("console.log('삭제할 번호:', "+ board_idx);
+	    return "삭제성공";
+	}
+	
+	
 	/* 환불 정책  */
-	@GetMapping("RefundPolicy")
-	public String RefundPolicy() {
-		return "myPage/RefundPolicy";
+	@GetMapping("refundPolicy")
+	public String refundPolicy() {
+		return "myPage/refundPolicy";
 	}
 	
 	/*회원정보 수정*/
-	@GetMapping("UserInfoEdit")
-	public String UserInfoEdit() {
-		return "myPage/UserInfoEdit";
+	@GetMapping("userInfoEdit")
+	public String userInfoEdit() {
+		return "myPage/userInfoEdit";
 	}
 	
 	/*토큰 결제*/
@@ -113,12 +155,13 @@ public class MypageContrlloer {
 	public String savedResumeDetail(@RequestParam int resume_idx
 								   ,@RequestParam int member_idx
 								   ,Model model) {
-		Map<String, Object> member = service.selectMember(member_idx);
+		Map<String, Object> member = resumeService.selectMember(member_idx);
 		model.addAttribute("member", member);
-        Map<String, Object> resume = service.selectResume(resume_idx);
+        Map<String, Object> resume = resumeService.selectResume(resume_idx);
         model.addAttribute("resume", resume);
-        List<Map<String, Object>> resumeExpInfoList = service.selectResumeExpInfoList(resume_idx);
+        List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
         model.addAttribute("resume_exp_info_list", resumeExpInfoList);
+        System.out.println("resumeExpInfoList = " + resumeExpInfoList);
         
 		return "myPage/savedResumeDetail";
 	}
@@ -128,15 +171,15 @@ public class MypageContrlloer {
 								,@RequestParam int member_idx
 								,Model model
 								) {
-		Map<String, Object> member = service.selectMember(member_idx);
+		Map<String, Object> member = resumeService.selectMember(member_idx);
 		model.addAttribute("member", member);
-		Map<String,Object> cl = service.selectCL(cl_idx);
+		Map<String,Object> cl = resumeService.selectCL(cl_idx);
 		model.addAttribute("cl", cl);
 		
 		return "myPage/savedCLDetail";
 	}
 	/*비밀번호변경 */
-	@GetMapping("changePasswd")
+	@GetMapping("changePasswd")	
 	public String changePasswd() {
 		return "myPage/changePasswd";
 	}

@@ -24,4 +24,5 @@ public class ilMailAuthInfo {
 	private String email;
 	private String auth_code;
    
+	public ilMailAuthInfo() {}
 }

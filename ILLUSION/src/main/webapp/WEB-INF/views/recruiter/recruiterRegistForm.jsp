@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+<!DOCTYPE html>
 <html>
 <head>
 	
@@ -9,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="./resources/css/global.css">
@@ -91,7 +94,6 @@
 <!-- 				    <div class="location-search-bar_my"> -->
 <!-- 	                		<input type="text" class="form-control" id="search-input" placeholder="지역을 입력하세요"> -->
 <!-- 				    </div> -->
-			    	
 					<%-- 근무 지역 셀렉트박스--%>
 					<%-- 왼쪽: 시/도 목록 --%>
 					<div class="region-panel-left">
@@ -100,9 +102,6 @@
 					    	<c:forEach var="location" items="${locationList}">
 					    		<li class="major-region-item" value="${location.code}">${location.code_name}</li>
 					    	</c:forEach>
-<!-- 							<li class="major-region-item" data-region-code="seoul">서울</li> -->
-<!-- 							<li class="major-region-item" data-region-code="busan">부산</li> -->
-<!-- 							<li class="major-region-item" data-region-code="daegu">대구</li> -->
 					<%-- (기타 시/도 생략) --%>
 						</ul>	
 					</div>
@@ -126,33 +125,27 @@
 			<section class="occupation-section">
 				<div class="title-undefined">
 					<i class="icon fa-regular fa-square-check"></i>
-		        	<h3 class="title">직무 선택</h3>
-	        	</div>
+					<h3 class="title">직무 선택</h3>
+				</div>
 				<div class="category-grid">
-				    <div class="category-column">
-				        <h4 class="col-title">직무 카테고리</h4>
-				        <div class="category-options" id="occupations">
-				        	<c:forEach var="occupation" items="${occupationList}">
-					    		<div class="option-btn occupation" data-value="${occupation.code}">${occupation.code_name}</div>
-					    	</c:forEach>
-<!-- 				            <div class="option-btn occupation">디자인</div> -->
-<!-- 				            <div class="option-btn active">개발자</div> -->
-				        </div>
-				    </div>			
-                   <div class="category-column">
-	                   <h4 class="col-title">세부 직무</h4>
-	                   <div class="category-options" id="jobs">
-<!-- 	                       <div class="option-btn job" >마케팅 기획</div> -->
-<!-- 	                       <div class="option-btn active job" >백엔드</div> -->
-<!-- 	                       <div class="option-btn">컨설턴트</div> -->
-	                   </div>
-	               </div>
-                  <div class="selected-tags-area">
-<!--                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div> -->
-<!--                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div> -->
-                     </div>
-                     <input type="hidden" id="selected-occupation" class="valid" name="occupation">
-	           </div>
+					<div class="category-column">
+						<h4 class="col-title">직무 카테고리</h4>
+						<div class="category-options" id="occupations">
+							<c:forEach var="occupation" items="${occupationList}">
+								<div class="option-btn occupation" data-value="${occupation.code}">${occupation.code_name}</div>
+							</c:forEach>
+						</div>
+					</div>			
+					<div class="category-column">
+						<h4 class="col-title">세부 직무</h4>
+						<div class="category-options" id="jobs"></div>
+					</div>
+					<div class="selected-tags-area">
+					<!--                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div> -->
+					<!--                           <div class="tag"><span>선택한 키워드</span><span class="close-btn">x</span></div> -->
+					</div>
+					<input type="hidden" id="selected-occupation" class="valid" name="occupation">
+				</div>
 			</section>
         	<%-- -------------------------------직무 선택 섹션 끝--------------------------- --%>
         	<%-- -------------------------------채용 인원 섹션----------------------------- --%>
@@ -161,7 +154,7 @@
 	        		<i class="fa-solid fa-street-view icon"></i>
 	        		<h3 class="title">채용 인원</h3>
 	        		<input class="form-check-input" type="checkbox" id="undecided">
-	        		<span>미정(0명)</span>
+	        		<span style="margin-left: 19px">미정(0명)</span>
         		</div>
 	            <input type="number" name="recruit_hiring_num" class="form-control valid" placeholder="채용인원 입력(단위:명)">
         	</section>
@@ -224,18 +217,18 @@
 	 		    <div class="title-undefined">
 	            	<i class="icon fa-regular fa-pen-to-square icon"></i>
 	            	<h3 class="title">채용 정보 상세 입력</h3>
-		           	<div class="toolbar">
-					  <button type="button" onclick="format('bold')"><i class="fa-solid fa-bold icon btn"></i></button>
-					  <button type="button" onclick="format('italic')"><i class="fa-solid fa-italic icon btn"></i></button>
-					  <button type="button" onclick="document.getElementById('upload').click()"><i class="fa-solid fa-arrow-up-from-bracket icon btn"></i></button>
-					  <input type="file" accept="image/*" id="upload" hidden>
-					</div>
-	            </div>
-			
-				<div class="editor" id="editor" contenteditable="true">
-				  담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요.
-				</div>
-				<textarea name="content" id="hiddenContent" class="valid" hidden></textarea>
+	             </div>
+	             <textarea id="summernote" name="recruit_context"></textarea> 
+<!-- 		           	<div class="toolbar"> -->
+<!-- 					  <button type="button" onclick="format('bold')"><i class="fa-solid fa-bold icon btn"></i></button> -->
+<!-- 					  <button type="button" onclick="format('italic')"><i class="fa-solid fa-italic icon btn"></i></button> -->
+<!-- 					  <button type="button" onclick="document.getElementById('upload').click()"><i class="fa-solid fa-arrow-up-from-bracket icon btn"></i></button> -->
+<!-- 					  <input type="file" accept="image/*" id="upload" hidden> -->
+<!-- 					</div> -->
+<!-- 				<div class="editor" id="editor" contenteditable="true"> -->
+<!-- 				  담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요. -->
+<!-- 				</div> -->
+<!-- 				<textarea name="content" id="hiddenContent" class="valid" hidden></textarea> -->
 <!-- 	            <textarea name="content" placeholder="담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요."></textarea> -->
        		</section>
        		<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%>            
@@ -272,7 +265,10 @@
 	<%-- js 관련 설정들 --%>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterRegistForm.js"></script>
-	 <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.min.js"></script>
 	
 </body>
 </html>

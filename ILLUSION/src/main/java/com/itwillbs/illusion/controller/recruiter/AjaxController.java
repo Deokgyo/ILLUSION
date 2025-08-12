@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.itwillbs.illusion.service.RecruiterService;
 
 @RestController
@@ -14,6 +17,8 @@ public class AjaxController {
 	
 	@Autowired
 	RecruiterService service;
+	// 업로드 할 가상 경로 
+	String virtualPath = "/resources/upload";
 	
 	@GetMapping("getlocDetailList")
 	public List<Map<String, String>> getlocDetailList(@RequestParam String location) {
@@ -26,4 +31,13 @@ public class AjaxController {
 		List<Map<String, String>> getJobList = service.getJobList(occupation);
 		return getJobList;
 	}
+	
+	@PostMapping("imgUpload")
+	public Map<String, String> imgUpload(@RequestParam MultipartFile img) {
+		
+		Map<String, String> imgUpload = null;
+		
+		return imgUpload;
+	}
+	
 }

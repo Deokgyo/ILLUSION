@@ -25,6 +25,14 @@ public class ResumeService {
 	        // 2. resume_exp_info insert - resume_idx 포함 필수
 	    	mapper.insertResume_exp_info(paramMap);
 	    }
+	    @Transactional
+	    public void updateResumeAndExpInfo(Map<String, Object> paramMap) {
+	    	// 1. resume insert - 여기서 resume_idx가 paramMap에 자동 세팅됩니다.
+	    	mapper.updateResume(paramMap);
+	    	
+	    	// 2. resume_exp_info insert - resume_idx 포함 필수
+	    	mapper.updateResume_exp_info(paramMap);
+	    }
 	   
 	   public Map<String, Object> selectMember(int member_idx) {
 		   return mapper.selectMember(member_idx);

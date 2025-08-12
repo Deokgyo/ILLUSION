@@ -36,7 +36,7 @@ $(document).ready(function() {
 		});
 	});
 
-	// 아이디 유효성 체크
+	// 유효성 체크
 	$(function() {
 
 		let isCheckId = false;
@@ -50,7 +50,7 @@ $(document).ready(function() {
 		$("#userpw").on('keyup', checkUserPass);
 		$("#userpw2").on('keyup', checkUserPass2);
 
-//		$('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
+		$('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
 
 		function checkUserId() {
 			let id = $("#userid").val().trim()
@@ -150,8 +150,30 @@ $(document).ready(function() {
 				}
 			}
 		}
+
+		function checkSubmit() {
+
+			if (!checkUserId) {
+				alert("아이디를 입력해주세요");
+				return false;
+			}
+
+			if (!checkUserPass) {
+				alert("비밀번호 똑디 안하나?");
+				return false;
+			}
+
+			if (!checkUserPass2) {
+				alert("비밀번호 확인 단디 안하나?");
+				return false;
+			}
+
+			return true;
+		}
 	}); // 유효성
 
+
+	// 이메일 인증
 	$(document).ready(function() {
 
 		let isEmailVerified = false; // 이메일 인증 성공 여부 저장 변수
@@ -167,7 +189,7 @@ $(document).ready(function() {
 			// 이메일 인증번호 발송 요청
 			$.ajax({
 				type: "POST",
-				url: "/member/email-auth",
+				url: "home/email-auth",
 				data: JSON.stringify({ member_email: emailVal }),
 				contentType: "application/json",
 				success: function(res) {
@@ -196,7 +218,7 @@ $(document).ready(function() {
 			// 인증번호 검증 요청
 			$.ajax({
 				type: "POST",
-				url: "/member/email-auth-check",
+				url: "home/email-auth-check",
 				data: JSON.stringify({ email: emailVal, auth_code: codeVal }),
 				contentType: "application/json",
 				success: function(res) {
@@ -213,6 +235,9 @@ $(document).ready(function() {
 				}
 			});
 		});
-	});
+	}); // 이메일 
+
+
+
 
 });

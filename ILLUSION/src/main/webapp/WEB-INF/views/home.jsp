@@ -52,8 +52,8 @@
 		</h1>
 		<p class="desc">이력서부터 면접까지, 당신의 커리어를 스마트하게 설계하세요.</p>
 		<div class="btn-group">
-			<button onclick="location.href='${pageContext.request.contextPath}/Create'">자기소개서 생성하기</button>
-			<button onclick="location.href='${pageContext.request.contextPath}/recruitment'">채용정보 바로 가기</button>
+			<button onclick="location.href='${pageContext.request.contextPath}/coverletterCreate'">자기소개서 생성하기</button>
+			<button onclick="location.href='${pageContext.request.contextPath}/recruitmentInfo'">채용정보 바로 가기</button>
 		</div>
 		<div class="bottom-menu">
 			<span>📝 자기소개서 생성하기</span> <span>✏️ 자기소개서 다듬기</span> <span>🤖

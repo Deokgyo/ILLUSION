@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itwillbs.illusion.mapper.ilMemberMapper">
+
+<!-- 	<select id="checkIdMap"> -->
+<!-- 	SELECT CASE WHEN count(*) = 0 THEN '사용 가능한 아이디' -->
+<!-- 							  ELSE '사용 불가능한 아이디(아이디중복)' END as msg -->
+<!-- 		 , CASE WHEN count(*) = 0 THEN 'blue' -->
+<!-- 								  ELSE 'red' END as color -->
+<!-- 	  FROM MEMBER -->
+<!-- 	 WHERE ID = #{id}  -->
+<!-- 	</select> -->
+
+<!-- 	<select id="checkId"> -->
+<!-- 	SELECT COUNT(*) AS CNT -->
+<!-- 	  FROM MEMBER -->
+<!-- 	 WHERE ID = #{id} -->
+<!-- 	</select> -->
+
+	<insert id="insertMailAuthInfo">
+    INSERT INTO mail_auth_info 
+   	VALUES (#{email},
+            #{auth_code})
+	</insert>
+
+
+	<select id="selectMailAuthInfo">
+	SELECT *
+	  FROM mail_auth_info
+	 WHERE email = #{email}
+	</select>
+
+<!-- 	<update id="updateMailAuthStatus"> -->
+<!-- 	UPDATE mail_auth_info -->
+<!-- 	   SET mail_auth_status = 'Y' -->
+<!-- 	 WHERE email = #{email} -->
+<!-- 	</update> -->
+
+	<delete id="deleteMailAuthInfo">
+	DELETE FROM mail_auth_info
+  	 WHERE email = #{email}
+	</delete>
+
+	<select id="getMemberInfo">
+	SELECT *
+	  FROM MEMBER
+	 WHERE id = #{id}
+	</select>
+
+
+
+
+
+
+
+
+
+</mapper>

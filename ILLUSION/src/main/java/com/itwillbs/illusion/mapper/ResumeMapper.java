@@ -10,9 +10,12 @@ public interface ResumeMapper {
 
 	int insertResume(Map<String, Object> resumeMap);
 	int insertResume_exp_info(Map<String, Object> resumeMap);
+	int updateResume(Map<String, Object> resumeMap);
+	int updateResume_exp_info(Map<String, Object> resumeMap);
     Map<String, Object> selectResume(int resumeIdx);
 	Map<String, Object> selectMember(int member_idx);
 	
+
 	List<Map<String, Object>> selectResumeExpInfoList(int resume_idx);
 	List<Map<String, Object>> selectResumelist();
 	

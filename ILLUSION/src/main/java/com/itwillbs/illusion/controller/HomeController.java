@@ -49,24 +49,7 @@ public class HomeController {
 		return "home/register";
 	}
 	
-	// 메인 자소서 생성기 이동 
-	@GetMapping("Create")
-	public String Create() {
-		return "jobTools/coverletterCreate";
-	}
-	
-	//메인 채용정보 페이지 이동
-	@GetMapping("recruitment")
-	public String recruitment() {
-		return "recruitment/recruitmentInfo";
-	}
-	
-	// 회원가입  
-	@PostMapping("registersu")
-	public String registersu() {
-		return "home/register";
-	}
-		
+
 	
 	
 	
