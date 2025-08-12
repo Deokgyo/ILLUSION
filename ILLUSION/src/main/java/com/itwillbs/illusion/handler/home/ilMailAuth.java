@@ -26,7 +26,7 @@ public class ilMailAuth extends Authenticator {
 		 * 네이버, Gmail 기준 2단계 인증 미사용시: 계정명, 패스워드
 		 * 네이버, Gmail 기준 2단계 인증 사용 시: 계정명, 앱 비밀번호
 		 *   (단, 사용 메일 계정에 대한 2단계 인증 활성화 및 앱 비밀번호 등록 필요)
-		 *   (앱 비밀번호는 로그인 등의 다른 서비스에서는 사용불가능하며, 특정 서비스에서만 사용)
+		 *   (앱 비밀번호는 로그인 등의 다른 서비스에서는 사용불가능하며, 특정 서비스에서만 사용)email-auth
 		 * */
 		
 		passwordAuthentication = new PasswordAuthentication(

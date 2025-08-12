@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.illusion.mapper.ilMemberMapper;
 import com.itwillbs.illusion.vo.ilMailAuthInfo;
-import com.itwillbs.illusion.vo.ilMemberVO;
+import com.itwillbs.illusion.vo.MemberVO;
 
 @Service
 public class ilMemberService {
@@ -16,7 +16,7 @@ public class ilMemberService {
 	@Autowired
 	ilMemberMapper mapper;
 
-	public ilMemberVO getMemberInfo(String id) {
+	public MemberVO getMemberInfo(String id) {
 		return mapper.getMemberInfo(id);
 	}
 
@@ -28,7 +28,7 @@ public class ilMemberService {
 		return mapper.checkId(id);
 	}
 
-	public int insertMember(ilMemberVO member) {
+	public int insertMember(MemberVO member) {
 		return mapper.insertMember(member);
 	}
 
@@ -56,16 +56,11 @@ public class ilMemberService {
 			if (auth_code.equals(db_auth_code)) {
 				System.out.println("난수 인증 성공!!!");
 
-				// 1. Member 테이블에 mail_auth_status = 'Y'로 바꾸는 작업
-				mapper.updateMailAuthStatus(mailAuthInfo);
-
-				// rollback 처리 확인
-//				if (true) {
-//					throw new RuntimeException();
-//				}
-
-				// 2. mail_auth_info 테이블에 ROW 삭제
-				mapper.deleteMailAuthInfo(mailAuthInfo);
+//				// 1. Member 테이블에 mail_auth_status = 'Y'로 바꾸는 작업
+//				mapper.updateMailAuthStatus(mailAuthInfo);
+//
+//				// 2. mail_auth_info 테이블에 ROW 삭제
+//				mapper.deleteMailAuthInfo(mailAuthInfo);
 
 				isAuthSuccess = true;
 			}
