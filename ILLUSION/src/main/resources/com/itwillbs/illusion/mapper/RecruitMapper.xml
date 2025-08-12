@@ -6,27 +6,26 @@
 <mapper namespace="com.itwillbs.illusion.mapper.RecruitMapper">
 	
 	<select id="selectRecruitList" resultType="com.itwillbs.illusion.vo.RecruitVO">
-		SELECT 
+		SELECT
 			r.recruit_idx,
-			loc.code_name AS location,
+			CONCAT(c_parent.code_name, ' ', c_child.code_name) AS location,
 			occ.code_name as occupation,
 			r.start_date,
 			r.end_date,
 			r.views_count,
 			r.recruit_subject
 		FROM 
-			recruit r LEFT JOIN common_code loc ON r.location = loc.code
+			recruit r LEFT JOIN common_code c_child ON r.location = c_child.code
+            LEFT JOIN common_code c_parent ON c_child.parent_code_id = c_parent.code
 		    LEFT JOIN common_code occ ON r.occupation = occ.code
 		ORDER BY
         <choose>
             <when test="sort == 'end_date'">
                 r.end_date ASC, r.recruit_idx DESC
             </when>
-            
             <when test="sort == 'views'">
                 r.views_count DESC, r.recruit_idx DESC
             </when>
-            
             <otherwise>
                 r.recruit_idx DESC
             </otherwise>

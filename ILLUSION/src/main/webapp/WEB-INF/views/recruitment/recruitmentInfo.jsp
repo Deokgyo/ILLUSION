@@ -59,9 +59,9 @@
 	        <main>
 	            <section class="job-list-controls">
 	                <div class="sort-options">
-	                    <a href="/recruitmentInfo?sort=latest" class="${sort == 'latest' ? 'active' : ''}">마감순</a>
-	                    <a href="/recruitmentInfo?sort=end_date" class="${sort == 'end_date' ? 'active' : ''}">마감순</a>
-	                    <a href="/recruitmentInfo?sort=views" class="${sort == 'views' ? 'active' : ''}">마감순</a>
+	                    <a href="recruitmentInfo?sort=latest" class="${sort == 'latest' ? 'active' : ''}">최신순</a>
+	                    <a href="recruitmentInfo?sort=end_date" class="${sort == 'end_date' ? 'active' : ''}">마감순</a>
+	                    <a href="recruitmentInfo?sort=views" class="${sort == 'views' ? 'active' : ''}">조회순</a>
 	                </div>
 	            </section>
 	
@@ -79,9 +79,7 @@
 		                        	<p>시작일 : ${r.start_date }</p> <%-- 공고 시작일 마감일 --%>
 		                        	<p>마감일 : ${r.end_date }</p> <%-- 공고 시작일 마감일 --%>
 		                        </div>
-		                        <div class="card-meta">
-		                            <a href="recruitmentDetail?recruit_idx=${r.recruit_idx }" class="btn-yellow">입사지원</a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
-		                        </div>
+	                            <a href="recruitmentDetail?recruit_idx=${r.recruit_idx }" class="stretched-link"></a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
 		                    </div>
 		                    <div class="card-image">
 		                        <img src="${pageContext.request.contextPath}/resources/image/samsung.jpg" alt="Samsung Building">

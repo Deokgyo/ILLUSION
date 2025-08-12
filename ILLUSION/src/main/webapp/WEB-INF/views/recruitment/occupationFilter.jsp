@@ -7,10 +7,10 @@
   
   <div class="filter-dropdown-menu location-filter-menu hidden">
     <%-- 상단 검색창 --%>
-    <div class="search-input-wrapper">
-      <input type="text" id="location-search-input" placeholder="직종을 입력하세요">
-      <button>🔍</button>
-    </div>
+<!--     <div class="search-input-wrapper"> -->
+<!--       <input type="text" id="location-search-input" placeholder="직종을 입력하세요"> -->
+<!--       <button>🔍</button> -->
+<!--     </div> -->
 
     <%-- 2단 패널 컨테이너 --%>
     <div class="occupation-panel-wrapper">
