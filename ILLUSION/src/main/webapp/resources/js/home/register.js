@@ -50,7 +50,7 @@ $(document).ready(function() {
 		$("#userpw").on('keyup', checkUserPass);
 		$("#userpw2").on('keyup', checkUserPass2);
 
-		$('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
+		//      $('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
 
 		function checkUserId() {
 			let id = $("#userid").val().trim()
@@ -150,26 +150,26 @@ $(document).ready(function() {
 				}
 			}
 		}
-
-		function checkSubmit() {
-
-			if (!checkUserId) {
-				alert("아이디를 입력해주세요");
-				return false;
-			}
-
-			if (!checkUserPass) {
-				alert("비밀번호 똑디 안하나?");
-				return false;
-			}
-
-			if (!checkUserPass2) {
-				alert("비밀번호 확인 단디 안하나?");
-				return false;
-			}
-
-			return true;
-		}
+		//
+		//      function checkSubmit() {
+		//
+		//         if (!checkUserId) {
+		//            alert("아이디를 입력해주세요");
+		//            return false;
+		//         }
+		//
+		//         if (!checkUserPass) {
+		//            alert("비밀번호 똑디 안하나?");
+		//            return false;
+		//         }
+		//
+		//         if (!checkUserPass2) {
+		//            alert("비밀번호 확인 단디 안하나?");
+		//            return false;
+		//         }
+		//
+		//         return true;
+		//      }
 	}); // 유효성
 
 
@@ -236,6 +236,51 @@ $(document).ready(function() {
 			});
 		});
 	}); // 이메일 
+
+	// 회원가입
+	document.addEventListener("DOMContentLoaded", function() {
+		const form = document.getElementById("registerForm");
+
+		form.addEventListener("submit", function(e) {
+			e.preventDefault(); // 기본 form 전송 막음
+
+			// 입력값 가져오기
+			const userid = document.getElementById("userid").value.trim();
+			const userpw = document.getElementById("userpw").value.trim();
+			const email = document.getElementById("email").value.trim();
+
+			// 간단한 유효성 검사
+			if (!userid || !userpw || !email) {
+				alert("모든 필드를 입력해주세요.");
+				return;
+			}
+
+			// 서버 전송 - fetch API 사용
+			fetch("registersu", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json" // JSON 데이터 전송
+				},
+				body: JSON.stringify({
+					userid: userid,
+					userpw: userpw,
+					email: email
+				})
+			})
+				.then(response => {
+					if (response.redirected) {
+						alert("회원가입 성공!");
+						window.location.href = response.url;
+					} else {
+						alert("회원가입 실패");
+					}
+				})
+				.catch(error => {
+					console.error("에러 발생:", error);
+					alert("서버 요청 중 오류가 발생했습니다.");
+				});
+		});
+	});
 
 
 

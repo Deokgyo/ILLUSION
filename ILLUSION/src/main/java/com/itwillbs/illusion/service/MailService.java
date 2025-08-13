@@ -3,21 +3,21 @@ package com.itwillbs.illusion.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itwillbs.illusion.handler.home.ilGenerateRandomCode;
-import com.itwillbs.illusion.handler.home.ilMailClient;
-import com.itwillbs.illusion.vo.ilMailAuthInfo;
+import com.itwillbs.illusion.handler.home.GenerateRandomCode;
+import com.itwillbs.illusion.handler.home.MailClient;
+import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
 @Service
-public class ilMailService {
+public class MailService {
 
 	@Autowired
-	private ilMailClient mailClient;
+	private MailClient mailClient;
 
-	public ilMailAuthInfo sendAuthMail(MemberVO member) {
+	public MailAuthInfo sendAuthMail(MemberVO member) {
 
 		// 인증 메일에 포함시킬 인증코드(난수) 생성
-		String auth_code = ilGenerateRandomCode.getRandomCode(4);
+		String auth_code = GenerateRandomCode.getRandomCode(4);
 
 		// ==========================================
 		// [ 인증 메일 발송 요청 ]
@@ -28,7 +28,7 @@ public class ilMailService {
 				+ "<p>인증번호를 입력란에 입력하시면 가입이 완료됩니다.</p>";
 
 		mailClient.sendMail(member.getMember_email(), subject, content);
-		ilMailAuthInfo mailAuthInfo = new ilMailAuthInfo(member.getMember_email(), auth_code);
+		MailAuthInfo mailAuthInfo = new MailAuthInfo(member.getMember_email(), auth_code);
 		return mailAuthInfo;
 	}
 
