@@ -127,7 +127,7 @@ public class MypageContrlloer {
 
 		return "myPage/myPost";
 	}
-
+	/* 내가쓴글 삭제*/
 	@DeleteMapping("/boardDelete/{board_idx}")
 	@ResponseBody
 	public String deleteBoard(@PathVariable int board_idx) {
@@ -149,12 +149,22 @@ public class MypageContrlloer {
 		System.out.println("맴버아이디" + member_idx);
 		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
 		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
-
-//		Map<String, Object> userInfoEdit = resumeService.userInfoEdit(member_idx);
-//		model.addAttribute("userInfoEdit",userInfoEdit);
+		
 		return "myPage/userInfoEdit";
 	}
+	/*회원정보 수정 */
+	@PostMapping("userInfoEdit")
+    public String userInfoEdit(@RequestParam Map<String, Object> paramMap) {
 
+        // member_idx는 Integer로 변환
+        if (paramMap.get("member_idx") instanceof String) {
+            paramMap.put("member_idx", Integer.parseInt((String) paramMap.get("member_idx")));
+        }
+        System.out.println("paramMap = " + paramMap);
+        resumeService.updateuserInfoEdit(paramMap);
+        
+        return "redirect:/myPage";
+    }
 	/* 토큰 결제 */
 	@GetMapping("tokenpay")
 	public String tokenpay() {
@@ -188,7 +198,10 @@ public class MypageContrlloer {
 
 	/* 비밀번호변경 */
 	@GetMapping("changePasswd")
-	public String changePasswd() {
+	public String changePasswd(Model model, @RequestParam int member_idx) {
+		System.out.println("맴버아이디" + member_idx);
+		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
+		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
 		return "myPage/changePasswd";
 	}
 

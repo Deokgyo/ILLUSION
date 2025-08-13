@@ -32,7 +32,8 @@
 		)
 	</insert>
 	<insert id="insertResume_exp_info" parameterType="map">
-		INSERT INTO resume_exp_info(
+		INSERT INTO
+		resume_exp_info(
 		resume_idx,
 		company_name,
 		occupation,
@@ -49,30 +50,30 @@
 	</insert>
 	<update id="updateResume" parameterType="map"
 		useGeneratedKeys="true" keyProperty="resume_idx">
-			UPDATE resume
-		SET 
-		    member_idx = #{member_idx},
-		    resume_title = #{resume_title},
-		    resume_create_at = #{resume_create_at},
-		    resume_img = #{resume_img},
-		    school_name = #{school_name},
-		    major = #{major},
-		    grade = #{grade},
-		    degree = #{degree},
-		    enroll_date = #{enroll_date},
-		    graduation_date = #{graduation_date}
+		UPDATE resume
+		SET
+		member_idx = #{member_idx},
+		resume_title = #{resume_title},
+		resume_create_at = #{resume_create_at},
+		resume_img = #{resume_img},
+		school_name = #{school_name},
+		major = #{major},
+		grade = #{grade},
+		degree = #{degree},
+		enroll_date = #{enroll_date},
+		graduation_date = #{graduation_date}
 		WHERE resume_idx = #{resume_idx}
 	</update>
-	
+
 	<update id="updateResume_exp_info" parameterType="map">
-			UPDATE resume_exp_info
+		UPDATE resume_exp_info
 		SET
-			resume_idx = #{resume_idx},
-	        company_name = #{company_name},
-	        position = #{position},
-	        experience = #{experience},
-	        occupation = #{occupation}
-	    WHERE exp_idx = #{exp_idx}
+		resume_idx = #{resume_idx},
+		company_name = #{company_name},
+		position = #{position},
+		experience = #{experience},
+		occupation = #{occupation}
+		WHERE exp_idx = #{exp_idx}
 	</update>
 
 
@@ -90,90 +91,87 @@
 		WHERE
 		resume_idx = #{resume_idx}
 	</select>
-	
+
 	<select id="selectResumelist" resultType="map">
-		SELECT resume_idx, resume_title, resume_create_at
+		SELECT resume_idx,
+		resume_title, resume_create_at
 		FROM resume
 	</select>
-	
-	
+
+
 	<select id="selectResume" parameterType="int" resultType="map">
-		SELECT * FROM resume WHERE resume_idx = #{resume_idx}
+		SELECT
+		* FROM resume WHERE resume_idx = #{resume_idx}
 	</select>
-	
+
 
 	<select id="selectMember" parameterType="int" resultType="map">
-		SELECT * FROM member WHERE member_idx = #{member_idx}
+		SELECT
+		* FROM member WHERE member_idx = #{member_idx}
 	</select>
-	
+
 	<!-- 이력서 삭제 -->
-		<delete id="deleteResume" parameterType="map">
-		
-			DELETE FROM resume
- 			WHERE resume_idx=#{resume_idx}
-	
+	<delete id="deleteResume" parameterType="map">
+
+		DELETE FROM resume
+		WHERE resume_idx=#{resume_idx}
+
 	</delete>
 	<!-- 이력서 경력삭제 -->
 	<delete id="deleteResume_exp_info" parameterType="map">
-			DELETE FROM resume_exp_info
- 			WHERE exp_idx=#{exp_idx}
-	
+		DELETE FROM resume_exp_info
+		WHERE exp_idx=#{exp_idx}
 	</delete>
-	
-	
+
+
 	<!-- 회원정보 조회 -->
 	<select id="selectuserInfoEdit" parameterType="int"
 		resultType="map">
-			SELECT* FROM member
-			WHERE member_idx =1
+		SELECT* FROM member
+		WHERE member_idx =1
 	</select>
-	
-	<!-- 회원정보 수정 -->
-<!-- 	<update id="userInfoEdit"> -->
-<!-- 		UPDATE member -->
-<!-- 	SET -->
-<!--         address_idx = #{address_idx},      -->
-<!--         email_verified = #{email_verified},	 -->
-<!--         gender = #{gender},		 -->
-<!--         member_email = #{member_email}, -->
-<!--         member_id = #{member_id},		 -->
-<!--         member_name = #{member_name},		 -->
-<!--         member_phone = #{member_phone},		 -->
-<!--         member_privacy_agreed = #{member_privacy_agreed},  변수명 확인 필요 -->
-<!--         member_pw = #{member_pw},		 -->
-<!--         member_signup_date = #{member_signup_date}, -->
-<!--         member_status = #{member_status},		 -->
-<!--         member_type = #{member_type},		 -->
-<!--         profile_picture_url = #{profile_picture_url}, -->
-<!--         resume_birth = #{resume_birth},		 -->
-<!--         token = #{token} -->
-<!--     WHERE member_idx = #{member_idx} -->
-<!-- 	</update> -->
-	
-	
+
+
+
+	<update id="updateuserInfoEdit" parameterType="map">
+		UPDATE member
+		SET
+		member_name = #{member_name},
+		member_id = #{member_id},
+		member_email = #{member_email},
+		address_name = #{address_name},
+		gender = #{gender},
+		resume_birth = #{resume_birth}
+		WHERE member_idx = #{member_idx}
+	</update>
+
 	<!-- 예상면접질문 -->
 	<select id="selectquestList" resultType="map">
-		SELECT answer_idx, question_idx, member_idx, answer_text, ai_feedback, answer_create_at
+		SELECT answer_idx,
+		question_idx, member_idx, answer_text, ai_feedback, answer_create_at
 		FROM answer
 	</select>
-	
-	
-	
+
+
+
 	<!-- 커뮤니티 목록 -->
 	<select id="selectboard" resultType="map">
-		SELECT board_idx, board_title, board_create_at, board_viewcnt,cmt_count
+		SELECT board_idx,
+		board_title, board_create_at, board_viewcnt,cmt_count
 		FROM board
 	</select>
-	
-	
-	
-	<!-- 자소서 -->
+
+
+
+	<!-- 자소서상세페이지 -->
 	<select id="selectcl" parameterType="int" resultType="map">
-		SELECT * FROM cover_letter WHERE cl_idx = #{cl_idx}
+		SELECT *
+		FROM cover_letter WHERE cl_idx = #{cl_idx}
 	</select>
-	
+	<!-- 자소서리스트 -->
 	<select id="selectcllist" resultType="map">
-		SELECT cl_idx, cl_title, generation_date
+		SELECT cl_idx, cl_title,
+		generation_date
 		FROM cover_letter
 	</select>
 </mapper>
