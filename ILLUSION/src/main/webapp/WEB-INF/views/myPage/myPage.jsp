@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지 홈 이거 커밋됨?..(2025.08.08)</title>
+<title>마이페이지</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -48,7 +48,7 @@
 			<div class="profile-box">
       <div class="profile-left">
         <div class="profile-img"><img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png"></div>
-        <button class="edit-btn"><a href="userInfoEdit">회원정보수정</a></button>
+        <button class="edit-btn" onclick="location.href='userInfoEdit?member_idx=1'">회원정보수정</button>
       </div>
       
       <div class="profile-info">

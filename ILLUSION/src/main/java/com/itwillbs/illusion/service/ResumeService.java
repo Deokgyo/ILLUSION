@@ -50,7 +50,12 @@ public class ResumeService {
 	   }
 	   
 	   
-	   
+//	   public Map<String, Object> userInfoEdit(int member_idx) {
+//	   return mapper.userInfoEdit(member_idx);
+//   }
+   public Map<String, Object> selectuserInfoEdit(int member_idx) {
+	   return mapper.selectuserInfoEdit(member_idx);
+   }
 	   
 	   
 	   

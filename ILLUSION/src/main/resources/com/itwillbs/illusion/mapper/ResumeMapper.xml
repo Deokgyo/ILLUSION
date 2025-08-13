@@ -106,8 +106,49 @@
 		SELECT * FROM member WHERE member_idx = #{member_idx}
 	</select>
 	
+	<!-- 이력서 삭제 -->
+		<delete id="deleteResume" parameterType="map">
+		
+			DELETE FROM resume
+ 			WHERE resume_idx=#{resume_idx}
+	
+	</delete>
+	<!-- 이력서 경력삭제 -->
+	<delete id="deleteResume_exp_info" parameterType="map">
+			DELETE FROM resume_exp_info
+ 			WHERE exp_idx=#{exp_idx}
+	
+	</delete>
 	
 	
+	<!-- 회원정보 조회 -->
+	<select id="selectuserInfoEdit" parameterType="int"
+		resultType="map">
+			SELECT* FROM member
+			WHERE member_idx =1
+	</select>
+	
+	<!-- 회원정보 수정 -->
+<!-- 	<update id="userInfoEdit"> -->
+<!-- 		UPDATE member -->
+<!-- 	SET -->
+<!--         address_idx = #{address_idx},      -->
+<!--         email_verified = #{email_verified},	 -->
+<!--         gender = #{gender},		 -->
+<!--         member_email = #{member_email}, -->
+<!--         member_id = #{member_id},		 -->
+<!--         member_name = #{member_name},		 -->
+<!--         member_phone = #{member_phone},		 -->
+<!--         member_privacy_agreed = #{member_privacy_agreed},  변수명 확인 필요 -->
+<!--         member_pw = #{member_pw},		 -->
+<!--         member_signup_date = #{member_signup_date}, -->
+<!--         member_status = #{member_status},		 -->
+<!--         member_type = #{member_type},		 -->
+<!--         profile_picture_url = #{profile_picture_url}, -->
+<!--         resume_birth = #{resume_birth},		 -->
+<!--         token = #{token} -->
+<!--     WHERE member_idx = #{member_idx} -->
+<!-- 	</update> -->
 	
 	
 	<!-- 예상면접질문 -->

@@ -112,8 +112,11 @@
 
   <div class="right-buttons">
   
-    <button class="edit-btn" onclick="location.href='resumeUpdate?resume_idx=${resume.resume_idx}';">수정</button>
-    <button class="delete-btn" onclick="confirm('삭제하시겠습니까?')">삭제</button>
+     <button class="edit-btn" onclick="location.href='resumeUpdate?resume_idx=${resume.resume_idx}';">수정</button>
+    <form action="resumeDelete" method="post" onsubmit="return confirm('삭제하시겠습니까?');">
+     <input type="hidden" name="resume_idx" value="${resume.resume_idx}" />
+    <button type="submit" class="delete-btn" >삭제</button>
+	</form>	
   </div>
 </div>
   </div>
