@@ -64,7 +64,7 @@
 				<div class="member-info-container">
 				<hr>
 				<form action="userInfoEdit" method="post">
-				<input type="hidden" name="member_idx" value="1">
+				<input type="hidden" name="member_idx" value="${selectuserInfoEdit.member_idx }">
 					<table class="info-table">
 						<tr>
 							<th>프로필 이미지</th>
