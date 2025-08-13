@@ -12,19 +12,18 @@ import com.itwillbs.illusion.vo.CommonCodeVO;
 
 import java.util.List;
 
-@RestController // 이 클래스는 데이터를 반환하는 API 컨트롤러임을 선언
+@RestController
 @RequestMapping("/api/codes")
 public class FilterApiController {
 
 	@Autowired
     CommonCodeService Service;
 
-    @GetMapping("/{groupId}")
+    @GetMapping
     public List<CommonCodeVO> getCodesByGroup(
-            @RequestParam("groupId") String groupId) {
+            @RequestParam("groupId") String groupId,
+            @RequestParam(value = "parentCode", required = false) String parentCode) {
         
-        List<CommonCodeVO> codeList = Service.getCodesByGroupId(groupId);
-        
-        return codeList;
+        return Service.getCodesByParentCode(groupId, parentCode);
     }
 }    

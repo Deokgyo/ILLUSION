@@ -167,6 +167,11 @@
   padding: 0; /* 내부 패딩을 없애고 각 섹션에서 관리 */
 }
 
+.occupation-filter-menu {
+  min-width: 550px; /* 2단 구조를 위해 너비 확장 */
+  padding: 0; /* 내부 패딩을 없애고 각 섹션에서 관리 */
+}
+
 /* 상단 검색창 */
 .search-input-wrapper {
   display: flex;
@@ -195,18 +200,23 @@
   height: 300px; /* 높이 고정 */
 }
 
+.occupation-panel-wrapper {
+  display: flex;
+  height: 300px; /* 높이 고정 */
+}
+
 
 /* 왼쪽 패널 (시/도) */
 .region-panel-left {
-  flex: 0 0 120px; /* 너비 120px 고정 */
+  flex: 0 0 123px; /* 너비 120px 고정 */
   border-right: 1px solid var(--border-color, #dee2e6);
   overflow-y: auto; /* 내용이 많으면 스크롤 */
   padding: 0.5rem 0;
 }
 .major-region-list {
-  list-style: none;
-  padding-left: 1rem;
-  margin-right: 20px;
+   list-style: none;
+   padding-left: 7px;
+   margin-right: 0px;
 }
 .major-region-item {
   padding: 11px 0px;
