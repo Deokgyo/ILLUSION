@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 	
     <%-- 외부 라이브러리 CSS --%>
@@ -69,16 +69,38 @@
 	        	<section class="work-time">
 	        		<div class="title-undefined">
 			        	<i class="fa-regular fa-clock icon"></i>
-			        	<h3 class="title">근무 시간</h3>
+			        	<h3 class="title">근무 일시</h3>
 		        	</div>
-		        	<select name="workTime" class="form-select category-select valid" required>
-		        		<option disabled selected>근무 시간 선택</option>
-		        		<option value="WT001">09:00 ~ 18:00</option>
-		        		<option value="WT002">09:00 ~ 13:00</option>
-		        		<option value="WT003">14:00 ~ 18:00</option>
-		        		<option value="WT004">22:00 ~ 06:00</option>
-		        		<option value="WT005">자율 근무 / 협의</option>
-		        	</select>
+		        	<div class="workDayTime">
+			        	<div class="startEndDate"> 
+	       					<select name="work_start_day" class="form-select category-select valid">
+							  <option disabled selected>근무 시작 요일 선택</option>
+								<option value="WSD001">월요일</option>
+								<option value="WSD002">화요일</option>
+								<option value="WSD003">수요일</option>
+								<option value="WSD004">목요일</option>
+								<option value="WSD005">금요일</option>
+								<option value="WSD006">토요일</option>
+								<option value="WSD007">일요일</option>
+							</select>
+				        	~
+	       					<select name="work_end_day" class="form-select category-select valid">
+							  <option disabled selected>근무 종료 요일 선택</option>
+								<option value="WED001">월요일</option>
+								<option value="WED002">화요일</option>
+								<option value="WED003">수요일</option>
+								<option value="WED004">목요일</option>
+								<option value="WED005">금요일</option>
+								<option value="WED006">토요일</option>
+								<option value="WED007">일요일</option>
+							</select>
+			        	</div>
+			        	<div class="startEndDate"> 
+				        	<input type="time" name="start_time" class="form-select category-select  valid" required>
+				        	~
+				        	<input type="time" name="end_time" class="form-select category-select  valid" required>
+			        	</div>
+		        	</div>
         		</section>
         	
         	<%-- --------------------------------근무 지역 섹션--------------------------- --%>
@@ -158,13 +180,19 @@
         	</section>
         	<%-- -------------------------------채용 인원 섹션 끝----------------------------- --%>
         	<section>
-				<select name="position" class="form-select">
+       			<div class="title-undefined">
+		        	<i class="bi bi-person-badge icon"></i>
+		        	<h3 class="title">직급 선택</h3>
+	        	</div>
+				<select name="position" class="form-select category-select valid">
 				  <option disabled selected>직급 선택</option>
-				  <option value="사원">사원</option>
-				  <option value="대리">대리</option>
-				  <option value="과장">과장</option>
-				  <option value="차장">차장</option>
-				  <option value="부장">부장</option>
+				  <option value="POS001">사원</option>
+				  <option value="POS002">주임</option>
+				  <option value="POS003">대리</option>
+				  <option value="POS004">과장</option>
+				  <option value="POS005">차장</option>
+				  <option value="POS006">부장</option>
+				  <option value="POS007">임원</option>
 				</select>
         	</section>
         	
@@ -226,39 +254,31 @@
 	            	<h3 class="title">채용 정보 상세 입력</h3>
 	             </div>
 	             <textarea id="summernote" name="recruit_context"></textarea> 
-<!-- 		           	<div class="toolbar"> -->
-<!-- 					  <button type="button" onclick="format('bold')"><i class="fa-solid fa-bold icon btn"></i></button> -->
-<!-- 					  <button type="button" onclick="format('italic')"><i class="fa-solid fa-italic icon btn"></i></button> -->
-<!-- 					  <button type="button" onclick="document.getElementById('upload').click()"><i class="fa-solid fa-arrow-up-from-bracket icon btn"></i></button> -->
-<!-- 					  <input type="file" accept="image/*" id="upload" hidden> -->
-<!-- 					</div> -->
-<!-- 				<div class="editor" id="editor" contenteditable="true"> -->
-<!-- 				  담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요. -->
-<!-- 				</div> -->
-<!-- 				<textarea name="content" id="hiddenContent" class="valid" hidden></textarea> -->
-<!-- 	            <textarea name="content" placeholder="담당 업무, 자격 요건, 우대 조건, 근무 환경, 채용 절차 등 지원자에게 필요한 정보를 구체적으로 입력해주세요."></textarea> -->
        		</section>
-       		<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%>            
+       		<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%> 
+       		<%----------------------------------우대사항 섹션------------------------------ --%>
+       		<section>
+	 		    <div class="title-undefined">
+	            	<i class="fa-regular fa-calendar-days icon"></i>
+	            	<h3 class="title">우대사항</h3>
+	            </div>
+            	<input type="text" name="preferred" class="form-control" placeholder="우대사항 입력(선택사항)"/>	       		
+       		</section>
+       		<%-- -------------------------------우대사항 섹션 끝------------------------ --%> 
        		<%----------------------------------마감 날짜 섹션------------------------------ --%>
 	 		<section class="deadLine">
 	 		    <div class="title-undefined">
 	            	<i class="fa-regular fa-calendar-days icon"></i>
-	            	<h3 class="title">공고 마감 날짜</h3>
+	            	<h3 class="title">채용 시작 · 마감 일</h3>
 	            </div>
-	            	<input type="date" name="end_date" class="form-control valid" placeholder="날짜 선택"/>
+	            <div class="startEndDate">
+	            	<input type="date" name="start_date" class="form-control valid"/>
+	            	<input type="date" name="end_date" class="form-control valid"/>
+	            </div>
 	        </section>    
        		<%----------------------------------마감 날짜 섹션 끝---------------------------- --%>
-       		<%----------------------------------문의 email 섹션------------------------------ --%>
-<!--  		    <section class="email"> -->
-<!-- 	 		    <div class="title-undefined"> -->
-<!-- 	           		<i class="fa-regular fa-envelope icon"></i> -->
-<!-- 	            	<h3 class="title">문의 E-mail</h3> -->
-<!-- 	            </div> -->
-<!-- 	            <input type="text" name="email" class="form-control" placeholder="E-mail을 입력해주세요"> -->
-<!--        		</section> -->
-       		<%----------------------------------문의 email 섹션 끝---------------------------- --%>
         	<div class="btn-container">
-        		<input type="submit" id="submit" class="btn-yellow" value="제출">
+        		<input type="submit" id="submit" class="btn-yellow" value="등록">
         	</div>
         	</form>
         </div>
