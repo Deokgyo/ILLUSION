@@ -20,6 +20,7 @@ public class RecruitVO {
 	private String experience;
 	private String salary;
 	private String degree;
+	private String position;
 	private LocalDate start_date;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate end_date;

@@ -157,6 +157,17 @@
 	            <input type="number" name="recruit_hiring_num" class="form-control valid" placeholder="채용인원 입력(단위:명)">
         	</section>
         	<%-- -------------------------------채용 인원 섹션 끝----------------------------- --%>
+        	<section>
+				<select name="position" class="form-select">
+				  <option disabled selected>직급 선택</option>
+				  <option value="사원">사원</option>
+				  <option value="대리">대리</option>
+				  <option value="과장">과장</option>
+				  <option value="차장">차장</option>
+				  <option value="부장">부장</option>
+				</select>
+        	</section>
+        	
         	<%-- -------------------------------경력 섹션 ---------------------------------- --%>
         	<section class="work-time">
         		<div class="title-undefined">
@@ -174,13 +185,12 @@
        		</section>
         	<%-- -------------------------------경력 섹션 끝--------------------------------- --%>
         	<%-- -------------------------------학력 섹션 ---------------------------------- --%>
-	    	<div class="edusalary">   
 	    	    <section class="work-time">
 	        		<div class="title-undefined">
 			        	<i class="fa-solid fa-briefcase icon"></i>
 			        	<h3 class="title">학력</h3>
 		        	</div>
-		        	<select name="category" class="form-select category-select valid" required>
+		        	<select name="degree" class="form-select category-select valid" required>
 		        		<option disabled selected>학력 선택</option>
 		        		<option value="DEG001">고등학교 졸</option>
 		        		<option value="DEG002">전문대 졸</option>
@@ -208,7 +218,6 @@
 		        		<option value="SAL007">면접 후 협의</option>
 		        	</select>
 	       		</section>
-        	</div>
 	        	<%-- -------------------------------급여 섹션 끝----------------------------- --%>
         	<%-- -------------------------------채용 공고 내용 섹션------------------------ --%>
         	<section class="recruit-detail">
