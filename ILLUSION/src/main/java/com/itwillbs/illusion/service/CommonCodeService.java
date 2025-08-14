@@ -15,7 +15,7 @@ public class CommonCodeService {
 
 	@Autowired
     private CommonCodeMapper mapper;
-
+	
     public List<CommonCodeVO> getCodesByParentCode(String groupId,String parentCode) {
     	
     	Map<String, Object> params = new HashMap<>();
@@ -32,4 +32,5 @@ public class CommonCodeService {
 //    public List<CommonCodeVO> searchLocationsByName(String keyword) {
 //        return Mapper.findLocationsByName(keyword);
 //    }
+    
 }    

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.RecruiterService;
 import com.itwillbs.illusion.vo.RecruitVO;
 
@@ -20,11 +21,17 @@ public class RecruiterController {
 	
 	@Autowired
 	RecruiterService service;
+	@Autowired
+	CommonCodeService comService;
 	
 	// 기업 메인 페이지로 이동 
 	@GetMapping("recruiterMain") 
 	public String recruiterMain() {
 		return "recruiter/recruiterMain"; 
+	}
+	@GetMapping("recruiterMainLogin") 
+	public String recruiterMainLogin() {
+		return "recruiter/recruiterMainLogin"; 
 	}
 	
 	// 기업 정보 수정으로 이동 
@@ -48,6 +55,9 @@ public class RecruiterController {
 		// 디비 직무 가져오기 
 		List<Map<String, String>> occupationList = service.getOccupation();
 		model.addAttribute("occupationList", occupationList);
+		
+		//공통코드 값들 가져오기 
+		
 		return "recruiter/recruiterRegistForm";
 	}
 	

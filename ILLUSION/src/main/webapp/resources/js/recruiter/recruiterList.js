@@ -21,7 +21,7 @@ $(function () {
     columns: [
       {
         name: '선택',
-        width: '60px',
+        width: '80px',
         formatter: (_, row) =>
           gridjs.html(`<input type="checkbox" class="row-check" data-id="${row._index}" />`)
       },
@@ -50,11 +50,11 @@ $(function () {
   	  ["", "[아이티윌] 백엔드", "채용중", "10명", "25.07.25", "25.08.01", ""],
   	  ["", "[아이티윌] 백엔드", "채용중", "10명", "25.07.25", "25.08.01", ""]
     ],
-    pagination: false,
+    pagination: true,
     sort: true,
-    search: false,
+    search: true,
     className: {
-      table: 'grid-custom-table'
+    table: 'grid-custom-table'
     },
     rowAttributes: (row, index) => {
       return row[1] === "채용중" && index === 0
