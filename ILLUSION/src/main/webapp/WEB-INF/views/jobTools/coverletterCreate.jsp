@@ -109,6 +109,8 @@
 					        
 					        <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
 					        <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />
+					        <input type="hidden" name="prevCompany" id="prevCompany">
+							<input type="hidden" name="prevJob" id="prevJob">
 					    </div>
 					</div>
 

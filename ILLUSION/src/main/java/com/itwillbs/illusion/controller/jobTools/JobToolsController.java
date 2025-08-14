@@ -1,13 +1,17 @@
 package com.itwillbs.illusion.controller.jobTools;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.illusion.service.GeminiService;
 import com.itwillbs.illusion.service.JobToolsService;
@@ -36,9 +40,9 @@ public class JobToolsController {
 		return "jobTools/coverletterCreate";
 	}
 	
-	
+	@ResponseBody
 	@PostMapping("coverletterGenerate")
-	public String coverletterGenerate(Model model, 
+	public Map<String, Object> coverletterGenerate(Model model, HttpSession session, 
 	                                    String title, String company, 
 	                                    String prevCompany, String prevJob, String occupation,
 	                                    String maxLength, String keywords, String question, String experience) {
@@ -61,25 +65,37 @@ public class JobToolsController {
 	    
 	    String aiResult = geminiService.callGeminiApi(prompt);
 	    
-	    model.addAttribute("title", title);
-	    model.addAttribute("aiResult", aiResult);
+	    // Model 대신 Session에 결과값 저장
+	    session.setAttribute("aiResult", aiResult);
+	    session.setAttribute("title", title); // 제목도 필요하다면 세션에 저장
+
+	    // 성공 여부와 이동할 URL을 JSON 형태로 반환
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("success", true);
+	    response.put("redirectUrl", "coverletterResult"); // 이동할 URL
 	    
-	    System.out.println(aiResult);
-	    
-	    return "jobTools/coverletterResult"; // 
+	    return response;
 	}
 	
 	
 	
+	@GetMapping("coverletterResult")
+	public String showCoverletterResult(Model model, HttpSession session) {
+	    String aiResult = (String) session.getAttribute("aiResult");
+	    String title = (String) session.getAttribute("title");
+
+	    model.addAttribute("aiResult", aiResult);
+	    model.addAttribute("title", title);
+	    
+	    session.removeAttribute("aiResult");
+	    session.removeAttribute("title");
+
+	    return "jobTools/coverletterResult";
+	}
 	
 	@GetMapping("coverletterModify")
 	public String coverletterModify() {
 		return "jobTools/coverletterModify";
-	}
-	
-	@GetMapping("coverletterResult")
-	public String coverletterResult() {
-		return "jobTools/coverletterResult";
 	}
 	
 	@GetMapping("coverletterRefiner")

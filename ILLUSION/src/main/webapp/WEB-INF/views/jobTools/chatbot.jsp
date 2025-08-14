@@ -64,7 +64,6 @@
 				        <button type="button" class="gradient-btn btn-token-charge">
 				            <i class='far fa-gem' style= "color : var(--main-color)"></i> 토큰 충전
 				        </button>
-				
 				    </div>
 				</div>
                 

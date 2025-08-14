@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterResult.css">
 </head>
 <body>
-<p>DEBUG: ${aiResult}</p>
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
 
     <div class="page-container">
@@ -44,8 +43,7 @@
                     </div>
                 </div>
 
-                <textarea id="generated-text" readonly><c:out value="${aiResult}" /></textarea>
-                <pre>AI RESULT OUT: <c:out value="${aiResult}" escapeXml="false"/></pre>
+                <textarea id="generated-text" readonly>${aiResult }</textarea>
                 
                 <div class="text-center mt-4">
                     <button id="backBtn" class="btn btn-lg btn-outline-secondary">이전</button>
