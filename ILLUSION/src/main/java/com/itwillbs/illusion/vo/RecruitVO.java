@@ -33,7 +33,9 @@ public class RecruitVO {
 	private int recruit_hiring_num; // 채용 인원 
 	private String work_start_day; // 근무 시작 요일
 	private String work_end_day;   // 근무 종료 요일 
+	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime start_time;  // 근무 시작 시간
+	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime end_time;    // 근무 종료 시간 
 	private String recruiter_member_pnum; // 회사 담당자 번호 
 	private LocalDateTime post_create_at; // 공고 등록 시간 
@@ -46,7 +48,7 @@ public class RecruitVO {
 	private String ceo_name; // 대표 이름 
 	private String company_type; // 
 	private LocalDate company_estab_date;
-//	private String recruiter_member_email; // 회워 담당자 이메일, 안써도 될거 같음 
+	private String recruiter_member_email; // 회워 담당자 이메일, 안써도 될거 같음 
 	private MultipartFile file;
 	private String recruit_file;
 	private String preferred;	// 우대 사항

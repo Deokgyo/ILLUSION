@@ -33,51 +33,118 @@
 	</select>
 	
 	<select id="selectRecruitIndex" resultType="com.itwillbs.illusion.vo.RecruitVO">
-	SELECT 
-		r.recruit_idx,
-	    r.recruiter_member_idx,
-		loc.code_name AS location,
-		occ.code_name as occupation,
-	    exp.code_name AS experience,
-	    sal.code_name AS salary,
-	    deg.code_name AS degree,
-		r.start_date,
-		r.end_date,
-		r.app_count,
-	    r.recruit_context,
-		r.recruit_subject,
-	    typ.code_name AS recruit_type,
-	    r.recruit_hiring_num,
-	    r.start_time,
-	    r.end_time,
-	    ema.recruiter_member_email,
-	    c.company_idx,
-	    c.ceo_name,
-	    c.company_name,
-	    cty.code_name AS company_type,
-	    cin.code_name AS company_industry,
-	    c.company_estab_date,
-	    a.province,
-		a.city_district,
-		a.postcode,
-		a.road_address,
-		a.detail_address,
-		a.full_address
-	FROM 
-		recruit r 
-		LEFT JOIN common_code loc ON r.location = loc.code
-		LEFT JOIN common_code occ ON r.occupation = occ.code
-		LEFT JOIN common_code exp ON r.experience = exp.code
-		LEFT JOIN common_code sal ON r.salary = sal.code
-		LEFT JOIN common_code deg ON r.degree = deg.code
-		LEFT JOIN common_code typ ON r.recruit_type = typ.code
-		LEFT JOIN recruiter_member ema ON r.recruiter_member_idx = ema.recruiter_member_idx
-		LEFT JOIN company c ON ema.company_idx = c.company_idx
-		LEFT JOIN common_code cty ON c.company_type = cty.code
-		LEFT JOIN common_code cin ON c.company_industry = cin.code
-		LEFT JOIN address a ON c.address_idx = a.address_idx
-	WHERE 
-		r.recruit_idx = #{recruit_idx};
+<!-- 	SELECT  -->
+<!-- 		r.recruit_idx, -->
+<!-- 	    r.recruiter_member_idx, -->
+<!-- 		loc.code_name AS location, -->
+<!-- 		occ.code_name as occupation, -->
+<!-- 	    exp.code_name AS experience, -->
+<!-- 	    pos.code_name AS position, -->
+<!-- 	    sal.code_name AS salary, -->
+<!-- 	    deg.code_name AS degree, -->
+<!-- 		r.start_date, -->
+<!-- 		r.end_date, -->
+<!-- 		r.app_count, -->
+<!-- 	    r.recruit_context, -->
+<!-- 		r.recruit_subject, -->
+<!-- 	    typ.code_name AS recruit_type, -->
+<!-- 	    r.recruit_hiring_num, -->
+<!-- 	    r.start_time, -->
+<!-- 	    r.end_time, -->
+<!-- 	    ema.recruiter_member_email, -->
+<!-- 	    c.company_idx, -->
+<!-- 	    c.ceo_name, -->
+<!-- 	    c.company_name, -->
+<!-- 	    cty.code_name AS company_type, -->
+<!-- 	    cin.code_name AS company_industry, -->
+<!-- 	    c.company_estab_date, -->
+<!-- 	    a.province, -->
+<!-- 		a.city_district, -->
+<!-- 		a.postcode, -->
+<!-- 		a.road_address, -->
+<!-- 		a.detail_address, -->
+<!-- 		a.full_address, -->
+<!-- 		r.preferred, -->
+<!-- 		r.apply_doc, -->
+<!-- 		r.apply_method, -->
+<!-- 		r.work_start_day, -->
+<!-- 		r.work_end_day -->
+<!-- 	FROM  -->
+<!-- 		recruit r  -->
+<!-- 		LEFT JOIN common_code loc ON r.location = loc.code -->
+<!-- 		LEFT JOIN common_code occ ON r.occupation = occ.code -->
+<!-- 		LEFT JOIN common_code exp ON r.experience = exp.code -->
+<!-- 		LEFT JOIN common_code pos ON r.position = pos.code -->
+<!-- 		LEFT JOIN common_code sal ON r.salary = sal.code -->
+<!-- 		LEFT JOIN common_code deg ON r.degree = deg.code -->
+<!-- 		LEFT JOIN common_code typ ON r.recruit_type = typ.code -->
+<!-- 		LEFT JOIN recruiter_member ema ON r.recruiter_member_idx = ema.recruiter_member_idx -->
+<!-- 		LEFT JOIN company c ON ema.company_idx = c.company_idx -->
+<!-- 		LEFT JOIN common_code cty ON c.company_type = cty.code -->
+<!-- 		LEFT JOIN common_code cin ON c.company_industry = cin.code -->
+<!-- 		LEFT JOIN address a ON c.address_idx = a.address_idx -->
+<!-- 	WHERE  -->
+<!-- 		r.recruit_idx = #{recruit_idx}; -->
+	  SELECT 
+		    r.recruit_idx,
+		    r.recruiter_member_idx,
+		    occ.code_name AS occupation,
+		    exp.code_name AS experience,
+		    pos.code_name AS position,
+		    sal.code_name AS salary,
+		    deg.code_name AS degree,
+		    r.start_date,
+		    r.end_date,
+		    r.app_count,
+		    r.recruit_context,
+		    r.recruit_subject,
+		    typ.code_name AS recruit_type,
+		    r.recruit_hiring_num,
+		    r.start_time,
+		    r.end_time,
+		    ema.recruiter_member_email,
+		    c.company_idx,
+		    c.ceo_name,
+		    c.company_name,
+		    cty.code_name AS company_type,
+		    cin.code_name AS company_industry,
+		    c.company_estab_date,
+		    a.province,
+		    a.city_district,
+		    a.postcode,
+		    a.road_address,
+		    a.detail_address,
+		    a.full_address,
+		    r.preferred,
+		    r.apply_doc,
+		    r.apply_method,
+		    wsd.code_name as work_start_day,
+		    wed.code_name as work_end_day,
+		    locs.locations AS location         -- ← 집계된 지역명들
+		FROM 
+			recruit r
+			LEFT JOIN ( SELECT r2.recruit_idx,
+			                   GROUP_CONCAT(loc.code_name ORDER BY loc.code_name SEPARATOR ', ') AS locations
+						 FROM recruit r2
+						 LEFT JOIN common_code loc 
+						   ON FIND_IN_SET(loc.code, REPLACE(r2.location, ' ', ''))
+						GROUP BY r2.recruit_idx ) locs 
+							          ON locs.recruit_idx = r.recruit_idx
+			LEFT JOIN common_code occ ON r.occupation   = occ.code
+			LEFT JOIN common_code exp ON r.experience   = exp.code
+			LEFT JOIN common_code pos ON r.position     = pos.code
+			LEFT JOIN common_code sal ON r.salary       = sal.code
+			LEFT JOIN common_code deg ON r.degree       = deg.code
+			LEFT JOIN common_code typ ON r.recruit_type = typ.code
+			LEFT JOIN recruiter_member ema ON r.recruiter_member_idx = ema.recruiter_member_idx
+			LEFT JOIN company c ON ema.company_idx = c.company_idx
+			LEFT JOIN common_code cty ON c.company_type     = cty.code
+			LEFT JOIN common_code cin ON c.company_industry = cin.code
+			LEFT JOIN common_code wsd ON r.work_start_day = wsd.code
+			LEFT JOIN common_code wed ON r.work_end_day = wed.code
+			LEFT JOIN address a ON c.address_idx = a.address_idx
+		WHERE 
+			r.recruit_idx = #{recruit_idx};
 	</select>
 	
 	<select id="applyModal" resultType="com.itwillbs.illusion.vo.ApplyVO">

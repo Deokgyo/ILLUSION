@@ -550,3 +550,23 @@ label {
   grid-template-columns: 1fr 1fr; /* 2열 */
   column-gap: 10px;               /* 열 간격 10px */
 }
+
+
+.form-select {
+	border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 7px 26px;
+    height: 37px;
+    font-size: 16px;
+    color: var(--font-main-color);
+    box-shadow: none !important;
+    transition: border-color 0.2s;
+    width:100%;
+}
+
+.form-select:focus {
+	color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #ffc107;
+    outline: 0;
+}
