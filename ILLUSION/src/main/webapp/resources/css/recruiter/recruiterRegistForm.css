@@ -525,4 +525,28 @@ column-gap: 10px;
     gap: 15px;
 	
 }
+
+/* 지원 서류 및 방법  */
+
+.applyDocMethod {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 10px 0px;
+}
  
+label {
+	display: flex;
+    gap: 6px;
+}
+
+
+.section-applyDocMethod {
+	display: grid;
+  grid-template-columns: 1fr 1fr; /* 2열 */
+  column-gap: 10px;               /* 열 간격 10px */
+}

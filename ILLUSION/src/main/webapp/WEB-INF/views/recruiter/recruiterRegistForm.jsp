@@ -7,6 +7,7 @@
 <head>
 	
     <%-- 외부 라이브러리 CSS --%>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
@@ -215,7 +216,7 @@
         	<%-- -------------------------------학력 섹션 ---------------------------------- --%>
 	    	    <section class="work-time">
 	        		<div class="title-undefined">
-			        	<i class="fa-solid fa-briefcase icon"></i>
+			        	<i class="bi bi-mortarboard icon"></i>
 			        	<h3 class="title">학력</h3>
 		        	</div>
 		        	<select name="degree" class="form-select category-select valid" required>
@@ -253,13 +254,13 @@
 	            	<i class="icon fa-regular fa-pen-to-square icon"></i>
 	            	<h3 class="title">채용 정보 상세 입력</h3>
 	             </div>
-	             <textarea id="summernote" name="recruit_context"></textarea> 
+	             <textarea id="summernote" name="recruit_context" class="valid"></textarea> 
        		</section>
        		<%-- -------------------------------채용 공고 내용 섹션 끝------------------------ --%> 
        		<%----------------------------------우대사항 섹션------------------------------ --%>
        		<section>
 	 		    <div class="title-undefined">
-	            	<i class="fa-regular fa-calendar-days icon"></i>
+	            	<i class="bi bi-stars icon"></i>
 	            	<h3 class="title">우대사항</h3>
 	            </div>
             	<input type="text" name="preferred" class="form-control" placeholder="우대사항 입력(선택사항)"/>	       		
@@ -275,8 +276,24 @@
 	            	<input type="date" name="start_date" class="form-control valid"/>
 	            	<input type="date" name="end_date" class="form-control valid"/>
 	            </div>
-	        </section>    
+	        </section> 
        		<%----------------------------------마감 날짜 섹션 끝---------------------------- --%>
+			<%-- 지원 서류 지원 방법 섹션  --%>
+			<section class="section-applyDocMethod">
+	 		    <div class="title-undefined">
+	            	<i class="bi bi-file-earmark-text icon"></i>
+	            	<h3 class="title">지원 서류</h3>
+	            </div>				
+	 		    <div class="title-undefined">
+	            	<i class="bi bi-box-arrow-up-right icon"></i>
+	            	<h3 class="title">지원 방법</h3>
+	            </div>	
+					<input type="text" name="apply_doc" class="form-control valid" placeholder="필요 지원 서류 입력"/>
+					<input type="text" name="apply_method" class="form-control valid" placeholder="지원 방법 입력"/>			
+			</section>
+<!-- 			<section class="applyMethod"> -->
+<!-- 			</section> -->
+			<%-- 지원 서류 지원 마감 섹션 끝 --%>
         	<div class="btn-container">
         		<input type="submit" id="submit" class="btn-yellow" value="등록">
         	</div>
