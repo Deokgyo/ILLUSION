@@ -33,4 +33,8 @@ public class CommonCodeService {
 //        return Mapper.findLocationsByName(keyword);
 //    }
     
+    public List<CommonCodeVO> selectAllCommonList(List<String> codeGroups) {
+    	return mapper.selectAllCommonList(codeGroups);
+    }
+    
 }    

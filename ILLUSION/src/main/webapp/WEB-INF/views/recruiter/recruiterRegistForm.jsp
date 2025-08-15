@@ -57,12 +57,9 @@
 					</div>
 		        	<select name="recruit_type" class="form-select category-select valid" required>
 		        		<option disabled selected>채용 유형 선택</option>
-		        		<option value="RCT001">정규직</option>
-		        		<option value="RCT002">계약직</option>
-		        		<option value="RCT004">프리랜서</option>
-		        		<option value="RCT003">인턴</option>
-		        		<option value="RCT005">파트타임</option>
-		        		<option value="RCT006">파견직</option>
+		        		<c:forEach var="RCT" items="${commonListMap.RECRUIT_TYPE}">
+		        			<option value="${RCT.code}">${RCT.code_name}</option>
+		        		</c:forEach>
 		        	</select>
 	        	</section>
 	        	
@@ -76,24 +73,16 @@
 			        	<div class="startEndDate"> 
 	       					<select name="work_start_day" class="form-select category-select valid">
 							  <option disabled selected>근무 시작 요일 선택</option>
-								<option value="WSD001">월요일</option>
-								<option value="WSD002">화요일</option>
-								<option value="WSD003">수요일</option>
-								<option value="WSD004">목요일</option>
-								<option value="WSD005">금요일</option>
-								<option value="WSD006">토요일</option>
-								<option value="WSD007">일요일</option>
+								<c:forEach var="WSD" items="${commonListMap.WORK_START_DAY}">
+		        					<option value="${WSD.code}">${WSD.code_name}</option>
+		        				</c:forEach>
 							</select>
 				        	~
 	       					<select name="work_end_day" class="form-select category-select valid">
 							  <option disabled selected>근무 종료 요일 선택</option>
-								<option value="WED001">월요일</option>
-								<option value="WED002">화요일</option>
-								<option value="WED003">수요일</option>
-								<option value="WED004">목요일</option>
-								<option value="WED005">금요일</option>
-								<option value="WED006">토요일</option>
-								<option value="WED007">일요일</option>
+								<c:forEach var="WED" items="${commonListMap.WORK_END_DAY}">
+		        					<option value="${WED.code}">${WED.code_name}</option>
+		        				</c:forEach>
 							</select>
 			        	</div>
 			        	<div class="startEndDate"> 
@@ -187,13 +176,9 @@
 	        	</div>
 				<select name="position" class="form-select category-select valid">
 				  <option disabled selected>직급 선택</option>
-				  <option value="POS001">사원</option>
-				  <option value="POS002">주임</option>
-				  <option value="POS003">대리</option>
-				  <option value="POS004">과장</option>
-				  <option value="POS005">차장</option>
-				  <option value="POS006">부장</option>
-				  <option value="POS007">임원</option>
+						<c:forEach var="POS" items="${commonListMap.POSITION}">
+        					<option value="${POS.code}">${POS.code_name}</option>
+        				</c:forEach>
 				</select>
         	</section>
         	
@@ -205,11 +190,9 @@
 	        	</div>
 	        	<select name="experience" class="form-select category-select valid" required>
 	        		<option disabled selected>경력 조건 선택</option>
-	        		<option value="EXP001">신입</option>
-	        		<option value="EXP002">1~3년차</option>
-	        		<option value="EXP003">4~7년차</option>
-	        		<option value="EXP004">8+년차</option>
-	        		<option value="EXP005">경력 무관</option>
+	        		<c:forEach var="EXP" items="${commonListMap.EXPERIENCE}">
+        					<option value="${EXP.code}">${EXP.code_name}</option>
+       				</c:forEach>
 	        	</select>
        		</section>
         	<%-- -------------------------------경력 섹션 끝--------------------------------- --%>
@@ -221,12 +204,9 @@
 		        	</div>
 		        	<select name="degree" class="form-select category-select valid" required>
 		        		<option disabled selected>학력 선택</option>
-		        		<option value="DEG001">고등학교 졸</option>
-		        		<option value="DEG002">전문대 졸</option>
-		        		<option value="DEG003">대학교 졸</option>
-		        		<option value="DEG004">석사</option>
-		        		<option value="DEG005">박사</option>
-		        		<option value="DEG006">학력 무관</option>
+		        		<c:forEach var="DEG" items="${commonListMap.DEGREE}">
+        					<option value="${DEG.code}">${DEG.code_name}</option>
+        				</c:forEach>
 		        	</select>
 	       		</section>
 	        	<%-- -------------------------------학력 섹션 끝----------------------------- --%>
@@ -238,13 +218,9 @@
 		        	</div>
 		        	<select name="salary" class="form-select category-select valid" required>
 		        		<option disabled selected>급여 선택</option>
-		        		<option value="SAL001">2000만원 이하</option>
-		        		<option value="SAL002">2000 ~ 3000만원</option>
-		        		<option value="SAL003">3000 ~ 4000만원</option>
-		        		<option value="SAL004">4000 ~ 5000만원</option>
-		        		<option value="SAL005">5000 ~ 6000만원</option>
-		        		<option value="SAL006">6000만원 이상</option>
-		        		<option value="SAL007">면접 후 협의</option>
+			        	<c:forEach var="SAL" items="${commonListMap.SALARY}">
+	        					<option value="${SAL.code}">${SAL.code_name}</option>
+	        				</c:forEach>
 		        	</select>
 	       		</section>
 	        	<%-- -------------------------------급여 섹션 끝----------------------------- --%>

@@ -15,7 +15,7 @@
 	
 	<!-- 소분류값 가져오기 -->
 	<select id="getlocDetailList">
-		SELECT code, code_name
+		SELECT code_group_id, code, code_name
 		  FROM common_code
 		 WHERE code_group_id = 'location'
 		<choose>

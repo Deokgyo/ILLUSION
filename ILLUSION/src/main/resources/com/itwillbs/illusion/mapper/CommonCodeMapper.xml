@@ -39,4 +39,15 @@
 <!--         ORDER BY -->
 <!--             code_name ASC -->
 <!-- 	</select> -->
+
+	<select id="selectAllCommonList" parameterType="list">
+		SELECT code_group_id, code, code_name
+		  FROM common_code
+		 WHERE code_group_id in 
+		<foreach collection="codeGroups" item="group" open="(" close=")" separator=",">
+			#{group}
+		</foreach>
+	</select>
+
+
 </mapper>	
