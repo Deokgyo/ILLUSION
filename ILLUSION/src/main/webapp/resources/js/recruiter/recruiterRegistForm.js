@@ -5,7 +5,7 @@ $(function () {
 		
 	// 2.근무 지역 선택
 	$('#major-region-list').on('click', handleMajorRegionClick);
-	$('#sub-region-list').on('change', handleSubRegionChange);
+	$('#sub-region-list').on('click', handleSubRegionClick);
 	$('.filter-reset-btn').on('click', handleResetClick);
 	$('#search-input').on('keyup', handleSearchInput);
 	$('#check-all-sub-regions').on('change', function () {
@@ -71,7 +71,6 @@ $(function () {
 						$('#summernote').summernote('insertImage', data.url)
 					},
 					error: function(xhr, textStatus, errorThrown) {
-						debugger;
 						alert('실패');
 					}
 				})
@@ -84,11 +83,6 @@ $(function () {
 
 // 함수 선언 부 
 
-
-
-function renderImg(files) {
-	
-}
 
 
 //=============0. ajax 호출 함수 ===============
@@ -173,19 +167,28 @@ function handleMajorRegionClick(e) {
 }
 
 // 이벤트 핸들러: 소분류 변경
-function handleSubRegionChange(e) {
-    const $target = $(e.target);
-    let subRegionList = $('#sub-region-list');
-    if (!$target.is(':checkbox')) return;
-
-    if ($target.data('is-select-all') == true 
-    	|| $target.data('is-select-all') == 'true') {
-     const checked = $target.is(':checked');
-     subRegionList.find('input[type="checkbox"]').prop('checked', checked);
-    }
+function handleSubRegionClick(e) {
+	const $target = $(e.target);
+	let subRegionList = $('#sub-region-list');
+	if (!$target.is(':checkbox')) return;
+	
+	if ($target.data('is-select-all') == true 
+		|| $target.data('is-select-all') == 'true') {
+	 const checked = $target.is(':checked');
+	 subRegionList.find('input[type="checkbox"]').prop('checked', checked);
+	}
 	updateCheckAllState();
 	updateSelectedValues();
+//	keywordSelectedValues();
 }
+
+function keywordSelectedValues(e) {
+	$(e.target).text();
+	$('.selected_location').append(el);
+}
+
+
+
 
 // 선택된 값 hidden input에 반영
 function updateSelectedValues() {
@@ -221,14 +224,24 @@ function occupationActive() {
 	ajaxReq('getJobList', 'GET', 'occupation', occupation, renderJobs);
 }
 
+
+
+
 function renderJobs(getJobList) {
 	$('#jobs').empty();
 	let joblist = [];
 	for(let job of getJobList) {
+//		let el = $(`<div class="option-btn job" data-code='${job.code}'>
+//			${job.code_name}</div>`);
+//		if (el.text() == keyword.data('keyword')) {
+//			
+//		}
 		joblist.push($(`<div class="option-btn job" data-code='${job.code}'>
 			${job.code_name}</div>`));
 	}
 	$('#jobs').append(joblist);
+	// 만약, 여기서 생성된 요소중에서 이미 키워드에 반영된 값이 있다면, active 효과 주기 
+	// 키워드 영역 요소의 자식 중 data-code의 값과, el.text()의 값이 일치하는 경우  
 }
 
 // 세부 직무 active 주기 
@@ -245,9 +258,10 @@ function updateKeyword(el) {
 	// 액티브된 세부 직무의 밸류 값을 추출
 	// 요소 만드는 메서드에 액티브된 세무 직무의 밸류 값을 넣어서 생성하게 만들기 
 	let keyword = $(el).text();
+	
 	if ($(el).hasClass('active')) {
-        let tagHTML = `<div class="tag" data-keyword="${keyword}"><span>${keyword}</span>
-        	<span class="close-btn">x</span></div>`;
+        let tagHTML = `<div class="tag" data-keyword="${keyword}"><span>${keyword}</span><span class="close-btn">x</span></div>`;
+        if ($(`.selected-tags-area .tag[data-keyword="${keyword}"]`).length > 0) return;
         $('.selected-tags-area').append(tagHTML);
 	} else {
 		//현재 선택된 keyword 값과 같은 <span>태그의 값을 가진 div 요소 제거 

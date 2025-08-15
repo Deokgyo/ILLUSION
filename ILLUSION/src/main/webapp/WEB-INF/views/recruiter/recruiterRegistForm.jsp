@@ -115,7 +115,6 @@
 					<%-- (기타 시/도 생략) --%>
 						</ul>	
 					</div>
-	        	
 					<%-- 오른쪽: 시/군/구 목록 --%>
 					<div class="region-panel-right">
 						<div class="filter-header">
@@ -128,6 +127,7 @@
 						</div>
 						<input type="hidden" id="selected-locations" class="valid" name="location">
 					</div>
+					<div class="selected_location"></div>
 				</div>
         	</section>
         	<%-- -------------------------------근무 지역 섹션 끝--------------------------- --%>
