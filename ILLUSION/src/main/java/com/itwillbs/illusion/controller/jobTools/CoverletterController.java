@@ -11,13 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.illusion.service.GeminiService;
 import com.itwillbs.illusion.service.JobToolsService;
 
 @Controller
-public class JobToolsController {
+public class CoverletterController {
 
 	
 	@Autowired
@@ -26,6 +28,7 @@ public class JobToolsController {
 	@Autowired
 	private GeminiService geminiService;
 	
+	// 자소서 생성 페이지 이동
 	@GetMapping("coverletterCreate")
 	public String coverletterCreate(Model model) {
 		
@@ -40,9 +43,10 @@ public class JobToolsController {
 		return "jobTools/coverletterCreate";
 	}
 	
+	// 자소서 생성
 	@ResponseBody
 	@PostMapping("coverletterGenerate")
-	public Map<String, Object> coverletterGenerate(Model model, HttpSession session, 
+	public Map<String, Object> coverletterGenerate(Model model, HttpSession session,
 	                                    String title, String company, 
 	                                    String prevCompany, String prevJob, String occupation,
 	                                    String maxLength, String keywords, String question, String experience) {
@@ -56,7 +60,7 @@ public class JobToolsController {
 	        "- 나의 핵심 경험/역량: %s\n" +
 	        "- 반드시 포함할 키워드: %s\n" +
 	        "- 글자 수 제한: %s자 이내\n" +
-	        "- 위의 모든 조건을 충실하게 반영해서 자연스럽고 설득력 있는 어투로 자기소개서를 작성해줘.",
+	        "- 위의 모든 조건을 충실하게 반영해서 자연스럽고 설득력 있는 어투로 자기소개서를 작성해줘. 결과는 자소서 내용만 출력해줘",
 	        company, occupation, question, prevCompany, prevJob, experience, keywords, maxLength
 	    );
 
@@ -65,32 +69,50 @@ public class JobToolsController {
 	    
 	    String aiResult = geminiService.callGeminiApi(prompt);
 	    
-	    // Model 대신 Session에 결과값 저장
-	    session.setAttribute("aiResult", aiResult);
-	    session.setAttribute("title", title); // 제목도 필요하다면 세션에 저장
+	    
+	    // 1. 공백 포함 글자 수 계산
+	    String generated_char_count = Integer.toString(aiResult.length());
+	    // 2. 공백 미포함 글자 수 계산
+	    int generated_char_count_no_space = aiResult.replaceAll("\\s", "").length();
 
+	    
+	    
+	    Map<String, Object> coverletterMap = new HashMap<String, Object>();
+	    coverletterMap.put("aiResult", aiResult);
+	    coverletterMap.put("company", company);
+	    coverletterMap.put("title", title);
+	    coverletterMap.put("generated_char_count", generated_char_count);
+	    coverletterMap.put("generated_char_count_no_space", generated_char_count_no_space);
+	    
+	    int generatedClIdx = service.saveCoverletter(coverletterMap);
+	    
 	    // 성공 여부와 이동할 URL을 JSON 형태로 반환
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("success", true);
-	    response.put("redirectUrl", "coverletterResult"); // 이동할 URL
+	    response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx); // 이동할 URL
 	    
 	    return response;
 	}
 	
-	
-	
+	// 자소서 결과 페이지 이동
 	@GetMapping("coverletterResult")
-	public String showCoverletterResult(Model model, HttpSession session) {
-	    String aiResult = (String) session.getAttribute("aiResult");
-	    String title = (String) session.getAttribute("title");
+	public String showCoverletterResult(Model model, @RequestParam("cl_idx") int cl_idx) {
+	    System.out.println("조회할 자소서 ID: " + cl_idx);
 
-	    model.addAttribute("aiResult", aiResult);
-	    model.addAttribute("title", title);
+	    Map<String, Object> coverletter = service.getCoverletterById(cl_idx);
+	    System.out.println(coverletter);
+	    model.addAttribute("coverletter", coverletter);
 	    
-	    session.removeAttribute("aiResult");
-	    session.removeAttribute("title");
-
 	    return "jobTools/coverletterResult";
+	}
+	
+	// 자소서 저장 여부 수정
+	@PostMapping("saveToMypage")
+	public void saveToMypage(@RequestParam("cl_idx") int cl_idx) {
+		
+		System.out.println("@@@@@@@@@@@@@@@@@" + cl_idx);
+		
+		service.saveToMypage(cl_idx);
 	}
 	
 	@GetMapping("coverletterModify")

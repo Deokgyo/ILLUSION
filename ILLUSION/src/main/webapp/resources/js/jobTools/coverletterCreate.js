@@ -114,81 +114,102 @@ $(function() {
         $('.occupation').first().trigger('click');
     }
 
-    // =================================================================
-    // 최종 폼 제출 기능 (AJAX)
-    // =================================================================
-    $('#coverletter-form').on('submit', function(e) {
-        e.preventDefault();
-
-        // --- 개별 값 가져오기 ---
-        const company = $('input[name="company"]').val();
-        const question = $('textarea[name="question"]').val();
-        const keywords = $('input[name="keywords"]').val();
-        const charLimit = $('input[name="maxLength"]').val();
-        const jobText = $('#selected-occupation').val();
-
-        // --- 경력 정보 ---
-        let experienceText = "신입";
-        if ($('#experience-toggle .option[data-value="experienced"]').hasClass('active')) {
-            const prevCompany = $('input[name="prevCompany"]').val();
-            const prevJob = $('input[name="prevJob"]').val();
-            const experienceLevelText = $('#experience-level-select > span').text();
-            
-            if (prevCompany && prevJob) {
-                experienceText = `${prevCompany}에서 ${prevJob}로 근무 (${experienceLevelText})`;
-            } else {
-                experienceText = `경력 (${experienceLevelText})`;
-            }
-        }
-        
-        // --- 핵심 역량 ---
-        const coreCompetencyText = $('#experience-level-select > span').text();
-        
-        // --- 최종 프롬프트 ---
-//        const finalPrompt = `너는 이제부터 채용을 위한 자기소개서를 작성해주는 전문가야. 아래 조건에 맞춰서 자기소개서를 완벽하게 작성해줘.
-//- 지원 회사: ${company || '지정 안됨'}
-//- 지원 직무: ${jobText || '지정 안됨'}
-//- 자기소개서 문항: ${question || '없음'}
-//- 이전 회사 및 직무 경험: ${experienceText || '신입/해당없음'}
-//- 나의 핵심 경험/역량: ${coreCompetencyText.includes('선택') ? '지정 안됨' : coreCompetencyText}
-//- 반드시 포함할 키워드: ${keywords || '없음'}
-//- 글자 수 제한: ${charLimit || '제한 없음'}자 이내
-//- 위의 모든 조건을 충실하게 반영해서 자연스럽고 설득력 있는 어투로 자기소개서를 작성해줘.`;
-//
-//        console.log("--- 생성된 프롬프트 ---");
-//        console.log(finalPrompt);
-
-        // --- 전송 데이터 ---
-        const submissionData = {
-            company: company,
-            occupation: jobText,
-            question: question,
-            experience: experienceText,
-            core_competency: coreCompetencyText,
-            keywords: keywords,
-            maxLength: charLimit
-        };
-
-        console.log('서버로 전송될 데이터:', submissionData);
-
-        // --- AJAX 요청 ---
-        $.ajax({
-            type: 'POST',
-		    url: $(this).attr('action'),
-		    data: submissionData,
-		    dataType: 'json',
-		    success: function(res) {
-		        if (res.success) {
-		            console.log('AJAX 요청 성공. 서버가 지정한 페이지로 이동합니다.');
-		            window.location.href = res.redirectUrl; 
-		        }
-		    },
-            error: function(xhr, status, error) {
-                console.error('AJAX 요청 실패:', status, error);
-                alert('자기소개서 생성 중 오류가 발생했습니다.');
-            }
-        });
-    });
+	// =================================================================
+	// 최종 폼 제출 및 모달 연동 기능
+	// =================================================================
+	
+	// 실제 자기소개서 생성을 요청하는 AJAX 함수
+	function generateCoverLetter() {
+	    // --- 개별 값 가져오기 ---
+	    const title = $('input[name="title"]').val();
+	    const company = $('input[name="company"]').val();
+	    const question = $('textarea[name="question"]').val();
+	    const keywords = $('input[name="keywords"]').val();
+	    const maxLength = $('input[name="maxLength"]').val();
+	    const occupation = $('#selected-occupation').val();
+	
+	    // --- 경력 정보 ---
+	    let prevCompany = '';
+	    let prevJob = '';
+	    let experience = ''; // 핵심 경험/역량
+	
+	    if ($('#experience-toggle .option[data-value="experienced"]').hasClass('active')) {
+	        prevCompany = $('input[name="prevCompany"]:visible').val(); // 보이는 input만 선택
+	        prevJob = $('input[name="prevJob"]:visible').val();     // 보이는 input만 선택
+	        experience = $('#experience-level-select > span').text();
+	        if (experience.includes('선택')) {
+	            experience = '';
+	        }
+	    }
+	
+	    // --- 컨트롤러 파라미터와 일치하는 데이터 객체 ---
+	    const submissionData = {
+	        title: title,
+	        company: company,
+	        prevCompany: prevCompany,
+	        prevJob: prevJob,
+	        occupation: occupation,
+	        maxLength: maxLength,
+	        keywords: keywords,
+	        question: question,
+	        experience: experience
+	    };
+	
+	    console.log('서버로 전송될 데이터:', submissionData);
+	
+	    // --- AJAX 요청 ---
+	    $.ajax({
+	        type: 'POST',
+	        url: $('#coverletter-form').attr('action'),
+	        data: submissionData,
+	        dataType: 'json',
+	        success: function(res) {
+	            if (res.success) {
+	                console.log('AJAX 요청 성공. 페이지 이동합니다.');
+	                window.location.href = res.redirectUrl;
+	            } else {
+	                alert('자기소개서 생성에 실패했습니다.');
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('AJAX 요청 실패:', status, error);
+	            alert('자기소개서 생성 중 오류가 발생했습니다.');
+	        },
+	        complete: function() {
+	            // 요청 성공/실패 여부와 관계없이 로딩 모달을 숨김
+	            $('#loading-overlay').fadeOut();
+	        }
+	    });
+	}
+	
+	// "자기소개서 생성" 버튼 클릭 이벤트 (폼 제출)
+	$('#coverletter-form').on('submit', function(e) {
+	    e.preventDefault(); // 기본 제출 동작을 막고 모달 로직 실행
+	
+	    const userTokens = 50; // 실제로는 서버에서 가져온 사용자 토큰 값이어야 합니다.
+	
+	    if (userTokens < 30) {
+	        // 토큰이 부족할 경우
+	        $('#token-modal').css('display', 'flex').fadeTo(300, 1);
+	    } else {
+	        // 토큰이 충분할 경우 확인 모달 표시
+	        $('#confirm-modal').css('display', 'flex').fadeTo(300, 1);
+	    }
+	});
+	
+	// 확인 모달에서 "네" 버튼 클릭 시
+	$('#confirm-yes-btn').on('click', function() {
+	    $('#confirm-modal').fadeOut(); // 확인 모달 닫기
+	    $('#loading-overlay').css('display', 'flex').fadeTo(300, 1); // 로딩 모달 표시
+	    
+	    // 실제 생성 함수 호출
+	    generateCoverLetter();
+	});
+	
+	// 모든 모달의 "아니요" 또는 "닫기(x)" 버튼 클릭 시
+	$('.btn-no, .close-modal-btn').on('click', function() {
+	    $(this).closest('.modal-overlay').fadeOut();
+	});
 });
 
 //

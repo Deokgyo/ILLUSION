@@ -29,5 +29,50 @@
 		 WHERE code_group_id = "experience";
 	</select>
 	
+	<!-- 자소서 저장하기 -->
+	<insert id="saveCoverletter" 
+			parameterType="map"
+        	useGeneratedKeys="true"	 
+        	keyProperty="cl_idx">
+		INSERT INTO cover_letter
+			(  member_idx
+			 , cl_title
+			 , company_name
+			 , generated_cl_content
+			 , generated_char_count
+			 , generated_char_count_no_space)			  
+	    VALUES (
+		  	  1
+		  	, #{title}
+		  	, #{company}
+		  	, #{aiResult}
+		  	, #{generated_char_count}
+		  	, #{generated_char_count_no_space} )
+	</insert>
 	
+	<!-- 자소서 정보 가져오기 -->
+	<select id="getCoverletterById">
+	     SELECT 
+	            cl_idx
+	          , member_idx
+	          , cl_title
+	          , company_name
+	          , generated_cl_content
+	          , generated_char_count
+	          , generated_char_count_no_space
+	          , generation_date
+	       FROM 
+	           cover_letter
+	      WHERE
+	          cl_idx = #{cl_idx}
+	</select>
+	
+	<update id="saveToMypage">
+		UPDATE cover_letter
+		   SET is_saved_to_mypage = (SELECT code
+		   							   FROM common_code 
+		   							  WHERE code_group_id = "BOOLEAN_YN" 
+		   							    AND code_name = "예")
+         WHERE cl_idx = #{cl_idx}		   							 
+	</update>
 </mapper>

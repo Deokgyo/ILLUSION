@@ -34,8 +34,8 @@
 
                 <div class="result-meta">
                     <div class="char-count">
-                        <i class="fa-solid fa-star"></i>
-                        <span>700자 (공백 미포함 544자)</span>
+                        <i class="fa-solid fa-star"></i> 
+                        <span>${coverletter.generated_char_count}자 (공백 미포함 ${coverletter.generated_char_count_no_space }자)</span>
                     </div>
                     <div class="action-buttons">
                         <button class="btn btn-outline-secondary">저장</button>
@@ -43,10 +43,10 @@
                     </div>
                 </div>
 
-                <textarea id="generated-text" readonly>${aiResult }</textarea>
+                <textarea id="generated-text" readonly>${coverletter.generated_cl_content }</textarea>
                 
                 <div class="text-center mt-4">
-                    <button id="backBtn" class="btn btn-lg btn-outline-secondary">이전</button>
+                    <button id="backBtn" class="btn btn-lg btn-outline-secondary" onclick="history.back()">이전</button>
                 </div>
             </div>
         </main>
@@ -57,5 +57,6 @@
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jobTools/coverletterResult.js"></script>
 </body>
 </html>
