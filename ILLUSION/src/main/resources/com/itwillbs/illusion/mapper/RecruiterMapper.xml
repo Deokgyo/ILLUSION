@@ -49,6 +49,19 @@
 	</select>
 	
 	
+	<select id="getRecruitmentList">
+		SELECT r.recruit_subject
+			 , c.code_name as 'rec_status'
+		     , r.app_count
+		     , r.post_create_at
+		     , r.end_date
+		  FROM recruit r 
+		  JOIN common_code c 
+		    ON r.rec_status = c.code;
+	</select>
+	
+	
+<!-- 	// 공고 등록  -->
 	<insert id="insertRecruitment">
 		insert into recruit
 	 		 ( recruiter_member_idx, 
@@ -70,7 +83,8 @@
 		       work_start_day, 
 		       work_end_day, 
 		       start_time, 
-		       end_time )
+		       end_time,
+		       rec_status )
 	    values 
 	    	(  #{recruiter_member_idx}
 			 , #{occupation} 
@@ -92,6 +106,7 @@
 		     , #{work_end_day}
 			 , #{start_time}
 		     , #{end_time}
+		     , #{rec_status}
 		     ) ;
 	</insert>
 

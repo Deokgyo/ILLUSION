@@ -44,6 +44,17 @@ public class AjaxController {
 		return getJobList;
 	}
 	
+	@GetMapping("getRecruitmentList")
+	public List<Map<String, Object>> getRecruitmentList() {
+		List<Map<String, Object>> recruitmentList = service.getRecruitmentList();
+		return recruitmentList;
+	}
+//	public List<RecruitVO> getRecruitmentList() {
+//		List<RecruitVO> recruitmentList = service.getRecruitmentList();
+//		return recruitmentList;
+//	}
+	
+	
 	@PostMapping("imgUpload")
 	public Map<String,String> imgUpload(
 			RecruitVO recruit,

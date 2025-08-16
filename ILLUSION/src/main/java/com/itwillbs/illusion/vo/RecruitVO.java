@@ -54,4 +54,5 @@ public class RecruitVO {
 	private String preferred;	// 우대 사항
 	private String apply_doc;	// 제출 서류 
 	private String apply_method; // 지원 방법
+	private String rec_status; // 공고 상태 
 }

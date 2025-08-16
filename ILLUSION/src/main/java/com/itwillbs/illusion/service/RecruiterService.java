@@ -44,5 +44,14 @@ public class RecruiterService {
 		return mapper.insertRecruitment(recruit);
 	}
 	
+	// 공고 목록 가져오기 
+	
+	public List<Map<String, Object>> getRecruitmentList() {
+		return mapper.getRecruitmentList();
+	}
+//	public List<RecruitVO> getRecruitmentList() {
+//		return mapper.getRecruitmentList();
+//	}
+	
 	
 }

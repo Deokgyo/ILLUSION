@@ -267,9 +267,9 @@
 					<input type="text" name="apply_doc" class="form-control valid" placeholder="필요 지원 서류 입력"/>
 					<input type="text" name="apply_method" class="form-control valid" placeholder="지원 방법 입력"/>			
 			</section>
-<!-- 			<section class="applyMethod"> -->
-<!-- 			</section> -->
 			<%-- 지원 서류 지원 마감 섹션 끝 --%>
+			<%-- 채용중 상태 히든으로 올리기 --%>
+			<input type="hidden" name="rec_status" value="RECS01"> 
         	<div class="btn-container">
         		<input type="submit" id="submit" class="btn-yellow" value="등록">
         	</div>

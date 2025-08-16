@@ -77,14 +77,6 @@ public class RecruiterController {
 		// 맵형태로 바꾼 것을 모델에 담아 전달함 
 		model.addAttribute("commonListMap", commonListMap);
 		
-		
-		
-		
-		
-		
-		
-		
-		
 		return "recruiter/recruiterRegistForm";
 	}
 	

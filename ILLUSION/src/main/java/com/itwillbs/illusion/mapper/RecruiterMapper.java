@@ -25,4 +25,8 @@ public interface RecruiterMapper {
 	// 공고 등록 
 	public int insertRecruitment(RecruitVO recruit);
 	
+	// 공고 목록 가져오기 
+	public List<Map<String, Object>> getRecruitmentList();
+//	public List<RecruitVO> getRecruitmentList();
+	
 }
