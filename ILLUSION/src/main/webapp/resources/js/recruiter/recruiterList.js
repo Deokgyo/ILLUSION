@@ -1,3 +1,4 @@
+
 $(function () {
 	
 	$('.tab').on('click', function () {
@@ -16,7 +17,7 @@ $(function () {
 	// ==========================================================	
 	// girs.js 	
 	// ==========================================================	
-	$(document).ready(function () {
+		
   const grid = new gridjs.Grid({
     columns: [
       {
@@ -53,19 +54,16 @@ $(function () {
     pagination: true,
     sort: true,
     search: true,
-    className: {
-    table: 'grid-custom-table'
-    },
+    className: { table: 'grid-custom-table'},
     rowAttributes: (row, index) => {
       return row[1] === "채용중" && index === 0
         ? { class: 'active-row' }
         : {};
-    }
+    }, 
   });
-
   grid.render(document.getElementById("grid"));
+
 });
 	
 	
 	
-}) // 도큐먼트 레디 

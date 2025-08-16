@@ -8,7 +8,7 @@ $(function () {
 	$('#sub-region-list').on('click', handleSubRegionClick);
 	$('.filter-reset-btn').on('click', handleResetClick);
 	$('#search-input').on('keyup', handleSearchInput);
-	$('#check-all-sub-regions').on('change', function () {
+	$('#check-all-sub-regions').on('click', function () {
 		const checked = $(this).is(':checked');
 		$('#sub-region-list').find('input[type="checkbox"]').prop('checked', checked);
 		updateSelectedValues();
@@ -179,12 +179,20 @@ function handleSubRegionClick(e) {
 	}
 	updateCheckAllState();
 	updateSelectedValues();
-//	keywordSelectedValues();
+	keywordSelectedValues(e);
 }
 
 function keywordSelectedValues(e) {
-	$(e.target).text();
-	$('.selected_location').append(el);
+	// 현재 클릭된 체크 박스의 라벨의 텍스트 값 불러오기 
+	let text =$(e.target).parent().text();
+	// 현재 클릭된 체크박스의 val값 들고오기 
+	let val = $(e.target).val();
+	// 생성할 요소 변수에 담기 
+	let el = $(`<div class="tag" data-value="${val}"><span>${text}</span><span class="close-btn">x</span></div>`)
+	// 이미 생성된 div는 변수에 담기 
+	let exist = $('.selected_location').children('div').filter(function() {return $(this).data('value') == val ; });
+	// 체크 해제시, 만들어진 키워드 삭제, 체크시, 이미 만들어진것인지 판별하고 난뒤 만들어지지 않았는지를 길이로 체크하고 아니면 만들기  
+	!($(e.target).is(':checked')) ? exist.remove() : exist.length == 0 ? $('.selected_location').append(el): null ;  
 }
 
 
@@ -205,8 +213,10 @@ function updateSelectedValues() {
 function handleResetClick() {
 	let subRegionList = $('#sub-region-list');
 	let checkAllCheckbox = $('#check-all-sub-regions');
+	let selectedLocation = $('.selected_location');
     subRegionList.find('input[type="checkbox"]').prop('checked', false);
     checkAllCheckbox.prop('checked', false);
+    selectedLocation.empty();
     updateSelectedValues();
 }
 
@@ -280,9 +290,15 @@ function updateJobValue () {
 // 키워드 삭제
 function deleteKeyword (el) {
 	const keyword = $(el).siblings('span').text().trim(); // 선택한 키워드
-	$(`.job.active`).filter(function() {
-  		return $(el).text().trim() === keyword;
+	$('.job.active').filter(function() {
+  		return $(this).text().trim() == keyword;
   	}).removeClass('active');
+  	
+  	const value = $(el).parent().data('value');
+  	$('.checkbox').filter(function() {
+		return $(this).val() == value;
+	}).prop('checked', false);
+	
   $(el).closest('.tag').remove();
 }
 

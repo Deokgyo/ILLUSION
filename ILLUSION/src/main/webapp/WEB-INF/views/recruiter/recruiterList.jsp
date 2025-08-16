@@ -4,11 +4,6 @@
 <%@ page session="false" %>
 <html>
 <head>
-
-	<%-- js 파일  --%>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterList.js"></script>
-	<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     
     <%-- 외부 라이브러리 CSS --%>
 	<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
@@ -91,5 +86,10 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	
+	<%-- js 파일  --%>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+	<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterList.js"></script>
 </body>
 </html>
