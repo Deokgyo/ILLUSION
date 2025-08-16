@@ -29,6 +29,11 @@ public class JobToolsService {
 		return mapper.getExperience();
 	}
 	
+	// 유저 토큰 가져오기
+	public Integer getMemberToken(int member_idx) {
+		return mapper.getMemberToken(member_idx);
+	} 
+	
 	// 자소서 생성 결과 저장
 	public int saveCoverletter(Map<String, Object> map) {
 		mapper.saveCoverletter(map);
@@ -42,9 +47,10 @@ public class JobToolsService {
 		return mapper.getCoverletterById(cl_idx);
 	}
 	
-	// 자소서 저장 여부 수정
-	public int saveToMypage(int cl_idx) {
-		return mapper.saveToMypage(cl_idx);
+	// 자소서 저장 여부 토글
+	public String toggleSaveToMypage(int cl_idx) {
+	    mapper.toggleSaveStatus(cl_idx);   // 토글 실행
+	    return mapper.selectSaveStatus(cl_idx); // 바뀐 값 조회
 	}
 }
 

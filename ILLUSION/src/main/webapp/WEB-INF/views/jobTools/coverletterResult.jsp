@@ -38,7 +38,7 @@
                         <span>${coverletter.generated_char_count}자 (공백 미포함 ${coverletter.generated_char_count_no_space }자)</span>
                     </div>
                     <div class="action-buttons">
-                        <button class="btn btn-outline-secondary">저장</button>
+                        <button id="saveBtn" class="btn btn-outline-secondary"  data-cl-idx=${coverletter.cl_idx }>저장</button>
                         <button id="copyBtn" class="btn btn-yellow">복사</button>
                     </div>
                 </div>

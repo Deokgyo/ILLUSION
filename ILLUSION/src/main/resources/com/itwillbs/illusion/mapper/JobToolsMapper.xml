@@ -52,27 +52,40 @@
 	
 	<!-- 자소서 정보 가져오기 -->
 	<select id="getCoverletterById">
-	     SELECT 
-	            cl_idx
-	          , member_idx
-	          , cl_title
-	          , company_name
-	          , generated_cl_content
-	          , generated_char_count
-	          , generated_char_count_no_space
-	          , generation_date
-	       FROM 
-	           cover_letter
-	      WHERE
-	          cl_idx = #{cl_idx}
+	    SELECT 
+	           cl_idx
+	         , member_idx
+	         , cl_title
+	         , company_name
+	         , generated_cl_content
+	         , generated_char_count
+	         , generated_char_count_no_space
+	         , generation_date
+	      FROM 
+	          cover_letter
+	     WHERE
+	         cl_idx = #{cl_idx}
 	</select>
 	
-	<update id="saveToMypage">
-		UPDATE cover_letter
-		   SET is_saved_to_mypage = (SELECT code
-		   							   FROM common_code 
-		   							  WHERE code_group_id = "BOOLEAN_YN" 
-		   							    AND code_name = "예")
-         WHERE cl_idx = #{cl_idx}		   							 
+	<update id="toggleSaveStatus" parameterType="int">
+	     UPDATE cover_letter
+	        SET is_saved_to_mypage = 
+   	       CASE 
+   	       WHEN is_saved_to_mypage = 'BOL001' THEN 'BOL002' 
+	       ELSE 'BOL001'                                   
+	        END
+     	  WHERE cl_idx = #{cl_idx}
 	</update>
+
+	<select id="selectSaveStatus" parameterType="int" resultType="string">
+   	     SELECT is_saved_to_mypage
+   	       FROM cover_letter
+   	      WHERE cl_idx = #{cl_idx}
+	</select>
+	
+	<select id="getMemberToken">
+		SELECT token
+		  FROM member
+		 WHERE member_idx = #{member_idx}	
+	</select>
 </mapper>

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.illusion.service.GeminiService;
 import com.itwillbs.illusion.service.JobToolsService;
@@ -44,6 +43,7 @@ public class CoverletterController {
 	}
 	
 	// 자소서 생성
+	// TODO 로그인 권한검사
 	@ResponseBody
 	@PostMapping("coverletterGenerate")
 	public Map<String, Object> coverletterGenerate(Model model, HttpSession session,
@@ -107,12 +107,20 @@ public class CoverletterController {
 	}
 	
 	// 자소서 저장 여부 수정
+	@ResponseBody
 	@PostMapping("saveToMypage")
-	public void saveToMypage(@RequestParam("cl_idx") int cl_idx) {
-		
-		System.out.println("@@@@@@@@@@@@@@@@@" + cl_idx);
-		
-		service.saveToMypage(cl_idx);
+	public Map<String, String> saveToMypage(@RequestParam("cl_idx") int cl_idx) {
+	    String newStatus = service.toggleSaveToMypage(cl_idx);
+
+	    Map<String, String> map = new HashMap<>();
+	    if ("BOL001".equals(newStatus)) {
+	        map.put("message", "마이페이지에 저장되었습니다.");
+	        map.put("status", "saved");
+	    } else {
+	        map.put("message", "마이페이지 저장이 취소되었습니다.");
+	        map.put("status", "unsaved");
+	    }
+	    return map;
 	}
 	
 	@GetMapping("coverletterModify")
@@ -135,9 +143,5 @@ public class CoverletterController {
 		return "jobTools/interviewResult";
 	}
 	
-	@GetMapping("chatbot")
-	public String chatbotMain() {
-		return "jobTools/chatbot";
-	}
 }
        
