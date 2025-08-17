@@ -52,7 +52,7 @@ main {
     box-shadow: var(--main-box-shadow);
     border-radius: 20px;
     width: 100%;
-    min-height: 75vh;
+/*     min-height: 75vh; */
     padding: 30px;
     display: flex;
 	justify-content: center;
@@ -276,10 +276,10 @@ main {
  *      테이블 꾸미기 테꾸 
  * ====================================================== */
 
-.gridjs-container{
+/* .gridjs-container{ */
 	
-	 min-height: 573px; 
-}
+/* /* 	 min-height: 573px;  */ */
+/* } */
 
 th.gridjs-th-sort:focus, th.gridjs-th-sort:hover {
     background-color: var(--main-color-hover);

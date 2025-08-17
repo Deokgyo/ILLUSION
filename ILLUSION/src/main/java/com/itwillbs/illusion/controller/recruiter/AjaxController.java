@@ -45,8 +45,8 @@ public class AjaxController {
 	}
 	
 	@GetMapping("getRecruitmentList")
-	public List<Map<String, Object>> getRecruitmentList() {
-		List<Map<String, Object>> recruitmentList = service.getRecruitmentList();
+	public List<Map<String, Object>> getRecruitmentList(@RequestParam(defaultValue = "RECS%") String status) {
+		List<Map<String, Object>> recruitmentList = service.getRecruitmentList(status);
 		return recruitmentList;
 	}
 //	public List<RecruitVO> getRecruitmentList() {

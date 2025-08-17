@@ -55,10 +55,18 @@
 		     , r.app_count
 		     , r.post_create_at
 		     , r.end_date
+		     , r.recruit_idx
 		  FROM recruit r 
 		  JOIN common_code c 
-		    ON r.rec_status = c.code;
+		    ON r.rec_status = c.code
+		 WHERE r.rec_status like #{status}; 
 	</select>
+	
+	<update id="recruitClose">
+		UPDATE recruit
+		SET rec_status = 'RECS02'
+		WHERE recruit_idx = #{recruit_idx};
+	</update>
 	
 	
 <!-- 	// 공고 등록  -->

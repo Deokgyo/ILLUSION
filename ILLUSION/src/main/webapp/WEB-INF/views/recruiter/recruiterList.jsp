@@ -33,9 +33,9 @@
 		<section class="main-list">
 			
 			<div class="tab-container">
-			  <div class="tab active">전체 (0)</div>
-			  <div class="tab">진행중 (0)</div>
-			  <div class="tab">마감 (0)</div>
+			  <div class="tab active">전체</div>
+			  <div class="tab" data-value="RECS01">채용중인 공고</div>
+			  <div class="tab" data-value="RECS02">마감된 공고</div>
 			</div>
 			<div id="grid" class="custom-grid"></div>
 			

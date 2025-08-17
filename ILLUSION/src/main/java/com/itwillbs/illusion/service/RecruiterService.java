@@ -46,9 +46,15 @@ public class RecruiterService {
 	
 	// 공고 목록 가져오기 
 	
-	public List<Map<String, Object>> getRecruitmentList() {
-		return mapper.getRecruitmentList();
+	public List<Map<String, Object>> getRecruitmentList(String status) {
+		return mapper.getRecruitmentList(status);
 	}
+	
+	// 공고 마감 처리 
+	public int recruitClose(int recruit_idx) {
+		return mapper.recruitClose(recruit_idx);
+	}
+	
 //	public List<RecruitVO> getRecruitmentList() {
 //		return mapper.getRecruitmentList();
 //	}

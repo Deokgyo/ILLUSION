@@ -43,6 +43,17 @@ public class RecruiterController {
 		return "recruiter/recruiterInfo";
 	}
 	
+	// 기업 회원이 작성한 목록 페이지로 이동
+	@GetMapping("recruiterList")
+	public String recruiterList() {
+		return "recruiter/recruiterList";
+	}
+	
+	@GetMapping("recruitClose")
+	public String recruitClose(int recruit_idx) {
+		service.recruitClose(recruit_idx);
+		return "redirect:/recruiterList";
+	}
 	
 	// =======================================================================
 	// 							공고 등록 관련
@@ -92,9 +103,5 @@ public class RecruiterController {
 		return "redirect:/recruiterList";
 	}
 	
-	// 기업 회원이 작성한 목록 페이지로 이동
-	@GetMapping("recruiterList")
-	public String recruiterList() {
-		return "recruiter/recruiterList";
-	}
+
 }

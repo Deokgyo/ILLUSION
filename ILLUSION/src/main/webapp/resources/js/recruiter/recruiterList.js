@@ -5,14 +5,10 @@ $(function () {
 	    $('.tab').removeClass('active');
 	    $(this).addClass('active');
 	    // 탭 전환 시 필요한 추가 동작 넣기
+	    grid.updateConfig({
+		  data: grid.config.data // 👉 원래 넣어둔 data 함수 다시 실행
+		}).forceRender();
  	 });
-	
-	  $('input[name="sort"]').on('change', function () {
-	    const selected = $(this).val();
-	    console.log('선택된 정렬:', selected);
-	    // 여기에 정렬 로직 추가 가능
-	  });
-	
 	
 	// ==========================================================	
 	// girs.js 	
@@ -69,27 +65,17 @@ $(function () {
 		}
 	  },		
       {
+		id: 'recruit_idx',
         name: '관리',
         width: '171px',
         sort: false,
-        formatter: () => gridjs.html(`
+        formatter: (cell) => gridjs.html(`
           <button class="btn btn-edit">수정</button>
-          <button class="btn btn-reg">마감</button>
+          <button class="btn btn-reg" onclick="if(confirm('이 공고를 마감하시겠어요?')) location.href='recruitClose?recruit_idx=${cell}'">마감</button>
         `)
       }
     ],
-	data: () => 
-     Promise.resolve(
-	    $.ajax({
-	      url: 'getRecruitmentList',
-	      method: 'GET',
-	      dataType: 'json'
-	    })
-	  ).then(list => list.map((it, i) => ({ no: i + 1, ...it })))
-	  .catch(err => {
-	    console.error(err);
-	    return [];
-	  }),
+	data: listChange,
     language: {
 		search: {
 	      placeholder: '검색어를 입력하세요'   // 검색창 placeholder
@@ -106,14 +92,32 @@ $(function () {
     sort: true,
     search: true,
     className: { table: 'grid-custom-table'},
-    rowAttributes: (row) => {
-	  var status = (row && row._cells && row._cells[2]) ? row._cells[2].data : null;
-	  return status === '채용중' ? { class: 'active-row' } : {};
-    }, 
+	rowAttributes: function (row)  {
+	  const statusCell = row?.cells?.find(cell => cell.column.id == 'rec_status');
+	  return statusCell?.data === '채용중' ? { class: 'active-row' } : {};
+	}
   });
   grid.render(document.getElementById("grid"));
   
-});
+});// 도큐ㅜ먼트 레디 
+
+// 위에 필터 눌렀을때 그리드.js 데이터 불러오는게 다름 
+function listChange() {
+		let val = $('.tab-container .tab.active').data('value');
+		let url = val == undefined ? 'getRecruitmentList' : `getRecruitmentList?status=${val}`;
+		return fetch(url)
+		    .then(r => r.json())
+		    .then(list => list.map((it, i) => ({ no: i + 1, ...it })))
+		    .catch(err => {
+		      console.error(err);
+		      return [];
+		    });
+		}
+
+// 마감 이벤트 
+
+function recruitClose () {
 	
+}
 	
 	
