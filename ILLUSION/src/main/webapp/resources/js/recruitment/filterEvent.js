@@ -1,173 +1,67 @@
-$(function() {
-    const $tagsArea = $('#selected-tags-area');
+$(function() { // $(document).ready()의 축약형
 
-    /* 1. 범용 드롭다운 토글 기능 */
+    //================================================
+    // 1. 공통 헬퍼 함수 및 변수 (두 번째 코드에서 가져옴)
+    //================================================
+    const $tagsArea = $('#selected-tags-area'); // 선택된 태그가 표시될 영역
+
+    /**
+     * 범용 AJAX 요청 함수
+     * @param {string} url - 요청을 보낼 URL
+     * @param {string} method - HTTP 메소드 (GET, POST 등)
+     * @param {object} data - 서버로 보낼 데이터 객체 (예: { key: value })
+     * @param {function} successCallback - 성공 시 실행할 콜백 함수
+     */
+    function ajaxRequest(url, method, data, successCallback) {
+        $.ajax({
+            url: url,
+            method: method,
+            data: data,
+            dataType: 'json',
+            success: function(response) {
+                // 성공 시, 받은 데이터를 콜백 함수에 넘겨줌
+                successCallback(response);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                alert('데이터를 불러오는 데 실패했습니다.');
+            }
+        });
+    }
+
+    //================================================
+    // 2. 범용 UI 이벤트 핸들러 (첫 번째 코드에서 가져옴)
+    //================================================
+
+    /* 드롭다운 토글 기능 */
     $('.toggle-filter-btn').on('click', function(event) {
         const $currentMenu = $(this).siblings('.filter-dropdown-menu');
+        
+        // 현재 메뉴를 제외한 다른 모든 메뉴는 닫음
         $('.filter-dropdown-menu').not($currentMenu).addClass('hidden');
         $currentMenu.toggleClass('hidden');
-        event.stopPropagation();
+        event.stopPropagation(); // 이벤트 버블링 방지
     });
 
-    /* 2. 문서 외부 클릭 시 모든 드롭다운 닫기 */
+    /* 문서 외부 클릭 시 모든 드롭다운 닫기 */
     $(document).on('click', function(event) {
         if (!$(event.target).closest('.filter-dropdown').length) {
             $('.filter-dropdown-menu').addClass('hidden');
         }
     });
-    
-    
 
-    /* =======================================
-        지역 필터 전용 로직
-    ======================================= */
-
-    // NOTE: 이 데이터는 API를 통해 받아오는 것이 좋습니다. (이전 대화 내용 참고)
-    const locationData = {
-        'seoul': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
-        'busan': ['강서구', '금정구', '기장군', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구'],
-        'daegu': ['남구', '달서구', '달성군', '동구', '북구', '서구', '수성구', '중구'],
-        'seoul': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
-	    'busan': ['강서구', '금정구', '기장군', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구'],
-	    'daegu': ['남구', '달서구', '달성군', '동구', '북구', '서구', '수성구', '중구'],
-	    'incheon': ['연수구', '남동구'],
-    };
-
-    const $locationFilter = $('.filter-dropdown[data-filter-type="location"]');
-    if ($locationFilter.length) {
-        const $majorRegionList = $locationFilter.find('#major-region-list');
-        const $subRegionList = $locationFilter.find('#sub-region-list');
-        const $checkAll = $locationFilter.find('#check-all-sub-regions');
-        const $searchInput = $locationFilter.find('#location-search-input'); // 검색창 input 요소 선택
-
-        function populateSubRegions(regionCode) {
-            const subRegions = locationData[regionCode] || [];
-            $subRegionList.empty();
-
-            subRegions.forEach(subRegion => {
-                const value = `${regionCode}-${subRegion}`;
-                const newCheckbox = `
-                    <label>
-                        <input type="checkbox" class="filter-checkbox" name="location" value="${value}" data-text="${subRegion}"> ${subRegion}
-                    </label>
-                `;
-                $subRegionList.append(newCheckbox);
-            });
-        }
-
-        $majorRegionList.on('click', '.major-region-item', function() {
-            const $this = $(this);
-            $majorRegionList.find('.major-region-item').removeClass('active');
-            $this.addClass('active');
-            const regionCode = $this.data('region-code');
-            populateSubRegions(regionCode);
-            $checkAll.prop('checked', false);
-            $searchInput.val(''); // 대분류 변경 시 검색창 초기화
-        });
-
-        $checkAll.on('change', function() {
-            const isChecked = $(this).is(':checked');
-            // "전체" 체크 시 현재 보이는 항목만 체크하도록 수정
-            $subRegionList.find('label:visible .filter-checkbox').prop('checked', isChecked).trigger('change');
-        });
-
-        /* ===== 검색 기능 추가 ===== */
-        $searchInput.on('keyup', function() {
-            const searchTerm = $(this).val().toLowerCase().trim(); // 입력값을 소문자로 변환하고 양쪽 공백 제거
-
-            // 하위 지역 목록의 각 라벨을 순회하며 필터링
-            $subRegionList.find('label').each(function() {
-                const subRegionText = $(this).text().trim();
-                if (subRegionText.includes(searchTerm)) {
-                    $(this).show(); // 입력값을 포함하면 보여주기
-                } else {
-                    $(this).hide(); // 포함하지 않으면 숨기기
-                }
-            });
-        });
-
-
-        populateSubRegions('seoul');
-    }
-    
-        // NOTE: 이 데이터는 API를 통해 받아오는 것이 좋습니다. (이전 대화 내용 참고)
-    const occupationData = {
-        'occupation1': ['프론트', '백', '모바일'],
-        'occupation2': ['UI/UX', '그래픽'],
-    };
-
-    const $occupationFilter = $('.filter-dropdown[data-filter-type="occupation"]');
-    if ($occupationFilter.length) { // 지역 필터가 페이지에 존재할 때만 로직 실행
-        const $majorRegionList = $occupationFilter.find('#major-region-list');
-        const $subRegionList = $occupationFilter.find('#sub-region-list');
-        const $checkAll = $occupationFilter.find('#check-all-sub-regions');
-        const $searchInput = $occupationFilter.find('#location-search-input'); // 검색창 input 요소 선택
-	
-        function populateSubRegions(regionCode) {
-            const subRegions = occupationData[regionCode] || [];
-            $subRegionList.empty();
-
-            subRegions.forEach(subRegion => {
-                const value = `${regionCode}-${subRegion}`;
-                const newCheckbox = `
-                    <label>
-                        <input type="checkbox" class="filter-checkbox" name="location" value="${value}" data-text="${subRegion}"> ${subRegion}
-                    </label>
-                `;
-                $subRegionList.append(newCheckbox);
-            });
-        }
-
-        $majorRegionList.on('click', '.major-region-item', function() {
-            const $this = $(this);
-            $majorRegionList.find('.major-region-item').removeClass('active');
-            $this.addClass('active');
-            const regionCode = $this.data('region-code');
-            populateSubRegions(regionCode);
-            $checkAll.prop('checked', false);
-        });
-
-        $checkAll.on('change', function() {
-            const isChecked = $(this).is(':checked');
-            $subRegionList.find('.filter-checkbox').prop('checked', isChecked).trigger('change');
-        });
-        
-        $searchInput.on('keyup', function() {
-        const searchTerm = $(this).val().toLowerCase().trim(); // 입력값을 소문자로 변환하고 양쪽 공백 제거
-	        // 하위 지역 목록의 각 라벨을 순회하며 필터링
-	        $subRegionList.find('label').each(function() {
-	            const subRegionText = $(this).text().trim();
-	            if (subRegionText.includes(searchTerm)) {
-	                $(this).show(); // 입력값을 포함하면 보여주기
-	            } else {
-	                $(this).hide(); // 포함하지 않으면 숨기기
-	            }
-	        });
-        });
-
-        populateSubRegions('occupation1');
-    }
-    
-    
-
-    /* =======================================
-        범용 이벤트 핸들러 (이벤트 위임 방식 적용)
-    ======================================= */
-    
-    /* 3. (수정됨) 범용 체크박스 변경 감지 -> 태그 생성/삭제 */
+    /* 범용 체크박스 변경 감지 -> 태그 생성/삭제 (이벤트 위임) */
     $(document).on('change', '.filter-checkbox', function() {
         const $checkbox = $(this);
         const value = $checkbox.val();
-        const text = $checkbox.data('text');
-        const icon = '💼';
+        const text = $checkbox.data('text'); // data-text 속성에서 텍스트를 가져옴
 
-        // 이미 생성된 태그가 있는지 확인 (중복 생성 방지)
         const isTagExist = $tagsArea.find(`.filter-tag[data-value="${value}"]`).length > 0;
 
         if ($checkbox.is(':checked') && !isTagExist) {
             const newTag = `
                 <div class="filter-tag" data-value="${value}">
-                    <span>${icon} ${text}</span>
+                    <span>${text}</span>
                     <button class="remove-tag-btn" data-value="${value}">×</button>
                 </div>
             `;
@@ -177,16 +71,194 @@ $(function() {
         }
     });
 
-    /* 4. 동적으로 생성된 태그의 'x' 버튼 클릭 (이벤트 위임) */
+    /* 동적으로 생성된 태그의 'x' 버튼 클릭 (이벤트 위임) */
     $tagsArea.on('click', '.remove-tag-btn', function() {
         const valueToRemove = $(this).data('value');
         $(this).closest('.filter-tag').remove();
+        // 태그 삭제 시, 해당하는 체크박스도 해제
         $(`.filter-checkbox[value="${valueToRemove}"]`).prop('checked', false);
     });
 
-    /* 5. 범용 초기화 버튼 기능 */
+    /* 범용 초기화 버튼 기능 */
     $('.filter-reset-btn').on('click', function() {
+        // 현재 드롭다운 내의 체크된 박스들을 모두 해제하고 change 이벤트를 발생시켜 태그도 삭제
         const $checkboxesInDropdown = $(this).closest('.filter-dropdown').find('.filter-checkbox:checked');
         $checkboxesInDropdown.prop('checked', false).trigger('change');
     });
+
+    //================================================================
+    // 3. 필터 유형별 초기화 로직
+    //================================================================
+
+    /**
+     * [범용] 서버 응답으로 체크박스 UI를 생성하는 함수
+     */
+    function populateCheckboxes($targetElement, filterName, codeData) {
+        $targetElement.empty();
+        if (!codeData || codeData.length === 0) {
+            $targetElement.append('<div>옵션이 없습니다.</div>');
+            return;
+        }
+        codeData.forEach(code => {
+            const newCheckboxHTML = `
+                <label>
+                    <input type="checkbox" class="filter-checkbox" 
+                           name="${filterName}" value="${code.code}" data-text="${code.code_name}">
+                    ${code.code_name}
+                </label>
+            `;
+            $targetElement.append(newCheckboxHTML);
+        });
+    }
+
+    /**
+     * [A. 단일 목록 필터 초기화]
+     */
+    $('.single-level-filter').each(function() {
+        const $filterDropdown = $(this);
+        const filterType = this.id.replace('-filter-group', '');
+        const groupId = filterType.toUpperCase();
+        const $optionsTarget = $filterDropdown.find('.filter-options');
+        
+        if (groupId && $optionsTarget.length) {
+            ajaxRequest(
+                contextPath + '/api/codes', // 고정 URL
+                'GET',
+                { groupId: groupId },      // data 객체에 파라미터 전달
+                response => populateCheckboxes($optionsTarget, filterType, response)
+            );
+        }
+    });
+
+    /**
+     * [B. 계층 구조 필터 초기화]
+     */
+    $('.hierarchical-filter').each(function() {
+        const $filterDropdown = $(this);
+        const filterType = this.id.replace('-filter-group', '');
+        const groupId = filterType.toUpperCase();
+
+        const $majorList = $filterDropdown.find('.major-list');
+        const $subList = $filterDropdown.find('.sub-list');
+        const $checkAll = $filterDropdown.find('.check-all');
+        const $searchInput = $filterDropdown.find('.search-input');
+        let searchTimer;
+
+        /* 대분류 클릭 이벤트 */
+        $majorList.on('click', '.major-item', function() {
+            const $this = $(this);
+            $majorList.find('.major-item').removeClass('active');
+            $this.addClass('active');
+            const parentCode = $this.data('code');
+            
+            ajaxRequest(
+                contextPath + '/api/codes',
+                'GET',
+                {
+                    groupId: groupId,
+                    parentCode: parentCode
+                },
+                response => populateCheckboxes($subList, filterType, response)
+            );
+//            $checkAll.prop('checked', false);
+//            if($searchInput.length) $searchInput.val('');
+        });
+        
+        /* '전체 선택' 체크박스 기능 */
+        $checkAll.on('change', function() {
+            $subList.find('label:visible .filter-checkbox').prop('checked', $(this).is(':checked')).trigger('change');
+        });
+        
+//        /* 검색 기능 (검색창이 있는 필터만 동작) */
+//        if($searchInput.length) {
+//            $searchInput.on('keyup', function() {
+//                clearTimeout(searchTimer);
+//                const keyword = $(this).val().trim();
+//                searchTimer = setTimeout(() => {
+//                    ajaxRequest(
+//                        contextPath + '/api/codes/search',
+//                        'GET',
+//                        {
+//                            groupId: groupId,
+//                            keyword: keyword
+//                        },
+//                        response => populateCheckboxes($subList, filterType, response)
+//                    );
+//                }, 300);
+//            });
+//        }
+
+        // 페이지 로드 시, 기본 소분류 목록 불러오기
+        const initialParentCode = $majorList.find('.major-item.active').data('code');
+        if (initialParentCode) {
+            // ✅ @RequestParam 방식 AJAX 호출
+            ajaxRequest(
+                contextPath + '/api/codes',
+                'GET',
+                {
+                    groupId: groupId,
+                    parentCode: initialParentCode
+                },
+                response => populateCheckboxes($subList, filterType, response)
+            );
+        }
+    });
+    
+        /**
+     * 서버에서 받은 코드 목록으로 체크박스 UI를 생성하여 타겟 영역에 채워넣는 함수
+     * @param {jQuery} $targetElement - 체크박스가 삽입될 JQuery 객체
+     * @param {string} filterName - 체크박스의 name 속성에 들어갈 값 (예: 'locations')
+     * @param {Array} codeData - 서버에서 받은 공통 코드 데이터 배열
+     */
+    function populateFilterOptions($targetElement, filterName, codeData) {
+        $targetElement.empty(); // 기존 내용 비우기
+        
+        if (!codeData || codeData.length === 0) {
+            $targetElement.append('<div>옵션이 없습니다.</div>');
+            return;
+        }
+
+        codeData.forEach(code => {
+            const newCheckboxHTML = `
+                <label>
+                    <input type="checkbox" class="filter-checkbox" 
+                           name="${filterName}" value="${code.code}" data-text="${code.code_name}">
+                    ${code.code_name}
+                </label>
+            `;
+            $targetElement.append(newCheckboxHTML);
+        });
+    }
+
+    /**
+     * 페이지에 있는 모든 동적 필터들을 초기화하는 메인 함수
+     */
+    function initializeDynamicFilters() {
+        // data-group-id 속성을 가진 모든 필터 드롭다운을 찾아서 반복 실행
+        $('.filter-dropdown[data-group-id]').each(function() {
+            const $filterDropdown = $(this);
+            const groupId = $(this).data('group-id'); // 예: "LOCATION", "OCCUPATION"
+            const filterName = $filterDropdown.data('filter-type') + 's'; // 예: "locations", "occupations"
+            const $optionsTarget = $filterDropdown.find('[data-target="options-list"]');
+            const requestUrl = contextPath + '/api/codes/' + groupId;
+
+            if (groupId && $optionsTarget.length) {
+	
+			console.log(`API 요청 시작: groupId = ${groupId}`); 
+                // 각 필터에 맞는 범용 API를 호출하여 데이터를 가져온다.
+                ajaxRequest(
+                    requestUrl, // ✨ Controller에 만든 범용 API URL
+                    'GET',
+                    { groupId: groupId },
+                    function(response) {
+                        // 성공 시, 받아온 데이터로 체크박스를 생성하는 함수 호출
+                        populateFilterOptions($optionsTarget, filterName, response);
+                    }
+                );
+            }
+        });
+    }
+    
+    initializeDynamicFilters();
+    
 });

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,12 +53,12 @@
         <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
       </div>
       <div class="profile-info">
-        <div class="name">ILLUSION</div>
-        <div>생년월일 : 2000.07.26</div>
-        <div>전화번호 : 010-1234-5676</div>
-        <div>이메일 : illusion@naver.com</div>
-        <div>주소 : 부산시 부산진구 삼한골든게이트 7층</div>
-      </div>
+        <div class="name">${member['member_name']}</div>
+			<div>${member['resume_birth']}</div>
+			<div>${member['member_phone']}</div>
+			<div>${member['member_email']}</div>
+			<div>${member['address_idx']}</div>
+		</div>
     </div>
 </div>
     <div class="section">
@@ -73,10 +74,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td>${resume.school_name}</td>
+            <td>${resume.major}</td>
+            <td>${resume.enroll_date} ~ ${resume.graduation_date}</td>
+            <td>${resume.degree}</td>
           </tr>    
         </tbody>
       </table>
@@ -88,18 +89,20 @@
         <thead>
           <tr>
             <th>회사명</th>
-            <th>직급</th>
-            <th>담당업무</th>
-            <th>근무기간</th>
+            <th>직위</th>
+            <th>직종</th>
+            <th>경력</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-          </tr>
+          <c:forEach var="exp" items="${resume_exp_info_list}">
+			  <tr>
+			    <td>${exp.company_name}</td>
+			    <td>${exp.position}</td>
+			    <td>${exp.occupation}</td>
+			    <td>${exp.experience}</td>
+			  </tr>
+			</c:forEach>
         </tbody>
       </table>
     </div>
@@ -109,8 +112,11 @@
 
   <div class="right-buttons">
   
-    <button class="edit-btn" onclick="location.href='resumeWrite';">수정</button>
-    <button class="delete-btn" onclick="confirm('삭제하시겠습니까?')">삭제</button>
+     <button class="edit-btn" onclick="location.href='resumeUpdate?resume_idx=${resume.resume_idx}';">수정</button>
+    <form action="resumeDelete" method="post" onsubmit="return confirm('삭제하시겠습니까?');">
+     <input type="hidden" name="resume_idx" value="${resume.resume_idx}" />
+    <button type="submit" class="delete-btn" >삭제</button>
+	</form>	
   </div>
 </div>
   </div>

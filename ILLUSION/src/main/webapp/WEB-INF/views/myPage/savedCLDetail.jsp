@@ -57,17 +57,13 @@ box-shadow: var(--main-box-shadow);
 
       <div class="qna-answer-box">
         <textarea readonly>
-저는 창의적인 디자인에 관심이 많은 소프트웨어 개발자입니다. 면접을 준비하며 이력서의 작성 배경과 Illusion 프로젝트 경험을 상세하게 담기 위해 자격증을 준비하게 되었습니다. 자격증 준비를 하며 AI와 소프트웨어 설계 과정을 학습하였고, Java 언어의 기초부터 Spring과 MyBatis를 사용한 웹 개발, HTTP 통신 및 클라이언트-서버 구조의 이해도를 높일 수 있었습니다.
-
-자격증 과정과 프로젝트의 연계를 통해, 문제 해결능력, 정보 수집능력, 의사소통능력을 배양하였으며, 실제 프로젝트에서는 DB 모델링, Eclipse를 통한 백엔드 개발과 API 설계 등 실무 능력을 익히게 되었습니다. 저는 이러한 경험을 통해 책임감을 갖고 꾸준히 학습하며 성장할 수 있다는 자신감을 얻었습니다.
-
-향후에도 다양한 기술을 지속적으로 학습하여 소통과 협업에 강한 개발자로 성장하겠습니다.
+		${cl.title }
         </textarea>
       </div>
     </div>
 
     <div class="button-group">
-      <a href="saved_CLList"><button class="btn">목록</button></a>
+      <a href="savedCLList"><button class="btn">목록</button></a>
       <button class="btn">수정</button>
       <button class="btn">삭제</button>
     </div>

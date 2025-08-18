@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지 홈</title>
+<title>마이페이지</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -48,7 +48,7 @@
 			<div class="profile-box">
       <div class="profile-left">
         <div class="profile-img"><img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png"></div>
-        <button class="edit-btn"><a href="UserInfoEdit">회원정보수정</a></button>
+        <button class="edit-btn" onclick="location.href='userInfoEdit?member_idx=1'">회원정보수정</button>
       </div>
       
       <div class="profile-info">
@@ -89,7 +89,7 @@
     <div class="section">
       <h1>활동기록</h1>
       <div class="grid">
-        <div class="file-card"><a href="ScraprecruitList">⭐ 관심 채용 공고</a></div>
+        <div class="file-card"><a href="scraprecruitList">⭐ 관심 채용 공고</a></div>
         <div class="file-card"><a href="jobapplicationlist">📬 입사 지원 현황</a></div>
         <div class="file-card"><a href="myPost">🗒️ 내가 쓴 게시글</a></div>
       </div>

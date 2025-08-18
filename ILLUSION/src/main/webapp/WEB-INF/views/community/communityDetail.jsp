@@ -40,14 +40,13 @@
             <div class="post-detail-container">
                 <!-- 게시글 영역 -->
                 <div class="post-header">
-<!--                     <div class="post-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div> -->
                     <div class="post-author-profile"><img src="${pageContext.request.contextPath}/resources/image/logop.png"/></div>
 
                     <div class="post-title-area">
-                        <div class="author-name">${board.member_name }</div>
+                        <div class="author-name">${board.member_id }</div>
                         <h2 class="post-title">${board.board_title }</h2>
                     </div>
-                    <div class="post-date">${board.board_create_at }</div>
+                    <div class="post-date">작성일&nbsp;|  ${board.board_create_at }</div>
                 </div>
                 
                 <div class="divider"></div>
@@ -57,24 +56,26 @@
 				<div class="post-btn">
 					    <div class="post-actions">
                         <!-- 작성자 본인일 경우 노출 -->
-                        <a href="communityModify" class="btn btn-yellow">수정</a>
-                        <a href="#" class="btn btn-yellow">삭제</a>
+                        <a href="communityModify?board_idx=${board.board_idx}" class="btn btn-yellow">수정</a>
+                        <button id="delete_btn" class="btn btn-yellow">삭제</button>
                     </div>
 				</div>
                 <div class="post-footer">
                     <div class="post-meta-info">
-                        <span><i class="fa-regular fa-comment-dots"></i> 3</span>
-                        <span><i class="fa-regular fa-eye"></i> 조회수 ${board.board_viewcnt}</span>
+<!--                         <span><i class="fa-regular fa-comment-dots"></i> 3</span> -->
+                        <span><i class="fa-regular fa-eye"></i> ${board.board_viewcnt }</span>
                     </div>
                 </div>
                 <!--// 게시글 영역 -->
 
                 <!-- 댓글 영역 -->
-<!--                 <form action="cmtWrite" method="POST"> -->
+                <form action="cmtWrite" method="POST">
 	                <div class="comment-section">	
-	                    <div class="comment-header">댓글 1</div>
+	                    <div class="comment-header" id="cmt_count"></div>
 	                    <div class="comment-form">
-	                        <textarea id="cmt_textarea" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
+	                    	<input type="hidden" id="board_idx" name="board_idx" value="${param.board_idx }">
+	                    	<input type="hidden" id="member_idx" name="member_idx" value="1"> <!-- TODO 로그인 기능 완성되면 수정 -->
+	                        <textarea id="cmt_textarea" name="comment" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
 	                        <button type="submit" id="cmt_regist" class="btn btn-yellow">등록</button>
 	                    </div>
 	                    
@@ -82,13 +83,16 @@
 	                        <div class="comment-item">
 	                            <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
 	                            <div class="comment-content">
-	                                <div class="author-name">ioi</div>
-	                                <p class="comment-text">저도 아직 못 받았어요ㅠ</p>
+	                                <div class="author-name"></div>
+	                                <p class="comment-text"></p>
 	                            </div>
+	                            <div class="comment-actions">
+									<button class="delete-comment-btn">×</button>
+								</div>
 	                        </div>
 	                    </div>
 	                </div>
-<!--                 </form> -->
+                </form>
 
                 <!-- 페이지네이션 -->
                 <nav class="pagination">
@@ -105,7 +109,6 @@
     </div>
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/community/communityDetail.js"></script> 

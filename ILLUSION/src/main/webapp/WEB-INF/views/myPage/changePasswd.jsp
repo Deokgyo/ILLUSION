@@ -87,7 +87,7 @@
             <div class="form-row">
                 <div class="form-label">새 비밀번호 확인</div>
                 <div class="form-input-group">
-                    <input type="password" name="confirm_password" placeholder="8~16 자리 / 영문 대소문자, 숫자, 특수문자 조합">
+                    <input type="password" placeholder="8~16 자리 / 영문 대소문자, 숫자, 특수문자 조합">
                     <!-- 유효성 검사 메시지 (성공 시) -->
 <!--                     <p class="validation-message success">비밀번호가 일치합니다</p> -->
                 </div>

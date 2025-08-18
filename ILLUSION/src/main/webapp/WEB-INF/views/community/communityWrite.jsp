@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -56,14 +54,9 @@
 		            <select name="category" class="form-select category-select" required>
 		                <option value="" disabled selected>카테고리 선택</option>
 		                
-		                <c:forEach var="list" items="${categoryList }">
-			                <option value="자소서 팁">${list}</option>
+		                <c:forEach var="category" items="${categoryList }" >
+			                <option value="${category.code }">${category.code_name}</option>
 		                </c:forEach>
-		                
-<!-- 		                <option value="면접 후기">면접 후기</option> -->
-<!-- 		                <option value="합격 후기">합격 후기</option> -->
-<!-- 		                <option value="면접 팁">면접 팁</option> -->
-<!-- 		                <option value="공지사항">공지사항</option> -->
 		            </select>
 		        </div>
 		

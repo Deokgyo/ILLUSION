@@ -66,7 +66,7 @@ main.registration-form-container {
   width: 100%;
   min-height: 75vh; /* 폼의 최소 높이를 화면 높이의 75%로 설정 */
   padding: 30px;
-height: 2755px;
+    height: 100%;
   /* 내부 placeholder 텍스트를 위한 스타일 (나중에 삭제 가능) */
 /*   display: flex; */
 /*   justify-content: center; */
@@ -107,10 +107,14 @@ section {
  *      4. 아이콘 수정 
  * ====================================================== */
  .icon {
- 	font-size:20px;
- 	color:var(--main-color);
- 	width: 30px !important;
- 	padding: 0px !important;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    align-content: center;
+    font-size: 20px;
+    color: var(--main-color);
+    width: 30px !important;
+    padding: 0px !important;
  }
  
 /* ======================================================
@@ -142,7 +146,7 @@ input[type="checkbox"] {
 	border: 1px solid #E0E0E0;
     border-radius: 8px;
     padding: 12px 16px;
-    height: 50px;
+    height: 37px;
     font-size: 16px;
     color: var(--font-main-color);
     box-shadow: none !important;
@@ -189,55 +193,73 @@ input[type="checkbox"] {
 
 .location-part{
   width: 100%;
-/*   max-width: 800px; */
   background-color: #ffffff;
   border-radius: 16px;
-/*   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
   border: 1px solid #e2e8f0;
   padding: 15px 15px;
 /* ✨핵심✨: 내부 요소들을 배치하기 위해 Grid 사용 */
   display: grid;
   grid-template-areas:
-    "icon   title"
-    "search search"
-    "left   right";
+    "left 	right"
+    "keyword keyword";
   grid-template-columns: auto 1fr; /* 아이콘만큼, 나머지 공간 */
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto 1fr;
 /*   gap: 10px 10px; */
 column-gap: 10px;
+row-gap:10px;
   height: 550px;
 }
 
- /* 1-2. 상단 검색 바 */
-.location-search-bar_my {
-  display: flex;
-  grid-area: search;
-  margin-bottom:10px;
-  padding:0px
+.selected_location {
+	grid-area: keyword;
+	display: flex;
+	gap:8px;
+	flex-wrap: wrap;
+
+	
 }
 
-.location-search-bar_my input {
-  border-radius: 20px;
-}
-
-.location-search-bar_my input:hover {
-  border: 1px solid var(--main-color, #FFE585);
-  border-radius: 20px;
-}
-
-
-
-.search-btn {
-  border: 1px solid var(--main-color);
-  background-color: var(--main-color);
-    color: var(--font-main-color);
-    width: 50px;
-    height: 50px;
-  border-radius: 0 20px 20px 0;
-    font-size: 18px;
-    transition: background-color 0.2s;
+.selected_location .tag .close-btn {
+    margin-left: 5px;
     cursor: pointer;
+    font-weight: bold;
 }
+
+.tag {
+	border: 1px solid #e2e8f0;
+	border-radius: 16px;
+	padding: 2px 10px;
+}
+ /* 1-2. 상단 검색 바 */
+/* .location-search-bar_my { */
+/*   display: flex; */
+/*   grid-area: search; */
+/*   margin-bottom:10px; */
+/*   padding:0px */
+/* } */
+
+/* .location-search-bar_my input { */
+/*   border-radius: 20px; */
+/* } */
+
+/* .location-search-bar_my input:hover { */
+/*   border: 1px solid var(--main-color, #FFE585); */
+/*   border-radius: 20px; */
+/* } */
+
+
+
+/* .search-btn { */
+/*   border: 1px solid var(--main-color); */
+/*   background-color: var(--main-color); */
+/*     color: var(--font-main-color); */
+/*     width: 50px; */
+/*     height: 50px; */
+/*   border-radius: 0 20px 20px 0; */
+/*     font-size: 18px; */
+/*     transition: background-color 0.2s; */
+/*     cursor: pointer; */
+/* } */
  
  
  .filter-header {
@@ -259,7 +281,7 @@ column-gap: 10px;
 #major-region-list {
   list-style: none;
   margin: 0;
-  padding: 10px 0;
+  padding: 0px 0px;
 }
 .major-region-item {
   padding: 12px 20px;
@@ -295,7 +317,12 @@ column-gap: 10px;
   border-bottom: 1px solid #e2e8f0;
   flex-shrink: 0;
 }
-
+.allLabel {
+	display:flex;
+	flex-direction: row;
+	gap:8px;	
+	align-items: center;
+}
 .filter-reset-btn {
     font-size: 15px;
     font-family: var(--font-family);
@@ -340,6 +367,11 @@ column-gap: 10px;
   display: none !important;
 }
 
+
+.all {
+	transform: translateY(-2.25px);
+}
+
 /* 커스텀 스크롤바 */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -357,6 +389,13 @@ column-gap: 10px;
     grid-template-columns: 1fr 1fr;
     gap: 5px;
 }
+
+.category-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;   /* flex/grid 컨텍스트에서 자식이 줄어들 수 있게 */
+}
+
 .category-column .col-title {
     font-size: 14px;
 /*     color: #888; */
@@ -377,8 +416,18 @@ column-gap: 10px;
     margin-bottom: 10px;
     transition: all 0.2s;
 }
-.category-options .option-btn.active,
-.category-options .option-btn:hover {
+
+#occupations.category-options {
+  max-height: 320px;   /* 또는 height: 320px; */
+  overflow-y: auto;
+}
+
+#jobs.category-options {
+  max-height: 320px;   /* 또는 height: 320px; */
+  overflow-y: auto;
+}
+
+.category-options .option-btn.active{
     border-color: var(--main-color);
     background-color: var(--body-bg-color);
 /*     background-color: #FFF9EB; */
@@ -388,11 +437,15 @@ column-gap: 10px;
 
 /* 선택된 키워드 (태그 스타일) */
 .selected-tags-area {
-/*     margin-top: 15px; */
+    margin-top: 7px;
 /*     padding: 5px; */
 /*     background-color: #f8f9fa; */
     background-color: var(--body-bg-color);
     border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+    grid-column: 1 / span 2;
 /*     min-height: 50px; */
 }
 .selected-tags-area .tag {
@@ -418,7 +471,7 @@ column-gap: 10px;
  * ====================================================== */
 
 .form-check-input {
-	margin-left:10px
+	margin-left: 5px;
 }
 
  /* ======================================================
@@ -435,12 +488,14 @@ column-gap: 10px;
 	display: flex;
 	justify-content: flex-end;
 	max-width: inherit;
+	margin-bottom: 8px;
+	margin-left: auto;
 }
 
 .toolbar > button {
 	border:0.3px !important;
 	background-color: var(--body-bg-color);
-	margin-top: 15px;
+/* 	margin-top: 15px; */
 }
 
 .toolbar > button:hover {
@@ -475,11 +530,61 @@ column-gap: 10px;
  	overflow: visible;
  }
  
- .email {
-  display: flex;
-  flex-direction: column;
- }
+/* 채용 시작 마감일 */
+.startEndDate {
+	display: flex;
+    gap: 12px;
+    align-items: center;
+
+}
+.workDayTime {
+	display: flex;
+    flex-direction: column;
+    gap: 15px;
+	
+}
+
+/* 지원 서류 및 방법  */
+
+.applyDocMethod {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 10px 0px;
+}
  
- .btn-yellow {
- margin-top: 40px;
- }
+label {
+	display: flex;
+    gap: 6px;
+}
+
+
+.section-applyDocMethod {
+	display: grid;
+  grid-template-columns: 1fr 1fr; /* 2열 */
+  column-gap: 10px;               /* 열 간격 10px */
+}
+
+
+.form-select {
+	border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 7px 26px;
+    height: 37px;
+    font-size: 16px;
+    color: var(--font-main-color);
+    box-shadow: none !important;
+    transition: border-color 0.2s;
+    width:100%;
+}
+
+.form-select:focus {
+	color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #ffc107;
+    outline: 0;
+}

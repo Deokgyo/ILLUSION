@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,50 +55,23 @@
       <span style="margin:auto;">관리</span>
     </div>
 
-    <div class="resume-item">
-      <input type="checkbox" class="checkbox" />
-      <a href="savedCLDetail" class="resume-link">
+	<c:forEach var="cl" items="${clList}">
+  <div class="resume-item">
+    <input type="checkbox" class="checkbox"/>
+    <a href="savedCLDetail?cl_idx=${cl.cl_idx}&member_idx=1" class="resume-link">
       <div class="resume-info">
-        <div class="title">따뜻한 마음을 가진 개발자</div>
-        <div class="date">25.07.25</div>
+        <div class="title">${cl.cl_title}</div>
+        <div class="date">${cl.generation_date}</div>
       </div>
-      </a>
-     
-    <button class="edit-btn" onclick="location.href='coverletterCreate';">수정</button>
-      
-    </div>	
-    <div class="resume-item">
-      <input type="checkbox" class="checkbox"/>
-      <div class="resume-info">
-        <div class="title">다양한 경험이 있는 개발자</div>
-        <div class="date">25.07.25</div>
-      </div>
-      <button class="edit-btn">수정</button>
-    </div>
-
-    <div class="resume-item">
-      <input type="checkbox"class="checkbox" />
-      <div class="resume-info">
-        <div class="title">뚝심있는 개발자</div>
-        <div class="date">25.07.25</div>
-      </div>
-      <button class="edit-btn">수정</button>
-    </div>
-
-    <div class="resume-item">
-      <input type="checkbox" class="checkbox"/>
-      <div class="resume-info">
-        <div class="title">친구 같은 개발자</div>
-        <div class="date">25.07.25</div>
-      </div>
-      <button class="edit-btn">수정</button>
-    </div>
+    </a>
+    <button class="edit-btn" onclick="location.href='coverletterCreate?cl_idx=${cl.cl_idx}';">수정</button>
   </div>
-
+</c:forEach>
   <div class="resume-footer">
     <button class="delete-btn" onclick="confirm('삭제하시겠습니까?')">삭제</button>
     
   </div>
+  
   <div class="pagination">
       &laquo;
       <span class="page active">1</span>

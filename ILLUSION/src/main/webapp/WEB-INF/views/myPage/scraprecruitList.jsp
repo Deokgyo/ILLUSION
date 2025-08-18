@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/ScraprecruitList.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/scraprecruitList.css">
 </head>
 <body>
 	<header>

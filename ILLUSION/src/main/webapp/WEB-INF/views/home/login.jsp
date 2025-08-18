@@ -71,8 +71,8 @@
 						<input type="submit" class="btn-yellow" value="로그인" />
 					</div>				
 				<ul class="find">
-					<li><a href="idFind">아이디 찾기</a></li>
-					<li><a href="passwdFind">비밀번호 찾기</a></li>
+					<li><a href="idPwFind">아이디 찾기</a></li>
+					<li><a href="idPwFind">비밀번호 찾기</a></li>
 				</ul>
 				<div class="social-login">
 					<div class="mini-divider"></div>

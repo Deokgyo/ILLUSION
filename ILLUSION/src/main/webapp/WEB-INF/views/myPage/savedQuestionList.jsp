@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,26 +49,27 @@
 			<div class="form-box">
 			<div class="ai-interview-container">
 				<!-- 질문 블록 -->
-				<div class="question-block">
-					<div class="question-header">
-						<span class="question-icon">❓</span> <span class="question-text">자격증은
-							어떤 이유로 취득하게 되었나요?</span>
-						<div class="button-group">
-							<button class="copy-btn">복사</button>
-							<button class="delete-btn" onclick="confirm('저장하시겠습니까?')">삭제</button>
+				<c:forEach var="quest" items="${QuestList}">
+					<div class="question-block">
+						<div class="question-header">
+							<span class="question-icon">❓</span>
+							<span name=""  class="question-text">${quest.question_idx}</span>
+							<div class="button-group">
+								<button class="copy-btn">복사</button>
+								<button class="delete-btn" onclick="confirm('저장하시겠습니까?')">삭제</button>
+							</div>
+						</div>
+	
+						<textarea class="user-answer" placeholder="내가 작성한 답변">${quest.answer_text}</textarea>
+	
+						<div class="ai-feedback">
+							<img src="https://cdn-icons-png.flaticon.com/512/4712/4712104.png"
+								alt="AI 아이콘" class="ai-icon" />
+								 <span class="feedback-text">${quest.ai_feedback}</span>
 						</div>
 					</div>
-
-					<textarea class="user-answer" placeholder="내가 작성한 답변"></textarea>
-
-					<div class="ai-feedback">
-						<img src="https://cdn-icons-png.flaticon.com/512/4712/4712104.png"
-							alt="AI 아이콘" class="ai-icon" /> <span class="feedback-text">
-							질문은 좋으나 문장의 전체적 구성력과 근거들이 부족합니다 </span>
-					</div>
-				</div>
-
 				<!-- 동일 블록 반복 추가 -->
+				</c:forEach>
 				<div class="question-block">
 					<!-- 동일 내용 반복 -->
 					<div class="question-header">

@@ -73,9 +73,11 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
+    text-decoration: none; 
 }
 .filter-tags .tag-item:hover {
     background-color: #e9ecef;
+    color: var(--font-sub-color); 
 }
 .filter-tags .tag-item.active {
     background-color: var(--main-color);

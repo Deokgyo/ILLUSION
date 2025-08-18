@@ -31,7 +31,7 @@
                 <p class="header-text"><strong>자기소개서 생성기 </strong> AI가 당신의 경험을 참고하여 매력적인 이력서를 만들어 드립니다.</p>
             </div>
             <div class="form-box">
-                <form action="createSelfIntro.do" method="post">
+                <form action="coverletterGenerate" method="POST" id="coverletter-form">
                 
 
 <!--                     제목 섹션 -->
@@ -40,7 +40,7 @@
                             <i class="icon fa-regular fa-pen-to-square"></i>
                             <h3 class="title">제목</h3>
                         </div>
-                        <input type="text" name="title" class="form-control" placeholder="예: 삼성전자 마케팅 직무 자기소개서" required />
+                        <input type="text" name="title" class="form-control" placeholder="예: 삼성전자 마케팅 직무 자기소개서" />
                     </div>
 
 <!--                     기업명 섹션 -->
@@ -49,42 +49,36 @@
                             <i class="icon fa-regular fa-building"></i>
                             <h3 class="title">기업명</h3>
                         </div>
-                        <input type="text" name="company" class="form-control" placeholder="예: 삼성전자" required />
+                        <input type="text" name="company" class="form-control" placeholder="예: 삼성전자"  />
                     </div>
 
-	                <!-- 직무 선택 섹션 -->
-                    <div class="form-section">
-                        <div class="section-header">
-                            <i class="icon fa-regular fa-square-check"></i>
-                            <h3 class="title">직무 선택</h3>
-                        </div>
-                        <div class="category-grid">
-                            <div class="category-column">
-                                <h4 class="col-title">직무 카테고리</h4>
-                                <div class="category-options">
-                                    <div class="option-btn">디자인</div>
-                                    <div class="option-btn active">개발자</div>
-                                    <div class="option-btn">마케팅</div>
-                                </div>
-                            </div>
-                            <div class="category-column">
-                                <h4 class="col-title">세부 직무</h4>
-                                <div class="category-options">
-                                    <div class="option-btn">마케팅 기획</div>
-                                    <div class="option-btn active">백엔드</div>
-                                    <div class="option-btn">컨설턴트</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detailed-job-selection">
-                            <div class="detailed-job-title">선택한 직무</div>
-                            <div class="selected-tags-area">
-                                <div class="tag"><span>선택한 키워드</span><span class="close-btn">×</span></div>
-                                <div class="tag"><span>선택한 키워드</span><span class="close-btn">×</span></div>
-                            </div>
-                        </div>
-                    </div>
-					
+					<section class="occupation-section">
+						<div class="section-header">
+							<i class="icon fa-regular fa-square-check"></i>
+							<h3 class="title">직무 선택</h3>
+						</div>
+						<div class="category-grid">
+							<div class="category-column">
+								<h4 class="col-title">직무 카테고리</h4>
+								<div class="category-options" id="occupations">
+									<c:forEach var="occupation" items="${occupationList}">
+										<div class="option-btn occupation"
+											data-value="${occupation.code}">${occupation.code_name}</div>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="category-column">
+								<h4 class="col-title">세부 직무</h4>
+								<div class="category-options" id="jobs"></div>
+							</div>
+						</div>
+						<div class="detailed-job-selection">
+							<div class="detailed-job-title">선택한 직무</div>
+							<div class="selected-tags-area"></div>
+						</div>
+						<input type="hidden" id="selected-occupation" class="valid" name="occupation">
+					</section>
+
 					<!-- 경력사항 섹션 -->
 					<div class="form-section">
 					    <div class="section-header">
@@ -105,15 +99,18 @@
 					                <i class="fa-solid fa-chevron-down"></i>
 					            </div>
 					            <div class="form-dropdown-menu">
-					                <div class="form-dropdown-item" data-value="1">1년 미만</div>
-					                <div class="form-dropdown-item" data-value="2">1년 이상 ~ 2년 미만</div>
-					                <div class="form-dropdown-item" data-value="3">2년 이상 ~ 3년 미만</div>
-					                <div class="form-dropdown-item" data-value="4">4년 이상</div>
+					            
+					            	<c:forEach var="exp" items="${expList}">
+					            		<div class="form-dropdown-item" data-value="${exp.code }">${exp.code_name }</div>
+					            	</c:forEach>
 					            </div>
 					        </div>
+					        <input type="hidden" name="experience" id="experience-level-value">
 					        
 					        <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
 					        <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />
+					        <input type="hidden" name="prevCompany" id="prevCompany">
+							<input type="hidden" name="prevJob" id="prevJob">
 					    </div>
 					</div>
 
@@ -129,9 +126,9 @@
                     </div>
 
                     <div class="text-center mt-5">
-                    <div class="buttons">
-    					<button class="gradient-btn" id="generate-btn">자기소개서 생성</button>
-					</div>
+	                    <div class="buttons">
+	    					<button type="submit" class="gradient-btn" id="generate-btn">자기소개서 생성</button>
+						</div>
                     </div>
                 </form>
             </div>
@@ -158,7 +155,7 @@
         </div>
     </div>
     
-    <!-- '토큰 부족' 모달 (이미 표준 구조) -->
+<!--     '토큰 부족' 모달 (이미 표준 구조) -->
     <div id="token-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal-btn btn-no">×</button>
@@ -174,7 +171,7 @@
         </div>
     </div>
     
-    <!-- '로딩' 모달 -->
+<!--     '로딩' 모달 -->
     <div id="loading-overlay" class="modal-overlay">
         <div class="modal-content text-center">
             <div class="spinner-border text-warning mb-3"></div>

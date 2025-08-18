@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.service.RecruitService;
+import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.RecruitVO;
 
 @Controller
@@ -18,11 +21,12 @@ public class RecruitmentController {
 	
 	// 채용정보 페이지 이동
 	@GetMapping("recruitmentInfo")
-	public String recruitmentInfo(Model model) {
+	public String recruitmentInfo(Model model,
+			 @RequestParam(value="sort", defaultValue="latest") String sort) { // 분류 필터링
 		
-		// 채용정보 리스트 model에 담기
-		List<RecruitVO> recruitList = service.selectRecruitList();
+		List<RecruitVO> recruitList = service.selectRecruitList(sort);
 		model.addAttribute("recruitList", recruitList);
+		model.addAttribute("sort", sort);
 		
 		return "recruitment/recruitmentInfo";
 	}
@@ -32,12 +36,29 @@ public class RecruitmentController {
 	public String recruitmentDetail(int recruit_idx, Model model) {
 		
 		RecruitVO recruit = service.selectRecruitIndex(recruit_idx);
-		
-		System.out.println("@!$@!$!@$");
-		System.out.println(recruit);
-		
 		model.addAttribute("recruit", recruit);
+		
+		List<ApplyVO> apply = service.applyModal(recruit_idx);
+		model.addAttribute("apply", apply);
 		
 		return "recruitment/recruitmentDetail";
 	}
+	
+	@GetMapping("applyModal")
+	public String applyModal(Model model) {
+//		List<ApplyVO> apply = service.applyModal();
+//		model.addAttribute("apply", apply);
+		
+		return "recruitment/applyModal";
+	}
+	
+	@PostMapping("applyModal")
+	public String applyModalSave(RecruitVO recruit ,int recruit_idx, Model model) {
+		
+		int insertCnt = service.insertApply(recruit);
+		
+		return "redirect:/recruitmentDetail?recruit_idx=" + recruit_idx;
+	}
+	
+	
 }

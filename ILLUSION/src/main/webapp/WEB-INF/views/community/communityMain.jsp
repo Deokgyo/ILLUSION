@@ -66,22 +66,53 @@
 					</button>
 				</div>
 				<div class="filter-tags">
-					<c:forEach var="list" items="${categoryList }">
-		                <option class="tag-item" value="자소서 팁">${list}</option>
-	                </c:forEach>
+					<c:forEach var="category" items="${categoryList}">
+					    <c:url var="filterUrl" value="communityMain">
+					        <c:param name="categoryCode" value="${category.code}" />
+					        <c:if test="${not empty sort}">
+					            <c:param name="sort" value="${sort}" />
+					        </c:if>
+					    </c:url>
+					    <a href="${filterUrl}"
+					       class="tag-item ${empty param.categoryCode && category.code eq 'BRD001' 
+					                       || param.categoryCode eq category.code ? 'active' : ''}">
+					        ${category.code_name}
+					    </a>
+					</c:forEach>
 				</div>
 			</div>
 			
+			
 			<!-- 정렬 및 글쓰기 버튼 -->
 			<div class="board-actions">
-				<div class="sort-options">
-					<ul>
-						<li class="active"><a>조회순</a></li>
-						<li><a>최신순</a></li>
-					</ul>
-				</div>
-				<a href="communityWrite" class="btn btn-yellow"><i
-					class="fa-regular fa-pen-to-square"></i> 글쓰기</a>
+			    <div class="sort-options">
+			        <ul>
+			            <c:url var="latestSortUrl" value="communityMain">
+			                <c:if test="${not empty selectedCategoryCode}">
+			                    <c:param name="categoryCode" value="${selectedCategoryCode}" />
+			                </c:if>
+			                <c:param name="sort" value="latest" />
+			            </c:url>
+			
+			            <li class="${empty sort or sort == 'latest' ? 'active' : ''}">
+			                <a href="${latestSortUrl}">최신순</a>
+			            </li>
+			            
+			            <c:url var="viewsSortUrl" value="communityMain">
+			                <c:if test="${not empty selectedCategoryCode}">
+			                    <c:param name="categoryCode" value="${selectedCategoryCode}" />
+			                </c:if>
+			                <c:param name="sort" value="views" />
+			            </c:url>
+			            
+			            <li class="${sort == 'views' ? 'active' : ''}">
+			                <a href="${viewsSortUrl}">조회순</a>
+			            </li>
+			        </ul>
+			    </div>
+			    <a href="communityWrite" class="btn btn-yellow">
+			        <i class="fa-regular fa-pen-to-square"></i> 글쓰기
+			    </a>
 			</div>
 			<hr class="hr-11">
 
@@ -101,9 +132,9 @@
 								</p>
 							</div>
 							<div class="post-meta">
-								<span class="meta-item"><i
-									class="fa-regular fa-comment-dots"></i> ${board.cmt_count }</span> <span
-									class="meta-item"><i class="fa-regular fa-eye"></i> 조회수 ${board.board_viewcnt }</span>
+								<span class="meta-item"><i class="fa-regular fa-comment-dots"></i>댓글 ${board.cmt_count }&nbsp; |</span> 
+								<span class="meta-item"><i class="fa-regular fa-eye"></i>조회수 ${board.board_viewcnt }&nbsp; |</span>
+								<span class="meta-item">작성일 ${board.board_create_at }</span>
 							</div>
 						</div>
 					</div>
@@ -112,12 +143,50 @@
 
 			<!-- 페이지네이션 -->
 			<nav class="pagination">
-				<a href="#" class="page-arrow">&laquo;</a> <a href="#"
-					class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
-					href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+			    <!-- 이전 페이지 버튼 -->
+			    <c:if test="${pageInfo.pageNum > 1}">
+			    	<c:url var="pageUrl" value="communityMain">
+			    		<c:param name="pageNum" value="1"></c:param>
+			    		    <c:if test='${not empty selectedCategoryCode}'>
+			    		    	<c:param name="categoryCode" value="${selectedCategoryCode}"></c:param>
+			    		    </c:if>
+			    		    <c:if test='${not empty sort}'>
+			    		    	<c:param name="sort" value="${sort}"></c:param>
+			    		    </c:if>
+			    	</c:url>
+			    	<a href="${pageUrl}">&laquo;</a>
+			    </c:if>
+			
+			    <!-- 페이지 번호 -->
+			    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+				    <c:url var="pageUrl" value="communityMain">
+				        <c:param name="pageNum" value="${i}" />
+				        <c:if test="${not empty selectedCategoryCode}">
+				            <c:param name="categoryCode" value="${selectedCategoryCode}" />
+				        </c:if>
+				        <c:if test="${not empty sort}">
+				            <c:param name="sort" value="${sort}" />
+				        </c:if>
+				    </c:url>
+				    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+				</c:forEach>
+			
+			    <!-- 다음 페이지 버튼 -->
+			    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+			    	<c:url var="pageUrl" value="communityMain">
+			    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+			    		    <c:if test='${not empty selectedCategoryCode}'>
+			    		    	<c:param name="categoryCode" value="${selectedCategoryCode}"></c:param>
+			    		    </c:if>
+			    		    <c:if test='${not empty sort}'>
+			    		    	<c:param name="sort" value="${sort}"></c:param>
+			    		    </c:if>
+			    	</c:url>
+	    		    <a href="${pageUrl}">&raquo;</a>
+			    </c:if>
 			</nav>
-		</main>
-	</div>
+			</main>
+		</div>
 
 	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 

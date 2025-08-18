@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/mypage/UserInfoEdit.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage/userInfoEdit.css">
 <style type="text/css">
 .form-box {
 	padding: 40px;
@@ -62,6 +63,8 @@
 			<div class="form-box">
 				<div class="member-info-container">
 				<hr>
+				<form action="userInfoEdit" method="post">
+				<input type="hidden" name="member_idx" value="${selectuserInfoEdit.member_idx }">
 					<table class="info-table">
 						<tr>
 							<th>프로필 이미지</th>
@@ -75,37 +78,41 @@
 						</tr>
 						<tr>
 							<th>아이디</th>
-							<td rowspan="1"><span class="bg-text">itwillbs3030</span></td>
-
+							<td rowspan="1"><input type="text" name="member_id" class="bg-text" value="${selectuserInfoEdit.member_id}"></td>
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td ><span class="bg-text">홍길동 </span></td>
+							<td ><input type="text" name="member_name" class="bg-text"  value="${selectuserInfoEdit.member_name}" ></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 						<tr>
 							<th>생년월일</th>
-							<td><span class="bg-text">19980201</span></td>
+							<td ><input type="date" name="resume_birth" class="bg-text"
+               value="<fmt:formatDate value='${selectuserInfoEdit.resume_birth}' pattern='yyyy-MM-dd' />"></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td><span class="bg-text">남자</span></td>
+							<td ><input type="text" name="gender" class="bg-text"  value="${selectuserInfoEdit.gender}"></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 						<tr>
 							<th>주소</th>
-							<td><span class="bg-text">부산시 사상구 사상로 3333 33</span></td>
+							<td ><input type="text" name="address_name" class="bg-text"  value="${selectuserInfoEdit.address_name }"></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td><span class="bg-text">kingejrry@naver.com</span></td>
+							<td ><input type="text" name="member_email" class="bg-text"  value="${selectuserInfoEdit.member_email }"></td>
 							<td class="right-align"><button class="edit-button">수정</button></td>
 						</tr>
+						<tr>
+						<td><button type="submit" class="edit-button" >수정</button></td>
+						</tr>
 					</table>
-					
+					</form>
 				</div>
+				
 				<hr>
 				<button class="passwd-button" onclick="location.href='changePasswd';">비밀번호 수정</button>
 				<button class="infodelete-button" onclick="location.href='deleteMember';">회원탈퇴</button>

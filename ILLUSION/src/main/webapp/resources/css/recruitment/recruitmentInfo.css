@@ -125,6 +125,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease-in-out;
+    position: relative;
 }
 
 .job-card:hover {
@@ -158,14 +159,6 @@ body {
 .views-count{
 	display: flex;
     justify-content: flex-end;
-    align-items: center;
-    font-size: 0.9rem;
-    color: #868e96;
-}
-
-.card-meta {
-    display: flex;
-    justify-content: space-evenly;
     align-items: center;
     font-size: 0.9rem;
     color: #868e96;
@@ -252,4 +245,22 @@ body {
   position: relative;   /* 드롭다운 위치 기준을 보장 */
   overflow: visible;    /* 자식 요소 삐져나와도 보이도록 */
   z-index: 1;
+}
+
+.stretched-link::after {
+    /* ✨ 2. a 태그 뒤에 투명한 레이어를 생성 */
+    content: "";
+    
+    /* ✨ 3. position: absolute를 사용하여 부모(.job-card)를 기준으로 위치를 잡음 */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    
+    /* 4. z-index를 주어 다른 텍스트 위에 링크 영역이 오도록 함 (선택적이지만 안전) */
+    z-index: 1; 
+
+    /* (디버깅용) 링크 영역이 어떻게 덮이는지 보려면 아래 배경색을 활성화해보세요. */
+    /* background-color: rgba(255, 0, 0, 0.2); */
 }

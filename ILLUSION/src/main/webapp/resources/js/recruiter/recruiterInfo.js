@@ -1,24 +1,115 @@
   $(document).ready(function () {
-    new gridjs.Grid({
-      columns: [
-		    {
-      name: '기업 이름',
-      width: '30px' // ← 너비 지정
-    },
-    {
-      name: '일루션',
-      width: '60px'
+  const data = [
+    { key: '기업로고', value: '—' },
+    { key: '기업이름', value: '일루션' },
+    { key: '대표자명', value: '홍길동 / 공동사업자시 : 박길동' },
+    { key: '설립일',   value: '2020-00-00' },
+    { key: '주소',     value: '부산시' },
+    { key: '아이디',   value: 'itwillbs3030' },
+    { key: '담당자 이름', value: '박덕교' },
+    { key: '이메일',   value: 'eeee@illusion.com' },
+  ];
+
+  const editableKeys = new Set(['담당자 이름','이메일','기업로고']);
+
+  let editingKey = null; // 현재 편집중인 key
+
+  const grid = new gridjs.Grid({
+    columns: [
+      { name: '항목', width: '120px' },
+      { 
+        name: '값',
+        formatter: (cell, row) => {
+          const key = row.cells[0].data;
+          if (key === '기업로고' && typeof cell === 'string' && (cell.startsWith('blob:') || /\.(png|jpe?g|webp)$/i.test(cell))) {
+            return gridjs.html(`<img class="logo-preview" src="${cell}" alt="logo" />`);
+          }
+          // 편집 모드인 경우 input 표시
+          if (key === editingKey && (key === '담당자 이름' || key === '이메일')) {
+            return gridjs.html(`<input type="text" class="edit-input" value="${cell}" data-key="${key}"/>`);
+          }
+          return cell;
+        }
+      },
+      {
+        name: '수정', width: '10px',
+        formatter: (_, row) => {
+          const key = row.cells[0].data;
+          if (!editableKeys.has(key)) return '';
+          return gridjs.html(`<button class="btn-edit" data-key="${key}">수정</button>`);
+        }
+      }
+    ],
+    data: data.map(r => [r.key, r.value]),
+    search: false, sort: false, pagination: false,
+    style: {
+    table: { border: 'none' },
+    th: { border: 'none', background: '#ffe894' },
+    td: { border: 'none' }
+  }
+  }).render(document.getElementById('companyTable'));
+
+function hideHeader() {
+  const head = document.querySelector('#companyTable thead');
+  if (head) head.style.display = 'none';
+  const h1 = document.querySelector('#companyTable .gridjs-thead');
+  if (h1) h1.style.display = 'none';
+  const h2 = document.querySelector('#companyTable .gridjs-head');
+  if (h2) h2.style.display = 'none';
+}
+
+grid.on('ready', hideHeader);
+
+  // 수정 버튼 클릭 이벤트
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-edit');
+    if (!btn) return;
+
+    const key = btn.dataset.key;
+    const i = data.findIndex(r => r.key === key);
+    if (i < 0) return;
+
+    if (key === '기업로고') {
+      document.getElementById('logoFile').click();
+      return;
     }
-	  ],
-      data: [
-        ["기업로고", gridjs.html('<div class="cell-inner">logo.png <button class="btn-yellow">수정</button></div>')],
-        ["대표자명", gridjs.html('<div class="cell-inner">홍길동</div>')],
-        ["아이디", gridjs.html('<div class="cell-inner">itwillbs3030</div>')],
-        ["이메일", gridjs.html('<div class="cell-inner">itwillbs3030@itwillbs.com</div> <button class="btn-yellow">수정</button></div>')],
-        ["담당자명", gridjs.html('<div class="cell-inner">김담당 <button class="btn-yellow">수정</button></div>')],
-      ],
-      pagination: false,
-      sort: false,
-      search: false
-    }).render($(".member-info-container")[0]);
+
+    // 담당자 이름 / 이메일 → 편집 모드 전환
+    if (key === '담당자 이름' || key === '이메일') {
+      editingKey = key;
+      grid.updateConfig({ data: data.map(r => [r.key, r.value]) }).forceRender();
+    }
   });
+
+  // 파일 선택 시 로고 업데이트
+  document.getElementById('logoFile').addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { alert('이미지 파일만 업로드하세요.'); return; }
+
+    const previewUrl = URL.createObjectURL(file);
+    const i = data.findIndex(r => r.key === '기업로고');
+    if (i >= 0) {
+      data[i].value = previewUrl;
+      grid.updateConfig({ data: data.map(r => [r.key, r.value]) }).forceRender();
+    }
+    e.target.value = '';
+  });
+
+  // 인풋 포커스 아웃 시 값 저장
+  document.addEventListener('blur', (e) => {
+    if (!e.target.classList.contains('edit-input')) return;
+    const key = e.target.dataset.key;
+    const i = data.findIndex(r => r.key === key);
+    if (i >= 0) {
+      data[i].value = e.target.value;
+    }
+    editingKey = null;
+    grid.updateConfig({ data: data.map(r => [r.key, r.value]) }).forceRender();
+  }, true);
+  
+  grid.updateConfig({ data: newData }).forceRender();
+hideHeader();
+  
+
+ });
