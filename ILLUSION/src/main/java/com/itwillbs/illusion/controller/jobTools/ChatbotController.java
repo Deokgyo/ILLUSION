@@ -46,11 +46,20 @@ public class ChatbotController {
     @ResponseBody 
     public Map<String, Object> getChatResponse(@RequestParam String message) {
 
-        String aiReply = geminiService.callGeminiApi(message);
-
+        
         Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("reply", aiReply); 
+        
+        // TODO 로그인한 유저 번호로
+        boolean isTokenAvailable = service.useTokenForJobTools(1, 5);
+        
+        if (isTokenAvailable) {
+        	String aiReply = geminiService.callGeminiApi(message);
+            response.put("success", true);
+            response.put("reply", aiReply); 
+        } else {
+        	response.put("success", false);
+            response.put("message", "토큰이 부족하여 면접 질문을 생성할 수 없습니다.");
+        }
 
         return response;
     }

@@ -75,10 +75,10 @@ $(function() {
                 message: userMessage 
             },
             dataType: 'json', 
-            success: function(response) {
+            success: function(res) {
                 $loadingBubble.remove(); // 로딩 인디케이터 제거
-                if (response.success && response.reply) {
-                    addMessage(response.reply, 'bot'); // 서버로부터 받은 AI 답변을 화면에 추가
+                if (res.success && res.reply) {
+                    addMessage(res.reply, 'bot'); // 서버로부터 받은 AI 답변을 화면에 추가
                 } else {
                     addMessage('죄송합니다. 답변을 생성하는 데 실패했어요.', 'bot');
                 }

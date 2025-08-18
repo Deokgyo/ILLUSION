@@ -123,13 +123,25 @@ public class CoverletterController {
 	    return map;
 	}
 	
+	// 자소서 수정 페이지 이동
 	@GetMapping("coverletterModify")
 	public String coverletterModify() {
 		return "jobTools/coverletterModify";
 	}
 	
+	// 자소서 다듬기 메인페이지 이동
 	@GetMapping("coverletterRefiner")
-	public String coverletterRefiner() {
+	public String coverletterRefiner(Model model) {
+		
+		// TODO 로그인한 사용자로 변경해야함
+		int member_idx = 1;
+		
+		List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
+		
+		System.out.println(clList);
+		
+		model.addAttribute("clList", clList);
+		
 		return "jobTools/coverletterRefiner";
 	}
 	

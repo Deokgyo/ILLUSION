@@ -61,13 +61,22 @@
 	         , generated_char_count
 	         , generated_char_count_no_space
 	         , generation_date
-	      FROM 
-	          cover_letter
-	     WHERE
-	         cl_idx = #{cl_idx}
+	      FROM cover_letter
+	     WHERE cl_idx = #{cl_idx}
 	</select>
 	
-	<update id="toggleSaveStatus" parameterType="int">
+	<!-- 특정 회원의 자소서 목록 조회 -->
+	<select id="getCoverletterTitlesByMember">
+		SELECT 
+			   cl_idx
+			,  cl_title
+			,  company_name
+		  FROM cover_letter c
+		  JOIN member m ON m.member_idx = c.member_idx
+		 WHERE m.member_idx = #{member_idx}
+	</select>
+	
+	<update id="toggleSaveStatus">
 	     UPDATE cover_letter
 	        SET is_saved_to_mypage = 
    	       CASE 
@@ -77,15 +86,23 @@
      	  WHERE cl_idx = #{cl_idx}
 	</update>
 
-	<select id="selectSaveStatus" parameterType="int" resultType="string">
+	<select id="selectSaveStatus">
    	     SELECT is_saved_to_mypage
    	       FROM cover_letter
    	      WHERE cl_idx = #{cl_idx}
 	</select>
 	
+	<!-- 유저 토큰 수 조회 -->
 	<select id="getMemberToken">
 		SELECT token
 		  FROM member
 		 WHERE member_idx = #{member_idx}	
 	</select>
+	
+	<!-- 회원 토큰 수 차감 -->
+	<update id="deductMemberToken">
+		UPDATE member
+		   SET token = token - #{tokenAmount}
+		 WHERE member_idx = #{member_idx}
+	</update>
 </mapper>

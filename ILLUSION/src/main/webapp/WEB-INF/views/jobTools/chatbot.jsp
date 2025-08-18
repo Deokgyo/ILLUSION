@@ -55,7 +55,7 @@
 				
 				        <!-- 1. 메시지 입력창 -->
 				        <form class="message-input-form" onsubmit="return false;">
-				            <input type="text" id="message-input" placeholder="메시지를 입력하세요">
+				            <input type="text" id="message-input" placeholder="메시지를 입력하세요 (전송 시 5토큰 차감)">
 <!-- 				            <button type="submit" class="btn-send"><i class="fa-solid fa-arrow-up"></i></button> -->
 				            <button type="submit" class="gradient-btn"><i class="fa-solid fa-arrow-up"></i></button>
 				        </form>
