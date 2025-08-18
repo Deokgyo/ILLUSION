@@ -34,7 +34,7 @@
                 <form action="coverletterGenerate" method="POST" id="coverletter-form">
                 
 
-<!--                     제목 섹션 -->
+					<!--제목 섹션 -->
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-pen-to-square"></i>
@@ -43,7 +43,7 @@
                         <input type="text" name="title" class="form-control" placeholder="예: 삼성전자 마케팅 직무 자기소개서" />
                     </div>
 
-<!--                     기업명 섹션 -->
+					<!-- 기업명 섹션 -->
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-building"></i>
@@ -114,7 +114,7 @@
 					    </div>
 					</div>
 
-<!--                     AI 생성 요구사항 섹션 -->
+					<!-- AI 생성 요구사항 섹션 -->
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-solid fa-list-ul"></i>
@@ -155,7 +155,7 @@
         </div>
     </div>
     
-<!--     '토큰 부족' 모달 (이미 표준 구조) -->
+	<!-- '토큰 부족' 모달 (이미 표준 구조) -->
     <div id="token-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal-btn btn-no">×</button>
@@ -171,7 +171,7 @@
         </div>
     </div>
     
-<!--     '로딩' 모달 -->
+	<!-- '로딩' 모달 -->
     <div id="loading-overlay" class="modal-overlay">
         <div class="modal-content text-center">
             <div class="spinner-border text-warning mb-3"></div>

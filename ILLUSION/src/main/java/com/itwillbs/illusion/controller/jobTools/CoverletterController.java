@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.controller.jobTools;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.illusion.service.GeminiService;
 import com.itwillbs.illusion.service.JobToolsService;
@@ -144,6 +146,48 @@ public class CoverletterController {
 		
 		return "jobTools/coverletterRefiner";
 	}
+	
+	
+	// 자소서 다듬기 
+	@PostMapping("refineNewCoverletter")
+    @ResponseBody
+    public Map<String, Object> refineNewCoverletter(
+            @RequestParam String cl_input_method, // 'file' 또는 'text'
+            @RequestParam(required = false) MultipartFile uploadedFile, // 파일 업로드
+            @RequestParam(required = false) String coverletterText ) { // 직접 입력
+        String originalContent = "";
+
+        try {
+            if ("file".equals(cl_input_method) && uploadedFile != null && !uploadedFile.isEmpty()) {
+                // 1. 파일 업로드 방식일 경우
+                // 파일의 내용을 byte 배열로 읽어와서 UTF-8 문자열로 변환
+                originalContent = new String(uploadedFile.getBytes(), "UTF-8");
+                System.out.println("업로드된 파일 내용: " + originalContent);
+                
+                // (선택) 실제 서버에 파일 저장 로직
+                // String fileName = uploadedFile.getOriginalFilename();
+                // File targetFile = new File("D:/upload/", fileName);
+                // uploadedFile.transferTo(targetFile);
+
+            } else if ("text".equals(cl_input_method) && coverletterText != null) {
+                // 2. 직접 입력 방식일 경우
+                originalContent = coverletterText;
+                System.out.println("직접 입력된 내용: " + originalContent);
+            }
+            
+            // TODO: originalContent를 GeminiService에 넘겨서 다듬기 로직 실행
+            // String refinedContent = geminiService.refineCoverletter(originalContent);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 에러 처리
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        // response.put("refinedContent", refinedContent);
+        return response;
+    }
 	
 	@GetMapping("interviewCreate")
 	public String interviewCreate() {

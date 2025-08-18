@@ -1,24 +1,54 @@
 $(function() {
 
-    // 필요한 요소들을 변수에 미리 할당
+   	// ======================================================
+    //  DOM Element Variables
+    // ======================================================
     const $tabs = $('.refiner-tabs-nav .tab-link');
     const $panels = $('.tab-panel');
     const $submitBtn = $('#refine-submit-btn');
 
-    // 새 자소서 다듬기 탭 관련 요소
-    const $radioInputs = $('input[name="cl_input_method"]');
+    // "새 자소서 다듬기" 탭 관련 요소
+    const $newResumeRadioInputs = $('input[name="cl_input_method"]');
     const $sectionFileUpload = $('#section-file-upload');
     const $sectionDirectInput = $('#section-direct-input');
     const $fileInput = $('#file-input-hidden');
     const $textarea = $('#direct-input-textarea');
+    const $dropZone = $('.drop-zone'); // [수정] 빠져있던 변수 선언 추가!
 
-    // 저장된 자소서 탭 관련 요소
-    const $resumeList = $('#panel-saved-resume .resume-list');
+    // "저장된 자소서" 탭 관련 요소
+    const $resumeItems = $('.resume-item');
+    
+    // ======================================================
+    //  Core Functions
+    // ======================================================
 
-    //  탭 전환 기능
+    /** "새 자소서 다듬기" 탭의 모든 입력을 초기화하는 함수 */
+    function resetNewResumeInputs() {
+	
+	    $fileInput.val(''); // 파일 입력 초기화
+	    $textarea.val('');
+	    $dropZone.find('.drop-zone-text').text('파일을 끌어 놓거나 클릭하여 선택 하세요');
+	    $dropZone.removeClass('file-selected');
+	
+	    $sectionFileUpload.removeClass('disabled');
+	    $sectionDirectInput.addClass('disabled');
+    }
+
+    /** "저장된 자소서" 탭의 선택을 초기화하는 함수 */
+    function resetSavedResumeSelection() {
+        console.log("저장된 자소서 선택 초기화 실행");
+        $resumeItems.removeClass('active');
+    }
+
+    // ======================================================
+    //  Event Handlers
+    // ======================================================
+    
+    // --- 탭 전환 기능 ---
     $tabs.on('click', function(e) {
         e.preventDefault();
         const targetPanelId = $(this).data('tab');
+        if ($(this).hasClass('active')) return;
 
         $tabs.removeClass('active');
         $(this).addClass('active');
@@ -26,51 +56,117 @@ $(function() {
         $panels.removeClass('active');
         $('#' + targetPanelId).addClass('active');
 
-        updateButtonState(); // 탭 전환 시에도 버튼 상태 체크
+        if (targetPanelId === 'panel-new-resume') {
+            resetSavedResumeSelection();
+        } else {
+            resetNewResumeInputs();
+        }
     });
 
-    // 라디오 버튼 선택 시 상호 비활성화 기능
-    $radioInputs.on('change', function() {
-        // "파일 업로드" 라디오 버튼이 선택되었는지 확인
+    // --- "새 자소서 다듬기" 탭 기능 ---
+    $newResumeRadioInputs.on('change', function() {
+        resetSavedResumeSelection();
         if ($('#check-file-upload').is(':checked')) {
             $sectionFileUpload.removeClass('disabled');
             $sectionDirectInput.addClass('disabled');
-        } 
-        // "자기소개서 내용" 라디오 버튼이 선택되었는지 확인
-        else if ($('#check-direct-input').is(':checked')) {
+        } else {
             $sectionDirectInput.removeClass('disabled');
             $sectionFileUpload.addClass('disabled');
         }
-        
-        updateButtonState();
     });
 
-    // 저장된 자소서 탭에서 항목 선택 기능
-    $resumeList.on('click', '.resume-item-link', function() {
-        // 클릭 시 active 클래스를 토글하지 않고, 링크 이동만 하도록 단순화
-        // 선택 기능이 필요하다면 이전 라디오 버튼 로직을 여기에 적용
+    // --- "저장된 자소서" 탭 기능 ---
+    $resumeItems.on('click', function() {
+        resetNewResumeInputs();
+        const isAlreadyActive = $(this).hasClass('active');
+        $resumeItems.removeClass('active');
+        if (!isAlreadyActive) {
+            $(this).addClass('active');
+        }
     });
 
-    //   최종 버튼 활성화/비활성화 로직
-    function updateButtonState() {
-        let isButtonEnabled = false;
-        
-        // "새 자소서 다듬기" 탭이 활성화된 경우에만 검사
+    // --- 파일 업로드 (드롭존) 기능 ---
+    $dropZone.on('click', function(e) {
+	 	e.stopPropagation();   // 이벤트 버블링 막기
+    	e.preventDefault();    // 혹시 모를 기본동작도 막기
+        $fileInput.click();
+    });
+
+    $fileInput.on('change', function() {
+        if (this.files && this.files.length > 0) {
+            const fileName = this.files[0].name;
+            $dropZone.find('.drop-zone-text').text(fileName);
+            $dropZone.addClass('file-selected');
+        } else {
+            // 파일 선택 취소 시
+             $dropZone.find('.drop-zone-text').text('파일을 끌어 놓거나 클릭하여 선택 하세요');
+             $dropZone.removeClass('file-selected');
+        }
+    });
+
+    $dropZone.on('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).addClass('drag-over');
+    });
+
+    $dropZone.on('dragleave', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).removeClass('drag-over');
+    });
+
+    $dropZone.on('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).removeClass('drag-over');
+        const files = e.originalEvent.dataTransfer.files;
+        if (files.length > 0) {
+            $fileInput[0].files = files;
+            $fileInput.trigger('change');
+        }
+    });
+
+    // --- 제목 링크 기능 ---
+    $('.title-link').on('click', function(e) {
+        e.stopPropagation();
+        const userConfirmed = confirm("자소서 내용 페이지로 이동하시겠습니까?");
+        if (!userConfirmed) {
+            e.preventDefault();
+        }
+    });
+
+    // --- 최종 제출 버튼 기능 ---
+    $submitBtn.on('click', function() {
         if ($('#panel-new-resume').hasClass('active')) {
-            const isFileReady = $('#check-file-upload').is(':checked') && $fileInput[0].files.length > 0;
-            
-            const isTextReady = $('#check-direct-input').is(':checked') && $textarea.val().trim() !== '';
-            
-            if (isFileReady || isTextReady) {
-                isButtonEnabled = true;
+            const formData = new FormData($('#new-refine-form')[0]);
+            $.ajax({
+                type: 'POST',
+                url: $('#new-refine-form').attr('action'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if(response.success) {
+                        alert("자소서 다듬기 요청 성공!");
+                    } else {
+                        alert("다듬기 요청 실패.");
+                    }
+                },
+                error: function() {
+                    alert("서버 통신 중 오류가 발생했습니다.");
+                }
+            });
+        } else {
+            const $selectedItem = $('.resume-item.active');
+            if ($selectedItem.length > 0) {
+                const selectedId = $selectedItem.data('id');
+                const selectedTitle = $selectedItem.data('title');
+                alert(`선택된 자소서: "${selectedTitle}" (ID: ${selectedId})\n이 내용으로 다듬기를 실행합니다.`);
+                // TODO: 저장된 자소서 다듬기 로직
+            } else {
+                alert("다듬을 자소서를 선택해주세요.");
             }
         }
-        
-        $submitBtn.prop('disabled', !isButtonEnabled);
-    }
-
-    // 파일 선택하거나 텍스트를 입력할 때마다 실시간으로 버튼 상태 업데이트
-    $fileInput.on('change', updateButtonState);
-    $textarea.on('input', updateButtonState);
-
+    });
 });
