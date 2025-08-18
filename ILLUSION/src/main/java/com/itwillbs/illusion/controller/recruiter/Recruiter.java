@@ -14,6 +14,11 @@ public class Recruiter {
 		return "recruiter/recruiterMain"; 
 	}
 	
+	@GetMapping("recruiterMainLogin") 
+	public String recruiterMainLogin() {
+		return "recruiter/recruiterMainLogin"; 
+	}
+	
 	// 기업 정보 수정으로 이동 
 	@GetMapping("recruiterInfo")
 	public String recruiterInfo() {
