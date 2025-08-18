@@ -55,6 +55,10 @@ public class RecruiterService {
 		return mapper.recruitClose(recruit_idx);
 	}
 	
+	public RecruitVO selectRecruitModify(int recruit_idx) {
+		return mapper.selectRecruitModify(recruit_idx);
+	}
+	
 //	public List<RecruitVO> getRecruitmentList() {
 //		return mapper.getRecruitmentList();
 //	}

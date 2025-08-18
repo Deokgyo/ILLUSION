@@ -70,7 +70,7 @@ $(function () {
         width: '171px',
         sort: false,
         formatter: (cell) => gridjs.html(`
-          <button class="btn btn-edit">수정</button>
+          <button class="btn btn-edit" onclick="location.href='recruitModify?recruit_idx=${cell}'">수정</button>
           <button class="btn btn-reg" onclick="if(confirm('이 공고를 마감하시겠어요?')) location.href='recruitClose?recruit_idx=${cell}'">마감</button>
         `)
       }

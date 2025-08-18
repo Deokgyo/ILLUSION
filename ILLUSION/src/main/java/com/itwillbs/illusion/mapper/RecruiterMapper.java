@@ -32,4 +32,6 @@ public interface RecruiterMapper {
 	// 공고 마감 처리 
 	public int recruitClose(int recruit_idx);
 	
+	public RecruitVO selectRecruitModify(int recruit_idx);
+	
 }

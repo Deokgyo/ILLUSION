@@ -68,6 +68,39 @@
 		WHERE recruit_idx = #{recruit_idx};
 	</update>
 	
+	<!--  공고 수정 페이지에서 기존 내용 가져오기  -->
+	<select id="selectRecruitModify">
+		SELECT r.recruit_idx
+			 , r.recruit_subject
+			 , c6.code_name as recruit_type
+			 , r.occupation
+		     , r.location
+		     , c1.code_name as work_start_day
+		     , c7.code_name as work_end_day
+		     , c2.code_name as position
+		     , c3.code_name as experience
+		     , r.start_time
+		     , r.end_time
+		     , r.recruit_hiring_num
+		     , c4.code_name as salary
+		     , c5.code_name as degree
+		     , r.recruit_context
+		     , r.preferred
+		     , r.start_date
+		     , r.end_date
+		     , r.apply_doc
+		     , r.apply_method
+		  FROM recruit r  
+	 LEFT JOIN common_code c1 ON r.work_start_day = c1.code
+	 LEFT JOIN common_code c7 ON r.work_end_day = c7.code
+	 LEFT JOIN common_code c2 ON r.position = c2.code
+	 LEFT JOIN common_code c3 ON r.experience = c3.code
+	 LEFT JOIN common_code c4 ON r.salary = c4.code
+	 LEFT JOIN common_code c5 ON r.degree = c5.code
+	 LEFT JOIN common_code c6 ON r.recruit_type = c6.code
+	     WHERE recruit_idx =  #{recruit_idx};
+	</select>
+	
 	
 <!-- 	// 공고 등록  -->
 	<insert id="insertRecruitment">
