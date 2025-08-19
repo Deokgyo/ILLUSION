@@ -1,14 +1,10 @@
-// ✨ 모든 코드를 단 하나의 $(function() { ... }); 안에 정리합니다.
 $(function() {
 
     //================================================
     // 1. 전역 변수 및 헬퍼 함수
     //================================================
     
-    // ✨✨✨ JavaScript가 자신의 경로를 기반으로 contextPath를 동적으로 계산합니다. ✨✨✨
     const scriptSrc = $('script[src*="filterEvent.js"]').attr('src');
-    // 예시 src: "/illusion/resources/js/recruitment/filterEvent.js"
-    // "/resources" 문자열의 시작 위치를 찾아서 그 앞까지 잘라냅니다. -> "/illusion"
     const contextPath = scriptSrc ? scriptSrc.substring(0, scriptSrc.indexOf('/resources')) : "";
     
     console.log("Dynamically detected contextPath:", contextPath); // 확인용 로그
@@ -53,9 +49,6 @@ $(function() {
     //================================================
     // 2. 범용 UI 이벤트 핸들러 (모든 필터 공통)
     //================================================
-    /* 드롭다운 토글, 외부 클릭, 태그 생성/삭제, 초기화 버튼 로직은 여기에 위치 */
-    // ... (이전 답변의 '2. 범용 UI 이벤트 핸들러' 코드를 여기에 붙여넣기) ...
-    
     /* 드롭다운 토글 기능 */
     $('.toggle-filter-btn').on('click', function(event) {
         const $currentMenu = $(this).siblings('.filter-dropdown-menu');
@@ -195,7 +188,7 @@ $(function() {
     });
     
     //================================================================
-    // 4. 페이지 로드 시, 선택된 필터 복원 로직 (핵심!)
+    // 4. 페이지 로드 시, 선택된 필터 복원 로직
     //================================================================
 
     function restoreSelectedFilters() {
@@ -232,40 +225,40 @@ $(function() {
     //================================================================
     // 5. 최종 필터 검색 로직
     //================================================================
-    $('#filter-form').on('submit', function(event) {
-        event.preventDefault();
-        const $form = $(this);
-        const $hiddenInputsArea = $('#hidden-filter-inputs');
-        $hiddenInputsArea.empty();
-
-        const $checkedFilters = $('.filter-checkbox:checked');
-
-        const filterParams = {};
-        $checkedFilters.each(function() {
-            const name = $(this).attr('name');
-            const value = $(this).val();
-            if (!filterParams[name]) {
-                filterParams[name] = [];
-            }
-            filterParams[name].push(value);
-        });
-
-        // 정렬 기준(sort) 값도 함께 보내기 위해 hidden input을 추가
-        // URL에서 현재 sort 값을 읽어온다.
-        const currentUrlParams = new URLSearchParams(window.location.search);
-        const sortValue = currentUrlParams.get('sort') || 'latest';
-        filterParams['sort'] = [sortValue]; // 배열 형태로 통일
-
-        for (const name in filterParams) {
-            const valueString = filterParams[name].join(',');
-            $hiddenInputsArea.append(`<input type="hidden" name="${name}" value="${valueString}">`);
-        }
-        
-        $form.get(0).submit();
-    });
+//    $('#filter-form').on('submit', function(event) {
+//        event.preventDefault();
+//        const $form = $(this);
+//        const $hiddenInputsArea = $('#hidden-filter-inputs');
+//        $hiddenInputsArea.empty();
+//
+//        const $checkedFilters = $('.filter-checkbox:checked');
+//
+//        const filterParams = {};
+//        $checkedFilters.each(function() {
+//            const name = $(this).attr('name');
+//            const value = $(this).val();
+//            if (!filterParams[name]) {
+//                filterParams[name] = [];
+//            }
+//            filterParams[name].push(value);
+//        });
+//
+//        // 정렬 기준(sort) 값도 함께 보내기 위해 hidden input을 추가
+//        // URL에서 현재 sort 값을 읽어온다.
+//        const currentUrlParams = new URLSearchParams(window.location.search);
+//        const sortValue = currentUrlParams.get('sort') || 'latest';
+//        filterParams['sort'] = [sortValue]; // 배열 형태로 통일
+//
+//        for (const name in filterParams) {
+//            const valueString = filterParams[name].join(',');
+//            $hiddenInputsArea.append(`<input type="hidden" name="${name}" value="${valueString}">`);
+//        }
+//        
+//        $form.get(0).submit();
+//    });
 
     //================================================================
-    // 6. 실행 순서 보장 (가장 중요!)
+    // 6. 실행 순서 보장
     //================================================================
     
     // 이 이벤트는 현재 페이지에서 진행중인 모든 AJAX 요청이 완료되면 단 한번 실행됩니다.

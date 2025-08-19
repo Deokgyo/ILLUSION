@@ -57,7 +57,7 @@
 						<jsp:include page="/WEB-INF/views/recruitment/experienceFilter.jsp" />
 						<jsp:include page="/WEB-INF/views/recruitment/salaryFilter.jsp" />
 						<jsp:include page="/WEB-INF/views/recruitment/degreeFilter.jsp" />
-						<button class="reset-btn">초기화</button>
+						<a href="recruitmentInfo" class="reset-btn">초기화</a>
 					</div>
 					<div class="selected-filters-container">
 					    <span class="filter-label">필터:</span>
@@ -71,9 +71,130 @@
 	        <main>
 	            <section class="job-list-controls">
 	                <div class="sort-options">
-	                    <a href="recruitmentInfo?sort=latest" class="${sort == 'latest' ? 'active' : ''}">최신순</a>
-	                    <a href="recruitmentInfo?sort=end_date" class="${sort == 'end_date' ? 'active' : ''}">마감순</a>
-	                    <a href="recruitmentInfo?sort=views" class="${sort == 'views' ? 'active' : ''}">조회순</a>
+			        <%-- '최신순' 링크 --%>
+			        
+					<c:url var="latestUrl" value="/recruitmentInfo">
+					    <c:param name="sort" value="latest"/>
+					    
+					    <c:if test="${not empty selectedFilters.location}">
+					        <c:set var="locationParam" value=""/>
+					        <c:forEach var="locCode" items="${selectedFilters.location}" varStatus="status">
+					            <c:set var="locationParam" value="${locationParam}${locCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="location" value="${locationParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.occupation}">
+					        <c:set var="occupationParam" value=""/>
+					        <c:forEach var="occCode" items="${selectedFilters.occupation}" varStatus="status">
+					            <c:set var="occupationParam" value="${occupationParam}${occCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="occupation" value="${occupationParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.experience}">
+					        <c:set var="experienceParam" value=""/>
+					        <c:forEach var="expCode" items="${selectedFilters.experience}" varStatus="status">
+					            <c:set var="experienceParam" value="${experienceParam}${expCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="experience" value="${experienceParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.salary}">
+					        <c:set var="salaryParam" value=""/>
+					        <c:forEach var="salCode" items="${selectedFilters.salary}" varStatus="status">
+					            <c:set var="salaryParam" value="${salaryParam}${salCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="salary" value="${salaryParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.degree}">
+					        <c:set var="degreeParam" value=""/>
+					        <c:forEach var="degCode" items="${selectedFilters.degree}" varStatus="status">
+					            <c:set var="degreeParam" value="${degreeParam}${degCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="degree" value="${degreeParam}"/>
+					    </c:if>
+			        </c:url>
+			        <a href="${latestUrl}" class="${selectedFilters.sort == 'latest' ? 'active' : ''}">최신순</a>
+			        
+					<c:url var="end_dateUrl" value="/recruitmentInfo">
+					    <c:param name="sort" value="end_date"/>
+					    
+					    <c:if test="${not empty selectedFilters.location}">
+					        <c:set var="locationParam" value=""/>
+					        <c:forEach var="locCode" items="${selectedFilters.location}" varStatus="status">
+					            <c:set var="locationParam" value="${locationParam}${locCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="location" value="${locationParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.occupation}">
+					        <c:set var="occupationParam" value=""/>
+					        <c:forEach var="occCode" items="${selectedFilters.occupation}" varStatus="status">
+					            <c:set var="occupationParam" value="${occupationParam}${occCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="occupation" value="${occupationParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.experience}">
+					        <c:set var="experienceParam" value=""/>
+					        <c:forEach var="expCode" items="${selectedFilters.experience}" varStatus="status">
+					            <c:set var="experienceParam" value="${experienceParam}${expCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="experience" value="${experienceParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.salary}">
+					        <c:set var="salaryParam" value=""/>
+					        <c:forEach var="salCode" items="${selectedFilters.salary}" varStatus="status">
+					            <c:set var="salaryParam" value="${salaryParam}${salCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="salary" value="${salaryParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.degree}">
+					        <c:set var="degreeParam" value=""/>
+					        <c:forEach var="degCode" items="${selectedFilters.degree}" varStatus="status">
+					            <c:set var="degreeParam" value="${degreeParam}${degCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="degree" value="${degreeParam}"/>
+					    </c:if>
+			        </c:url>
+			        <a href="${end_dateUrl}" class="${selectedFilters.sort == 'end_date' ? 'active' : ''}">마감순</a>
+			        
+					<c:url var="viewsUrl" value="/recruitmentInfo">
+					    <c:param name="sort" value="views"/>
+					    
+					    <c:if test="${not empty selectedFilters.location}">
+					        <c:set var="locationParam" value=""/>
+					        <c:forEach var="locCode" items="${selectedFilters.location}" varStatus="status">
+					            <c:set var="locationParam" value="${locationParam}${locCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="location" value="${locationParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.occupation}">
+					        <c:set var="occupationParam" value=""/>
+					        <c:forEach var="occCode" items="${selectedFilters.occupation}" varStatus="status">
+					            <c:set var="occupationParam" value="${occupationParam}${occCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="occupation" value="${occupationParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.experience}">
+					        <c:set var="experienceParam" value=""/>
+					        <c:forEach var="expCode" items="${selectedFilters.experience}" varStatus="status">
+					            <c:set var="experienceParam" value="${experienceParam}${expCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="experience" value="${experienceParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.salary}">
+					        <c:set var="salaryParam" value=""/>
+					        <c:forEach var="salCode" items="${selectedFilters.salary}" varStatus="status">
+					            <c:set var="salaryParam" value="${salaryParam}${salCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="salary" value="${salaryParam}"/>
+					    </c:if>
+					    <c:if test="${not empty selectedFilters.degree}">
+					        <c:set var="degreeParam" value=""/>
+					        <c:forEach var="degCode" items="${selectedFilters.degree}" varStatus="status">
+					            <c:set var="degreeParam" value="${degreeParam}${degCode}${!status.last ? ',' : ''}" />
+					        </c:forEach>
+					        <c:param name="degree" value="${degreeParam}"/>
+					    </c:if>
+			        </c:url>
+			        <a href="${viewsUrl}" class="${selectedFilters.sort == 'views' ? 'active' : ''}">조회순</a>
 	                </div>
 	            </section>
 	
