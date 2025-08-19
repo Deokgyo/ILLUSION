@@ -93,16 +93,31 @@ $(function() {
     });
 
     $fileInput.on('change', function() {
-        if (this.files && this.files.length > 0) {
-            const fileName = this.files[0].name;
-            $dropZone.find('.drop-zone-text').text(fileName);
-            $dropZone.addClass('file-selected');
-        } else {
-            // 파일 선택 취소 시
-             $dropZone.find('.drop-zone-text').text('파일을 끌어 놓거나 클릭하여 선택 하세요');
-             $dropZone.removeClass('file-selected');
-        }
-    });
+	    // 1. 허용할 파일 확장자 목록을 배열로 정의
+	    const allowedExtensions = ['txt', 'pdf', 'doc', 'docx', 'hwp'];
+	
+	    if (this.files && this.files.length > 0) {
+	        const file = this.files[0];
+	        const fileName = file.name;
+	        // 파일 이름에서 마지막 '.' 뒤의 문자열을 소문자로 추출 (이것이 확장자)
+	        const fileExtension = fileName.split('.').pop().toLowerCase();
+	
+	        // 2. 추출한 확장자가 허용 목록에 포함되어 있는지 확인
+	        if (allowedExtensions.includes(fileExtension)) {
+	            // 허용된 파일인 경우: 파일 이름을 드롭존에 표시
+	            $dropZone.find('.drop-zone-text').text(fileName);
+	            $dropZone.addClass('file-selected');
+	        } else {
+	            // 허용되지 않은 파일인 경우:
+	            alert('지원하지 않는 파일 형식입니다.\n(.txt, .pdf, .doc, .docx, .hwp 파일만 업로드 가능)');
+	            // [중요] 파일 입력을 초기화하여 잘못된 파일이 전송되지 않도록 함
+	            $(this).val(''); 
+	            // 드롭존 UI도 초기 상태로 되돌림
+	            $dropZone.find('.drop-zone-text').text('파일을 끌어 놓거나 클릭하여 선택 하세요');
+	            $dropZone.removeClass('file-selected');
+	        }
+	    }
+	});
 
     $dropZone.on('dragover', function(e) {
         e.preventDefault();
@@ -142,13 +157,14 @@ $(function() {
             const formData = new FormData($('#new-refine-form')[0]);
             $.ajax({
                 type: 'POST',
-                url: $('#new-refine-form').attr('action'),
+                url: 'refineNewCoverletter',
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function(response) {
-                    if(response.success) {
+                success: function(res) {
+                    if(res.success) {
                         alert("자소서 다듬기 요청 성공!");
+                        location.href = 'coverletterResult?cl_idx=' + res.cl_idx;
                     } else {
                         alert("다듬기 요청 실패.");
                     }

@@ -45,6 +45,14 @@
 
                 <textarea id="generated-text" readonly>${coverletter.generated_cl_content }</textarea>
                 
+                <!-- 첨삭된 자소서일때만 출력 -->
+				<c:if test="${coverletter.cl_type eq 'CL002'}">
+					
+					첨삭된 자소서 본문 : ${cl_generated_cl_content } 
+					피드백 : ${feedback }		
+				</c:if> 
+				
+                
                 <div class="text-center mt-4">
                     <button id="backBtn" class="btn btn-lg btn-outline-secondary" onclick="history.back()">이전</button>
                 </div>

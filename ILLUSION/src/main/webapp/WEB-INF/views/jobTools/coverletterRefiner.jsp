@@ -35,9 +35,9 @@
                 </nav>
 
                 <div class="tabs-content">
-                    <!-- 패널 1: 새 자소서 다듬기 -->
+                    <!-- 새 자소서 다듬기 -->
 					<div id="panel-new-resume" class="tab-panel active">
-					    <form id="new-refine-form" action="refineNewCoverletter" method="post" enctype="multipart/form-data">
+					    <form id="new-refine-form" action="coverletterResult" method="post" enctype="multipart/form-data">
 					        
 					        <div id="section-file-upload" class="input-method-section">
 					            <label for="check-file-upload" class="section-header">
@@ -47,7 +47,7 @@
 					            <div class="content-area">
 					                <div class="drop-zone">
 					                    <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
-					                    <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요</p>
+					                    <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요 <br>(txt, pdf, doc, docx, hwp 파일형식만 업로드 가능)</p>
 					                </div>
 				                    <input type="file" id="file-input-hidden" name="uploadedFile" style="display:none;"/>
 					            </div>
@@ -68,7 +68,7 @@
 					    </form>
 					</div>
 
-                    <!-- 패널 2: 저장된 자소서 -->
+                    <!-- 저장된 자소서 -->
 					<div id="panel-saved-resume" class="tab-panel">
 					    <div class="resume-list">
 					        <c:forEach var="cl" items="${clList}" varStatus="status">
@@ -94,8 +94,7 @@
     </div>
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
-    
-    
+    <jsp:include page="/WEB-INF/views/jobTools/aiToolsModal.jsp"></jsp:include>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>

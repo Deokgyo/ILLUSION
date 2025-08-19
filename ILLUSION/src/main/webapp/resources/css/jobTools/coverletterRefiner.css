@@ -81,12 +81,9 @@
 }
 
 /* 비활성화 상태 스타일 */
-.input-method-section.disabled {
-    background-color: #f8f9fa;
-    opacity: 0.6;
-}
 .input-method-section.disabled .content-area {
-    pointer-events: none;
+    opacity: 0.4; 
+    pointer-events: none; /* 이 영역 안의 모든 마우스 이벤트를 막음 */
 }
 
 /* 파일 업로드 드롭존 */
@@ -161,8 +158,8 @@
 }
 
 .gradient-btn{
-	width: 140px;
-	height: 45px;
+	width: 200px;
+	height: 55px;
 }
 
 

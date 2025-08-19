@@ -40,14 +40,16 @@
 			 , company_name
 			 , generated_cl_content
 			 , generated_char_count
-			 , generated_char_count_no_space)			  
+			 , generated_char_count_no_space
+			 , cl_type)			  
 	    VALUES (
 		  	  1
 		  	, #{title}
 		  	, #{company}
 		  	, #{aiResult}
 		  	, #{generated_char_count}
-		  	, #{generated_char_count_no_space} )
+		  	, #{generated_char_count_no_space}
+		  	, 'CL001' )
 	</insert>
 	
 	<!-- 자소서 정보 가져오기 -->
@@ -61,6 +63,7 @@
 	         , generated_char_count
 	         , generated_char_count_no_space
 	         , generation_date
+	         , cl_type
 	      FROM cover_letter
 	     WHERE cl_idx = #{cl_idx}
 	</select>
@@ -76,6 +79,7 @@
 		 WHERE m.member_idx = #{member_idx}
 	</select>
 	
+	<!-- 자소서 저장 여부 토글 -->
 	<update id="toggleSaveStatus">
 	     UPDATE cover_letter
 	        SET is_saved_to_mypage = 
@@ -85,7 +89,8 @@
 	        END
      	  WHERE cl_idx = #{cl_idx}
 	</update>
-
+	
+	<!-- 자소서 저장 여부 조회 -->
 	<select id="selectSaveStatus">
    	     SELECT is_saved_to_mypage
    	       FROM cover_letter

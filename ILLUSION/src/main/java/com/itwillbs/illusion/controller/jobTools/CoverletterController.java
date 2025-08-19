@@ -54,15 +54,15 @@ public class CoverletterController {
 	                                    String maxLength, String keywords, String question, String experience) {
 	    
 	    String prompt = String.format(
-	        "너는 이제부터 채용을 위한 자기소개서를 작성해주는 전문가야. 아래 조건에 맞춰서 자기소개서를 완벽하게 작성해줘.\n" +
-	        "- 지원 회사: %s\n" +
-	        "- 지원 직무: %s\n" +
-	        "- 자기소개서 문항: %s\n" +
-	        "- 이전 회사 및 직무 경험: %s에서 %s로 근무\n" +
-	        "- 나의 핵심 경험/역량: %s\n" +
-	        "- 반드시 포함할 키워드: %s\n" +
-	        "- 글자 수 제한: %s자 이내\n" +
-	        "- 위의 모든 조건을 충실하게 반영해서 자연스럽고 설득력 있는 어투로 자기소개서를 작성해줘. 결과는 자소서 내용만 출력해줘",
+	        "너는 이제부터 채용을 위한 자기소개서를 작성해주는 전문가야. 아래 조건에 맞춰서 자기소개서를 완벽하게 작성해줘.\n" 
+	      + "- 지원 회사: %s\n" 
+	      + "- 지원 직무: %s\n" 
+	      + "- 자기소개서 문항: %s\n" 
+	      + "- 이전 회사 및 직무 경험: %s에서 %s로 근무\n" 
+	      + "- 나의 핵심 경험/역량: %s\n" 
+	      + "- 반드시 포함할 키워드: %s\n" 
+	      + "- 글자 수 제한: %s자 이내\n" 
+	      + "- 위의 모든 조건을 충실하게 반영해서 자연스럽고 설득력 있는 어투로 자기소개서를 작성해줘. 결과는 자소서 내용만 출력해줘",
 	        company, occupation, question, prevCompany, prevJob, experience, keywords, maxLength
 	    );
 
@@ -103,6 +103,7 @@ public class CoverletterController {
 
 	    Map<String, Object> coverletter = service.getCoverletterById(cl_idx);
 	    System.out.println(coverletter);
+	    
 	    model.addAttribute("coverletter", coverletter);
 	    
 	    return "jobTools/coverletterResult";
@@ -168,25 +169,56 @@ public class CoverletterController {
                 // String fileName = uploadedFile.getOriginalFilename();
                 // File targetFile = new File("D:/upload/", fileName);
                 // uploadedFile.transferTo(targetFile);
-
+                
             } else if ("text".equals(cl_input_method) && coverletterText != null) {
                 // 2. 직접 입력 방식일 경우
                 originalContent = coverletterText;
                 System.out.println("직접 입력된 내용: " + originalContent);
             }
             
-            // TODO: originalContent를 GeminiService에 넘겨서 다듬기 로직 실행
-            // String refinedContent = geminiService.refineCoverletter(originalContent);
-            
         } catch (IOException e) {
             e.printStackTrace();
             // 에러 처리
         }
+        
+        String prompt = String.format(
+        	    "너는 이제부터 채용을 위한 자기소개서를 첨삭해주는 전문가야. " 
+    		  + "아래의 자기소개서를 면밀히 검토하고, 다음 지침에 따라 수정 및 피드백을 제공해줘.\n\n"
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        // response.put("refinedContent", refinedContent);
-        return response;
+    		  + "### 지침\n"
+    		  + "1. 맞춤법, 띄어쓰기, 문법 오류를 교정할 것\n"
+    		  + "2. 문장이 지나치게 길거나 반복적인 표현은 간결하게 다듬을 것\n"
+    		  + "3. 내용의 논리적 흐름(도입 → 전개 → 성과 → 결론)이 자연스럽게 이어지도록 개선할 것\n"
+    		  + "4. 지원 직무 및 회사에 맞게 역량과 경험이 잘 드러나도록 구체성을 강화할 것\n"
+    		  + "5. 모호한 표현 대신 근거 있는 성과, 수치, 행동 중심으로 보완할 것\n"
+    		  + "6. 글자 수는 너무 짧아지지 않게, 원문과 비슷한 분량을 유지할 것\n\n"
+
+    		  + "### 출력 형식\n"
+    		  + "- [수정된 자기소개서]: 첨삭 완료된 버전\n"
+    		  + "- [피드백 요약]: 주요 개선 포인트 3~5가지\n\n"
+
+    		  + "- 자소서 원문:\n%s\n\n",
+    		   originalContent
+    	    );
+        
+        // 자소서 생성
+        String aiResult = geminiService.callGeminiApi(prompt);
+        System.out.println(aiResult);
+        
+        // 자소서 저장
+        Map<String, Object> map = new HashMap<String, Object>();
+        service.saveCoverletter(map);
+        map.put("aiResult", aiResult);
+        map.put("company", "첨삭된 ")
+        
+        // ajax 응답 
+        Map<String, Object> res = new HashMap<>();
+        res.put("success", true);
+        // TODO 하드코딩 수정
+        res.put("cl_idx", 41);
+        
+        // response.put("내용", "내용:");
+        return res;
     }
 	
 	@GetMapping("interviewCreate")
