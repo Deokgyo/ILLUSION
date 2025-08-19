@@ -262,3 +262,98 @@ $(function() { // $(document).ready()의 축약형
     initializeDynamicFilters();
     
 });
+
+// ------------------------------------------------------------
+
+$(function() {
+    
+    // ...
+
+    //================================================================
+    // 4. 최종 '필터 검색' 버튼 클릭 시 동작
+    //================================================================
+    $('#filter-form').on('submit', function(event) {
+	
+		console.log("체크되노?");
+        
+        // 1. 폼의 기본 제출 기능을 일단 막는다. (URL이 바로 바뀌는 것을 방지)
+        event.preventDefault(); 
+        
+        const $form = $(this);
+        const $hiddenInputsArea = $('#hidden-filter-inputs');
+        
+        // 2. 이전 검색 시 만들어졌을 수 있는 hidden input들을 모두 비운다 (초기화).
+        $hiddenInputsArea.empty();
+
+        // 3. 현재 페이지에서 사용자가 체크한 모든 필터 체크박스를 찾는다.
+        const $checkedFilters = $('.filter-checkbox:checked');
+        
+        // 4. (선택사항) 만약 체크된 필터가 하나도 없다면, 바로 폼을 제출하여 전체 목록을 보게 한다.
+        if ($checkedFilters.length === 0) {
+            $form.get(0).submit();
+            return;
+        }
+
+        // 5. 선택된 값들을 name을 기준으로 그룹화한다.
+        // 예: { locations: ['11', '21'], occupations: ['JOB010'] }
+        const filterParams = {};
+        $checkedFilters.each(function() {
+            const name = $(this).attr('name'); // 예: "locations", "occupations"
+            const value = $(this).val();      // 예: "11", "JOB010"
+            
+            // 해당 name의 배열이 없으면 새로 만든다.
+            if (!filterParams[name]) {
+                filterParams[name] = [];
+            }
+            // 해당 name의 배열에 값을 추가한다.
+            filterParams[name].push(value);
+        });
+
+        // 6. 그룹화된 값들을 쉼표로 구분된 문자열로 만들고,
+        //    <input type="hidden">을 생성하여 form에 추가한다.
+        for (const name in filterParams) {
+            const valueString = filterParams[name].join(','); // 예: "11,21"
+            const hiddenInput = `<input type="hidden" name="${name}" value="${valueString}">`;
+            $hiddenInputsArea.append(hiddenInput);
+        }
+        
+        // 7. 모든 hidden input이 준비되면, JavaScript가 직접 폼을 제출하여
+        //    서버로 필터 조건들을 전송한다.
+        $form.get(0).submit(); 
+    });
+});
+
+$(function() {
+    // ... (기존의 모든 코드) ...
+
+    //================================================================
+    // 4. 페이지 로드 시, 선택된 필터 복원 로직
+    //================================================================
+    function restoreSelectedFilters() {
+        const $form = $('#filter-form');
+        const selectedFilters = $form.data('selected-filters'); // 숨겨진 JSON 데이터 읽기
+
+        if (!selectedFilters) return;
+
+        // 모든 필터 종류(locations, occupations 등)에 대해 반복
+        for (const filterName in selectedFilters) {
+            const selectedCodes = selectedFilters[filterName]; // 예: ["11230", "11220"]
+
+            if (selectedCodes && Array.isArray(selectedCodes)) {
+                selectedCodes.forEach(code => {
+                    // 해당 code 값을 가진 체크박스를 찾아서 'checked' 상태로 만든다.
+                    const $checkbox = $(`.filter-checkbox[value="${code}"]`);
+                    if ($checkbox.length) {
+                        $checkbox.prop('checked', true);
+                        
+                        // change 이벤트를 강제로 발생시켜, 태그 생성 로직을 실행한다.
+                        $checkbox.trigger('change'); 
+                    }
+                });
+            }
+        }
+    }
+
+    setTimeout(restoreSelectedFilters, 500); // 0.5초 후에 실행
+
+});

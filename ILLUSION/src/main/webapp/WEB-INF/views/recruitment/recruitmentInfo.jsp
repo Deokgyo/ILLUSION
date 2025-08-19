@@ -33,27 +33,37 @@
          	    <p class="header-text"><strong>채용정보</strong></p>
              </div>
 	        <header class="search-header">
-	            
+	        
+			<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+			<%
+			    // Jackson ObjectMapper를 사용하여 DTO 객체를 JSON 문자열로 변환
+			    ObjectMapper mapper = new ObjectMapper();
+			    String selectedFiltersJson = mapper.writeValueAsString(pageContext.getAttribute("selectedFilters"));
+			%>
+			
+	        <form action="${pageContext.request.contextPath}/recruitmentInfo" method="get" id="filter-form"
+	        data-selected-filters="<%= selectedFiltersJson %>">  
 	            <div class="filter-bar-main">
 	                <div class="search-box">
 	                    <input type="text" placeholder="검색어를 입력하세요">
 	                    <button class="search-btn"><i class="fas fa-search"></i></button>
 	                </div>
-	            </div>
-	            <div class="filter-button-wrapper">
-				<jsp:include page="/WEB-INF/views/recruitment/locationFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recruitment/occupationFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recruitment/experienceFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recruitment/salaryFilter.jsp" />
-				<jsp:include page="/WEB-INF/views/recruitment/degreeFilter.jsp" />
-				<button class="reset-btn">초기화</button>
-				</div>
-				<div class="selected-filters-container">
-				    <span class="filter-label">필터:</span>
-				    <div class="tags-wrapper" id="selected-tags-area">
-				    </div>
-				    <button class="reset-btn">필터검색</button>
-				</div>
+	            	</div>
+		            <div class="filter-button-wrapper">
+						<jsp:include page="/WEB-INF/views/recruitment/locationFilter.jsp" />
+						<jsp:include page="/WEB-INF/views/recruitment/occupationFilter.jsp" />
+						<jsp:include page="/WEB-INF/views/recruitment/experienceFilter.jsp" />
+						<jsp:include page="/WEB-INF/views/recruitment/salaryFilter.jsp" />
+						<jsp:include page="/WEB-INF/views/recruitment/degreeFilter.jsp" />
+						<button class="reset-btn">초기화</button>
+					</div>
+					<div class="selected-filters-container">
+					    <span class="filter-label">필터:</span>
+					    <div class="tags-wrapper" id="selected-tags-area"></div>
+					    <div id="hidden-filter-inputs"></div>
+					    <button type="submit" class="reset-btn btn-filter-search">필터검색</button>
+					</div>
+				</form>
 	        </header>
 	        
 	        <main>

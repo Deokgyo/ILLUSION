@@ -5,31 +5,70 @@
 
 <mapper namespace="com.itwillbs.illusion.mapper.RecruitMapper">
 	
-	<select id="selectRecruitList" resultType="com.itwillbs.illusion.vo.RecruitVO">
-		SELECT
-			r.recruit_idx,
-			CONCAT(c_parent.code_name, ' ', c_child.code_name) AS location,
-			occ.code_name as occupation,
-			r.start_date,
-			r.end_date,
-			r.views_count,
-			r.recruit_subject
-		FROM 
-			recruit r LEFT JOIN common_code c_child ON r.location = c_child.code
-            LEFT JOIN common_code c_parent ON c_child.parent_code_id = c_parent.code
-		    LEFT JOIN common_code occ ON r.occupation = occ.code
-		ORDER BY
-        <choose>
-            <when test="sort == 'end_date'">
-                r.end_date ASC, r.recruit_idx DESC
-            </when>
-            <when test="sort == 'views'">
-                r.views_count DESC, r.recruit_idx DESC
-            </when>
-            <otherwise>
-                r.recruit_idx DESC
-            </otherwise>
-        </choose>
+	<select id="selectRecruitList" parameterType="com.itwillbs.illusion.vo.RecruitFilterVO" resultType="com.itwillbs.illusion.vo.RecruitVO">
+	    SELECT
+	        r.recruit_idx,
+	        r.recruit_subject,
+	        r.start_date,
+	        r.end_date,
+	        r.views_count,
+	        CONCAT(c_parent.code_name, ' ', c_child.code_name) AS locationName,
+	        occ.code_name as occupationName
+	    FROM 
+	        recruit r
+	        LEFT JOIN common_code c_child ON r.location = c_child.code
+	        LEFT JOIN common_code c_parent ON c_child.parent_code_id = c_parent.code
+	        LEFT JOIN common_code occ ON r.occupation = occ.code
+	        LEFT JOIN common_code exp ON r.experience = exp.code
+			LEFT JOIN common_code sal ON r.salary = sal.code
+			LEFT JOIN common_code deg ON r.degree = deg.code
+	    
+	    <where>
+	        <if test="location != null and !location.isEmpty()">
+	            AND r.location IN
+	            <foreach item="locCode" collection="location" open="(" separator="," close=")">
+	                #{locCode}
+	            </foreach>
+	        </if>
+	        <if test="occupation != null and !occupation.isEmpty()">
+	            AND r.occupation IN
+	            <foreach item="occCode" collection="occupation" open="(" separator="," close=")">
+	                #{occCode}
+	            </foreach>
+	        </if>
+	        <if test="experience != null and !experience.isEmpty()">
+	            AND r.experience IN
+	            <foreach item="expCode" collection="experience" open="(" separator="," close=")">
+	                #{expCode}
+	            </foreach>
+	        </if>
+	        <if test="salary != null and !salary.isEmpty()">
+	            AND r.salary IN
+	            <foreach item="salCode" collection="salary" open="(" separator="," close=")">
+	                #{salCode}
+	            </foreach>
+	        </if>
+	        <if test="degree != null and !degree.isEmpty()">
+	            AND r.degree IN
+	            <foreach item="degCode" collection="degree" open="(" separator="," close=")">
+	                #{degCode}
+	            </foreach>
+	        </if>
+	    </where>
+	    
+	    ORDER BY
+	    <choose>
+	        <!-- DTO의 sort 필드 값을 확인하여 정렬 기준을 결정 -->
+	        <when test="sort == 'end_date'">  <!-- 'end_date' -> 'deadline'으로 변경 (Controller/JSP와 일치) -->
+	            r.end_date ASC, r.recruit_idx DESC
+	        </when>
+	        <when test="sort == 'views'">
+	            r.views_count DESC, r.recruit_idx DESC
+	        </when>
+	        <otherwise>
+	            r.recruit_idx DESC
+	        </otherwise>
+	    </choose>
 	</select>
 	
 	<select id="selectRecruitIndex" resultType="com.itwillbs.illusion.vo.RecruitVO">

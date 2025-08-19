@@ -55,4 +55,6 @@ public class RecruitVO {
 	private String apply_doc;	// 제출 서류 
 	private String apply_method; // 지원 방법
 	private String rec_status; // 공고 상태 
+    private String locationName;   // "서울특별시 강남구"
+    private String occupationName; // "소프트웨어 개발자"
 }
