@@ -209,7 +209,7 @@ public class CoverletterController {
         Map<String, Object> map = new HashMap<String, Object>();
         service.saveCoverletter(map);
         map.put("aiResult", aiResult);
-        map.put("company", "첨삭된 ")
+        map.put("company", "첨삭된 ");
         
         // ajax 응답 
         Map<String, Object> res = new HashMap<>();
