@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,15 +35,16 @@
              </div>
 	        <header class="search-header">
 	        
-			<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
-			<%
-			    // Jackson ObjectMapper를 사용하여 DTO 객체를 JSON 문자열로 변환
-			    ObjectMapper mapper = new ObjectMapper();
-			    String selectedFiltersJson = mapper.writeValueAsString(pageContext.getAttribute("selectedFilters"));
-			%>
+		<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+		<%@ page import="com.itwillbs.illusion.vo.RecruitFilterVO" %>
+		<%
+		    RecruitFilterVO selectedFilters = (RecruitFilterVO) request.getAttribute("selectedFilters");
+		    ObjectMapper mapper = new ObjectMapper();
+		    String selectedFiltersJson = (selectedFilters != null) ? mapper.writeValueAsString(selectedFilters) : "{}";
+		%>
 			
 	        <form action="${pageContext.request.contextPath}/recruitmentInfo" method="get" id="filter-form"
-	        data-selected-filters="<%= selectedFiltersJson %>">  
+	        data-selected-filters='<%= selectedFiltersJson %>'>  
 	            <div class="filter-bar-main">
 	                <div class="search-box">
 	                    <input type="text" placeholder="검색어를 입력하세요">
@@ -109,12 +111,13 @@
     </div>
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
-    
-    <script>
-    const contextPath = "${pageContext.request.contextPath}";
-	</script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <script>
+    window.contextPath = "${pageContext.request.contextPath}";
+	</script>
+	
     <script src="${pageContext.request.contextPath}/resources/js/recruitment/filterEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 </body>

@@ -1,38 +1,61 @@
-$(function() { // $(document).ready()의 축약형
+// ✨ 모든 코드를 단 하나의 $(function() { ... }); 안에 정리합니다.
+$(function() {
 
     //================================================
-    // 1. 공통 헬퍼 함수 및 변수 (두 번째 코드에서 가져옴)
+    // 1. 전역 변수 및 헬퍼 함수
     //================================================
-    const $tagsArea = $('#selected-tags-area'); // 선택된 태그가 표시될 영역
+    
+    // ✨✨✨ JavaScript가 자신의 경로를 기반으로 contextPath를 동적으로 계산합니다. ✨✨✨
+    const scriptSrc = $('script[src*="filterEvent.js"]').attr('src');
+    // 예시 src: "/illusion/resources/js/recruitment/filterEvent.js"
+    // "/resources" 문자열의 시작 위치를 찾아서 그 앞까지 잘라냅니다. -> "/illusion"
+    const contextPath = scriptSrc ? scriptSrc.substring(0, scriptSrc.indexOf('/resources')) : "";
+    
+    console.log("Dynamically detected contextPath:", contextPath); // 확인용 로그
+    
+    const $tagsArea = $('#selected-tags-area');
 
-    /**
-     * 범용 AJAX 요청 함수
-     * @param {string} url - 요청을 보낼 URL
-     * @param {string} method - HTTP 메소드 (GET, POST 등)
-     * @param {object} data - 서버로 보낼 데이터 객체 (예: { key: value })
-     * @param {function} successCallback - 성공 시 실행할 콜백 함수
-     */
     function ajaxRequest(url, method, data, successCallback) {
         $.ajax({
             url: url,
             method: method,
             data: data,
             dataType: 'json',
-            success: function(response) {
-                // 성공 시, 받은 데이터를 콜백 함수에 넘겨줌
-                successCallback(response);
-            },
+            success: successCallback,
             error: function(xhr, status, error) {
-                console.error("AJAX Error:", status, error);
-                alert('데이터를 불러오는 데 실패했습니다.');
+                console.error(`AJAX Error requesting ${url}:`, status, error);
+                console.error("Response Text:", xhr.responseText);
             }
         });
     }
 
+    /**
+     * [범용] 서버 응답으로 체크박스 UI를 생성하는 함수
+     */
+    function populateCheckboxes($targetElement, filterName, codeData) {
+        $targetElement.empty();
+        if (!codeData || codeData.length === 0) {
+            $targetElement.append('<div>옵션이 없습니다.</div>');
+            return;
+        }
+        codeData.forEach(code => {
+            const newCheckboxHTML = `
+                <label>
+                    <input type="checkbox" class="filter-checkbox" 
+                           name="${filterName}" value="${code.code}" data-text="${code.code_name}">
+                    ${code.code_name}
+                </label>
+            `;
+            $targetElement.append(newCheckboxHTML);
+        });
+    }
+    
     //================================================
-    // 2. 범용 UI 이벤트 핸들러 (첫 번째 코드에서 가져옴)
+    // 2. 범용 UI 이벤트 핸들러 (모든 필터 공통)
     //================================================
-
+    /* 드롭다운 토글, 외부 클릭, 태그 생성/삭제, 초기화 버튼 로직은 여기에 위치 */
+    // ... (이전 답변의 '2. 범용 UI 이벤트 핸들러' 코드를 여기에 붙여넣기) ...
+    
     /* 드롭다운 토글 기능 */
     $('.toggle-filter-btn').on('click', function(event) {
         const $currentMenu = $(this).siblings('.filter-dropdown-menu');
@@ -85,35 +108,14 @@ $(function() { // $(document).ready()의 축약형
         const $checkboxesInDropdown = $(this).closest('.filter-dropdown').find('.filter-checkbox:checked');
         $checkboxesInDropdown.prop('checked', false).trigger('change');
     });
+    
 
+    
     //================================================================
-    // 3. 필터 유형별 초기화 로직
+    // 3. 필터 유형별 초기화 로직 (유일한 실행 로직)
     //================================================================
 
-    /**
-     * [범용] 서버 응답으로 체크박스 UI를 생성하는 함수
-     */
-    function populateCheckboxes($targetElement, filterName, codeData) {
-        $targetElement.empty();
-        if (!codeData || codeData.length === 0) {
-            $targetElement.append('<div>옵션이 없습니다.</div>');
-            return;
-        }
-        codeData.forEach(code => {
-            const newCheckboxHTML = `
-                <label>
-                    <input type="checkbox" class="filter-checkbox" 
-                           name="${filterName}" value="${code.code}" data-text="${code.code_name}">
-                    ${code.code_name}
-                </label>
-            `;
-            $targetElement.append(newCheckboxHTML);
-        });
-    }
-
-    /**
-     * [A. 단일 목록 필터 초기화]
-     */
+    // ✨ [A. 단일 목록 필터 초기화]
     $('.single-level-filter').each(function() {
         const $filterDropdown = $(this);
         const filterType = this.id.replace('-filter-group', '');
@@ -122,17 +124,15 @@ $(function() { // $(document).ready()의 축약형
         
         if (groupId && $optionsTarget.length) {
             ajaxRequest(
-                contextPath + '/api/codes', // 고정 URL
+                contextPath + '/api/codes',
                 'GET',
-                { groupId: groupId },      // data 객체에 파라미터 전달
+                { groupId: groupId },
                 response => populateCheckboxes($optionsTarget, filterType, response)
             );
         }
     });
 
-    /**
-     * [B. 계층 구조 필터 초기화]
-     */
+    // ✨ [B. 계층 구조 필터 초기화]
     $('.hierarchical-filter').each(function() {
         const $filterDropdown = $(this);
         const filterType = this.id.replace('-filter-group', '');
@@ -144,7 +144,7 @@ $(function() { // $(document).ready()의 축약형
         const $searchInput = $filterDropdown.find('.search-input');
         let searchTimer;
 
-        /* 대분류 클릭 이벤트 */
+        // 대분류 클릭 이벤트
         $majorList.on('click', '.major-item', function() {
             const $this = $(this);
             $majorList.find('.major-item').removeClass('active');
@@ -154,206 +154,128 @@ $(function() { // $(document).ready()의 축약형
             ajaxRequest(
                 contextPath + '/api/codes',
                 'GET',
-                {
-                    groupId: groupId,
-                    parentCode: parentCode
-                },
+                { groupId: groupId, parentCode: parentCode },
                 response => populateCheckboxes($subList, filterType, response)
             );
-//            $checkAll.prop('checked', false);
-//            if($searchInput.length) $searchInput.val('');
+            $checkAll.prop('checked', false);
+            if($searchInput.length) $searchInput.val('');
         });
         
-        /* '전체 선택' 체크박스 기능 */
+        // '전체 선택' 체크박스 기능
         $checkAll.on('change', function() {
             $subList.find('label:visible .filter-checkbox').prop('checked', $(this).is(':checked')).trigger('change');
         });
         
-//        /* 검색 기능 (검색창이 있는 필터만 동작) */
-//        if($searchInput.length) {
-//            $searchInput.on('keyup', function() {
-//                clearTimeout(searchTimer);
-//                const keyword = $(this).val().trim();
-//                searchTimer = setTimeout(() => {
-//                    ajaxRequest(
-//                        contextPath + '/api/codes/search',
-//                        'GET',
-//                        {
-//                            groupId: groupId,
-//                            keyword: keyword
-//                        },
-//                        response => populateCheckboxes($subList, filterType, response)
-//                    );
-//                }, 300);
-//            });
-//        }
+        // 검색 기능 (검색창이 있는 경우에만)
+        if($searchInput.length) {
+            $searchInput.on('keyup', function() {
+                clearTimeout(searchTimer);
+                const keyword = $(this).val().trim();
+                searchTimer = setTimeout(() => {
+                    ajaxRequest(
+                        contextPath + '/api/codes/search',
+                        'GET',
+                        { groupId: groupId, keyword: keyword },
+                        response => populateCheckboxes($subList, filterType, response)
+                    );
+                }, 300);
+            });
+        }
 
         // 페이지 로드 시, 기본 소분류 목록 불러오기
         const initialParentCode = $majorList.find('.major-item.active').data('code');
         if (initialParentCode) {
-            // ✅ @RequestParam 방식 AJAX 호출
             ajaxRequest(
                 contextPath + '/api/codes',
                 'GET',
-                {
-                    groupId: groupId,
-                    parentCode: initialParentCode
-                },
+                { groupId: groupId, parentCode: initialParentCode },
                 response => populateCheckboxes($subList, filterType, response)
             );
         }
     });
     
-        /**
-     * 서버에서 받은 코드 목록으로 체크박스 UI를 생성하여 타겟 영역에 채워넣는 함수
-     * @param {jQuery} $targetElement - 체크박스가 삽입될 JQuery 객체
-     * @param {string} filterName - 체크박스의 name 속성에 들어갈 값 (예: 'locations')
-     * @param {Array} codeData - 서버에서 받은 공통 코드 데이터 배열
-     */
-    function populateFilterOptions($targetElement, filterName, codeData) {
-        $targetElement.empty(); // 기존 내용 비우기
-        
-        if (!codeData || codeData.length === 0) {
-            $targetElement.append('<div>옵션이 없습니다.</div>');
-            return;
-        }
-
-        codeData.forEach(code => {
-            const newCheckboxHTML = `
-                <label>
-                    <input type="checkbox" class="filter-checkbox" 
-                           name="${filterName}" value="${code.code}" data-text="${code.code_name}">
-                    ${code.code_name}
-                </label>
-            `;
-            $targetElement.append(newCheckboxHTML);
-        });
-    }
-
-    /**
-     * 페이지에 있는 모든 동적 필터들을 초기화하는 메인 함수
-     */
-    function initializeDynamicFilters() {
-        // data-group-id 속성을 가진 모든 필터 드롭다운을 찾아서 반복 실행
-        $('.filter-dropdown[data-group-id]').each(function() {
-            const $filterDropdown = $(this);
-            const groupId = $(this).data('group-id'); // 예: "LOCATION", "OCCUPATION"
-            const filterName = $filterDropdown.data('filter-type') + 's'; // 예: "locations", "occupations"
-            const $optionsTarget = $filterDropdown.find('[data-target="options-list"]');
-            const requestUrl = contextPath + '/api/codes/' + groupId;
-
-            if (groupId && $optionsTarget.length) {
-	
-			console.log(`API 요청 시작: groupId = ${groupId}`); 
-                // 각 필터에 맞는 범용 API를 호출하여 데이터를 가져온다.
-                ajaxRequest(
-                    requestUrl, // ✨ Controller에 만든 범용 API URL
-                    'GET',
-                    { groupId: groupId },
-                    function(response) {
-                        // 성공 시, 받아온 데이터로 체크박스를 생성하는 함수 호출
-                        populateFilterOptions($optionsTarget, filterName, response);
-                    }
-                );
-            }
-        });
-    }
-    
-    initializeDynamicFilters();
-    
-});
-
-// ------------------------------------------------------------
-
-$(function() {
-    
-    // ...
-
     //================================================================
-    // 4. 최종 '필터 검색' 버튼 클릭 시 동작
+    // 4. 페이지 로드 시, 선택된 필터 복원 로직 (핵심!)
     //================================================================
-    $('#filter-form').on('submit', function(event) {
-	
-		console.log("체크되노?");
-        
-        // 1. 폼의 기본 제출 기능을 일단 막는다. (URL이 바로 바뀌는 것을 방지)
-        event.preventDefault(); 
-        
-        const $form = $(this);
-        const $hiddenInputsArea = $('#hidden-filter-inputs');
-        
-        // 2. 이전 검색 시 만들어졌을 수 있는 hidden input들을 모두 비운다 (초기화).
-        $hiddenInputsArea.empty();
 
-        // 3. 현재 페이지에서 사용자가 체크한 모든 필터 체크박스를 찾는다.
-        const $checkedFilters = $('.filter-checkbox:checked');
-        
-        // 4. (선택사항) 만약 체크된 필터가 하나도 없다면, 바로 폼을 제출하여 전체 목록을 보게 한다.
-        if ($checkedFilters.length === 0) {
-            $form.get(0).submit();
-            return;
-        }
-
-        // 5. 선택된 값들을 name을 기준으로 그룹화한다.
-        // 예: { locations: ['11', '21'], occupations: ['JOB010'] }
-        const filterParams = {};
-        $checkedFilters.each(function() {
-            const name = $(this).attr('name'); // 예: "locations", "occupations"
-            const value = $(this).val();      // 예: "11", "JOB010"
-            
-            // 해당 name의 배열이 없으면 새로 만든다.
-            if (!filterParams[name]) {
-                filterParams[name] = [];
-            }
-            // 해당 name의 배열에 값을 추가한다.
-            filterParams[name].push(value);
-        });
-
-        // 6. 그룹화된 값들을 쉼표로 구분된 문자열로 만들고,
-        //    <input type="hidden">을 생성하여 form에 추가한다.
-        for (const name in filterParams) {
-            const valueString = filterParams[name].join(','); // 예: "11,21"
-            const hiddenInput = `<input type="hidden" name="${name}" value="${valueString}">`;
-            $hiddenInputsArea.append(hiddenInput);
-        }
-        
-        // 7. 모든 hidden input이 준비되면, JavaScript가 직접 폼을 제출하여
-        //    서버로 필터 조건들을 전송한다.
-        $form.get(0).submit(); 
-    });
-});
-
-$(function() {
-    // ... (기존의 모든 코드) ...
-
-    //================================================================
-    // 4. 페이지 로드 시, 선택된 필터 복원 로직
-    //================================================================
     function restoreSelectedFilters() {
-        const $form = $('#filter-form');
-        const selectedFilters = $form.data('selected-filters'); // 숨겨진 JSON 데이터 읽기
+        // 1. JSP가 <form> 태그의 data-selected-filters 속성에 심어둔 JSON 데이터를 읽는다.
+        const selectedFilters = $('#filter-form').data('selected-filters');
+        
+        console.log("복원할 필터 데이터:", selectedFilters);
 
-        if (!selectedFilters) return;
+        if (!selectedFilters || Object.keys(selectedFilters).length === 0) {
+            return; // 복원할 데이터가 없으면 종료
+        }
 
-        // 모든 필터 종류(locations, occupations 등)에 대해 반복
+        // 2. DTO의 필드명(locations, occupations 등)을 순회한다.
         for (const filterName in selectedFilters) {
-            const selectedCodes = selectedFilters[filterName]; // 예: ["11230", "11220"]
+            const selectedCodes = selectedFilters[filterName];
 
+            // 3. 선택된 코드 목록(배열)이 있는지 확인한다.
             if (selectedCodes && Array.isArray(selectedCodes)) {
+                // 4. 각 코드를 순회하면서 해당하는 체크박스를 찾아서 체크한다.
                 selectedCodes.forEach(code => {
-                    // 해당 code 값을 가진 체크박스를 찾아서 'checked' 상태로 만든다.
-                    const $checkbox = $(`.filter-checkbox[value="${code}"]`);
-                    if ($checkbox.length) {
-                        $checkbox.prop('checked', true);
-                        
-                        // change 이벤트를 강제로 발생시켜, 태그 생성 로직을 실행한다.
-                        $checkbox.trigger('change'); 
+                    // name 속성과 value 속성이 모두 일치하는 체크박스를 정확히 찾는다.
+                    const $checkbox = $(`.filter-checkbox[name="${filterName}"][value="${code}"]`);
+                    
+                    if ($checkbox.length > 0) {
+                        // 체크박스를 체크하고, 'change' 이벤트를 강제로 발생시켜
+                        // 연결된 태그 생성 로직도 함께 실행되도록 한다.
+                        $checkbox.prop('checked', true).trigger('change');
                     }
                 });
             }
         }
     }
+    
+    //================================================================
+    // 5. 최종 필터 검색 로직
+    //================================================================
+    $('#filter-form').on('submit', function(event) {
+        event.preventDefault();
+        const $form = $(this);
+        const $hiddenInputsArea = $('#hidden-filter-inputs');
+        $hiddenInputsArea.empty();
 
-    setTimeout(restoreSelectedFilters, 500); // 0.5초 후에 실행
+        const $checkedFilters = $('.filter-checkbox:checked');
+
+        const filterParams = {};
+        $checkedFilters.each(function() {
+            const name = $(this).attr('name');
+            const value = $(this).val();
+            if (!filterParams[name]) {
+                filterParams[name] = [];
+            }
+            filterParams[name].push(value);
+        });
+
+        // 정렬 기준(sort) 값도 함께 보내기 위해 hidden input을 추가
+        // URL에서 현재 sort 값을 읽어온다.
+        const currentUrlParams = new URLSearchParams(window.location.search);
+        const sortValue = currentUrlParams.get('sort') || 'latest';
+        filterParams['sort'] = [sortValue]; // 배열 형태로 통일
+
+        for (const name in filterParams) {
+            const valueString = filterParams[name].join(',');
+            $hiddenInputsArea.append(`<input type="hidden" name="${name}" value="${valueString}">`);
+        }
+        
+        $form.get(0).submit();
+    });
+
+    //================================================================
+    // 6. 실행 순서 보장 (가장 중요!)
+    //================================================================
+    
+    // 이 이벤트는 현재 페이지에서 진행중인 모든 AJAX 요청이 완료되면 단 한번 실행됩니다.
+    $(document).ajaxStop(function () {
+        
+        // 모든 필터 옵션(체크박스)들이 그려진 것이 보장된 이 시점에 복원 함수를 호출합니다.
+        restoreSelectedFilters();
+        
+        // 이 이벤트 핸들러는 한번만 실행되면 되므로, 실행 후에는 제거하여 불필요한 반복을 막습니다.
+        $(this).off("ajaxStop");
+    });
 
 });

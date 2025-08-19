@@ -45,6 +45,9 @@ public class RecruitmentController {
         // 3. 현재 필터/정렬 상태를 View에 전달
 		model.addAttribute("selectedFilters", filterVO);
 		
+		System.out.println("@#%#@%@%@#%@#%#@%#@%");
+		System.out.println(filterVO);
+		
 		return "recruitment/recruitmentInfo";
 	}
 	
