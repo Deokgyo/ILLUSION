@@ -58,7 +58,7 @@ public class HomeController {
 
       // TODO: 여기에서 DB 저장 로직 작성
       // 예: userService.register(user);
-
+      
       // 회원가입 완료 후 이동할 페이지 (예: 로그인 페이지)
       return "home/login";
       // ViewResolver가 /WEB-INF/views/home/login.jsp 로 찾아감 (prefix, suffix 설정에 따라 다름)
