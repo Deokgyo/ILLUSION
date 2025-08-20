@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.RecruitFilterVO;
@@ -13,6 +14,8 @@ import com.itwillbs.illusion.vo.RecruitVO;
 public interface RecruitMapper {
 
 	public List<RecruitVO> selectRecruitList(RecruitFilterVO filterVO);
+	
+	int getBoardListCount(RecruitFilterVO filterVO);
 	
 	public RecruitVO selectRecruitIndex(int recruit_idx);
 	
