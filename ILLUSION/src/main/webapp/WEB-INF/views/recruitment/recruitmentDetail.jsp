@@ -73,14 +73,16 @@
 	                        <p>설립일 : ${recruit.company_estab_date }</p>
 	                        <p>기업 주소 : ${recruit.full_address }</p>
 	                        <p>회사 이메일 : ${recruit.recruiter_member_email }</p><br>
-	                        <p>(추후 카카오맵 API 추가)</p>   
 	                    </div>
 	                    <div class="company-logo">
 	                        <img src="https://i.ibb.co/L5kQV9j/illusion-logo.png" alt="Illusion Logo">
 	                    </div>
 	                </div>
 	            </section>
-	
+	            
+	            <h3 class="section-title">근무지 위치</h3>
+				<div id="map" style="width: 500px; height: 400px;" data-address="${recruit.full_address}"></div>
+
 	            <section class="info-section">
 	                <h3 class="section-title">접수 기간 및 방법</h3>
 	                <div class="application-info-content">
@@ -137,5 +139,9 @@
 			    barChart('barChart');
 	  		});
     </script>
+    
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b38e19508712285c3e7d184a62d45ba&libraries=services,clusterer"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recruitment/kakaoApi.js"></script>
+	
 </body>
 </html>
