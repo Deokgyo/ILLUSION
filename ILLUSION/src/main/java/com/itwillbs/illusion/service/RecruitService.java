@@ -25,6 +25,11 @@ public class RecruitService {
         return mapper.selectRecruitList(filterVO);
     }
 	
+	public int getBoardListCount(RecruitFilterVO filterVO) {
+		return mapper.getBoardListCount(filterVO);
+	}
+    
+	
 	public RecruitVO selectRecruitIndex(int recruit_idx) {
 		return mapper.selectRecruitIndex(recruit_idx);
 	}

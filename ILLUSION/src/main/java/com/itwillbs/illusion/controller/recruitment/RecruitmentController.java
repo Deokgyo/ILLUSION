@@ -33,12 +33,44 @@ public class RecruitmentController {
 	// 채용정보 페이지 이동
 	@GetMapping("recruitmentInfo")
 	public String recruitmentInfo(@ModelAttribute RecruitFilterVO filterVO,
+			@RequestParam(defaultValue = "1") int pageNum,
 			Model model) {
 		
-		// 1. DTO를 Service로 전달하여 필터링된 목록을 가져옴
-		List<RecruitVO> recruitList = service.selectRecruitList(filterVO); // 메소드명 통일
-		model.addAttribute("recruitList", recruitList);
+		// 페이징 처리 계산
+		// ------------------------------------------------
+		int listLimit = 12; // 페이지 당 게시물 수
+		int pageListLimit = 5; // 하단 페이지 번호 수
+
+	    // 1. 필터링된 전체 게시물 갯수를 정확히 조회
+	    int listCount = service.getBoardListCount(filterVO);
+	    
+	    // 2. 최대 페이지 번호 계산
+	    int maxPage = (int) Math.ceil((double) listCount / listLimit);
+	    
+	    // 3. 시작 페이지 번호 계산
+	    int startPage = ((pageNum - 1) / pageListLimit) * pageListLimit + 1;
+	    
+	    // 4. 끝 페이지 번호 계산
+	    int endPage = startPage + pageListLimit - 1;
+	    
+	    // 5. 만약 끝 페이지가 최대 페이지보다 크면, 끝 페이지를 최대 페이지로 교체
+	    if (endPage > maxPage) {
+	        endPage = maxPage;
+	    }
+	    
+	    PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage, pageNum);
 		
+        int startRow = (pageNum - 1) * listLimit;
+        filterVO.setStartRow(startRow);
+        filterVO.setListLimit(listLimit);
+
+		// 필터와 페이징 정보가 모두 담긴 DTO로 최종 목록 조회
+		List<RecruitVO> recruitList = service.selectRecruitList(filterVO);
+		
+		model.addAttribute("recruitList", recruitList);   // 화면에 표시할 목록
+		model.addAttribute("pageInfo", pageInfo);         // 페이지네이션 UI를 위한 정보
+		
+		// -----------------------------------------------
         // 2. 필터 UI를 위한 대분류 목록 가져오기
         Map<String, List<CommonCodeVO>> filterOptions = commonCodeService.getFilterOptionsForRecruit();
         model.addAttribute("filterOptions", filterOptions);
