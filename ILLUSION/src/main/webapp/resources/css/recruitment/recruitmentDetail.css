@@ -33,6 +33,17 @@ h1 {
     border-radius: 12px;
     padding: 30px 40px;
     box-shadow: var(--main-box-shadow);
+    position: relative;
+}
+
+.job-posting::before {
+	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */	
 }
 
 .section-title {

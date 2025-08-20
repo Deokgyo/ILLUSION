@@ -33,7 +33,7 @@
 	         <div class="page-title-header">
          	    <p class="header-text"><strong>채용정보</strong></p>
              </div>
-	        <header class="search-header">
+	        <header class="search-header mt-4">
 	        
 		<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 		<%@ page import="com.itwillbs.illusion.vo.RecruitFilterVO" %>

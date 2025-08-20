@@ -88,6 +88,9 @@ public class RecruitmentController {
 	@GetMapping("recruitmentDetail")
 	public String recruitmentDetail(int recruit_idx, Model model) {
 		
+		// 조회수 증가 
+		service.increaseViewCount(recruit_idx);
+		
 		RecruitVO recruit = service.selectRecruitIndex(recruit_idx);
 		model.addAttribute("recruit", recruit);
 		

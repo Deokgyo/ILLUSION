@@ -22,6 +22,17 @@ body {
     border-radius: 10px;
     margin-bottom: 20px;
     border: 1px solid #e9ecef;
+    position: relative;
+}
+
+.search-header::before{
+	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */	
 }
 
 .search-header h1 {
@@ -134,6 +145,7 @@ body {
 
 .card-header {
     padding: 20px;
+    flex-grow: 1;
 }
 
 .company-name {
@@ -146,14 +158,14 @@ body {
     margin: 8px 0 2px 0;
     font-size: 1.1rem;
     font-weight: 500;
-    color: #212529;
+    color: var(--font-main-color);
 }
 
 .sub-title {
 	margin: -18px 0 0px 0;
     font-size: 0.9rem;
     font-weight: 400;
-    color: #212529;
+    color: var(--font-main-color);
 }
 
 .views-count{
@@ -161,15 +173,16 @@ body {
     justify-content: flex-end;
     align-items: center;
     font-size: 0.9rem;
-    color: #868e96;
+    color: var(--font-main-color);
 }
 
 .sub-font{
 	display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
-    color: #868e96;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    color: var(--font-main-color);
 }
 
 .apply-btn {

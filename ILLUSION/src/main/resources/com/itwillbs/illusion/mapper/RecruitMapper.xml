@@ -196,6 +196,13 @@
 			r.recruit_idx = #{recruit_idx};
 	</select>
 	
+	<!-- 조회수 증가 -->
+	<update id="increaseViewCount">
+		UPDATE recruit
+		   SET views_count = views_count + 1
+		 WHERE recruit_idx = #{recruit_idx}
+	</update>
+	
 	<select id="applyModal" resultType="com.itwillbs.illusion.vo.ApplyVO">
 	SELECT
 		a.apply_idx,
