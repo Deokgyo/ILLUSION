@@ -29,9 +29,13 @@
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
                 <div class="error-message">
-                    <h2>오류가 발생 했습니다</h2>
-                    <p>잠시후 다시 시도해주세요.<br>
-                       문제가 계속되면 관리자에게 문의 바랍니다.</p>
+                	<c:if test="${empty msg}">
+                		<h2>오류가 발생 했습니다</h2>
+	                    <p>잠시후 다시 시도해주세요.<br>
+	                       문제가 계속되면 관리자에게 문의 바랍니다.
+	                    </p>
+                	</c:if>
+                    <h2>${msg }</h2>
                 </div>
                 <a href="./" class="btn btn-yellow btn-home">홈 페이지로 이동</a>
             </div>
