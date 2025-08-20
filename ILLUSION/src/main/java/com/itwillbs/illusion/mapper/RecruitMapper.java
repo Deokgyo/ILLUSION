@@ -19,6 +19,8 @@ public interface RecruitMapper {
 	
 	public RecruitVO selectRecruitIndex(int recruit_idx);
 	
+	public void increaseViewCount(int board_idx); // 조회수 증가
+	
 	public List<ApplyVO> applyModal(int recruit_idx);
 	
 	public int insertApply(RecruitVO recruit);

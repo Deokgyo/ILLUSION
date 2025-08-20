@@ -21,6 +21,13 @@ public class LoginController {
 	@Autowired
 	LoginService service;
 	
+	// 관리자 로그인 페이지 이동
+	@GetMapping("adminLogin")
+	public String adminLogin() {
+		return "admin/adminLogin";
+	}
+	
+	// 로그인 기능
 	@PostMapping("login")
 	public String login(
 			@RequestParam Map<String, String> memberMap,

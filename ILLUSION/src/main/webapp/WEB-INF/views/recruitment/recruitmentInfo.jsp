@@ -33,7 +33,7 @@
 	         <div class="page-title-header">
          	    <p class="header-text"><strong>채용정보</strong></p>
              </div>
-	        <header class="search-header">
+	        <header class="search-header mt-4">
 	        
 		<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 		<%@ page import="com.itwillbs.illusion.vo.RecruitFilterVO" %>
@@ -67,134 +67,50 @@
 					</div>
 				</form>
 	        </header>
+	    
+		    <!-- 파라미터 문자열 공통 변수 -->
+		        
+			<c:set var="filterParams" value=""/>
+			<c:if test="${not empty selectedFilters.location}">
+			    <c:set var="locationValues" value=""/>
+			    <c:forEach var="loc" items="${selectedFilters.location}" varStatus="status"><c:set var="locationValues" value="${locationValues}${loc}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:set var="filterParams" value="${filterParams}&location=${locationValues}"/>
+			</c:if>
+			<c:if test="${not empty selectedFilters.occupation}">
+			    <c:set var="occupationValues" value=""/>
+			    <c:forEach var="occ" items="${selectedFilters.occupation}" varStatus="status"><c:set var="occupationValues" value="${occupationValues}${occ}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:set var="filterParams" value="${filterParams}&occupation=${occupationValues}"/>
+			</c:if>
+			<c:if test="${not empty selectedFilters.experience}">
+			    <c:set var="experienceValues" value=""/>
+			    <c:forEach var="exp" items="${selectedFilters.experience}" varStatus="status"><c:set var="experienceValues" value="${experienceValues}${exp}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:set var="filterParams" value="${filterParams}&experience=${experienceValues}"/>
+			</c:if>
+			<c:if test="${not empty selectedFilters.salary}">
+			    <c:set var="salaryValues" value=""/>
+			    <c:forEach var="sal" items="${selectedFilters.salary}" varStatus="status"><c:set var="salaryValues" value="${salaryValues}${sal}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:set var="filterParams" value="${filterParams}&salary=${salaryValues}"/>
+			</c:if>
+			<c:if test="${not empty selectedFilters.degree}">
+			    <c:set var="degreeValues" value=""/>
+			    <c:forEach var="deg" items="${selectedFilters.degree}" varStatus="status"><c:set var="degreeValues" value="${degreeValues}${deg}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:set var="filterParams" value="${filterParams}&degree=${degreeValues}"/>
+			</c:if>
+			
+			<c:set var="sortAndFilterParams" value="${filterParams}"/>
+			<c:if test="${not empty selectedFilters.sort}">
+			    <c:set var="sortAndFilterParams" value="${sortAndFilterParams}&sort=${selectedFilters.sort}"/>
+			</c:if>
 	        
 	        <main>
 	            <section class="job-list-controls">
 	                <div class="sort-options">
 			        <%-- '최신순' 링크 --%>
-			        
-					<c:url var="latestUrl" value="/recruitmentInfo">
-					    <c:param name="sort" value="latest"/>
-					    
-					    <c:if test="${not empty selectedFilters.location}">
-					        <c:set var="locationParam" value=""/>
-					        <c:forEach var="locCode" items="${selectedFilters.location}" varStatus="status">
-					            <c:set var="locationParam" value="${locationParam}${locCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="location" value="${locationParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.occupation}">
-					        <c:set var="occupationParam" value=""/>
-					        <c:forEach var="occCode" items="${selectedFilters.occupation}" varStatus="status">
-					            <c:set var="occupationParam" value="${occupationParam}${occCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="occupation" value="${occupationParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.experience}">
-					        <c:set var="experienceParam" value=""/>
-					        <c:forEach var="expCode" items="${selectedFilters.experience}" varStatus="status">
-					            <c:set var="experienceParam" value="${experienceParam}${expCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="experience" value="${experienceParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.salary}">
-					        <c:set var="salaryParam" value=""/>
-					        <c:forEach var="salCode" items="${selectedFilters.salary}" varStatus="status">
-					            <c:set var="salaryParam" value="${salaryParam}${salCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="salary" value="${salaryParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.degree}">
-					        <c:set var="degreeParam" value=""/>
-					        <c:forEach var="degCode" items="${selectedFilters.degree}" varStatus="status">
-					            <c:set var="degreeParam" value="${degreeParam}${degCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="degree" value="${degreeParam}"/>
-					    </c:if>
-			        </c:url>
-			        <a href="${latestUrl}" class="${selectedFilters.sort == 'latest' ? 'active' : ''}">최신순</a>
-			        
-					<c:url var="end_dateUrl" value="/recruitmentInfo">
-					    <c:param name="sort" value="end_date"/>
-					    
-					    <c:if test="${not empty selectedFilters.location}">
-					        <c:set var="locationParam" value=""/>
-					        <c:forEach var="locCode" items="${selectedFilters.location}" varStatus="status">
-					            <c:set var="locationParam" value="${locationParam}${locCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="location" value="${locationParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.occupation}">
-					        <c:set var="occupationParam" value=""/>
-					        <c:forEach var="occCode" items="${selectedFilters.occupation}" varStatus="status">
-					            <c:set var="occupationParam" value="${occupationParam}${occCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="occupation" value="${occupationParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.experience}">
-					        <c:set var="experienceParam" value=""/>
-					        <c:forEach var="expCode" items="${selectedFilters.experience}" varStatus="status">
-					            <c:set var="experienceParam" value="${experienceParam}${expCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="experience" value="${experienceParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.salary}">
-					        <c:set var="salaryParam" value=""/>
-					        <c:forEach var="salCode" items="${selectedFilters.salary}" varStatus="status">
-					            <c:set var="salaryParam" value="${salaryParam}${salCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="salary" value="${salaryParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.degree}">
-					        <c:set var="degreeParam" value=""/>
-					        <c:forEach var="degCode" items="${selectedFilters.degree}" varStatus="status">
-					            <c:set var="degreeParam" value="${degreeParam}${degCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="degree" value="${degreeParam}"/>
-					    </c:if>
-			        </c:url>
-			        <a href="${end_dateUrl}" class="${selectedFilters.sort == 'end_date' ? 'active' : ''}">마감순</a>
-			        
-					<c:url var="viewsUrl" value="/recruitmentInfo">
-					    <c:param name="sort" value="views"/>
-					    
-					    <c:if test="${not empty selectedFilters.location}">
-					        <c:set var="locationParam" value=""/>
-					        <c:forEach var="locCode" items="${selectedFilters.location}" varStatus="status">
-					            <c:set var="locationParam" value="${locationParam}${locCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="location" value="${locationParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.occupation}">
-					        <c:set var="occupationParam" value=""/>
-					        <c:forEach var="occCode" items="${selectedFilters.occupation}" varStatus="status">
-					            <c:set var="occupationParam" value="${occupationParam}${occCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="occupation" value="${occupationParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.experience}">
-					        <c:set var="experienceParam" value=""/>
-					        <c:forEach var="expCode" items="${selectedFilters.experience}" varStatus="status">
-					            <c:set var="experienceParam" value="${experienceParam}${expCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="experience" value="${experienceParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.salary}">
-					        <c:set var="salaryParam" value=""/>
-					        <c:forEach var="salCode" items="${selectedFilters.salary}" varStatus="status">
-					            <c:set var="salaryParam" value="${salaryParam}${salCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="salary" value="${salaryParam}"/>
-					    </c:if>
-					    <c:if test="${not empty selectedFilters.degree}">
-					        <c:set var="degreeParam" value=""/>
-					        <c:forEach var="degCode" items="${selectedFilters.degree}" varStatus="status">
-					            <c:set var="degreeParam" value="${degreeParam}${degCode}${!status.last ? ',' : ''}" />
-					        </c:forEach>
-					        <c:param name="degree" value="${degreeParam}"/>
-					    </c:if>
-			        </c:url>
-			        <a href="${viewsUrl}" class="${selectedFilters.sort == 'views' ? 'active' : ''}">조회순</a>
+			        <a href="recruitmentInfo?pageNum=1&sort=latest${filterParams}" class="${selectedFilters.sort == 'latest' ? 'active' : ''}">최신순</a>
+			        <%-- '마감순' 링크 --%>
+			        <a href="recruitmentInfo?pageNum=1&sort=deadline${filterParams}" class="${selectedFilters.sort == 'deadline' ? 'active' : ''}">마감순</a>
+			        <%-- '조회순' 링크--%>
+			        <a href="recruitmentInfo?pageNum=1&sort=views${filterParams}" class="${selectedFilters.sort == 'views' ? 'active' : ''}">조회순</a>
 	                </div>
 	            </section>
 	
@@ -224,49 +140,28 @@
 			
 			<%-- 페이지네이션 --%>
 			<nav id="pageList" class="pagination">
-				<%-- 이전 버튼 --%>
+				<!-- 이전 버튼 -->
 			    <c:if test="${pageInfo.pageNum > 1}">
-			        <c:url var="prevPageUrl" value="recruitmentInfo">
-			            <c:param name="pageNum" value="${pageInfo.pageNum - 1}" />
-			            <c:if test="${not empty selectedFilters.sort}"><c:param name="sort" value="${selectedFilters.sort}"/></c:if>
-			            <c:if test="${not empty selectedFilters.location}"><c:param name="location" value="${fn:join(selectedFilters.location, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.occupation}"><c:param name="occupation" value="${fn:join(selectedFilters.occupation, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.experience}"><c:param name="experience" value="${fn:join(selectedFilters.experience, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.salary}"><c:param name="salary" value="${fn:join(selectedFilters.salary, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.degree}"><c:param name="degree" value="${fn:join(selectedFilters.degree, ',')}"/></c:if>
-			        </c:url>
-			        <a href="${prevPageUrl}">&laquo;</a>
+			        <a href="recruitmentInfo?pageNum=${pageInfo.pageNum - 1}${sortAndFilterParams}">&laquo;</a>
 			    </c:if>
-			
-			    <%-- 페이지 번호 목록 --%>
+				<!-- 페이지 이동 -->
 			    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-			        <c:url var="pageUrl" value="recruitmentInfo">
-			            <c:param name="pageNum" value="${i}" />
-			            <c:if test="${not empty selectedFilters.sort}"><c:param name="sort" value="${selectedFilters.sort}"/></c:if>
-			            <c:if test="${not empty selectedFilters.location}"><c:param name="location" value="${fn:join(selectedFilters.location, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.occupation}"><c:param name="occupation" value="${fn:join(selectedFilters.occupation, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.experience}"><c:param name="experience" value="${fn:join(selectedFilters.experience, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.salary}"><c:param name="salary" value="${fn:join(selectedFilters.salary, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.degree}"><c:param name="degree" value="${fn:join(selectedFilters.degree, ',')}"/></c:if>
-			        </c:url>
-					<a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+			        <c:choose>
+			            <c:when test="${i eq pageInfo.pageNum}">
+			                <a href="recruitmentInfo?pageNum=${i}${sortAndFilterParams}" 
+			                class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+			            </c:when>
+			            <c:otherwise>
+			                <a href="recruitmentInfo?pageNum=${i}${sortAndFilterParams}" 
+			                class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+			            </c:otherwise>
+			        </c:choose>
 			    </c:forEach>
-			
-			    <%-- 다음 버튼 --%>
+				<!-- 다음 페이지 -->
 			    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
-			        <c:url var="nextPageUrl" value="recruitmentInfo">
-			            <c:param name="pageNum" value="${pageInfo.pageNum + 1}" />
-			            <c:if test="${not empty selectedFilters.sort}"><c:param name="sort" value="${selectedFilters.sort}"/></c:if>
-			            <c:if test="${not empty selectedFilters.location}"><c:param name="location" value="${fn:join(selectedFilters.location, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.occupation}"><c:param name="occupation" value="${fn:join(selectedFilters.occupation, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.experience}"><c:param name="experience" value="${fn:join(selectedFilters.experience, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.salary}"><c:param name="salary" value="${fn:join(selectedFilters.salary, ',')}"/></c:if>
-			            <c:if test="${not empty selectedFilters.degree}"><c:param name="degree" value="${fn:join(selectedFilters.degree, ',')}"/></c:if>
-			        </c:url>
-			        <a href="${nextPageUrl}">&raquo;</a>
+			        <a href="recruitmentInfo?pageNum=${pageInfo.pageNum + 1}${sortAndFilterParams}">&raquo;</a>
 			    </c:if>
 			</nav>
-		
 	    </div>
     </div>
 
