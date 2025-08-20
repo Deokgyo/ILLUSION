@@ -72,6 +72,7 @@ main {
   gap: 15px;
   flex-grow: 1;
   height: 100%;
+  justify-content: center;
 }
 
 /* 카드 내부의 공통 제목 스타일 */

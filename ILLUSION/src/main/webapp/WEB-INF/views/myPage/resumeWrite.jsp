@@ -174,8 +174,8 @@
         
         <button type="submit" class="btn btn-save" 
         onclick="if(confirm('저장하시겠습니까?')) location.href='savedResumeDetail?resume_idx=${resume_idx}&member_idx=${member_idx}';">저장</button>
-    </div>
 </form>
+    </div>
 </main>
 </div>
 </body>

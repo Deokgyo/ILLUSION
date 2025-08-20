@@ -50,6 +50,12 @@ public class RecruiterController {
 		return "recruiter/recruiterList";
 	}
 	
+	// 기업회원 수정 페이지 이동 
+	@GetMapping("memberModify")
+	public String memberModify() {
+		return "recruiter/memberModify";
+	}
+	
 	// 공고 마감 버튼 누를 때 
 	@GetMapping("recruitClose")
 	public String recruitClose(int recruit_idx) {
@@ -62,8 +68,8 @@ public class RecruiterController {
 	public String recruitModify(int recruit_idx, Model model) {
 		
 		RecruitVO vo = service.selectRecruitModify(recruit_idx);
-		
-		model.addAttribute("vo", vo);
+		System.out.println("vo 어케 찍히노: " + vo);
+		model.addAttribute("savedData", vo);
 		
 		// 디비 공통코드에서 주소 값 가져오기 
 		List<Map<String, String>> locationList = service.getLocation();

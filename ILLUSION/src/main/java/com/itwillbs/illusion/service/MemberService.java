@@ -36,11 +36,6 @@ public class MemberService {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
 
-	// 메일 인증 처리 요청
-	// => 메일 인증 처리 과정에서 UPDATE & DELETE 작업을 차례대로 수행하는데
-	// 이때, 두 작업을 하나의 트렌잭션으로 묶어 처리하기 위해 @Taransactional 어노테이션 사용
-	// (개발자가 별도로 commit 또는 rollback 작업을 지시하지 않아도 자동으로 처리)
-	// => 주의! root-context.xml 파일에 마이바티스 설정 항목에 트렌잭션 설정 추가 필요!
 	@Transactional
 	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
 
@@ -68,6 +63,18 @@ public class MemberService {
 		}
 
 		return isAuthSuccess;
+	}
+
+	// 회원가입 비즈니스 로직 메서드
+	@Transactional
+	public boolean register(MemberVO member) {
+		// 비밀번호 암호화(optional)
+		// member.setMember_pw(passwordEncoder.encode(member.getMember_pw()));
+
+		// 기타 유효성 검사 및 초기값 세팅 가능
+
+		int insertCount = mapper.insertMember(member);
+		return insertCount > 0; // insert 성공시 true 반환
 	}
 
 }

@@ -7,8 +7,11 @@
 
 <%-- js 파일 --%>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/home/register.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/home/register.js"></script>
+  <script>
+        // JSP에서 서버 contextPath를 자바스크립트 변수에 담아 클라이언트가 사용할 수 있도록 함
+        var contextPath = '${pageContext.request.contextPath}';
+    </script>
 
 <%-- 외부 라이브러리 CSS --%>
 <link rel="stylesheet"
@@ -60,7 +63,7 @@
 		<button class="tab-btn" id="companyTab">기업 회원</button>
 	</div>
 	<div class="signup-form-box">
-		<form action="${pageContext.request.contextPath}/registersu"
+		<form action="${pageContext.request.contextPath}/home/register"
 			method="post" name="registerForm" class="signup-form"
 			autocomplete="off">
 			<div class="input-box" id="companyBox">
@@ -68,12 +71,12 @@
 					id="companyNumber" placeholder="사업자등록번호 입력">
 			</div>
 			<div class="form-row">
-				<label for="userid">아이디</label> <input type="text" id="userid"
+				<label for="userid">아이디</label> <input type="text" id="userid" name="member_id"
 					maxlength="20" placeholder="4~20 자리 / 영문, 숫자, 특수문자 ?!@ 입력 가능"
 					required> &nbsp;<span id="UserIdSuccess"></span>
 			</div>
 			<div class="form-row">
-				<label for="userpw">비밀번호</label> <input type="password" id="userpw"
+				<label for="userpw">비밀번호</label> <input type="password" id="userpw" name="member_pw"
 					maxlength="16" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" required>
 				<span id="userPwSuccess"></span>
 			</div>
@@ -87,11 +90,11 @@
 			</div>
 			<div class="form-row flex-row">
 				<div class="flex-half">
-					<label for="username">이름</label> <input type="text" id="username"
+					<label for="username">이름</label> <input type="text" id="username" name="member_name"
 						placeholder="이름을 입력해주세요" required>
 				</div>
 				<div class="flex-half gender-row">
-					<label for="gender">성별</label> <select id="gender" required>
+					<label for="gender">성별</label> <select id="gender" name="gender"required>
 						<option value="">선택</option>
 						<option value="male">남성</option>
 						<option value="female">여성</option>
@@ -99,28 +102,28 @@
 				</div>
 			</div>
 			<div class="form-row">
-				<label for="birth">생년월일</label> <input type="date" id="birth"
+				<label for="birth">생년월일</label> <input type="date" id="birth" name="resume_birth"
 					required>
 			</div>
 			<div class="form-row address-row">
-				<label for="zipcode">주소</label> <input type="text" id="zipcode"
+				<label for="zipcode">주소</label> <input type="text" id="zipcode" name="address_num"
 					placeholder="" class="zip-input">
 				<button class="btn-yellow" id="btnaddress" value="주소검색">주소
 					찾기</button>
 			</div>
 			<div class="form-row addr">
-				<input type="text" id="address1" name="address1"
+				<input type="text" id="address1" name="address_name" 
 					placeholder="주소를 입력해 주세요">
 			</div>
 			<div class="form-row addr">
-				<input type="text" id="address2" name="address2"
+				<input type="text" id="address2" name="address_nam"
 					placeholder="나머지 주소">
 			</div>
 			<div class="form-row flex-row">
 				<div class="flex-half">
 					<label for="email">이메일 주소</label>
 					<div class="email-flex">
-						<input type="email1" id="email" placeholder="이메일 입력" required>
+						<input type="text" id="email" placeholder="이메일 입력" name="member_email" required>
 						<button type="button" class="btn-yellow1" id="email-btn">인증
 							메일 발송</button>
 					</div>
@@ -129,7 +132,7 @@
 			<div class="flex-half">
 				<label for="emailcode">인증번호 확인</label>
 				<div class="email-flex">
-					<input type="email2" id="emailcode" maxlength="6"
+					<input type="text" id="emailcode" maxlength="6"
 						placeholder="인증번호를 입력하세요">
 					<button type="button" class="btn-yellow1" id="checkAuthBtn">인증
 						번호 확인</button>

@@ -71,18 +71,18 @@
 	<select id="selectRecruitModify">
 		SELECT r.recruit_idx
 			 , r.recruit_subject
-			 , c6.code_name as recruit_type
+			 , c6.code as recruit_type
 			 , r.occupation
 		     , r.location
-		     , c1.code_name as work_start_day
-		     , c7.code_name as work_end_day
-		     , c2.code_name as position
-		     , c3.code_name as experience
+		     , c1.code as work_start_day
+		     , c7.code as work_end_day
+		     , c2.code as position
+		     , c3.code as experience
 		     , r.start_time
 		     , r.end_time
 		     , r.recruit_hiring_num
-		     , c4.code_name as salary
-		     , c5.code_name as degree
+		     , c4.code as salary
+		     , c5.code as degree
 		     , r.recruit_context
 		     , r.preferred
 		     , r.start_date
