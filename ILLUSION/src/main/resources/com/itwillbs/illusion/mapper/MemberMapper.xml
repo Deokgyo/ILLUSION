@@ -7,7 +7,7 @@
 	<insert id="insertMember">
 	INSERT INTO member
 			  (
-				,member_name
+				member_name
 				,member_id
 				,member_pw
 				,member_email
@@ -16,12 +16,12 @@
 				,address_name
 				,member_type
 				,member_status
-				,member_privacy_agreed
+				,member_marketing_agreed
 				,gender
 				,resume_birth
 			   )
 		VALUES ( 
-				,#{member_name}
+				#{member_name}
 				,#{member_id}
 				,#{member_pw}
 				,#{member_email}
@@ -30,7 +30,7 @@
 				,#{address_name}
 				,#{member_type}
 				,#{member_status}
-				,#{member_privacy_agreed}
+				,#{member_marketing_agreed}
 				,#{gender}
 				,#{resume_birth}
 				)

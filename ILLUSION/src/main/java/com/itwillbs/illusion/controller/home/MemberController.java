@@ -45,27 +45,9 @@ public class MemberController {
 		return Map.of("result", isValid);
 	}
 
-	// 회원가입 처리 
-    @PostMapping("register")
-    public String register(MemberVO member, Model model) {
-        boolean result = memberService.register(member);
-        if (result) {
-            // 회원가입 성공 시 이메일 인증 안내 페이지로 이동
-            return "home/login";
-        } else {
-            model.addAttribute("error", "회원가입 실패");
-            return "registerForm";
-        }
-    }
+ 
     
-    // 날짜관련
-//    @InitBinder
-//    public void initBinder(WebDataBinder binder) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        dateFormat.setLenient(false);
-//        // true : 빈 값도 허용 (optional)
-//        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-//    }
+
 
 
 } // 컨트롤러

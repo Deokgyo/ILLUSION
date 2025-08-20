@@ -63,7 +63,7 @@
 		<button class="tab-btn" id="companyTab">기업 회원</button>
 	</div>
 	<div class="signup-form-box">
-		<form action="${pageContext.request.contextPath}/home/register"
+		<form action="register"
 			method="post" name="registerForm" class="signup-form"
 			autocomplete="off">
 			<div class="input-box" id="companyBox">
@@ -96,8 +96,8 @@
 				<div class="flex-half gender-row">
 					<label for="gender">성별</label> <select id="gender" name="gender"required>
 						<option value="">선택</option>
-						<option value="male">남성</option>
-						<option value="female">여성</option>
+						<option value="GEN001">남성</option>
+						<option value="GEN002">여성</option>
 					</select>
 				</div>
 			</div>
@@ -112,11 +112,11 @@
 					찾기</button>
 			</div>
 			<div class="form-row addr">
-				<input type="text" id="address1" name="address_name" 
+				<input type="text" id="address1" name="address_name1" 
 					placeholder="주소를 입력해 주세요">
 			</div>
 			<div class="form-row addr">
-				<input type="text" id="address2" name="address_nam"
+				<input type="text" id="address2" name="address_name2"
 					placeholder="나머지 주소">
 			</div>
 			<div class="form-row flex-row">
@@ -157,12 +157,18 @@
 						class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
-					<label><input type="checkbox" class="agree-each"> <span
-						class="agree-label">마케팅 동의 (선택)</span> </label> <a href="#"
-						class="agreeCheck">내용 보기</a>
+					<label>	<input type="checkbox" class="agree-each" name="member_marketing_agreed" value="BOL001"> 
+							<span class="agree-label">마케팅 동의 (선택)</span> 
+					</label> <a href="#" class="agreeCheck">내용 보기</a>
+					<input type="hidden" name="member_marketing_agreed" value="BOL002" />
 				</div>
 			</div>
-
+			<!-- 참조 -->
+			  <input type="hidden" name="member_type" id="member_type">
+  			  <input type="hidden" name="member_status" id="member_status">
+  			  
+  			  
+  			  
 			<button class="signup-btn" type="submit">회원가입</button>
 		</form>
 	</div>

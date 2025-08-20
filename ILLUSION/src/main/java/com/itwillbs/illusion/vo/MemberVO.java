@@ -20,7 +20,7 @@ public class MemberVO {
 	private Date member_signup_date;
 	private String member_status;
 	private String email_verified;
-	private String member_privacy_agreed;
+	private String member_marketing_agreed;
 	private String profile_picture_url;
 	private String gender;
 	private Date resume_birth;

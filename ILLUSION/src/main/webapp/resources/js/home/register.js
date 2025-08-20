@@ -200,7 +200,7 @@ $(document).ready(function() {
 					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					 console.error('Error Details:', jqXHR, textStatus, errorThrown);
+					console.error('Error Details:', jqXHR, textStatus, errorThrown);
 					alert("서버와 통신 중 오류가 발생했습니다.");
 				}
 			});
@@ -219,7 +219,7 @@ $(document).ready(function() {
 			// 인증번호 검증 요청
 			$.ajax({
 				type: "POST",
-				url: "home/email-auth-check",
+				url: "email-auth-check",
 				data: JSON.stringify({ email: emailVal, auth_code: codeVal }),
 				contentType: "application/json",
 				success: function(res) {
@@ -238,41 +238,62 @@ $(document).ready(function() {
 		});
 	}); // 이메일 
 
-	// 회원가입
-	$(document).ready(function() {
-		$('#registerForm').on('submit', function(e) {
-			e.preventDefault(); // 기본 폼 제출 막기
 
-			// 입력값 가져오기
+	// 마케팅 동의
+	$('.signup-form').on('submit', function(e) {
+		// 체크박스 체크 여부에 따라 히든 필드 제거 또는 유지
+		var $checkbox = $(this).find('input[type="checkbox"][name="member_marketing_agreed"]');
+		var $hidden = $(this).find('input[type="hidden"][name="member_marketing_agreed"]');
+
+		if ($checkbox.is(':checked')) {
+			// 체크박스 체크 시 hidden input 제거 (중복 전송 방지)
+			$hidden.prop('disabled', true);
+		} else {
+			// 체크 안 할 시 체크박스 value 빈값 처리 (중복 방지)
+			$checkbox.prop('disabled', true);
+			$hidden.prop('disabled', false);
+		}
+	});
+
+	// 참조
+	$('#member_status').val('MES001'); // 회원상태는 항상 '정상'
+
+	$('#member_type').val('MEM001'); // 기본 회원유형은 '개인회원'
+
+	$('#companyTab').click(function() {
+		$('#member_type').val('MEM003');
+	});
+
+	// 회원가입
+
+		$('#registerForm').on('submit', function(e) {
+			e.preventDefault();
+
 			const userid = $('#userid').val().trim();
 			const userpw = $('#userpw').val().trim();
 			const email = $('#email').val().trim();
 
-			// 간단한 유효성 검사
 			if (!userid || !userpw || !email) {
 				alert('모든 필드를 입력해주세요.');
 				return;
 			}
 
-			// Ajax로 서버에 POST 요청
 			$.ajax({
-				url: 'register', // 실제 회원가입 URL로 변경하세요
+				url: 'register', // 절대 경로 혹은 서버에 맞게 수정
 				type: 'POST',
 				contentType: 'application/json',
 				data: JSON.stringify({
-					member_id: userid,    // VO 필드명에 맞게 키를 수정
+					member_id: userid,
 					member_pw: userpw,
 					member_email: email
 				}),
 				success: function(response, textStatus, xhr) {
-					// 서버에서 리다이렉트 응답 처리 (302 등)
 					const redirectUrl = xhr.getResponseHeader('Location');
 					if (redirectUrl) {
 						alert('회원가입 성공!');
 						window.location.href = redirectUrl;
 					} else {
 						alert('회원가입 성공!');
-						// 추가 조치가 필요하면 작성
 					}
 				},
 				error: function(xhr, textStatus, errorThrown) {
@@ -281,10 +302,6 @@ $(document).ready(function() {
 				}
 			});
 		});
-	});
-
-
-
 
 
 });

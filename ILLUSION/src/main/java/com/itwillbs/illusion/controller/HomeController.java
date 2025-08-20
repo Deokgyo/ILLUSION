@@ -1,18 +1,25 @@
 package com.itwillbs.illusion.controller;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.vo.MemberVO;
 
 // 
@@ -20,43 +27,62 @@ import com.itwillbs.illusion.vo.MemberVO;
 @Controller
 public class HomeController {
 
-   private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-   @RequestMapping(value = "/", method = RequestMethod.GET)
-   public String home() {
-      return "home";
-   }
+	@Autowired
+	private MemberService memberService;
 
-   @GetMapping("errorPage")
-   public String errorPage() {
-      return "errorPage";
-   }
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home() {
+		return "home";
+	}
 
-   // 로그인 이동
-   @GetMapping("login")
-   public String login() {
-      return "home/login";
-   }
+	@GetMapping("errorPage")
+	public String errorPage() {
+		return "errorPage";
+	}
 
-   // 로그인 이동
-   @GetMapping("idPwFind")
-   public String idPwFind() {
-      return "home/idPwFind";
-   }
+	// 로그인 이동
+	@GetMapping("login")
+	public String login() {
+		return "home/login";
+	}
 
-   // 회원가입 이동
-   @GetMapping("register")
-   public String register() {
-      return "home/register";
-   }
+	// 로그인 이동
+	@GetMapping("idPwFind")
+	public String idPwFind() {
+		return "home/idPwFind";
+	}
 
-//   // 회원가입 이동
-//   @PostMapping("register")
-//   public String register(MemberVO membervo) {
-//      System.out.println("회원가입 요청: " + membervo);
-//
-//      // 회원가입 완료 후 이동할 페이지 (예: 로그인 페이지)
-//      return "home/login";
-//   }
+	// 회원가입 이동
+	@GetMapping("register")
+	public String register() {
+		return "home/register";
+	}
+
+	@PostMapping("register")
+	public String register(MemberVO member, Model model, String address_name1, String address_name2) {
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println(member.getMember_marketing_agreed());
+		member.setAddress_name(address_name1 + " " + address_name2);
+		boolean result = memberService.insertMember(member);
+		if (result) {
+			// 회원가입 성공 시 로그인 페이지로 리다이렉트 이동
+			return "redirect:/login";
+		} else {
+			// 회원가입 실패 시 오류 메시지 전달 후 가입 폼으로 이동
+			model.addAttribute("error", "회원가입 실패");
+			return "registerForm";
+		}
+	}
+
+	// 날짜관련
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		// true : 빈 값도 허용 (optional)
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 
 }
