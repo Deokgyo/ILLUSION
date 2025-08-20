@@ -55,7 +55,7 @@
 				
 				        <!-- 1. 메시지 입력창 -->
 				        <form class="message-input-form" onsubmit="return false;">
-				            <input type="text" id="message-input" placeholder="메시지를 입력하세요">
+				            <input type="text" id="message-input" placeholder="메시지를 입력하세요 (전송 시 5토큰 차감)">
 <!-- 				            <button type="submit" class="btn-send"><i class="fa-solid fa-arrow-up"></i></button> -->
 				            <button type="submit" class="gradient-btn"><i class="fa-solid fa-arrow-up"></i></button>
 				        </form>
@@ -64,7 +64,6 @@
 				        <button type="button" class="gradient-btn btn-token-charge">
 				            <i class='far fa-gem' style= "color : var(--main-color)"></i> 토큰 충전
 				        </button>
-				
 				    </div>
 				</div>
                 
@@ -80,16 +79,16 @@
             <button class="close-modal-btn btn-no">×</button>
             <div class="modal-header">
                 <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
-                <h4>토큰을 충전합니다</h4>
+                <h4>토큰을 충전합니다 (현재 토큰 수 : ${userToken })</h4>
             </div>
             <p>결제페이지로 이동하시겠습니까?</p>
             <div class="modal-buttons">
                 <button class="btn btn-secondary btn-no">아니요</button>
-                <a href="/payment" class="btn btn-yellow">네</a>
+                <a href="${pageContext.request.contextPath}/tokenpay" class="btn btn-yellow">네</a>
             </div>
         </div>
     </div>
-
+	
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jobTools/chatbot.js"></script>

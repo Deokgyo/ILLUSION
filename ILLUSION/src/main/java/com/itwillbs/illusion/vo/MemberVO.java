@@ -14,7 +14,8 @@ public class MemberVO {
 	private String member_pw;
 	private String member_email;
 	private String member_phone;
-	private int address_idx;
+	private int address_num;
+	private String address_name;
 	private String member_type;
 	private Date member_signup_date;
 	private String member_status;

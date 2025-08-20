@@ -149,3 +149,46 @@
 	margin: auto;
 	margin-top: 500px;
 }
+
+/* 1. 'typing-bounce' 라는 이름의 애니메이션 효과를 정의합니다. */
+@keyframes typing-bounce {
+  0%, 100% {
+    transform: translateY(0); /* 시작과 끝: 원래 위치 */
+  }
+  50% {
+    transform: translateY(-6px); /* 중간: 살짝 위로 튀어오름 */
+  }
+}
+
+/* 2. .typing 클래스가 있는 말풍선 내부의 점(span)들에 애니메이션을 적용합니다. */
+.chat-bubble.bot.typing span {
+  display: inline-block; /* span 태그에 transform을 적용하기 위해 필요 */
+  width: 8px;            /* 점의 크기 (선택 사항) */
+  height: 8px;           /* 점의 크기 (선택 사항) */
+  background-color: #aaa;  /* 점의 색상 */
+  border-radius: 50%;    /* 점을 동그랗게 만듦 */
+  margin: 0 2px;         /* 점 사이의 간격 */
+  
+  /* 위에서 정의한 애니메이션을 적용 */
+  animation-name: typing-bounce;     /* 애니메이션 이름 */
+  animation-duration: 1.4s;          /* 애니메이션 총 시간 */
+  animation-iteration-count: infinite; /* 무한 반복 */
+  animation-timing-function: ease-in-out; /* 부드러운 움직임 */
+}
+
+/* 3. 각 점이 순서대로 움직이도록 시간차(delay)를 줍니다. */
+.chat-bubble.bot.typing span:nth-child(1) {
+  animation-delay: 0s; /* 첫 번째 점은 바로 시작 */
+}
+.chat-bubble.bot.typing span:nth-child(2) {
+  animation-delay: 0.2s; /* 두 번째 점은 0.2초 후에 시작 */
+}
+.chat-bubble.bot.typing span:nth-child(3) {
+  animation-delay: 0.4s; /* 세 번째 점은 0.4초 후에 시작 */
+}
+
+/* JavaScript에서 .text()를 사용하면 span이 사라지므로, 
+   애니메이션을 위해 텍스트 대신 배경색과 크기를 사용합니다. */
+.chat-bubble.bot.typing {
+    font-size: 0; /* 내부의 '.' 텍스트는 숨김 */
+}

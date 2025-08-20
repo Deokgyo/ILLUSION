@@ -14,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ilMailClient {
+public class MailClient {
 
 	@Autowired
-	private ilMailAuth mailAuth;
+	private MailAuth mailAuth;
 
 	// 메일 발송에 사용될 설정 정보
 	private final String HOST = "smtp.gmail.com"; // 메일 발송 서버 주소

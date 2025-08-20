@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itwillbs.illusion.mapper.ilMemberMapper;
-import com.itwillbs.illusion.vo.ilMailAuthInfo;
+import com.itwillbs.illusion.mapper.MemberMapper;
+import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
 @Service
-public class ilMemberService {
+public class MemberService {
 
 	@Autowired
-	ilMemberMapper mapper;
+	MemberMapper mapper;
 
 	public MemberVO getMemberInfo(String id) {
 		return mapper.getMemberInfo(id);
@@ -32,7 +32,7 @@ public class ilMemberService {
 		return mapper.insertMember(member);
 	}
 
-	public int insertMailAuthInfo(ilMailAuthInfo mailAuthInfo) {
+	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo) {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
 
@@ -42,12 +42,12 @@ public class ilMemberService {
 	// (개발자가 별도로 commit 또는 rollback 작업을 지시하지 않아도 자동으로 처리)
 	// => 주의! root-context.xml 파일에 마이바티스 설정 항목에 트렌잭션 설정 추가 필요!
 	@Transactional
-	public boolean requestEmailAuth(ilMailAuthInfo mailAuthInfo) {
+	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
 
 		boolean isAuthSuccess = false;
 
 		// DB에 인증번호 select
-		ilMailAuthInfo dbMailAuthInfo = mapper.selectMailAuthInfo(mailAuthInfo);
+		MailAuthInfo dbMailAuthInfo = mapper.selectMailAuthInfo(mailAuthInfo);
 
 		if (dbMailAuthInfo != null) { // 이메일에 대한 인증코드가 존재할 경우
 			String auth_code = mailAuthInfo.getAuth_code();

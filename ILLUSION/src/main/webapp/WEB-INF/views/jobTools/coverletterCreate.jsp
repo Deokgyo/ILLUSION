@@ -34,7 +34,7 @@
                 <form action="coverletterGenerate" method="POST" id="coverletter-form">
                 
 
-<!--                     제목 섹션 -->
+					<!--제목 섹션 -->
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-pen-to-square"></i>
@@ -43,7 +43,7 @@
                         <input type="text" name="title" class="form-control" placeholder="예: 삼성전자 마케팅 직무 자기소개서" />
                     </div>
 
-<!--                     기업명 섹션 -->
+					<!-- 기업명 섹션 -->
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-regular fa-building"></i>
@@ -109,10 +109,12 @@
 					        
 					        <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
 					        <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />
+					        <input type="hidden" name="prevCompany" id="prevCompany">
+							<input type="hidden" name="prevJob" id="prevJob">
 					    </div>
 					</div>
 
-<!--                     AI 생성 요구사항 섹션 -->
+					<!-- AI 생성 요구사항 섹션 -->
                     <div class="form-section">
                         <div class="section-header">
                             <i class="icon fa-solid fa-list-ul"></i>
@@ -134,50 +136,8 @@
     </div>
 
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+    <jsp:include page="/WEB-INF/views/jobTools/aiToolsModal.jsp"></jsp:include>
     
-    <!-- ======================================================
-     *                       모달 창 영역
-     * ====================================================== -->
-    
-<!--     <div id="confirm-modal" class="modal-overlay"> -->
-<!--         <div class="modal-content"> -->
-<!--             <button class="close-modal-btn btn-no">×</button> -->
-<!--             <div class="modal-header"> -->
-<!--                 <h4><i class='far fa-gem' style= "color : var(--main-color)"></i> 토큰 30개 차감!</h4> -->
-<!--             </div> -->
-<!--             <p>자기소개서를 생성하시겠습니까?</p> -->
-<!--             <div class="modal-buttons"> -->
-<!--                 <button class="btn btn-yellow btn-no">아니요</button> -->
-<!--                 <button id="confirm-yes-btn" class="btn btn-yellow">네</button> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-    
-<!--     '토큰 부족' 모달 (이미 표준 구조) -->
-<!--     <div id="token-modal" class="modal-overlay"> -->
-<!--         <div class="modal-content"> -->
-<!--             <button class="close-modal-btn btn-no">×</button> -->
-<!--             <div class="modal-header"> -->
-<!--                 <div class="icon"><i class="fa-solid fa-circle-info"></i></div> -->
-<!--                 <h4>토큰이 부족합니다</h4> -->
-<!--             </div> -->
-<!--             <p>결제페이지로 이동하시겠습니까?</p> -->
-<!--             <div class="modal-buttons"> -->
-<!--                 <button class="btn btn-yellow btn-no">아니요</button> -->
-<!--                 <a href="/payment" class="btn btn-yellow">네</a> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-    
-<!--     '로딩' 모달 -->
-<!--     <div id="loading-overlay" class="modal-overlay"> -->
-<!--         <div class="modal-content text-center"> -->
-<!--             <div class="spinner-border text-warning mb-3"></div> -->
-<!--             <h4>자기소개서 초안이 생성중입니다</h4> -->
-<!--             <p>AI가 최고의 자기소개서를 만들기 위해 노력하고 있어요!</p> -->
-<!--         </div> -->
-<!--     </div> -->
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jobTools/coverletterCreate.js"></script>

@@ -78,6 +78,10 @@ $(function () {
 		}
     });
 	
+	let context = $('#summernote').html();
+	console.log(context);
+	$('.summernote').summernote('code', context); // Summernote 초기화
+	
 
 });// 윈도우 레디
 

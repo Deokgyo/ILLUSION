@@ -1,13 +1,13 @@
 $(function() {
 
-	// ----- 변수 -----
+	// ------- 변수 --------
 	const board_idx = $('#board_idx').val();      
     const member_idx = $('#member_idx').val();
 	
-	// ----- 초기실행 -----
+	// ------ 초기실행 ---------
 	getCmtList(); // 초기 화면에 댓글 불러와서 랜더링 작업
 	
-	// -------- events ---------
+	// -------- events --------
 	
 	$('form').on('submit', cmtSubmit); // 댓글 작성
 	$('#delete_btn').on('click', boardDelete); // 게시글 삭제

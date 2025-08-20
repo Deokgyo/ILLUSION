@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-public class ilGenerateRandomCode {
+public class GenerateRandomCode {
 
 	public static String getRandomCode(int length) {
 		

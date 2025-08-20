@@ -1,53 +1,43 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<div class="filter-dropdown" data-filter-type="location">
-  <button type="button" class="btn btn-outline-secondary toggle-filter-btn">
+<div class="filter-dropdown hierarchical-filter" id="location-filter-group">
+  
+  <button type="button" class="toggle-filter-btn">
     지역별 <i class="bi bi-chevron-down"></i>
   </button>
   
   <div class="filter-dropdown-menu location-filter-menu hidden">
-    <%-- 상단 검색창 --%>
-<!--     <div class="search-input-wrapper"> -->
-<!--       <input type="text" id="location-search-input" placeholder="지역을 입력하세요"> -->
-<!--     </div> -->
-
-    <%-- 2단 패널 컨테이너 --%>
     <div class="location-panel-wrapper">
-      <%-- 왼쪽: 시/도 목록 --%>
+    
+      <%-- 왼쪽 패널 (시/도 목록) --%>
       <div class="region-panel-left">
-        <ul id="major-region-list">
-          <%-- 이 부분은 JS로 동적 생성하거나, JSP로 직접 출력할 수 있습니다. --%>
-          <li class="major-region-item active" data-region-code="11">서울특별시</li>
-          <li class="major-region-item" data-region-code="21">부산광역시</li>
-          <li class="major-region-item" data-region-code="22">대구광역시</li>
-          <li class="major-region-item" data-region-code="23">인천광역시</li>
-          <li class="major-region-item" data-region-code="24">광주광역시</li>
-          <li class="major-region-item" data-region-code="25">대전광역시</li>
-          <li class="major-region-item" data-region-code="26">울산광역시</li>
-          <li class="major-region-item" data-region-code="31">경기도</li>
-          <li class="major-region-item" data-region-code="32">강원도</li>
-          <li class="major-region-item" data-region-code="33">충청북도</li>
-          <li class="major-region-item" data-region-code="34">충청남도</li>
-          <li class="major-region-item" data-region-code="35">전라북도</li>
-          <li class="major-region-item" data-region-code="36">전라남도</li>
-          <li class="major-region-item" data-region-code="37">경상북도</li>
-          <li class="major-region-item" data-region-code="38">경상남도</li>
-          <li class="major-region-item" data-region-code="39">제주도</li>
-          <%-- (기타 시/도 생략) --%>
+        <ul class="major-list major-region-list">
+          <c:forEach var="loc_major" items="${filterOptions.LOCATION}" varStatus="status">
+            
+            <%--
+              - status.first를 사용하여, 목록의 첫 번째 항목에만 'active' 클래스를 부여합니다.
+            --%>
+            <li class="major-item major-region-item ${status.first ? 'active' : ''}" data-code="${loc_major.code}">
+              ${loc_major.code_name}
+            </li>
+            
+          </c:forEach>
+          
         </ul>
       </div>
 
-      <%-- 오른쪽: 시/군/구 목록 --%>
+      <%-- 오른쪽 패널 (시/군/구 목록) --%>
       <div class="region-panel-right">
         <div class="filter-header">
-          <%-- '전체' 체크박스 추가 --%>
-          <label><input type="checkbox" id="check-all-sub-regions"> 전체</label>
-          <button type="button" class="btn btn-sm btn-outline-danger filter-reset-btn">초기화</button>
+          <label><input type="checkbox" class="check-all"> 전체</label>
+          <button type="button" class="filter-reset-btn">초기화</button>
         </div>
-        <div class="filter-options" id="sub-region-list">
-          <%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>
+        <div class="filter-options sub-list">
+          <%-- 이 영역은 JavaScript가 AJAX로 채우므로 변경할 필요 없습니다. --%>
         </div>
       </div>
+      
     </div>
   </div>
 </div>

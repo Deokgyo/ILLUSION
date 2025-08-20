@@ -29,6 +29,7 @@ public interface ResumeMapper {
 	
 	
 	
+	int updateuserInfoEdit(Map<String, Object> paramMap);
 	Map<String, Object> selectuserInfoEdit(int member_idx);
 	
 	

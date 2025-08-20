@@ -1,40 +1,39 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<div class="filter-dropdown" data-filter-type="occupation">
-  <button type="button" class="btn btn-outline-secondary toggle-filter-btn">
-    직종별 <i class="bi bi-chevron-down"></i>
+<div class="filter-dropdown hierarchical-filter" id="occupation-filter-group">
+  
+  <button type="button" class="toggle-filter-btn">
+    직무별 <i class="bi bi-chevron-down"></i>
   </button>
   
-  <div class="filter-dropdown-menu location-filter-menu hidden">
-    <%-- 상단 검색창 --%>
-<!--     <div class="search-input-wrapper"> -->
-<!--       <input type="text" id="location-search-input" placeholder="직종을 입력하세요"> -->
-<!--       <button>🔍</button> -->
-<!--     </div> -->
-
-    <%-- 2단 패널 컨테이너 --%>
+  <div class="filter-dropdown-menu occupation-filter-menu hidden">
     <div class="occupation-panel-wrapper">
-      <%-- 왼쪽: 시/도 목록 --%>
+    
+      <%-- 왼쪽 패널 (직무 대분류) --%>
       <div class="region-panel-left">
-        <ul id="major-region-list">
-          <%-- 이 부분은 JS로 동적 생성하거나, JSP로 직접 출력할 수 있습니다. --%>
-          <li class="major-region-item active" data-region-code="JOB010">IT·인터넷·데이터</li>
-          <li class="major-region-item" data-region-code="JOB020">경영·사무·금융</li>
-          <%-- (기타 시/도 생략) --%>
+        <ul class="major-list major-region-list">
+          <c:forEach var="occ_major" items="${filterOptions.OCCUPATION}" varStatus="status">
+            <li class="major-item major-region-item ${status.first ? 'active' : ''}" data-code="${occ_major.code}">
+              ${occ_major.code_name}
+            </li>
+            
+          </c:forEach>
+          
         </ul>
       </div>
 
-      <%-- 오른쪽: 시/군/구 목록 --%>
+      <%-- 오른쪽 패널 (직무 소분류) --%>
       <div class="region-panel-right">
         <div class="filter-header">
-          <%-- '전체' 체크박스 추가 --%>
-          <label><input type="checkbox" id="check-all-sub-regions"> 전체</label>
-          <button type="button" class="btn btn-sm btn-outline-danger filter-reset-btn">초기화</button>
+          <label><input type="checkbox" class="check-all"> 전체</label>
+          <button type="button" class="filter-reset-btn">초기화</button>
         </div>
-        <div class="filter-options" id="sub-region-list">
-          <%-- 시/도 클릭 시 JS가 이 영역을 동적으로 채웁니다. --%>
+        <div class="filter-options sub-list">
+          <%-- 이 영역은 JavaScript가 AJAX로 채우므로 변경할 필요 없습니다. --%>
         </div>
       </div>
+      
     </div>
   </div>
 </div>

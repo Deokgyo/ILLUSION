@@ -48,12 +48,12 @@
 	
 	            <section class="job-details-grid">
 	                <dl><dt>경력</dt><dd>${recruit.experience }</dd></dl>
-	                <dl><dt>직급</dt><dd>면접 후 결정</dd></dl>
-	                <dl><dt>우대사항</dt><dd>정보처리기사</dd></dl>
+	                <dl><dt>직급</dt><dd>${recruit.position}</dd></dl>
+	                <dl><dt>우대사항</dt><dd>${recruit.preferred}</dd></dl>
 	                <dl><dt>학력</dt><dd>${recruit.degree }</dd></dl>
 	                <dl><dt>근무 지역</dt>
-	                <dd>${recruit.province } ${recruit.city_district }</dd></dl>
-	                <dl><dt>근무 시간</dt><dd>월 ~ 금 / ${recruit.start_time } ~ ${recruit.end_time }</dd></dl>
+	                <dd>${recruit.location } ${recruit.city_district }</dd></dl>
+	                <dl><dt>근무 일시</dt><dd>${recruit.work_start_day } ~ ${recruit.work_end_day } <br> ${recruit.start_time } ~ ${recruit.end_time }</dd></dl>
 	                <dl><dt>근무 형태</dt><dd>${recruit.recruit_type }</dd></dl>
 	                <dl><dt>급여</dt><dd>${recruit.salary }</dd></dl>
 	                <dl><dt>채용 인원</dt><dd>${recruit.recruit_hiring_num }명</dd></dl>
@@ -91,8 +91,8 @@
 	                    <div class="application-details">
 	                        <div><span>접수일</span> ${recruit.start_date }</div>
 	                        <div><span>접수 마감</span> ${recruit.end_date }</div>
-	                        <div><span>접수 방법</span> 홈페이지 지원</div>
-	                        <div><span>접수 양식</span> 이력서, 자기소개서</div>
+	                        <div><span>접수 방법</span> ${recruit.apply_method }</div>
+	                        <div><span>접수 양식</span> ${recruit.apply_doc }</div>
 	                    </div>
 	                </div>
 	            </section>

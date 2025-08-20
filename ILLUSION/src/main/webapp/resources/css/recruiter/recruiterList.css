@@ -12,7 +12,7 @@
 main {
   font-family: var(--font-family, 'Noto Sans KR', sans-serif);
   color: #333;
-  max-width: 900px; /* 콘텐츠의 최대 너비 설정 */
+  max-width: 1400px; /* 콘텐츠의 최대 너비 설정 */
   margin: 20px auto; /* 페이지 좌우 중앙 정렬 및 상하 여백 */
   display: flex;
   flex-direction: column;
@@ -52,15 +52,15 @@ main {
     box-shadow: var(--main-box-shadow);
     border-radius: 20px;
     width: 100%;
-    min-height: 75vh;
+/*     min-height: 75vh; */
     padding: 30px;
     display: flex;
-    justify-content: space-between;
+	justify-content: center;
     /* align-items: center; */
     flex-direction: column;
     position: relative;
 /*     overflow: hidden; */
-    gap: 20px;
+/*     gap: 20px; */
 }
 
 /* 그라데이션 테두리 요소 추가  */
@@ -276,10 +276,10 @@ main {
  *      테이블 꾸미기 테꾸 
  * ====================================================== */
 
-.gridjs-container{
+/* .gridjs-container{ */
 	
-	 min-height: 573px; 
-}
+/* /* 	 min-height: 573px;  */ */
+/* } */
 
 th.gridjs-th-sort:focus, th.gridjs-th-sort:hover {
     background-color: var(--main-color-hover);
@@ -356,4 +356,24 @@ td.gridjs-td {
 .gridjs-td {
   white-space: normal !important;
   word-break: break-word;
+}
+
+.gridjs-summary {
+  display: none !important;
+}
+
+.gridjs-footer {
+	display: flex;
+	justify-content: center;
+	border-top: 0px !important;
+	box-shadow: 0 1px 2px 0px #b5b5b5 !important;
+}
+
+.gridjs-head {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+.gridjs-search-input {
+    width: 400px !important;
 }

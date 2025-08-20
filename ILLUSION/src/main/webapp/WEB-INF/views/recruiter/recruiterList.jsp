@@ -4,11 +4,6 @@
 <%@ page session="false" %>
 <html>
 <head>
-
-	<%-- js 파일  --%>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterList.js"></script>
-	<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     
     <%-- 외부 라이브러리 CSS --%>
 	<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
@@ -38,40 +33,12 @@
 		<section class="main-list">
 			
 			<div class="tab-container">
-			  <div class="tab active">전체 (0)</div>
-			  <div class="tab">진행중 (0)</div>
-			  <div class="tab">마감 (0)</div>
+			  <div class="tab active">전체</div>
+			  <div class="tab" data-value="RECS01">채용중인 공고</div>
+			  <div class="tab" data-value="RECS02">마감된 공고</div>
 			</div>
+			<div id="grid" class="custom-grid"></div>
 			
-			<div class="filter-search">
-				<div class="radio-group">
-				  <label class="radio-button">
-				    <input type="radio" name="sort" value="latest" checked>
-				    <span class="custom-dot"></span>
-				    최신순
-				  </label>
-				  
-				  <label class="radio-button">
-				    <input type="radio" name="sort" value="deadline">
-				    <span class="custom-dot"></span>
-				    마감순
-				  </label>
-				</div>
-				
-				<%-- 상단 검색창 --%>
-			    <div class="recruit-search-bar">
-	           		<input type="text" class="form-control" id="search-input" placeholder="공고 제목을 입력하세요">
-			    </div>
-			</div>
-			
-<!-- 			<div class="empty-box"> -->
-<!-- 				<p class="empty-text">등록된 공고가 없습니다</p> -->
-<!-- 				<a href="recruiterRegistForm" class="btn-yellow">공고 등록하기</a> -->
-<!-- 			</div> -->
-			
-<!-- 			<div class="list"> -->
-				<div id="grid" class="custom-grid"></div>
-<!-- 			</div> -->
 		</section>
 		<section class="notice-box">
 			<ul>
@@ -91,5 +58,10 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	
+	<%-- js 파일  --%>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+	<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterList.js"></script>
 </body>
 </html>

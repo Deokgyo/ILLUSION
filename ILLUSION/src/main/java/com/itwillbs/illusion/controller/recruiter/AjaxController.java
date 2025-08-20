@@ -44,6 +44,17 @@ public class AjaxController {
 		return getJobList;
 	}
 	
+	@GetMapping("getRecruitmentList")
+	public List<Map<String, Object>> getRecruitmentList(@RequestParam(defaultValue = "RECS%") String status) {
+		List<Map<String, Object>> recruitmentList = service.getRecruitmentList(status);
+		return recruitmentList;
+	}
+//	public List<RecruitVO> getRecruitmentList() {
+//		List<RecruitVO> recruitmentList = service.getRecruitmentList();
+//		return recruitmentList;
+//	}
+	
+	
 	@PostMapping("imgUpload")
 	public Map<String,String> imgUpload(
 			RecruitVO recruit,
