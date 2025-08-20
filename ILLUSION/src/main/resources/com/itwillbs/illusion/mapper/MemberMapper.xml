@@ -6,23 +6,34 @@
 <mapper namespace="com.itwillbs.illusion.mapper.MemberMapper">
 	<insert id="insertMember">
 	INSERT INTO member
-	VALUES ( null,
-			 #{member_name},
-	         #{member_id},
-	         #{member_pw},
-	         #{member_email},
-	          null,
-			 #{address_num},
-	         #{address_name},
-	          null,
-	          null,
-	          null,
-	          null,
-	          null,
-	          null,
-	          #{gender},
-			 #{resume_birth},
-	          null
+			  (
+				,member_name
+				,member_id
+				,member_pw
+				,member_email
+				,member_phone
+				,address_num
+				,address_name
+				,member_type
+				,member_status
+				,member_privacy_agreed
+				,gender
+				,resume_birth
+			   )
+		VALUES ( 
+				,#{member_name}
+				,#{member_id}
+				,#{member_pw}
+				,#{member_email}
+				,#{member_phone}
+				,#{address_num}
+				,#{address_name}
+				,#{member_type}
+				,#{member_status}
+				,#{member_privacy_agreed}
+				,#{gender}
+				,#{resume_birth}
+				)
 	</insert>
 
 	<insert id="insertMailAuthInfo">

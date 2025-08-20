@@ -69,7 +69,7 @@ $(document).ready(function() {
 				$("#UserIdSuccess").css('color', 'blue');
 				isCheckId = true;
 
-				duplicateId();
+				//				duplicateId();
 
 			} else {
 				$("#UserIdSuccess").text('사용 불가능한 아이디');
@@ -189,7 +189,7 @@ $(document).ready(function() {
 			// 이메일 인증번호 발송 요청
 			$.ajax({
 				type: "POST",
-				url: "home/email-auth",
+				url: "email-auth",
 				data: JSON.stringify({ member_email: emailVal }),
 				contentType: "application/json",
 				success: function(res) {
@@ -199,7 +199,8 @@ $(document).ready(function() {
 						alert("인증번호 발송에 실패했습니다.");
 					}
 				},
-				error: function() {
+				error: function(jqXHR, textStatus, errorThrown) {
+					 console.error('Error Details:', jqXHR, textStatus, errorThrown);
 					alert("서버와 통신 중 오류가 발생했습니다.");
 				}
 			});
@@ -238,49 +239,50 @@ $(document).ready(function() {
 	}); // 이메일 
 
 	// 회원가입
-	document.addEventListener("DOMContentLoaded", function() {
-		const form = document.getElementById("registerForm");
-
-		form.addEventListener("submit", function(e) {
-			e.preventDefault(); // 기본 form 전송 막음
+	$(document).ready(function() {
+		$('#registerForm').on('submit', function(e) {
+			e.preventDefault(); // 기본 폼 제출 막기
 
 			// 입력값 가져오기
-			const userid = document.getElementById("userid").value.trim();
-			const userpw = document.getElementById("userpw").value.trim();
-			const email = document.getElementById("email").value.trim();
+			const userid = $('#userid').val().trim();
+			const userpw = $('#userpw').val().trim();
+			const email = $('#email').val().trim();
 
 			// 간단한 유효성 검사
 			if (!userid || !userpw || !email) {
-				alert("모든 필드를 입력해주세요.");
+				alert('모든 필드를 입력해주세요.');
 				return;
 			}
 
-			// 서버 전송 - fetch API 사용
-			fetch("registersu", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json" // JSON 데이터 전송
-				},
-				body: JSON.stringify({
-					userid: userid,
-					userpw: userpw,
-					email: email
-				})
-			})
-				.then(response => {
-					if (response.redirected) {
-						alert("회원가입 성공!");
-						window.location.href = response.url;
+			// Ajax로 서버에 POST 요청
+			$.ajax({
+				url: 'register', // 실제 회원가입 URL로 변경하세요
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					member_id: userid,    // VO 필드명에 맞게 키를 수정
+					member_pw: userpw,
+					member_email: email
+				}),
+				success: function(response, textStatus, xhr) {
+					// 서버에서 리다이렉트 응답 처리 (302 등)
+					const redirectUrl = xhr.getResponseHeader('Location');
+					if (redirectUrl) {
+						alert('회원가입 성공!');
+						window.location.href = redirectUrl;
 					} else {
-						alert("회원가입 실패");
+						alert('회원가입 성공!');
+						// 추가 조치가 필요하면 작성
 					}
-				})
-				.catch(error => {
-					console.error("에러 발생:", error);
-					alert("서버 요청 중 오류가 발생했습니다.");
-				});
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					alert('회원가입 실패 또는 서버 오류 발생');
+					console.error('Ajax 오류:', errorThrown);
+				}
+			});
 		});
 	});
+
 
 
 

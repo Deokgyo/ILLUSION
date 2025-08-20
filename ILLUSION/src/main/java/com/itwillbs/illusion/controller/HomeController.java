@@ -50,18 +50,13 @@ public class HomeController {
       return "home/register";
    }
 
-   // 회원가입 이동
-   @PostMapping("registersu")
-   public String registersu(MemberVO membervo) {
-      // UserVO의 필드명 == form의 name 속성과 일치하면 자동 매핑됨
-      System.out.println("회원가입 요청: " + membervo);
-
-      // TODO: 여기에서 DB 저장 로직 작성
-      // 예: userService.register(user);
-
-      // 회원가입 완료 후 이동할 페이지 (예: 로그인 페이지)
-      return "home/login";
-      // ViewResolver가 /WEB-INF/views/home/login.jsp 로 찾아감 (prefix, suffix 설정에 따라 다름)
-   }
+//   // 회원가입 이동
+//   @PostMapping("register")
+//   public String register(MemberVO membervo) {
+//      System.out.println("회원가입 요청: " + membervo);
+//
+//      // 회원가입 완료 후 이동할 페이지 (예: 로그인 페이지)
+//      return "home/login";
+//   }
 
 }

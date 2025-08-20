@@ -44,7 +44,7 @@
 		<section class="form-body">
 			<article class="box-left">
 				<div class="logo">
-					<img alt="" src="./resources/image/logo2.png">
+					<img alt="" src="${pageContext.request.contextPath}/resources/image/logo2.png">
 				</div>
 				<div class="welcom">
 					<h1>
@@ -85,9 +85,9 @@
 						<div class="mini-divider"></div>
 					</div>
 					<ul class="social-logo">
-						<li><a href="naver"><img src="./resources/image/naverLogin.png" alt=""></a>
-						<li><a href="kakao"><img src="./resources/image/kakaoLogin.png" alt=""></a>
-						<li><a href="google"><img src="./resources/image/googleLogin.png" alt=""></a>
+						<li><a href="naver"><img src="${pageContext.request.contextPath}/resources/image/naverLogin.png" alt=""></a>
+						<li><a href="kakao"><img src="${pageContext.request.contextPath}/resources/image/kakaoLogin.png" alt=""></a>
+						<li><a href="google"><img src="${pageContext.request.contextPath}/resources/image/googleLogin.png" alt=""></a>
 					</ul>
 				</article>
 			</form>
