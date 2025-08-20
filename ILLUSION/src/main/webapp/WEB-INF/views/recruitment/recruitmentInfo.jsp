@@ -221,13 +221,52 @@
 	                </c:forEach>
 	            </section>
 	        </main>
-	
-			<!-- 페이지네이션 -->
-			<nav class="pagination">
-				<a href="#" class="page-arrow">&laquo;</a> <a href="#"
-					class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
-					href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+			
+			<%-- 페이지네이션 --%>
+			<nav id="pageList" class="pagination">
+				<%-- 이전 버튼 --%>
+			    <c:if test="${pageInfo.pageNum > 1}">
+			        <c:url var="prevPageUrl" value="recruitmentInfo">
+			            <c:param name="pageNum" value="${pageInfo.pageNum - 1}" />
+			            <c:if test="${not empty selectedFilters.sort}"><c:param name="sort" value="${selectedFilters.sort}"/></c:if>
+			            <c:if test="${not empty selectedFilters.location}"><c:param name="location" value="${fn:join(selectedFilters.location, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.occupation}"><c:param name="occupation" value="${fn:join(selectedFilters.occupation, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.experience}"><c:param name="experience" value="${fn:join(selectedFilters.experience, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.salary}"><c:param name="salary" value="${fn:join(selectedFilters.salary, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.degree}"><c:param name="degree" value="${fn:join(selectedFilters.degree, ',')}"/></c:if>
+			        </c:url>
+			        <a href="${prevPageUrl}">&laquo;</a>
+			    </c:if>
+			
+			    <%-- 페이지 번호 목록 --%>
+			    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+			        <c:url var="pageUrl" value="recruitmentInfo">
+			            <c:param name="pageNum" value="${i}" />
+			            <c:if test="${not empty selectedFilters.sort}"><c:param name="sort" value="${selectedFilters.sort}"/></c:if>
+			            <c:if test="${not empty selectedFilters.location}"><c:param name="location" value="${fn:join(selectedFilters.location, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.occupation}"><c:param name="occupation" value="${fn:join(selectedFilters.occupation, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.experience}"><c:param name="experience" value="${fn:join(selectedFilters.experience, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.salary}"><c:param name="salary" value="${fn:join(selectedFilters.salary, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.degree}"><c:param name="degree" value="${fn:join(selectedFilters.degree, ',')}"/></c:if>
+			        </c:url>
+					<a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+			    </c:forEach>
+			
+			    <%-- 다음 버튼 --%>
+			    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+			        <c:url var="nextPageUrl" value="recruitmentInfo">
+			            <c:param name="pageNum" value="${pageInfo.pageNum + 1}" />
+			            <c:if test="${not empty selectedFilters.sort}"><c:param name="sort" value="${selectedFilters.sort}"/></c:if>
+			            <c:if test="${not empty selectedFilters.location}"><c:param name="location" value="${fn:join(selectedFilters.location, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.occupation}"><c:param name="occupation" value="${fn:join(selectedFilters.occupation, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.experience}"><c:param name="experience" value="${fn:join(selectedFilters.experience, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.salary}"><c:param name="salary" value="${fn:join(selectedFilters.salary, ',')}"/></c:if>
+			            <c:if test="${not empty selectedFilters.degree}"><c:param name="degree" value="${fn:join(selectedFilters.degree, ',')}"/></c:if>
+			        </c:url>
+			        <a href="${nextPageUrl}">&raquo;</a>
+			    </c:if>
 			</nav>
+		
 	    </div>
     </div>
 
