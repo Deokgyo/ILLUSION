@@ -151,6 +151,13 @@
 		    <version>1.6.0</version>
 		</dependency>
 		
+		<!-- 12. org.json => java 를 josn으로 변경하는 프로그램 -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20240303</version>
+		</dependency>
+		
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
