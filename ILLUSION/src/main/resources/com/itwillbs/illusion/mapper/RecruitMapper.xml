@@ -4,6 +4,39 @@
 	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itwillbs.illusion.mapper.RecruitMapper">
+
+    <sql id="recruitFilterCondition">
+        <where>
+            <!-- 지역 필터 -->
+            <if test="location != null and !location.isEmpty()">
+                AND r.location IN
+                <foreach item="locCode" collection="location" open="(" separator="," close=")">#{locCode}</foreach>
+            </if>
+            <!-- 직무 필터 -->
+            <if test="occupation != null and !occupation.isEmpty()">
+                AND r.occupation IN
+                <foreach item="occCode" collection="occupation" open="(" separator="," close=")">#{occCode}</foreach>
+            </if>
+	        <if test="experience != null and !experience.isEmpty()">
+	            AND r.experience IN
+	            <foreach item="expCode" collection="experience" open="(" separator="," close=")">
+	                #{expCode}
+	            </foreach>
+	        </if>
+	        <if test="salary != null and !salary.isEmpty()">
+	            AND r.salary IN
+	            <foreach item="salCode" collection="salary" open="(" separator="," close=")">
+	                #{salCode}
+	            </foreach>
+	        </if>
+	        <if test="degree != null and !degree.isEmpty()">
+	            AND r.degree IN
+	            <foreach item="degCode" collection="degree" open="(" separator="," close=")">
+	                #{degCode}
+	            </foreach>
+	        </if>
+        </where>
+    </sql>
 	
 	<select id="selectRecruitList" parameterType="com.itwillbs.illusion.vo.RecruitFilterVO" resultType="com.itwillbs.illusion.vo.RecruitVO">
 	    SELECT
@@ -23,43 +56,12 @@
 			LEFT JOIN common_code sal ON r.salary = sal.code
 			LEFT JOIN common_code deg ON r.degree = deg.code
 	    
-	    <where>
-	        <if test="location != null and !location.isEmpty()">
-	            AND r.location IN
-	            <foreach item="locCode" collection="location" open="(" separator="," close=")">
-	                #{locCode}
-	            </foreach>
-	        </if>
-	        <if test="occupation != null and !occupation.isEmpty()">
-	            AND r.occupation IN
-	            <foreach item="occCode" collection="occupation" open="(" separator="," close=")">
-	                #{occCode}
-	            </foreach>
-	        </if>
-	        <if test="experience != null and !experience.isEmpty()">
-	            AND r.experience IN
-	            <foreach item="expCode" collection="experience" open="(" separator="," close=")">
-	                #{expCode}
-	            </foreach>
-	        </if>
-	        <if test="salary != null and !salary.isEmpty()">
-	            AND r.salary IN
-	            <foreach item="salCode" collection="salary" open="(" separator="," close=")">
-	                #{salCode}
-	            </foreach>
-	        </if>
-	        <if test="degree != null and !degree.isEmpty()">
-	            AND r.degree IN
-	            <foreach item="degCode" collection="degree" open="(" separator="," close=")">
-	                #{degCode}
-	            </foreach>
-	        </if>
-	    </where>
+		<include refid="recruitFilterCondition"></include>
 	    
 	    ORDER BY
 	    <choose>
 	        <!-- DTO의 sort 필드 값을 확인하여 정렬 기준을 결정 -->
-	        <when test="sort == 'end_date'">  <!-- 'end_date' -> 'deadline'으로 변경 (Controller/JSP와 일치) -->
+	        <when test="sort == 'end_date'">
 	            r.end_date ASC, r.recruit_idx DESC
 	        </when>
 	        <when test="sort == 'views'">
@@ -69,6 +71,14 @@
 	            r.recruit_idx DESC
 	        </otherwise>
 	    </choose>
+	    LIMIT #{startRow}, #{listLimit}
+	</select>
+	
+	<select id="getBoardListCount" parameterType="com.itwillbs.illusion.vo.RecruitFilterVO" resultType="int">
+	    SELECT COUNT(*)
+  	    FROM recruit r
+        
+        <include refid="recruitFilterCondition"></include>
 	</select>
 	
 	<select id="selectRecruitIndex" resultType="com.itwillbs.illusion.vo.RecruitVO">
@@ -185,6 +195,13 @@
 		WHERE 
 			r.recruit_idx = #{recruit_idx};
 	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseViewCount">
+		UPDATE recruit
+		   SET views_count = views_count + 1
+		 WHERE recruit_idx = #{recruit_idx}
+	</update>
 	
 	<select id="applyModal" resultType="com.itwillbs.illusion.vo.ApplyVO">
 	SELECT

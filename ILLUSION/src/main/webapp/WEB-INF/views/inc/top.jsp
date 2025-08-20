@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="site-header">
     <div class="header-container">
         <!-- 로고 -->
@@ -37,14 +38,43 @@
         </div>
 
         <!-- 우측 사용자 메뉴 -->
+<!--         <nav class="user-menu"> -->
+<!--             <ul> -->
+<!--                 <li><a href="login">로그인</a></li> -->
+<!--                 <li class="separator">|</li> -->
+<!--                 <li><a href="register">회원가입</a></li> -->
+<!--                 <li class="separator">|</li> -->
+<!--                 <li><a href="recruiterMain">기업서비스</a></li> -->
+<!--             </ul> -->
+<!--         </nav> -->
         <nav class="user-menu">
             <ul>
-                <li><a href="login">로그인</a></li>
-                <li class="separator">|</li>
-                <li><a href="register">회원가입</a></li>
-                <li class="separator">|</li>
+            	<c:choose>
+            		<c:when test="${empty sessionScope.sId }">
+		                <li><a href="login">로그인</a></li>
+		                <li class="separator">|</li>
+		                <li><a href="register">회원가입</a></li>
+		                <li class="separator">|</li>
+            		</c:when>
+            		<c:otherwise>
+            			<li><a href="myPage">${sessionScope.sId.member_id }님</a></li>
+		                <li class="separator">|</li>
+		                <a href="javascript:void(0)" onclick="logout()">로그아웃</a>
+		                <li class="separator">|</li>
+            		</c:otherwise>
+            	</c:choose>
                 <li><a href="recruiterMain">기업서비스</a></li>
             </ul>
         </nav>
     </div>
+    
+<script>
+function logout(){
+	if (confirm("로그아웃 하시겠습니까?")) {
+		location.href = "MemberLogout";
+	}
+}
+</script>
+
+
 </header>

@@ -40,6 +40,7 @@
                 <li><a href="#">이용약관</a></li>
                 <li><a href="#">개인정보 처리방침</a></li>
                 <li><a href="#">문의하기</a></li>
+                <li><a href="adminLogin">관리자</a></li>
             </ul>
         </nav>
     </div>

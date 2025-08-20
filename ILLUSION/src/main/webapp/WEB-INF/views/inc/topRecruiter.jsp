@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
 	작성자: 박덕교
 	용도 : 기업 페이지 헤더 영역 
@@ -27,13 +27,32 @@
         </nav>
         
         <!-- 우측 사용자 메뉴 -->
-        <nav class="user-menu">
-        	<ul>
-	            <li><a href="login">기업로그인</a></li>
-<!-- 	            <li><a href="">000님 환영함</a></li> -->
-	            <li class="separator">|</li>
-	            <li><a href="#">회원가입</a></li>
-<!-- 	            <li><a href="recruiterInfo">정보 수정</a></li> -->
+<!--         <nav class="user-menu"> -->
+<!--         	<ul> -->
+<!-- 	            <li><a href="login">기업로그인</a></li> -->
+<!-- <!-- 	            <li><a href="">000님 환영함</a></li> --> 
+<!-- 	            <li class="separator">|</li> -->
+<!-- 	            <li><a href="#">회원가입</a></li> -->
+<!-- <!-- 	            <li><a href="recruiterInfo">정보 수정</a></li> --> 
+<!--             </ul> -->
+<!--         </nav> -->
+		<nav class="user-menu">
+            <ul>
+            	<c:choose>
+            		<c:when test="${empty sessionScope.sId }">
+		                <li><a href="login">기업로그인</a></li>
+		                <li class="separator">|</li>
+		                <li><a href="register">회원가입</a></li>
+		                <li class="separator">|</li>
+            		</c:when>
+            		<c:otherwise>
+            			<li><a href="myPage">${sessionScope.sId.member_id }님</a></li>
+		                <li class="separator">|</li>
+		                <a href="javascript:void(0)" onclick="logout()">로그아웃</a>
+		                <li class="separator">|</li>
+            		</c:otherwise>
+            	</c:choose>
+                <li><a href="recruiterInfo">정보 수정</a></li>
             </ul>
         </nav>
     </div>

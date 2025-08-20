@@ -58,7 +58,6 @@
 						<hr>				  	
 					  	<p>미열람 이력서</p>
 					  	<h2>10</h2>
-					  	<input type="button" value="공고관리" class="gradient-btn">
 					  </div>
 					</div>
 					<div class="section-dash01">
@@ -123,7 +122,7 @@
 						  </dl>
 						</div>
 						  <!-- 3. 액션 버튼 -->
-						  <a href="#" class="gradient-btn">회원 정보 수정</a>
+						  <a href="memberModify" class="gradient-btn">회원 정보 수정</a>
 							</div>
 						</div>
 				</div>

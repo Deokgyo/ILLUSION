@@ -4,7 +4,7 @@ $(document).ready(function() {
 		$('.tab-btn').removeClass('active');  // 모든 탭에서 active 제거
 		$(this).addClass('active');          // 클릭한 탭에 active 추가
 	});
-
+//아아어아러아ㅓ아ㅓㅏㅇ라러
 	// DOM이 준비된 후 실행
 	$(function() {
 		var $agreeAll = $('#agree-all');

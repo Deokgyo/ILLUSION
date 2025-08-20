@@ -112,7 +112,7 @@ function listChange() {
 		      console.error(err);
 		      return [];
 		    });
-		}
+		} 
 
 // 마감 이벤트 
 

@@ -34,7 +34,7 @@
          	    <p class="header-text"><strong>채용공고 상세페이지</strong></p>
              </div>
 			
-	        <main class="job-posting">
+	        <main class="job-posting mt-4">
 	            <section class="job-title-section">
 	                <div class="title-wrapper">
 	                    <span class="company-name-top">${recruit.company_name }</span>

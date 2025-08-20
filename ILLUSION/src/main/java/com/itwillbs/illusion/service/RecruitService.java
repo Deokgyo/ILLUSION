@@ -25,8 +25,17 @@ public class RecruitService {
         return mapper.selectRecruitList(filterVO);
     }
 	
+	public int getBoardListCount(RecruitFilterVO filterVO) {
+		return mapper.getBoardListCount(filterVO);
+	} 
+	
 	public RecruitVO selectRecruitIndex(int recruit_idx) {
 		return mapper.selectRecruitIndex(recruit_idx);
+	}
+	
+	// 조회수 증가
+	public void increaseViewCount(int recruit_idx) {
+		mapper.increaseViewCount(recruit_idx);
 	}
 	
 	public List<ApplyVO> applyModal(int recruit_idx){

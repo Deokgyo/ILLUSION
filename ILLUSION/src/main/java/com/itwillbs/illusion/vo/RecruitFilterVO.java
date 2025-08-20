@@ -21,4 +21,8 @@ public class RecruitFilterVO {
     private List<String> salary = new ArrayList<>();
     private List<String> experience = new ArrayList<>();
     private List<String> degree = new ArrayList<>();
+    
+    private int startRow = 0;
+    private int listLimit = 10;
+    
 }
