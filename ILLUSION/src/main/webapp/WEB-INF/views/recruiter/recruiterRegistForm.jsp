@@ -180,7 +180,7 @@
 			        	<i class="fa-solid fa-briefcase icon"></i>
 			        	<h3 class="title">학력</h3>
 		        	</div>
-		        	<select name="category" class="form-select category-select valid" required>
+		        	<select name="degree" class="form-select category-select valid" required>
 		        		<option disabled selected>학력 선택</option>
 		        		<option value="DEG001">고등학교 졸</option>
 		        		<option value="DEG002">전문대 졸</option>

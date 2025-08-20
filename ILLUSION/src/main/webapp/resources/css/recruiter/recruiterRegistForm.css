@@ -262,10 +262,10 @@ column-gap: 10px;
   padding: 0px 0px;
 }
 .major-region-item {
-  padding: 12px 20px;
+  padding: 12px 23px;
   cursor: pointer;
   font-weight: 500;
-  color: #475569;
+  color: var(--main-font-color);
   transition: background-color 0.2s ease;
 }
 .major-region-item:hover {

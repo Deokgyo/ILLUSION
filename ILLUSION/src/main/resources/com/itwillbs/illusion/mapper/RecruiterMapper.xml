@@ -49,9 +49,33 @@
 	</select>
 	
 	
-<!-- 	<insert id="insertRecruitment"> -->
-		
-<!-- 	</insert> -->
+	<insert id="insertRecruitment">
+		insert into recruit (
+			recruiter_member_idx, 
+			occupation, 
+			location, 
+			experience, 
+			salary, 
+			degree,
+			end_date, 
+			recruit_context, 
+			recruit_subject, 
+			recruit_type, 
+			recruit_hiring_num )
+		values (
+		    #{recruiter_member_idx},
+		    #{occupation},
+		    #{location},
+		    #{experience},
+		    #{salary},
+		    #{degree},
+		    #{end_date},
+		    #{recruit_context},
+		    #{recruit_subject},
+		    #{recruit_type},
+		    #{recruit_hiring_num}
+		);
+	</insert>
 
 
 
