@@ -116,8 +116,7 @@
                 </div>
                 <div class="form-group">
                     <label>추가정보 (선택)</label>
-                    <textarea placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요
-ex) 수석 졸업 등"></textarea>
+                    <textarea placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요 ex) 수석 졸업 등"></textarea>
                 </div>
             </div>
             
