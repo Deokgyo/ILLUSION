@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 모든 요소의 크기 계산 방식을 통일 (매우 중요) */
+}
+
+main {
+  font-family: var(--font-family, 'Noto Sans KR', sans-serif);
+  color: #333;
+  max-width: 1400px; /* 콘텐츠의 최대 너비 설정 */
+  margin: 20px auto; /* 페이지 좌우 중앙 정렬 및 상하 여백 */
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* 각 섹션("대시보드", "맞춤인재" 등) 사이의 간격 */
+}
+
+.memberInfo-container {
+	background-color: var(--body-bg-color);
+    box-shadow: var(--main-box-shadow);
+    border-radius: 20px;
+    width: 100%;
+/*     min-height: 75vh; */
+    padding: 30px;
+    display: flex;
+	justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+/*     gap: 20px; */
+}
+
+.memberInfo-container::before {
+	content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--background-gradient-horizontally);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.memberInfo {
+	display:grid;
+	grid-template-columns: 0.3fr 1fr 0.1fr;
+}
+
+.attr {
+	background-color: var(--main-color);
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    gap:38px;
+    padding: 20px;
+}
+.col {
+	height: 100%;
+	font-size:1.2rem
+}
+
+.val {
+	display: flex;
+	flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap:38px;
+    padding: 20px;
+}
+
+.row {
+    height: 100%;
+	font-size:1.2rem;
+}
+
+
+button {
+	width: 50px !important;
+	padding: 0px !important;
+}
+
+.btn-group {
+	display: flex;
+	flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap:38px;
+    padding: 20px;
+}
