@@ -1,6 +1,7 @@
 package com.itwillbs.illusion.controller.jobTools;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,24 +135,22 @@ public class CoverletterController {
 	
 	// 자소서 다듬기 메인페이지 이동
 	@GetMapping("coverletterRefiner")
-	public String coverletterRefiner(Model model, HttpSession session) {
-		// TODO 임시코드 추후 aop 사용
-		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("sId");
-		if (loginUser == null) {
-	        model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-	        return "errorPage"; 
-		}
-		int member_idx = (Integer) loginUser.get("member_idx");
-		 
-		 
-		
-		List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
-		
-		System.out.println(clList);
-		
-		model.addAttribute("clList", clList);
-		
-		return "jobTools/coverletterRefiner";
+	public String coverletterRefiner(Model model, Principal principal) { // 1. HttpSession 대신 Principal 사용
+
+
+	    String member_id = principal.getName();
+	   
+//	    Map<String, Object> loginUser = service.getMemberById(member_id); // TODO
+	    
+//	    int member_idx = (Integer) loginUser.get("member_idx");
+	    
+//	    List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
+	    
+//	    System.out.println(clList);
+	    
+//	    model.addAttribute("clList", clList);
+	    
+	    return "jobTools/coverletterRefiner";
 	}
 	
 	

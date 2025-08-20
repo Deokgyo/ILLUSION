@@ -21,50 +21,58 @@ public class LoginController {
 	@Autowired
 	LoginService service;
 	
+	// 로그인 이동
+	@GetMapping("login")
+	public String login() {
+		return "home/login";
+	}
+	
 	// 관리자 로그인 페이지 이동
 	@GetMapping("adminLogin")
 	public String adminLogin() {
 		return "admin/adminLogin";
 	}
 	
-	// 로그인 기능
-	@PostMapping("login")
-	public String login(
-			@RequestParam Map<String, String> memberMap,
-			Model model,
-			HttpSession session,
-			HttpServletResponse res) {
-		
-		
-		Map<String, Object> loginMember = service.loginMember(memberMap);
-		
-		System.out.println("memberMap: ======== " + memberMap);
-		
-		System.out.println(loginMember);
-		
-		if (loginMember == null) {
-			model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-			System.out.println("임시 에러");
-			return "";
-		} 
-		
-		boolean isRememberId = "true".equals(memberMap.get("rememberId"));
-		int maxAge = isRememberId ? 60 * 60 * 24 * 30 : 0;
-		Cookie cookie = new Cookie("rememberId", (String) loginMember.get("member_id"));
-		cookie.setMaxAge(maxAge);
-		res.addCookie(cookie);
-		
-		session.setAttribute("sId", loginMember);
-		session.setMaxInactiveInterval(600);
-		
-		
-		return "redirect:/";
-	}
+// 스프링 시큐리티가 이제 다해줌
+//	
+//	// 로그인 기능
+//	@PostMapping("login")
+//	public String login(
+//			@RequestParam Map<String, String> memberMap,
+//			Model model,
+//			HttpSession session,
+//			HttpServletResponse res) {
+//		
+//		
+//		Map<String, Object> loginMember = service.loginMember(memberMap);
+//		
+//		System.out.println("memberMap: ======== " + memberMap);
+//		
+//		System.out.println(loginMember);
+//		
+//		if (loginMember == null) {
+//			model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+//			System.out.println("임시 에러");
+//			return "";
+//		} 
+//		
+//		boolean isRememberId = "true".equals(memberMap.get("rememberId"));
+//		int maxAge = isRememberId ? 60 * 60 * 24 * 30 : 0;
+//		Cookie cookie = new Cookie("rememberId", (String) loginMember.get("member_id"));
+//		cookie.setMaxAge(maxAge);
+//		res.addCookie(cookie);
+//		
+//		session.setAttribute("sId", loginMember);
+//		session.setMaxInactiveInterval(600);
+//		
+//		
+//		return "redirect:/";
+//	}
 	
 	
-	@GetMapping("MemberLogout")
-	public String memberLogout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/";
-	}
+//	@GetMapping("MemberLogout")
+//	public String memberLogout(HttpSession session) {
+//		session.invalidate();
+//		return "redirect:/";
+//	}
 }
