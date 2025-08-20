@@ -134,10 +134,16 @@ public class CoverletterController {
 	
 	// 자소서 다듬기 메인페이지 이동
 	@GetMapping("coverletterRefiner")
-	public String coverletterRefiner(Model model) {
-		
-		// TODO 로그인한 사용자로 변경해야함
-		int member_idx = 1;
+	public String coverletterRefiner(Model model, HttpSession session) {
+		// TODO 임시코드 추후 aop 사용
+		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("sId");
+		if (loginUser == null) {
+	        model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+	        return "errorPage"; 
+		}
+		int member_idx = (Integer) loginUser.get("member_idx");
+		 
+		 
 		
 		List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
 		

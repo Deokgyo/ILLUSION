@@ -64,11 +64,12 @@
 						</ul>
 					</div>
 					<ul class="login-input">
-						<li><input type="text" placeholder="아이디" class="form-control" name="id"></li>
-						<li><input type="text" placeholder="비밀번호" class="form-control" name="passwd"></li>
+						<li><input type="text" name="member_id" placeholder="아이디" class="form-control" name="id" value="${cookie.rememberId.value }" ></li>
+						<li><input type="text" name="member_pw" placeholder="비밀번호" class="form-control" name="passwd"></li>
 						<li>
-							<label><input type="checkbox"> 로그인 유지</label> 
-							<label><input type="checkbox"> 아이디 저장</label>
+						    <label><input type="checkbox" name="autoLogin" value="true"> 로그인 유지</label> 
+						    <label><input type="checkbox" name="rememberId" value="true" 
+						        <c:if test="${not empty cookie.rememberId.value}">checked</c:if>> 아이디 저장</label>
 						</li>
 					</ul>
 					<div class="login-btn">
