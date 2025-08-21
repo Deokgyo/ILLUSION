@@ -53,7 +53,7 @@
 }
 
 .slogan-bg-text {
-	background: var(- -background-gradient-horizontally);
+	background: var(--background-gradient-horizontally);
 	border-radius: 20px;
 	font-size: 19px;
 	color: #262111;
@@ -84,7 +84,7 @@
 	outline: none;
 	font-size: 21px;
 	font-weight: 700;
-	color: var(- -font-sub-color);
+	color: var(--font-sub-color);
 	padding: 9px 0 6px 0;
 	cursor: pointer;
 	border-bottom: 3px solid transparent;
@@ -113,7 +113,6 @@
 	overflow: hidden;
 	position: relative;
 	width: 45%;
-	
 }
 
 .signup-form-box::before {
@@ -207,14 +206,14 @@ select {
 
 .form-row.addr input[type="text"] {
 	margin-bottom: -8px;
-    margin-left: 97px;
-    width: 45%;
-    padding: 5px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    box-sizing: border-box;
-    margin-top: -7px;
+	margin-left: 97px;
+	width: 45%;
+	padding: 5px;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	box-sizing: border-box;
+	margin-top: -7px;
 }
 
 .form-row.address-row {
@@ -223,13 +222,13 @@ select {
 
 .address-row input {
 	margin-bottom: 0;
-    padding: 7px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    box-sizing: border-box;
-    width: 20%;
-    height: 33px;
-    margin-right: 60px;
+	padding: 7px;
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	box-sizing: border-box;
+	width: 20%;
+	height: 33px;
+	margin-right: 60px;
 }
 
 .flex-half-right {
@@ -260,33 +259,35 @@ select {
 	gap: 7px;
 	align-items: center;
 }
-.form-row addr input[type="text"]{
+
+.form-row addr input[type="text"] {
 	margin: 20px;
 }
+
 .email-flex input[type=email1] {
 	margin-bottom: -12px;
-    margin-left: 1px;
-    width: 50%;
-    padding: 7px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    box-sizing: border-box;
-    margin-top: -7px;
-    height: 34px;
+	margin-left: 1px;
+	width: 50%;
+	padding: 7px;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	box-sizing: border-box;
+	margin-top: -7px;
+	height: 34px;
 }
 
 .email-flex input[type=email2] {
-	    margin-bottom: -8px;
-    margin-left: 20px;
-    width: 47%;
-    padding: 9px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    box-sizing: border-box;
-    margin-top: -20px;
-    height: 34px;
+	margin-bottom: -8px;
+	margin-left: 20px;
+	width: 47%;
+	padding: 9px;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	box-sizing: border-box;
+	margin-top: -20px;
+	height: 34px;
 }
 
 button.btn-yellow {
@@ -347,15 +348,16 @@ input[readonly] {
 }
 
 /* ====== 약관 (구역) ====== */
-
 .terms-divider {
-  border-top: 1px solid #222222;  /* 위쪽만 연한 회색선 */
-  margin: 24px 0 16px 0;  /* 위아래 여백 (조절 가능) */
+	border-top: 1px solid #222222; /* 위쪽만 연한 회색선 */
+	margin: 24px 0 16px 0; /* 위아래 여백 (조절 가능) */
 }
+
 .form-terms {
-    border-radius: 7px;
-    padding: 11px 11px 7px 11px;
-    margin: -21px 0 7px 0;}
+	border-radius: 7px;
+	padding: 11px 11px 7px 11px;
+	margin: -21px 0 7px 0;
+}
 
 .terms-title {
 	font-size: 15px;
@@ -369,12 +371,13 @@ input[readonly] {
 	gap: 8px;
 	margin-top: 2px;
 }
+
 .agree-label {
-  margin-left: 8px;   /* 텍스트만 오른쪽으로 이동 */
+	margin-left: 8px; /* 텍스트만 오른쪽으로 이동 */
 }
 
 .agree-label2 {
-  margin-left: 2px;   /* 텍스트만 오른쪽으로 이동 */
+	margin-left: 2px; /* 텍스트만 오른쪽으로 이동 */
 }
 
 .terms-row label {
@@ -427,7 +430,6 @@ input[readonly] {
 /* 	background:#D9D9D9; */
 /* 	color: var(--font-sub-color); */
 /* } */
-
 @media ( max-width : 570px) {
 	.signup-form-box {
 		padding: 10px 2vw;
@@ -478,6 +480,23 @@ input[readonly] {
 	align-items: baseline;
 }
 
+button.btn-company {
+	display: inline-block;
+	vertical-align: middle; /* 수직 정렬 */
+	margin-right: 5px;
+	background: #fbe162;
+	color: #605619;
+	font-weight: 700;
+	border: none;
+	border-radius: 30px;
+	padding: 6px 5px;
+	font-size: 15px;
+	margin-left: -7px;
+	cursor: pointer;
+	transition: background 0.16s;
+	width: 100px;
+}
+
 /* 입력박스의 라벨 텍스트 스타일 - 아래 여백 및 폰트 크기 */
 .input-box label {
 	margin-bottom: 7px;
@@ -492,6 +511,34 @@ input[readonly] {
 	font-size: 16px;
 	margin-right: 10px;
 }
+
 #companyBox {
-  display: none;
+	display: none;
 }
+
+select#compantypes {
+    height: 37px;
+    width: 62%;
+    margin-left: 43px; 
+}
+
+.horizontal-wrapper {
+    display: flex;
+    gap: 24px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.form-row,
+.company-row {
+  flex: 1 1 0;
+  min-width: 150px;    /* 상황에 따라 조절 가능 */
+}
+
+input#company_date{
+	width: 62%;
+}
+

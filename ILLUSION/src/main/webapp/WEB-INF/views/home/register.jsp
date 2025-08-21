@@ -7,11 +7,12 @@
 
 <%-- js 파일 --%>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/home/register.js"></script>
-  <script>
-        // JSP에서 서버 contextPath를 자바스크립트 변수에 담아 클라이언트가 사용할 수 있도록 함
-        var contextPath = '${pageContext.request.contextPath}';
-    </script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/home/register.js"></script>
+<script>
+	// JSP에서 서버 contextPath를 자바스크립트 변수에 담아 클라이언트가 사용할 수 있도록 함
+	var contextPath = '${pageContext.request.contextPath}';
+</script>
 
 <%-- 외부 라이브러리 CSS --%>
 <link rel="stylesheet"
@@ -63,22 +64,25 @@
 		<button class="tab-btn" id="companyTab">기업 회원</button>
 	</div>
 	<div class="signup-form-box">
-		<form action="register"
-			method="post" name="registerForm" class="signup-form"
-			autocomplete="off">
+		<form action="register" method="post" name="registerForm"
+			class="signup-form" autocomplete="off">
 			<div class="input-box" id="companyBox">
-				<label for="companyNumber">사업자등록번호</label> <input type="text"
-					id="companyNumber" placeholder="사업자등록번호 입력">
+				<label for="Number">사업자등록번호</label> <input type="text"
+					id="companyNumber" placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
+				<button class="btn-company" id="btncompany" value="등록번호검색">사업자
+					인증</button>
 			</div>
 			<div class="form-row">
-				<label for="userid">아이디</label> <input type="text" id="userid" name="member_id"
-					maxlength="20" placeholder="4~20 자리 / 영문, 숫자, 특수문자 ?!@ 입력 가능"
-					required> &nbsp;<span id="UserIdSuccess"></span>
+				<label for="userid">아이디</label> <input type="text" id="userid"
+					name="member_id" maxlength="20"
+					placeholder="4~20 자리 / 영문, 숫자, 특수문자 ?!@ 입력 가능" required>
+				&nbsp;<span id="UserIdSuccess"></span>
 			</div>
 			<div class="form-row">
-				<label for="userpw">비밀번호</label> <input type="password" id="userpw" name="member_pw"
-					maxlength="16" placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" required>
-				<span id="userPwSuccess"></span>
+				<label for="userpw">비밀번호</label> <input type="password" id="userpw"
+					name="member_pw" maxlength="16"
+					placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" required> <span
+					id="userPwSuccess"></span>
 			</div>
 			<div class="form-row flex-row">
 				<div class="flex-half">
@@ -89,30 +93,56 @@
 				</div>
 			</div>
 			<div class="form-row flex-row">
-				<div class="flex-half">
-					<label for="username">이름</label> <input type="text" id="username" name="member_name"
-						placeholder="이름을 입력해주세요" required>
+				<div class="flex-half" id="username_container">
+					<label for="username">이름</label> <input type="text" id="username"
+						name="member_name" placeholder="이름을 입력해주세요" required>
 				</div>
-				<div class="flex-half gender-row">
-					<label for="gender">성별</label> <select id="gender" name="gender"required>
+				<div class="flex-half" id="company">
+					<label for="compname">대표자명</label> <input type="text"
+						id="companyname" name="company_name" placeholder="대표자명을 입력해주세요"
+						required>
+				</div>
+				<div class="flex-half gender-row" id="gender">
+					<label for="gender">성별</label> <select id="gender" name="gender"
+						required>
 						<option value="">선택</option>
 						<option value="GEN001">남성</option>
 						<option value="GEN002">여성</option>
 					</select>
 				</div>
 			</div>
-			<div class="form-row">
-				<label for="birth">생년월일</label> <input type="date" id="birth" name="resume_birth"
-					required>
+
+			<div class="form-row" id="birth_user">
+				<label for="birth">생년월일</label> <input type="date" id="birth"
+					name="resume_birth" required>
+			</div>
+
+			<div class="horizontal-wrapper">
+				<div class="form-row" id="compdate">
+					<label for="comdate" id="comdates">설립일</label> <input type="date" id="company_date" name="company_estab_date"
+						name="resume_birth" required>
+				</div>
+				
+				<div class="company-row" id="companytypes">
+					<label for="comtype" id="companytype">기업형태</label> <select
+						id="compantypes" name="company_type" class="comtype" required>
+						<option value="">선택</option>
+						<option value="GEN001">대기업</option>
+						<option value="GEN002">공기업</option>
+						<option value="GEN001">중견기업</option>
+						<option value="GEN002">중소기업</option>
+						<option value="GEN002">스타트업</option>
+					</select>
+				</div>
 			</div>
 			<div class="form-row address-row">
-				<label for="zipcode">주소</label> <input type="text" id="zipcode" name="address_num"
-					placeholder="" class="zip-input">
+				<label for="zipcode">주소</label> <input type="text" id="zipcode"
+					name="address_num" placeholder="" class="zip-input">
 				<button class="btn-yellow" id="btnaddress" value="주소검색">주소
 					찾기</button>
 			</div>
 			<div class="form-row addr">
-				<input type="text" id="address1" name="address_name1" 
+				<input type="text" id="address1" name="address_name1"
 					placeholder="주소를 입력해 주세요">
 			</div>
 			<div class="form-row addr">
@@ -123,7 +153,8 @@
 				<div class="flex-half">
 					<label for="email">이메일 주소</label>
 					<div class="email-flex">
-						<input type="text" id="email" placeholder="이메일 입력" name="member_email" required>
+						<input type="text" id="email" placeholder="이메일 입력"
+							name="member_email" required>
 						<button type="button" class="btn-yellow1" id="email-btn">인증
 							메일 발송</button>
 					</div>
@@ -157,18 +188,19 @@
 						class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
-					<label>	<input type="checkbox" class="agree-each" name="member_marketing_agreed" value="BOL001"> 
-							<span class="agree-label">마케팅 동의 (선택)</span> 
-					</label> <a href="#" class="agreeCheck">내용 보기</a>
-					<input type="hidden" name="member_marketing_agreed" value="BOL002" />
+					<label> <input type="checkbox" class="agree-each"
+						name="member_marketing_agreed" value="BOL001"> <span
+						class="agree-label">마케팅 동의 (선택)</span>
+					</label> <a href="#" class="agreeCheck">내용 보기</a> <input type="hidden"
+						name="member_marketing_agreed" value="BOL002" />
 				</div>
 			</div>
 			<!-- 참조 -->
-			  <input type="hidden" name="member_type" id="member_type">
-  			  <input type="hidden" name="member_status" id="member_status">
-  			  
-  			  
-  			  
+			<input type="hidden" name="member_type" id="member_type"> <input
+				type="hidden" name="member_status" id="member_status">
+
+
+
 			<button class="signup-btn" type="submit">회원가입</button>
 		</form>
 	</div>

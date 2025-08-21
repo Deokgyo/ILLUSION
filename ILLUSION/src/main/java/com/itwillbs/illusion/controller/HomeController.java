@@ -62,7 +62,6 @@ public class HomeController {
 
 	@PostMapping("register")
 	public String register(MemberVO member, Model model, String address_name1, String address_name2) {
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println(member.getMember_marketing_agreed());
 		member.setAddress_name(address_name1 + " " + address_name2);
 		boolean result = memberService.insertMember(member);
@@ -85,5 +84,29 @@ public class HomeController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
+	
+//	@PostMapping("recruiterregister")
+//	public String recruiterregister(MemberVO member, Model model) {
+//		boolean result = memberService.recruiterinsertMember(member);
+//		if (result) {
+//			// 회원가입 성공 시 로그인 페이지로 리다이렉트 이동
+//			return "redirect:/login";
+//		} else {
+//			// 회원가입 실패 시 오류 메시지 전달 후 가입 폼으로 이동
+//			model.addAttribute("error", "회원가입 실패");
+//			return "registerForm";
+//		}
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -25,4 +25,7 @@ public class MemberVO {
 	private String gender;
 	private Date resume_birth;
 	private int token;
+	private String recruiter_number;
+	private String recruiter_member_email;
+	private int company_idx;
 }

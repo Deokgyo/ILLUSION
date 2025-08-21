@@ -18,19 +18,6 @@ public class MemberService {
 	@Autowired
 	MemberMapper mapper;
 
-	public MemberVO getMemberInfo(String id) {
-		return mapper.getMemberInfo(id);
-	}
-
-	public Map<String, String> checkIdMap(String id) {
-		return mapper.checkIdMap(id);
-	}
-
-	public int checkId(String id) {
-		return mapper.checkId(id);
-	}
-
-
 	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo) {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
@@ -58,7 +45,6 @@ public class MemberService {
 
 				isAuthSuccess = true;
 			}
-
 		}
 
 		return isAuthSuccess;
