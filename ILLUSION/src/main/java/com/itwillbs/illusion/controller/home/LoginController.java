@@ -33,6 +33,14 @@ public class LoginController {
 		return "admin/adminLogin";
 	}
 	
+	// 접근 제한 시 에러페이지 TODO 여기 메서드들 나중에 홈쪽 컨트롤러로 이동
+    @GetMapping("/accessDenied")
+    public String accessDenied(Model model) {
+        model.addAttribute("msg", "페이지에 접근할 권한이 없습니다.");
+        
+        return "errorPage";
+    }
+	
 // 스프링 시큐리티가 이제 다해줌
 //	
 //	// 로그인 기능

@@ -23,7 +23,7 @@
 
 </head>
 <body>
-    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <jsp:include page="/WEB-INF/views/inc/top.jsp" />
 
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
@@ -35,7 +35,7 @@
 
           <div class="form-box write-form-box">
 		    <form action="boardWrite" method="post">
-		    
+		    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		        <!-- 제목 섹션 -->
 		        <div class="write-form-section">
 		            <div class="section-header">
@@ -81,7 +81,7 @@
         </main>
     </div>
 
-    <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+    <jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/chatbot.css"> 
 </head>
 <body>
-    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>  
+    <jsp:include page="/WEB-INF/views/inc/top.jsp" />
 
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
@@ -71,7 +71,7 @@
         </main>
     </div>
 
-     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer> 
+     <jsp:include page="/WEB-INF/views/inc/bottom.jsp" /> 
 
      <!-- '토큰 부족' 모달 (이미 표준 구조) -->
      <div id="token-modal" class="modal-overlay">

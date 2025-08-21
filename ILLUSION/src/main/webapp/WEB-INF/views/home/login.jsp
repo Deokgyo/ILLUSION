@@ -68,8 +68,10 @@
 						<li><input type="text" name="member_pw" placeholder="비밀번호" class="form-control"></li>
 						<li>
 						    <label><input type="checkbox" name="remember-me" value="true"> 로그인 유지</label> 
-						    <label><input type="checkbox" name="rememberId" value="true" 
-						        <c:if test="${not empty cookie.rememberId.value}">checked</c:if>> 아이디 저장</label>
+						    <label>
+							    <input type="checkbox" name="rememberId" value="true" 
+							        <c:if test="${not empty cookie.rememberId.value}">checked</c:if>> 아이디 저장
+							</label>
 						</li>
 					</ul>
 					<div class="login-btn">
