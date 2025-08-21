@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterRefiner.css">
 </head>
 <body>
-    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <jsp:include page="/WEB-INF/views/inc/top.jsp" />
 
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />

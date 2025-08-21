@@ -271,6 +271,7 @@
 			<%-- 채용중 상태 히든으로 올리기 --%>
 			<input type="hidden" name="rec_status" value="RECS01"> 
         	<div class="btn-container">
+	        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         		<input type="submit" id="submit" class="btn-yellow" value="등록">
         	</div>
         	</form>

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,14 +50,22 @@ public class MemberService {
 
 		return isAuthSuccess;
 	}
-
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	// 회원가입 비즈니스 로직 메서드
 	@Transactional
 	public boolean insertMember(MemberVO member) {
 		// 비밀번호 암호화(optional)
 		// member.setMember_pw(passwordEncoder.encode(member.getMember_pw()));
 		// 기타 유효성 검사 및 초기값 세팅 가능
-
+		
+		// 암호화
+        String rawPassword = member.getMember_pw();
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        member.setMember_pw(encodedPassword);
+		
 		int insertCount = mapper.insertMember(member);
 		return insertCount > 0; // insert 성공시 true 반환
 	}

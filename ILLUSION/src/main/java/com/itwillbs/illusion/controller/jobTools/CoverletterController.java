@@ -1,6 +1,7 @@
 package com.itwillbs.illusion.controller.jobTools;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class CoverletterController {
 	// TODO 로그인 권한검사
 	@ResponseBody
 	@PostMapping("coverletterGenerate")
-	public Map<String, Object> coverletterGenerate(Model model, HttpSession session,
+	public Map<String, Object> coverletterGenerate(Model model, Principal principal,
 	                                    String title, String company, 
 	                                    String prevCompany, String prevJob, String occupation,
 	                                    String maxLength, String keywords, String question, String experience) {
@@ -78,6 +79,9 @@ public class CoverletterController {
 	    int generated_char_count_no_space = aiResult.replaceAll("\\s", "").length();
 
 	    
+	    String member_id = principal.getName(); // 현재 로그인 중인 멤버 아이디 가져오기
+	    Map<String, Object> loginUser = service.getMemberById(member_id);
+	    int member_idx = (Integer) loginUser.get("member_idx");
 	    
 	    Map<String, Object> coverletterMap = new HashMap<String, Object>();
 	    coverletterMap.put("aiResult", aiResult);
@@ -85,6 +89,7 @@ public class CoverletterController {
 	    coverletterMap.put("title", title);
 	    coverletterMap.put("generated_char_count", generated_char_count);
 	    coverletterMap.put("generated_char_count_no_space", generated_char_count_no_space);
+	    coverletterMap.put("member_idx", member_idx);
 	    
 	    int generatedClIdx = service.saveCoverletter(coverletterMap);
 	    
@@ -134,24 +139,22 @@ public class CoverletterController {
 	
 	// 자소서 다듬기 메인페이지 이동
 	@GetMapping("coverletterRefiner")
-	public String coverletterRefiner(Model model, HttpSession session) {
-		// TODO 임시코드 추후 aop 사용
-		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("sId");
-		if (loginUser == null) {
-	        model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-	        return "errorPage"; 
-		}
-		int member_idx = (Integer) loginUser.get("member_idx");
-		 
-		 
-		
-		List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
-		
-		System.out.println(clList);
-		
-		model.addAttribute("clList", clList);
-		
-		return "jobTools/coverletterRefiner";
+	public String coverletterRefiner(Model model, Principal principal) { 
+
+
+	    String member_id = principal.getName();
+	   
+	    Map<String, Object> loginUser = service.getMemberById(member_id); 
+	    
+	    int member_idx = (Integer) loginUser.get("member_idx");
+	    
+	    List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
+	    
+	    System.out.println(clList);
+	    
+	    model.addAttribute("clList", clList);
+	    
+	    return "jobTools/coverletterRefiner";
 	}
 	
 	

@@ -2,7 +2,6 @@ $(function() {
 
 	// ------- 변수 --------
 	const board_idx = $('#board_idx').val();      
-    const member_idx = $('#member_idx').val();
 	
 	// ------ 초기실행 ---------
 	getCmtList(); // 초기 화면에 댓글 불러와서 랜더링 작업
@@ -40,7 +39,6 @@ $(function() {
             type: 'POST',
             data: {
                 comment: commentText,
-                member_idx: member_idx
             },
 //            dataType: 'json',
             success: function(res) {

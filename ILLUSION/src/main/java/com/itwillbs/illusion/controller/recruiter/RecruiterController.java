@@ -1,5 +1,8 @@
 package com.itwillbs.illusion.controller.recruiter;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,6 +11,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +34,37 @@ public class RecruiterController {
 	
 	// 기업 메인 페이지로 이동 
 	@GetMapping("recruiterMain") 
-	public String recruiterMain() {
-		return "recruiter/recruiterMain"; 
+	public String recruiterMain(Principal principal) {
+		if (principal == null)  return "recruiter/recruiterMain";
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    boolean isRecruiter = auth.getAuthorities().stream()
+	                              .anyMatch(a -> a.getAuthority().equals("ROLE_MEM003"));
+	    // 기업 회원이면 로그인 페이지로, 아니면 메인
+	    return isRecruiter ? "redirect:/recruiterMainLogin" : "recruiter/recruiterMain";
 	}
 	
 	@GetMapping("recruiterMainLogin") 
-	public String recruiterMainLogin() {
+	public String recruiterMainLogin(Model model, Principal principal) {
+		// 현재 로그인된 아이디 가져오기 
+		String member_id = principal.getName();
+		
+		// 채용중인 공고 개수 가져오기 
+		String RecruitmentCnt = service.getRecruitmentCnt(member_id);
+		model.addAttribute("RecruitmentCnt", RecruitmentCnt);
+		
+		// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
+		List<Map<String, String>> RecruiterInfoList = service.getRecruiterInfo(member_id);
+		
+//		공고의 제목과 마감일 가져오기 
+		List<Map<String, Object>> recruitmentSubjectDate = service.getRecruitmentSubjectDate(member_id);
+		System.out.println(recruitmentSubjectDate);
+		for (Map<String, Object> r : recruitmentSubjectDate) {
+			LocalDateTime endDate = (LocalDateTime) r.get("end_date"); // Map에서 키로 꺼냄
+			String formatted = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			r.put("end_date", formatted);     
+		}
+		model.addAttribute("recruitmentSubjectDate", recruitmentSubjectDate);
+		
 		return "recruiter/recruiterMainLogin"; 
 	}
 	
@@ -62,6 +92,7 @@ public class RecruiterController {
 		service.recruitClose(recruit_idx);
 		return "redirect:/recruiterList";
 	}
+	
 	
 	// 공고 수정 버튼 누르고 공고 수정 페이지로 이동함 
 	@GetMapping("recruitModify")
@@ -93,16 +124,14 @@ public class RecruiterController {
 		// 맵형태로 바꾼 것을 모델에 담아 전달함 
 		model.addAttribute("commonListMap", commonListMap);
 		
-		
-		
-		
 		return "recruiter/recruitModify";
 	}
 	
 	// 공고 수정 내용 업데이트 
 	@PostMapping("recruitModify")
-	public String recruitModify(RecruitVO recruit) {
-//		service.recruitModify(recruit_idx);
+	public String recruitModify(RecruitVO recruit, Principal principal) {
+		String member_id = principal.getName();
+		service.recruitModify(recruit, member_id);
 		return "redirect:/recruiterList";
 	}
 	
@@ -140,11 +169,11 @@ public class RecruiterController {
 	
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")
-	public String recruiterRegistForm(RecruitVO recruit) {
+	public String recruiterRegistForm(RecruitVO recruit, Principal principal) {
 		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
 		System.out.println(recruit);
-		
-		int insertCnt = service.insertRecruitment(recruit);
+		String member_id = principal.getName();
+		int insertCnt = service.insertRecruitment(recruit, member_id);
 		
 		
 		return "redirect:/recruiterList";

@@ -54,7 +54,7 @@
 					  <div class="section-content">
 					  	<h1>공고 현황</h1>
 					  	<p>진행중 공고</p>
-					  	<h2>10</h2>
+					  	<h2>${RecruitmentCnt}</h2>
 						<hr>				  	
 					  	<p>미열람 이력서</p>
 					  	<h2>10</h2>
@@ -66,15 +66,11 @@
 								<h1>공고목록</h1>
 							</div>
 							<div class="rec-list">
-								<a href="#">[아이티윌] 백엔드 풀타임 강사 채용 
-								<i class="fa fa-angle-right"></i></a>
-								<a href="#">[아이티윌] 인포데스크 근무자 구인
-								<i class="fa fa-angle-right"></i></a>
-								<a href="#">[아이티윌] 청소미화원 구인
-								<i class="fa fa-angle-right"></i></a>
-								<a href="#">[아이티윌] 데이터베이스 강사 채용
-									<i class="fa fa-angle-right"></i>
-								</a>
+								<c:forEach var="r" items="${recruitmentSubjectDate}">
+									<a href="recruitmentDetail?recruit_idx=${r.recruit_idx}">${r.recruit_subject}${r.end_date} 
+										<i class="fa fa-angle-right"></i>
+									</a>
+								</c:forEach>
 							</div>
 							<input type="button" value="전체 공고 목록" class="gradient-btn" id="goList">
 						</div>
@@ -113,7 +109,7 @@
 						    </div>
 						    <div class="info-row">
 						      <dt>진행중 공고</dt>
-						      <dd>5건</dd>
+						      <dd>${RecruitmentCnt}건</dd>
 						    </div>
 						    <div class="info-row">
 						      <dt>마감임박 공고</dt>

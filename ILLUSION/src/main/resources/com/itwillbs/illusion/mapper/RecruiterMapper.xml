@@ -58,14 +58,46 @@
 		  FROM recruit r 
 		  JOIN common_code c 
 		    ON r.rec_status = c.code
-		 WHERE r.rec_status like #{status}; 
+		 WHERE r.rec_status like #{status}
+		   AND recruiter_member_idx = ( SELECT member_idx
+										  FROM member 
+									     WHERE member_id = #{member_id})
 	</select>
 	
+	<!-- 공고 마감 -->
 	<update id="recruitClose">
 		UPDATE recruit
-		SET rec_status = 'RECS02'
-		WHERE recruit_idx = #{recruit_idx};
+		   SET rec_status = 'RECS02'
+		 WHERE recruit_idx = #{recruit_idx};
 	</update>
+	
+	<!-- 채용중인 공고 개수 가져오기  -->
+	<select id="getRecruitmentCnt">
+		SELECT count(*)
+		  FROM recruit 
+		 WHERE rec_status = 'RECS01' 
+		 AND recruiter_member_idx = ( select member_idx
+										from member 
+									   where member_id = #{member_id})
+	</select>
+	
+	<!-- 공고 제목과 마감일 들고오기  -->
+	<select id="getRecruitmentSubjectDate">
+		SELECT recruit_subject, end_date, recruit_idx
+		  FROM recruit 
+		 WHERE rec_status = 'RECS01' 
+		   AND recruiter_member_idx = ( SELECT member_idx
+										  FROM member 
+									     WHERE member_id = #{member_id} )
+		 LIMIT 5;
+	</select>
+	
+<!--  기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기  -->
+	<select id="getRecruiterInfo">
+		
+	
+	</select>
+	
 	
 	<!--  공고 수정 페이지에서 기존 내용 가져오기  -->
 	<select id="selectRecruitModify">
@@ -100,6 +132,35 @@
 	     WHERE recruit_idx =  #{recruit_idx};
 	</select>
 	
+	<!-- 공고 수정 작업  -->
+	<update id="recruitModify">
+		UPDATE recruit
+		   SET recruiter_member_idx = ( SELECT member_idx 
+			                              FROM member 
+			                             WHERE member_id = #{member_id} )
+		     , occupation = #{recruit.occupation}
+		 	 , location = #{recruit.location}
+			 , experience = #{recruit.experience}
+		 	 , salary = #{recruit.salary}
+		 	 , degree = #{recruit.degree}
+		  	 , start_date = #{recruit.start_date}
+			 , end_date = #{recruit.end_date}
+		  	 , recruit_context = #{recruit.recruit_context}
+		  	 , recruit_subject = #{recruit.recruit_subject}
+		   	 , recruit_type = #{recruit.recruit_type}
+		  	 , recruit_hiring_num = #{recruit.recruit_hiring_num}
+		  	 , position = #{recruit.position}
+		  	 , preferred = #{recruit.preferred}
+		  	 , apply_doc = #{recruit.apply_doc}
+		  	 , apply_method = #{recruit.apply_method}
+		  	 , work_start_day = #{recruit.work_start_day}
+		  	 , work_end_day = #{recruit.work_end_day}
+		  	 , start_time = #{recruit.start_time}
+		  	 , end_time = #{recruit.end_time}
+		  	 , rec_status = #{recruit.rec_status}
+  	  	 WHERE recruit_idx = #{recruit.recruit_idx};
+	
+	</update>
 	
 <!-- 	// 공고 등록  -->
 	<insert id="insertRecruitment">
@@ -126,27 +187,29 @@
 		       end_time,
 		       rec_status )
 	    values 
-	    	(  #{recruiter_member_idx}
-			 , #{occupation} 
-		     , #{location}
-		     , #{experience}
-			 , #{salary}
-			 , #{degree}
-			 , #{start_date}
-		     , #{end_date}
-		     , #{recruit_context}
-			 , #{recruit_subject}
-		     , #{recruit_type}
-		     , #{recruit_hiring_num}
-		     , #{position}
-		     , #{preferred}
-		     , #{apply_doc}
-		     , #{apply_method}
-		     , #{work_start_day}
-		     , #{work_end_day}
-			 , #{start_time}
-		     , #{end_time}
-		     , #{rec_status}
+	    	( (select member_idx 
+	    		 from member 
+	    		where member_id = #{member_id})
+			 , #{recruit.occupation} 
+		     , #{recruit.location}
+		     , #{recruit.experience}
+			 , #{recruit.salary}
+			 , #{recruit.degree}
+			 , #{recruit.start_date}
+		     , #{recruit.end_date}
+		     , #{recruit.recruit_context}
+			 , #{recruit.recruit_subject}
+		     , #{recruit.recruit_type}
+		     , #{recruit.recruit_hiring_num}
+		     , #{recruit.position}
+		     , #{recruit.preferred}
+		     , #{recruit.apply_doc}
+		     , #{recruit.apply_method}
+		     , #{recruit.work_start_day}
+		     , #{recruit.work_end_day}
+			 , #{recruit.start_time}
+		     , #{recruit.end_time}
+		     , #{recruit.rec_status}
 		     ) ;
 	</insert>
 

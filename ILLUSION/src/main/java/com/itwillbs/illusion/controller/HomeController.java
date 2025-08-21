@@ -43,12 +43,6 @@ public class HomeController {
 	}
 
 	// 로그인 이동
-	@GetMapping("login")
-	public String login() {
-		return "home/login";
-	}
-
-	// 로그인 이동
 	@GetMapping("idPwFind")
 	public String idPwFind() {
 		return "home/idPwFind";

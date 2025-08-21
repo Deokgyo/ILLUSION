@@ -3,6 +3,7 @@ package com.itwillbs.illusion.vo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,9 +23,9 @@ public class RecruitVO {
 	private String degree; // 학력 
 	private String position; // 직급 
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	private LocalDate start_date; // 채용 시작일 
+	private LocalDateTime start_date; // 채용 시작일 
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	private LocalDate end_date; // 채용 마감일
+	private LocalDateTime end_date; // 채용 마감일
 	private int views_count; // 조회수 
 	private int app_count; // 지원수 
 	private String recruit_context; // 공고 내용 
@@ -57,4 +58,29 @@ public class RecruitVO {
 	private String rec_status; // 공고 상태 
     private String locationName;   // "서울특별시 강남구"
     private String occupationName; // "소프트웨어 개발자"
+    
+    
+//  ----------------------------------
+//    	채용 시작일, 마감일 날짜 관련 포맷팅  
+    public String getStartDateFormatted() {
+        if (start_date == null) return "";
+        return start_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+    
+    public String getEndDateFormatted() {
+        if (end_date == null) return "";
+        return end_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+    
+//    날짜, 시간 포맷팅
+    public String getEndDateForTimer() {
+        if (end_date == null) {
+            return "";
+        }
+        // 날짜와 시간을 모두 포함하여 포맷팅합니다.
+        return end_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+    
 }
+
+

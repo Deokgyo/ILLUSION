@@ -1,6 +1,5 @@
 package com.itwillbs.illusion.controller.recruitment;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.itwillbs.illusion.service.BoardService;
 import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.RecruitService;
 import com.itwillbs.illusion.vo.ApplyVO;

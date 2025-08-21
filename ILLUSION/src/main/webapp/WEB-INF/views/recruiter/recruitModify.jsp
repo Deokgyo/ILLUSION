@@ -38,7 +38,7 @@
 		
 		<!-- 2. 실제 폼 내용이 들어갈 하얀색 바디 div -->
         <div class="form-body">
-        	<form action="recruiterRegistForm" method="post">
+        	<form action="recruitModify" method="post">
             	
             	<section class="subject">
 	        	    <%-- 제목 입력 인풋 섹션 --%>
@@ -270,8 +270,10 @@
 			<%-- 지원 서류 지원 마감 섹션 끝 --%>
 			<%-- 채용중 상태 히든으로 올리기 --%>
 			<input type="hidden" name="rec_status" value="RECS01"> 
+			<input type="hidden" name="recruit_idx" value="${param.recruit_idx}"> 
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         	<div class="btn-container">
-        		<input type="submit" id="submit" class="btn-yellow" value="등록">
+        		<input type="submit" id="submit" class="btn-yellow" value="수정하기">
         	</div>
         	</form>
         </div>

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jobTools/coverletterResult.css">
 </head>
 <body>
-    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <jsp:include page="/WEB-INF/views/inc/top.jsp" />
 
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
@@ -60,7 +60,7 @@
         </main>
     </div>
 
-    <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+    <jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

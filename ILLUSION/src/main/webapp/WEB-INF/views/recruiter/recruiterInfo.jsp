@@ -21,7 +21,7 @@
 
 <body>
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp" />
 	</header>
 
 	<div class="page-container">

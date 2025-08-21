@@ -64,8 +64,14 @@
 		<button class="tab-btn" id="companyTab">기업 회원</button>
 	</div>
 	<div class="signup-form-box">
+<<<<<<< HEAD
 		<form action="register" method="post" name="registerForm"
 			class="signup-form" autocomplete="off">
+=======
+		<form action="${pageContext.request.contextPath}/register"
+			method="post" name="registerForm" class="signup-form"
+			autocomplete="off">
+>>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
 			<div class="input-box" id="companyBox">
 				<label for="Number">사업자등록번호</label> <input type="text"
 					id="companyNumber" placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
@@ -196,11 +202,19 @@
 				</div>
 			</div>
 			<!-- 참조 -->
+<<<<<<< HEAD
 			<input type="hidden" name="member_type" id="member_type"> <input
 				type="hidden" name="member_status" id="member_status">
 
 
 
+=======
+			  <input type="hidden" name="member_type" id="member_type">
+  			  <input type="hidden" name="member_status" id="member_status">
+  			  
+  			  
+  			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+>>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
 			<button class="signup-btn" type="submit">회원가입</button>
 		</form>
 	</div>

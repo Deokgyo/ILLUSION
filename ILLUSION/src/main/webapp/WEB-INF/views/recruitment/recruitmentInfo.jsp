@@ -25,23 +25,23 @@
     
 </head>
 <body>
-     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
 	
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	        <div class="container">
-	         <div class="page-title-header">
-         	    <p class="header-text"><strong>채용정보</strong></p>
-             </div>
+		        <div class="page-title-header">
+	         		<p class="header-text"><strong>채용정보</strong></p>
+	            </div>
 	        <header class="search-header mt-4">
 	        
-		<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
-		<%@ page import="com.itwillbs.illusion.vo.RecruitFilterVO" %>
-		<%
-		    RecruitFilterVO selectedFilters = (RecruitFilterVO) request.getAttribute("selectedFilters");
-		    ObjectMapper mapper = new ObjectMapper();
-		    String selectedFiltersJson = (selectedFilters != null) ? mapper.writeValueAsString(selectedFilters) : "{}";
-		%>
+			<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+			<%@ page import="com.itwillbs.illusion.vo.RecruitFilterVO" %>
+			<%
+			    RecruitFilterVO selectedFilters = (RecruitFilterVO) request.getAttribute("selectedFilters");
+			    ObjectMapper mapper = new ObjectMapper();
+			    String selectedFiltersJson = (selectedFilters != null) ? mapper.writeValueAsString(selectedFilters) : "{}";
+			%>
 			
 	        <form action="${pageContext.request.contextPath}/recruitmentInfo" method="get" id="filter-form"
 	        data-selected-filters='<%= selectedFiltersJson %>'>  
@@ -50,7 +50,7 @@
 	                    <input type="text" placeholder="검색어를 입력하세요">
 	                    <button class="search-btn"><i class="fas fa-search"></i></button>
 	                </div>
-	            	</div>
+	            </div>
 		            <div class="filter-button-wrapper">
 						<jsp:include page="/WEB-INF/views/recruitment/locationFilter.jsp" />
 						<jsp:include page="/WEB-INF/views/recruitment/occupationFilter.jsp" />
@@ -78,22 +78,30 @@
 			</c:if>
 			<c:if test="${not empty selectedFilters.occupation}">
 			    <c:set var="occupationValues" value=""/>
-			    <c:forEach var="occ" items="${selectedFilters.occupation}" varStatus="status"><c:set var="occupationValues" value="${occupationValues}${occ}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:forEach var="occ" items="${selectedFilters.occupation}" varStatus="status">
+			    	<c:set var="occupationValues" value="${occupationValues}${occ}${!status.last ? ',' : ''}" />
+			    </c:forEach>
 			    <c:set var="filterParams" value="${filterParams}&occupation=${occupationValues}"/>
 			</c:if>
 			<c:if test="${not empty selectedFilters.experience}">
 			    <c:set var="experienceValues" value=""/>
-			    <c:forEach var="exp" items="${selectedFilters.experience}" varStatus="status"><c:set var="experienceValues" value="${experienceValues}${exp}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:forEach var="exp" items="${selectedFilters.experience}" varStatus="status">
+			   		<c:set var="experienceValues" value="${experienceValues}${exp}${!status.last ? ',' : ''}" />
+			    </c:forEach>
 			    <c:set var="filterParams" value="${filterParams}&experience=${experienceValues}"/>
 			</c:if>
 			<c:if test="${not empty selectedFilters.salary}">
 			    <c:set var="salaryValues" value=""/>
-			    <c:forEach var="sal" items="${selectedFilters.salary}" varStatus="status"><c:set var="salaryValues" value="${salaryValues}${sal}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:forEach var="sal" items="${selectedFilters.salary}" varStatus="status">
+			    	<c:set var="salaryValues" value="${salaryValues}${sal}${!status.last ? ',' : ''}" />
+			    </c:forEach>
 			    <c:set var="filterParams" value="${filterParams}&salary=${salaryValues}"/>
 			</c:if>
 			<c:if test="${not empty selectedFilters.degree}">
 			    <c:set var="degreeValues" value=""/>
-			    <c:forEach var="deg" items="${selectedFilters.degree}" varStatus="status"><c:set var="degreeValues" value="${degreeValues}${deg}${!status.last ? ',' : ''}" /></c:forEach>
+			    <c:forEach var="deg" items="${selectedFilters.degree}" varStatus="status">
+			    	<c:set var="degreeValues" value="${degreeValues}${deg}${!status.last ? ',' : ''}" />
+			    </c:forEach>
 			    <c:set var="filterParams" value="${filterParams}&degree=${degreeValues}"/>
 			</c:if>
 			
@@ -105,12 +113,15 @@
 	        <main>
 	            <section class="job-list-controls">
 	                <div class="sort-options">
-			        <%-- '최신순' 링크 --%>
-			        <a href="recruitmentInfo?pageNum=1&sort=latest${filterParams}" class="${selectedFilters.sort == 'latest' ? 'active' : ''}">최신순</a>
-			        <%-- '마감순' 링크 --%>
-			        <a href="recruitmentInfo?pageNum=1&sort=deadline${filterParams}" class="${selectedFilters.sort == 'deadline' ? 'active' : ''}">마감순</a>
-			        <%-- '조회순' 링크--%>
-			        <a href="recruitmentInfo?pageNum=1&sort=views${filterParams}" class="${selectedFilters.sort == 'views' ? 'active' : ''}">조회순</a>
+				        <%-- '최신순' 링크 --%>
+				        <a href="recruitmentInfo?pageNum=1&sort=latest${filterParams}"
+				        class="${selectedFilters.sort == 'latest' ? 'active' : ''}">최신순</a>
+				        <%-- '마감순' 링크 --%>
+				        <a href="recruitmentInfo?pageNum=1&sort=end_date${filterParams}"
+				        class="${selectedFilters.sort == 'end_date' ? 'active' : ''}">마감순</a>
+				        <%-- '조회순' 링크--%>
+				        <a href="recruitmentInfo?pageNum=1&sort=views${filterParams}"
+				        class="${selectedFilters.sort == 'views' ? 'active' : ''}">조회순</a>
 	                </div>
 	            </section>
 	
@@ -125,10 +136,10 @@
 		                        <p class="views-count">조회수 : ${r.views_count }</p>
 		                        <p class="sub-title">지역 : ${r.location }</p><span class="sub-title">직종 : ${r.occupation }</span>
 		                        <div class="sub-font">
-		                        	<p>시작일 : ${r.start_date }</p> <%-- 공고 시작일 마감일 --%>
-		                        	<p>마감일 : ${r.end_date }</p> <%-- 공고 시작일 마감일 --%>
+		                        	<p>시작일 : ${r.startDateFormatted }</p> <%-- 공고 시작일 마감일 --%>
+		                        	<p>마감일 : ${r.endDateFormatted }</p> <%-- 공고 시작일 마감일 --%>
 		                        </div>
-	                            <a href="recruitmentDetail?recruit_idx=${r.recruit_idx }" class="stretched-link"></a> <!-- 추후 recruit_idx 가져와서 파라미터 값 전달 -->
+	                            <a href="recruitmentDetail?recruit_idx=${r.recruit_idx }" class="stretched-link"></a>
 		                    </div>
 		                    <div class="card-image">
 		                        <img src="${pageContext.request.contextPath}/resources/image/samsung.jpg" alt="Samsung Building">
@@ -170,7 +181,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     
     <script>
-    window.contextPath = "${pageContext.request.contextPath}";
+    	window.contextPath = "${pageContext.request.contextPath}";
 	</script>
 	
     <script src="${pageContext.request.contextPath}/resources/js/recruitment/filterEvent.js"></script>

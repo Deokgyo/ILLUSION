@@ -1,11 +1,12 @@
 package com.itwillbs.illusion.controller.community;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,8 @@ public class CommunityController {
 	
 	// 커뮤니티 메인 페이지 이동 
 	@GetMapping("communityMain")
-	public String communityMain(Model model, 
+	public String communityMain(
+								Model model, 
 								@RequestParam(value="categoryCode", required = false) String categoryCode,
 								@RequestParam(value="sort", defaultValue = "latest") String sort,
 								@RequestParam(defaultValue = "1") int pageNum) {
@@ -105,17 +107,26 @@ public class CommunityController {
 		return "community/communityModify";
 	}
 	
-	// 커뮤니티 글 작성 
+	// 커뮤니티 글 작성
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("boardWrite")
 	public String boardWrite(String content, 
 							 String title, 
-							 String category) {
+							 String category,
+							 Principal principal) {
 		
-		Map<String, String> map = new HashMap<String, String>();
+		String member_id = principal.getName();
+		Map<String, Object> loginUser = service.getMemberById(member_id);
+	    
+	    int member_idx = (Integer) loginUser.get("member_idx");
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("title", title);
 		map.put("content", content);
 		map.put("category", category);
+		map.put("member_idx", member_idx);
 		
 		service.boardWrite(map);
 		

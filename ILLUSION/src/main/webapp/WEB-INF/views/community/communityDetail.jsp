@@ -74,7 +74,6 @@
 	                    <div class="comment-header" id="cmt_count"></div>
 	                    <div class="comment-form">
 	                    	<input type="hidden" id="board_idx" name="board_idx" value="${param.board_idx }">
-	                    	<input type="hidden" id="member_idx" name="member_idx" value="1"> <!-- TODO 로그인 기능 완성되면 수정 -->
 	                        <textarea id="cmt_textarea" name="comment" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
 	                        <button type="submit" id="cmt_regist" class="btn btn-yellow">등록</button>
 	                    </div>

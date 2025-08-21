@@ -55,19 +55,19 @@
 		  WHERE board_idx = #{board_idx}
 	</select>
 	
+	<!-- 게시글 작성 -->
 	<insert id="boardWrite">
 		INSERT INTO board 
-			( board_idx
-			, board_title
+			( board_title
 			, board_content
 			, board_type
 			, member_idx )
 		VALUES 
-			( #{board_idx}
-			, #{title}
+			(
+			  #{title}
 			, #{content} 
 			, #{category}
-			, 1 ) <!-- 수정필요 -->
+			, #{member_idx} ) 
 	</insert>
 	
 	<!-- 카테고리 목록조회 -->
@@ -153,4 +153,11 @@
 		   SET board_viewcnt = board_viewcnt + 1
 		 WHERE board_idx = #{board_idx}
 	</update>
+	
+	<!-- 아이디로 멤버 정보 조회 -->
+	<select id="getMemberById">
+		SELECT member_idx
+		  FROM member
+		 WHERE member_id = #{member_id}
+	</select>
 </mapper>	
