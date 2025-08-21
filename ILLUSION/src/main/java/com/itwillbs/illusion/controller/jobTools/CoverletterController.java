@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.illusion.service.GeminiService;
 import com.itwillbs.illusion.service.JobToolsService;
+import com.itwillbs.illusion.service.MemberService;
+import com.itwillbs.illusion.vo.MemberVO;
 
 @Controller
 public class CoverletterController {
@@ -26,6 +28,9 @@ public class CoverletterController {
 	
 	@Autowired
 	JobToolsService service;
+	
+	@Autowired
+	MemberService memberService;
 	
 	@Autowired
 	private GeminiService geminiService;
@@ -79,9 +84,9 @@ public class CoverletterController {
 	    int generated_char_count_no_space = aiResult.replaceAll("\\s", "").length();
 
 	    
-	    String member_id = principal.getName(); // 현재 로그인 중인 멤버 아이디 가져오기
-	    Map<String, Object> loginUser = service.getMemberById(member_id);
-	    int member_idx = (Integer) loginUser.get("member_idx");
+	    String member_id = principal.getName(); 
+	    MemberVO loginUser = memberService.getMemberById(member_id);
+	    int member_idx = loginUser.getMember_idx();
 	    
 	    Map<String, Object> coverletterMap = new HashMap<String, Object>();
 	    coverletterMap.put("aiResult", aiResult);
@@ -144,9 +149,8 @@ public class CoverletterController {
 
 	    String member_id = principal.getName();
 	   
-	    Map<String, Object> loginUser = service.getMemberById(member_id); 
-	    
-	    int member_idx = (Integer) loginUser.get("member_idx");
+	    MemberVO loginUser = memberService.getMemberById(member_id); 
+	    int member_idx = loginUser.getMember_idx();
 	    
 	    List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
 	    

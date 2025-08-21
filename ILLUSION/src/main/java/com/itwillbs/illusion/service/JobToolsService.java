@@ -71,10 +71,6 @@ public class JobToolsService {
 	    return mapper.selectSaveStatus(cl_idx); // 바뀐 값 조회
 	}
 	
-	// id로 멤버 정보 조회
-	public Map<String, Object> getMemberById(String member_id){
-		return mapper.getMemberById(member_id);
-	}
 	
 }
 

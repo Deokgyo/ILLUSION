@@ -18,7 +18,10 @@ public class MemberService {
 	private static final String MemberVO = null;
 	@Autowired
 	MemberMapper mapper;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo) {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
@@ -51,9 +54,6 @@ public class MemberService {
 		return isAuthSuccess;
 	}
 	
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-	
 	// 회원가입 비즈니스 로직 메서드
 	@Transactional
 	public boolean insertMember(MemberVO member) {
@@ -69,6 +69,9 @@ public class MemberService {
 		int insertCount = mapper.insertMember(member);
 		return insertCount > 0; // insert 성공시 true 반환
 	}
-
-
+	
+	public MemberVO getMemberById(String member_id) {
+        return mapper.getMemberById(member_id);
+    }
+	
 }
