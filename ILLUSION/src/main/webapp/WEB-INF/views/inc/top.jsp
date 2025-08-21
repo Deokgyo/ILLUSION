@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<head>
-	<meta name="_csrf" content="${_csrf.token}">
-    <meta name="_csrf_header" content="${_csrf.headerName}">
-</head>
 <header class="site-header">
     <div class="header-container">
         <!-- 로고 -->
         <div class="site-logo">
             <a href="./">
-            	    <img src="${pageContext.request.contextPath}/resources/image/logo.png" alt="이미지 설명" />
+           	    <img src="${pageContext.request.contextPath}/resources/image/logo.png" alt="이미지 설명" />
             </a>
         </div>
 
@@ -66,13 +62,8 @@
 			            <a href="${pageContext.request.contextPath}/recruitmentInfo">채용정보</a>
 			        </li>
 			        <li>
-			            <sec:authorize access="isAnonymous()">
-			                <a href="#" onclick="requireLogin(event, '${pageContext.request.contextPath}/communityMain')">커뮤니티</a>
-			            </sec:authorize>
-			            <sec:authorize access="isAuthenticated()">
-			                <a href="${pageContext.request.contextPath}/communityMain">커뮤니티</a>
-			            </sec:authorize>
-			        </li>
+					    <a href="${pageContext.request.contextPath}/communityMain">커뮤니티</a>
+					</li>
 			    </ul>
 			</nav>
             

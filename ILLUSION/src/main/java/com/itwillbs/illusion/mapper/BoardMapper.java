@@ -14,7 +14,7 @@ public interface BoardMapper {
 
 	public Map<String, String> selectBoard(int board_idx); // 게시글 하나 정보 조회
 	
-	public int boardWrite(Map<String, String> map); // 게시글 작성
+	public int boardWrite(Map<String, Object> map); // 게시글 작성
 	
 	public void boardUpdate(Map<String, String> map); // 게시글 수정
 	
@@ -36,4 +36,5 @@ public interface BoardMapper {
 	
 	public void updateCommentCount(String board_idx); // 댓글 수 업데이트
 	
+	public Map<String, Object> getMemberById(String member_id); // TODO 멤버 매퍼파일로 옮기기
 }

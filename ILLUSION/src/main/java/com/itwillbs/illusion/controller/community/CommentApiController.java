@@ -1,10 +1,12 @@
 package com.itwillbs.illusion.controller.community;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,16 +25,21 @@ public class CommentApiController {
 	BoardService service;
 	
 	// 커뮤니티 게시글 댓글 작성
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping
 	public void cmtWrite(
 						 @PathVariable("board_idx") String board_idx
-						,@RequestParam String member_idx
-						,@RequestParam String comment) {
+						,@RequestParam String comment
+						,Principal principal) {
+		
+		String member_id = principal.getName();
+		Map<String, Object> loginUser = service.getMemberById(member_id);
+		int member_idx = (Integer) loginUser.get("member_idx");
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("comment", comment);
 		map.put("board_idx", board_idx);
-		map.put("member_idx", member_idx);
+		map.put("member_idx", String.valueOf(member_idx));
 		
 		service.cmtWrite(map);
 	}

@@ -56,9 +56,19 @@
 	@Transactional 어노테이션이 service 클래스에 있기 때문에 
 	root-context.xml 에서 service 클래스들을 scan할 수 있도록 등록
 	-->
-	<context:component-scan base-package="com.itwillbs.illusion.service" />
-	<context:component-scan base-package="com.itwillbs.illusion.handler" />
-	<context:component-scan base-package="com.itwillbs.illusion.aop" />
+<!-- 	<context:component-scan base-package="com.itwillbs.illusion.service" /> -->
+<!-- 	<context:component-scan base-package="com.itwillbs.illusion.handler" /> -->
+<!-- 	<context:component-scan base-package="com.itwillbs.illusion.aop" /> -->
+<!-- 	<context:component-scan base-package="com.itwillbs.illusion.handler.home" /> -->
+	<context:component-scan base-package="com.itwillbs.illusion">
+	    <!-- 
+	        controller는 servlet-context.xml에서 스캔하므로,
+	        여기(root-context)에서는 제외시킨다는 필터를 추가합니다.
+	     -->
+	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	
 	<!-- 오토 프록시 (Auto-Proxy) 기능을 통해 객체 생성을 하기 위한 설정 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>	
 	

@@ -34,7 +34,7 @@ public class BoardService {
 	}
 	
 	// 게시글 작성
-	public int boardWrite(Map<String, String> map) {
+	public int boardWrite(Map<String, Object> map) {
 		return mapper.boardWrite(map);
 	}
 	
@@ -81,4 +81,8 @@ public class BoardService {
 	public void deleteComment(int cmt_idx) {
 		mapper.deleteComment(cmt_idx);
 	};
+	
+	public Map<String, Object> getMemberById(String member_id) {
+		return mapper.getMemberById(member_id);
+	}
 }

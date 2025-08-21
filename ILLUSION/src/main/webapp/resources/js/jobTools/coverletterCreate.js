@@ -192,6 +192,7 @@ $(function() {
 	            }
 	        },
 	        error: function(xhr, status, error) {
+				debugger;
 	            console.error('AJAX 요청 실패:', status, error);
 	            alert('자기소개서 생성 중 오류가 발생했습니다.');
 	        },
