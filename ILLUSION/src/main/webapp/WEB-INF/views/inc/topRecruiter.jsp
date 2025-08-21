@@ -7,7 +7,8 @@
 	용도 : 기업 페이지 헤더 영역 
 	작성일 : 25-07-28 
  --%>
-
+	<meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
 <header class="site-header">
     <div class="header-container">
     
@@ -67,7 +68,7 @@
                     <li><a href="${pageContext.request.contextPath}/register">회원가입</a></li>
                 </sec:authorize>
 
-                <sec:authorize access="isAuthenticated()">
+                <sec:authorize access="hasRole('MEM001') or hasRole('MEM003')">
                     <li>
                         <a href="${pageContext.request.contextPath}/recruiterInfo">
                             <sec:authentication property="principal.username" />님
@@ -81,9 +82,9 @@
                             <a href="#" onclick="document.getElementById('logoutRecruiterForm').submit(); return false;">로그아웃</a>
                         </form>
                     </li>
+	                <li class="separator">|</li> 
+	                <li><a href="recruiterInfo">정보 수정</a></li> 
                 </sec:authorize>
-                <li class="separator">|</li> 
-                <li><a href="recruiterInfo">정보 수정</a></li> 
             </ul>
         </nav>
     </div>

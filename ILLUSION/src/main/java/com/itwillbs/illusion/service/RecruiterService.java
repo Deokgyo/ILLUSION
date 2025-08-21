@@ -26,7 +26,6 @@ public class RecruiterService {
 		return mapper.getlocDetailList(location);
 	}
 	
-	
 	// 직무 대분류 가져오기 
 	public List<Map<String, String>> getOccupation() {
 		return mapper.getOccupation();
@@ -40,14 +39,13 @@ public class RecruiterService {
 	
 	// 공고 등록 
 	
-	public int insertRecruitment(RecruitVO recruit) {
-		return mapper.insertRecruitment(recruit);
+	public int insertRecruitment(RecruitVO recruit, String member_id) {
+		return mapper.insertRecruitment(recruit, member_id);
 	}
 	
 	// 공고 목록 가져오기 
-	
-	public List<Map<String, Object>> getRecruitmentList(String status) {
-		return mapper.getRecruitmentList(status);
+	public List<Map<String, Object>> getRecruitmentList(String status, String member_id) {
+		return mapper.getRecruitmentList(status, member_id);
 	}
 	
 	// 공고 마감 처리 
@@ -55,10 +53,30 @@ public class RecruiterService {
 		return mapper.recruitClose(recruit_idx);
 	}
 	
+	// 공고 수정 폼에서 기존의 값들 보여주는 용도 
 	public RecruitVO selectRecruitModify(int recruit_idx) {
 		return mapper.selectRecruitModify(recruit_idx);
 	}
 	
+	// 공고 수정폼 업데이트 구문 작업 
+	public int recruitModify(RecruitVO recruit, String member_id) {
+		return mapper.recruitModify(recruit, member_id);
+	}
+	
+	//채용 공고 개수 
+	public String getRecruitmentCnt(String member_id) {
+		return mapper.getRecruitmentCnt(member_id);
+	}
+	//채용 공고 제목과 날짜
+	public List<Map<String, Object>> getRecruitmentSubjectDate(String member_id) {
+		return mapper.getRecruitmentSubjectDate(member_id);
+	}
+	
+	// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
+	public List<Map<String, String>> getRecruiterInfo(String member_id) {
+		return mapper.getRecruiterInfo(member_id) ;
+		
+	}
 //	public List<RecruitVO> getRecruitmentList() {
 //		return mapper.getRecruitmentList();
 //	}

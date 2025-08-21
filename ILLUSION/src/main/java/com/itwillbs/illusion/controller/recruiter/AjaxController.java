@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -45,8 +46,9 @@ public class AjaxController {
 	}
 	
 	@GetMapping("getRecruitmentList")
-	public List<Map<String, Object>> getRecruitmentList(@RequestParam(defaultValue = "RECS%") String status) {
-		List<Map<String, Object>> recruitmentList = service.getRecruitmentList(status);
+	public List<Map<String, Object>> getRecruitmentList(@RequestParam(defaultValue = "RECS%") String status, Principal principal) {
+		String member_id = principal.getName();
+		List<Map<String, Object>> recruitmentList = service.getRecruitmentList(status, member_id);
 		return recruitmentList;
 	}
 //	public List<RecruitVO> getRecruitmentList() {
