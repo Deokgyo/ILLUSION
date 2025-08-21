@@ -81,7 +81,8 @@
 	            </section>
 	            
 	            <h3 class="section-title">근무지 위치</h3>
-				<div id="map" style="width: 500px; height: 400px;" data-address="${recruit.full_address}"></div>
+				<div id="map" style="width: 500px; height: 400px;"
+				data-address="${recruit.full_address}" data-name="${recruit.company_name }"></div>
 
 	            <section class="info-section">
 	                <h3 class="section-title">접수 기간 및 방법</h3>
