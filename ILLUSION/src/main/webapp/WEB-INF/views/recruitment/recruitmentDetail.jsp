@@ -24,15 +24,14 @@
     
 </head>
 <body>
-     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
+    <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
 	
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
-        
-	        <div class="container">
-	         <div class="page-title-header">
+	    <div class="container">
+	        <div class="page-title-header">
          	    <p class="header-text"><strong>채용공고 상세페이지</strong></p>
-             </div>
+            </div>
 			
 	        <main class="job-posting mt-4">
 	            <section class="job-title-section">
@@ -82,22 +81,29 @@
 	            
 	            <h3 class="section-title">근무지 위치</h3>
 				<div id="map" style="width: 500px; height: 400px;"
-				data-address="${recruit.full_address}" data-name="${recruit.company_name }"></div>
+				data-address="${recruit.full_address}" data-name="${recruit.company_name }">
+				</div>
 
 	            <section class="info-section">
-	                <h3 class="section-title">접수 기간 및 방법</h3>
+	            	<h3 class="section-title">접수 기간 및 방법</h3>
 	                <div class="application-info-content">
 	                    <div class="countdown-timer">
 	                        <p>남은 시간</p>
-	                        <div class="timer">7일 03:23:18</div>
+	                        <div id="countdown-timer" data-deadline="${recruit.endDateForTimer}"
+	                        class="countdown-timer">
+						        <span id="days" class="timer">00</span>일
+						        <span id="hours" class="timer">00</span>시
+						        <span id="minutes" class="timer">00</span>분
+						        <span id="seconds" class="timer">00</span>초
+						    </div>
 	                    </div>
-	                    <div class="application-details">
-	                        <div><span>접수일</span> ${recruit.start_date }</div>
-	                        <div><span>접수 마감</span> ${recruit.end_date }</div>
-	                        <div><span>접수 방법</span> ${recruit.apply_method }</div>
-	                        <div><span>접수 양식</span> ${recruit.apply_doc }</div>
-	                    </div>
-	                </div>
+		                <div class="application-details">
+		                    <div><span>접수일</span> ${recruit.startDateFormatted}</div>
+		                    <div><span>접수 마감</span> ${recruit.endDateFormatted}</div>
+		                    <div><span>접수 방법</span> ${recruit.apply_method }</div>
+		                    <div><span>접수 양식</span> ${recruit.apply_doc }</div>
+		                </div>
+	            	</div>
 	            </section>
 	
 	            <section class="info-section">
@@ -105,7 +111,7 @@
 	                <div class="stats-container">
 	                    <div class="stat-card">
 	                        <p>지원자 수</p>
-	                        <span class="applicant-count">29명</span>
+	                        <span class="applicant-count">${recruit.app_count }명</span>
 	                    </div>
 	                    <div class="stat-card">
 	                        <p>성별 현황</p>
@@ -129,11 +135,16 @@
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
     
     <jsp:include page="/WEB-INF/views/recruitment/applyModal.jsp" />
+    
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b38e19508712285c3e7d184a62d45ba&libraries=services,clusterer"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recruitment/kakaoApi.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/recruitment/chartEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/recruitment/modalEvent.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recruitment/countdownTimer.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+    
     <script>
 		   	document.addEventListener('DOMContentLoaded', function(){
 			  	pieChart('pieChart');
@@ -141,8 +152,5 @@
 	  		});
     </script>
     
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b38e19508712285c3e7d184a62d45ba&libraries=services,clusterer"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/recruitment/kakaoApi.js"></script>
-	
 </body>
 </html>
