@@ -71,7 +71,6 @@ public class MemberService {
 
 		return isAuthSuccess;
 	}
-
 	public MemberVO getMemberById(String member_id) {
         return mapper.getMemberById(member_id);
     }
@@ -80,5 +79,4 @@ public class MemberService {
 	public MemberVO getMemberInfoById(String member_id) {
 		return mapper.getMemberInfoById(member_id);
 	}
-	
 }

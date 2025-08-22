@@ -20,8 +20,18 @@
         <!-- 순서가 매우 중요합니다! 구체적인 경로를 먼저, 넓은 범위를 나중에 작성해야 합니다. -->
 
         <intercept-url pattern="/resources/**" access="permitAll" /> 
+        <intercept-url pattern="/" access="permitAll" />           <!-- 메인 페이지는 모두 허용 -->
         <intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/login" access="isAnonymous()" />
         <intercept-url pattern="/adminLogin" access="permitAll" />        
+        <intercept-url pattern="/register" access="permitAll" />
+        <intercept-url pattern="/idPwFind" access="permitAll" />
+        <intercept-url pattern="/errorPage" access="permitAll" />
+	
+            
+        <intercept-url pattern="/recruiterMain" access="permitAll" />
+        <intercept-url pattern="/recruitmentInfo" access="permitAll" />
+        <intercept-url pattern="/recruitmentDetail**" access="permitAll" />    
         <intercept-url pattern="/register" access="permitAll" />    
         <intercept-url pattern="/email-auth" access="permitAll" method="POST"/>   
         <intercept-url pattern="/email-auth-check" access="permitAll" method="POST"/>   
@@ -30,21 +40,16 @@
         <intercept-url pattern="/communityMain" access="permitAll" />
         <intercept-url pattern="/communityDetail**" access="permitAll" />
         <intercept-url pattern="/api/boards/**/comments" access="permitAll" method="GET" />
-        <intercept-url pattern="/" access="permitAll" />           <!-- 메인 페이지는 모두 허용 -->
+        <intercept-url pattern="/api/boards/**/comments" access="isAuthenticated()" method="POST" />
         
 
-        <!-- 커뮤니티 메인페이지는 모두 접근가능 -->
-        <!-- 2. [특정 역할 접근] 그 다음으로 구체적인 역할 기반 규칙 -->
 	    <intercept-url pattern="/adminMain" access="hasRole('MEM001')" /> 
 	    <intercept-url pattern="/admin**/**" access="hasRole('MEM001')" /> 
 	
-	    <!-- 3. [로그인 사용자 접근] 그 다음으로 넓은 범위의 규칙 -->
+	    <intercept-url pattern="/recruiter**" access="hasAnyRole('MEM001', 'MEM003')" />
 	    
-		<!-- 위에서 걸리지 않은 나머지 모든(**) 페이지에 대한 최종 규칙 -->
 	    <intercept-url pattern="/**" access="isAuthenticated()" />
         
-        <!-- TODO 위 코드 수정 -->
-
 
     	<!-- 커스텀 로그인 폼 설정  -->
 		<form-login 

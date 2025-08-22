@@ -125,7 +125,9 @@ $(function() {
                         <p class="comment-text">${e.cmt_content}</p>
                     </div>
 	                <div class="comment-actions">
-						<button type="button" class="delete-comment-btn" data-comment-id="${e.cmt_idx}">×</button>
+						<div class="comment-actions">
+			                ${e.member_id === loginId ? '<button class="delete-comment-btn">×</button>' : ''}
+			            </div>
 					</div>
                 </div>
                 `;					

@@ -55,7 +55,7 @@
 
 			<div class="divider"></div>
 
-			<form action="login" method="post">
+			<form action="${pageContext.request.contextPath}/loginPro" method="post">
 				<article class="box-right">
 					<h3 align="center">관리자 로그인</h3>
 					<ul class="login-input">
@@ -63,12 +63,24 @@
 						<li><input type="text" name="member_pw" placeholder="비밀번호" class="form-control" name="passwd"></li>
 					</ul>
 					<div class="login-btn">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="submit" class="btn-yellow" value="로그인" />
 					</div>
 				</article>
 			</form>
 		</section>
 	</main>
+	<c:if test="${not empty errorMsg}">
+		<script>
+            alert("${errorMsg}");
+        </script>
+    </c:if>
+
+    <c:if test="${not empty param.expired}">
+        <script>
+            alert("다른 기기에서 로그인하여 자동으로 로그아웃되었습니다.");
+        </script>
+    </c:if>
 	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 </body>
 </html>
