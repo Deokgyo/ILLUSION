@@ -64,11 +64,6 @@
 		<button class="tab-btn" id="companyTab">기업 회원</button>
 	</div>
 	<div class="signup-form-box">
-<<<<<<< HEAD
-		<form action="register" method="post" name="registerForm"
-			class="signup-form" autocomplete="off">
-=======
->>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
 		<form action="${pageContext.request.contextPath}/register"
 			method="post" name="registerForm" class="signup-form"
 			autocomplete="off">
@@ -201,20 +196,11 @@
 						name="member_marketing_agreed" value="BOL002" />
 				</div>
 			</div>
+			
 			<!-- 참조 -->
-<<<<<<< HEAD
 			<input type="hidden" name="member_type" id="member_type"> 
 			<input type="hidden" name="member_status" id="member_status">
-=======
-			<input type="hidden" name="member_type" id="member_type"> <input
-				type="hidden" name="member_status" id="member_status">
->>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
+			
   			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 			<button class="signup-btn" type="submit">회원가입</button>
 		</form>
