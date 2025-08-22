@@ -1,31 +1,29 @@
   $(document).ready(function () {
-  const data = [
-    { key: '기업로고', value: '—' },
-    { key: '기업이름', value: '일루션' },
-    { key: '대표자명', value: '홍길동 / 공동사업자시 : 박길동' },
-    { key: '설립일',   value: '2020-00-00' },
-    { key: '주소',     value: '부산시' },
-    { key: '아이디',   value: 'itwillbs3030' },
-    { key: '담당자 이름', value: '박덕교' },
-    { key: '이메일',   value: 'eeee@illusion.com' },
-  ];
 
-  const editableKeys = new Set(['담당자 이름','이메일','기업로고']);
+  const editableKeys = new Set(['담당자 이메일','기업 로고']);
 
   let editingKey = null; // 현재 편집중인 key
 
   const grid = new gridjs.Grid({
     columns: [
-      { name: '항목', width: '120px' },
+      { 
+		name: '항목',
+		width: '120px',
+		formatter : (cell, row) => {
+			const key = row.cells[0].data;
+			return gridjs.html(`${key}`); 
+		} 
+      
+      },
       { 
         name: '값',
         formatter: (cell, row) => {
           const key = row.cells[0].data;
-          if (key === '기업로고' && typeof cell === 'string' && (cell.startsWith('blob:') || /\.(png|jpe?g|webp)$/i.test(cell))) {
+          if (key == '기업로고' && typeof cell == 'string' && (cell.startsWith('blob:') || /\.(png|jpe?g|webp)$/i.test(cell))) {
             return gridjs.html(`<img class="logo-preview" src="${cell}" alt="logo" />`);
           }
           // 편집 모드인 경우 input 표시
-          if (key === editingKey && (key === '담당자 이름' || key === '이메일')) {
+          if (key == editingKey && key == '담당자 이메일' ) {
             return gridjs.html(`<input type="text" class="edit-input" value="${cell}" data-key="${key}"/>`);
           }
           return cell;
@@ -40,13 +38,26 @@
         }
       }
     ],
-    data: data.map(r => [r.key, r.value]),
-    search: false, sort: false, pagination: false,
+	data: () => {
+				 return $.ajax({
+				 url: 'getCompanyInfo',
+				 method: 'POST',
+				 dataType: 'json'
+				 			}).then(res => {
+				    return Object.entries(res).map(([key, value]) => [key, value]);
+				  });
+				},
+    search: false, 
+    sort: false, 
+    pagination: false,
     style: {
-    table: { border: 'none' },
-    th: { border: 'none', background: '#ffe894' },
-    td: { border: 'none' }
-  }
+	    table: { border: 'none' },
+	    th: { 
+			 border: 'none', 
+			 background: '#ffe894' 
+			},
+	    td: { border: 'none' }
+ 	 }
   }).render(document.getElementById('companyTable'));
 
 function hideHeader() {
@@ -69,13 +80,13 @@ grid.on('ready', hideHeader);
     const i = data.findIndex(r => r.key === key);
     if (i < 0) return;
 
-    if (key === '기업로고') {
+    if (key == '기업 로고') {
       document.getElementById('logoFile').click();
       return;
     }
 
     // 담당자 이름 / 이메일 → 편집 모드 전환
-    if (key === '담당자 이름' || key === '이메일') {
+    if (key === '담당자 이메일' || key === '이메일') {
       editingKey = key;
       grid.updateConfig({ data: data.map(r => [r.key, r.value]) }).forceRender();
     }

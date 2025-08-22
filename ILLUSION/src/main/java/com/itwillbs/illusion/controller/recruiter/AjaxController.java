@@ -51,6 +51,14 @@ public class AjaxController {
 		List<Map<String, Object>> recruitmentList = service.getRecruitmentList(status, member_id);
 		return recruitmentList;
 	}
+	
+	@PostMapping("getCompanyInfo") 
+	public Map<String, String> getCompanyInfo(Principal principal) {
+		String member_id = principal.getName();
+		Map<String, String> companyInfoMap = service.getCompanyInfo(member_id);
+		return companyInfoMap;
+	}
+	
 //	public List<RecruitVO> getRecruitmentList() {
 //		List<RecruitVO> recruitmentList = service.getRecruitmentList();
 //		return recruitmentList;
@@ -83,7 +91,9 @@ public class AjaxController {
 			e.printStackTrace();
 		}
 		Map<String, String> data = new HashMap<String, String>();
-		data.put("url", "resources/upload/" + subDir + "/" + fileName);
+//		data.put("url", "resources/upload/" + subDir + "/" + fileName);
+		String contextPath = req.getContextPath();
+		data.put("url", contextPath + "/upload/" + subDir + "/" + fileName);
 		return data;
 	}
 	

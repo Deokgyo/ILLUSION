@@ -103,13 +103,12 @@
 	background-color: var(--main-color-hover);
 }
 
-.pagination {
-	text-align: center;
-	margin-top: 16px;
-	font-size: 14px;
-	color: #333;
-	margin-left: 450px;
-}
+/* .pagination { */
+/* 	text-align: center; */
+/* 	margin-top: 16px; */
+/* 	font-size: 14px; */
+/* 	color: #333; */
+/* } */
 
 .page-number {
 	margin: 0 5px;

@@ -22,9 +22,9 @@ public class RecruitVO {
 	private String salary; // 연봉 
 	private String degree; // 학력 
 	private String position; // 직급 
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime start_date; // 채용 시작일 
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime end_date; // 채용 마감일
 	private int views_count; // 조회수 
 	private int app_count; // 지원수 

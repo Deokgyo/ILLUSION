@@ -53,6 +53,11 @@ public class RecruiterService {
 		return mapper.recruitClose(recruit_idx);
 	}
 	
+	// 공고 삭제 처리 
+	
+	public boolean recruitDelete(int recruit_idx) { 
+		return mapper.recruitDelete(recruit_idx);
+	}
 	// 공고 수정 폼에서 기존의 값들 보여주는 용도 
 	public RecruitVO selectRecruitModify(int recruit_idx) {
 		return mapper.selectRecruitModify(recruit_idx);
@@ -73,10 +78,16 @@ public class RecruiterService {
 	}
 	
 	// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
-	public List<Map<String, String>> getRecruiterInfo(String member_id) {
+	public Map<String, String> getRecruiterInfo(String member_id) {
 		return mapper.getRecruiterInfo(member_id) ;
 		
 	}
+	
+	//기업 정보 들고오기 
+	public Map<String, String> getCompanyInfo(String member_id) {
+		return mapper.getCompanyInfo(member_id) ;
+	}
+	
 //	public List<RecruitVO> getRecruitmentList() {
 //		return mapper.getRecruitmentList();
 //	}

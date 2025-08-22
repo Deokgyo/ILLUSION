@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +43,9 @@
 	                <div class="action-buttons">
 	                    <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
 	                    <a href="#" class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></a>
+	                    <c:if test="${isAuthor}">
+	                    	<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow" id="job-apply-btn">수정하기<i class="fa-solid fa-paper-plane"></i></a>
+	                    </c:if>
 	                </div>
 	            </section>
 	
@@ -146,10 +150,10 @@
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     
     <script>
-		   	document.addEventListener('DOMContentLoaded', function(){
-			  	pieChart('pieChart');
-			    barChart('barChart');
-	  		});
+	   	document.addEventListener('DOMContentLoaded', function(){
+		  	pieChart('pieChart');
+		    barChart('barChart');
+  		});
     </script>
     
 </body>

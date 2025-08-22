@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itwillbs.illusion.mapper.ApplyMapper">
+	
+	<select id="getApplyByMemberId" parameterType="int" resultType="com.itwillbs.illusion.vo.ApplyVO">
+		SELECT 
+			a.apply_idx
+		    , a.member_idx
+		    , r.recruit_idx
+		    , r.recruit_subject
+			, a.apply_date
+		    , r.end_date
+		    , sta.code_name as rec_status
+		    , app.code_name as apply_status
+		    , vie.code_name as is_viewed
+		 FROM apply a LEFT JOIN recruit r ON a.recruit_idx = r.recruit_idx
+		 LEFT JOIN common_code sta ON r.rec_status = sta.code
+		 LEFT JOIN common_code app ON a.apply_status = app.code
+		 LEFT JOIN common_code vie ON a.is_viewed = vie.code
+		WHERE member_idx = #{memberIdx}
+		ORDER BY a.apply_idx DESC
+		LIMIT #{startRow}, #{listLimit}
+	</select>
+	
+	<select id="getApplyCountByMember" parameterType="com.itwillbs.illusion.vo.ApplyVO" resultType="int">
+	    SELECT COUNT(*)
+  	    FROM apply
+  	    WHERE member_idx = #{memberIdx}
+	</select>
+	
+	
+	
+</mapper>

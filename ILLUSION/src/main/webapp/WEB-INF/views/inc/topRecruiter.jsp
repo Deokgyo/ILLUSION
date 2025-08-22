@@ -22,45 +22,18 @@
         <!-- 중앙 내비게이션 -->
         <nav class="main-nav">
             <ul>
-                <li><a href="recruiterMain">홈</a></li>
+	            <sec:authorize access="isAnonymous() or hasRole('MEM002')">
+	            	<li><a href="recruiterMain">홈</a></li>
+	            </sec:authorize>
+	            <sec:authorize access="hasRole('MEM001') or hasRole('MEM003')">
+	            	<li><a href="recruiterMainLogin">홈</a></li>
+	            </sec:authorize>
                 <li><a href="recruiterRegistForm">공고등록</a></li>
                 <li><a href="recruiterList">공고목록</a></li>
             </ul>
         </nav>
-        
-        <!-- 우측 사용자 메뉴 -->
-<!--         <nav class="user-menu"> -->
-<!--         	<ul> -->
-<!-- 	            <li><a href="login">기업로그인</a></li> -->
-<!-- <!-- 	            <li><a href="">000님 환영함</a></li> --> 
-<!-- 	            <li class="separator">|</li> -->
-<!-- 	            <li><a href="#">회원가입</a></li> -->
-<!-- <!-- 	            <li><a href="recruiterInfo">정보 수정</a></li> --> 
-<!--             </ul> -->
-<!--         </nav> -->
-<!-- 		<nav class="user-menu"> -->
-<!--             <ul> -->
-<%--             	<c:choose> --%>
-<%--             		<c:when test="${empty sessionScope.sId }"> --%>
-<!-- 		                <li><a href="login">기업로그인</a></li> -->
-<!-- 		                <li class="separator">|</li> -->
-<!-- 		                <li><a href="register">회원가입</a></li> -->
-<!-- 		                <li class="separator">|</li> -->
-<%--             		</c:when> --%>
-<%--             		<c:otherwise> --%>
-<%--             			<li><a href="myPage">${sessionScope.sId.member_id }님</a></li> --%>
-<!-- 		                <li class="separator">|</li> -->
-<!-- 		                <a href="javascript:void(0)" onclick="logout()">로그아웃</a> -->
-<!-- 		                <li class="separator">|</li> -->
-<%--             		</c:otherwise> --%>
-<%--             	</c:choose> --%>
-<!--                 <li><a href="recruiterInfo">정보 수정</a></li> -->
-<!--             </ul> -->
-<!--         </nav> -->
-<!--     </div> -->
-<!-- </header> -->
 
-  <nav class="user-menu">
+ 	 <nav class="user-menu">
             <ul>
                 <sec:authorize access="isAnonymous()">
                     <li><a href="${pageContext.request.contextPath}/login">기업로그인</a></li>

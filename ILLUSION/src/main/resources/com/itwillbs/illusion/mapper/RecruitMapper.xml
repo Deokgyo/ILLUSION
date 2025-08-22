@@ -77,7 +77,6 @@
 	<select id="getBoardListCount" parameterType="com.itwillbs.illusion.vo.RecruitFilterVO" resultType="int">
 	    SELECT COUNT(*)
   	    FROM recruit r
-        
         <include refid="recruitFilterCondition"></include>
 	</select>
 	
@@ -240,5 +239,11 @@
 		
 	</insert>
 	
+	<!-- 사용자 일치하는지 확인 용도 -->
+	<select id="selectMemberIdx">
+		SELECT member_idx
+		  FROM member 
+		 WHERE member_id = #{member_id}
+	</select>
 	
 </mapper>
