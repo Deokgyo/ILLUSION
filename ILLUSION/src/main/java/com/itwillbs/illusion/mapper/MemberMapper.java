@@ -21,7 +21,11 @@ public interface MemberMapper {
 	// mail_auth_info 테이블 row 삭제
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+	
+>>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
 	public MemberVO getMemberInfo(String id);
 	
 	// 아이디로 멤버 idx 조회 
@@ -29,5 +33,8 @@ public interface MemberMapper {
 	
 	// 마이페이지 멤버 전체 조회
 	public MemberVO getMemberInfoById(String member_id);
+<<<<<<< HEAD
+>>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
+=======
 >>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
 }
