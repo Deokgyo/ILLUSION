@@ -71,23 +71,9 @@ public class MemberService {
 
 		return isAuthSuccess;
 	}
-<<<<<<< HEAD
 	
-=======
-	public MemberVO getMemberById(String member_id) {
-        return mapper.getMemberById(member_id);
-    }
-	
-	// 
->>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
+	// 조영재
 	public MemberVO getMemberInfoById(String member_id) {
 		return mapper.getMemberInfoById(member_id);
 	}
-<<<<<<< HEAD
-	public MemberVO getMemberById(String member_id) {
-		return mapper.getMemberById(member_id);
-	}
 }
-=======
-}
->>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git

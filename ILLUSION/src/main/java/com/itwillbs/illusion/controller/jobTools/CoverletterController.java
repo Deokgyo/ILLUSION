@@ -85,7 +85,7 @@ public class CoverletterController {
 
 	    
 	    String member_id = principal.getName(); 
-	    MemberVO loginUser = memberService.getMemberById(member_id);
+	    MemberVO loginUser = memberService.getMemberInfoById(member_id);
 	    int member_idx = loginUser.getMember_idx();
 	    
 	    Map<String, Object> coverletterMap = new HashMap<String, Object>();
@@ -149,7 +149,7 @@ public class CoverletterController {
 
 	    String member_id = principal.getName();
 	   
-	    MemberVO loginUser = memberService.getMemberById(member_id); 
+	    MemberVO loginUser = memberService.getMemberInfoById(member_id); 
 	    int member_idx = loginUser.getMember_idx();
 	    
 	    List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);

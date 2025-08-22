@@ -64,9 +64,7 @@
 		WHERE email = #{email}
 	</delete>
 
-	
-
-
+	<!-- 조영재 -->
 	<select id="getMemberInfoById">
 		SELECT *
 		FROM member
