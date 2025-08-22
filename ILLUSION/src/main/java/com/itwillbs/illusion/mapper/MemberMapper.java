@@ -22,4 +22,6 @@ public interface MemberMapper {
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
 	public MemberVO getMemberInfo(String id);
 	
+	// 아이디로 멤버 idx 조회 
+	public MemberVO getMemberById(String member_id); 
 }

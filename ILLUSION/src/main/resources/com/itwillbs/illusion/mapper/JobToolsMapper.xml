@@ -111,10 +111,4 @@
 		 WHERE member_idx = #{member_idx}
 	</update>
 	
-	<!-- 아이디로 멤버 정보 조회 -->
-	<select id="getMemberById">
-		SELECT member_idx
-		  FROM member
-		 WHERE member_id = #{member_id}
-	</select>
 </mapper>

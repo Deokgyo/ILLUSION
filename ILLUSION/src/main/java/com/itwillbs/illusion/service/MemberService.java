@@ -17,10 +17,9 @@ public class MemberService {
 
 	@Autowired
 	MemberMapper mapper;
-
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
+	
 	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo) {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
@@ -69,5 +68,9 @@ public class MemberService {
 
 		return isAuthSuccess;
 	}
-
+	
+	public MemberVO getMemberById(String member_id) {
+        return mapper.getMemberById(member_id);
+    }
+	
 }

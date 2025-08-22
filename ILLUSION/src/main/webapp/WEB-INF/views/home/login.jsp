@@ -96,6 +96,17 @@
 			</form>
 		</section>
 	</main>
+	<c:if test="${not empty errorMsg}">
+		<script>
+            alert("${errorMsg}");
+        </script>
+    </c:if>
+
+    <c:if test="${not empty param.expired}">
+        <script>
+            alert("다른 기기에서 로그인하여 자동으로 로그아웃되었습니다.");
+        </script>
+    </c:if>
 	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 </body>
 </html>
