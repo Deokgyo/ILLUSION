@@ -150,10 +150,10 @@
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     
     <script>
-		   	document.addEventListener('DOMContentLoaded', function(){
-			  	pieChart('pieChart');
-			    barChart('barChart');
-	  		});
+	   	document.addEventListener('DOMContentLoaded', function(){
+		  	pieChart('pieChart');
+		    barChart('barChart');
+  		});
     </script>
     
 </body>

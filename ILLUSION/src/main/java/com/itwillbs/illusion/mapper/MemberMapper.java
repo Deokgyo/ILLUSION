@@ -24,4 +24,7 @@ public interface MemberMapper {
 	
 	// 아이디로 멤버 idx 조회 
 	public MemberVO getMemberById(String member_id); 
+	
+	// 마이페이지 멤버 전체 조회
+	public MemberVO getMemberInfoById(String member_id);
 }

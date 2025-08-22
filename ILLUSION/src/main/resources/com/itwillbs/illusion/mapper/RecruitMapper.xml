@@ -77,7 +77,6 @@
 	<select id="getBoardListCount" parameterType="com.itwillbs.illusion.vo.RecruitFilterVO" resultType="int">
 	    SELECT COUNT(*)
   	    FROM recruit r
-        
         <include refid="recruitFilterCondition"></include>
 	</select>
 	
