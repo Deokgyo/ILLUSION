@@ -15,16 +15,31 @@ import com.itwillbs.illusion.vo.MemberVO;
 @Service
 public class MemberService {
 
-	private static final String MemberVO = null;
 	@Autowired
 	MemberMapper mapper;
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo) {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
+
+	// 회원가입 비즈니스 로직 메서드
+	@Transactional
+	public boolean insertMember(MemberVO member) {
+		String rawPassword = member.getMember_pw(); // 암호화
+		
+		if (rawPassword == null || rawPassword.isEmpty()) {
+			throw new IllegalArgumentException("비밀번호가 입력되지 않았습니다.");
+		}
+
+		String encodedPassword = passwordEncoder.encode(rawPassword);
+		member.setMember_pw(encodedPassword);
+
+
+		int insertCount = mapper.insertMember(member);
+		return insertCount > 0;
+	} // 개인회원
 
 	@Transactional
 	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
@@ -41,33 +56,17 @@ public class MemberService {
 			if (auth_code.equals(db_auth_code)) {
 				System.out.println("난수 인증 성공!!!");
 
-//				// 1. Member 테이블에 mail_auth_status = 'Y'로 바꾸는 작업
-//				mapper.updateMailAuthStatus(mailAuthInfo);
-//
-//				// 2. mail_auth_info 테이블에 ROW 삭제
-//				mapper.deleteMailAuthInfo(mailAuthInfo);
+				// 1. Member 테이블에 mail_auth_status = 'Y'로 바꾸는 작업
+				mapper.updateMailAuthStatus(mailAuthInfo);
+
+				// 2. mail_auth_info 테이블에 ROW 삭제
+				mapper.deleteMailAuthInfo(mailAuthInfo);
 
 				isAuthSuccess = true;
 			}
 		}
 
 		return isAuthSuccess;
-	}
-	
-	// 회원가입 비즈니스 로직 메서드
-	@Transactional
-	public boolean insertMember(MemberVO member) {
-		// 비밀번호 암호화(optional)
-		// member.setMember_pw(passwordEncoder.encode(member.getMember_pw()));
-		// 기타 유효성 검사 및 초기값 세팅 가능
-		
-		// 암호화
-        String rawPassword = member.getMember_pw();
-        String encodedPassword = passwordEncoder.encode(rawPassword);
-        member.setMember_pw(encodedPassword);
-		
-		int insertCount = mapper.insertMember(member);
-		return insertCount > 0; // insert 성공시 true 반환
 	}
 	
 	public MemberVO getMemberById(String member_id) {

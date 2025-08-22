@@ -78,7 +78,6 @@ public class HomeController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-	
 //	@PostMapping("recruiterregister")
 //	public String recruiterregister(MemberVO member, Model model) {
 //		boolean result = memberService.recruiterinsertMember(member);
@@ -91,16 +90,6 @@ public class HomeController {
 //			return "registerForm";
 //		}
 //	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+//	
 
 }

@@ -49,11 +49,11 @@
 		WHERE email = #{email}
 	</select>
 
-<!-- 	<update id="updateMailAuthStatus"> -->
-<!-- 	UPDATE mail_auth_info -->
-<!-- 	SET mail_auth_status = 'Y' -->
-<!-- 	WHERE email = #{email} -->
-<!-- 	</update> -->
+	<update id="updateMailAuthStatus">
+	UPDATE mail_auth_info
+	SET mail_auth_status = 'Y'
+	WHERE email = #{email}
+	</update>
 
 	<delete id="deleteMailAuthInfo">
 		DELETE FROM mail_auth_info

@@ -32,6 +32,11 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<!-- Tomcat의 세션이벤트를 Spring Security에 전달하는 역할 -->
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
 
 	<!-- Processes application requests -->
 	<servlet>
