@@ -171,34 +171,32 @@ $(document).ready(function() {
 	// 이메일 인증
 	let isEmailVerified = false; // 이메일 인증 성공 여부 저장 변수
 
-	// [1] 인증번호 발송 버튼 클릭 시 이벤트
-	$("#email-btn").click(function() {
-		const emailVal = $("#email").val().trim();
-		if (emailVal === "") {
-			alert("이메일을 입력하세요.");
-			return;
-		}
-
-		// 이메일 인증번호 발송 요청
-		$.ajax({
-			type: "POST",
-			url: "email-auth",
-			data: JSON.stringify({ member_email: emailVal }),
-			contentType: "application/json",
-			success: function(res) {
-				if (res.result) {
-					alert("인증번호가 발송되었습니다. 이메일을 확인해주세요.");
-				} else {
-					alert("인증번호 발송에 실패했습니다.");
-				}
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				console.error('Error Details:', jqXHR, textStatus, errorThrown);
-				alert("서버와 통신 중 오류가 발생했습니다.");
+		$("#email-btn").click(function() {
+			const emailVal = $("#email").val().trim();
+			if (emailVal === "") {
+				alert("이메일을 입력하세요.");
+				return;
 			}
+
+			$.ajax({
+				type: "POST",
+				url: "email-auth",
+				data: JSON.stringify({ member_email: emailVal }),
+				contentType: "application/json",
+				success: function(res) {
+					if (res.result) {
+						alert("인증번호가 발송되었습니다. 이메일을 확인해주세요.");
+					} else {
+						alert("인증번호 발송에 실패했습니다.");
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.error('Error Details:', jqXHR, textStatus, errorThrown);
+					alert("서버와 통신 중 오류가 발생했습니다.");
+				}
+			});
 		});
 
-		// [2] 인증번호 확인 버튼 클릭 시 이벤트
 		$("#checkAuthBtn").click(function() {
 			const emailVal = $("#email").val().trim();
 			const codeVal = $("#emailcode").val().trim();
@@ -208,7 +206,6 @@ $(document).ready(function() {
 				return;
 			}
 
-			// 인증번호 검증 요청
 			$.ajax({
 				type: "POST",
 				url: "email-auth-check",
@@ -228,7 +225,8 @@ $(document).ready(function() {
 				}
 			});
 		});
-	}); // 이메일 
+
+
 
 	// 참조
 	$('#member_status').val('MES001'); // 회원상태는 항상 '정상'
@@ -276,17 +274,17 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
+
 	// 개인회원 기본값 세팅
 	$('#company').hide();
 	$('#compdate').hide();
 	$('#companytypes').hide();
 	$('#companytype').removeAttr('required');
-	
+
 	// required 제거
-	$('#companyname').removeAttr('required');   
- 	$('#company_date').removeAttr('required');   
-  	$('#compantypes').removeAttr('required');    
+	$('#companyname').removeAttr('required');
+	$('#company_date').removeAttr('required');
+	$('#compantypes').removeAttr('required');
 
 	// 기업회원 클릭 시
 	$('#companyTab').on('click', function() {
@@ -306,7 +304,7 @@ $(document).ready(function() {
 		$('#company').show();
 		$('label[for="compname"]').text('대표자명');
 		$('#companyname').attr('placeholder', '대표자명을 입력해 주세요');
-		
+
 		// 설립일(ddl) 보이기 및 required 설정
 		$('#compdate').show();
 		$('#comdates').attr('required', 'required');
@@ -337,7 +335,7 @@ $(document).ready(function() {
 
 		// 설립일 숨기기 및 입력란 초기화
 		$('#compdate').hide();
-		 $('#comdates').removeAttr('required');
+		$('#comdates').removeAttr('required');
 		$('#comdates').val('');
 
 		// 기업형태 숨기기 및 required 제거

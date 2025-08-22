@@ -196,12 +196,11 @@
 						name="member_marketing_agreed" value="BOL002" />
 				</div>
 			</div>
+			
 			<!-- 참조 -->
-			<input type="hidden" name="member_type" id="member_type"> <input
-				type="hidden" name="member_status" id="member_status">
-
-
-
+			<input type="hidden" name="member_type" id="member_type"> 
+			<input type="hidden" name="member_status" id="member_status">
+			
   			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 			<button class="signup-btn" type="submit">회원가입</button>
 		</form>

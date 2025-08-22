@@ -53,7 +53,8 @@ public class RecruiterController {
 		model.addAttribute("RecruitmentCnt", RecruitmentCnt);
 		
 		// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
-		List<Map<String, String>> RecruiterInfoList = service.getRecruiterInfo(member_id);
+		Map<String, String> RecruiterInfo = service.getRecruiterInfo(member_id);
+		model.addAttribute("RecruiterInfo", RecruiterInfo);
 		
 //		공고의 제목과 마감일 가져오기 
 		List<Map<String, Object>> recruitmentSubjectDate = service.getRecruitmentSubjectDate(member_id);

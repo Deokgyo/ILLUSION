@@ -1,17 +1,11 @@
 package com.itwillbs.illusion.controller.home;
 
-import java.util.Map;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.service.LoginService;
 
@@ -23,7 +17,18 @@ public class LoginController {
 	
 	// 로그인 이동
 	@GetMapping("login")
-	public String login() {
+	public String login(HttpSession session, Model model) {
+		
+        Object loginErrorMsg = session.getAttribute("loginErrorMessage");
+        
+        
+        if (loginErrorMsg != null) {
+        	System.out.println(loginErrorMsg);
+            model.addAttribute("errorMsg", loginErrorMsg);
+            
+            session.removeAttribute("loginErrorMessage");
+        }
+		
 		return "home/login";
 	}
 	

@@ -42,7 +42,6 @@
 	
 	<main>
 		<%-- 메인 상단 공고현황 & 프로필 정보 묶음 --%>
-		
 			<%-- 페이지 상단 공고현황 섹션 --%>
 			<section class="recruit-info-section section-container">
 				<div class="section-name">
@@ -78,21 +77,17 @@
 					<%-- 페이지 상단 프로필 정보 --%>
 					<div class="section-dash02">
 						<div class="section-content">
-							<p class="company-name">아이티윌</p>
+							<p class="company-name">${RecruiterInfo.company_name}</p>
 							<h2>
-							  <span class="name-highlight">박덕교</span>님
+							  <span class="name-highlight">${RecruiterInfo.member_name}</span>님
 							</h2>
 							
 						<%-- 연락처 정보 --%>
 						<dl class="contact-info">
 						  <%-- 각 정보 행을 div.info-row로 감싸줍니다 --%>
 						  <div class="info-row">
-						    <dt>전화번호</dt>
-						    <dd>010-7777-7777</dd>
-						  </div>
-						  <div class="info-row">
 						    <dt>e-mail</dt>
-						    <dd>ejrry@itwillbs.com</dd>
+						    <dd>${RecruiterInfo.member_email}</dd>
 						  </div>
 						</dl>
 						
@@ -113,7 +108,7 @@
 						    </div>
 						    <div class="info-row">
 						      <dt>마감임박 공고</dt>
-						      <dd>3건</dd>
+						      <dd>${RecruiterInfo.closing_soon_count}건</dd> 
 						    </div>
 						  </dl>
 						</div>
