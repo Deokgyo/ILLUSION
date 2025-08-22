@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.controller.recruitment;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +85,7 @@ public class RecruitmentController {
 	
 	// 채용공고 상세페이지 이동
 	@GetMapping("recruitmentDetail")
-	public String recruitmentDetail(int recruit_idx, Model model) {
+	public String recruitmentDetail(int recruit_idx, Model model, Principal principal ) {
 		
 		// 조회수 증가 
 		service.increaseViewCount(recruit_idx);
@@ -94,6 +95,12 @@ public class RecruitmentController {
 		
 		List<ApplyVO> apply = service.applyModal(recruit_idx);
 		model.addAttribute("apply", apply);
+		
+		//작성자가 맞는지 확인 용도 (덕교) 
+		String member_id = principal.getName();
+		int member_idx = service.selectMemberIdx(member_id);
+		boolean isAuthor = recruit.getRecruiter_member_idx() == member_idx ;
+		model.addAttribute("isAuthor", isAuthor);
 		
 		return "recruitment/recruitmentDetail";
 	}

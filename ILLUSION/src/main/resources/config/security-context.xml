@@ -32,6 +32,11 @@
         <intercept-url pattern="/recruiterMain" access="permitAll" />
         <intercept-url pattern="/recruitmentInfo" access="permitAll" />
         <intercept-url pattern="/recruitmentDetail**" access="permitAll" />    
+        <intercept-url pattern="/register" access="permitAll" />    
+        <intercept-url pattern="/email-auth" access="permitAll" method="POST"/>   
+        <intercept-url pattern="/email-auth-check" access="permitAll" method="POST"/>   
+        <intercept-url pattern="/checkIdCount" access="permitAll" method="GET"/>   
+        <intercept-url pattern="/recruitmentInfo" access="permitAll" />    
         <intercept-url pattern="/communityMain" access="permitAll" />
         <intercept-url pattern="/communityDetail**" access="permitAll" />
         <intercept-url pattern="/api/boards/**/comments" access="permitAll" method="GET" />
@@ -46,7 +51,7 @@
 	    <intercept-url pattern="/**" access="isAuthenticated()" />
         
 
-       <!-- 커스텀 로그인 폼 설정  -->
+    	<!-- 커스텀 로그인 폼 설정  -->
 		<form-login 
 			login-page="/login"  
 		    login-processing-url="/loginPro"                    

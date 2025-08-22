@@ -377,3 +377,7 @@ td.gridjs-td {
 .gridjs-search-input {
     width: 400px !important;
 }
+
+span{
+	display:flex;
+}

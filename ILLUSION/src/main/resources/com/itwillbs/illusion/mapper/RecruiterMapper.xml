@@ -71,6 +71,27 @@
 		 WHERE recruit_idx = #{recruit_idx};
 	</update>
 	
+	<!-- 공고 삭제 -->
+	<delete id="recruitDelete">
+		DELETE FROM recruit
+		 WHERE recruit_idx = #{recruit_idx};
+	</delete>
+	
+	<!-- 기업정보가져오기  -->
+	<select id="getCompanyInfo">
+		SELECT c.company_logo as '기업 로고'
+			 , c.company_name as '기업 이름'
+			 , c.ceo_name as '대표자명' 
+			 , DATE_FORMAT(c.company_estab_date, '%Y-%m-%d') AS '기업 설립일'
+			 , m.address_name as '기업 주소' 
+			 , m.member_id as '아이디' 
+			 , m.member_name as '담당자 이름'
+			 , m.member_email as '담당자 이메일'
+		  FROM member m 
+		  JOIN company c ON c.member_idx = m.member_idx
+		 WHERE member_id = #{member_id} 
+	</select>
+	
 	<!-- 채용중인 공고 개수 가져오기  -->
 	<select id="getRecruitmentCnt">
 		SELECT count(*)

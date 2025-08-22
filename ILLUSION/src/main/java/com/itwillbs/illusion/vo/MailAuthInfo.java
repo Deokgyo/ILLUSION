@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
  * */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class MailAuthInfo {
 
 	private String email;
 	private String auth_code;
    
-	public MailAuthInfo() {}
 }
