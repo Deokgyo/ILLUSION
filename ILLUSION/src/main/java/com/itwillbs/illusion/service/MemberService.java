@@ -23,7 +23,7 @@ public class MemberService {
 	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo) {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
-	
+
 	public int updateMailAuthStatus(MailAuthInfo mailAuthInfo) {
 		return mapper.updateMailAuthStatus(mailAuthInfo);
 	}
@@ -31,9 +31,11 @@ public class MemberService {
 	public int checkId(String id) {
 		return mapper.checkId(id);
 	}
+
 	public int checkIdCount(String member_id) {
-	    return mapper.checkIdCount(member_id);
+		return mapper.checkIdCount(member_id);
 	}
+
 	// 회원가입 비즈니스 로직 메서드
 	@Transactional
 	public boolean insertMember(MemberVO member) {
@@ -43,9 +45,8 @@ public class MemberService {
 
 		if (rawPassword == null || rawPassword.isEmpty()) {
 			throw new IllegalArgumentException("비밀번호가 입력되지 않았습니다.");
-			
-		}
 
+		}
 
 		int insertCount = mapper.insertMember(member);
 		return insertCount > 0;
@@ -55,9 +56,8 @@ public class MemberService {
 	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
 
 		boolean isAuthSuccess = false;
-		
-		MailAuthInfo dbMailAuthInfo = mapper.selectMailAuthInfo(mailAuthInfo);
 
+		MailAuthInfo dbMailAuthInfo = mapper.selectMailAuthInfo(mailAuthInfo);
 
 		if (dbMailAuthInfo != null) { // 이메일에 대한 인증코드가 존재할 경우
 			String auth_code = mailAuthInfo.getAuth_code();
@@ -71,18 +71,11 @@ public class MemberService {
 
 		return isAuthSuccess;
 	}
-<<<<<<< HEAD
-
-=======
 	
-	public MemberVO getMemberById(String member_id) {
-        return mapper.getMemberById(member_id);
-    }
-	
-	// 
 	public MemberVO getMemberInfoById(String member_id) {
 		return mapper.getMemberInfoById(member_id);
 	}
-	
->>>>>>> branch 'main' of https://github.com/Deokgyo/ILLUSION.git
+	public MemberVO getMemberById(String member_id) {
+		return mapper.getMemberById(member_id);
+	}
 }

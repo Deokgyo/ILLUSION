@@ -40,7 +40,7 @@ public class MypageContrlloer {
 
 	@Autowired
 	BoardService service;
-	
+	  
 	@Autowired
 	MemberService memberService;
 	
