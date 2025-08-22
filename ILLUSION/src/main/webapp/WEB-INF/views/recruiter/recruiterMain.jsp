@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -40,11 +41,12 @@
 			            ILLUSION이 함께합니다
 			        </h1>
 			        <p class="hero-subtitle">스마트한 채용 일루션, 지금 시작하세요</p>
-			        
-			        <div class="hero-buttons">
-			            <a href="login" class="btn btn-login">로그인</a>
-			            <a href="register" class="btn btn-signup">회원가입</a>
-			        </div>
+			        <sec:authorize access="isAnonymous()">
+				        <div class="hero-buttons">
+				            <a href="login" class="btn btn-login">로그인</a>
+				            <a href="register" class="btn btn-signup">회원가입</a>
+				        </div>
+			        </sec:authorize>
 			    </div>
 			</section>
             

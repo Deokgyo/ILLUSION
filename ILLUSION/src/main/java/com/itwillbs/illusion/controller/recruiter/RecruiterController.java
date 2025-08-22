@@ -69,116 +69,123 @@ public class RecruiterController {
 		return "recruiter/recruiterMainLogin"; 
 	}
 	
-	// 기업 정보 수정으로 이동 
-	@GetMapping("recruiterInfo")
-	public String recruiterInfo() {
-		return "recruiter/recruiterInfo";
-	}
-	
-	// 기업 회원이 작성한 목록 페이지로 이동
-	@GetMapping("recruiterList")
-	public String recruiterList() {
-		return "recruiter/recruiterList";
-	}
-	
-	// 기업회원 수정 페이지 이동 
-	@GetMapping("memberModify")
-	public String memberModify() {
-		return "recruiter/memberModify";
-	}
-	
-	// 공고 마감 버튼 누를 때 
-	@GetMapping("recruitClose")
-	public String recruitClose(int recruit_idx) {
-		service.recruitClose(recruit_idx);
-		return "redirect:/recruiterList";
-	}
-	
-	
-	// 공고 수정 버튼 누르고 공고 수정 페이지로 이동함 
-	@GetMapping("recruitModify")
-	public String recruitModify(int recruit_idx, Model model) {
+		// 기업 정보 수정으로 이동 
+		@GetMapping("recruiterInfo")
+		public String recruiterInfo() {
+			return "recruiter/recruiterInfo";
+		}
 		
-		RecruitVO vo = service.selectRecruitModify(recruit_idx);
-		System.out.println("vo 어케 찍히노: " + vo);
-		model.addAttribute("savedData", vo);
+		// 기업 회원이 작성한 목록 페이지로 이동
+		@GetMapping("recruiterList")
+		public String recruiterList() {
+			return "recruiter/recruiterList";
+		}
 		
-		// 디비 공통코드에서 주소 값 가져오기 
-		List<Map<String, String>> locationList = service.getLocation();
-		model.addAttribute("locationList", locationList);
+		// 기업회원 수정 페이지 이동 
+		@GetMapping("memberModify")
+		public String memberModify() {
+			return "recruiter/memberModify";
+		}
 		
-		// 디비 직무 가져오기 
-		List<Map<String, String>> occupationList = service.getOccupation();
-		model.addAttribute("occupationList", occupationList);
+		// 공고 마감 버튼 누를 때 
+		@GetMapping("recruitClose")
+		public String recruitClose(int recruit_idx) {
+			service.recruitClose(recruit_idx);
+			return "redirect:/recruiterList";
+		}
 		
-		//공통코드 값들 가져오기 
-		// 그룹으로 조회 하기 위해서 상수 값을 스트링 배열로 전환 
-		List<String> codeGroups = Arrays.stream(CodeGroups.values())
-										.map(Enum::name)
-										.collect(Collectors.toList());
-		// 그룹을 파라미터로 넘겨서 해당하는 공통 코드와 이름을 조회해서 배열에 담음 
-		List<CommonCodeVO> commonList = comService.selectAllCommonList(codeGroups);
-		System.out.println(commonList);
-		// 배열에 담아온 값을 그룹아이디를 기준으로 그룹화 하여서 맵 형태로 바꿈 
-		Map<String,List<CommonCodeVO>> commonListMap 
-			= commonList.stream().collect(Collectors.groupingBy(CommonCodeVO::getCode_group_id));
-		// 맵형태로 바꾼 것을 모델에 담아 전달함 
-		model.addAttribute("commonListMap", commonListMap);
+		// 공고 삭제 
+		@GetMapping("recruitDelete") 
+		public String recruitDelete(int recruit_idx) {
+			boolean isDelete = service.recruitDelete(recruit_idx);
+			return "redirect:/recruiterList";
+		}
 		
-		return "recruiter/recruitModify";
-	}
-	
-	// 공고 수정 내용 업데이트 
-	@PostMapping("recruitModify")
-	public String recruitModify(RecruitVO recruit, Principal principal) {
-		String member_id = principal.getName();
-		service.recruitModify(recruit, member_id);
-		return "redirect:/recruiterList";
-	}
-	
-	// 공고 등록 페이지로 이동함 
-	@GetMapping("recruiterRegistForm")
-	public String recruiterRegistForm(Model model) {
-		// 디비 공통코드에서 주소 값 가져오기 s
-		List<Map<String, String>> locationList = service.getLocation();
-		model.addAttribute("locationList", locationList);
+		// 공고 수정 버튼 누르고 공고 수정 페이지로 이동함 
+		@GetMapping("recruitModify")
+		public String recruitModify(int recruit_idx, Model model) {
+			
+			RecruitVO vo = service.selectRecruitModify(recruit_idx);
+			System.out.println("vo 어케 찍히노: " + vo);
+			model.addAttribute("savedData", vo);
+			
+			// 디비 공통코드에서 주소 값 가져오기 
+			List<Map<String, String>> locationList = service.getLocation();
+			model.addAttribute("locationList", locationList);
+			
+			// 디비 직무 가져오기 
+			List<Map<String, String>> occupationList = service.getOccupation();
+			model.addAttribute("occupationList", occupationList);
+			
+			//공통코드 값들 가져오기 
+			// 그룹으로 조회 하기 위해서 상수 값을 스트링 배열로 전환 
+			List<String> codeGroups = Arrays.stream(CodeGroups.values())
+											.map(Enum::name)
+											.collect(Collectors.toList());
+			// 그룹을 파라미터로 넘겨서 해당하는 공통 코드와 이름을 조회해서 배열에 담음 
+			List<CommonCodeVO> commonList = comService.selectAllCommonList(codeGroups);
+			System.out.println(commonList);
+			
+			// 배열에 담아온 값을 그룹아이디를 기준으로 그룹화 하여서 맵 형태로 바꿈 
+			Map<String,List<CommonCodeVO>> commonListMap 
+				= commonList.stream().collect(Collectors.groupingBy(CommonCodeVO::getCode_group_id));
+			// 맵형태로 바꾼 것을 모델에 담아 전달함 
+			model.addAttribute("commonListMap", commonListMap);
+			
+			return "recruiter/recruitModify";
+		}
 		
-		// 디비 직무 가져오기 
-		List<Map<String, String>> occupationList = service.getOccupation();
-		model.addAttribute("occupationList", occupationList);
+		// 공고 수정 내용 업데이트 
+		@PostMapping("recruitModify")
+		public String recruitModify(RecruitVO recruit, Principal principal) {
+			String member_id = principal.getName();
+			service.recruitModify(recruit, member_id);
+			return "redirect:/recruiterList";
+		}
 		
-		//공통코드 값들 가져오기 
+		// 공고 등록 페이지로 이동함 
+		@GetMapping("recruiterRegistForm")
+		public String recruiterRegistForm(Model model) {
+			// 디비 공통코드에서 주소 값 가져오기 s
+			List<Map<String, String>> locationList = service.getLocation();
+			model.addAttribute("locationList", locationList);
+			
+			// 디비 직무 가져오기 
+			List<Map<String, String>> occupationList = service.getOccupation();
+			model.addAttribute("occupationList", occupationList);
+			
+			//공통코드 값들 가져오기 
+			
+			// 그룹으로 조회 하기 위해서 상수 값을 스트링 배열로 전환 
+			List<String> codeGroups = Arrays.stream(CodeGroups.values())
+											.map(Enum::name)
+											.collect(Collectors.toList());
+			
+			// 그룹을 파라미터로 넘겨서 해당하는 공통 코드와 이름을 조회해서 배열에 담음 
+			List<CommonCodeVO> commonList = comService.selectAllCommonList(codeGroups);
+			System.out.println(commonList);
+			
+			// 배열에 담아온 값을 그룹아이디를 기준으로 그룹화 하여서 맵 형태로 바꿈 
+			Map<String,List<CommonCodeVO>> commonListMap 
+				= commonList.stream().collect(Collectors.groupingBy(CommonCodeVO::getCode_group_id));
+			
+			// 맵형태로 바꾼 것을 모델에 담아 전달함 
+			model.addAttribute("commonListMap", commonListMap);
+			
+			return "recruiter/recruiterRegistForm";
+		}
 		
-		// 그룹으로 조회 하기 위해서 상수 값을 스트링 배열로 전환 
-		List<String> codeGroups = Arrays.stream(CodeGroups.values())
-										.map(Enum::name)
-										.collect(Collectors.toList());
-		
-		// 그룹을 파라미터로 넘겨서 해당하는 공통 코드와 이름을 조회해서 배열에 담음 
-		List<CommonCodeVO> commonList = comService.selectAllCommonList(codeGroups);
-		System.out.println(commonList);
-		
-		// 배열에 담아온 값을 그룹아이디를 기준으로 그룹화 하여서 맵 형태로 바꿈 
-		Map<String,List<CommonCodeVO>> commonListMap 
-			= commonList.stream().collect(Collectors.groupingBy(CommonCodeVO::getCode_group_id));
-		
-		// 맵형태로 바꾼 것을 모델에 담아 전달함 
-		model.addAttribute("commonListMap", commonListMap);
-		
-		return "recruiter/recruiterRegistForm";
-	}
-	
-	// 공고 등록 폼 제출 
-	@PostMapping("recruiterRegistForm")
-	public String recruiterRegistForm(RecruitVO recruit, Principal principal) {
-		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
-		System.out.println(recruit);
-		String member_id = principal.getName();
-		int insertCnt = service.insertRecruitment(recruit, member_id);
-		
-		
-		return "redirect:/recruiterList";
-	}
+		// 공고 등록 폼 제출 
+		@PostMapping("recruiterRegistForm")
+		public String recruiterRegistForm(RecruitVO recruit, Principal principal) {
+			System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
+			System.out.println(recruit);
+			String member_id = principal.getName();
+			int insertCnt = service.insertRecruitment(recruit, member_id);
+			
+			
+			return "redirect:/recruiterList";
+		}
 	
 
 }

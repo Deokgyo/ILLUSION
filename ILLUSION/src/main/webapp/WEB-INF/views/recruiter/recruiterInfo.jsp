@@ -43,6 +43,7 @@
 	<%-- js 파일 --%>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/commonJs.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/recruiter/recruiterInfo.js"></script>
 </body>
 </html>

@@ -32,6 +32,9 @@ public interface RecruiterMapper {
 	// 공고 마감 처리 
 	public int recruitClose(int recruit_idx);
 	
+	// 공고 삭제 
+	public boolean recruitDelete(int recruit_idx);
+	
 	// 공고 수정 폼에서 기존값 보여주기 
 	public RecruitVO selectRecruitModify(int recruit_idx);
 	
@@ -47,4 +50,6 @@ public interface RecruiterMapper {
 	//// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
 	public Map<String, String> getRecruiterInfo(String member_id);
 	
+	// 기업 정보 들고오기 
+	public Map<String, String> getCompanyInfo(String member_id);
 }

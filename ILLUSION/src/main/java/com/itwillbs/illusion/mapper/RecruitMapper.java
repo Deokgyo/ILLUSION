@@ -24,5 +24,7 @@ public interface RecruitMapper {
 	public List<ApplyVO> applyModal(int recruit_idx);
 	
 	public int insertApply(RecruitVO recruit);
-
+	
+	//작성자가 일치하는지 용도 (덕교) 
+	public int selectMemberIdx(String member_id);
 }

@@ -46,4 +46,9 @@ public class RecruitService {
 		return mapper.insertApply(recruit);
 	}
 	
+	//작성자가 일치하는지 용도 (덕교 ) 
+	public int selectMemberIdx(String member_id) {
+		return mapper.selectMemberIdx(member_id);
+	}
+	
 }
