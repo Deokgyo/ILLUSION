@@ -17,6 +17,7 @@ import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
 @RestController
+
 public class MemberController {
 
 	@Autowired
