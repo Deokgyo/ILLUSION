@@ -75,5 +75,11 @@
 		 WHERE member_id = #{member_id}
 	</select>
 
+	<select id="getMemberInfoById">
+		SELECT *
+		FROM member
+		WHERE member_id = #{member_id}
+	</select>
+	
 </mapper>
 

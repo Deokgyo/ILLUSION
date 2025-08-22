@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.controller.myPage;
 
+import java.security.Principal;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.illusion.service.BoardService;
+import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.service.ResumeService;
+import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.ResumeVO;
 
 @Controller
@@ -29,9 +32,24 @@ public class MypageContrlloer {
 
 	@Autowired
 	BoardService service;
+	
+	@Autowired
+	MemberService memberService;
 
 	@GetMapping("myPage")
-	public String myPage() {
+	public String myPage(Principal principal, Model model) {
+		
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		String member_id = principal.getName();
+		
+		MemberVO member = memberService.getMemberInfoById(member_id);
+		System.out.println("@#%@#%#@%@#%#%");
+		System.out.println(member);
+		model.addAttribute("member", member);
+	
 		return "myPage/myPage";
 	}
 

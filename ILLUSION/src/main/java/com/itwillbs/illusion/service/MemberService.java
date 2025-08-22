@@ -74,4 +74,9 @@ public class MemberService {
         return mapper.getMemberById(member_id);
     }
 	
+	// 
+	public MemberVO getMemberInfoById(String member_id) {
+		return mapper.getMemberInfoById(member_id);
+	}
+	
 }
