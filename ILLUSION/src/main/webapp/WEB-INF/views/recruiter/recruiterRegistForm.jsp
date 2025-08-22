@@ -249,8 +249,8 @@
 	            	<h3 class="title">채용 시작 · 마감 일</h3>
 	            </div>
 	            <div class="startEndDate">
-	            	<input type="date" name="start_date" class="form-control valid"/>
-	            	<input type="date" name="end_date" class="form-control valid"/>
+	            	<input type="datetime-local" name="start_date" class="form-control valid"/>
+	            	<input type="datetime-local" name="end_date" class="form-control valid"/>
 	            </div>
 	        </section> 
        		<%----------------------------------마감 날짜 섹션 끝---------------------------- --%>

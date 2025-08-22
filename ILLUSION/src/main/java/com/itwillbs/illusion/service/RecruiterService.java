@@ -73,7 +73,7 @@ public class RecruiterService {
 	}
 	
 	// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
-	public List<Map<String, String>> getRecruiterInfo(String member_id) {
+	public Map<String, String> getRecruiterInfo(String member_id) {
 		return mapper.getRecruiterInfo(member_id) ;
 		
 	}

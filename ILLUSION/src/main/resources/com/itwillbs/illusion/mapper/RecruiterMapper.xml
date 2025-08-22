@@ -94,10 +94,21 @@
 	
 <!--  기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기  -->
 	<select id="getRecruiterInfo">
-		
-	
+		SELECT m.member_name as member_name
+		   	 , m.member_email as member_email
+		     , c.company_name as company_name 
+		     , COALESCE( 
+		       COUNT(CASE WHEN r.end_date 
+		       		 BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY) 
+                  	 THEN 1 END), 0) as closing_soon_count
+		  FROM member m
+	 LEFT JOIN company c 
+		    ON c.member_idx = m.member_idx
+     LEFT JOIN recruit r 
+		    ON r.recruiter_member_idx = m.member_idx
+		 WHERE m.member_id = #{member_id}  
+	  GROUP BY m.member_name, m.member_email, c.company_name
 	</select>
-	
 	
 	<!--  공고 수정 페이지에서 기존 내용 가져오기  -->
 	<select id="selectRecruitModify">
