@@ -20,7 +20,7 @@
         </div>
         
         <!-- 중앙 내비게이션 -->
-        <nav class="main-nav" style="transform: translateX(-90px);">
+        <nav class="main-nav">
             <ul>
 	            <sec:authorize access="isAnonymous() or hasRole('MEM002')">
 	            	<li><a href="recruiterMain">홈</a></li>
