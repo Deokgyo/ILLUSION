@@ -84,13 +84,15 @@
 		    		</div>
 				</div>
 		    	<!-- 활동기록 -->
-			    <div class="section">
-			    	<h1>활동기록</h1>
-			      	<div class="grid">
-				        <div class="file-card"><a href="scraprecruitList">⭐ 관심 채용 공고</a></div>
-				        <div class="file-card"><a href="jobapplicationlist">📬 입사 지원 현황</a></div>
-				        <div class="file-card"><a href="myPost">🗒️ 내가 쓴 게시글</a></div>
-			      	</div>
+		    	<div class="save-box">
+				    <div class="section">
+				    	<h1>활동기록</h1>
+				      	<div class="grid">
+					        <div class="file-card"><a href="scraprecruitList">⭐ 관심 채용 공고</a></div>
+					        <div class="file-card"><a href="jobapplicationlist">📬 입사 지원 현황</a></div>
+					        <div class="file-card"><a href="myPost">🗒️ 내가 쓴 게시글</a></div>
+				      	</div>
+				    </div>
 			    </div>
 			</div>
 		</main>
