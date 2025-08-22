@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.service.MemberService;
+import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
 // 
@@ -56,11 +58,13 @@ public class HomeController {
 
 	@PostMapping("register")
 	public String register(MemberVO member, Model model, String address_name1, String address_name2) {
-		System.out.println(member.getMember_marketing_agreed());
 		member.setAddress_name(address_name1 + " " + address_name2);
 		boolean result = memberService.insertMember(member);
 		if (result) {
-			// 회원가입 성공 시 로그인 페이지로 리다이렉트 이동
+			MailAuthInfo mailAuthInfo = new MailAuthInfo();
+			mailAuthInfo.setEmail(member.getMember_email()); // 이메일 필드명 맞게 사용
+			memberService.updateMailAuthStatus(mailAuthInfo);
+
 			return "redirect:/login";
 		} else {
 			// 회원가입 실패 시 오류 메시지 전달 후 가입 폼으로 이동
@@ -68,7 +72,7 @@ public class HomeController {
 			return "registerForm";
 		}
 	}
-
+	
 	// 날짜관련
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

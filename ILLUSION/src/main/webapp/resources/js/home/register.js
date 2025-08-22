@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 	// 이용약관 전체 동의
 	$('.tab-btn').on('click', function() {
@@ -49,31 +50,79 @@ $(document).ready(function() {
 	//      $('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
 
 	function checkUserId() {
-		let id = $("#userid").val().trim()
+		let id = $("#userid").val().trim();
 		if (id == "") {
-			// 입력값이 없으면 메시지 초기화
+			console.log(" 아 왜 안되냐고 진짜")
 			$("#UserIdSuccess").text("");
 			isCheckId = false;
 			return;
 		}
-		const regex = /^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/; // 영문, 숫자, 특수문자 모두 포함
-		///^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
-		// /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
+
+		const regex = /^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
+					  ///^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/;  영문, 숫자, 특수문자 모두 포함
+					  // /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
 
 		if (regex.exec(id)) {
-			$("#UserIdSuccess").text('사용 가능한 아이디');
-			$("#UserIdSuccess").css('color', 'blue');
-			isCheckId = true;
-
-			//				duplicateId();
+			// 형식 통과 -> 중복 검사 AJAX 호출
+			$.ajax({
+				type: "GET",
+				url: "checkIdCount",  // 중복검사 API 엔드포인트 (서버에서 구현)
+				data: { memberId: id },          // 파라미터 이름은 서버 요구사항에 맞게 조정
+				success: function(res) {
+					console.log(" 아 왜 안되냐고 진짜")
+					if (res.duplicate) {
+						$("#UserIdSuccess").text('이미 사용 중인 아이디입니다.');
+						$("#UserIdSuccess").css('color', 'red');
+						isCheckId = false;
+					} else {
+						$("#UserIdSuccess").text('사용 가능한 아이디입니다.');
+						$("#UserIdSuccess").css('color', 'blue');
+						isCheckId = true;
+					}
+				},
+				error: function(xhr, status, error) {
+					console.error("AJAX 오류:", status, s);
+					$("#UserIdSuccess").text('중복 확인 중 오류가 발생했습니다.');
+					$("#UserIdSuccess").css('color', 'red');
+					isCheckId = false;
+				}
+			});
 
 		} else {
 			$("#UserIdSuccess").text('사용 불가능한 아이디');
 			$("#UserIdSuccess").css('color', 'red');
 			isCheckId = false;
 		}
-
 	}
+
+
+	//	function checkUserId() {
+	//		let id = $("#userid").val().trim()
+	//		if (id == "") {
+	//			// 입력값이 없으면 메시지 초기화
+	//			$("#UserIdSuccess").text("");
+	//			isCheckId = false;
+	//			return;
+	//		}
+	//		const regex = /^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
+	//						///^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/;  영문, 숫자, 특수문자 모두 포함
+	//						///^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
+	//						// /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
+	//
+	//		if (regex.exec(id)) {
+	//			$("#UserIdSuccess").text('사용 가능한 아이디');
+	//			$("#UserIdSuccess").css('color', 'blue');
+	//			isCheckId = true;
+	//
+	//			//				duplicateId();
+	//
+	//		} else {
+	//			$("#UserIdSuccess").text('사용 불가능한 아이디');
+	//			$("#UserIdSuccess").css('color', 'red');
+	//			isCheckId = false;
+	//		}
+	//
+	//	}
 
 	//비밀번호 유효성
 	function checkUserPass() {
@@ -171,60 +220,62 @@ $(document).ready(function() {
 	// 이메일 인증
 	let isEmailVerified = false; // 이메일 인증 성공 여부 저장 변수
 
-		$("#email-btn").click(function() {
-			const emailVal = $("#email").val().trim();
-			if (emailVal === "") {
-				alert("이메일을 입력하세요.");
-				return;
-			}
+	$("#email-btn").click(function() {
+		const emailVal = $("#email").val().trim();
+		if (emailVal === "") {
+			alert("이메일을 입력하세요.");
+			return;
+		}
 
-			$.ajax({
-				type: "POST",
-				url: "email-auth",
-				data: JSON.stringify({ member_email: emailVal }),
-				contentType: "application/json",
-				success: function(res) {
-					if (res.result) {
-						alert("인증번호가 발송되었습니다. 이메일을 확인해주세요.");
-					} else {
-						alert("인증번호 발송에 실패했습니다.");
-					}
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					console.error('Error Details:', jqXHR, textStatus, errorThrown);
-					alert("서버와 통신 중 오류가 발생했습니다.");
+		$.ajax({
+			type: "POST",
+			url: "email-auth",
+			data: JSON.stringify({ member_email: emailVal }),
+			contentType: "application/json",
+			success: function(res) {
+				if (res.result) {
+					alert("인증번호가 발송되었습니다. 이메일을 확인해주세요.");
+				} else {
+					alert("인증번호 발송에 실패했습니다.");
 				}
-			});
-		});
-
-		$("#checkAuthBtn").click(function() {
-			const emailVal = $("#email").val().trim();
-			const codeVal = $("#emailcode").val().trim();
-
-			if (emailVal === "" || codeVal === "") {
-				alert("이메일과 인증번호를 모두 입력하세요.");
-				return;
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.error('Error Details:', jqXHR, textStatus, errorThrown);
+				alert("서버와 통신 중 오류가 발생했습니다.");
 			}
-
-			$.ajax({
-				type: "POST",
-				url: "email-auth-check",
-				data: JSON.stringify({ email: emailVal, auth_code: codeVal }),
-				contentType: "application/json",
-				success: function(res) {
-					if (res.result) {
-						alert("이메일 인증 성공!");
-						isEmailVerified = true;
-					} else {
-						alert("인증번호가 맞지 않거나 만료되었습니다.");
-						isEmailVerified = false;
-					}
-				},
-				error: function() {
-					alert("서버와 통신 중 오류가 발생했습니다.");
-				}
-			});
 		});
+	});
+
+	$("#checkAuthBtn").click(function() {
+		console.log("이메일 인증버튼 클릭됨");
+
+		const emailVal = $("#email").val().trim();
+		const codeVal = $("#emailcode").val().trim();
+
+		if (emailVal === "" || codeVal === "") {
+			alert("이메일과 인증번호를 모두 입력하세요.");
+			return;
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "email-auth-check",
+			data: JSON.stringify({ email: emailVal, auth_code: codeVal }),
+			contentType: "application/json",
+			success: function(res) {
+				if (res.result) {
+					alert("이메일 인증 성공!");
+					isEmailVerified = true;
+				} else {
+					alert("인증번호가 맞지 않거나 만료되었습니다.");
+					isEmailVerified = false;
+				}
+			},
+			error: function() {
+				alert("서버와 통신 중 오류가 발생했습니다.");
+			}
+		});
+	});
 
 
 
@@ -366,10 +417,7 @@ $(document).ready(function() {
 			contentType: "application/json; charset=UTF-8",
 			success: function(result) {
 				if (result.match_cnt == "1") {
-					debugger;
 
-					console.log(result.data)
-					// 사업자 정보가 1건 조회된 경우
 					var data = result.data[0];
 
 					// 예시 필드명 - 실제 API 문서 확인 필수

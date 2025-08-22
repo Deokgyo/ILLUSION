@@ -4,11 +4,14 @@
 <%@ page session="false"%>
 <html>
 <head>
-
+	<meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
 <%-- js 파일 --%>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/home/register.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/commonJs.js"></script>
 <script>
 	// JSP에서 서버 contextPath를 자바스크립트 변수에 담아 클라이언트가 사용할 수 있도록 함
 	var contextPath = '${pageContext.request.contextPath}';
@@ -166,8 +169,8 @@
 				<div class="email-flex">
 					<input type="text" id="emailcode" maxlength="6"
 						placeholder="인증번호를 입력하세요">
-					<button type="button" class="btn-yellow1" id="checkAuthBtn">인증
-						번호 확인</button>
+					<button type="button" class="btn-yellow1" id="checkAuthBtn">인증번호 확인</button>
+<!-- 					<input type="hidden" id="mail_auth_status" name="mail_auth_status" value="N">	 -->
 				</div>
 			</div>
 

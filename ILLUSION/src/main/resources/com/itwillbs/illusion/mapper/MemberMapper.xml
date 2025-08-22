@@ -5,43 +5,47 @@
 
 <mapper namespace="com.itwillbs.illusion.mapper.MemberMapper">
 	<insert id="insertMember">
-	INSERT INTO member
-			  (
-				member_name
-				,member_id
-				,member_pw
-				,member_email
-				,member_phone
-				,address_num
-				,address_name
-				,member_type
-				,member_status
-				,member_marketing_agreed
-				,gender
-				,resume_birth
-			   )
-		VALUES ( 
-				#{member_name}
-				,#{member_id}
-				,#{member_pw}
-				,#{member_email}
-				,#{member_phone}
-				,#{address_num}
-				,#{address_name}
-				,#{member_type}
-				,#{member_status}
-				,#{member_marketing_agreed}
-				,#{gender}
-				,#{resume_birth}
-				)
+		INSERT INTO member
+					(member_name
+					,member_id
+					,member_pw
+					,member_email
+					,member_phone
+					,address_num
+					,address_name
+					,member_type
+					,member_status
+					,member_marketing_agreed
+					,gender
+					,resume_birth
+					)
+			VALUES  (#{member_name}
+					,#{member_id}
+					,#{member_pw}
+					,#{member_email}
+					,#{member_phone}
+					,#{address_num}
+					,#{address_name}
+					,#{member_type}
+					,#{member_status}
+					,#{member_marketing_agreed}
+					,#{gender}
+					,#{resume_birth}
+					)
+					
 	</insert>
 
+	<select id="isMemberIdDuplicate">
+	 SELECT COUNT(*)
+	   FROM member 
+	   WHERE member_id = #{member_id}
+	</select>
+	
 	<insert id="insertMailAuthInfo">
 		INSERT INTO mail_auth_info
 		VALUES (#{email},
-		#{auth_code})
+				#{auth_code})
 	</insert>
-
 
 	<select id="selectMailAuthInfo">
 		SELECT *
@@ -50,9 +54,9 @@
 	</select>
 
 	<update id="updateMailAuthStatus">
-	UPDATE mail_auth_info
-	SET mail_auth_status = 'Y'
-	WHERE email = #{email}
+		UPDATE member
+		SET mail_auth_status = 'Y'
+		WHERE member_email = #{email}
 	</update>
 
 	<delete id="deleteMailAuthInfo">
@@ -60,20 +64,8 @@
 		WHERE email = #{email}
 	</delete>
 
-	<select id="getMemberInfo">
-		SELECT *
-		FROM MEMBER
-		WHERE id = #{id}
-	</select>
 	
-	
-	
-	<!-- 아이디로 멤버 정보 조회 -->
-	<select id="getMemberById">
-		SELECT member_idx
-		  FROM member
-		 WHERE member_id = #{member_id}
-	</select>
+
 
 </mapper>
 
