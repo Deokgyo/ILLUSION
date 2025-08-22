@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <aside class="sidebar">
     <div class="sidebar-profile-new">
         <div class="sidebar-logo">ILLUSION</div>
@@ -7,12 +8,14 @@
             <div class="profile-image">
                 <a href="#"></a> <img src="${pageContext.request.contextPath}/resources/image/logop.png" alt="프로필 이미지">
             </div>
-            <div class="username">일루션님</div>
+            <div class="username">
+            	TODO
+			</div>
             <div class="profile-actions">
                 <a href="myPage" class="profile-btn">마이페이지</a>
                 <a href="#" class="profile-btn token-btn"> 
                 <i class='far fa-gem' style= "color : var(--main-color)"></i> 10 토큰</a>
-                <a href="#" class="profile-btn">로그아웃</a>
+                <a href="#" class="profile-btn" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
             </div>
         </div>
     </div>

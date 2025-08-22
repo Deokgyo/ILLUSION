@@ -108,7 +108,6 @@ public class CommunityController {
 	}
 	
 	// 커뮤니티 글 작성
-	@PreAuthorize("isAuthenticated()")
 	@PostMapping("boardWrite")
 	public String boardWrite(String content, 
 							 String title, 

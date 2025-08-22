@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,11 @@
     </style>
 </head>
 <body>
+	<sec:authorize access="isAuthenticated()">
+	    <sec:authentication property="principal.username" var="loginId"/>
+	    <script>const loginId = "${loginId}";</script>
+	</sec:authorize>
+	<h1>현재 로그인 사용자 : ${loginId }</h1> 
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
 
     <div class="page-container">
@@ -54,19 +60,20 @@
                 <div class="post-body">${board.board_content }</div>
                 
 				<div class="post-btn">
+				    <div class="post-btn">
 					    <div class="post-actions">
-                        <!-- 작성자 본인일 경우 노출 -->
-                        <a href="communityModify?board_idx=${board.board_idx}" class="btn btn-yellow">수정</a>
-                        <button id="delete_btn" class="btn btn-yellow">삭제</button>
-                    </div>
+					        <c:if test="${board.member_id eq loginId}">
+					            <a href="communityModify?board_idx=${board.board_idx}" class="btn btn-yellow">수정</a>
+					            <button id="delete_btn" class="btn btn-yellow">삭제</button>
+					        </c:if>
+					    </div>
+					</div>
 				</div>
                 <div class="post-footer">
                     <div class="post-meta-info">
-<!--                         <span><i class="fa-regular fa-comment-dots"></i> 3</span> -->
                         <span><i class="fa-regular fa-eye"></i> ${board.board_viewcnt }</span>
                     </div>
                 </div>
-                <!--// 게시글 영역 -->
 
                 <!-- 댓글 영역 -->
                 <form action="cmtWrite" method="POST">
@@ -85,9 +92,7 @@
 	                                <div class="author-name"></div>
 	                                <p class="comment-text"></p>
 	                            </div>
-	                            <div class="comment-actions">
-									<button class="delete-comment-btn">×</button>
-								</div>
+	                            <div class="comment-actions"></div>
 	                        </div>
 	                    </div>
 	                </div>
@@ -110,6 +115,9 @@
     <footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/community/communityDetail.js"></script> 
+    <script src="${pageContext.request.contextPath}/resources/js/community/communityDetail.js"></script>
+    <sec:authorize access="!isAuthenticated()">
+	    <script>const loginId = null;</script>
+	</sec:authorize>
 </body>
 </html>
