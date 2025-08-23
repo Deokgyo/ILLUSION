@@ -24,7 +24,7 @@
         <p>결제페이지로 이동하시겠습니까?</p>
         <div class="modal-buttons">
             <button class="btn btn-yellow btn-no">아니요</button>
-            <a href="/payment" class="btn btn-yellow">네</a>
+            <a href="tokenpay" class="btn btn-yellow">네</a>
         </div>
     </div>
 </div>

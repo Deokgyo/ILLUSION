@@ -25,7 +25,6 @@ public class CommentApiController {
 	BoardService service;
 	
 	// 커뮤니티 게시글 댓글 작성
-	@PreAuthorize("isAuthenticated()")
 	@PostMapping
 	public void cmtWrite(
 						 @PathVariable("board_idx") String board_idx

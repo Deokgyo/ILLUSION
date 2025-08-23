@@ -7,66 +7,93 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler; 
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
+import com.itwillbs.illusion.service.MemberService;
+import com.itwillbs.illusion.vo.MemberVO;
+
 @Component("customLoginSuccessHandler")
-public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
+public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler { 
+
+    @Autowired
+    private MemberService service; 
+	
+    // Spring Security가 '원래 가려던 주소'를 저장하는 객체
+    private RequestCache requestCache = new HttpSessionRequestCache();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
         
-        // --- 1. '아이디 저장' 쿠키 처리 로직 (기존과 동일) ---
+        // --- 1. 부가 작업 수행 ---
         handleRememberIdCookie(request, response, authentication);
+        saveUserToSession(request, authentication);
         
-        // --- 2. 역할(Role)에 따라 리다이렉트할 URL 결정 ---
-        String targetUrl = determineTargetUrl(authentication);
+        // Spring Security가 저장해 둔 '원래 가려던 주소'가 있는지 확인
+        SavedRequest savedRequest = requestCache.getRequest(request, response);
         
-        // 3. 결정된 URL로 리다이렉트
-        // sendRedirect는 컨텍스트 경로를 자동으로 처리하지 않으므로, 직접 붙여줘야 합니다.
-        response.sendRedirect(request.getContextPath() + targetUrl);
-    }
-    
-    // 아이디 저장 여부에 따라 쿠키 생성 또는 삭제 하는 메서드
-    private void handleRememberIdCookie(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        String rememberId = request.getParameter("rememberId");
-        String member_id = authentication.getName();
-        
-        Cookie idCookie = new Cookie("rememberId", member_id);
-        idCookie.setPath(request.getContextPath() + "/"); // 컨텍스트 경로를 포함한 루트로 설정
-        
-        if (rememberId != null && rememberId.equals("true")) {
-            // '아이디 저장'을 체크한 경우
-            idCookie.setMaxAge(60 * 60 * 24 * 30); // 30일
+        if (savedRequest != null) {
+            // '원래 가려던 주소'가 있다면, 그곳으로 바로 보내줍니다.
+            String targetUrl = savedRequest.getRedirectUrl();
+            getRedirectStrategy().sendRedirect(request, response, targetUrl);
         } else {
-            // '아이디 저장'을 체크하지 않은 경우 (또는 기존 쿠키를 삭제해야 하는 경우)
-            idCookie.setMaxAge(0); // 즉시 삭제
+            // '원래 가려던 주소'가 없다면 (직접 로그인 페이지로 온 경우),
+            // 역할별 기본 페이지로 보내줍니다.
+            String targetUrl = determineTargetUrl(authentication);
+            getRedirectStrategy().sendRedirect(request, response, targetUrl);
         }
-        
-        response.addCookie(idCookie);
     }
     
-    // 사용자 타입 확인 후 이동할 url 정하는 메서드 
+    /**
+     * 역할(Role)에 따라 '기본' 이동 URL을 결정하는 메소드
+     */
     protected String determineTargetUrl(Authentication authentication) {
-        // 현재 로그인한 사용자의 모든 역할(Role) 정보를 가져옵니다.
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         for (GrantedAuthority grantedAuthority : authorities) {
             String authorityName = grantedAuthority.getAuthority();
             
-            // 역할 이름에 따라 다른 URL을 반환합니다.
-            // (security-context.xml의 CONCAT('ROLE_', member_type) 결과와 일치해야 함)
             if (authorityName.equals("ROLE_MEM001")) { 
                 return "/adminMain"; 
             } else if (authorityName.equals("ROLE_MEM003")) { 
-                return "/recruiterMainLogin"; 
+                return "/recruiterMain"; // recruiterMainLogin 대신 recruiterMain으로 가정
             }
         }
 
-        return "/";
+        return "/"; // 일반 사용자의 기본 URL
+    }
+    
+    // --- (이하 헬퍼 메소드들) ---
+
+    private void handleRememberIdCookie(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        String rememberId = request.getParameter("rememberId");
+        String member_id = authentication.getName();
+        
+        Cookie idCookie = new Cookie("rememberId", member_id);
+        idCookie.setPath(request.getContextPath() + "/");
+        
+        if (rememberId != null && rememberId.equals("true")) {
+            idCookie.setMaxAge(60 * 60 * 24 * 30);
+        } else {
+            idCookie.setMaxAge(0);
+        }
+        response.addCookie(idCookie);
+    }
+    
+    private void saveUserToSession(HttpServletRequest request, Authentication authentication) {
+        String member_id = authentication.getName();
+        // 서비스의 메소드 이름이 getMemberInfoById라고 하셔서 그대로 사용합니다.
+        MemberVO loginUser = service.getMemberInfoById(member_id);
+        HttpSession session = request.getSession();
+        session.setAttribute("loginUser", loginUser);
     }
 }

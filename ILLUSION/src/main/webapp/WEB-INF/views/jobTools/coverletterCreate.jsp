@@ -24,6 +24,9 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/inc/top.jsp" />
+     <c:if test="${not empty sessionScope.loginUser}">
+        <input type="hidden" id="currentUserToken" value="${sessionScope.loginUser.token}">
+    </c:if>
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">

@@ -1,7 +1,7 @@
 $(function() {
 
 	// ------- 변수 --------
-	const board_idx = $('#board_idx').val();      
+//	const board_idx = $('#board_idx').val();      
 	
 	// ------ 초기실행 ---------
 	getCmtList(); // 초기 화면에 댓글 불러와서 랜더링 작업
@@ -18,17 +18,22 @@ $(function() {
 	// ----- functions ---------
     	
 	function cmtSubmit(e) {
-		e.preventDefault();
-		
-        const commentText = $('#cmt_textarea').val().trim();
-        if (!commentText) {
-            alert("댓글을 입력하세요.");
-            return;
-        }
-        
-        cmtWrite();
-        $('#cmt_textarea').val('');
-    }
+	    e.preventDefault();
+	
+	    if (!loginId) { // 비로그인 상태
+	        alert("로그인 후 댓글을 작성할 수 있습니다.");
+	        return;
+	    }
+	
+	    const commentText = $('#cmt_textarea').val().trim();
+	    if (!commentText) {
+	        alert("댓글을 입력하세요.");
+	        return;
+	    }
+	    
+	    cmtWrite();
+	    $('#cmt_textarea').val('');
+	}
 	
 	// 댓글 작성 및 조회    
     function cmtWrite() {
@@ -62,7 +67,7 @@ $(function() {
 				updateCommentCount(res.length);
             },
             error: function(xhr, textStatus, errorThrown) {
-                alert('댓글 등록 중 오류가 발생했습니다.');
+                alert('댓글 조회 중 오류가 발생했습니다.');
             }
         });
 	}

@@ -28,13 +28,8 @@
     </style>
 </head>
 <body>
-	<sec:authorize access="isAuthenticated()">
-	    <sec:authentication property="principal.username" var="loginId"/>
-	    <script>const loginId = "${loginId}";</script>
-	</sec:authorize>
-	<h1>현재 로그인 사용자 : ${loginId }</h1> 
+	<c:set var="loginUser" value="${sessionScope.loginUser}" />
     <header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
-
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
@@ -62,7 +57,7 @@
 				<div class="post-btn">
 				    <div class="post-btn">
 					    <div class="post-actions">
-					        <c:if test="${board.member_id eq loginId}">
+					        <c:if test="${loginUser.member_id eq board.member_id}">
 					            <a href="communityModify?board_idx=${board.board_idx}" class="btn btn-yellow">수정</a>
 					            <button id="delete_btn" class="btn btn-yellow">삭제</button>
 					        </c:if>
@@ -76,27 +71,35 @@
                 </div>
 
                 <!-- 댓글 영역 -->
-                <form action="cmtWrite" method="POST">
-	                <div class="comment-section">	
-	                    <div class="comment-header" id="cmt_count"></div>
-	                    <div class="comment-form">
-	                    	<input type="hidden" id="board_idx" name="board_idx" value="${param.board_idx }">
-	                        <textarea id="cmt_textarea" name="comment" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
-	                        <button type="submit" id="cmt_regist" class="btn btn-yellow">등록</button>
-	                    </div>
-	                    
-	                    <div class="comment-list">
-	                        <div class="comment-item">
-	                            <div class="comment-author-profile"><i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i></div>
-	                            <div class="comment-content">
-	                                <div class="author-name"></div>
-	                                <p class="comment-text"></p>
-	                            </div>
-	                            <div class="comment-actions"></div>
-	                        </div>
-	                    </div>
-	                </div>
-                </form>
+				<div class="comment-section">	
+				    <div class="comment-header" id="cmt_count"></div>
+				    
+				    <!-- 로그인 사용자만 댓글 작성 가능 -->
+				    
+				    <c:choose>
+				    	<c:when test="${not empty loginUser}">
+				    		<form action="cmtWrite" method="POST" id="cmt_form">
+					            <div class="comment-form">
+					            	<input type="hidden" id="board_idx" name="board_idx" value="${param.board_idx }">
+					                <textarea id="cmt_textarea" name="comment" class="form-control" placeholder="댓글을 입력해 주세요"></textarea>
+					                <button type="submit" id="cmt_regist" class="btn btn-yellow">등록</button>
+					            </div>
+					        </form>	
+				    	</c:when>
+				    	<c:otherwise>
+				    		<form action="cmtWrite" method="POST" id="cmt_form">
+				            <div class="comment-form">
+				            	<input type="hidden" id="board_idx" name="board_idx" value="${param.board_idx }">
+				                <textarea id="cmt_textarea" name="comment" class="form-control" placeholder="로그인 후 댓글 작성 가능"></textarea>
+				            </div>
+				        </form>
+				    	</c:otherwise>
+				    </c:choose>
+				    
+				    
+				    <!-- 댓글 리스트 -->
+				    <div class="comment-list"></div>
+				</div>
 
                 <!-- 페이지네이션 -->
                 <nav class="pagination">
@@ -116,8 +119,9 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/community/communityDetail.js"></script>
-    <sec:authorize access="!isAuthenticated()">
-	    <script>const loginId = null;</script>
-	</sec:authorize>
+    <script>
+    	const board_idx = "${param.board_idx}";
+	    const loginId = "${not empty loginUser ? loginUser.member_id : ''}";
+	</script>
 </body>
 </html>
