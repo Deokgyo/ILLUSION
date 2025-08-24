@@ -188,7 +188,7 @@ $(function() {
 	                console.log('AJAX 요청 성공. 페이지 이동합니다.');
 	                window.location.href = res.redirectUrl;
 	            } else {
-	                alert('자기소개서 생성에 실패했습니다.');
+	                alert('자기소개서 생성에 실패했습니다.' + res.message);
 	            }
 	        },
 	        error: function(xhr, status, error) {

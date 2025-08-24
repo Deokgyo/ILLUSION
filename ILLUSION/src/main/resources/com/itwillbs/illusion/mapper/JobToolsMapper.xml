@@ -105,10 +105,11 @@
 	</select>
 	
 	<!-- 회원 토큰 수 차감 -->
-	<update id="deductMemberToken">
+	<update id="deductToken">
 		UPDATE member
 		   SET token = token - #{tokenAmount}
 		 WHERE member_idx = #{member_idx}
+		   AND token >= #{tokenAmount}  
 	</update>
 	
 </mapper>

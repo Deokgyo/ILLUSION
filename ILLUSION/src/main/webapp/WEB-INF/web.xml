@@ -37,6 +37,9 @@
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
+	<session-config>
+        <session-timeout>30</session-timeout> <!-- 60분 유지 -->
+    </session-config>
 
 	<!-- Processes application requests -->
 	<servlet>

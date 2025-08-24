@@ -21,7 +21,7 @@
 
         <intercept-url pattern="/resources/**" access="permitAll" /> 
         <intercept-url pattern="/" access="permitAll" />           <!-- 메인 페이지는 모두 허용 -->
-        <intercept-url pattern="/login" access="permitAll" />
+<!--         <intercept-url pattern="/login" access="permitAll" /> -->
 		<intercept-url pattern="/login" access="isAnonymous()" />
         <intercept-url pattern="/adminLogin" access="permitAll" />        
         <intercept-url pattern="/register" access="permitAll" />
@@ -41,7 +41,7 @@
         <intercept-url pattern="/communityDetail**" access="permitAll" />
         <intercept-url pattern="/api/boards/**/comments" access="permitAll" method="GET" />
         <intercept-url pattern="/api/boards/**/comments" access="isAuthenticated()" method="POST" />
-        
+        <intercept-url pattern="/api/codes**" access="permitAll" />
         
 
 	    <intercept-url pattern="/adminMain" access="hasRole('MEM001')" /> 

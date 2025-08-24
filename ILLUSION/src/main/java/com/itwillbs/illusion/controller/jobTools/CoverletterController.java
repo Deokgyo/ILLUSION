@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.illusion.service.GeminiService;
 import com.itwillbs.illusion.service.JobToolsService;
-import com.itwillbs.illusion.util.SecurityUtil; 
+import com.itwillbs.illusion.util.SecurityUtil;
+import com.itwillbs.illusion.vo.MemberVO; 
 
 @Controller
 public class CoverletterController {
@@ -78,7 +81,7 @@ public class CoverletterController {
 	// 새로운 자기소개서를 생성하기
 	@PostMapping("coverletterGenerate")
     @ResponseBody
-	public Map<String, Object> coverletterGenerate(@RequestParam Map<String, String> params) {
+	public Map<String, Object> coverletterGenerate(@RequestParam Map<String, String> params, HttpSession session) {
 	    String prompt = createGenerationPrompt(params);
 	    String aiResult = geminiService.callGeminiApi(prompt);
 	    
@@ -92,12 +95,35 @@ public class CoverletterController {
 	    coverletterMap.put("generated_char_count", aiResult.length());
 	    coverletterMap.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
 	    
-	    int generatedClIdx = service.saveCoverletter(coverletterMap);
-	    
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("success", true);
-	    response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
-	    return response;
+//	    int generatedClIdx = service.saveCoverletter(coverletterMap);
+//	    
+//	    Map<String, Object> response = new HashMap<>();
+//	    response.put("success", true);
+//	    response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
+//	    return response;
+	    try {
+	        int requiredTokens = 30; 
+	        int generatedClIdx = service.useTokenForJobTools(coverletterMap, requiredTokens);
+	        
+            MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+            if (loginUser != null) {
+                loginUser.setToken(loginUser.getToken() - requiredTokens);
+                session.setAttribute("loginUser", loginUser);
+            }
+	        
+	        // 성공 응답 반환
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("success", true);
+	        response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
+	        return response;
+	        
+	    } catch (RuntimeException e) {
+	        // 서비스에서 "토큰 부족" 예외가 발생했을 때 처리
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("success", false);
+	        response.put("message", e.getMessage()); 
+	        return response;
+	    }
 	}
 	
 	
@@ -107,7 +133,8 @@ public class CoverletterController {
     public Map<String, Object> refineNewCoverletter(
             @RequestParam String cl_input_method,
             @RequestParam(required = false) MultipartFile uploadedFile,
-            @RequestParam(required = false) String coverletterText) {
+            @RequestParam(required = false) String coverletterText,
+            HttpSession session) {
 
         String originalContent = "";
         try {
@@ -138,12 +165,36 @@ public class CoverletterController {
         coverletterMap.put("generated_char_count", charCount);
         coverletterMap.put("generated_char_count_no_space", charCountNoSpace);
         
-        int generatedClIdx = service.saveCoverletter(coverletterMap);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("cl_idx", generatedClIdx);
-        return response;
+//        int generatedClIdx = service.saveCoverletter(coverletterMap);
+//
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("success", true);
+//        response.put("cl_idx", generatedClIdx);
+//        return response;
+        
+        try {
+	        int requiredTokens = 30; 
+	        int generatedClIdx = service.useTokenForJobTools(coverletterMap, requiredTokens);
+	        
+            MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+            if (loginUser != null) {
+                loginUser.setToken(loginUser.getToken() - requiredTokens);
+                session.setAttribute("loginUser", loginUser);
+            }
+	        
+	        // 성공 응답 반환
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("success", true);
+	        response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
+	        return response;
+	        
+	    } catch (RuntimeException e) {
+	        // 서비스에서 "토큰 부족" 예외가 발생했을 때 처리
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("success", false);
+	        response.put("message", e.getMessage()); 
+	        return response;
+	    }
     }
 	
 	/**
@@ -151,7 +202,7 @@ public class CoverletterController {
 	 */
 	@PostMapping("refineSavedCoverletter")
 	@ResponseBody
-	public Map<String, Object> refineSavedCoverletter(@RequestParam int cl_idx) {
+	public Map<String, Object> refineSavedCoverletter(@RequestParam int cl_idx, HttpSession session) {
 	    
 	    Map<String, Object> originalCoverletter = service.getCoverletterById(cl_idx);
 	    int writer_idx = (Integer) originalCoverletter.get("member_idx");
@@ -180,12 +231,35 @@ public class CoverletterController {
 	    newCoverletterMap.put("generated_char_count", charCount);
 	    newCoverletterMap.put("generated_char_count_no_space", charCountNoSpace);
 	    
-	    int generatedClIdx = service.saveCoverletter(newCoverletterMap);
-	    
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("success", true);
-	    response.put("cl_idx", generatedClIdx); 
-	    return response;
+//	    int generatedClIdx = service.saveCoverletter(newCoverletterMap);
+//	    
+//	    Map<String, Object> response = new HashMap<>();
+//	    response.put("success", true);
+//	    response.put("cl_idx", generatedClIdx); 
+//	    return response;
+	    try {
+	        int requiredTokens = 30; 
+	        int generatedClIdx = service.useTokenForJobTools(newCoverletterMap, requiredTokens);
+	        
+            MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+            if (loginUser != null) {
+                loginUser.setToken(loginUser.getToken() - requiredTokens);
+                session.setAttribute("loginUser", loginUser);
+            }
+	        
+	        // 성공 응답 반환
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("success", true);
+	        response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
+	        return response;
+	        
+	    } catch (RuntimeException e) {
+	        // 서비스에서 "토큰 부족" 예외가 발생했을 때 처리
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("success", false);
+	        response.put("message", e.getMessage()); 
+	        return response;
+	    }
 	}
 
 	/**

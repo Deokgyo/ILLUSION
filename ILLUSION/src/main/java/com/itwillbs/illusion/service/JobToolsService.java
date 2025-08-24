@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.illusion.mapper.JobToolsMapper;
+import com.itwillbs.illusion.util.SecurityUtil;
 
 @Service
 public class JobToolsService {
 	
 	@Autowired
 	JobToolsMapper mapper;
+    
+    @Autowired
+    private GeminiService geminiService;
 	
 	// 직무 대분류 가져오기 
 	public List<Map<String, String>> getOccupation() {
@@ -37,21 +41,49 @@ public class JobToolsService {
 	
 	// 유저 토큰 수 차감
 	@Transactional
-	public boolean useTokenForJobTools(int member_idx, int tokenAmount) {
-		Integer currentToken = mapper.getMemberToken(member_idx);
-		
-		if (currentToken != null && currentToken >= tokenAmount) {
-			mapper.deductMemberToken(member_idx, tokenAmount);
-			return true;
-		}
-		return false;
+	public int useTokenForJobTools(Map<String, Object> coverletterMap, int requiredTokens) {
+	    int member_idx = (int) coverletterMap.get("member_idx");
+	    
+	    int updateCount = mapper.deductToken(member_idx, requiredTokens);
+	    
+	    if (updateCount == 0) {
+	        throw new RuntimeException("토큰이 부족하여 작업을 완료할 수 없습니다.");
+	    }
+	    
+	    
+	    mapper.saveCoverletter(coverletterMap);
+	    
+	    Number generatedId = (Number) coverletterMap.get("cl_idx");
+
+	    if (generatedId == null) {
+	        throw new RuntimeException("자소서 저장 후 PK를 가져오는 데 실패했습니다.");
+	    }
+	    
+	    return generatedId.intValue();
 	}
+	
+	@Transactional
+	public String useTokenForChatbot(String message, int requiredTokens) {
+	    int member_idx = SecurityUtil.getLoginUserIndex();
+	    if (member_idx == -1) {
+	        throw new RuntimeException("로그인이 필요합니다.");
+	    }
+	    
+	    int updateCount = mapper.deductToken(member_idx, requiredTokens);
+	    
+	    if (updateCount == 0) {
+	        throw new RuntimeException("토큰이 부족하여 챗봇을 이용할 수 없습니다.");
+	    }
+	    
+	    return geminiService.callGeminiApi(message);
+	}
+	    
 	
 	// 자소서 생성 결과 저장
 	public int saveCoverletter(Map<String, Object> map) {
 		mapper.saveCoverletter(map);
 		Number generatedId = (Number) map.get("cl_idx");
-		return generatedId.intValue();
+	    return generatedId.intValue();
 	}
 	
 	// 자소서 정보 가져오기

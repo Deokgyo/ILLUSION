@@ -27,6 +27,6 @@ public interface JobToolsMapper {
 
 	public Integer getMemberToken(int member_idx); // 유저 토큰 수 가져오기
 	
-	public int deductMemberToken(@Param("member_idx") int member_idx, @Param("tokenAmount") int tokenAmount); // 회원 토큰 차감하기
+	public int deductToken(@Param("member_idx") int member_idx, @Param("tokenAmount") int tokenAmount); // 회원 토큰 차감하기
 	
 }
