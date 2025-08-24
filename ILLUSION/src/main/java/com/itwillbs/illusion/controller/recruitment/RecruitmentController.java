@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.service.CommonCodeService;
+import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.service.RecruitService;
+import com.itwillbs.illusion.service.ScrapService;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.CommonCodeVO;
+import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.PageInfo;
 import com.itwillbs.illusion.vo.RecruitFilterVO;
 import com.itwillbs.illusion.vo.RecruitVO;
@@ -27,7 +30,13 @@ public class RecruitmentController {
 	RecruitService service;
 	
 	@Autowired
-	CommonCodeService commonCodeService; 
+	CommonCodeService commonCodeService;
+	
+	@Autowired
+	MemberService memberService;
+	
+	@Autowired
+	ScrapService scrapService;
 	
 	// 채용정보 페이지 이동
 	@GetMapping("recruitmentInfo")
@@ -92,6 +101,20 @@ public class RecruitmentController {
 	    // 공고 내용 가져오기 
 	    RecruitVO recruit = service.selectRecruitIndex(recruit_idx);
 	    model.addAttribute("recruit", recruit);
+	    
+	    
+	    // 사용자 스크랩 상태 확인 (기본값 false)
+	    boolean isScrapped = false;
+	    if (principal != null) {
+	        // 로그인 상태이면, 현재 사용자가 이 공고를 스크랩했는지 확인
+	        String memberId = principal.getName();
+	        MemberVO member = memberService.getMemberInfoById(memberId);
+	        if (member != null) {
+	        	isScrapped = scrapService.isScrapped(member.getMember_idx(), recruit_idx);
+	        }
+	    }
+	    
+	    model.addAttribute("isScrapped", isScrapped);
 
 	    int member_idx = -1;
 	    String member_id = "";
@@ -123,6 +146,8 @@ public class RecruitmentController {
 
 	    return "recruitment/recruitmentDetail";
 	}
+	
+	
 	
 	@GetMapping("applyModal")
 	public String applyModal(int recruit_idx, Model model,Principal principal) {
