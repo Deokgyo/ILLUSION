@@ -13,27 +13,30 @@
     background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* 세로 중앙 */
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
 .modal-overlay:not(.hidden) {
     opacity: 1;
     visibility: visible;
 }
 
-/* 모달 컨텐츠 영역 */
+/* 모달 컨텐츠 */
 .modal-content {
-    background-color: #ffffff; /* NOTE: 컴포넌트 배경색 변수 사용 권장 */
+    background-color: #ffffff;
     padding: 35px 40px;
     border-radius: 16px;
     box-shadow: 0 5px 25px rgba(0,0,0,0.15);
     width: 100%;
     max-width: 550px;
+    max-height: 90vh;       /* 화면 높이 기준 */
+     overflow: auto;        /* 스크롤 없이 전체 표시 */ 
     position: relative;
-    transform: translateY(20px);
+    transform-origin: center center; /* 축소 시 중앙 기준 */
     transition: transform 0.3s ease;
 }
 .modal-overlay:not(.hidden) .modal-content {

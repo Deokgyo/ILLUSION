@@ -38,8 +38,14 @@ public class RecruitService {
 		mapper.increaseViewCount(recruit_idx);
 	}
 	
-	public List<ApplyVO> applyModal(int recruit_idx){
-		return mapper.applyModal(recruit_idx);
+	// getClList
+	public List<ApplyVO> getClList(int member_idx){
+		return mapper.getClList(member_idx);
+	}
+	
+	//getResumeList
+	public List<ApplyVO> getResumeList(int member_idx){
+		return mapper.getResumeList(member_idx);
 	}
 	
 	public int insertApply(RecruitVO recruit) {

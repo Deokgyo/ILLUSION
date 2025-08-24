@@ -202,23 +202,17 @@
 		 WHERE recruit_idx = #{recruit_idx}
 	</update>
 	
-	<select id="applyModal" resultType="com.itwillbs.illusion.vo.ApplyVO">
-	SELECT
-		a.apply_idx,
-	    r.resume_idx,
-	    c.cl_idx,
-		r.resume_title,
-	    c.cl_title,
-	    a.apply_files_path,
-	    a.member_idx
-	FROM apply a
-		LEFT JOIN resume r ON a.resume_idx = r.resume_idx
-		LEFT JOIN cover_letter c ON a.cl_idx = c.cl_idx
-		LEFT JOIN member m ON m.member_idx = a.member_idx
-	WHERE 
-		a.recruit_idx = 1
-	AND 
-		a.member_idx = 1;
+	<select id="getClList" resultType="com.itwillbs.illusion.vo.ApplyVO">
+		SELECT c.cl_idx
+		     , c.cl_title 
+		  FROM cover_letter c 
+		 WHERE c.member_idx = #{member_idx};
+	</select>
+	<select id="getResumeList" resultType="com.itwillbs.illusion.vo.ApplyVO">
+		SELECT r.resume_idx
+		     , r.resume_title
+		  FROM resume r
+		 WHERE r.member_idx = #{member_idx};
 	</select>
 	
 	<insert id="insertApply">

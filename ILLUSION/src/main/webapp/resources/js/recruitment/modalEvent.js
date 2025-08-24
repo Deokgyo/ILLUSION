@@ -39,4 +39,38 @@ $(function() {
             $modal.find('.file-name-display').text('첨부된 파일: ' + fileName).show();
         }
     });
+    
+    // 자기소개서 부분 
+    $('input[name="cl_idx"]').click(function(){
+        // 이미 체크된 상태에서 클릭하면 해제
+        if($(this).data('waschecked')) {
+            $(this).prop('checked', false);
+            $(this).data('waschecked', false);
+        } else {
+            // 다른 체크박스 해제
+            $('input[name="cl_idx"]').not(this).prop('checked', false).data('waschecked', false);
+            $(this).data('waschecked', true);
+        }
+    });
+
+    // 초기 상태 모두 false
+    $('input[name="cl_idx"]').data('waschecked', false);
+    
+    function resizeModal() {
+		 let $modal = $('.modal-content');
+	    let windowWidth = $(window).width();
+	    let windowHeight = $(window).height();
+	
+	    let modalPadding = 75; // 상하 패딩 합
+	    let baseWidth = 550;
+	    let baseHeight = $modal.outerHeight() + modalPadding;
+	
+	    let scale = Math.min(windowWidth / baseWidth, windowHeight / baseHeight, 1);
+	
+	    $modal.css('transform', 'scale(' + scale + ')');
+	}
+
+	$(window).on('resize load', resizeModal);
+    
+    
 });

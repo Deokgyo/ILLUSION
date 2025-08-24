@@ -42,7 +42,7 @@
 	                </div>
 	                <div class="action-buttons">
 	                    <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
-	                    <a href="#" class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></a>
+	                    <button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
 	                    <c:if test="${isAuthor}">
 	                    	<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow" id="job-apply-btn">수정하기<i class="fa-solid fa-paper-plane"></i></a>
 	                    </c:if>

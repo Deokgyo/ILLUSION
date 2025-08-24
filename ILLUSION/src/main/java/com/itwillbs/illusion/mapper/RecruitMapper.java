@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.RecruitFilterVO;
@@ -21,7 +22,8 @@ public interface RecruitMapper {
 	
 	public void increaseViewCount(int board_idx); // 조회수 증가
 	
-	public List<ApplyVO> applyModal(int recruit_idx);
+	public List<ApplyVO> getClList(@Param("member_idx") int member_idx);
+	public List<ApplyVO> getResumeList(@Param("member_idx") int member_idx);
 	
 	public int insertApply(RecruitVO recruit);
 	

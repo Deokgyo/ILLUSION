@@ -85,31 +85,48 @@ public class RecruitmentController {
 	
 	// 채용공고 상세페이지 이동
 	@GetMapping("recruitmentDetail")
-	public String recruitmentDetail(int recruit_idx, Model model, Principal principal ) {
-		
-		// 조회수 증가 
-		service.increaseViewCount(recruit_idx);
-		
-		RecruitVO recruit = service.selectRecruitIndex(recruit_idx);
-		model.addAttribute("recruit", recruit);
-		
-		List<ApplyVO> apply = service.applyModal(recruit_idx);
-		model.addAttribute("apply", apply);
-		
-		//작성자가 맞는지 확인 용도 (덕교) 
-		String member_id = principal.getName();
-		int member_idx = service.selectMemberIdx(member_id);
-		boolean isAuthor = recruit.getRecruiter_member_idx() == member_idx ;
-		model.addAttribute("isAuthor", isAuthor);
-		
-		return "recruitment/recruitmentDetail";
+	public String recruitmentDetail(int recruit_idx, Model model, Principal principal) {
+	    // 조회수 증가 
+	    service.increaseViewCount(recruit_idx);
+
+	    // 공고 내용 가져오기 
+	    RecruitVO recruit = service.selectRecruitIndex(recruit_idx);
+	    model.addAttribute("recruit", recruit);
+
+	    int member_idx = -1;
+	    String member_id = "";
+
+	    if (principal != null) {
+	        member_id = principal.getName();
+	        member_idx = service.selectMemberIdx(member_id);
+
+	        // 작성자 여부 판별
+	        boolean isAuthor = recruit.getRecruiter_member_idx() == member_idx;
+	        model.addAttribute("isAuthor", isAuthor);
+	        
+			// 모달에 넘겨줄 정보들
+			List<ApplyVO> clList = service.getClList(member_idx);
+			List<ApplyVO> resumeList = service.getResumeList(member_idx);
+			model.addAttribute("clList", clList);
+			model.addAttribute("resumeList", resumeList);
+			System.out.println("여기에 뭐들어있냐");
+			System.out.println(clList);
+			System.out.println(resumeList);
+	        
+	    } else {
+	        // 비회원 → 작성자 아님
+	        model.addAttribute("isAuthor", false);
+	    }
+
+	    model.addAttribute("memberIdx", member_idx);
+	    model.addAttribute("memberId", member_id);
+
+	    return "recruitment/recruitmentDetail";
 	}
 	
 	@GetMapping("applyModal")
-	public String applyModal(Model model) {
-//		List<ApplyVO> apply = service.applyModal();
-//		model.addAttribute("apply", apply);
-		
+	public String applyModal(int recruit_idx, Model model,Principal principal) {
+
 		return "recruitment/applyModal";
 	}
 	
