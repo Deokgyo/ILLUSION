@@ -49,8 +49,8 @@ $(function() {
                 processData: false,
                 contentType: false,
                 success: function(res) {
-                    if(res.success) {
-                        location.href = 'coverletterResult?cl_idx=' + res.cl_idx;
+                    if(res.success && res.redirectUrl) {
+                        location.href = res.redirectUrl;
                     } else {
                         alert("다듬기 요청 실패: " + (res.message || '알 수 없는 오류'));
                     }
@@ -77,8 +77,8 @@ $(function() {
 	                data: submissionData,
 	                dataType: 'json',
 	                success: function(res) {
-	                    if (res.success) {
-	                        location.href = 'coverletterResult?cl_idx=' + res.cl_idx;
+	                    if (res.success && res.redirectUrl) {
+	                        location.href = res.redirectUrl;
 	                    } else {
 	                        alert("다듬기 요청 실패: " + (res.message || '알 수 없는 오류'));
 	                    }
@@ -96,7 +96,6 @@ $(function() {
 		    }
         }
     }
-
     // ======================================================
     //  Event Handlers
     // ======================================================

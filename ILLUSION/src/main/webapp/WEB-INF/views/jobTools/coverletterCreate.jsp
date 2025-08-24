@@ -96,25 +96,28 @@
 					
 					    <div id="experience-fields" class="mt-3">
 					        
-					        <div class="dropdown-wrapper">
-					            <div id="experience-level-select" class="form-control dropdown-select">
-					                <span>경력 기간 선택</span>
-					                <i class="fa-solid fa-chevron-down"></i>
-					            </div>
-					            <div class="form-dropdown-menu">
-					            
-					            	<c:forEach var="exp" items="${expList}">
-					            		<div class="form-dropdown-item" data-value="${exp.code }">${exp.code_name }</div>
-					            	</c:forEach>
-					            </div>
-					        </div>
-					        <input type="hidden" name="experience" id="experience-level-value">
-					        
-					        <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
-					        <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />
-					        <input type="hidden" name="prevCompany" id="prevCompany">
-							<input type="hidden" name="prevJob" id="prevJob">
-					    </div>
+						    <div class="dropdown-wrapper">
+						        <div id="experience-level-select" class="form-control dropdown-select">
+						            <span>경력 기간 선택</span>
+						            <i class="fa-solid fa-chevron-down"></i>
+						        </div>
+						        <div class="form-dropdown-menu">
+						            <c:forEach var="exp" items="${expList}">
+						                <div class="form-dropdown-item" data-value="${exp.code}">${exp.code_name}</div>
+						            </c:forEach>
+						        </div>
+						    </div>
+						    
+						    <input type="hidden" name="experience_period" id="experience-level-value">
+						    
+						    <input type="text" name="prevCompany" class="form-control mt-2" placeholder="이전 회사명" />
+						    <input type="text" name="prevJob" class="form-control mt-2" placeholder="직책/직무" />
+						
+						    <textarea name="experience" class="form-control mt-2" rows="5"  style="resize: none;"
+						              placeholder="수행했던 프로젝트, 성과, 보유 기술 등 AI가 참고할 핵심 경험과 역량을 구체적으로 작성해주세요."></textarea>
+						    
+						
+						</div>
 					</div>
 
 					<!-- AI 생성 요구사항 섹션 -->

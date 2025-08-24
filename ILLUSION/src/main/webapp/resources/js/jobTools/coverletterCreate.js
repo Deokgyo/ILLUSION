@@ -153,15 +153,14 @@ $(function() {
 	    let prevJob = '';
 	    let experience = ''; // 핵심 경험/역량
 	
+	    // 경력 옵션이 활성화된 경우에만 값을 가져옴
 	    if ($('#experience-toggle .option[data-value="experienced"]').hasClass('active')) {
 	        prevCompany = $('input[name="prevCompany"]:visible').val(); 
-	        prevJob = $('input[name="prevJob"]:visible').val();    
-	        experience = $('#experience-level-select > span').text();
-	        if (experience.includes('선택')) {
-	            experience = '';
-	        }
+	        prevJob = $('input[name="prevJob"]:visible').val();
+	        // JSP에 새로 추가한 textarea에서 값을 가져옵니다.
+	        experience = $('textarea[name="experience"]').val(); 
 	    }
-	
+		
 	    // --- 컨트롤러 파라미터와 일치하는 데이터 객체 ---
 	    const submissionData = {
 	        title: title,
@@ -172,7 +171,8 @@ $(function() {
 	        maxLength: maxLength,
 	        keywords: keywords,
 	        question: question,
-	        experience: experience
+	        experience: experience, // 여기에 상세 경험 내용이 담겨서 전송됩니다.
+	        experience_period: $('input[name="experience_period"]').val()
 	    };
 	
 	    console.log('서버로 전송될 데이터:', submissionData);
@@ -188,11 +188,10 @@ $(function() {
 	                console.log('AJAX 요청 성공. 페이지 이동합니다.');
 	                window.location.href = res.redirectUrl;
 	            } else {
-	                alert('자기소개서 생성에 실패했습니다.' + res.message);
+	                alert('자기소개서 생성에 실패했습니다: ' + (res.message || '알 수 없는 오류'));
 	            }
 	        },
 	        error: function(xhr, status, error) {
-				debugger;
 	            console.error('AJAX 요청 실패:', status, error);
 	            alert('자기소개서 생성 중 오류가 발생했습니다.');
 	        },

@@ -152,6 +152,7 @@ public class CoverletterController {
         }
         
         String prompt = createRefinementPrompt(originalContent);
+        System.out.println(prompt);
         String aiResult = geminiService.callGeminiApi(prompt);
         
         int charCount = aiResult.length();
@@ -285,54 +286,59 @@ public class CoverletterController {
 	// 프롬프트 생성을 위한 헬퍼(Helper) 메소드들
 	// ===================================================================
 
-    private String createGenerationPrompt(Map<String, String> params) {
-        String company = params.getOrDefault("company", "해당 없음");
-        String occupation = params.getOrDefault("occupation", "해당 없음");
-        String question = params.getOrDefault("question", "자유 양식");
-        String prevCompany = params.getOrDefault("prevCompany", "해당 없음");
-        String prevJob = params.getOrDefault("prevJob", "해당 없음");
-        String experience = params.getOrDefault("experience", "해당 없음");
-        String keywords = params.getOrDefault("keywords", "해당 없음");
-        String maxLength = params.getOrDefault("maxLength", "1000");
-        
-        return String.format(
+
+	private String createGenerationPrompt(Map<String, String> params) {
+	    String company = params.getOrDefault("company", "해당 없음");
+	    String occupation = params.getOrDefault("occupation", "해당 없음");
+	    String question = params.getOrDefault("question", "자유 양식");
+	    String prevCompany = params.getOrDefault("prevCompany", "해당 없음");
+	    String prevJob = params.getOrDefault("prevJob", "해당 없음");
+	    String experience = params.getOrDefault("experience", "해당 없음");
+	    String keywords = params.getOrDefault("keywords", "해당 없음");
+	    String maxLength = params.getOrDefault("maxLength", "1000");
+	    String experiencePeriod = params.getOrDefault("experience_period", ""); 
+	
+	    return String.format(
             "너는 대한민국 최고의 채용 컨설턴트이자 자기소개서 작성 전문가야. "
           + "주어진 핵심 정보를 바탕으로, 지원자의 역량이 최대한 돋보이도록 매력적인 자기소개서를 '완성된 하나의 문단'으로 작성해줘.\n\n"
           + "### 작성 조건:\n"
           + "1. **지원 회사:** %s\n"
           + "2. **지원 직무:** %s\n"
           + "3. **자기소개서 문항:** %s\n"
-          + "4. **주요 경력:** %s (%s 직무)\n"
-          + "5. **핵심 경험/역량 (가장 중요):** %s\n"
+          + "4. **주요 경력:** %s에서 %s 직무를 %s 동안 수행함\n"
+          + "5. **핵심 경험/역량:** %s\n"
           + "6. **필수 포함 키워드:** %s\n"
-          + "7. **분량:** 공백 미포함 %s자 이내로 작성\n\n"
+          + "7. **분량:** 공백 미포함 %s자에 최대한 맞춰서 풍부하게 작성\n\n"
           + "### 글쓰기 스타일 가이드:\n"
-          + "- 지원자의 경험과 성과가 지원 직무와 어떻게 연결되는지 논리적으로 서술해줘.\n"
-          + "- 긍정적이고 자신감 있는 어투를 사용하되, 과장되지 않고 진솔하게 작성해줘.\n"
-          + "- 문장은 간결하고 명확하게 작성하고, 맞춤법과 띄어쓰기를 완벽하게 지켜줘.\n"
-          + "- 다른 설명이나 제목 없이, 오직 완성된 자기소개서 본문 내용만 출력해줘.",
-            company, occupation, question, prevCompany, prevJob, experience, keywords, maxLength
-        );
-    }
+          + "- **STAR 기법 활용:** 지원자의 핵심 경험을 서술할 때, '상황(Situation)-과제(Task)-행동(Action)-결과(Result)'가 명확히 드러나도록 구체적이고 논리적으로 작성해줘.\n"
+          + "- **직무 연관성 부각:** 경험과 성과가 지원 직무에 어떻게 기여할 수 있을지 명확하게 연결하여 서술해줘.\n"
+          + "- **전문적인 어투:** 긍정적이고 자신감 있는 어투를 사용하되, 성과를 구체적인 수치나 사실에 기반하여 진솔하게 표현해줘.\n"
+          + "- **가독성:** 문장은 간결하면서도 핵심 내용이 잘 전달되도록 구성하고, 맞춤법과 띄어쓰기를 완벽하게 지켜줘.\n"
+          + "- **출력 형식:** 다른 설명이나 제목 없이, 오직 완성된 자기소개서 본문 내용만 출력해줘.",
+            company, occupation, question, prevCompany, prevJob, experiencePeriod, experience, keywords, maxLength
+	        );
+	    }
     
-    private String createRefinementPrompt(String originalContent) {
-        return String.format(
-            "너는 대한민국 최고의 커리어 코치이자 자기소개서 첨삭 전문가야. "
-          + "아래의 [자소서 원문]을 분석해서, '채용 담당자의 관점'에서 더 매력적으로 보일 수 있도록 수정하고, 구체적인 피드백을 제공해줘.\n\n"
-          + "### 첨삭 지침:\n"
-          + "1. **가독성 향상:** 맞춤법, 띄어쓰기, 문법 오류를 모두 교정하고, 길고 복잡한 문장은 간결하게 다듬어줘.\n"
-          + "2. **논리 강화:** 내용의 흐름(STAR 기법: 상황-과제-행동-결과)이 명확히 드러나도록 문단 구조를 재배치하거나 연결어를 보강해줘.\n"
-          + "3. **성과 부각:** 추상적인 표현(예: '노력했습니다')을 구체적인 성과(예: '매출을 15%% 증대시켰습니다')로 바꿀 수 있도록 제안하거나 수정해줘.\n"
-          + "4. **직무 연관성 강화:** 지원자의 경험이 지원 직무에 필요한 역량과 어떻게 연결되는지 더 명확하게 보여주도록 문장을 개선해줘.\n\n"
-          + "### 출력 형식 (매우 중요!):\n"
-          + "아래의 형식을 반드시 정확하게 지켜서 출력해줘. 각 섹션의 제목을 그대로 사용하고, 다른 부가적인 설명은 절대 추가하지 마.\n"
-          + "---[수정된 자기소개서]---\n"
-          + "(여기에 모든 지침이 반영된, 완벽하게 수정된 자기소개서 전체 내용을 작성)\n\n"
-          + "---[핵심 피드백]---\n"
-          + "(여기에 가장 중요하게 개선된 점 3가지에 대해, 각 항목을 '-'로 시작하는 목록 형태로 간결하게 요약해서 설명)\n\n"
-          + "### 자소서 원문:\n"
-          + "%s",
-            originalContent
-        );
-    }
+	private String createRefinementPrompt(String originalContent) {
+	    return String.format(
+	        "너는 대한민국 최고의 커리어 코치이자 자기소개서 첨삭 전문가야. "
+	      + "아래의 [자소서 원문]을 '채용 담당자의 관점'에서 깊이 있게 분석하고, 지원자의 역량이 극대화되도록 수정 및 보완한 뒤 구체적인 피드백을 제공해줘.\n\n"
+	      + "### 첨삭 지침:\n"
+	      + "1. **내용 보강 및 가독성 향상:** 맞춤법, 띄어쓰기, 문법 오류를 교정하고, 길고 복잡한 문장은 간결하게 다듬어줘. 만약 내용이 부족하다면, 직무 역량을 어필할 수 있는 방향으로 내용을 더 풍부하게 보강해줘.\n"
+	      + "2. **논리 구조 강화 (STAR 기법):** 경험 서술의 흐름이 '상황(S)-과제(T)-행동(A)-결과(R)'에 따라 명확히 드러나도록 문단 구조를 재배치하거나 연결어를 보강해줘.\n"
+	      + "3. **성과 부각 및 수치화:** '노력했다', '기여했다' 같은 추상적인 표현을 '매출 15%% 증대', '프로세스 3일 단축' 등 구체적이고 측정 가능한 성과로 바꾸어 신뢰도를 높여줘.\n"
+	      + "4. **직무 연관성 강화:** 지원자의 경험과 역량이 지원 직무에 정확히 어떻게 기여할 수 있는지 직접적이고 명확하게 연결하여 문장을 개선해줘.\n\n"
+	      + "### 출력 형식 (매우 중요!):\n"
+	      + "아래의 형식을 반드시 정확하게 지켜서 출력해줘. 각 섹션의 제목을 그대로 사용하고, 다른 부가적인 설명은 절대 추가하지 마.\n"
+	      + "---[수정된 자기소개서]---\n"
+	      + "(여기에 모든 지침이 반영되어, 내용까지 완벽하게 보강된 자기소개서 전체 내용을 작성)\n\n"
+	      + "---[핵심 피드백]---\n"
+	      + "1. **핵심 성과:** (가장 눈에 띄게 개선된 성과 표현에 대한 피드백과 수정 방향 제시)\n"
+	      + "2. **문장 구조:** (논리적 흐름이나 가독성 측면에서 가장 효과적으로 개선된 부분에 대한 피드백과 수정 방향 제시)\n"
+	      + "3. **직무 적합성:** (지원 직무와의 연결성이 어떻게 강화되었는지에 대한 피드백과 수정 방향 제시)\n\n"
+	      + "### 자소서 원문:\n"
+	      + "%s",
+	        originalContent
+	    );
+	}
 }
