@@ -10,7 +10,7 @@ import com.itwillbs.illusion.vo.MemberVO;
 @Mapper
 public interface MemberMapper {
 	public int checkIdCount(String member_id);
-	public int checkId(String id);
+	public int checkId(String member_id);
 	public int insertMember(MemberVO member);
 	// 메일 인증 등록 및 수정
 	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo);

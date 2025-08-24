@@ -27,24 +27,23 @@ public class MemberController {
 
 	@Autowired
 	private MailService mailService;
-	
-	
-	 @GetMapping("checkIdCount")
-	    public Map<String, Object> checkIdCount(@RequestBody String member_id) {
-	        boolean checkIdCount = memberService.checkIdCount(member_id) > 0;
-	        return Collections.singletonMap("duplicate", checkIdCount);
-	    }
+
+	@GetMapping("checkIdCount")
+	public Map<String, Object> checkIdCount(@RequestParam  String member_id) {
+		boolean checkIdCount = memberService.checkIdCount(member_id) > 0;
+		return Collections.singletonMap("duplicate", checkIdCount);
+	}
+
 
 	/* 이메일 인증번호 발송 요청 API 클라이언트에서 이메일을 JSON으로 보내면 해당 이메일로 인증번호를 생성해 메일 전송 후 DB 저장 */
 	@PostMapping("email-auth")
 	public Map<String, Object> sendAuthMail(@RequestBody MemberVO member) {
-		 System.out.println("sendAuthMail 호출됨, 이메일: " + member.getMember_email());
+		System.out.println("sendAuthMail 호출됨, 이메일: " + member.getMember_email());
 		// 인증 메일을 발송하고 인증 정보 반환
 		MailAuthInfo mailAuthInfo = mailService.sendAuthMail(member);
 		// DB에 인증정보 등록
 		memberService.insertMailAuthInfo(mailAuthInfo);
 
-		
 		// 발송 성공 여부를 JSON으로 반환
 		return Map.of("result", true);
 	}
@@ -56,10 +55,5 @@ public class MemberController {
 		boolean isValid = memberService.requestEmailAuth(mailAuthInfo);
 		return Map.of("result", isValid);
 	}
-
- 
-    
-
-
 
 } // 컨트롤러

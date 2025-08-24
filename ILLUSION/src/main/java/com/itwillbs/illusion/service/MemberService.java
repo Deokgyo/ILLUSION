@@ -28,8 +28,8 @@ public class MemberService {
 		return mapper.updateMailAuthStatus(mailAuthInfo);
 	}
 
-	public int checkId(String id) {
-		return mapper.checkId(id);
+	public int checkId(String member_id) {
+		return mapper.checkId(member_id);
 	}
 
 	public int checkIdCount(String member_id) {

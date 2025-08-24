@@ -7,6 +7,7 @@ $(document).ready(function() {
 	});
 	// DOM이 준비된 후 실행
 	var $agreeAll = $('#agree-all');
+	
 	var $checkboxes = $('.agree-each');
 
 	// 전체 동의 클릭 시, 하위 약관 모두 체크/해제
@@ -49,80 +50,62 @@ $(document).ready(function() {
 
 	//      $('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
 
-	function checkUserId() {
-		let id = $("#userid").val().trim();
-		if (id == "") {
-			console.log(" 아 왜 안되냐고 진짜")
-			$("#UserIdSuccess").text("");
-			isCheckId = false;
-			return;
+
+		function checkUserId() {
+			let id = $("#userid").val().trim()
+			if (id == "") {
+				// 입력값이 없으면 메시지 초기화
+				$("#UserIdSuccess").text("");
+				isCheckId = false;
+				return;
+			}
+			const regex = /^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
+							///^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/;  영문, 숫자, 특수문자 모두 포함
+							///^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
+							// /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
+	
+			if (regex.exec(id)) {
+				$("#UserIdSuccess").text('사용 가능한 아이디');
+				$("#UserIdSuccess").css('color', 'blue');
+				isCheckId = true;
+	
+				//				duplicateId();
+	
+			} else {
+				$("#UserIdSuccess").text('사용 불가능한 아이디');
+				$("#UserIdSuccess").css('color', 'red');
+				isCheckId = false;
+			}
+	
 		}
-
-		const regex = /^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
-					  ///^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/;  영문, 숫자, 특수문자 모두 포함
-					  // /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
-
-		if (regex.exec(id)) {
-			// 형식 통과 -> 중복 검사 AJAX 호출
-			$.ajax({
-				type: "GET",
-				url: "checkIdCount",  // 중복검사 API 엔드포인트 (서버에서 구현)
-				data: { memberId: id },          // 파라미터 이름은 서버 요구사항에 맞게 조정
-				success: function(res) {
-					console.log(" 아 왜 안되냐고 진짜")
-					if (res.duplicate) {
-						$("#UserIdSuccess").text('이미 사용 중인 아이디입니다.');
-						$("#UserIdSuccess").css('color', 'red');
-						isCheckId = false;
-					} else {
-						$("#UserIdSuccess").text('사용 가능한 아이디입니다.');
-						$("#UserIdSuccess").css('color', 'blue');
-						isCheckId = true;
+		
+		function duplicateId(){
+				
+				$.ajax({
+					type: "GET",
+					url: "checkId",
+					dataType: "json",
+					data: {
+						id: $("#id").val()
+					},			
+					success: function(res){
+						
+						$("#UserIdSuccess").text(res.msg);
+						$("#UserIdSuccess").css('color', res.color);
+						
+						if (res == 0) { // 사용가능
+							$("#checkIdResult").text('사용 가능한 아이디');
+							$("#checkIdResult").css('color', 'blue');
+						} else { // 사용불가
+							$("#checkIdResult").text('사용 불가능한 아이디(아이디 중복)');
+							$("#checkIdResult").css('color', 'red');
+						}
+								},
+					error: function(xhr, textStatus, errorThrown){
+						debugger;
 					}
-				},
-				error: function(xhr, status, error) {
-					console.error("AJAX 오류:", status, s);
-					$("#UserIdSuccess").text('중복 확인 중 오류가 발생했습니다.');
-					$("#UserIdSuccess").css('color', 'red');
-					isCheckId = false;
-				}
-			});
-
-		} else {
-			$("#UserIdSuccess").text('사용 불가능한 아이디');
-			$("#UserIdSuccess").css('color', 'red');
-			isCheckId = false;
-		}
-	}
-
-
-	//	function checkUserId() {
-	//		let id = $("#userid").val().trim()
-	//		if (id == "") {
-	//			// 입력값이 없으면 메시지 초기화
-	//			$("#UserIdSuccess").text("");
-	//			isCheckId = false;
-	//			return;
-	//		}
-	//		const regex = /^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
-	//						///^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/;  영문, 숫자, 특수문자 모두 포함
-	//						///^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
-	//						// /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
-	//
-	//		if (regex.exec(id)) {
-	//			$("#UserIdSuccess").text('사용 가능한 아이디');
-	//			$("#UserIdSuccess").css('color', 'blue');
-	//			isCheckId = true;
-	//
-	//			//				duplicateId();
-	//
-	//		} else {
-	//			$("#UserIdSuccess").text('사용 불가능한 아이디');
-	//			$("#UserIdSuccess").css('color', 'red');
-	//			isCheckId = false;
-	//		}
-	//
-	//	}
+				})
+			}
 
 	//비밀번호 유효성
 	function checkUserPass() {
