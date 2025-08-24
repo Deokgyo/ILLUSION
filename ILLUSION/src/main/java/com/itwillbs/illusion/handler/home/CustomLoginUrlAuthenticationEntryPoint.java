@@ -2,6 +2,9 @@
 
 package com.itwillbs.illusion.handler.home;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
@@ -33,6 +36,22 @@ public class CustomLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticati
         // 3. 그 외의 모든 경우는, 부모 클래스의 기본 동작을 따릅니다.
         //    (부모 클래스는 생성자에서 받은 기본 로그인 URL을 반환합니다.)
         return super.determineUrlToUseForThisRequest(request, response, exception);
+    }
+    
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException authException) throws IOException, ServletException {
+        
+        // "X-Requested-With" 헤더를 확인하여 AJAX 요청인지 판별합니다.
+        boolean isAjax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+        if (isAjax) {
+            // ✨ AJAX 요청이면: 401 Unauthorized 에러를 응답합니다.
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        } else {
+            // ✨ 일반 페이지 요청이면: 기존 로직(로그인 페이지로 리다이렉트)을 그대로 수행합니다.
+            super.commence(request, response, authException);
+        }
     }
 
 }

@@ -15,13 +15,12 @@
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/applyModal.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/recruitmentDetail.css"> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/recruitmentDetail.css">
     
 </head>
 <body>
@@ -41,7 +40,13 @@
 	                    <h2>${recruit.recruit_subject }</h2>
 	                </div>
 	                <div class="action-buttons">
-	                    <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
+						<c:set var="activeClass" value=""/>
+						<c:if test="${isScrapped == true}">
+						    <c:set var="activeClass" value="active"/>
+						</c:if>
+						<button type="button" class="bookmark-btn ${activeClass}" data-recruit-idx="${recruit.recruit_idx}">
+						    <i class="fa-regular fa-bookmark"></i>
+						</button>
 	                    <button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
 	                    <c:if test="${isAuthor}">
 	                    	<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow" id="job-apply-btn">수정하기<i class="fa-solid fa-paper-plane"></i></a>
@@ -140,6 +145,8 @@
     
     <jsp:include page="/WEB-INF/views/recruitment/applyModal.jsp" />
     
+    <script>window.contextPath = "${pageContext.request.contextPath}";</script>
+    
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b38e19508712285c3e7d184a62d45ba&libraries=services,clusterer"></script>
@@ -147,6 +154,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/recruitment/chartEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/recruitment/modalEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/recruitment/countdownTimer.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/recruitment/scrap.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     
     <script>

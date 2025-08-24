@@ -43,6 +43,9 @@
         <intercept-url pattern="/api/boards/**/comments" access="isAuthenticated()" method="POST" />
         <intercept-url pattern="/api/codes**" access="permitAll" />
         
+        <intercept-url pattern="/api/scraps/**/toggle" access="isAuthenticated()" />
+        
+        
 
 	    <intercept-url pattern="/adminMain" access="hasRole('MEM001')" /> 
 	    <intercept-url pattern="/admin**/**" access="hasRole('MEM001')" /> 

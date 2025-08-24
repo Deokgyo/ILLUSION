@@ -22,9 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.illusion.service.BoardService;
 import com.itwillbs.illusion.service.MemberService;
+import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.ResumeService;
 import com.itwillbs.illusion.service.ScrapService;
-import com.itwillbs.illusion.service.applyService;
+import com.itwillbs.illusion.service.ApplyService;
 import com.itwillbs.illusion.util.PagingUtil;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.MemberVO;
@@ -45,10 +46,8 @@ public class MypageContrlloer {
 	MemberService memberService;
 	
 	@Autowired
-	ScrapService scrapService;
+	MypageService mypageService;
 	
-	@Autowired
-	applyService applyService;
 
 	@GetMapping("myPage")
 	public String myPage(Principal principal, Model model) {
@@ -60,8 +59,6 @@ public class MypageContrlloer {
 		String member_id = principal.getName();
 		
 		MemberVO member = memberService.getMemberInfoById(member_id);
-		System.out.println("@#%@#%#@%@#%#%");
-		System.out.println(member);
 		model.addAttribute("member", member);
 	
 		return "myPage/myPage";
@@ -157,7 +154,7 @@ public class MypageContrlloer {
         int listLimit = 10; // 한페이지에 10개
 		int pageListLimit = 5;
         
-        int listCount = scrapService.getScrapCountByMember(member.getMember_idx());
+        int listCount = mypageService.getScrapCountByMember(member.getMember_idx());
         
         // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
@@ -165,7 +162,7 @@ public class MypageContrlloer {
         // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
 		
-		List<ScrapVO> scrapList = scrapService.getScrapsByMemberId(member.getMember_idx(), startRow, listLimit);
+		List<ScrapVO> scrapList = mypageService.getScrapsByMemberId(member.getMember_idx(), startRow, listLimit);
 		model.addAttribute("scrapList", scrapList);
 		model.addAttribute("pageInfo", pageInfo);
 		
@@ -190,7 +187,7 @@ public class MypageContrlloer {
         int listLimit = 10; // 한페이지에 10개
 		int pageListLimit = 5;
         
-        int listCount = applyService.getApplyCountByMember(member.getMember_idx());
+        int listCount = mypageService.getApplyCountByMember(member.getMember_idx());
         
         // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
@@ -198,10 +195,8 @@ public class MypageContrlloer {
         // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
 		
-		List<ApplyVO> applyList = applyService.getApplyByMemberId(member.getMember_idx(), startRow, listLimit);
+		List<ApplyVO> applyList = mypageService.getApplyByMemberId(member.getMember_idx(), startRow, listLimit);
 		
-		System.out.println("!%!#%@#%#@%");
-		System.out.println(applyList);
 		model.addAttribute("applyList", applyList);
 		model.addAttribute("pageInfo", pageInfo);
 		

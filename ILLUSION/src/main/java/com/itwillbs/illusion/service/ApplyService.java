@@ -9,7 +9,7 @@ import com.itwillbs.illusion.mapper.ApplyMapper;
 import com.itwillbs.illusion.vo.ApplyVO;
 
 @Service
-public class applyService {
+public class ApplyService {
 		
 	@Autowired
 	ApplyMapper mapper;

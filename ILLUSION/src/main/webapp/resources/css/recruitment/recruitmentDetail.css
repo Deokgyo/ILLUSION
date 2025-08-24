@@ -98,6 +98,12 @@ h1 {
     color: var(--font-sub-color);
 }
 
+.bookmark-btn.active {
+    background-color: var(--main-color);
+    color: var(--font-main-color);
+    border-color: var(--main-color-hover);
+}
+
 .apply-btn {
     background-color: var(--main-color-hover);
     color: var(--font-main-color);
