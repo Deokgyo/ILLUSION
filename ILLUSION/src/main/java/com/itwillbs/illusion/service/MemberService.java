@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.itwillbs.illusion.mapper.MemberMapper;
 import com.itwillbs.illusion.vo.MailAuthInfo;
@@ -15,8 +17,10 @@ import com.itwillbs.illusion.vo.MemberVO;
 @Service
 public class MemberService {
 
+	private static final String String = null;
 	@Autowired
 	MemberMapper mapper;
+	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -26,10 +30,6 @@ public class MemberService {
 
 	public int updateMailAuthStatus(MailAuthInfo mailAuthInfo) {
 		return mapper.updateMailAuthStatus(mailAuthInfo);
-	}
-
-	public int checkId(String member_id) {
-		return mapper.checkId(member_id);
 	}
 
 	public int checkIdCount(String member_id) {
@@ -71,9 +71,10 @@ public class MemberService {
 
 		return isAuthSuccess;
 	}
-	
+
 	// 조영재
 	public MemberVO getMemberInfoById(String member_id) {
 		return mapper.getMemberInfoById(member_id);
 	}
+
 }

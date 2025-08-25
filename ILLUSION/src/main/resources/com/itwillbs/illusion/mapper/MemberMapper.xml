@@ -6,18 +6,9 @@
 <mapper namespace="com.itwillbs.illusion.mapper.MemberMapper">
 
 	<select id="checkIdCount">
-	SELECT CASE WHEN count(*) = 0 THEN '사용 가능한 아이디'
-							  ELSE '사용 불가능한 아이디(아이디중복)' END as msg
-		 , CASE WHEN count(*) = 0 THEN 'blue'
-								  ELSE 'red' END as color
-	  FROM MEMBER
+	SELECT  COUNT(*)
+	  FROM member
 	 WHERE member_id = #{member_id} 
-	</select>
-	
-	<select id="checkId">
-	SELECT COUNT(*) AS CNT
-	  FROM MEMBER
-	 WHERE member_id = #{member_id}
 	</select>
 	
 	<insert id="insertMember">
@@ -86,6 +77,32 @@
 		FROM member
 		WHERE member_id = #{member_id}
 	</select>
+	
+	<insert id="insertRecruiterMember">
+	INSERT INTO member
+			   ( recruiter_number
+				,recruiter_member_email
+			   )
+		VALUES ( #{recruiter_number}
+				,#{recruiter_member_email}
+			   )
+	</insert>
+	
+	<insert id="insertCompany">
+	INSERT INTO company
+				( company_name
+				 ,ceo_name
+				 ,company_type
+				 ,company_estab_date
+				  address_idx
+			   )
+		VALUES ( #{company_name}
+				,#{ceo_name}
+				,#{company_type}
+				,#{company_estab_date}
+				 #{address_idx}
+			   )
+	</insert>
 	
 </mapper>
 

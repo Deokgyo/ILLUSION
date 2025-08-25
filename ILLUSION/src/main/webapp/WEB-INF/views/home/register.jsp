@@ -159,8 +159,7 @@
 					<div class="email-flex">
 						<input type="text" id="email" placeholder="이메일 입력"
 							name="member_email" required>
-						<button type="button" class="btn-yellow1" id="email-btn">인증
-							메일 발송</button>
+						<button type="button" class="btn-yellow1" id="email-btn">인증 메일 발송</button>
 					</div>
 				</div>
 			</div>
@@ -170,7 +169,6 @@
 					<input type="text" id="emailcode" maxlength="6"
 						placeholder="인증번호를 입력하세요">
 					<button type="button" class="btn-yellow1" id="checkAuthBtn">인증번호 확인</button>
-<!-- 					<input type="hidden" id="mail_auth_status" name="mail_auth_status" value="N">	 -->
 				</div>
 			</div>
 

@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 	// 이용약관 전체 동의
 	$('.tab-btn').on('click', function() {
@@ -7,7 +6,7 @@ $(document).ready(function() {
 	});
 	// DOM이 준비된 후 실행
 	var $agreeAll = $('#agree-all');
-	
+
 	var $checkboxes = $('.agree-each');
 
 	// 전체 동의 클릭 시, 하위 약관 모두 체크/해제
@@ -35,79 +34,68 @@ $(document).ready(function() {
 			$hidden.prop('disabled', false);
 		}
 	});
-	// 유효성 체크
+
+	// 회원가입 유효성 체크
 
 	let isCheckId = false;
 	let isCheckPass = false;
 	let isCheckPass2 = false;
 
-	// 아이디 체크
-	$("#userid").on('keyup', checkUserId);
+	const $input = $('#userid');
+	const $msg = $('#UserIdSuccess');
+	let debounceTimeout;
+
+	// 아이디 유효성 체크
+	$input.on('keyup', function() {
+		clearTimeout(debounceTimeout);
+		const memberId = $input.val().trim();
+
+		debounceTimeout = setTimeout(function() {
+			if (memberId === "") {
+				$msg.text('');
+				isCheckId = false;
+				return;
+			}
+			const regex = /^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/;
+			///^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/;  영문, 숫자, 특수문자 모두 포함
+			// /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
+
+			if (memberId.length < 4) {
+				$msg.text('4자 이상 입력하세요.').css('color', 'gray');
+				isCheckId = false;
+				return;
+			} if (!regex.test(memberId)) {
+				$msg.text('사용 불가능한 아이디').css('color', 'red');
+				isCheckId = false;
+				return;
+			}
+
+			$.ajax({
+				url: 'checkIdCount',
+				type: 'GET',
+				data: { member_id: memberId },
+				success: function(data) {
+					if (data.duplicate) {
+						$msg.text('이미 존재하는 아이디입니다.').css('color', 'red');
+						isCheckId = false;
+					} else {
+						$msg.text('사용 가능한 아이디입니다.').css('color', 'blue');
+						isCheckId = true;
+					}
+				},
+				error: function() {
+					$msg.text('오류가 발생했습니다.').css('color', 'gray');
+					isCheckId = false;
+				}
+			});
+
+		}, 300); // 300ms 딜레이
+	});
 
 	// 비밀번호 유효성
 	$("#userpw").on('keyup', checkUserPass);
 	$("#userpw2").on('keyup', checkUserPass2);
 
-	//      $('form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
-
-
-		function checkUserId() {
-			let id = $("#userid").val().trim()
-			if (id == "") {
-				// 입력값이 없으면 메시지 초기화
-				$("#UserIdSuccess").text("");
-				isCheckId = false;
-				return;
-			}
-			const regex = /^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
-							///^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/;  영문, 숫자, 특수문자 모두 포함
-							///^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/; //숫자 or 특수문자가 무조건 들어가야함
-							// /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
-	
-			if (regex.exec(id)) {
-				$("#UserIdSuccess").text('사용 가능한 아이디');
-				$("#UserIdSuccess").css('color', 'blue');
-				isCheckId = true;
-	
-				//				duplicateId();
-	
-			} else {
-				$("#UserIdSuccess").text('사용 불가능한 아이디');
-				$("#UserIdSuccess").css('color', 'red');
-				isCheckId = false;
-			}
-	
-		}
-		
-		function duplicateId(){
-				
-				$.ajax({
-					type: "GET",
-					url: "checkId",
-					dataType: "json",
-					data: {
-						id: $("#id").val()
-					},			
-					success: function(res){
-						
-						$("#UserIdSuccess").text(res.msg);
-						$("#UserIdSuccess").css('color', res.color);
-						
-						if (res == 0) { // 사용가능
-							$("#checkIdResult").text('사용 가능한 아이디');
-							$("#checkIdResult").css('color', 'blue');
-						} else { // 사용불가
-							$("#checkIdResult").text('사용 불가능한 아이디(아이디 중복)');
-							$("#checkIdResult").css('color', 'red');
-						}
-								},
-					error: function(xhr, textStatus, errorThrown){
-						debugger;
-					}
-				})
-			}
-
-	//비밀번호 유효성
 	function checkUserPass() {
 		let passwd = $("#userpw").val();
 
@@ -178,26 +166,6 @@ $(document).ready(function() {
 			}
 		}
 	}
-	//
-	//      function checkSubmit() {
-	//
-	//         if (!checkUserId) {
-	//            alert("아이디를 입력해주세요");
-	//            return false;
-	//         }
-	//
-	//         if (!checkUserPass) {
-	//            alert("비밀번호 똑디 안하나?");
-	//            return false;
-	//         }
-	//
-	//         if (!checkUserPass2) {
-	//            alert("비밀번호 확인 단디 안하나?");
-	//            return false;
-	//         }
-	//
-	//         return true;
-	//      }
 
 
 	// 이메일 인증
@@ -230,8 +198,6 @@ $(document).ready(function() {
 	});
 
 	$("#checkAuthBtn").click(function() {
-		console.log("이메일 인증버튼 클릭됨");
-
 		const emailVal = $("#email").val().trim();
 		const codeVal = $("#emailcode").val().trim();
 
@@ -308,7 +274,21 @@ $(document).ready(function() {
 			}
 		});
 	});
+	// 입력값 초기화 함수
+	function resetFormInputs() {
+		// .signup-form 내부의 모든 input/select/textarea 초기화
+		$('.signup-form').find('input[type="text"], input[type="password"], input[type="date"], select, textarea').each(function() {
+			$(this).val('');
+		});
 
+		// 유효성 메시지 초기화
+		$('#UserIdSuccess, #userPwSuccess, #userPwSuccess2').text('');
+
+		// 상태 변수 리셋
+		isCheckId = false;
+		isCheckPass = false;
+		isCheckPass2 = false;
+	}
 	// 개인회원 기본값 세팅
 	$('#company').hide();
 	$('#compdate').hide();
@@ -325,10 +305,10 @@ $(document).ready(function() {
 		$('#personalTab').removeClass('selected');
 		$(this).addClass('selected');
 		$('#companyBox').fadeIn(120);
-
+		resetFormInputs();
 		// 성별, 생년월일 숨김
-		$('#gender').hide();
-		$('#birth_user').hide();
+		$('#gender').hide().removeAttr('required');
+		$('#birth_user').hide().removeAttr('required');
 
 		// 이름(개인명) -> 기업명으로 라벨 및 placeholder 변경
 		$('label[for="username"]').text('기업명');
@@ -388,48 +368,70 @@ $(document).ready(function() {
 			return false;
 		}
 
-		var requestData = {
-			"b_no": [reg_num]
-		};
-
 		$.ajax({
-			url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=m1dPvNAE5sTVzx0%2BBHImtbzvIQt1fB3B%2BkxVM07pZ2BONuAEetIm6niLBMc%2F3rwJ8bUU1bnZFmTcxl8z1stqeQ%3D%3D",  // 서비스키 교체
-			type: "POST",
-			data: JSON.stringify(requestData),
-			dataType: "json",
-			contentType: "application/json; charset=UTF-8",
-			success: function(result) {
-				if (result.match_cnt == "1") {
-
-					var data = result.data[0];
-
-					// 예시 필드명 - 실제 API 문서 확인 필수
-					var companyName = data.bizrNm || "";  // 기업명
-					var zipcode = data.zip || "";          // 우편번호 (있다면)
-					var address1 = data.address || "";     // 주소 예: 도로명 주소
-					var address2 = "";                     // 상세주소는 수동 입력 받거나 다른 필드 사용
-
-					// 입력란에 값 채우기
-					$('#username').val(companyName);
-					$('#zipcode').val(zipcode);
-					$('#address1').val(address1);
-					$('#address2').val(address2);
-
-					alert('사업자등록번호 인증 성공, 정보가 입력되었습니다.');
-
+			url: contextPath + 'checkBusinessNumber',  // 내 서버의 중복 체크 API
+			type: 'GET',
+			data: { businessNumber: bizNum },
+			success: function(data) {
+				if (data.duplicate) {
+					alert('이미 등록된 사업자등록번호입니다.');
+					$('#companyNumber').focus();
 				} else {
-					alert('등록된 사업자정보가 없습니다.');
+					alert('사용 가능한 사업자등록번호입니다.');
 				}
 			},
-			error: function(xhr, status, error) {
-				alert('사업자등록번호 조회 중 오류가 발생했습니다.');
-				console.error(error);
+			error: function() {
+				alert('서버 오류가 발생했습니다.');
 			}
-
 		});
 	});
 
 
+	$('.signup-form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
+
+	$('.signup-form').on('submit', function(event) {
+		// checkSubmit이 false 반환하면 폼 제출 막기
+		if (!checkSubmit()) {
+			event.preventDefault(); // 기본 제출 차단
+			return false;           // 이벤트 정지
+		}
+		// true 반환 시 폼 제출 계속 진행
+	});
+
+	function checkSubmit() {
+		// 아이디 유효성 검사 실패 시
+		if (!isCheckId) {
+			alert("아이디를 입력해주세요");
+			return false;
+		}
+
+		// 비밀번호 유효성 검사 실패 시
+		if (!isCheckPass) {
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+
+		// 비밀번호 확인 일치 검사 실패 시
+		if (!isCheckPass2) {
+			alert("비밀번호를 확인하세요");
+			return false;
+		} else {
+			alert("회원가입 성공!")
+		}
+
+		// 기업회원은 반드시 사업자등록번호 입력해야 함
+		if (selectedMemberType === "company") {
+			const bizNum = $('#companyNumber').val().trim();
+			if (!bizNum) {
+				alert('기업회원은 사업자등록번호를 입력해야 합니다.');
+				$('#companyNumber').focus();
+				return false;
+			}
+		}
+
+		// 모든 유효성 검사 통과
+		return true;
+	}
 
 
 
