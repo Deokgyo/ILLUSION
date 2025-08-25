@@ -35,7 +35,6 @@ public class MemberController {
 		boolean checkIdCount = memberService.checkIdCount(member_id) > 0;
 		return Collections.singletonMap("duplicate", checkIdCount);
 	}
-
 	/* 이메일 인증번호 발송 요청 API 클라이언트에서 이메일을 JSON으로 보내면 해당 이메일로 인증번호를 생성해 메일 전송 후 DB 저장 */
 	@PostMapping("email-auth")
 	public Map<String, Object> sendAuthMail(@RequestBody MemberVO member) {

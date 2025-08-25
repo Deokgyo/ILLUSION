@@ -43,7 +43,6 @@ public class HomeController {
 	public String errorPage() {
 		return "errorPage";
 	}
-
 	// 로그인 이동
 	@GetMapping("idPwFind")
 	public String idPwFind() {

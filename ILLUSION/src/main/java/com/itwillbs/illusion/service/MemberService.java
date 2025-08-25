@@ -35,7 +35,6 @@ public class MemberService {
 	public int checkIdCount(String member_id) {
 		return mapper.checkIdCount(member_id);
 	}
-
 	// 회원가입 비즈니스 로직 메서드
 	@Transactional
 	public boolean insertMember(MemberVO member) {

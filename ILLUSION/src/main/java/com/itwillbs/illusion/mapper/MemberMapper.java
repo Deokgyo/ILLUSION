@@ -18,7 +18,6 @@ public interface MemberMapper {
 	public MailAuthInfo selectMailAuthInfo(MailAuthInfo mailAuthInfo);
 	
 	public int updateMailAuthStatus(MailAuthInfo mailAuthInfo);
-	
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
 
 

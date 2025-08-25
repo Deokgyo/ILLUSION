@@ -87,7 +87,6 @@
 				,#{recruiter_member_email}
 			   )
 	</insert>
-	
 	<insert id="insertCompany">
 	INSERT INTO company
 				( company_name
