@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.service.MemberService;
+import com.itwillbs.illusion.vo.CompanyVo;
 import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
@@ -80,6 +81,44 @@ public class HomeController {
 		// true : 빈 값도 허용 (optional)
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
-
+//	 //기업회원
+//	 @PostMapping("registerCompanyMember")
+//	    public String registerCompanyMember(MemberVO member,
+//	                           @RequestParam(required = false) String company_name,
+//	                           @RequestParam(required = false) String establishment_date,
+//	                           @RequestParam(required = false) String ceo_name,
+//	                           Model model) {
+//	        try {
+//	            // 기업회원일 때(member_type 값이 MEM003) 기업정보 받아서 서비스에 추가 전달
+//	            if ("MEM003".equals(member.getMember_type())) {
+//	                CompanyVo company = new CompanyVo();
+//	                company.setCompany_name(company_name);
+//	                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//	                company.setEstablishment_date(sdf.parse(establishment_date));
+//	                company.setCeo_name(ceo_name);
+//
+//	                boolean success = memberService.registerCompanyMember(member, company);
+//	                if (success) {
+//	                    return "redirect:/login";
+//	                } else {
+//	                    model.addAttribute("error", "기업회원 가입 실패");
+//	                    return "home/register";
+//	                }
+//	            } else {
+//	                // 개인회원 가입 처리
+//	                boolean success = memberService.insertMember(member);
+//	                if (success) {
+//	                    return "redirect:/login";
+//	                } else {
+//	                    model.addAttribute("error", "회원가입 실패");
+//	                    return "home/register";
+//	                }
+//	            }
+//	        } catch (Exception e) {
+//	            model.addAttribute("error", "회원가입 중 오류: " + e.getMessage());
+//	            return "home/register";
+//	        }
+//	    }
+//	}
 
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.itwillbs.illusion.vo.CompanyVo;
 import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
@@ -18,8 +19,13 @@ public interface MemberMapper {
 	public MailAuthInfo selectMailAuthInfo(MailAuthInfo mailAuthInfo);
 	
 	public int updateMailAuthStatus(MailAuthInfo mailAuthInfo);
+	
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
-
+	
+	public int insertMemberCompany(CompanyVo company);
+	
+	public int insertCompanyMember(MemberVO member);
+	
 
 	// 조영재
 	public MemberVO getMemberInfoById(String id);

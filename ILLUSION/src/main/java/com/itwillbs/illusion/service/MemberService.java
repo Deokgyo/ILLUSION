@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.itwillbs.illusion.mapper.MemberMapper;
+import com.itwillbs.illusion.vo.CompanyVo;
 import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
@@ -20,7 +21,7 @@ public class MemberService {
 	private static final String String = null;
 	@Autowired
 	MemberMapper mapper;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -35,6 +36,7 @@ public class MemberService {
 	public int checkIdCount(String member_id) {
 		return mapper.checkIdCount(member_id);
 	}
+
 	// 회원가입 비즈니스 로직 메서드
 	@Transactional
 	public boolean insertMember(MemberVO member) {
@@ -50,6 +52,29 @@ public class MemberService {
 		int insertCount = mapper.insertMember(member);
 		return insertCount > 0;
 	} // 개인회원
+
+//	//기업회원 가입 처리 (멤버 + 컴퍼니 테이블에 동시에 저장)
+//	@Transactional
+//	public boolean insertCompanyMember(MemberVO member, CompanyVo company) {
+//		String rawPw = member.getMember_pw();
+//		if (rawPw == null || rawPw.isEmpty()) {
+//			throw new IllegalArgumentException("비밀번호가 입력되지 않았습니다.");
+//		}
+//		// 비밀번호 암호화
+//		member.setMember_pw(passwordEncoder.encode(rawPw));
+//		// 멤버 테이블에 사업자등록번호 포함 저장
+//		int insertCount = mapper.insertCompanyMember(member);
+//		if (insertCount == 0) {
+//			return false;
+//		}
+//		// 컴퍼니 테이블 저장 (상속관계가 아니므로 명시적으로 연동)
+//		member.setMember_id(member.getMember_id());
+//		int companyInsertCount = company.insertMemberCompany(company);
+//		if (companyInsertCount == 0) {
+//			throw new RuntimeException("기업회원 추가정보 저장 실패");
+//		}
+//		return true;
+//	}
 
 	@Transactional
 	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
