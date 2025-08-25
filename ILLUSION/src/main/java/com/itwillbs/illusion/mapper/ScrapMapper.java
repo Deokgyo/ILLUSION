@@ -23,4 +23,7 @@ public interface ScrapMapper {
     int selectScrapCount(Map<String, Object> params);
     int insertScrap(Map<String, Object> params);
     int deleteScrap(Map<String, Object> params);
+    
+    // 마이페이지 스크랩 여러건 삭제
+	public int deleteScraps(Map<String, Object> params);
 }

@@ -17,7 +17,6 @@ $('.bookmark-btn').on('click', function() {
             }
         },
         error: function(xhr) {
-			
             if (xhr.status === 403 || xhr.status === 401) { 
                 alert("로그인이 필요한 기능입니다.");
                 location.href = contextPath + '/login';

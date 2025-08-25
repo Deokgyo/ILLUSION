@@ -20,8 +20,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/layout.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/header.css">
-<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bottom.css">
@@ -36,12 +34,8 @@
 	</header>
 
 	<div class="page-container">
-
 		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 		<main class="main-content">
-
-	
-	
 			<div class="page-title-header">
 				<p class="header-text">
 					<strong>입사 지원 현황</strong>
@@ -63,7 +57,7 @@
 					<tbody>
 						<c:forEach var="app" items="${applyList }">
 							<tr class="trcss" data-href="recruitmentDetail?recruit_idx=${app.recruit_idx }">
-								<td><input type="checkbox" class="checkbox"></td>
+								<td><input type="checkbox" class="checkbox" value="${app.apply_idx }"></td>
 								<td>${app.recruit_subject }</td>
 								<td>${app.rec_status }</td>
 								<td>${app.applyDateFormatted }</td>
@@ -74,9 +68,8 @@
 						</c:forEach>
 					</tbody>
 				</table>
-
 			</div>
-			<button class="delete-btn" onclick="confirm('저장하시겠습니까?')">삭제</button>
+			<button id="delete-btn" class="delete-btn">삭제</button>
 
 			<nav class="pagination">
 			    <!-- 이전 페이지 버튼 -->
@@ -124,8 +117,24 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	
+	<script>
+    	window.contextPath = "${pageContext.request.contextPath}";
+	</script>
+	
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/myPage/myPageDelete.js"></script>
+	<script>
+	    $(function() {
+	        initializeMultipleDelete({
+	        	deleteButtonId: '#delete-btn',
+	        	itemCheckboxClass: '.checkbox',
+	        	deleteApiUrl: '/api/mypage/applys/delete',
+	        	paramName: 'idList',
+	        	itemName: '지원 내역'
+	        });
+	    });
+	</script>
 </body>
 </html>
