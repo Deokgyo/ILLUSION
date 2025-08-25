@@ -24,10 +24,9 @@ import com.itwillbs.illusion.service.BoardService;
 import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.ResumeService;
-import com.itwillbs.illusion.service.ScrapService;
-import com.itwillbs.illusion.service.ApplyService;
 import com.itwillbs.illusion.util.PagingUtil;
 import com.itwillbs.illusion.vo.ApplyVO;
+import com.itwillbs.illusion.vo.BoardVO;
 import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.PageInfo;
 import com.itwillbs.illusion.vo.RecruitFilterVO;
@@ -206,12 +205,38 @@ public class MypageContrlloer {
 
 	/* 내가쓴글 */
 	@GetMapping("myPost")
-	public String myPost(Model model) {
-		List<Map<String, Object>> boardList = resumeService.selectboard();
-		model.addAttribute("boardList", boardList);
+	public String myPost(Principal principal,
+			@RequestParam(defaultValue = "1") int pageNum,
+			Model model) {
+
+		// 방어 코드
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		String member_id = principal.getName();
+		MemberVO member = memberService.getMemberInfoById(member_id);
+		
+        // 페이징 처리-
+        int listLimit = 10; // 한페이지에 10개
+		int pageListLimit = 5;
+        
+        int listCount = mypageService.getMyPostCountByMember(member.getMember_idx());
+        
+        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
+        PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+        
+        // 데이터 조회
+        int startRow = (pageNum - 1) * listLimit;
+		
+		List<BoardVO> myPostList = mypageService.getMyPostByMemberId(member.getMember_idx(), startRow, listLimit);
+		
+		model.addAttribute("myPostList", myPostList);
+		model.addAttribute("pageInfo", pageInfo);
 
 		return "myPage/myPost";
 	}
+	
 	/* 내가쓴글 삭제*/
 	@DeleteMapping("/boardDelete/{board_idx}")
 	@ResponseBody

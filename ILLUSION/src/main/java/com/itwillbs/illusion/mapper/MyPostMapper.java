@@ -6,19 +6,19 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.itwillbs.illusion.vo.ApplyVO;
+import com.itwillbs.illusion.vo.BoardVO;
 
 @Mapper
-public interface ApplyMapper {
+public interface MyPostMapper {
 	
-	public List<ApplyVO> getApplyByMemberId(
+	public List<BoardVO> getMyPostByMemberId(
 			@Param("memberIdx") int member_idx, 
 			@Param("startRow") int startRow, 
 			@Param("listLimit") int listLimit);
 	
-	// 회원의 지원 갯수 조회
-	public int getApplyCountByMember(@Param("memberIdx") int member_idx);
+	// 회원의 내가 쓴 글 갯수 조회
+	public int getMyPostCountByMember(@Param("memberIdx") int member_idx);
 	
     // 마이페이지 입사지원 여러건 삭제
-	public int deleteApplys(Map<String, Object> params);
+	public int deleteMyPosts(Map<String, Object> params);
 }
