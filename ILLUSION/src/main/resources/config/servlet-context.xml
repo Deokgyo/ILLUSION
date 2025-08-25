@@ -38,12 +38,12 @@
 	스프링 컨트롤러에서 폼 파라미터 데이터 처리를 위해(또는 MultipartFile 타입 객체 처리를 위해)
 	org.springframework.web.multipart.commons.CommonsMultipartResolver 설정 필수!
 	 -->
-<!-- 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
-		<!-- maxUploadSize 속성: 파일 업로드 시 최대 파일 사이즈 지정(Byte 단위) => 10MB로 제한 -->
-<!-- 		<beans:property name="maxUploadSize" value="10485760"></beans:property> -->
-		<!-- defaultEncoding 속성: 파일명에 한글 등의 아스키코드 외의 문자 인코딩 방식 설정(UTF-8) -->
-<!-- 		<beans:property name="defaultEncoding" value="UTF-8"></beans:property> -->
-<!-- 	</beans:bean> -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<!-- 		maxUploadSize 속성: 파일 업로드 시 최대 파일 사이즈 지정(Byte 단위) => 10MB로 제한 -->
+		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+<!-- 		defaultEncoding 속성: 파일명에 한글 등의 아스키코드 외의 문자 인코딩 방식 설정(UTF-8) -->
+		<beans:property name="defaultEncoding" value="UTF-8"></beans:property>
+	</beans:bean>
 	
 	<mvc:resources mapping="/upload/**"
                location="/resources/upload/" />
