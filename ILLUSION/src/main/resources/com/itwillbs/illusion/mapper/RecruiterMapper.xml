@@ -113,6 +113,57 @@
 		 LIMIT 5;
 	</select>
 	
+	<!-- 미열람 이력서 수 가져오기  -->
+	<select id="selectUnViewedCnt">
+		 SELECT COUNT(*) AS total_unviewed
+		   FROM apply a
+		   JOIN recruit r ON a.recruit_idx = r.recruit_idx
+		  WHERE a.is_viewed = 'bol002'
+		    AND r.recruiter_member_idx = ( SELECT member_idx 
+											 FROM member 
+		                                    WHERE member_id = #{member_id});     
+	</select>
+	
+	<select id="selectTotalAppCnt">
+		SELECT sum(app_count) as app_count 
+		  FROM recruit 
+	     WHERE recruiter_member_idx = ( SELECT member_idx 
+								 		  FROM member 
+									     WHERE member_id = #{member_id});
+	</select>
+	
+	<select id="selectResumeInfo">
+		SELECT 
+			res.resume_idx,
+		    res.resume_title,
+		    m.address_name       AS address,
+		    degree.code_name     AS degree_name,
+		    exp.code_name        AS experience_name,
+		    res.major,
+		    m.member_idx
+		FROM apply a
+		JOIN recruit r 
+		    ON a.recruit_idx = r.recruit_idx
+		JOIN resume res
+		    ON a.resume_idx = res.resume_idx
+		JOIN member m
+		    ON a.member_idx = m.member_idx
+		LEFT JOIN common_code degree
+		    ON res.degree = degree.code
+		   AND degree.code_group_id = 'DEGREE'
+		LEFT JOIN resume_exp_info rei
+		    ON res.resume_idx = rei.resume_idx
+		LEFT JOIN common_code exp
+		    ON rei.experience = exp.code
+		   AND exp.code_group_id = 'EXPERIENCE'
+		WHERE a.is_viewed = 'bol002'
+		  AND r.recruiter_member_idx = (
+		        SELECT member_idx 
+		        FROM member 
+		        WHERE member_id = #{member_id}
+		  );
+	</select>
+	
 <!--  기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기  -->
 	<select id="getRecruiterInfo">
 		SELECT m.member_name as member_name
@@ -124,7 +175,7 @@
                   	 THEN 1 END), 0) as closing_soon_count
 		  FROM member m
 	 LEFT JOIN company c 
-		    ON c.member_idx = m.member_idx
+		    ON c.company_idx = m.company_idx
      LEFT JOIN recruit r 
 		    ON r.recruiter_member_idx = m.member_idx
 		 WHERE m.member_id = #{member_id}  

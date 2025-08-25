@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.itwillbs.illusion.handler.recruiter.CodeGroups;
 import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.RecruiterService;
+import com.itwillbs.illusion.service.ResumeService;
 import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.RecruitVO;
 
@@ -31,6 +32,8 @@ public class RecruiterController {
 	RecruiterService service;
 	@Autowired
 	CommonCodeService comService;
+	@Autowired 
+	ResumeService resumeService;
 	
 	// 기업 메인 페이지로 이동 
 	@GetMapping("recruiterMain") 
@@ -66,8 +69,33 @@ public class RecruiterController {
 		}
 		model.addAttribute("recruitmentSubjectDate", recruitmentSubjectDate);
 		
+		// 미열람 이력서 수 가져오기 
+		int unViewedCnt = service.selectUnViewedCnt(member_id);
+		model.addAttribute("unViewedCnt", unViewedCnt);
+		
+		// 총 지원자 수 가져오기 
+		int totalAppCnt = service.selectTotalAppCnt(member_id);
+		model.addAttribute("totalAppCnt", totalAppCnt);
+		
+		// 미 열람 이력서 제목, 경력, 학력, 거주지 가져오기 
+		List<Map<String,String>> resumeInfo = service.selectResumeInfo(member_id);
+		model.addAttribute("resumeInfo", resumeInfo);
+		
 		return "recruiter/recruiterMainLogin"; 
 	}
+		
+		//이력서 상세 보기 
+		@GetMapping("viewResume")
+		public String viewResume(int resume_idx, int member_idx, Model model) {
+			Map<String, Object> member = resumeService.selectMember(member_idx);
+			model.addAttribute("member", member);
+			Map<String, Object> resume = resumeService.selectResume(resume_idx);
+			model.addAttribute("resume", resume);
+			List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
+			model.addAttribute("resume_exp_info_list", resumeExpInfoList);
+			return "recruiter/viewResume";
+		}
+
 	
 		// 기업 정보 수정으로 이동 
 		@GetMapping("recruiterInfo")

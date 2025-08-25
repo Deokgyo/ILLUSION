@@ -73,7 +73,6 @@ public class AjaxController {
 		String realPath = req.getServletContext().getRealPath(virtualPath);
 		String subDir = createDirectories(realPath);
 		realPath += "/" + subDir;
-		
 		MultipartFile file = recruit.getFile();
 		
 		String fileName = "";

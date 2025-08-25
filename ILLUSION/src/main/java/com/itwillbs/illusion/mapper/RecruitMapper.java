@@ -25,7 +25,8 @@ public interface RecruitMapper {
 	public List<ApplyVO> getClList(@Param("member_idx") int member_idx);
 	public List<ApplyVO> getResumeList(@Param("member_idx") int member_idx);
 	
-	public int insertApply(RecruitVO recruit);
+	public int insertApply(ApplyVO apply);
+	public int cntRecruit(int recruit_idx);
 	
 	//작성자가 일치하는지 용도 (덕교) 
 	public int selectMemberIdx(String member_id);

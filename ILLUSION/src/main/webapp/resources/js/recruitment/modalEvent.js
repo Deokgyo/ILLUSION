@@ -34,11 +34,17 @@ $(function() {
     $(document).on('change', '#file-upload', function() {
         if (this.files && this.files.length > 0) {
             const fileName = this.files[0].name;
-            const $modal = $(this).closest('.modal-content');
-            $modal.find('.file-info-text').hide();
-            $modal.find('.file-name-display').text('첨부된 파일: ' + fileName).show();
+            $('.file-info-text').hide();
+            $('.uploaded-file-list').html(`<div class="file-item">`+ fileName + `<button id="cancel">x</button></div>`)
+            					    .show();
         }
     });
+    
+	$(document).on('click', '#cancel', function() {
+	   	$('.uploaded-file-list').empty().hide();
+	    $('.file-info-text').show();
+	    $('#file-upload').val("");
+	});
     
     // 자기소개서 부분 
     $('input[name="cl_idx"]').click(function(){

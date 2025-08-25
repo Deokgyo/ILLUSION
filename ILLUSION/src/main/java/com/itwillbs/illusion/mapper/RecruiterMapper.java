@@ -50,6 +50,15 @@ public interface RecruiterMapper {
 	//// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
 	public Map<String, String> getRecruiterInfo(String member_id);
 	
+	// 미 열람 이력서 수 가져오기 
+	public int selectUnViewedCnt(String member_id) ;
+	
+	// 총 지원자수 가져오기 
+	public int selectTotalAppCnt(String member_id);
+	
+	//미 열람 이력서의 제목, 경력, 학력, 거주지 가져오기 
+	public List<Map<String, String>> selectResumeInfo(String member_id);
+	
 	// 기업 정보 들고오기 
 	public Map<String, String> getCompanyInfo(String member_id);
 }

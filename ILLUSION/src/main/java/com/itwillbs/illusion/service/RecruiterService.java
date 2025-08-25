@@ -83,14 +83,25 @@ public class RecruiterService {
 		
 	}
 	
+	// 미 열람 이력서 수 가져오기 
+	public int selectUnViewedCnt(String member_id) {
+		return mapper.selectUnViewedCnt(member_id);
+	}
+	
+	
+	// 총 지원자 수 가져오기 
+	public int selectTotalAppCnt(String member_id) {
+		return mapper.selectTotalAppCnt(member_id);
+	}
+	
 	//기업 정보 들고오기 
 	public Map<String, String> getCompanyInfo(String member_id) {
 		return mapper.getCompanyInfo(member_id) ;
 	}
 	
-//	public List<RecruitVO> getRecruitmentList() {
-//		return mapper.getRecruitmentList();
-//	}
-	
+	//미열람 이력서의 제목, 경력, 학력, 거주지 가져오기 
+	public List<Map<String, String>> selectResumeInfo(String member_id) {
+		return mapper.selectResumeInfo(member_id);
+	}
 	
 }

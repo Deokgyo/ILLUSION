@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.illusion.mapper.RecruitMapper;
 import com.itwillbs.illusion.vo.ApplyVO;
@@ -48,8 +49,10 @@ public class RecruitService {
 		return mapper.getResumeList(member_idx);
 	}
 	
-	public int insertApply(RecruitVO recruit) {
-		return mapper.insertApply(recruit);
+	@Transactional
+	public int insertApply(ApplyVO apply) {
+		mapper.insertApply(apply);
+		return mapper.cntRecruit(apply.getRecruit_idx()); 
 	}
 	
 	//작성자가 일치하는지 용도 (덕교 ) 

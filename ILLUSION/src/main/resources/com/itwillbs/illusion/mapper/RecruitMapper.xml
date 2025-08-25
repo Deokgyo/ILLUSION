@@ -216,22 +216,32 @@
 	</select>
 	
 	<insert id="insertApply">
-	<selectKey keyProperty="apply_idx" resultType="int" order="BEFORE">
-	SELECT IFNULL(MAX(apply_idx), 0) + 1
-	  FROM apply
-	</selectKey>
+<!-- 	<selectKey keyProperty="apply_idx" resultType="int" order="BEFORE"> -->
+<!-- 	SELECT IFNULL(MAX(apply_idx), 0) + 1 -->
+<!-- 	  FROM apply -->
+<!-- 	</selectKey> -->
 	INSERT INTO apply
-	VALUES (#{apply_idx},
-			1, <!-- 추후 #{member_idx}로 변경  -->
-			#{recruit_idx},
-			#{resume_idx},
-			#{cl_idx},
-			#{apply_files_path},
-			#{apply_date},
-			#{apply_status},
-			#{is_viewed});
-		
+		 ( member_idx
+		 , recruit_idx
+		 , resume_idx
+		 , cl_idx
+		 , apply_files_path
+		 , apply_status
+		 , is_viewed )
+	VALUES ( #{member_idx}
+		 , #{recruit_idx}
+	     , #{resume_idx}
+		 , #{cl_idx}
+		 , #{apply_files_path}	
+		 , #{apply_status}
+		 , #{is_viewed});
 	</insert>
+	
+	<update id="cntRecruit">
+	    UPDATE recruit
+    	SET app_count = app_count + 1
+    	WHERE recruit_idx = #{recruit_idx}
+	</update>
 	
 	<!-- 사용자 일치하는지 확인 용도 -->
 	<select id="selectMemberIdx">

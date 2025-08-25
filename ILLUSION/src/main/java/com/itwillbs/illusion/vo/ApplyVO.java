@@ -2,8 +2,10 @@ package com.itwillbs.illusion.vo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ public class ApplyVO {
 	private int recruit_idx;
 	private int resume_idx;
 	private int cl_idx;
+	private MultipartFile apply_file;
 	private String apply_files_path;
 	private LocalDateTime apply_date; // 지원 일시
 	private String apply_status; // 지원 상태

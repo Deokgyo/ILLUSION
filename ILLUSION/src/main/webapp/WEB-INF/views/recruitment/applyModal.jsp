@@ -15,7 +15,7 @@
     <h2 class="modal-title">입사지원</h2>
 
     <%-- 4. 이력서 선택 섹션 --%>
-    <form action="" method="POST" enctype="">
+    <form action="apply" method="post" enctype="multipart/form-data">
 		    <section class="modal-section">
 		      <h3>이력서 선택 (필수)</h3>
 		      <div class="options-wrapper">
@@ -44,20 +44,25 @@
 		      <h3>첨부파일 (선택)</h3>
 		      <label class="file-drop-area" for="file-upload">
 		        <div class="file-info-text">
-		          <i class="bi bi-folder2-open"></i> <%-- 부트스트랩 아이콘 예시 --%>
-		          <p>파일을 끌어다 놓거나 클릭하여 업로드 하세요<br><span>(10MB 이하의 파일만 업로드 가능)</span></p>
+		          <i class="bi bi-folder2-open"></i> 
+		          <p>파일을 업로드 하세요</p>
 		        </div>
+<!-- 			    업로드된 파일 표시 (JS로 제어) -->
+			    <div class="uploaded-file-list">
+			    </div>
 		      </label>
-		      <input type="file" name="apply_files_path " id="file-upload" class="hidden">
+		      <input type="file" name="apply_file" id="file-upload" class="hidden">
 	      
-		      <%-- 업로드된 파일 표시 (JS로 제어) --%>
-		      <div class="uploaded-file-list">
-		        <!-- 예시: <div class="file-item">포트폴리오.pdf <button>x</button></div> -->
-		      </div>
 		    </section>
-	
+		    
+		    
+		    <input type="hidden" name="member_idx" value="${memberIdx}">
+		    <input type="hidden" name="is_viewed" value="BOL002">
+		    <input type="hidden" name="apply_status" value="APS001">
+		    <input type="hidden" name="recruit_idx" value="${param.recruit_idx}">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	    <%-- 7. 최종 지원 버튼 --%>
-	    <button class="modal-submit-btn">입사지원</button>
+	    <button type="submit" class="modal-submit-btn">입사지원</button>
     </form>
 
   </div>

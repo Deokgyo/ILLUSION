@@ -71,6 +71,7 @@ $(function () {
 						$('#summernote').summernote('insertImage', data.url)
 					},
 					error: function(xhr, textStatus, errorThrown) {
+						console.log(xhr);
 						alert('실패');
 					}
 				})

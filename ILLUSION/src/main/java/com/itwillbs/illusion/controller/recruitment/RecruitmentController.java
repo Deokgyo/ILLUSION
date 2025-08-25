@@ -1,8 +1,17 @@
 package com.itwillbs.illusion.controller.recruitment;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MemberService;
@@ -25,6 +35,9 @@ import com.itwillbs.illusion.vo.RecruitVO;
 
 @Controller
 public class RecruitmentController {
+	
+	// 업로드 할 가상 경로 
+	String virtualPath = "/resources/upload";
 	
 	@Autowired
 	RecruitService service;
@@ -86,8 +99,6 @@ public class RecruitmentController {
         // 3. 현재 필터/정렬 상태를 View에 전달
 		model.addAttribute("selectedFilters", filterVO);
 		
-		System.out.println("@#%#@%@%@#%@#%#@%#@%");
-		System.out.println(filterVO);
 		
 		return "recruitment/recruitmentInfo";
 	}
@@ -132,9 +143,6 @@ public class RecruitmentController {
 			List<ApplyVO> resumeList = service.getResumeList(member_idx);
 			model.addAttribute("clList", clList);
 			model.addAttribute("resumeList", resumeList);
-			System.out.println("여기에 뭐들어있냐");
-			System.out.println(clList);
-			System.out.println(resumeList);
 	        
 	    } else {
 	        // 비회원 → 작성자 아님
@@ -149,19 +157,66 @@ public class RecruitmentController {
 	
 	
 	
-	@GetMapping("applyModal")
-	public String applyModal(int recruit_idx, Model model,Principal principal) {
+//	@GetMapping("applyModal")
+//	public String applyModal(int recruit_idx, Model model,Principal principal) {
+//
+//		return "recruitment/applyModal";
+//	}
 
-		return "recruitment/applyModal";
+	
+	@PostMapping("apply")
+	public String apply(ApplyVO apply
+			, HttpServletRequest req
+			, Principal principal) {
+		
+		System.out.println("멤버 idx 넘어오나.....");
+		System.out.println(apply.getMember_idx());
+		
+		
+		String realPath = req.getServletContext().getRealPath(virtualPath);
+		String subDir = createDirectories(realPath);
+		realPath += "/" + subDir;
+		MultipartFile file = apply.getApply_file();
+		
+		String fileName = "";
+		String origin = file.getOriginalFilename();
+		
+		// 파일 이름 난수 넣어서 저장함 
+		if(!origin.equals("")) {
+			fileName = UUID.randomUUID().toString() + "_" + origin;
+		}
+		
+		// 난수포함된 파일을 실제로 파일로 옮기는 작업 
+		try {
+			if(!file.getOriginalFilename().equals("")) {
+				file.transferTo(new File(realPath, fileName));
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		apply.setApply_files_path(subDir + "/" + fileName);
+		
+		int insertCnt = service.insertApply(apply);
+		
+		return "redirect:/recruitmentDetail?recruit_idx=" + apply.getRecruit_idx();
 	}
 	
-//	@PostMapping("applyModal")
-//	public String applyModalSave(RecruitVO recruit ,int recruit_idx, Model model) {
-//		
-//		int insertCnt = service.insertApply(recruit);
-//		
-//		return "redirect:/recruitmentDetail?recruit_idx=" + recruit_idx;
-//	}
-	
+	private String createDirectories(String realPath) {
+		LocalDate today = LocalDate.now();
+		String datePattern = "yyyy/MM/dd";
+		DateTimeFormatter dft = DateTimeFormatter.ofPattern(datePattern);
+		String subDir = today.format(dft);
+		realPath += "/" + subDir;
+		try {
+			// 5-1) java.nio.file.Paths 클래스의 get() 메서드 호출 Path 객체 리턴 
+			Path path = Paths.get(realPath);
+			// 5-2) Files 클래스의 createDirectories() 호출하여 실제 경로 생성 
+			Files.createDirectories(path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return subDir;
+	}
 	
 }
