@@ -46,10 +46,10 @@ public class CustomLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticati
         boolean isAjax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
         if (isAjax) {
-            // ✨ AJAX 요청이면: 401 Unauthorized 에러를 응답합니다.
+            //  AJAX 요청이면: 401 Unauthorized 에러를 응답합니다.
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         } else {
-            // ✨ 일반 페이지 요청이면: 기존 로직(로그인 페이지로 리다이렉트)을 그대로 수행합니다.
+            //  일반 페이지 요청이면: 기존 로직(로그인 페이지로 리다이렉트)을 그대로 수행합니다.
             super.commence(request, response, authException);
         }
     }

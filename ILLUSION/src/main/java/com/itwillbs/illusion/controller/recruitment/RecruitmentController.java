@@ -24,8 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MemberService;
+import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.RecruitService;
-import com.itwillbs.illusion.service.ScrapService;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.MemberVO;
@@ -49,7 +49,7 @@ public class RecruitmentController {
 	MemberService memberService;
 	
 	@Autowired
-	ScrapService scrapService;
+	MypageService mypageService;
 	
 	// 채용정보 페이지 이동
 	@GetMapping("recruitmentInfo")
@@ -121,7 +121,7 @@ public class RecruitmentController {
 	        String memberId = principal.getName();
 	        MemberVO member = memberService.getMemberInfoById(memberId);
 	        if (member != null) {
-	        	isScrapped = scrapService.isScrapped(member.getMember_idx(), recruit_idx);
+	        	isScrapped = mypageService.isScrapped(member.getMember_idx(), recruit_idx);
 	        }
 	    }
 	    

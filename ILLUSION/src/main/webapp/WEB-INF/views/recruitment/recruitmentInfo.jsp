@@ -179,9 +179,6 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     
-    <script>
-    	window.contextPath = "${pageContext.request.contextPath}";
-	</script>
 	
     <script src="${pageContext.request.contextPath}/resources/js/recruitment/filterEvent.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>

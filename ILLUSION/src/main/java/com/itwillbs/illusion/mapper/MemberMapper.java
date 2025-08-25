@@ -10,19 +10,19 @@ import com.itwillbs.illusion.vo.MemberVO;
 @Mapper
 public interface MemberMapper {
 	public int checkIdCount(String member_id);
-	public int checkId(String member_id);
+	
 	public int insertMember(MemberVO member);
-	// 메일 인증 등록 및 수정
+	
 	public int insertMailAuthInfo(MailAuthInfo mailAuthInfo);
-	// 메일 인증 정보 조회
+	
 	public MailAuthInfo selectMailAuthInfo(MailAuthInfo mailAuthInfo);
-	// Member 테이블의 mail_auth_status 컬럼을 'Y'로 변경
+	
 	public int updateMailAuthStatus(MailAuthInfo mailAuthInfo);
-	// mail_auth_info 테이블 row 삭제
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
 
 
 	// 조영재
 	public MemberVO getMemberInfoById(String id);
+
 	
 }

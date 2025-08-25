@@ -42,9 +42,16 @@ public class CoverletterController {
 	}
 
 	@GetMapping("coverletterResult")
-	public String showCoverletterResult(Model model, @RequestParam("cl_idx") int cl_idx) {
+	public String showCoverletterResult(Model model, 
+				@RequestParam("cl_idx") int cl_idx,
+				@RequestParam("original_cl_idx") int original_cl_idx) {
+		
 		Map<String, Object> coverletter = service.getCoverletterById(cl_idx);
+		Map<String, Object> originalCoverletter = service.getCoverletterById(original_cl_idx);
+		
 		model.addAttribute("coverletter", coverletter);
+		model.addAttribute("originalCoverletter", originalCoverletter);
+		
 		return "jobTools/coverletterResult";
 	}
 
@@ -94,13 +101,8 @@ public class CoverletterController {
 	    coverletterMap.put("aiResult", aiResult);
 	    coverletterMap.put("generated_char_count", aiResult.length());
 	    coverletterMap.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
+	    coverletterMap.put("cl_type", "CL001"); // TODO
 	    
-//	    int generatedClIdx = service.saveCoverletter(coverletterMap);
-//	    
-//	    Map<String, Object> response = new HashMap<>();
-//	    response.put("success", true);
-//	    response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
-//	    return response;
 	    try {
 	        int requiredTokens = 30; 
 	        int generatedClIdx = service.useTokenForJobTools(coverletterMap, requiredTokens);
@@ -165,13 +167,7 @@ public class CoverletterController {
         coverletterMap.put("aiResult", aiResult);
         coverletterMap.put("generated_char_count", charCount);
         coverletterMap.put("generated_char_count_no_space", charCountNoSpace);
-        
-//        int generatedClIdx = service.saveCoverletter(coverletterMap);
-//
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("success", true);
-//        response.put("cl_idx", generatedClIdx);
-//        return response;
+        coverletterMap.put("cl_type", "CL002"); // TODO
         
         try {
 	        int requiredTokens = 30; 
@@ -185,6 +181,8 @@ public class CoverletterController {
 	        
 	        // 성공 응답 반환
 	        Map<String, Object> response = new HashMap<>();
+	        
+	        
 	        response.put("success", true);
 	        response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
 	        return response;
@@ -231,13 +229,9 @@ public class CoverletterController {
 	    newCoverletterMap.put("aiResult", aiResult);
 	    newCoverletterMap.put("generated_char_count", charCount);
 	    newCoverletterMap.put("generated_char_count_no_space", charCountNoSpace);
+	    newCoverletterMap.put("originalCoverletter", originalCoverletter.get("generated_cl_content"));
+	    newCoverletterMap.put("cl_type", "CL002"); // TODO
 	    
-//	    int generatedClIdx = service.saveCoverletter(newCoverletterMap);
-//	    
-//	    Map<String, Object> response = new HashMap<>();
-//	    response.put("success", true);
-//	    response.put("cl_idx", generatedClIdx); 
-//	    return response;
 	    try {
 	        int requiredTokens = 30; 
 	        int generatedClIdx = service.useTokenForJobTools(newCoverletterMap, requiredTokens);
@@ -250,8 +244,13 @@ public class CoverletterController {
 	        
 	        // 성공 응답 반환
 	        Map<String, Object> response = new HashMap<>();
+	        
+	        String redirectUrl = String.format("coverletterResult?cl_idx=%d&original_cl_idx=%d", 
+                    generatedClIdx, 
+                    cl_idx);
+	        
 	        response.put("success", true);
-	        response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
+	        response.put("redirectUrl", redirectUrl);
 	        return response;
 	        
 	    } catch (RuntimeException e) {
@@ -270,6 +269,9 @@ public class CoverletterController {
 	@ResponseBody
 	public Map<String, String> saveToMypage(@RequestParam("cl_idx") int cl_idx) {
 	    // TODO: 이 자소서가 현재 로그인한 사용자의 것인지 권한 검사 로직 추가 필요
+		
+		
+		
 	    String newStatus = service.toggleSaveToMypage(cl_idx);
 	    Map<String, String> map = new HashMap<>();
 	    if ("BOL001".equals(newStatus)) {

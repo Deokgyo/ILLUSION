@@ -49,7 +49,7 @@
 		  	, #{aiResult}
 		  	, #{generated_char_count}
 		  	, #{generated_char_count_no_space}
-		  	, 'CL001' )
+		  	, #{cl_type} )
 	</insert>
 	
 	<!-- 자소서 정보 가져오기 -->

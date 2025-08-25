@@ -65,15 +65,15 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             if (authorityName.equals("ROLE_MEM001")) { 
                 return "/adminMain"; 
             } else if (authorityName.equals("ROLE_MEM003")) { 
-                return "/recruiterMain"; // recruiterMainLogin 대신 recruiterMain으로 가정
+                return "/recruiterMainLogin";
             }
         }
 
-        return "/"; // 일반 사용자의 기본 URL
+        return "/"; 
     }
     
-    // --- (이하 헬퍼 메소드들) ---
-
+    
+    // 아이디 유지 
     private void handleRememberIdCookie(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String rememberId = request.getParameter("rememberId");
         String member_id = authentication.getName();
@@ -89,9 +89,9 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         response.addCookie(idCookie);
     }
     
+    // 사용자가 로그인한 순간의 정보를 세션에 담음
     private void saveUserToSession(HttpServletRequest request, Authentication authentication) {
         String member_id = authentication.getName();
-        // 서비스의 메소드 이름이 getMemberInfoById라고 하셔서 그대로 사용합니다.
         MemberVO loginUser = service.getMemberInfoById(member_id);
         HttpSession session = request.getSession();
         session.setAttribute("loginUser", loginUser);

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>관심공고 목록</title>
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 	<link rel="stylesheet"
@@ -37,7 +37,6 @@
 		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 		<main class="main-content">
 			<div class="favorite-container">
-				<!--   <h2 class="favorite-title">관심공고 목록</h2> -->
 				<div class="page-title-header">
 					<p class="header-text">
 						<strong>관심공고 목록</strong>
@@ -58,11 +57,12 @@
 							<c:forEach var="scrap" items="${scrapList }">
 								<tbody>
 									<tr class="row-link" data-href="recruitmentDetail?recruit_idx=${scrap.recruit_idx }">
-										<td><input type="checkbox" class="checkbox" /></td>
+										<td><input type="checkbox" class="checkbox" value="${scrap.recruit_idx}"></td>
 										<td>${scrap.recruit_subject }</td>
 										<td>${scrap.rec_status }</td>
 										<td>${scrap.startDateFormatted }</td>
 										<td>${scrap.endDateFormatted }</td>
+									</tr>	
 								</tbody>
 							</c:forEach>
 						</tbody>
@@ -70,7 +70,7 @@
 				</div>
 
 				<div class="action-buttons">
-					<button class="delete-btn" onclick="confirm('저장하시겠습니까?')">삭제</button>
+					<button id="delete-btn" class="delete-btn">삭제</button>
 				</div>
 
 				<nav class="pagination">
@@ -121,8 +121,25 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	
+	<script>
+    	window.contextPath = "${pageContext.request.contextPath}";
+	</script>
+	
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/myPage/myPageDelete.js"></script>
+	<script>
+	    $(function() {
+	        initializeMultipleDelete({
+	        	deleteButtonId: '#delete-btn',
+	        	itemCheckboxClass: '.checkbox',
+	        	deleteApiUrl: '/api/mypage/scraps/delete',
+	        	paramName: 'idList',
+	        	itemName: '스크랩'
+	        });
+	    });
+	</script>
 	
 </body>
 </html>

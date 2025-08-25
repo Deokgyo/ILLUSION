@@ -46,6 +46,17 @@
          WHERE member_idx = #{member_idx} 
            AND recruit_idx = #{recruit_idx}
     </delete>
+    
+    <!-- 마이페이지 여러건 스크랩 삭제 -->
+    <delete id="deleteScraps" parameterType="map">
+    DELETE 
+      FROM scrap
+     WHERE member_idx = #{memberIdx}
+       AND recruit_idx IN
+        <foreach item="recruitIdx" collection="idList" open="(" separator="," close=")">
+            #{recruitIdx}
+        </foreach>
+	</delete>
 	
 	
 	

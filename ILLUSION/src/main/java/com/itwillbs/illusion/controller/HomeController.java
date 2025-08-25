@@ -43,7 +43,6 @@ public class HomeController {
 	public String errorPage() {
 		return "errorPage";
 	}
-
 	// 로그인 이동
 	@GetMapping("idPwFind")
 	public String idPwFind() {
@@ -82,18 +81,5 @@ public class HomeController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-//	@PostMapping("recruiterregister")
-//	public String recruiterregister(MemberVO member, Model model) {
-//		boolean result = memberService.recruiterinsertMember(member);
-//		if (result) {
-//			// 회원가입 성공 시 로그인 페이지로 리다이렉트 이동
-//			return "redirect:/login";
-//		} else {
-//			// 회원가입 실패 시 오류 메시지 전달 후 가입 폼으로 이동
-//			model.addAttribute("error", "회원가입 실패");
-//			return "registerForm";
-//		}
-//	}
-//	
 
 }
