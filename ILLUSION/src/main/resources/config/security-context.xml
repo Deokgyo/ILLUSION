@@ -93,22 +93,14 @@
     <!-- 2. 인증 관리자 설정 (로그인 처리 방법 정의) -->
     <!-- =================================================================== -->
     <authentication-manager>
-        <authentication-provider>
+        <authentication-provider user-service-ref="customUserDetailsService">
             <!-- 2-1) 비밀번호 암호화 방식 정의 (BCrypt 사용) -->
             <!-- BCrypt는 현재 가장 표준적이고 안전한 암호화 방식입니다. -->
             <password-encoder ref="bcryptPasswordEncoder" />
 
-            <!-- 2-2) 데이터베이스(JDBC)를 이용한 인증 설정 -->
-            <jdbc-user-service 
-                data-source-ref="dataSource" 
-                users-by-username-query="
-                    SELECT member_id, member_pw, true as enabled 
-                    FROM member 
-                    WHERE member_id = ?"
-                authorities-by-username-query="
-                    SELECT member_id, CONCAT('ROLE_', member_type) as authority 
-                    FROM member 
-                    WHERE member_id = ?" />
+            <!-- 2-2) CustomUserDetailsService를 사용하여 인증 처리를 위임 -->
+            <!-- 이제부터 CustomUserDetailsService가 DB에서 사용자 정보를 조회하고,
+                 CustomUserDetails 객체를 생성하여 Spring Security에 제공합니다. -->
         </authentication-provider>
     </authentication-manager>
 

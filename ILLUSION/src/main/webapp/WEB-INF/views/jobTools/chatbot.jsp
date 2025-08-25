@@ -79,7 +79,7 @@
             <button class="close-modal-btn btn-no">×</button>
             <div class="modal-header">
                 <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
-                <h4>토큰을 충전합니다 (현재 토큰 수 : ${userToken })</h4>
+                <h4>토큰을 충전합니다 (현재 토큰 수 : <span id="modal-token-count">${userToken}</span>)</h4>
             </div>
             <p>결제페이지로 이동하시겠습니까?</p>
             <div class="modal-buttons">

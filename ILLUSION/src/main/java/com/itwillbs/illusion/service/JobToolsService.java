@@ -63,7 +63,7 @@ public class JobToolsService {
 	}
 	
 	@Transactional
-	public String useTokenForChatbot(String message, int requiredTokens) {
+	public Map<String, Object> useTokenForChatbot(String message, int requiredTokens) {
 	    int member_idx = SecurityUtil.getLoginUserIndex();
 	    if (member_idx == -1) {
 	        throw new RuntimeException("로그인이 필요합니다.");
@@ -75,7 +75,18 @@ public class JobToolsService {
 	        throw new RuntimeException("토큰이 부족하여 챗봇을 이용할 수 없습니다.");
 	    }
 	    
-	    return geminiService.callGeminiApi(message);
+	    // AI 응답 호출
+	    String aiReply = geminiService.callGeminiApi(message);
+
+	    // 갱신된 토큰 정보 조회
+	    Integer newTokenCount = mapper.getMemberToken(member_idx);
+
+	    // 결과 맵 생성
+	    Map<String, Object> result = new java.util.HashMap<>();
+	    result.put("reply", aiReply);
+	    result.put("newToken", newTokenCount);
+
+	    return result;
 	}
 	    
 	
@@ -103,6 +114,15 @@ public class JobToolsService {
 	    return mapper.selectSaveStatus(cl_idx); // 바뀐 값 조회
 	}
 	
+	// 토큰 차감 없이 자소서만 저장하는 메소드
+	public int saveCoverletterOnly(Map<String, Object> map) {
+		mapper.saveCoverletter(map);
+		Number generatedId = (Number) map.get("cl_idx");
+	    if (generatedId == null) {
+	        throw new RuntimeException("자소서 저장 후 PK를 가져오는 데 실패했습니다.");
+	    }
+	    return generatedId.intValue();
+	}
 	
 }
 

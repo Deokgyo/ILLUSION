@@ -135,65 +135,74 @@ public class CoverletterController {
     public Map<String, Object> refineNewCoverletter(
             @RequestParam String cl_input_method,
             @RequestParam(required = false) MultipartFile uploadedFile,
-            @RequestParam(required = false) String coverletterText,
-            HttpSession session) {
+            @RequestParam(required = false) String coverletterText) { // HttpSession 제거
 
-        String originalContent = "";
-        try {
-            if ("file".equals(cl_input_method) && uploadedFile != null && !uploadedFile.isEmpty()) {
-                originalContent = new String(uploadedFile.getBytes(), "UTF-8");
-            } else if ("text".equals(cl_input_method) && coverletterText != null) {
-                originalContent = coverletterText;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("success", false);
-            errorResponse.put("message", "파일을 읽는 중 오류가 발생했습니다.");
-            return errorResponse;
-        }
-        
-        String prompt = createRefinementPrompt(originalContent);
-        System.out.println(prompt);
-        String aiResult = geminiService.callGeminiApi(prompt);
-        
-        int charCount = aiResult.length();
-        int charCountNoSpace = aiResult.replaceAll("\\s", "").length();
-        
-        Map<String, Object> coverletterMap = new HashMap<>();
-        coverletterMap.put("member_idx", SecurityUtil.getLoginUserIndex());
-        coverletterMap.put("title", "첨삭된 자기소개서");
-        coverletterMap.put("company", "ㅇㅇ");
-        coverletterMap.put("aiResult", aiResult);
-        coverletterMap.put("generated_char_count", charCount);
-        coverletterMap.put("generated_char_count_no_space", charCountNoSpace);
-        coverletterMap.put("cl_type", "CL002"); // TODO
-        
-        try {
-	        int requiredTokens = 30; 
-	        int generatedClIdx = service.useTokenForJobTools(coverletterMap, requiredTokens);
-	        
-            MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-            if (loginUser != null) {
-                loginUser.setToken(loginUser.getToken() - requiredTokens);
-                session.setAttribute("loginUser", loginUser);
-            }
-	        
-	        // 성공 응답 반환
-	        Map<String, Object> response = new HashMap<>();
-	        
-	        
-	        response.put("success", true);
-	        response.put("redirectUrl", "coverletterResult?cl_idx=" + generatedClIdx);
-	        return response;
-	        
-	    } catch (RuntimeException e) {
-	        // 서비스에서 "토큰 부족" 예외가 발생했을 때 처리
-	        Map<String, Object> response = new HashMap<>();
-	        response.put("success", false);
-	        response.put("message", e.getMessage()); 
-	        return response;
-	    }
+		Map<String, Object> response = new HashMap<>();
+		int member_idx = SecurityUtil.getLoginUserIndex();
+	
+		// 1. 원본 내용 확정
+		String originalContent = "";
+		try {
+			if ("file".equals(cl_input_method) && uploadedFile != null && !uploadedFile.isEmpty()) {
+				originalContent = new String(uploadedFile.getBytes(), "UTF-8");
+			} else if ("text".equals(cl_input_method) && coverletterText != null) {
+				originalContent = coverletterText;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			response.put("success", false);
+			response.put("message", "파일을 읽는 중 오류가 발생했습니다.");
+			return response;
+		}
+	
+		if (originalContent.trim().isEmpty()) {
+			response.put("success", false);
+			response.put("message", "첨삭할 자기소개서 내용이 비어있습니다.");
+			return response;
+		}
+	
+		try {
+			// 2. 원본 자소서를 먼저 DB에 저장 (토큰 차감 없이)
+			Map<String, Object> originalClMap = new HashMap<>();
+			originalClMap.put("member_idx", member_idx);
+			originalClMap.put("title", "원본 자기소개서 (첨삭용)");
+			originalClMap.put("aiResult", originalContent);
+			originalClMap.put("generated_char_count", originalContent.length());
+			originalClMap.put("generated_char_count_no_space", originalContent.replaceAll("\\s", "").length());
+			originalClMap.put("cl_type", "CL003"); // '원본' 타입
+			int originalClIdx = service.saveCoverletterOnly(originalClMap);
+	
+			// 3. AI를 통해 첨삭본 생성
+			String prompt = createRefinementPrompt(originalContent);
+			String aiResult = geminiService.callGeminiApi(prompt);
+	
+			// 4. 첨삭본 자소서를 저장 (이때 토큰 차감)
+			Map<String, Object> refinedClMap = new HashMap<>();
+			refinedClMap.put("member_idx", member_idx);
+			refinedClMap.put("title", "첨삭된 자기소개서");
+			refinedClMap.put("aiResult", aiResult);
+			refinedClMap.put("generated_char_count", aiResult.length());
+			refinedClMap.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
+			refinedClMap.put("cl_type", "CL002"); // '첨삭본' 타입
+	
+			int requiredTokens = 30;
+			int refinedClIdx = service.useTokenForJobTools(refinedClMap, requiredTokens);
+	
+			// 5. 두 ID를 모두 포함하여 리다이렉트 URL 생성
+			String redirectUrl = String.format("coverletterResult?cl_idx=%d&original_cl_idx=%d",
+					refinedClIdx,
+					originalClIdx);
+	
+			response.put("success", true);
+			response.put("redirectUrl", redirectUrl);
+			return response;
+	
+		} catch (RuntimeException e) {
+			// 토큰 부족 또는 기타 런타임 예외 처리
+			response.put("success", false);
+			response.put("message", e.getMessage());
+			return response;
+		}
     }
 	
 	/**
@@ -201,9 +210,19 @@ public class CoverletterController {
 	 */
 	@PostMapping("refineSavedCoverletter")
 	@ResponseBody
-	public Map<String, Object> refineSavedCoverletter(@RequestParam int cl_idx, HttpSession session) {
+	public Map<String, Object> refineSavedCoverletter(@RequestParam int cl_idx) { 
 	    
 	    Map<String, Object> originalCoverletter = service.getCoverletterById(cl_idx);
+
+		// 자소서 타입을 확인하여 이미 첨삭된 자소서인지 검사
+		String cl_type = (String) originalCoverletter.get("cl_type");
+		if ("CL002".equals(cl_type)) {
+			Map<String, Object> response = new HashMap<>();
+			response.put("success", false);
+			response.put("message", "이미 첨삭된 자소서는 다시 다듬을 수 없습니다.");
+			return response;
+		}
+
 	    int writer_idx = (Integer) originalCoverletter.get("member_idx");
 	    int current_member_idx = SecurityUtil.getLoginUserIndex();
 
@@ -217,30 +236,20 @@ public class CoverletterController {
 	    String originalContent = (String) originalCoverletter.get("generated_cl_content");
 	    String prompt = createRefinementPrompt(originalContent);
 	    String aiResult = geminiService.callGeminiApi(prompt);
-	    System.out.println(prompt);
-	    
-	    int charCount = aiResult.length();
-	    int charCountNoSpace = aiResult.replaceAll("\\s", "").length();
 	    
 	    Map<String, Object> newCoverletterMap = new HashMap<>();
 	    newCoverletterMap.put("member_idx", current_member_idx);
 	    newCoverletterMap.put("title", originalCoverletter.get("cl_title") + " (첨삭본)");
 	    newCoverletterMap.put("company", (String) originalCoverletter.get("company_name"));
 	    newCoverletterMap.put("aiResult", aiResult);
-	    newCoverletterMap.put("generated_char_count", charCount);
-	    newCoverletterMap.put("generated_char_count_no_space", charCountNoSpace);
+	    newCoverletterMap.put("generated_char_count", aiResult.length());
+	    newCoverletterMap.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
 	    newCoverletterMap.put("originalCoverletter", originalCoverletter.get("generated_cl_content"));
-	    newCoverletterMap.put("cl_type", "CL002"); // TODO
+	    newCoverletterMap.put("cl_type", "CL002"); 
 	    
 	    try {
 	        int requiredTokens = 30; 
 	        int generatedClIdx = service.useTokenForJobTools(newCoverletterMap, requiredTokens);
-	        
-            MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-            if (loginUser != null) {
-                loginUser.setToken(loginUser.getToken() - requiredTokens);
-                session.setAttribute("loginUser", loginUser);
-            }
 	        
 	        // 성공 응답 반환
 	        Map<String, Object> response = new HashMap<>();

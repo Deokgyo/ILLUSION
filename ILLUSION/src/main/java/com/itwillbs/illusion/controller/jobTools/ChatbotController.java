@@ -46,36 +46,27 @@ public class ChatbotController {
 	// ai 챗봇 채팅 전송
 	@PostMapping("aiChat") 
     @ResponseBody 
-    public Map<String, Object> getChatResponse(@RequestParam String message, HttpSession session) { // 2. HttpSession 파라미터 추가
-        
+    public Map<String, Object> getChatResponse(@RequestParam String message) {
         Map<String, Object> response = new HashMap<>();
-        
-        // 3. (수정!) 토큰 차감과 AI 호출을 트랜잭션으로 묶은 서비스 메소드를 호출합니다.
-        int requiredTokens = 5; // 예: 챗봇 1회 사용에 5토큰 필요
-        
-        try {
-            // 4. 새로운 서비스 메소드를 호출합니다. (이 메소드는 아래에 새로 만들어야 함)
-            String aiReply = service.useTokenForChatbot(message, requiredTokens);
-            
-            // --- 5. (핵심!) 성공 시 세션 정보 업데이트 ---
-            MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-            if (loginUser != null) {
-                loginUser.setToken(loginUser.getToken() - requiredTokens);
-                session.setAttribute("loginUser", loginUser);
-            }
-            // --- 여기까지 ---
+        int requiredTokens = 5; // 챗봇 1회 사용에 5토큰 필요
 
+        try {
+            // 서비스 계층에서 토큰 차감, AI 호출, 새 토큰 개수 조회를 모두 처리
+            Map<String, Object> serviceResult = service.useTokenForChatbot(message, requiredTokens);
+
+            // 서비스 결과를 프론트엔드 응답에 맞게 재구성
             response.put("success", true);
-            response.put("reply", aiReply); 
-            
+            response.put("reply", serviceResult.get("reply"));
+            response.put("newToken", serviceResult.get("newToken"));
+
         } catch (RuntimeException e) {
-            // 서비스에서 "토큰 부족" 예외가 발생했을 때
+            // 서비스에서 "토큰 부족" 또는 다른 예외가 발생했을 때
             response.put("success", false);
             response.put("message", e.getMessage());
-	        }
+        }
 
-	        return response;
-	    }
+        return response;
+    }
 }
 	
 
