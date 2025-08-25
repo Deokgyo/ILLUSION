@@ -34,7 +34,7 @@ import com.itwillbs.illusion.vo.ResumeVO;
 import com.itwillbs.illusion.vo.ScrapVO;
 
 @Controller
-public class MypageContrlloer {
+public class MypageController2 {
 	@Autowired
 	ResumeService resumeService;
 
@@ -61,52 +61,6 @@ public class MypageContrlloer {
 		model.addAttribute("member", member);
 	
 		return "myPage/myPage";
-	}
-
-	/* 이력서 등록 */
-	@GetMapping("resumeWrite")
-	public String resumeWriteForm() {
-		return "myPage/resumeWrite";
-	}
-
-	@PostMapping("resumeWrite")
-	public String resumeWrite(@RequestParam Map<String, Object> paramMap, HttpSession session) {
-
-		// 로그인한 회원 번호를 세션에서 가져와서 paramMap에 저장
-//	    Object memberIdx = session.getAttribute("member_idx");
-//	    if (memberIdx != null) {
-//	    	 return "redirect:/login";
-//	    }
-//	    paramMap.put("member_idx", memberIdx);
-
-		// 서비스 호출 - insert 시 useGeneratedKeys로 resume_idx 채워줌
-		resumeService.insertResumeAndExpInfo(paramMap);
-
-		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") + "&member_idx="
-				+ paramMap.get("member_idx");
-	}
-
-	/* 이력서 수정 */
-	@GetMapping("resumeUpdate")
-	public String resumeUpdate(@RequestParam int resume_idx, Model model) {
-		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-		model.addAttribute("resume", resume);
-		List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
-		model.addAttribute("resume_exp_info_list", resumeExpInfoList);
-		return "myPage/resumeUpdate";
-	}
-
-	/* 이력서 수정 */
-	@PostMapping("resumeUpdate")
-	public String resumeUpdate(@RequestParam Map<String, Object> paramMap, HttpSession session, int resume_idx,
-			Model model) {
-
-		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-		model.addAttribute("resume", resume);
-		resumeService.updateResumeAndExpInfo(paramMap);
-
-		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") + "&member_idx="
-				+ paramMap.get("member_idx");
 	}
 
 	/* 이력서 목록 */
@@ -246,78 +200,17 @@ public class MypageContrlloer {
 		return "삭제성공";
 	}
 
+	/* 토큰 결제 */
+	@GetMapping("tokenpay")
+	public String tokenpay() {
+		return "myPage/tokenpay";
+	}
+	
 	/* 환불 정책 */
 	@GetMapping("refundPolicy")
 	public String refundPolicy() {
 		return "myPage/refundPolicy";
 	}
 
-	/* 회원정보 수정 */
-	@GetMapping("userInfoEdit")
-	public String userInfoEdit(Model model, @RequestParam int member_idx) {
 
-		System.out.println("맴버아이디" + member_idx);
-		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
-		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
-		
-		return "myPage/userInfoEdit";
-	}
-	/*회원정보 수정 */
-	@PostMapping("userInfoEdit")
-    public String userInfoEdit(@RequestParam Map<String, Object> paramMap) {
-
-        // member_idx는 Integer로 변환
-        if (paramMap.get("member_idx") instanceof String) {
-            paramMap.put("member_idx", Integer.parseInt((String) paramMap.get("member_idx")));
-        }
-        System.out.println("paramMap = " + paramMap);
-        resumeService.updateuserInfoEdit(paramMap);
-        
-        return "redirect:/myPage";
-    }
-	/* 토큰 결제 */
-	@GetMapping("tokenpay")
-	public String tokenpay() {
-		return "myPage/tokenpay";
-	}
-
-	/* 이력서 상세보기 */
-	@GetMapping("savedResumeDetail")
-	public String savedResumeDetail(@RequestParam int resume_idx, @RequestParam int member_idx, Model model) {
-		Map<String, Object> member = resumeService.selectMember(member_idx);
-		model.addAttribute("member", member);
-		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-		model.addAttribute("resume", resume);
-		List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
-		model.addAttribute("resume_exp_info_list", resumeExpInfoList);
-		System.out.println("resumeExpInfoList = " + resumeExpInfoList);
-
-		return "myPage/savedResumeDetail";
-	}
-
-	/* 자소서 상세보기 */
-	@GetMapping("savedCLDetail")
-	public String savedCLDetail(@RequestParam int cl_idx, @RequestParam int member_idx, Model model) {
-		Map<String, Object> member = resumeService.selectMember(member_idx);
-		model.addAttribute("member", member);
-		Map<String, Object> cl = resumeService.selectCL(cl_idx);
-		model.addAttribute("cl", cl);
-
-		return "myPage/savedCLDetail";
-	}
-
-	/* 비밀번호변경 */
-	@GetMapping("changePasswd")
-	public String changePasswd(Model model, @RequestParam int member_idx) {
-		System.out.println("맴버아이디" + member_idx);
-		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
-		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
-		return "myPage/changePasswd";
-	}
-
-	/* 회원탈퇴 */
-	@GetMapping("deleteMember")
-	public String deleteMember() {
-		return "myPage/deleteMember";
-	}
 }
