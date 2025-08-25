@@ -34,8 +34,6 @@ import com.itwillbs.illusion.service.BoardService;
 import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.ResumeService;
-import com.itwillbs.illusion.service.ScrapService;
-import com.itwillbs.illusion.service.ApplyService;
 import com.itwillbs.illusion.util.PagingUtil;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.MemberVO;
