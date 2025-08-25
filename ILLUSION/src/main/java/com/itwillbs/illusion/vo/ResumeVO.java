@@ -15,7 +15,8 @@ public class ResumeVO {
 	private int resume_idx;
 	private int member_idx;
 	private String resume_title;
-	private LocalTime resume_create_at;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate resume_create_at;
 	private String resume_img;
 	private String school_name;
 	private String major;

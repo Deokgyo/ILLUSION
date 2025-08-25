@@ -27,6 +27,7 @@ import com.itwillbs.illusion.service.ResumeService;
 import com.itwillbs.illusion.util.PagingUtil;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.BoardVO;
+import com.itwillbs.illusion.vo.CoverLetterVO;
 import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.PageInfo;
 import com.itwillbs.illusion.vo.RecruitFilterVO;
@@ -65,19 +66,91 @@ public class MypageController2 {
 
 	/* 이력서 목록 */
 	@GetMapping("savedResumeList")
-	public String savedResumeList(Model model) {
-		List<Map<String, Object>> resumeList = resumeService.selectResumelist();
+	public String savedResumeList(Principal principal,
+			@RequestParam(defaultValue = "1") int pageNum,
+			Model model) {
+		
+		// 방어 코드
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		String member_id = principal.getName();
+		MemberVO member = memberService.getMemberInfoById(member_id);
+		
+        // 페이징 처리-
+        int listLimit = 10; // 한페이지에 10개
+		int pageListLimit = 5;
+        
+        int listCount = mypageService.getResumeListCountByMember(member.getMember_idx());
+        
+        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
+        PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+        
+        // 데이터 조회
+        int startRow = (pageNum - 1) * listLimit;
+		
+		List<ResumeVO> resumeList = mypageService.getResumeListByMemberId(member.getMember_idx(), startRow, listLimit);
 		model.addAttribute("resumeList", resumeList);
+		model.addAttribute("pageInfo", pageInfo);
 
 		return "myPage/savedResumeList";
+	}
+	
+	/* 이력서 수정 */
+	@GetMapping("resumeUpdate")
+	public String resumeUpdate() {
+		return "myPage/resumeUpdate";
+	}
+
+	/* 이력서 수정 */
+	@PostMapping("resumeUpdate")
+	public String postResumeUpdate() {
+		return "redirect:/savedResumeDetail";
 	}
 
 	/* 자소서 목록 */
 	@GetMapping("savedCLList")
-	public String savedCLList(Model model) {
-		List<Map<String, Object>> clList = resumeService.selectcllist();
-		model.addAttribute("clList", clList);
+	public String savedCLList(Principal principal,
+			@RequestParam(defaultValue = "1") int pageNum,
+			Model model) {
+		
+		// 방어 코드
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		String member_id = principal.getName();
+		MemberVO member = memberService.getMemberInfoById(member_id);
+		
+        // 페이징 처리-
+        int listLimit = 10; // 한페이지에 10개
+		int pageListLimit = 5;
+        
+        int listCount = mypageService.getCLListCountByMember(member.getMember_idx());
+        
+        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
+        PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+        
+        // 데이터 조회
+        int startRow = (pageNum - 1) * listLimit;
+		
+		List<CoverLetterVO> CLList = mypageService.getCLListByMemberId(member.getMember_idx(), startRow, listLimit);
+		model.addAttribute("CLList", CLList);
+		model.addAttribute("pageInfo", pageInfo);
 		return "myPage/savedCLList";
+	}
+	
+	/* 이력서 상세보기 */
+	@GetMapping("savedResumeDetail")
+	public String savedResumeDetail() {
+		return "myPage/savedResumeDetail";
+	}
+
+	/* 자소서 상세보기 */
+	@GetMapping("savedCLDetail")
+	public String savedCLDetail() {
+		return "myPage/savedCLDetail";
 	}
 
 	/* 면접예상질문 리스트 */
@@ -189,15 +262,6 @@ public class MypageController2 {
 		model.addAttribute("pageInfo", pageInfo);
 
 		return "myPage/myPost";
-	}
-	
-	/* 내가쓴글 삭제*/
-	@DeleteMapping("/boardDelete/{board_idx}")
-	@ResponseBody
-	public String deleteBoard(@PathVariable int board_idx) {
-		service.boardDelete(board_idx);
-		System.out.println("console.log('삭제할 번호:', " + board_idx);
-		return "삭제성공";
 	}
 
 	/* 토큰 결제 */

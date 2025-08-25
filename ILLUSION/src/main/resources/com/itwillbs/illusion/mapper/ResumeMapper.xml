@@ -174,4 +174,68 @@
 		generation_date
 		FROM cover_letter
 	</select>
+	
+	<!-- ////////////////////////// -->
+	<!-- 마이페이지 이력서 목록 셀렉트 -->
+	<select id="getResumeListByMemberId" parameterType="int" resultType="com.itwillbs.illusion.vo.ResumeVO">
+		SELECT
+			   resume_idx
+		     , member_idx
+		     , resume_title
+		     , resume_create_at
+		  FROM resume
+		 WHERE member_idx = #{memberIdx}
+		 ORDER BY resume_idx DESC
+		 LIMIT #{startRow}, #{listLimit}
+	</select>
+	
+	<!-- select한 이력서 개수 -->
+	<select id="getResumeListCountByMember" parameterType="com.itwillbs.illusion.vo.ResumeVO" resultType="int">
+	    SELECT COUNT(*)
+  	      FROM resume
+  	     WHERE member_idx = #{memberIdx}
+	</select>
+	
+	<!-- 마이페이지 여러건 이력서 삭제  -->
+	<delete id="deleteMyResumes" parameterType="map">
+    DELETE 
+      FROM resume
+     WHERE member_idx = #{memberIdx}
+       AND resume_idx IN
+        <foreach item="resumeIdx" collection="idList" open="(" separator="," close=")">
+            #{resumeIdx}
+        </foreach>
+	</delete>
+	
+	<!-- 마이페이지 자소서 목록 셀렉트 -->
+	<select id="getCLListByMemberId" parameterType="int" resultType="com.itwillbs.illusion.vo.CoverLetterVO">
+		 SELECT
+		 	    cl_idx
+		      , member_idx
+		      , cl_title
+		      , generation_date
+		   FROM cover_letter
+		  WHERE member_idx = #{memberIdx}
+		  ORDER BY cl_idx DESC
+		  LIMIT #{startRow}, #{listLimit}
+	</select>
+	
+	<!-- select한 자소서 개수 -->
+	<select id="getCLListCountByMember" parameterType="com.itwillbs.illusion.vo.CoverLetterVO" resultType="int">
+	    SELECT COUNT(*)
+  	      FROM cover_letter
+  	     WHERE member_idx = #{memberIdx}
+	</select>
+	
+	<!-- 마이페이지 여러건 자소서 삭제  -->
+	<delete id="deleteMyCLs" parameterType="map">
+    DELETE 
+      FROM cover_letter
+     WHERE member_idx = #{memberIdx}
+       AND cl_idx IN
+        <foreach item="clIdx" collection="idList" open="(" separator="," close=")">
+            #{clIdx}
+        </foreach>
+	</delete>
+	
 </mapper>

@@ -11,9 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwillbs.illusion.mapper.ApplyMapper;
 import com.itwillbs.illusion.mapper.MemberMapper;
 import com.itwillbs.illusion.mapper.MyPostMapper;
+import com.itwillbs.illusion.mapper.ResumeMapper;
 import com.itwillbs.illusion.mapper.ScrapMapper;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.BoardVO;
+import com.itwillbs.illusion.vo.CoverLetterVO;
+import com.itwillbs.illusion.vo.ResumeVO;
 import com.itwillbs.illusion.vo.ScrapVO;
 
 @Service
@@ -31,6 +34,56 @@ public class MypageService {
 	@Autowired
 	MyPostMapper myPostMapper;
 	
+	@Autowired
+	ResumeMapper resumeMapper;
+	
+	// 마이페이지 이력서 목록
+	
+	public List<ResumeVO> getResumeListByMemberId(int member_idx, int startRow, int listLimit) {
+		return resumeMapper.getResumeListByMemberId(member_idx, startRow, listLimit);
+	}
+	
+	public int getResumeListCountByMember(int member_idx) {
+		return resumeMapper.getResumeListCountByMember(member_idx);
+	}
+	
+	// 마이페이지 이력서 목록 삭제 기능
+    @Transactional 
+    public int deleteMyResumes(int memberIdx, List<Integer> idList) {
+        if (idList == null || idList.isEmpty()) {
+            return 0;
+        }
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberIdx", memberIdx);
+        params.put("idList", idList);
+        
+        return resumeMapper.deleteMyResumes(params);
+    }
+	
+	// 마이페이지 자소서 목록
+	
+	public List<CoverLetterVO> getCLListByMemberId(int member_idx, int startRow, int listLimit) {
+		return resumeMapper.getCLListByMemberId(member_idx, startRow, listLimit);
+	}
+	
+	public int getCLListCountByMember(int member_idx) {
+		return resumeMapper.getCLListCountByMember(member_idx);
+	}
+	
+    // 마이페이지 자소서 삭제 기능
+    @Transactional // 여러 건을 삭제하므로 트랜잭션 처리
+    public int deleteMyCLs(int memberIdx, List<Integer> idList) {
+        if (idList == null || idList.isEmpty()) {
+            return 0;
+        }
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberIdx", memberIdx);
+        params.put("idList", idList);
+        
+        return resumeMapper.deleteMyCLs(params);
+    }
 	
 	// 마이페이지 스크랩 목록
 	public List<ScrapVO> getScrapsByMemberId(int member_idx, int startRow, int listLimit){
@@ -130,6 +183,8 @@ public class MypageService {
         
         return myPostMapper.deleteMyPosts(params);
     }
+
+
 	
 	
 }

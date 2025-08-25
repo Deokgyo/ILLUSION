@@ -22,8 +22,8 @@
 	
 	<select id="getScrapCountByMember" parameterType="com.itwillbs.illusion.vo.ScrapVO" resultType="int">
 	    SELECT COUNT(*)
-  	    FROM scrap
-  	    WHERE member_idx = #{memberIdx}
+  	      FROM scrap
+  	     WHERE member_idx = #{memberIdx}
 	</select>
 	
     <select id="selectScrapCount" parameterType="map" resultType="int">
