@@ -30,8 +30,26 @@
               	<p class="header-text"><strong>생성된 자기소개서</strong></p>
           	</div>
             <div class="result-box">
+            
+                <!-- 첨삭된 자소서일때만 출력 -->
+				<c:if test="${coverletter.cl_type eq 'CL002'}">
+					
+					<h3 style="text-align: center">원본자소서</h3>
+					<div class="result-meta">
+	                    <div class="char-count">
+	                        <i class="fa-solid fa-star"></i> 
+	                        <span>${originalCoverletter.generated_char_count}자 (공백 미포함 ${originalCoverletter.generated_char_count_no_space }자)</span>
+	                    </div>
+	                </div>
+					<textarea id="generated-text" readonly>${originalCoverletter.generated_cl_content }</textarea>
+				</c:if> 
                 
-
+                <br><br>
+				<hr>
+				<br>
+				<h3 style="text-align: center">수정된 자소서</h3>
+				<br><br>
+				
                 <div class="result-meta">
                     <div class="char-count">
                         <i class="fa-solid fa-star"></i> 
@@ -42,15 +60,8 @@
                         <button id="copyBtn" class="btn btn-yellow">복사</button>
                     </div>
                 </div>
-
                 <textarea id="generated-text" readonly>${coverletter.generated_cl_content }</textarea>
                 
-                <!-- 첨삭된 자소서일때만 출력 -->
-				<c:if test="${coverletter.cl_type eq 'CL002'}">
-					
-					첨삭된 자소서 본문 : ${cl_generated_cl_content } 
-					피드백 : ${feedback }		
-				</c:if> 
 				
                 
                 <div class="text-center mt-4">

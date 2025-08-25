@@ -30,7 +30,7 @@ public interface BoardMapper {
 	
 	public void deleteComment(int cmt_idx); // 댓글 삭제
 	
-//	public int countComment(int board_idx); // 댓글 개수 카운트
+	public int getCommentCount(int board_idx);  // 댓글 개수 조회
 	
 	public void increaseViewCount(int board_idx); // 조회수 증가
 	

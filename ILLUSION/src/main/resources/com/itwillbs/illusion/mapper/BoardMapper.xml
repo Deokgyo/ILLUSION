@@ -130,12 +130,11 @@
 	   ORDER BY cmt_idx desc
 	</select>
 	
-<!-- 	<select id="countComment"> -->
-<!-- 		SELECT count(*) -->
-<!-- 		  FROM comment c -->
-<!-- 	 	  JOIN member m ON c.member_idx = m.member_idx -->
-<!-- 		 WHERE c.board_idx = #{board_idx}  -->
-<!-- 	</select> -->
+	<select id="getCommentCount">
+		SELECT count(*)
+		  FROM comment
+		 WHERE board_idx = #{board_idx} 
+	</select>
 
 	<!-- 댓글 개수 업데이트 -->
 	<update id="updateCommentCount">

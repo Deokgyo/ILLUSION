@@ -82,6 +82,11 @@ public class BoardService {
 		mapper.deleteComment(cmt_idx);
 	};
 	
+	// 댓글 개수 가져오기
+	public int getCommentCount(int board_idx) {
+		return mapper.getCommentCount(board_idx);
+	}
+	
 	public Map<String, Object> getMemberById(String member_id) {
 		return mapper.getMemberById(member_id);
 	}
