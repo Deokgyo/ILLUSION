@@ -30,99 +30,89 @@
 	<style type="text/css">
 	.form-box {padding: 0px;
 	box-shadow: var(--main-box-shadow);}
-	
 	</style>
 </head>
 <body>
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp" />
 	</header>
 	
 	<div class="page-container">
 
-	<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 	<main class="main-content">
-	<div class="page-title-header">
-                <p class="header-text"><strong>마이페이지 </strong></p>
-            </div>
-	<div class="form-box">
-	<div class="container">
-    <div class="form-box">
-    <div class="profile-card-1">
-      <div class="profile-img">
-        <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
-      </div>
-      <div class="profile-info">
-        <div class="name">${member['member_name']}</div>
-			<div>${member['resume_birth']}</div>
-			<div>${member['member_phone']}</div>
-			<div>${member['member_email']}</div>
-			<div>${member['address_idx']}</div>
-		</div>
-    </div>
-</div>
-    <div class="section">
-      <div class="section-title">학력</div>
-      <table class="info-table">
-        <thead>
-          <tr>
-            <th>학교명</th>
-            <th>전공</th>
-            <th>재학기간</th>
-            <th>졸업여부</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${resume.school_name}</td>
-            <td>${resume.major}</td>
-            <td>${resume.enroll_date} ~ ${resume.graduation_date}</td>
-            <td>${resume.degree}</td>
-          </tr>    
-        </tbody>
-      </table>
-    </div>
+			<div class="page-title-header">
+				<p class="header-text">
+					<strong>이력서 상세페이지</strong>
+				</p>
+			</div>
+			<div class="form-box">
+				<div class="container">
+					<c:forEach var="resume" items="${resume }">
+						<div class="form-box">
+							<div class="profile-card-1">
+								<div class="profile-img">
+									<img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
+								</div>
+								<div class="profile-info">
+									<div class="name">${resume.member_name}</div>
+									<div>${resume.resume_birth}</div>
+									<div>${resume.member_phone}</div>
+									<div>${resume.member_email}</div>
+									<div>${resume.address_name}${resume.address_num}</div>
+								</div>
+							</div>
+						</div>
+						<div class="section">
+							<div class="section-title">학력</div>
+							<table class="info-table">
+								<thead>
+									<tr>
+										<th>학교명</th>
+										<th>전공</th>
+										<th>재학기간</th>
+										<th>졸업여부</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${resume.school_name}</td>
+										<td>${resume.major}</td>
+										<td>${resume.enroll_date}~${resume.graduation_date}</td>
+										<td>${resume.degree}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
-    <div class="section">
-      <div class="section-title">경력사항</div>
-      <table class="info-table">
-        <thead>
-          <tr>
-            <th>회사명</th>
-            <th>직위</th>
-            <th>직종</th>
-            <th>경력</th>
-          </tr>
-        </thead>
-        <tbody>
-          <c:forEach var="exp" items="${resume_exp_info_list}">
-			  <tr>
-			    <td>${exp.company_name}</td>
-			    <td>${exp.position}</td>
-			    <td>${exp.occupation}</td>
-			    <td>${exp.experience}</td>
-			  </tr>
-			</c:forEach>
-        </tbody>
-      </table>
-    </div>
-	
-  <div class="button-wrapper">
-  <button class="list-btn"onclick="location.href='savedResumeList';">목록</button>
+						<div class="section">
+							<div class="section-title">경력사항</div>
+							<table class="info-table">
+								<thead>
+									<tr>
+										<th>회사명</th>
+										<th>직위</th>
+										<th>직종</th>
+										<th>경력</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${resume.company_name}</td>
+										<td>${resume.position}</td>
+										<td>${resume.occupation}</td>
+										<td>${resume.experience}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
-  <div class="right-buttons">
-  
-     <button class="edit-btn" onclick="location.href='resumeUpdate?resume_idx=${resume.resume_idx}';">수정</button>
-    <form action="resumeDelete" method="post" onsubmit="return confirm('삭제하시겠습니까?');">
-     <input type="hidden" name="resume_idx" value="${resume.resume_idx}" />
-    <button type="submit" class="delete-btn" >삭제</button>
-	</form>	
-  </div>
-</div>
-  </div>
-	
-	</div>
-	</main>
+						<div class="button-wrapper">
+							<button class="list-btn" onclick="location.href='savedResumeList';">목록</button>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</main>
 	</div>
 
 <footer>
@@ -131,11 +121,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 <script type="text/javascript">
-document.getElementById(".edit-btn").onclick = function () {
-  location.href = "resumeWrite";
-}
-document.getElementById(".list-btn").onclick = function () {
-	  location.href = "savedResumeList";
+ntById(".list-btn").onclick = function () {
+	  location.href = "recruiterMainLogin";
 }
 </script>
 </body>
