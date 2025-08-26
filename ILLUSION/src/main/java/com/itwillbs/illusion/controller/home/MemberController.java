@@ -38,7 +38,6 @@ public class MemberController {
 	/* 이메일 인증번호 발송 요청 API 클라이언트에서 이메일을 JSON으로 보내면 해당 이메일로 인증번호를 생성해 메일 전송 후 DB 저장 */
 	@PostMapping("email-auth")
 	public Map<String, Object> sendAuthMail(@RequestBody MemberVO member) {
-		System.out.println("sendAuthMail 호출됨, 이메일: " + member.getMember_email());
 		MailAuthInfo mailAuthInfo = mailService.sendAuthMail(member);
 		memberService.insertMailAuthInfo(mailAuthInfo);
 		return Map.of("result", true);
@@ -49,7 +48,17 @@ public class MemberController {
 		boolean isValid = memberService.requestEmailAuth(mailAuthInfo);
 		return Map.of("result", isValid);
 	}
-
+	
+	//사업자등록번호 인증 
+	@GetMapping("checkRecruiterNumber")
+	@ResponseBody
+	public Map<String, Object> checkRecruiterNumber(@RequestParam String recruiter_number) {
+	    int count = memberService.checkRecruiterNumber(recruiter_number);
+	    Map<String, Object> result = new HashMap<>();
+	    result.put("duplicate", count > 0);
+	    result.put("message", count > 0 ? "중복된 사업자등록번호입니다." : "인증 성공");
+	    return result;
+	}
 	
 	
 } // 컨트롤러

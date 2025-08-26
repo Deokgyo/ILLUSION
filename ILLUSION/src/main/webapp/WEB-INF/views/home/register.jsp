@@ -73,8 +73,7 @@
 			<div class="input-box" id="companyBox">
 				<label for="Number">사업자등록번호</label> <input type="text"
 					id="companyNumber" placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
-				<button class="btn-company" id="btncompany" value="등록번호검색">사업자
-					인증</button>
+				<button class="btn-company" id="btncompany" value="등록번호검색" name="btncompanyNumber">사업자 인증</button>
 			</div>
 			<div class="form-row">
 				<label for="userid">아이디</label> <input type="text" id="userid"

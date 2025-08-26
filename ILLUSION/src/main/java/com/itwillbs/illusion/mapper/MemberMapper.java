@@ -22,10 +22,9 @@ public interface MemberMapper {
 	
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
 	
-	public int insertMemberCompany(CompanyVo company);
-	
 	public int insertCompanyMember(MemberVO member);
 	
+	public int checkRecruiterNumber(String recruiterNumber); //사업자 중복체크
 
 	// 조영재
 	public MemberVO getMemberInfoById(String id);
