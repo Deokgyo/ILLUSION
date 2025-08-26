@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface AdminMapper {
@@ -18,11 +19,17 @@ public interface AdminMapper {
 	
 	public int  getBoardCount(); // 커뮤니티 게시글 수 조회 
 	
-	public List<Map<String, String>> getMember(); // 회원 정보 조회
+	public List<Map<String, String>> getMember(@Param("startRow") int startRow, @Param("listLimit") int listLimit); // 회원 정보 조회
+	
+	public int getMemberCount(); // 전체 회원 수 조회
 	
 	public List<Map<String, String>> getMemberType(); // 회원 타입 조회
 	
 	public List<Map<String, String>> getMemberStatus(); // 회원 상태 조회
 	
-	public void updateMemberStatusAndType(int member_idx);
+	public void updateMemberStatusAndType(Map<String, Object> map); // 회원 상태 타입 수정
+
+	public Map<String, Object> getMemberDetail(int member_idx); // 회원 상세 정보 조회
+
+	public void deleteMember(int member_idx); // 회원 삭제
 }

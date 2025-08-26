@@ -119,7 +119,7 @@
 	</select>
 	
 	<!-- 댓글 조회 -->
-	<select id="selectComment">
+	<select id="selectComment" parameterType="map">
 		 SELECT 
 		 		cmt_idx
 		 	  ,	cmt_content
@@ -128,6 +128,7 @@
 		   JOIN member m ON c.member_idx = m.member_idx
 		  WHERE c.board_idx = #{board_idx} 
 	   ORDER BY cmt_idx desc
+	   LIMIT #{startRow}, #{listLimit}
 	</select>
 	
 	<select id="getCommentCount">

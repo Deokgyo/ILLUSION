@@ -24,7 +24,7 @@ public interface BoardMapper {
 	
 	public void cmtWrite(Map<String, String> map); // 댓글 작성
 	
-	public List<Map<String, Object>> selectComment(int board_idx); // 댓글 조회
+	public List<Map<String, Object>> selectComment(Map<String, Object> map); // 댓글 조회
 	
 	public int getBoardListCount(); // 게시글 목록 카운트
 	

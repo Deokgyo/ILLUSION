@@ -40,8 +40,13 @@ public class AdminService {
 	}
 	
 	// 회원 정보 조회
-	public List<Map<String, String>> getMember(){
-		return mapper.getMember();
+	public List<Map<String, String>> getMember(int startRow, int listLimit){
+		return mapper.getMember(startRow, listLimit);
+	}
+
+	// 전체 회원 수 조회
+	public int getMemberCount() {
+		return mapper.getMemberCount();
 	}
 	
 	// 회원 타입 조회
@@ -55,8 +60,18 @@ public class AdminService {
 	}
 	
 	// 회원 상태 타입 수정
-	public void updateMemberStatusAndType(int member_idx) {
-		mapper.updateMemberStatusAndType(member_idx);
+	public void updateMemberStatusAndType(Map<String, Object> map) {
+		mapper.updateMemberStatusAndType(map);
+	}
+
+	// 회원 상세 정보 조회
+	public Map<String, Object> getMemberDetail(int member_idx) {
+		return mapper.getMemberDetail(member_idx);
+	}
+
+	// 회원 삭제
+	public void deleteMember(int member_idx) {
+		mapper.deleteMember(member_idx);
 	}
  	
 }
