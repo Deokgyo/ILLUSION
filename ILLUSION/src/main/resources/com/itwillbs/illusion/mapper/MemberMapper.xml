@@ -78,30 +78,46 @@
 		WHERE member_id = #{member_id}
 	</select>
 	
-	<insert id="insertRecruiterMember">
-	INSERT INTO member
-			   ( recruiter_number
-				,recruiter_member_email
-			   )
-		VALUES ( #{recruiter_number}
-				,#{recruiter_member_email}
-			   )
+	
+	<select id="checkRecruiterNumber">
+	 SELECT COUNT(*)
+	   FROM member
+	  WHERE recruiter_number = #{recruiter_number}
+	</select>
+
+	<insert id="insertCompanyMember">
+		INSERT INTO member
+					( member_id
+					 ,member_pw
+					 ,recruiter_number
+					 ,recruiter_member_email
+					)
+			VALUES  (#{member_id}
+					,#{member_pw}
+					,#{recruiter_number}
+					,#{recruiter_member_email}
+					)
 	</insert>
-	<insert id="insertCompany">
-	INSERT INTO company
-				( company_name
-				 ,ceo_name
-				 ,company_type
-				 ,company_estab_date
-				  address_idx
-			   )
-		VALUES ( #{company_name}
-				,#{ceo_name}
-				,#{company_type}
-				,#{company_estab_date}
-				 #{address_idx}
-			   )
-	</insert>
+
+	<!-- 마이페이지 토큰 업데이트 (이대은 수정) -->
+	<update id="updateMemberTokens" parameterType="map">
+	    UPDATE member
+	       SET token = token + #{tokenAmount}
+	     WHERE member_idx = #{memberIdx}
+	</update>
+	
+	<select id="selectMemberTokens" parameterType="int" resultType="int">
+	    SELECT token 
+	      FROM member 
+	     WHERE member_idx = #{memberIdx}
+	</select>
+
+
+
+
+
+
+
 	
 </mapper>
 

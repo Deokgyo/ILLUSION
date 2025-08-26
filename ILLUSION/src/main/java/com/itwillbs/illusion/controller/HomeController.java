@@ -3,6 +3,7 @@ package com.itwillbs.illusion.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -16,11 +17,15 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.illusion.service.CompanyService;
 import com.itwillbs.illusion.service.MemberService;
+import com.itwillbs.illusion.vo.CompanyVo;
 import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
@@ -33,6 +38,9 @@ public class HomeController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private CompanyService companyService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
@@ -43,6 +51,7 @@ public class HomeController {
 	public String errorPage() {
 		return "errorPage";
 	}
+
 	// 로그인 이동
 	@GetMapping("idPwFind")
 	public String idPwFind() {
@@ -71,7 +80,7 @@ public class HomeController {
 			return "registerForm";
 		}
 	}
-	
+
 	// 날짜관련
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -81,5 +90,37 @@ public class HomeController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
+	// 기업회원
+//	@PostMapping("insertMemberCompany")
+//	public String insertMemberCompany(MemberVO member, CompanyVo company, Model model) {
+//		System.out.println("Received password: " + member.getMember_pw());
+//		boolean memberResult = memberService.insertCompanyMember(member);
+//		boolean companyResult = companyService.insertMemberCompany(company);
+////		boolean addressResult = companyService.insertAddress(company);
+//		
+//
+//		if (memberResult && companyResult) {
+//			return "redirect:/login";
+//		} else {
+//			model.addAttribute("error", "회원가입 실패");
+//			return "redirect:/login";
+//		}
+//	}
+	
+	@PostMapping("insertMemberCompany")
+	public Map<String, Object> insertMemberCompany(MemberVO member, CompanyVo company) {
+	    boolean memberResult = memberService.insertCompanyMember(member);
+	    boolean companyResult = companyService.insertMemberCompany(company);
+
+	    Map<String, Object> result = new HashMap<>();
+	    if (memberResult && companyResult) {
+	        result.put("status", "success");
+	        result.put("message", "회원가입 완료");
+	    } else {
+	        result.put("status", "fail");
+	        result.put("message", "회원가입 실패");
+	    }
+	    return result;
+	}
 
 }

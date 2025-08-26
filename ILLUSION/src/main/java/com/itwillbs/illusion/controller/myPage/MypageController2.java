@@ -27,6 +27,7 @@ import com.itwillbs.illusion.service.ResumeService;
 import com.itwillbs.illusion.util.PagingUtil;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.BoardVO;
+import com.itwillbs.illusion.vo.CoverLetterVO;
 import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.PageInfo;
 import com.itwillbs.illusion.vo.RecruitFilterVO;
@@ -34,7 +35,7 @@ import com.itwillbs.illusion.vo.ResumeVO;
 import com.itwillbs.illusion.vo.ScrapVO;
 
 @Controller
-public class MypageContrlloer {
+public class MypageController2 {
 	@Autowired
 	ResumeService resumeService;
 
@@ -63,67 +64,105 @@ public class MypageContrlloer {
 		return "myPage/myPage";
 	}
 
-	/* 이력서 등록 */
-	@GetMapping("resumeWrite")
-	public String resumeWriteForm() {
-		return "myPage/resumeWrite";
+	/* 이력서 목록 */
+	@GetMapping("savedResumeList")
+	public String savedResumeList(Principal principal,
+			@RequestParam(defaultValue = "1") int pageNum,
+			Model model) {
+		
+		// 방어 코드
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		String member_id = principal.getName();
+		MemberVO member = memberService.getMemberInfoById(member_id);
+		
+        // 페이징 처리-
+        int listLimit = 10; // 한페이지에 10개
+		int pageListLimit = 5;
+        
+        int listCount = mypageService.getResumeListCountByMember(member.getMember_idx());
+        
+        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
+        PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+        
+        // 데이터 조회
+        int startRow = (pageNum - 1) * listLimit;
+		
+		List<ResumeVO> resumeList = mypageService.getResumeListByMemberId(member.getMember_idx(), startRow, listLimit);
+		model.addAttribute("resumeList", resumeList);
+		model.addAttribute("pageInfo", pageInfo);
+
+		return "myPage/savedResumeList";
 	}
-
-	@PostMapping("resumeWrite")
-	public String resumeWrite(@RequestParam Map<String, Object> paramMap, HttpSession session) {
-
-		// 로그인한 회원 번호를 세션에서 가져와서 paramMap에 저장
-//	    Object memberIdx = session.getAttribute("member_idx");
-//	    if (memberIdx != null) {
-//	    	 return "redirect:/login";
-//	    }
-//	    paramMap.put("member_idx", memberIdx);
-
-		// 서비스 호출 - insert 시 useGeneratedKeys로 resume_idx 채워줌
-		resumeService.insertResumeAndExpInfo(paramMap);
-
-		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") + "&member_idx="
-				+ paramMap.get("member_idx");
-	}
-
+	
 	/* 이력서 수정 */
 	@GetMapping("resumeUpdate")
-	public String resumeUpdate(@RequestParam int resume_idx, Model model) {
-		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-		model.addAttribute("resume", resume);
-		List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
-		model.addAttribute("resume_exp_info_list", resumeExpInfoList);
+	public String resumeUpdate() {
 		return "myPage/resumeUpdate";
 	}
 
 	/* 이력서 수정 */
 	@PostMapping("resumeUpdate")
-	public String resumeUpdate(@RequestParam Map<String, Object> paramMap, HttpSession session, int resume_idx,
-			Model model) {
-
-		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-		model.addAttribute("resume", resume);
-		resumeService.updateResumeAndExpInfo(paramMap);
-
-		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") + "&member_idx="
-				+ paramMap.get("member_idx");
-	}
-
-	/* 이력서 목록 */
-	@GetMapping("savedResumeList")
-	public String savedResumeList(Model model) {
-		List<Map<String, Object>> resumeList = resumeService.selectResumelist();
-		model.addAttribute("resumeList", resumeList);
-
-		return "myPage/savedResumeList";
+	public String postResumeUpdate() {
+		return "redirect:/savedResumeDetail";
 	}
 
 	/* 자소서 목록 */
 	@GetMapping("savedCLList")
-	public String savedCLList(Model model) {
-		List<Map<String, Object>> clList = resumeService.selectcllist();
-		model.addAttribute("clList", clList);
+	public String savedCLList(Principal principal,
+			@RequestParam(defaultValue = "1") int pageNum,
+			Model model) {
+		
+		// 방어 코드
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		String member_id = principal.getName();
+		MemberVO member = memberService.getMemberInfoById(member_id);
+		
+        // 페이징 처리-
+        int listLimit = 10; // 한페이지에 10개
+		int pageListLimit = 5;
+        
+        int listCount = mypageService.getCLListCountByMember(member.getMember_idx());
+        
+        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
+        PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+        
+        // 데이터 조회
+        int startRow = (pageNum - 1) * listLimit;
+		
+		List<CoverLetterVO> CLList = mypageService.getCLListByMemberId(member.getMember_idx(), startRow, listLimit);
+		model.addAttribute("CLList", CLList);
+		model.addAttribute("pageInfo", pageInfo);
 		return "myPage/savedCLList";
+	}
+	
+	/* 이력서 상세보기 */
+	@GetMapping("savedResumeDetail")
+	public String savedResumeDetail(Principal principal,
+			Model model,
+			@RequestParam("resume_idx") int resumeIdx) {
+		
+		// 방어 코드
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		List<ResumeVO> resume = mypageService.savedResumeDetail(resumeIdx);
+		
+		model.addAttribute("resume", resume);
+		
+		return "myPage/savedResumeDetail";
+	}
+
+	/* 자소서 상세보기 */
+	@GetMapping("savedCLDetail")
+	public String savedCLDetail() {
+		return "myPage/savedCLDetail";
 	}
 
 	/* 면접예상질문 리스트 */
@@ -207,6 +246,7 @@ public class MypageContrlloer {
 	@GetMapping("myPost")
 	public String myPost(Principal principal,
 			@RequestParam(defaultValue = "1") int pageNum,
+			@RequestParam(defaultValue = "BRD001") String categoryCode,
 			Model model) {
 
 		// 방어 코드
@@ -221,103 +261,36 @@ public class MypageContrlloer {
         int listLimit = 10; // 한페이지에 10개
 		int pageListLimit = 5;
         
-        int listCount = mypageService.getMyPostCountByMember(member.getMember_idx());
+        int listCount = mypageService.getMyPostCountByMember(member.getMember_idx(), categoryCode);
         
         // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
         
         // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
+        
+		List<Map<String, String>> categoryList = service.selectCategory();
 		
-		List<BoardVO> myPostList = mypageService.getMyPostByMemberId(member.getMember_idx(), startRow, listLimit);
+		List<BoardVO> myPostList = mypageService.getMyPostByMemberId(member.getMember_idx(), categoryCode, startRow, listLimit);
 		
+		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("myPostList", myPostList);
 		model.addAttribute("pageInfo", pageInfo);
 
 		return "myPage/myPost";
 	}
-	
-	/* 내가쓴글 삭제*/
-	@DeleteMapping("/boardDelete/{board_idx}")
-	@ResponseBody
-	public String deleteBoard(@PathVariable int board_idx) {
-		service.boardDelete(board_idx);
-		System.out.println("console.log('삭제할 번호:', " + board_idx);
-		return "삭제성공";
-	}
 
+	/* 토큰 결제 */
+	@GetMapping("tokenpay")
+	public String tokenpay() {
+		return "myPage/tokenpay";
+	}
+	
 	/* 환불 정책 */
 	@GetMapping("refundPolicy")
 	public String refundPolicy() {
 		return "myPage/refundPolicy";
 	}
 
-	/* 회원정보 수정 */
-	@GetMapping("userInfoEdit")
-	public String userInfoEdit(Model model, @RequestParam int member_idx) {
 
-		System.out.println("맴버아이디" + member_idx);
-		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
-		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
-		
-		return "myPage/userInfoEdit";
-	}
-	/*회원정보 수정 */
-	@PostMapping("userInfoEdit")
-    public String userInfoEdit(@RequestParam Map<String, Object> paramMap) {
-
-        // member_idx는 Integer로 변환
-        if (paramMap.get("member_idx") instanceof String) {
-            paramMap.put("member_idx", Integer.parseInt((String) paramMap.get("member_idx")));
-        }
-        System.out.println("paramMap = " + paramMap);
-        resumeService.updateuserInfoEdit(paramMap);
-        
-        return "redirect:/myPage";
-    }
-	/* 토큰 결제 */
-	@GetMapping("tokenpay")
-	public String tokenpay() {
-		return "myPage/tokenpay";
-	}
-
-	/* 이력서 상세보기 */
-	@GetMapping("savedResumeDetail")
-	public String savedResumeDetail(@RequestParam int resume_idx, @RequestParam int member_idx, Model model) {
-		Map<String, Object> member = resumeService.selectMember(member_idx);
-		model.addAttribute("member", member);
-		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-		model.addAttribute("resume", resume);
-		List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
-		model.addAttribute("resume_exp_info_list", resumeExpInfoList);
-		System.out.println("resumeExpInfoList = " + resumeExpInfoList);
-
-		return "myPage/savedResumeDetail";
-	}
-
-	/* 자소서 상세보기 */
-	@GetMapping("savedCLDetail")
-	public String savedCLDetail(@RequestParam int cl_idx, @RequestParam int member_idx, Model model) {
-		Map<String, Object> member = resumeService.selectMember(member_idx);
-		model.addAttribute("member", member);
-		Map<String, Object> cl = resumeService.selectCL(cl_idx);
-		model.addAttribute("cl", cl);
-
-		return "myPage/savedCLDetail";
-	}
-
-	/* 비밀번호변경 */
-	@GetMapping("changePasswd")
-	public String changePasswd(Model model, @RequestParam int member_idx) {
-		System.out.println("맴버아이디" + member_idx);
-		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
-		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
-		return "myPage/changePasswd";
-	}
-
-	/* 회원탈퇴 */
-	@GetMapping("deleteMember")
-	public String deleteMember() {
-		return "myPage/deleteMember";
-	}
 }

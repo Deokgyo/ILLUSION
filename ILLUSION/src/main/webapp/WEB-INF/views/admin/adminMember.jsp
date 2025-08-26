@@ -20,6 +20,9 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminModal.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
     
+    <script type="${pageContext.request.contextPath}/resources/js/commonJs.js"></script>
+    <meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
 </head>
 <body>
 	<div class="main-container">
@@ -68,35 +71,35 @@
 	             </div>
 		
 		        <!-- 2. 필터 및 검색 바 -->
-		        <div class="control-bar">
-		            <div class="filters">
-		                <div class="filter-group view-options">
-		                    <select name="view-count" id="view-count">
-		                        <option value="10">10</option>
-		                        <option value="30">30</option>
-		                        <option value="50">50</option>
-		                    </select>
-		                    <span>건씩 보기</span>
-		                </div>
-		                <div class="filter-group">
-		                    <span class="filter-title">유형별</span>
-		                    <label><input type="radio" name="user-type" value="all" checked> 전체</label>
-		                    <label><input type="radio" name="user-type" value="personal"> 개인</label>
-		                    <label><input type="radio" name="user-type" value="corporate"> 기업</label>
-		                    <label><input type="radio" name="user-type" value="admin"> 관리자</label>
-		                </div>
-		                <div class="filter-group">
-		                    <span class="filter-title">상태</span>
-		                    <label><input type="radio" name="user-status" value="all" checked> 전체</label>
-		                    <label><input type="radio" name="user-status" value="active"> 정상</label>
-		                    <label><input type="radio" name="user-status" value="inactive"> 탈퇴</label>
-		                </div>
-		            </div>
-		            <div class="search-box">
-		                <input type="text" placeholder="회원 이름, 아이디, 이메일 검색">
-		                <button type="button">🔍</button>
-		            </div>
-		        </div>
+<!-- 		        <div class="control-bar"> -->
+<!-- 		            <div class="filters"> -->
+<!-- 		                <div class="filter-group view-options"> -->
+<!-- 		                    <select name="view-count" id="view-count"> -->
+<!-- 		                        <option value="10">10</option> -->
+<!-- 		                        <option value="30">30</option> -->
+<!-- 		                        <option value="50">50</option> -->
+<!-- 		                    </select> -->
+<!-- 		                    <span>건씩 보기</span> -->
+<!-- 		                </div> -->
+<!-- 		                <div class="filter-group"> -->
+<!-- 		                    <span class="filter-title">유형별</span> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="all" checked> 전체</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="personal"> 개인</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="corporate"> 기업</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="admin"> 관리자</label> -->
+<!-- 		                </div> -->
+<!-- 		                <div class="filter-group"> -->
+<!-- 		                    <span class="filter-title">상태</span> -->
+<!-- 		                    <label><input type="radio" name="user-status" value="all" checked> 전체</label> -->
+<!-- 		                    <label><input type="radio" name="user-status" value="active"> 정상</label> -->
+<!-- 		                    <label><input type="radio" name="user-status" value="inactive"> 탈퇴</label> -->
+<!-- 		                </div> -->
+<!-- 		            </div> -->
+<!-- 		            <div class="search-box"> -->
+<!-- 		                <input type="text" placeholder="회원 이름, 아이디, 이메일 검색"> -->
+<!-- 		                <button type="button">🔍</button> -->
+<!-- 		            </div> -->
+<!-- 		        </div> -->
 		
 		        <!-- 3. 회원 목록 테이블 -->
 		        <div class="table-wrapper">
@@ -114,65 +117,81 @@
 		                    </tr>
 		                </thead>
 		                <tbody>
-		                    <!-- 반복될 데이터 행 (예시) -->
-		                    <tr>
-		                        <td>1</td>
-		                        <td>honeyCombo</td>
-		                        <td>김교촌</td>
-		                        <td><a href="mailto:kyochon@chicken.com">kyochon@chicken.com</a></td>
-		                        <td><span class="badge badge-personal">개인회원</span></td>
-		                        <td><span class="badge badge-active">정상</span></td>
-		                        <td>2025-01-10</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <button class="btn btn-yellow">변경</button>
-		                                <a href="adminMemberDetail" class="btn btn-yellow">보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <tr>
-		                        <td>2</td>
-		                        <td>iwannagohome</td>
-		                        <td>박집에가고싶</td>
-		                        <td><a href="mailto:gohome@naver.com">gohome@naver.com</a></td>
-		                        <td><span class="badge badge-corporate">기업회원</span></td>
-		                        <td><span class="badge badge-inactive">탈퇴</span></td>
-		                        <td>2025-12-10</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <button class="btn btn-yellow">변경</button>
-		                                <a href="adminMemberDetail" class="btn btn-yellow">보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <tr>
-		                        <td>3</td>
-		                        <td>admin</td>
-		                        <td>김어드민</td>
-		                        <td><a href="mailto:kyochon@chicken.com">admin@illusion.com</a></td>
-		                        <td><span class="badge badge-admin">관리자</span></td>
-		                        <td><span class="badge badge-active">정상</span></td>
-		                        <td>2024-01-10</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <button class="btn btn-yellow">변경</button>
-		                                <a href="adminMemberDetail" class="btn btn-yellow">보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>          
-		                    <!-- ... 추가 데이터 행 ... -->
+	                    	<c:forEach var="mem" items="${memberInfo }" varStatus="status">
+	                    		<tr>
+	                    			<td>${status.index + 1}</td>
+			                        <td>${mem.member_id }</td>
+			                        <td>${mem.member_name }</td>
+			                        <td><a href="#">${mem.member_email }</a></td>
+			                        <td>
+									<c:choose>
+										<c:when test="${mem.member_type_code eq 'MEM002'}">
+											<span class="badge badge-personal">${mem.member_type_name}</span>
+										</c:when>
+										<c:when test="${mem.member_type_code eq 'MEM003'}">
+											<span class="badge badge-corporate">${mem.member_type_name}</span>
+										</c:when>
+										<c:otherwise>
+											<span class="badge badge-admin">${mem.member_type_name}</span>
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${mem.member_status_code eq 'MES001'}">
+											<span class="badge badge-active">${mem.member_status_name}</span>
+										</c:when>
+										<c:otherwise>
+											<span class="badge badge-inactive">${mem.member_status_name}</span>
+										</c:otherwise>
+									</c:choose>
+								</td>
+			                        <td>${mem.member_signup_date }</td>
+			                        <td>
+			                            <div class="action-buttons">
+			                                <button class="btn btn-yellow btn-edit" 
+						                            type="button"
+						                            data-member-idx="${mem.member_idx}"
+						                            data-member-id="${mem.member_id}"
+						                            data-member-type-code="${mem.member_type_code}"
+						                            data-member-status-code="${mem.member_status_code}">
+						                        변경
+						                    </button>
+			                                <a href="adminMemberDetail?member_idx=${mem.member_idx}" class="btn btn-yellow">보기</a>
+			                                <button class="btn btn-yellow btn-delete-member" data-member-idx="${mem.member_idx}">삭제</button>
+			                            </div>
+			                        </td>
+	                    		</tr>
+	                    	</c:forEach>
 		                </tbody>
 		            </table>
 		        </div>
 		        
 			    <!-- 페이지네이션 -->
 				<nav class="pagination">
-					<a href="#" class="page-arrow">&laquo;</a> <a href="#"
-						class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
-						href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+				    <!-- 이전 페이지 버튼 -->
+				    <c:if test="${pageInfo.pageNum > 1}">
+				    	<c:url var="pageUrl" value="adminMember">
+				    		<c:param name="pageNum" value="1"></c:param>
+				    	</c:url>
+				    	<a href="${pageUrl}">&laquo;</a>
+				    </c:if>
+				
+				    <!-- 페이지 번호 -->
+				    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+					    <c:url var="pageUrl" value="adminMember">
+					        <c:param name="pageNum" value="${i}" />
+					    </c:url>
+					    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+					</c:forEach>
+				
+				    <!-- 다음 페이지 버튼 -->
+				    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+				    	<c:url var="pageUrl" value="adminMember">
+				    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+				    	</c:url>
+			    		    <a href="${pageUrl}">&raquo;</a>
+				    </c:if>
 				</nav>
 	            </main>
 	            
@@ -187,6 +206,31 @@
 
 	<jsp:include page="/WEB-INF/views/admin/adminModal.jsp"></jsp:include>
 	
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/admin/adminModal.js"></script>
+	<script>
+		$(document).on('click', '.btn-delete-member', function() {
+			const memberIdx = $(this).data('member-idx');
+			const csrfToken = $("meta[name='_csrf']").attr("content");
+			const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+			if (confirm('정말로 이 회원을 삭제하시겠습니까?')) {
+				$.ajax({
+					url: 'deleteMember/' + memberIdx,
+					type: 'DELETE',
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader(csrfHeader, csrfToken);
+					},
+					success: function(res) {
+						alert('회원이 성공적으로 삭제되었습니다.');
+						location.reload();
+					},
+					error: function(xhr, status, error) {
+						alert('회원 삭제 중 오류가 발생했습니다.');
+					}
+				});
+			}
+		});
+	</script>
 </body>
 </html>

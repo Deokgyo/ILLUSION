@@ -237,43 +237,83 @@ $(document).ready(function() {
 		$('#member_type').val('MEM003');
 	});
 
-	// 개인 회원가입
-	$('#registerForm').on('submit', function(e) {
-		e.preventDefault();
-
-		const userid = $('#userid').val().trim();
-		const userpw = $('#userpw').val().trim();
-		const email = $('#email').val().trim();
-
-		if (!userid || !userpw || !email) {
-			alert('모든 필드를 입력해주세요.');
-			return;
-		}
-
-		$.ajax({
-			url: 'register', // 절대 경로 혹은 서버에 맞게 수정
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify({
-				member_id: userid,
-				member_pw: userpw,
-				member_email: email
-			}),
-			success: function(response, textStatus, xhr) {
-				const redirectUrl = xhr.getResponseHeader('Location');
-				if (redirectUrl) {
-					alert('회원가입 성공!');
-					window.location.href = redirectUrl;
-				} else {
-					alert('회원가입 성공!');
-				}
-			},
-			error: function(xhr, textStatus, errorThrown) {
-				alert('회원가입 실패 또는 서버 오류 발생');
-				console.error('Ajax 오류:', errorThrown);
-			}
-		});
-	});
+	//	// 개인 회원가입
+	//	$('#registerForm').on('submit', function(e) {
+	//		e.preventDefault();
+	//
+	//		const userid = $('#userid').val().trim();
+	//		const userpw = $('#userpw').val().trim();
+	//		const email = $('#email').val().trim();
+	//
+	//		if (!userid || !userpw || !email) {
+	//			alert('모든 필드를 입력해주세요.');
+	//			return;
+	//		}
+	//
+	//		$.ajax({
+	//			url: 'register', // 절대 경로 혹은 서버에 맞게 수정
+	//			type: 'POST',
+	//			contentType: 'application/json',
+	//			data: JSON.stringify({
+	//				member_id: userid,
+	//				member_pw: userpw,
+	//				member_email: email
+	//			}),
+	//			success: function(response, textStatus, xhr) {
+	//				const redirectUrl = xhr.getResponseHeader('Location');
+	//				if (redirectUrl) {
+	//					alert('회원가입 성공!');
+	//					window.location.href = redirectUrl;
+	//				} else {
+	//					alert('회원가입 성공!');
+	//				}
+	//			},
+	//			error: function(xhr, textStatus, errorThrown) {
+	//				alert('회원가입 실패 또는 서버 오류 발생');
+	//				console.error('Ajax 오류:', errorThrown);
+	//			}
+	//		});
+	//	});
+	//	
+	//	
+	//	// 기업 회원가입
+	//	$('#registerForm').on('submit', function(e) {
+	//		e.preventDefault();
+	//
+	//		const userid = $('#userid').val().trim();
+	//		const userpw = $('#userpw').val().trim();
+	//		const email = $('#email').val().trim();
+	//
+	//		if (!userid || !userpw || !email) {
+	//			alert('모든 필드를 입력해주세요.');
+	//			return;
+	//		}
+	//
+	//		$.ajax({
+	//			url: 'insertMemberCompany', // 절대 경로 혹은 서버에 맞게 수정
+	//			type: 'POST',
+	//			contentType: 'application/json',
+	//			data: JSON.stringify({
+	//				member_id: userid,
+	//				member_pw: userpw,
+	//				member_email: email
+	//			}),
+	//			success: function(response, textStatus, xhr) {
+	//				console.log("이제 그만하고 싶다");
+	//				const redirectUrl = xhr.getResponseHeader('Location');
+	//				if (redirectUrl) {
+	//					alert('회원가입 성공!');
+	//					window.location.href = redirectUrl;
+	//				} else {
+	//					alert('회원가입 성공!');
+	//				}
+	//			},
+	//			error: function(xhr, textStatus, errorThrown) {
+	//				alert('회원가입 실패 또는 서버 오류 발생');
+	//				console.error('Ajax 오류:', errorThrown);
+	//			}
+	//		});
+	//	});
 	// 입력값 초기화 함수
 	function resetFormInputs() {
 		// .signup-form 내부의 모든 input/select/textarea 초기화
@@ -306,9 +346,14 @@ $(document).ready(function() {
 		$(this).addClass('selected');
 		$('#companyBox').fadeIn(120);
 		resetFormInputs();
+
 		// 성별, 생년월일 숨김
-		$('#gender').hide().removeAttr('required');
-		$('#birth_user').hide().removeAttr('required');
+		$('#genderHide').hide();
+		$('#birthHide').hide();
+
+		// 실제 select, input 요소에 필수 속성 제거
+		$('#gender').removeAttr('required');
+		$('#birth').removeAttr('required');
 
 		// 이름(개인명) -> 기업명으로 라벨 및 placeholder 변경
 		$('label[for="username"]').text('기업명');
@@ -360,34 +405,37 @@ $(document).ready(function() {
 
 	// 사업자등록번호 인증
 	$('#btncompany').click(function() {
-		// 입력된 사업자등록번호에서 숫자만 추출
-		reg_num = $("#companyNumber").val(); // 사업자등록번호 변수 저장 
+		const reg_num = $("#companyNumber").val();
 
 		if (!reg_num) {
+			console.log("왜 안되니");
 			alert('사업자등록번호를 입력해주세요.');
 			return false;
 		}
 
 		$.ajax({
-			url: contextPath + 'checkBusinessNumber',  // 내 서버의 중복 체크 API
+			url: 'checkRecruiterNumber',
 			type: 'GET',
-			data: { businessNumber: bizNum },
+			data: { recruiter_number: reg_num }, // reg_num 사용
+			dataType: 'json', // 서버가 json으로 응답 시
 			success: function(data) {
-				if (data.duplicate) {
+				console.log("왜 안되니2");
+				if (data.duplicate) { // 서버에서 {"duplicate": true/false} 형태로 응답할 경우
 					alert('이미 등록된 사업자등록번호입니다.');
 					$('#companyNumber').focus();
 				} else {
-					alert('사용 가능한 사업자등록번호입니다.');
+					alert('사업자번호 인증 성공');
 				}
 			},
-			error: function() {
+			error: function(xhr, textStatus, errorThrown) {
 				alert('서버 오류가 발생했습니다.');
 			}
 		});
 	});
 
 
-	$('.signup-form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
+
+//	$('.signup-form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
 
 	$('.signup-form').on('submit', function(event) {
 		// checkSubmit이 false 반환하면 폼 제출 막기
@@ -397,6 +445,7 @@ $(document).ready(function() {
 		}
 		// true 반환 시 폼 제출 계속 진행
 	});
+
 
 	function checkSubmit() {
 		// 아이디 유효성 검사 실패 시
@@ -419,15 +468,15 @@ $(document).ready(function() {
 			alert("회원가입 성공!")
 		}
 
-		// 기업회원은 반드시 사업자등록번호 입력해야 함
-		if (selectedMemberType === "company") {
-			const bizNum = $('#companyNumber').val().trim();
-			if (!bizNum) {
-				alert('기업회원은 사업자등록번호를 입력해야 합니다.');
-				$('#companyNumber').focus();
-				return false;
-			}
-		}
+		//		// 기업회원은 반드시 사업자등록번호 입력해야 함
+		//		if (selectedMemberType === "company") {
+		//			const bizNum = $('#companyNumber').val().trim();
+		//			if (!bizNum) {
+		//				alert('기업회원은 사업자등록번호를 입력해야 합니다.');
+		//				$('#companyNumber').focus();
+		//				return false;
+		//			}
+		//		}
 
 		// 모든 유효성 검사 통과
 		return true;
@@ -436,8 +485,96 @@ $(document).ready(function() {
 
 
 
+	// 회원가입 폼 제출 이벤트
+	$('.signup-form').on('submit', function(e) {
+		e.preventDefault();
 
+		// 공통 입력값
+		const memberType = $('#member_type').val();
+		const userid = $('#userid').val().trim();
+		const userpw = $('#userpw').val().trim();
+		const email = $('#email').val().trim();
 
+		// 필수값 체크
+		if (!userid || !userpw || !email) {
+			alert('아이디, 비밀번호, 이메일은 필수입니다.');
+			return;
+		}
+
+		// 비밀번호 유효성 및 아이디 중복 등 추가 체크 필요 (생략)
+
+		if (memberType == 'MEM003') {
+			console.log("되것나이게");
+			// 기업회원 가입 데이터 준비
+			const data = {
+				member_id: userid,
+				member_pw: userpw,
+				member_email: email,
+				member_type: memberType,
+				recruiter_number: $('#companyNumber').val().trim(),
+				member_name: $('#username').val().trim(), // 기업명
+				companyVo: {
+					company_name: $('#username').val().trim(),
+					ceo_name: $('#companyname').val().trim(),
+					company_estab_date: $('#company_date').val(),
+					company_type: $('#compantypes').val(),
+					address_num: $('#zipcode').val().trim(),
+					address_name: $('#address1').val().trim() + " " + $('#address2').val().trim()
+				}
+			};
+			console.log("userpw:", userpw);
+			
+			// 기업회원 필수값 체크
+			if (!data.recruiter_number) {
+				alert('사업자등록번호를 입력해주세요.');
+				return;
+			}
+			if (!data.companyVo.company_name || !data.companyVo.ceo_name || !data.companyVo.company_estab_date || !data.companyVo.company_type) {
+				alert('기업 정보를 모두 입력해주세요.');
+				return;
+			}
+
+			$.ajax({
+				url: 'insertMemberCompany',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				success: function(response, textStatus, xhr) {
+					console.log("보나마나 안되겟지");
+					alert('기업회원 가입 성공!');
+					window.location.href = '/login';
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					alert('기업회원 가입 실패 또는 서버 오류 발생');
+					console.error('Ajax 오류:', textStatus);
+				}
+			});
+		} else {
+			// 개인회원 가입 데이터 준비
+			const data = {
+				member_id: userid,
+				member_pw: userpw,
+				member_email: email,
+				member_type: memberType
+			};
+
+			$.ajax({
+				url: 'register',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				success: function(response, textStatus, xhr) {
+					console.log("이것도 안되면..");
+					alert('개인회원 가입 성공!');
+					window.location.href = '/login';
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					alert('개인회원 가입 실패 또는 서버 오류 발생');
+					console.error('Ajax 오류:', errorThrown);
+				}
+			});
+		}
+	});
 
 
 

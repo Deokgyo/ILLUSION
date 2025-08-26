@@ -23,7 +23,6 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/mypage")
 
 public class MyPageApiController {
 	
@@ -33,7 +32,7 @@ public class MyPageApiController {
 	@Autowired
 	MemberService memberService; 
 	
-	@PostMapping("/scraps/{recruitIdx}/toggle")
+	@PostMapping("api/scraps/{recruitIdx}/toggle")
 	public ResponseEntity<Map<String, Object>> toggleScrap(
 	        @PathVariable("recruitIdx") int recruitIdx,
 	        Principal principal) {
@@ -52,9 +51,9 @@ public class MyPageApiController {
     }
 	
 	// 마이페이지에서 체크박스한 관심 채용 공고 삭제
-    @PostMapping("/scraps/delete")
+    @PostMapping("/api/mypage/scraps/delete")
     public ResponseEntity<Map<String, Object>> deleteScraps(
-            @RequestParam("idList") List<Integer> idList, // JS와 이름 통일: idList
+            @RequestParam("idList") List<Integer> idList,
             Principal principal) {
         
         if (principal == null) return createUnauthorizedResponse();
@@ -67,7 +66,7 @@ public class MyPageApiController {
     }
 
 	// 마이페이지에서 체크박스한 입사 지원 삭제 -> 삭제하면 채용 취소?
-    @PostMapping("/applys/delete")
+    @PostMapping("/api/mypage/applys/delete")
     public ResponseEntity<Map<String, Object>> deleteApplys(
             @RequestParam("idList") List<Integer> idList,
             Principal principal) {
@@ -82,7 +81,7 @@ public class MyPageApiController {
     }
     
 	// 마이페이지에서 체크박스한 내가 쓴 글 삭제
-    @PostMapping("/myPost/delete")
+    @PostMapping("/api/mypage/myPost/delete")
     public ResponseEntity<Map<String, Object>> deleteMyPosts(
             @RequestParam("idList") List<Integer> idList,
             Principal principal) {
@@ -94,6 +93,36 @@ public class MyPageApiController {
         int deletedCount = mypageService.deleteMyPosts(member.getMember_idx(), idList);
 
         return createSuccessResponse(deletedCount, "내가 쓴 글");
+    }
+    
+	// 마이페이지에서 체크박스한 이력서 목록 삭제
+    @PostMapping("/api/mypage/myResume/delete")
+    public ResponseEntity<Map<String, Object>> deleteMyResumes(
+            @RequestParam("idList") List<Integer> idList,
+            Principal principal) {
+    	
+        if (principal == null) return createUnauthorizedResponse();
+        MemberVO member = memberService.getMemberInfoById(principal.getName());
+        if (member == null) return createForbiddenResponse();
+        
+        int deletedCount = mypageService.deleteMyResumes(member.getMember_idx(), idList);
+
+        return createSuccessResponse(deletedCount, "이력서");
+    }
+    
+	// 마이페이지에서 체크박스한 이력서 목록 삭제
+    @PostMapping("/api/mypage/myCL/delete")
+    public ResponseEntity<Map<String, Object>> deleteMyCLs(
+            @RequestParam("idList") List<Integer> idList,
+            Principal principal) {
+    	
+        if (principal == null) return createUnauthorizedResponse();
+        MemberVO member = memberService.getMemberInfoById(principal.getName());
+        if (member == null) return createForbiddenResponse();
+        
+        int deletedCount = mypageService.deleteMyCLs(member.getMember_idx(), idList);
+
+        return createSuccessResponse(deletedCount, "자기소개서");
     }
 
     // 마이페이지 api 공통 메소드

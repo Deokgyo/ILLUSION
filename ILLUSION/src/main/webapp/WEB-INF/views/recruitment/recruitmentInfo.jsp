@@ -44,12 +44,6 @@
 			
 	        <form action="${pageContext.request.contextPath}/recruitmentInfo" method="get" id="filter-form"
 	        data-selected-filters='<%= selectedFiltersJson %>'>  
-	            <div class="filter-bar-main">
-	                <div class="search-box">
-	                    <input type="text" placeholder="검색어를 입력하세요">
-	                    <button class="search-btn"><i class="fas fa-search"></i></button>
-	                </div>
-	            </div>
 		            <div class="filter-button-wrapper">
 						<jsp:include page="/WEB-INF/views/recruitment/locationFilter.jsp" />
 						<jsp:include page="/WEB-INF/views/recruitment/occupationFilter.jsp" />

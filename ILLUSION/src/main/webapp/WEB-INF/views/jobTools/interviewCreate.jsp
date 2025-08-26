@@ -54,7 +54,9 @@
                     <div id="panel-direct-input" class="tab-panel active">
                         <div class="textarea-wrapper">
                             <textarea placeholder="자기소개서 내용을 입력하세요"></textarea>
-                            <div class="char-counter">0 단어 | 0 글자</div>
+                            <div class="char-counter">
+	                            <span class="textCnt">0</span>단어 | <span class="wordCnt">0</span> 글자
+                            </div>
                         </div>
                     </div>
 
@@ -64,6 +66,7 @@
                             <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
                             <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요</p>
                         </div>
+                        <input type="file" id="file-input-hidden" name="uploadedFile" style="display:none;"/>
                         <div class="upload-button-wrapper">
                             <button class="btn btn-yellow">업로드</button>
                         </div>
@@ -74,7 +77,8 @@
                         <div class="resume-list">
                             <div class="resume-item">
                                 <span class="icon">📄</span>
-                                <span class="title">세심한 개발자</span>
+                                <input type="radio" name="cl_idx" class="title" value="cl_idx"> 세심한 개발자
+<!--                                 <span class="title">세심한 개발자</span> -->
                             </div>
                             <div class="resume-item active">
                                 <span class="icon">📄</span>

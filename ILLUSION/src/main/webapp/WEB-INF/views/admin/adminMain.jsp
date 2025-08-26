@@ -55,7 +55,7 @@
 	            <!-- 메인 헤더 -->
 	            <header class="admin-header">
 	                <div class="user-actions">
-	                    <a href="./">로그아웃</a>
+	                    <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
 	                    <a href="./">사용자 화면</a>
 	                </div>
 	            </header>
@@ -72,7 +72,7 @@
 		            <div class="stat-card">
 		                <div class="stat-info">
 		                    <span class="stat-title">구직자 회원수</span>
-		                    <p class="stat-value">800명</p>
+		                    <p class="stat-value">${mainInfo.applicantCnt}명</p>
 		                </div>
 		                <div class="stat-icon">
 		                    <i class="bi bi-person fs-1"></i>
@@ -81,7 +81,7 @@
 		            <div class="stat-card">
 		                <div class="stat-info">
 		                    <span class="stat-title">구인자 회원수</span>
-		                    <p class="stat-value">100명</p>
+		                    <p class="stat-value">${mainInfo.employerCnt}명</p>
 		                </div>
 		                <div class="stat-icon">
 		                    <i class="bi bi-briefcase fs-1"></i>
@@ -90,7 +90,7 @@
 		            <div class="stat-card">
 		                <div class="stat-info">
 		                    <span class="stat-title">등록된 공고수</span>
-		                    <p class="stat-value">500개</p>
+		                    <p class="stat-value">${mainInfo.recruitCnt }개</p>
 		                </div>
 		                <div class="stat-icon">
 		                    <i class="bi bi-clipboard-check fs-1"></i>
@@ -107,8 +107,8 @@
 		            </div>
 		            <div class="stat-card">
 		                <div class="stat-info">
-		                    <span class="stat-title">AI 첨삭 건수</span>
-		                    <p class="stat-value">340건</p>
+		                    <span class="stat-title">AI 생성 건수</span>
+		                    <p class="stat-value">${mainInfo.coverletterCnt }건</p>
 		                </div>
 		                <div class="stat-icon">
 		                    <i class="bi bi-filetype-ai fs-1"></i>
@@ -116,8 +116,8 @@
 		            </div>
 		            <div class="stat-card">
 		                <div class="stat-info">
-		                    <span class="stat-title">문의 접수</span>
-		                    <p class="stat-value">10건</p>
+		                    <span class="stat-title">게시글 수</span>
+		                    <p class="stat-value">${mainInfo.boardCnt }건</p>
 		                </div>
 		                <div class="stat-icon">
 		                    <i class="bi bi-person-exclamation fs-1"></i>

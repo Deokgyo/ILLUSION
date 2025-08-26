@@ -2,6 +2,9 @@
 /* ========================
     메인 컨테이너
    ======================== */
+body{
+	min-width: 1200px;
+}
 .admin-content {
     background-color: var(--body-bg-color);
     padding: 30px;

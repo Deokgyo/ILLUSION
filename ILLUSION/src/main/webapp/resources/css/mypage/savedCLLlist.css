@@ -22,43 +22,51 @@
 
 .resume-list-header {
 	display: grid;
-	grid-template-columns: 1fr 4fr 1fr;
-	background-color: var(--main-color);
+	grid-template-columns: 2fr 6fr 2.5fr 2fr;
+	background-color:var(--main-color);
 	padding: 12px 16px;
-	font-weight: 600;
-	font-size: 14px;
 	border-radius: 8px;
+	text-align: center;
+	font: var(--font-family);
 }
 
 .resume-item {
 	display: grid;
-	grid-template-columns: 1fr 4fr 1fr;
-	align-items: center;
-	padding: 16px;
-	border-bottom: 1px solid #eee;
+	grid-template-columns: 2fr 6fr 2.5fr 2fr;
+	padding: 14px 16px;
+	font-weight: 450;
+	font-size: 14px;
+	border-radius: 8px;
+	text-align: center;
+}
+
+.resume-item:hover {
+	background-color: #fff8d0;
 }
 
 .resume-item:last-child {
 	border-bottom: none;
 }
 
-.resume-info {
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-}
+/* .resume-item { */
+/* 	display: flex; */
+/* 	flex-direction: column; */
+/* 	gap: 4px; */
+/* } */
 
-.resume-info .title {
+.resume-item .title {
 	font-size: 15px;
 	font-weight: 500;
-	color: #333;
+	color: var(--font-main-color);
+	margin-top: 10px;
+	font: var(--font-family);
 }
-.resume-item:hover{
-	background-color: #fff8d0;
-}
-.resume-info .date {
-	font-size: 12px;
-	color: #888;
+
+.resume-item .date {
+	font-size: 14px;
+	color: var(--font-main-color);
+	margin-top: 10px;
+	font: var(--font-family);
 }
 
 .edit-btn {
@@ -70,17 +78,11 @@
 	font-weight: bold;
 	font-size: 14px;
 	transition: background 0.2s;
+	font: var(--font-family);
 }
 
 .edit-btn:hover {
 	background-color: var(--main-color-hover);
-}
-
-.checkbox {
-	width: 20px;
-	height: 20px;
-	accent-color: #fcd34d;
-	margin: auto;
 }
 
 .resume-footer {
@@ -91,7 +93,7 @@
 }
 
 .delete-btn {
-	background-color:var(--main-color);
+	background-color: var(--main-color);
 	border: none;
 	padding: 10px 20px;
 	font-weight: bold;
@@ -104,10 +106,14 @@
 	background-color: var(--main-color-hover);
 }
 
+.checkbox {
+	width: 20px;
+    height: 20px;
+    accent-color: var(--main-color-hover);
+    margin: auto;
+}
+
 .pagination {
-	/*   display: flex; */
-	/*   gap: 8px; */
-	/*   font-size: 14px; */
 	margin: 0 auto;
 	width: fit-content;
 	display: flex;
@@ -125,4 +131,3 @@
 	font-weight: bold;
 	text-decoration: underline;
 }
-

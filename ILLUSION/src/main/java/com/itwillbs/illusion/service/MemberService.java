@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.itwillbs.illusion.mapper.MemberMapper;
+import com.itwillbs.illusion.vo.CompanyVo;
 import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
 
@@ -20,7 +21,7 @@ public class MemberService {
 	private static final String String = null;
 	@Autowired
 	MemberMapper mapper;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -35,21 +36,15 @@ public class MemberService {
 	public int checkIdCount(String member_id) {
 		return mapper.checkIdCount(member_id);
 	}
-	// 회원가입 비즈니스 로직 메서드
-	@Transactional
-	public boolean insertMember(MemberVO member) {
-		String rawPassword = member.getMember_pw(); // 암호화
-		String encodedPassword = passwordEncoder.encode(rawPassword);
-		member.setMember_pw(encodedPassword);
 
-		if (rawPassword == null || rawPassword.isEmpty()) {
-			throw new IllegalArgumentException("비밀번호가 입력되지 않았습니다.");
+	public int checkRecruiterNumber(String recruiterNumber) {
+		return mapper.checkRecruiterNumber(recruiterNumber);
+	}
 
-		}
-
-		int insertCount = mapper.insertMember(member);
-		return insertCount > 0;
-	} // 개인회원
+	// 조영재
+	public MemberVO getMemberInfoById(String member_id) {
+		return mapper.getMemberInfoById(member_id);
+	}
 
 	@Transactional
 	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
@@ -71,9 +66,35 @@ public class MemberService {
 		return isAuthSuccess;
 	}
 
-	// 조영재
-	public MemberVO getMemberInfoById(String member_id) {
-		return mapper.getMemberInfoById(member_id);
-	}
+	// 회원가입 비즈니스 로직 메서드
+	@Transactional
+	public boolean insertMember(MemberVO member) {
+		String rawPassword = member.getMember_pw(); // 암호화
 
+		if (rawPassword == null || rawPassword.isEmpty()) {
+			throw new IllegalArgumentException("비밀번호가 입력되지 않았습니다.");
+		}
+		String encodedPassword = passwordEncoder.encode(rawPassword);
+		member.setMember_pw(encodedPassword);
+
+		int insertCount = mapper.insertMember(member);
+		return insertCount > 0;
+	} // 개인회원
+
+
+	// 기업회원 가입 처리 (멤버 + 컴퍼니 테이블에 동시에 저장)
+	@Transactional
+	public boolean insertCompanyMember(MemberVO member ) {
+		String rawPassword = member.getMember_pw(); // 암호화
+
+		if (rawPassword == null || rawPassword.isEmpty()) {
+			throw new IllegalArgumentException("비밀번호가 입력되지 않았습니다.");
+		}
+		String encodedPassword = passwordEncoder.encode(rawPassword);
+		member.setMember_pw(encodedPassword);
+		
+		int insertCompany = mapper.insertCompanyMember(member);
+		return insertCompany > 0;
+	} // 기업회원
+       
 }

@@ -22,21 +22,24 @@
 
 .resume-list-header {
 	display: grid;
-	grid-template-columns: 2fr 7fr 2fr;
+	grid-template-columns: 2fr 6fr 2.5fr 2fr;
 	background-color:var(--main-color);
 	padding: 12px 16px;
 	font-weight: 600;
-	font-size: 14px;
+	font-size: 15px;
 	border-radius: 8px;
 	text-align: center;
+	font: var(--font-family);
 }
 
 .resume-item {
 	display: grid;
-	grid-template-columns: 1fr 4fr 1fr;
-	align-items: center;
-	padding: 16px;
-	border-bottom: 1px solid #eee;
+	grid-template-columns: 2fr 6fr 2.5fr 2fr;
+	padding: 12px 16px;
+	font-weight: 500;
+	font-size: 14px;
+	border-radius: 8px;
+	text-align: center;
 }
 
 .resume-item:hover {
@@ -47,21 +50,25 @@
 	border-bottom: none;
 }
 
-.resume-info {
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-}
+/* .resume-item { */
+/* 	display: flex; */
+/* 	flex-direction: column; */
+/* 	gap: 4px; */
+/* } */
 
-.resume-info .title {
+.resume-item .title {
 	font-size: 15px;
 	font-weight: 500;
-	color: #333;
+	color: var(--font-main-color);
+	margin-top: 10px;
+	font: var(--font-family);
 }
 
-.resume-info .date {
-	font-size: 12px;
-	color: #888;
+.resume-item .date {
+	font-size: 14px;
+	color: var(--font-main-color);
+	margin-top: 10px;
+	font: var(--font-family);
 }
 
 .edit-btn {
@@ -73,6 +80,7 @@
 	font-weight: bold;
 	font-size: 14px;
 	transition: background 0.2s;
+	font: var(--font-family);
 }
 
 .edit-btn:hover {
@@ -102,9 +110,9 @@
 
 .checkbox {
 	width: 20px;
-	height: 20px;
-	accent-color: #fcd34d;
-	margin: auto;
+    height: 20px;
+    accent-color: var(--main-color-hover);
+    margin: auto;
 }
 
 .pagination {
