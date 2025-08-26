@@ -53,6 +53,9 @@ public interface ResumeMapper {
 	// 회원의 이력서 갯수 조회
 	public int getResumeListCountByMember(@Param("memberIdx") int member_idx);
 	
+	// 마이페이지 이력서 상세내용 조회
+	 public List<ResumeVO> savedResumeDetail(@Param("resumeIdx") int resumeIdx);
+	
     // 마이페이지 이력서 여러건 삭제
 	public int deleteMyResumes(Map<String, Object> params);
 	
@@ -67,4 +70,5 @@ public interface ResumeMapper {
 	
     // 마이페이지 이력서 여러건 삭제
 	public int deleteMyCLs(Map<String, Object> params);
+	
 }

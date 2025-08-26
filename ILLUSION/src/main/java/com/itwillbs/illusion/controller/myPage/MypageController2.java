@@ -143,7 +143,19 @@ public class MypageController2 {
 	
 	/* 이력서 상세보기 */
 	@GetMapping("savedResumeDetail")
-	public String savedResumeDetail() {
+	public String savedResumeDetail(Principal principal,
+			Model model,
+			@RequestParam("resume_idx") int resumeIdx) {
+		
+		// 방어 코드
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		List<ResumeVO> resume = mypageService.savedResumeDetail(resumeIdx);
+		
+		model.addAttribute("resume", resume);
+		
 		return "myPage/savedResumeDetail";
 	}
 

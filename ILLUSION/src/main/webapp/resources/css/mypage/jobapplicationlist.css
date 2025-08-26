@@ -6,6 +6,7 @@
 	width: 100%;
 	text-align: center;
 	box-shadow:  var(--main-box-shadow);
+	border-radius: 14px;
 }
 
 .trcss {

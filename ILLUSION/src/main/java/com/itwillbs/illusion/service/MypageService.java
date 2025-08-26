@@ -16,6 +16,7 @@ import com.itwillbs.illusion.mapper.ScrapMapper;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.BoardVO;
 import com.itwillbs.illusion.vo.CoverLetterVO;
+import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.ResumeVO;
 import com.itwillbs.illusion.vo.ScrapVO;
 
@@ -59,6 +60,10 @@ public class MypageService {
         params.put("idList", idList);
         
         return resumeMapper.deleteMyResumes(params);
+    }
+    
+    public List<ResumeVO> savedResumeDetail(int resumeIdx) {
+    	return resumeMapper.savedResumeDetail(resumeIdx);
     }
 	
 	// 마이페이지 자소서 목록

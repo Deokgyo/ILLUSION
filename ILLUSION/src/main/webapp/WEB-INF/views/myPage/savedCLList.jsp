@@ -49,15 +49,14 @@
 			<div class="resume-list-container">
 				<div class="resume-list">
 					<div class="resume-list-header">
-						<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span> <span>관리</span>
+						<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span> <span>자소서 종류</span>
 					</div>
 					<c:forEach var="cl" items="${CLList }">
 						<div class="resume-item">
 							<input type="checkbox" class="checkbox" value="${cl.cl_idx }">
 									<div class="title">${cl.cl_title}</div>
 									<div class="date">${cl.generation_date}</div>
-							<button class="edit-btn"
-								onclick="location.href='coverletterCreate?cl_idx=${cl.cl_idx}';">수정</button>
+									<div class="date">${cl.cl_type}</div>
 						</div>
 					</c:forEach>
 					<div class="resume-footer">

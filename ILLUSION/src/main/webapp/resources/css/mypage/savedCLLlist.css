@@ -33,7 +33,7 @@
 .resume-item {
 	display: grid;
 	grid-template-columns: 2fr 6fr 2.5fr 2fr;
-	padding: 12px 16px;
+	padding: 14px 16px;
 	font-weight: 450;
 	font-size: 14px;
 	border-radius: 8px;
