@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>토큰 충전 페이지</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -36,7 +36,6 @@
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 	<div class="page-container">
-
 		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 		<main class="main-content">
 			<div class="page-title-header">
@@ -45,32 +44,32 @@
 				</p>
 			</div>
 			<div class="community-search mt-4">
-				<!-- 				<div class="token-options"> -->
-				<!-- 					<div class="token-option" onclick="selectToken(this)"> -->
-				<!-- 						<span class="token-amount">🟡 100 토큰</span> <span -->
-				<!-- 							class="token-price">1000원</span> -->
-				<!-- 					</div> -->
-				<!-- 					<div class="token-option" onclick="selectToken(this)"> -->
-				<!-- 						<span class="token-amount">🟡 500 토큰</span> <span -->
-				<!-- 							class="token-price">5000원</span> -->
-				<!-- 					</div> -->
-				<!-- 					<div class="token-option" onclick="selectToken(this)"> -->
-				<!-- 						<span class="token-amount">🟡 1000 토큰</span> <span -->
-				<!-- 							class="token-price">10,000원</span> -->
-				<!-- 					</div> -->
-
 				<div class="token-options">
 					<button class="token-option" onclick="selectToken(this)"
 						data-product-id="token_100">
 						<span class="token-amount">🟡100토큰 충전 (1,000원)</span>
 					</button>
 					<button class="token-option" onclick="selectToken(this)"
+						data-product-id="token_300">
+						<span class="token-amount">🟡300토큰 충전 (3,000원)</span>
+					</button>
+					<button class="token-option" onclick="selectToken(this)"
 						data-product-id="token_500">
 						<span class="token-amount">🟡500토큰 충전 (5,000원)</span>
 					</button>
+				</div>
+				<div class="token-options">
 					<button class="token-option" onclick="selectToken(this)"
 						data-product-id="token_1000">
 						<span class="token-amount">🟡1000토큰 충전 (10,000원)</span>
+					</button>
+					<button class="token-option" onclick="selectToken(this)"
+						data-product-id="token_3000">
+						<span class="token-amount">🟡3000토큰 충전 (30,000원)</span>
+					</button>
+					<button class="token-option" onclick="selectToken(this)"
+						data-product-id="token_5000">
+						<span class="token-amount">🟡5000토큰 충전 (50,000원)</span>
 					</button>
 				</div>
 			</div>
@@ -106,11 +105,11 @@
 			<!-- 					<option value="bccard">bc카드</option> -->
 			<!-- 				</select> -->
 			<div class="policyCSS1">
-				<input type="checkbox" class="checkbox"><span class="span-title">결제 및 환불 정책에 동의합니다.</span>
+				<input type="checkbox" class="checkbox" id="checkbox">
+				<label for="payment-agreement-check" class="span-title">결제 및 환불 정책에 동의합니다.</label>
 			</div>
-
-
-			<button class="submit-btn" onclick="confirm('걸제하시겠습니까?')">결제</button>
+			<button class="submit-btn" id="submit-btn">결제</button>
+		</main>
 	</div>
 
 	<script>
@@ -125,19 +124,11 @@
         }
     </script>
 
-
-	</main>
-	</div>
-
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-	<script>
-        window.contextPath = "${pageContext.request.contextPath}";
-    </script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/myPage/tokenPayment.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script>window.contextPath = "${pageContext.request.contextPath}";</script>
+	<script src="${pageContext.request.contextPath}/resources/js/myPage/tokenPayment.js"></script>
 </body>
 </html>

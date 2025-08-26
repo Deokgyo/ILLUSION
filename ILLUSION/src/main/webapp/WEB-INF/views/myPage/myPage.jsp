@@ -75,7 +75,7 @@
 		    <div class="form-box">
 		    	<div class="save-box">
 		    		<div class="section">
-		      		<h1>저장한 파일</h1>
+		      		<div class="main-username">저장한 파일</div>
 		      			<div class="grid">
 					        <div class="file-card"><a href="savedResumeList">📄 생성된 이력서</a></div>
 					        <div class="file-card"><a href="savedCLList">📝 생성된 자기소개서</a></div>
@@ -86,7 +86,7 @@
 		    	<!-- 활동기록 -->
 		    	<div class="save-box">
 				    <div class="section">
-				    	<h1>활동기록</h1>
+				    	<div class="main-username">활동기록</div>
 				      	<div class="grid">
 					        <div class="file-card"><a href="scraprecruitList">⭐ 관심 채용 공고</a></div>
 					        <div class="file-card"><a href="jobapplicationlist">📬 입사 지원 현황</a></div>

@@ -56,9 +56,9 @@
 					</thead>
 					<tbody>
 						<c:forEach var="app" items="${applyList }">
-							<tr class="trcss" data-href="recruitmentDetail?recruit_idx=${app.recruit_idx }">
+							<tr class="trcss">
 								<td><input type="checkbox" class="checkbox" value="${app.apply_idx }"></td>
-								<td>${app.recruit_subject }</td>
+								<td><a href="recruitmentDetail?recruit_idx=${app.recruit_idx }">${app.recruit_subject }</a></td>
 								<td>${app.rec_status }</td>
 								<td>${app.applyDateFormatted }</td>
 								<td>${app.endDateFormatted }</td>
@@ -96,22 +96,6 @@
 	    		    <a href="${pageUrl}">&raquo;</a>
 			    </c:if>
 			</nav>
-			<script>
-				document.addEventListener('DOMContentLoaded', function() {
-					document.querySelectorAll('tr.trcss').forEach(
-							function(row) {
-								row.addEventListener('click', function(e) {
-									// 북마크나 체크박스를 클릭할 땐 무시
-									if (e.target.tagName === 'INPUT'
-											|| e.target.tagName === 'BUTTON')
-										return;
-									const href = row.getAttribute('data-href');
-									if (href)
-										window.location.href = href;
-								});
-							});
-				});
-			</script>
 		</main>
 	</div>
 	<footer>

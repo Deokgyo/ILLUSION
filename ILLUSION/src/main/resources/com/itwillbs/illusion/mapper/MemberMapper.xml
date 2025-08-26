@@ -99,6 +99,18 @@
 					)
 	</insert>
 
+	<!-- 마이페이지 토큰 업데이트 (이대은 수정) -->
+	<update id="updateMemberTokens" parameterType="map">
+	    UPDATE member
+	       SET token = token + #{tokenAmount}
+	     WHERE member_idx = #{memberIdx}
+	</update>
+	
+	<select id="selectMemberTokens" parameterType="int" resultType="int">
+	    SELECT token 
+	      FROM member 
+	     WHERE member_idx = #{memberIdx}
+	</select>
 
 
 

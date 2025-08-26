@@ -246,6 +246,7 @@ public class MypageController2 {
 	@GetMapping("myPost")
 	public String myPost(Principal principal,
 			@RequestParam(defaultValue = "1") int pageNum,
+			@RequestParam(defaultValue = "BRD001") String categoryCode,
 			Model model) {
 
 		// 방어 코드
@@ -260,16 +261,19 @@ public class MypageController2 {
         int listLimit = 10; // 한페이지에 10개
 		int pageListLimit = 5;
         
-        int listCount = mypageService.getMyPostCountByMember(member.getMember_idx());
+        int listCount = mypageService.getMyPostCountByMember(member.getMember_idx(), categoryCode);
         
         // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
         
         // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
+        
+		List<Map<String, String>> categoryList = service.selectCategory();
 		
-		List<BoardVO> myPostList = mypageService.getMyPostByMemberId(member.getMember_idx(), startRow, listLimit);
+		List<BoardVO> myPostList = mypageService.getMyPostByMemberId(member.getMember_idx(), categoryCode, startRow, listLimit);
 		
+		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("myPostList", myPostList);
 		model.addAttribute("pageInfo", pageInfo);
 

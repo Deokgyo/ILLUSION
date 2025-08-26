@@ -72,6 +72,12 @@ body {
 	font-size: 30px;
 }
 
+.main-username {
+	font-weight: bold;
+	font-size: 30px;
+	margin-bottom: 10px;
+}
+
 .profile-info .email {
 	font-size: 14px;
 	color: #666;

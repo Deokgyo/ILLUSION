@@ -56,9 +56,9 @@
 						<tbody>
 							<c:forEach var="scrap" items="${scrapList }">
 								<tbody>
-									<tr class="row-link" data-href="recruitmentDetail?recruit_idx=${scrap.recruit_idx }">
+									<tr class="row-link">
 										<td><input type="checkbox" class="checkbox" value="${scrap.recruit_idx}"></td>
-										<td>${scrap.recruit_subject }</td>
+										<td><a href="recruitmentDetail?recruit_idx=${scrap.recruit_idx }">${scrap.recruit_subject }</a></td>
 										<td>${scrap.rec_status }</td>
 										<td>${scrap.startDateFormatted }</td>
 										<td>${scrap.endDateFormatted }</td>
@@ -99,22 +99,6 @@
 				    </c:if>
 				</nav>
 			</div>
-			<script>
-				document.addEventListener('DOMContentLoaded', function() {
-					document.querySelectorAll('tr.row-link').forEach(
-							function(row) {
-								row.addEventListener('click', function(e) {
-									// 북마크나 체크박스를 클릭할 땐 무시
-									if (e.target.tagName === 'INPUT'
-											|| e.target.tagName === 'BUTTON')
-										return;
-									const href = row.getAttribute('data-href');
-									if (href)
-										window.location.href = href;
-								});
-							});
-				});
-			</script>
 		</main>
 	</div>
 
