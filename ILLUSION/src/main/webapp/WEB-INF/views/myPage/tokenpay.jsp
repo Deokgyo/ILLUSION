@@ -27,6 +27,9 @@
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/mypage/tokenpay.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body>
 	<header>
@@ -41,66 +44,76 @@
 					<strong>토큰 충전 </strong>
 				</p>
 			</div>
-
-			<div class="charge-container">
-
+			<div class="community-search mt-4">
+				<!-- 				<div class="token-options"> -->
+				<!-- 					<div class="token-option" onclick="selectToken(this)"> -->
+				<!-- 						<span class="token-amount">🟡 100 토큰</span> <span -->
+				<!-- 							class="token-price">1000원</span> -->
+				<!-- 					</div> -->
+				<!-- 					<div class="token-option" onclick="selectToken(this)"> -->
+				<!-- 						<span class="token-amount">🟡 500 토큰</span> <span -->
+				<!-- 							class="token-price">5000원</span> -->
+				<!-- 					</div> -->
+				<!-- 					<div class="token-option" onclick="selectToken(this)"> -->
+				<!-- 						<span class="token-amount">🟡 1000 토큰</span> <span -->
+				<!-- 							class="token-price">10,000원</span> -->
+				<!-- 					</div> -->
 
 				<div class="token-options">
-					<div class="token-option" onclick="selectToken(this)">
-						<span class="token-amount">🟡 100 토큰</span> <span
-							class="token-price">1000원</span>
-					</div>
-					<div class="token-option" onclick="selectToken(this)">
-						<span class="token-amount">🟡 500 토큰</span> <span
-							class="token-price">5000원</span>
-					</div>
-					<div class="token-option selected" onclick="selectToken(this)">
-						<span class="token-amount">🟡 1000 토큰</span> <span
-							class="token-price">10,000원</span>
-					</div>
+					<button class="token-option" onclick="selectToken(this)"
+						data-product-id="token_100">
+						<span class="token-amount">🟡100토큰 충전 (1,000원)</span>
+					</button>
+					<button class="token-option" onclick="selectToken(this)"
+						data-product-id="token_500">
+						<span class="token-amount">🟡500토큰 충전 (5,000원)</span>
+					</button>
+					<button class="token-option" onclick="selectToken(this)"
+						data-product-id="token_1000">
+						<span class="token-amount">🟡1000토큰 충전 (10,000원)</span>
+					</button>
 				</div>
-
-				<div class="section-title">결제수단</div>
-
-				<div class="payment-method-box">신용 . 체크카드</div>
-
-				<div class="payment-options">
-					<div class="payment-option">
-						<img
-							src="${pageContext.request.contextPath}/resources/mypage_image/kakao.png"
-							alt="kakaopay">
-					</div>
-					<div class="payment-option">
-						<img
-							src="${pageContext.request.contextPath}/resources/mypage_image/naver.png"
-							alt="naver">
-					</div>
-					<div class="payment-option">
-						<img
-							src="${pageContext.request.contextPath}/resources/mypage_image/toss.png"
-							alt="toss">
-					</div>
-				</div>
-
-				
-					
-					 <select id="job" name="job" class="custom-select">
-						<option value="lottecard">카드사 선택</option>
-						<option value="lottecard">롯데카드</option>
-						<option value="samsungcard">삼성카드</option>
-						<option value="bccard">bc카드</option>
-						
-					</select>
-				<div class="policyCSS1">
-				<input type="checkbox" class="checkbox"> <a href="refundPolicy" class="policyCSS">결제 및 환불 정책에 동의합니다.</a>
-				
-				</div>
-
-				<button class="submit-btn" onclick="confirm('걸제하시겠습니까?')">결제</button>
-				
 			</div>
 
-			<script>
+<!-- 			<div class="section-title">결제수단</div> -->
+
+<!-- 			<div class="payment-method-box"> -->
+<!-- 				<button class="btn-charge">신용 . 체크카드</button> -->
+<!-- 			</div> -->
+
+			<jsp:include page="/WEB-INF/views/myPage/tokenpayList.jsp" />
+			<!-- 				<div class="payment-options"> -->
+			<!-- 					<div class="payment-option"> -->
+			<!-- 						<img -->
+			<%-- 							src="${pageContext.request.contextPath}/resources/mypage_image/kakao.png" --%>
+			<!-- 							alt="kakaopay"> -->
+			<!-- 					</div> -->
+			<!-- 					<div class="payment-option"> -->
+			<!-- 						<img -->
+			<%-- 							src="${pageContext.request.contextPath}/resources/mypage_image/naver.png" --%>
+			<!-- 							alt="naver"> -->
+			<!-- 					</div> -->
+			<!-- 					<div class="payment-option"> -->
+			<!-- 						<img -->
+			<%-- 							src="${pageContext.request.contextPath}/resources/mypage_image/toss.png" --%>
+			<!-- 							alt="toss"> -->
+			<!-- 					</div> -->
+			<!-- 				</div> -->
+			<!-- 				<select id="job" name="job" class="custom-select"> -->
+			<!-- 					<option value="lottecard">카드사 선택</option> -->
+			<!-- 					<option value="lottecard">롯데카드</option> -->
+			<!-- 					<option value="samsungcard">삼성카드</option> -->
+			<!-- 					<option value="bccard">bc카드</option> -->
+			<!-- 				</select> -->
+			<div class="policyCSS1">
+				<input type="checkbox" class="checkbox"><span class="span-title">결제 및 환불 정책에 동의합니다.</span>
+			</div>
+
+
+			<button class="submit-btn" onclick="confirm('걸제하시겠습니까?')">결제</button>
+	</div>
+
+	<script>
         function selectToken(element) {
             // 모든 'selected' 클래스 제거
             const options = document.querySelectorAll('.token-option');
@@ -113,14 +126,18 @@
     </script>
 
 
-		</main>
+	</main>
 	</div>
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script>
+        window.contextPath = "${pageContext.request.contextPath}";
+    </script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/myPage/tokenPayment.js"></script>
 </body>
 </html>
