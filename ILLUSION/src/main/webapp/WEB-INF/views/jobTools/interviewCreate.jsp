@@ -77,7 +77,8 @@
                         <div class="resume-list">
                             <div class="resume-item">
                                 <span class="icon">📄</span>
-                                <span class="title">세심한 개발자</span>
+                                <input type="radio" name="cl_idx" class="title" value="cl_idx"> 세심한 개발자
+<!--                                 <span class="title">세심한 개발자</span> -->
                             </div>
                             <div class="resume-item active">
                                 <span class="icon">📄</span>
