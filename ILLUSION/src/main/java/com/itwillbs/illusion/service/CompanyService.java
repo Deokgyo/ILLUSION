@@ -17,5 +17,9 @@ public class CompanyService {
 	public boolean insertMemberCompany(CompanyVo company) {
         return mapper.insertMemberCompany(company);
     }
+//	
+//	public boolean insertAddress(CompanyVo company) {
+//        return mapper.insertAddress(company);
+//    }
 
 }

@@ -237,83 +237,83 @@ $(document).ready(function() {
 		$('#member_type').val('MEM003');
 	});
 
-//	// 개인 회원가입
-//	$('#registerForm').on('submit', function(e) {
-//		e.preventDefault();
-//
-//		const userid = $('#userid').val().trim();
-//		const userpw = $('#userpw').val().trim();
-//		const email = $('#email').val().trim();
-//
-//		if (!userid || !userpw || !email) {
-//			alert('모든 필드를 입력해주세요.');
-//			return;
-//		}
-//
-//		$.ajax({
-//			url: 'register', // 절대 경로 혹은 서버에 맞게 수정
-//			type: 'POST',
-//			contentType: 'application/json',
-//			data: JSON.stringify({
-//				member_id: userid,
-//				member_pw: userpw,
-//				member_email: email
-//			}),
-//			success: function(response, textStatus, xhr) {
-//				const redirectUrl = xhr.getResponseHeader('Location');
-//				if (redirectUrl) {
-//					alert('회원가입 성공!');
-//					window.location.href = redirectUrl;
-//				} else {
-//					alert('회원가입 성공!');
-//				}
-//			},
-//			error: function(xhr, textStatus, errorThrown) {
-//				alert('회원가입 실패 또는 서버 오류 발생');
-//				console.error('Ajax 오류:', errorThrown);
-//			}
-//		});
-//	});
-//	
-//	
-//	// 기업 회원가입
-//	$('#registerForm').on('submit', function(e) {
-//		e.preventDefault();
-//
-//		const userid = $('#userid').val().trim();
-//		const userpw = $('#userpw').val().trim();
-//		const email = $('#email').val().trim();
-//
-//		if (!userid || !userpw || !email) {
-//			alert('모든 필드를 입력해주세요.');
-//			return;
-//		}
-//
-//		$.ajax({
-//			url: 'insertMemberCompany', // 절대 경로 혹은 서버에 맞게 수정
-//			type: 'POST',
-//			contentType: 'application/json',
-//			data: JSON.stringify({
-//				member_id: userid,
-//				member_pw: userpw,
-//				member_email: email
-//			}),
-//			success: function(response, textStatus, xhr) {
-//				console.log("이제 그만하고 싶다");
-//				const redirectUrl = xhr.getResponseHeader('Location');
-//				if (redirectUrl) {
-//					alert('회원가입 성공!');
-//					window.location.href = redirectUrl;
-//				} else {
-//					alert('회원가입 성공!');
-//				}
-//			},
-//			error: function(xhr, textStatus, errorThrown) {
-//				alert('회원가입 실패 또는 서버 오류 발생');
-//				console.error('Ajax 오류:', errorThrown);
-//			}
-//		});
-//	});
+	//	// 개인 회원가입
+	//	$('#registerForm').on('submit', function(e) {
+	//		e.preventDefault();
+	//
+	//		const userid = $('#userid').val().trim();
+	//		const userpw = $('#userpw').val().trim();
+	//		const email = $('#email').val().trim();
+	//
+	//		if (!userid || !userpw || !email) {
+	//			alert('모든 필드를 입력해주세요.');
+	//			return;
+	//		}
+	//
+	//		$.ajax({
+	//			url: 'register', // 절대 경로 혹은 서버에 맞게 수정
+	//			type: 'POST',
+	//			contentType: 'application/json',
+	//			data: JSON.stringify({
+	//				member_id: userid,
+	//				member_pw: userpw,
+	//				member_email: email
+	//			}),
+	//			success: function(response, textStatus, xhr) {
+	//				const redirectUrl = xhr.getResponseHeader('Location');
+	//				if (redirectUrl) {
+	//					alert('회원가입 성공!');
+	//					window.location.href = redirectUrl;
+	//				} else {
+	//					alert('회원가입 성공!');
+	//				}
+	//			},
+	//			error: function(xhr, textStatus, errorThrown) {
+	//				alert('회원가입 실패 또는 서버 오류 발생');
+	//				console.error('Ajax 오류:', errorThrown);
+	//			}
+	//		});
+	//	});
+	//	
+	//	
+	//	// 기업 회원가입
+	//	$('#registerForm').on('submit', function(e) {
+	//		e.preventDefault();
+	//
+	//		const userid = $('#userid').val().trim();
+	//		const userpw = $('#userpw').val().trim();
+	//		const email = $('#email').val().trim();
+	//
+	//		if (!userid || !userpw || !email) {
+	//			alert('모든 필드를 입력해주세요.');
+	//			return;
+	//		}
+	//
+	//		$.ajax({
+	//			url: 'insertMemberCompany', // 절대 경로 혹은 서버에 맞게 수정
+	//			type: 'POST',
+	//			contentType: 'application/json',
+	//			data: JSON.stringify({
+	//				member_id: userid,
+	//				member_pw: userpw,
+	//				member_email: email
+	//			}),
+	//			success: function(response, textStatus, xhr) {
+	//				console.log("이제 그만하고 싶다");
+	//				const redirectUrl = xhr.getResponseHeader('Location');
+	//				if (redirectUrl) {
+	//					alert('회원가입 성공!');
+	//					window.location.href = redirectUrl;
+	//				} else {
+	//					alert('회원가입 성공!');
+	//				}
+	//			},
+	//			error: function(xhr, textStatus, errorThrown) {
+	//				alert('회원가입 실패 또는 서버 오류 발생');
+	//				console.error('Ajax 오류:', errorThrown);
+	//			}
+	//		});
+	//	});
 	// 입력값 초기화 함수
 	function resetFormInputs() {
 		// .signup-form 내부의 모든 input/select/textarea 초기화
@@ -346,9 +346,14 @@ $(document).ready(function() {
 		$(this).addClass('selected');
 		$('#companyBox').fadeIn(120);
 		resetFormInputs();
+
 		// 성별, 생년월일 숨김
-		$('#gender').hide().removeAttr('required');
-		$('#birth_user').hide().removeAttr('required');
+		$('#genderHide').hide();
+		$('#birthHide').hide();
+
+		// 실제 select, input 요소에 필수 속성 제거
+		$('#gender').removeAttr('required');
+		$('#birth').removeAttr('required');
 
 		// 이름(개인명) -> 기업명으로 라벨 및 placeholder 변경
 		$('label[for="username"]').text('기업명');
@@ -430,7 +435,7 @@ $(document).ready(function() {
 
 
 
-	$('.signup-form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
+//	$('.signup-form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
 
 	$('.signup-form').on('submit', function(event) {
 		// checkSubmit이 false 반환하면 폼 제출 막기
@@ -440,8 +445,8 @@ $(document).ready(function() {
 		}
 		// true 반환 시 폼 제출 계속 진행
 	});
-	
-	
+
+
 	function checkSubmit() {
 		// 아이디 유효성 검사 실패 시
 		if (!isCheckId) {
@@ -480,95 +485,96 @@ $(document).ready(function() {
 
 
 
-    // 회원가입 폼 제출 이벤트
-    $('.signup-form').on('submit', function(e) {
-        e.preventDefault();
+	// 회원가입 폼 제출 이벤트
+	$('.signup-form').on('submit', function(e) {
+		e.preventDefault();
 
-        // 공통 입력값
-        const memberType = $('#member_type').val();
-        const userid = $('#userid').val().trim();
-        const userpw = $('#userpw').val().trim();
-        const email = $('#email').val().trim();
+		// 공통 입력값
+		const memberType = $('#member_type').val();
+		const userid = $('#userid').val().trim();
+		const userpw = $('#userpw').val().trim();
+		const email = $('#email').val().trim();
 
-        // 필수값 체크
-        if (!userid || !userpw || !email) {
-            alert('아이디, 비밀번호, 이메일은 필수입니다.');
-            return;
-        }
+		// 필수값 체크
+		if (!userid || !userpw || !email) {
+			alert('아이디, 비밀번호, 이메일은 필수입니다.');
+			return;
+		}
 
-        // 비밀번호 유효성 및 아이디 중복 등 추가 체크 필요 (생략)
+		// 비밀번호 유효성 및 아이디 중복 등 추가 체크 필요 (생략)
 
-        if (memberType === 'MEM003') {
+		if (memberType == 'MEM003') {
 			console.log("되것나이게");
-            // 기업회원 가입 데이터 준비
-            const data = {
-                member_id: userid,
-                member_pw: userpw,
-                member_email: email,
-                member_type: memberType,
-                recruiter_number: $('#companyNumber').val().trim(),
-                member_name: $('#username').val().trim(), // 기업명
-                companyVo: {
-                    company_name: $('#username').val().trim(),
-                    ceo_name: $('#companyname').val().trim(),
-                    company_estab_date: $('#company_date').val(),
-                    company_type: $('#compantypes').val(),
-                    address_num: $('#zipcode').val().trim(),
-                    address_name: $('#address1').val().trim() + " " + $('#address2').val().trim()
-                }
-            };
+			// 기업회원 가입 데이터 준비
+			const data = {
+				member_id: userid,
+				member_pw: userpw,
+				member_email: email,
+				member_type: memberType,
+				recruiter_number: $('#companyNumber').val().trim(),
+				member_name: $('#username').val().trim(), // 기업명
+				companyVo: {
+					company_name: $('#username').val().trim(),
+					ceo_name: $('#companyname').val().trim(),
+					company_estab_date: $('#company_date').val(),
+					company_type: $('#compantypes').val(),
+					address_num: $('#zipcode').val().trim(),
+					address_name: $('#address1').val().trim() + " " + $('#address2').val().trim()
+				}
+			};
+			console.log("userpw:", userpw);
+			
+			// 기업회원 필수값 체크
+			if (!data.recruiter_number) {
+				alert('사업자등록번호를 입력해주세요.');
+				return;
+			}
+			if (!data.companyVo.company_name || !data.companyVo.ceo_name || !data.companyVo.company_estab_date || !data.companyVo.company_type) {
+				alert('기업 정보를 모두 입력해주세요.');
+				return;
+			}
 
-            // 기업회원 필수값 체크
-            if (!data.recruiter_number) {
-                alert('사업자등록번호를 입력해주세요.');
-                return;
-            }
-            if (!data.companyVo.company_name || !data.companyVo.ceo_name || !data.companyVo.company_estab_date || !data.companyVo.company_type) {
-                alert('기업 정보를 모두 입력해주세요.');
-                return;
-            }
+			$.ajax({
+				url: 'insertMemberCompany',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				success: function(response, textStatus, xhr) {
+					console.log("보나마나 안되겟지");
+					alert('기업회원 가입 성공!');
+					window.location.href = '/login';
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					alert('기업회원 가입 실패 또는 서버 오류 발생');
+					console.error('Ajax 오류:', textStatus);
+				}
+			});
+		} else {
+			// 개인회원 가입 데이터 준비
+			const data = {
+				member_id: userid,
+				member_pw: userpw,
+				member_email: email,
+				member_type: memberType
+			};
 
-            $.ajax({
-                url: 'insertMemberCompany',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function(response, textStatus, xhr) {
-				console.log("보나마나 안되겟지");
-                    alert('기업회원 가입 성공!');
-                    window.location.href = '/login';
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    alert('기업회원 가입 실패 또는 서버 오류 발생');
-                    console.error('Ajax 오류:', errorThrown);
-                }
-            });
-        } else {
-            // 개인회원 가입 데이터 준비
-            const data = {
-                member_id: userid,
-                member_pw: userpw,
-                member_email: email,
-                member_type: memberType
-            };
-
-            $.ajax({
-                url: 'register',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function(response, textStatus, xhr) {
-				console.log("이것도 안되면..");
-                    alert('개인회원 가입 성공!');
-                    window.location.href = '/login';
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    alert('개인회원 가입 실패 또는 서버 오류 발생');
-                    console.error('Ajax 오류:', errorThrown);
-                }
-            });
-        }
-    });
+			$.ajax({
+				url: 'register',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				success: function(response, textStatus, xhr) {
+					console.log("이것도 안되면..");
+					alert('개인회원 가입 성공!');
+					window.location.href = '/login';
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					alert('개인회원 가입 실패 또는 서버 오류 발생');
+					console.error('Ajax 오류:', errorThrown);
+				}
+			});
+		}
+	});
 
 
 

@@ -105,7 +105,7 @@
 						id="companyname" name="company_name" placeholder="대표자명을 입력해주세요"
 						required>
 				</div>
-				<div class="flex-half gender-row" id="gender">
+				<div class="flex-half gender-row" id="genderHide">
 					<label for="gender">성별</label> <select id="gender" name="gender"
 						required>
 						<option value="">선택</option>
@@ -115,7 +115,7 @@
 				</div>
 			</div>
 
-			<div class="form-row" id="birth_user">
+			<div class="form-row birth_user" id="birthHide">
 				<label for="birth">생년월일</label> <input type="date" id="birth"
 					name="resume_birth" required>
 			</div>

@@ -8,4 +8,6 @@ import com.itwillbs.illusion.vo.CompanyVo;
 public interface CompanyMapper {
 	
 	public boolean insertMemberCompany(CompanyVo company);
+	
+//	public boolean insertAddress(CompanyVo company);
 }
