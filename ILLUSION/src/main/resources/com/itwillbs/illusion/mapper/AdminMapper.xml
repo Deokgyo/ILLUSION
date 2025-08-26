@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itwillbs.illusion.mapper.AdminMapper">
+	
+	<!-- 구인자 수 조회 -->
+	<select id="getApplicantCount">
+		SELECT count(*)
+		  FROM member
+		 WHERE member_type = "mem002";
+	</select>
+	
+	<!-- 구직자 수 조회 -->
+	<select id="getEmployerCount">
+		SELECT count(*)
+		  FROM member
+		 WHERE member_type = "mem003";
+	</select>
+	
+	<!-- 공고 수 조회 -->
+	<select id="getRecruitCount">
+		SELECT count(*)
+		  FROM recruit
+	</select>
+	
+	<!-- 게시글 수 조회 -->
+	<select id="getBoardCount">
+		SELECT count(*)
+	      FROM board		
+	</select>
+	
+	<!-- 생성된 ai 자소서 수 조회 -->
+	<select id="getCoverletterCount">
+		SELECT count(*)
+		  FROM cover_letter
+	</select>
+	
+	
+	<!-- 회원 정보 조회 -->
+	<select id="getMember">
+		SELECT 
+			   m.member_idx
+		 	 , m.member_id
+			 , m.member_name
+			 , m.member_email
+			 , m.member_type AS member_type_code
+			 , t.code_name AS member_type_name
+			 , m.member_status AS member_status_code
+			 , s.code_name AS member_status_name
+			 , member_signup_date 
+	      FROM member m
+	      JOIN common_code t ON m.member_type = t.code
+	       AND t.code_group_id = 'member_type'
+	      JOIN common_code s ON m.member_status = s.code
+	       AND s.code_group_id = 'member_status'  
+	</select>
+	
+	<!-- 회원 타입 조회 -->
+	<select id="getMemberType">
+		SELECT code, code_name
+		  FROM common_code
+		 WHERE code_group_id = "member_type" 
+	</select>
+	
+	<!-- 회원 상태 조회 -->
+	<select id="getMemberStatus">
+		SELECT code, code_name
+		  FROM common_code
+		 WHERE code_group_id = "member_status" 
+	</select>
+	
+	<update id="updateMemberStatusAndType">
+		UPDATE member
+		   SET member_status = #{member_status} AND
+		   	   member_type = #{member_type}
+		 WHERE member_idx = #{member_idx}
+			
+	</update>	
+	
+</mapper>

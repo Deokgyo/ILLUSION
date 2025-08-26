@@ -68,35 +68,35 @@
 	             </div>
 		
 		        <!-- 2. 필터 및 검색 바 -->
-		        <div class="control-bar">
-		            <div class="filters">
-		                <div class="filter-group view-options">
-		                    <select name="view-count" id="view-count">
-		                        <option value="10">10</option>
-		                        <option value="30">30</option>
-		                        <option value="50">50</option>
-		                    </select>
-		                    <span>건씩 보기</span>
-		                </div>
-		                <div class="filter-group">
-		                    <span class="filter-title">유형별</span>
-		                    <label><input type="radio" name="user-type" value="all" checked> 전체</label>
-		                    <label><input type="radio" name="user-type" value="personal"> 개인</label>
-		                    <label><input type="radio" name="user-type" value="corporate"> 기업</label>
-		                    <label><input type="radio" name="user-type" value="admin"> 관리자</label>
-		                </div>
-		                <div class="filter-group">
-		                    <span class="filter-title">상태</span>
-		                    <label><input type="radio" name="user-status" value="all" checked> 전체</label>
-		                    <label><input type="radio" name="user-status" value="active"> 정상</label>
-		                    <label><input type="radio" name="user-status" value="inactive"> 탈퇴</label>
-		                </div>
-		            </div>
-		            <div class="search-box">
-		                <input type="text" placeholder="회원 이름, 아이디, 이메일 검색">
-		                <button type="button">🔍</button>
-		            </div>
-		        </div>
+<!-- 		        <div class="control-bar"> -->
+<!-- 		            <div class="filters"> -->
+<!-- 		                <div class="filter-group view-options"> -->
+<!-- 		                    <select name="view-count" id="view-count"> -->
+<!-- 		                        <option value="10">10</option> -->
+<!-- 		                        <option value="30">30</option> -->
+<!-- 		                        <option value="50">50</option> -->
+<!-- 		                    </select> -->
+<!-- 		                    <span>건씩 보기</span> -->
+<!-- 		                </div> -->
+<!-- 		                <div class="filter-group"> -->
+<!-- 		                    <span class="filter-title">유형별</span> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="all" checked> 전체</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="personal"> 개인</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="corporate"> 기업</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="admin"> 관리자</label> -->
+<!-- 		                </div> -->
+<!-- 		                <div class="filter-group"> -->
+<!-- 		                    <span class="filter-title">상태</span> -->
+<!-- 		                    <label><input type="radio" name="user-status" value="all" checked> 전체</label> -->
+<!-- 		                    <label><input type="radio" name="user-status" value="active"> 정상</label> -->
+<!-- 		                    <label><input type="radio" name="user-status" value="inactive"> 탈퇴</label> -->
+<!-- 		                </div> -->
+<!-- 		            </div> -->
+<!-- 		            <div class="search-box"> -->
+<!-- 		                <input type="text" placeholder="회원 이름, 아이디, 이메일 검색"> -->
+<!-- 		                <button type="button">🔍</button> -->
+<!-- 		            </div> -->
+<!-- 		        </div> -->
 		
 		        <!-- 3. 회원 목록 테이블 -->
 		        <div class="table-wrapper">
@@ -114,56 +114,31 @@
 		                    </tr>
 		                </thead>
 		                <tbody>
-		                    <!-- 반복될 데이터 행 (예시) -->
-		                    <tr>
-		                        <td>1</td>
-		                        <td>honeyCombo</td>
-		                        <td>김교촌</td>
-		                        <td><a href="mailto:kyochon@chicken.com">kyochon@chicken.com</a></td>
-		                        <td><span class="badge badge-personal">개인회원</span></td>
-		                        <td><span class="badge badge-active">정상</span></td>
-		                        <td>2025-01-10</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <button class="btn btn-yellow">변경</button>
-		                                <a href="adminMemberDetail" class="btn btn-yellow">보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <tr>
-		                        <td>2</td>
-		                        <td>iwannagohome</td>
-		                        <td>박집에가고싶</td>
-		                        <td><a href="mailto:gohome@naver.com">gohome@naver.com</a></td>
-		                        <td><span class="badge badge-corporate">기업회원</span></td>
-		                        <td><span class="badge badge-inactive">탈퇴</span></td>
-		                        <td>2025-12-10</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <button class="btn btn-yellow">변경</button>
-		                                <a href="adminMemberDetail" class="btn btn-yellow">보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <tr>
-		                        <td>3</td>
-		                        <td>admin</td>
-		                        <td>김어드민</td>
-		                        <td><a href="mailto:kyochon@chicken.com">admin@illusion.com</a></td>
-		                        <td><span class="badge badge-admin">관리자</span></td>
-		                        <td><span class="badge badge-active">정상</span></td>
-		                        <td>2024-01-10</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <button class="btn btn-yellow">변경</button>
-		                                <a href="adminMemberDetail" class="btn btn-yellow">보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>          
-		                    <!-- ... 추가 데이터 행 ... -->
+	                    	<c:forEach var="mem" items="${memberInfo }" varStatus="status">
+	                    		<tr>
+	                    			<td>${status.index + 1}</td>
+			                        <td>${mem.member_id }</td>
+			                        <td>${mem.member_name }</td>
+			                        <td><a href="#">${mem.member_email }</a></td>
+			                        <td><span class="badge badge-personal">${mem.member_type_name }</span></td>
+			                        <td><span class="badge badge-active">${mem.member_status_name }</span></td>
+			                        <td>${mem.member_signup_date }</td>
+			                        <td>
+			                            <div class="action-buttons">
+			                                <button class="btn btn-yellow btn-edit" 
+						                            type="button"
+						                            data-member-idx="${mem.member_idx}"
+						                            data-member-id="${mem.member_id}"
+						                            data-member-type-code="${mem.member_type_code}"
+						                            data-member-status-code="${mem.member_status_code}">
+						                        변경
+						                    </button>
+			                                <a href="adminMemberDetail" class="btn btn-yellow">보기</a>
+			                                <button class="btn btn-yellow">삭제</button>
+			                            </div>
+			                        </td>
+	                    		</tr>
+	                    	</c:forEach>
 		                </tbody>
 		            </table>
 		        </div>
@@ -187,6 +162,7 @@
 
 	<jsp:include page="/WEB-INF/views/admin/adminModal.jsp"></jsp:include>
 	
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/admin/adminModal.js"></script>
 </body>
 </html>

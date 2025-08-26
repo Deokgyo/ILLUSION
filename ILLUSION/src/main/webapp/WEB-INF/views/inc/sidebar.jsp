@@ -10,7 +10,7 @@
             </div>
             <div class="username">
                 <sec:authorize access="isAuthenticated()">
-                    <%-- 인증된 사용자의 이름(ID)을 표시합니다. principal 객체에서 username을 가져옵니다. --%>
+                    <%-- 인증된 사용자의 Id 표시. principal 객체에서 username을 가져옴. --%>
                     <sec:authentication property="principal.username" />님
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
