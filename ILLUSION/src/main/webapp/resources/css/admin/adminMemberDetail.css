@@ -5,8 +5,8 @@
    ======================== */
 .detail-layout {
     display: grid;
-    /* 두 컬럼의 비율을 1:1 정도로 변경하여 왼쪽을 더 넓게 */
-    grid-template-columns: 1fr 1fr; 
+    /* 두 컬럼의 비율을 3:2 정도로 변경하여 왼쪽을 더 넓게 */
+    grid-template-columns: 3fr 2fr; 
     gap: 80px; /* 컬럼 사이 간격을 더 넓게 */
     align-items: flex-start; /* ✨ 컬럼의 시작점을 위로 정렬 (중요) */
 }
@@ -58,4 +58,6 @@
     color: var(--font-sub-color);
     font-size: 18px;
     margin-bottom: 15px;
+    margin-left: auto; /* Center the image */
+    margin-right: auto; /* Center the image */
 }

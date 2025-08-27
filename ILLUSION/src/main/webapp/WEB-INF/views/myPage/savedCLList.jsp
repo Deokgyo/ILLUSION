@@ -54,7 +54,10 @@
 					<c:forEach var="cl" items="${CLList }">
 						<div class="resume-item">
 							<input type="checkbox" class="checkbox" value="${cl.cl_idx }">
-									<div class="title">${cl.cl_title}</div>
+									<div class="title">
+										<a href="savedResumeDetail?resume_idx=${resume.resume_idx}" class="resume-link"> ${resume.resume_title}
+										</a>
+									</div>
 									<div class="date">${cl.generation_date}</div>
 									<div class="date">${cl.cl_type}</div>
 						</div>

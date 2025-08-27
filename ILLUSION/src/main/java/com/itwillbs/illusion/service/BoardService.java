@@ -73,8 +73,12 @@ public class BoardService {
 	}
 	
 	// 댓글 조회
-	public List<Map<String, Object>> selectComment(int board_idx){
-		return mapper.selectComment(board_idx);
+	public List<Map<String, Object>> selectComment(int board_idx, int startRow, int listLimit){
+		Map<String, Object> map = new HashMap<>();
+	    map.put("board_idx", board_idx);
+	    map.put("startRow", startRow);
+	    map.put("listLimit", listLimit);
+		return mapper.selectComment(map);
 	}
 	
 	// 댓글 삭제

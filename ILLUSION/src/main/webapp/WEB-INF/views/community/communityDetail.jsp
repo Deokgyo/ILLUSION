@@ -102,15 +102,7 @@
 				</div>
 
                 <!-- 페이지네이션 -->
-                <nav class="pagination">
-		            <a href="#" class="page-arrow">&laquo;</a>
-		            <a href="#" class="active">1</a>
-		            <a href="#">2</a>
-		            <a href="#">3</a>
-		            <a href="#">4</a>
-		            <a href="#">5</a>
-		            <a href="#" class="page-arrow">&raquo;</a>
-	       		</nav>
+                <nav class="pagination"></nav>
             </div>
         </main>
     </div>

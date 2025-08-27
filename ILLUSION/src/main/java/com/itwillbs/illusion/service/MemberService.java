@@ -70,13 +70,12 @@ public class MemberService {
 	@Transactional
 	public boolean insertMember(MemberVO member) {
 		String rawPassword = member.getMember_pw(); // 암호화
-		String encodedPassword = passwordEncoder.encode(rawPassword);
-		member.setMember_pw(encodedPassword);
 
 		if (rawPassword == null || rawPassword.isEmpty()) {
 			throw new IllegalArgumentException("비밀번호가 입력되지 않았습니다.");
-
 		}
+		String encodedPassword = passwordEncoder.encode(rawPassword);
+		member.setMember_pw(encodedPassword);
 
 		int insertCount = mapper.insertMember(member);
 		return insertCount > 0;
@@ -85,14 +84,15 @@ public class MemberService {
 
 	// 기업회원 가입 처리 (멤버 + 컴퍼니 테이블에 동시에 저장)
 	@Transactional
-	public boolean insertCompanyMember(MemberVO member) {
+	public boolean insertCompanyMember(MemberVO member ) {
 		String rawPassword = member.getMember_pw(); // 암호화
-		String encodedPassword = passwordEncoder.encode(rawPassword);
-		member.setMember_pw(encodedPassword);
 
 		if (rawPassword == null || rawPassword.isEmpty()) {
 			throw new IllegalArgumentException("비밀번호가 입력되지 않았습니다.");
 		}
+		String encodedPassword = passwordEncoder.encode(rawPassword);
+		member.setMember_pw(encodedPassword);
+		
 		int insertCompany = mapper.insertCompanyMember(member);
 		return insertCompany > 0;
 	} // 기업회원

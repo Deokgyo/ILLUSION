@@ -4,7 +4,7 @@ $(function() {
 //	const board_idx = $('#board_idx').val();      
 	
 	// ------ 초기실행 ---------
-	getCmtList(); // 초기 화면에 댓글 불러와서 랜더링 작업
+	getCmtList(1); // 초기 화면에 댓글 불러와서 랜더링 작업
 	
 	// -------- events --------
 	
@@ -14,6 +14,13 @@ $(function() {
 	    const cmt_idx = $(this).data('comment-id'); 
 	    deleteComment(cmt_idx);
 	});
+	
+	// 페이지네이션 클릭 이벤트
+    $('.pagination').on('click', 'a', function(e) {
+        e.preventDefault();
+        const pageNum = $(this).data('page');
+        getCmtList(pageNum);
+    });
 	
 	// ----- functions ---------
     	
@@ -47,7 +54,7 @@ $(function() {
             },
 //            dataType: 'json',
             success: function(res) {
-				getCmtList();
+				getCmtList(1);
             },
             error: function(xhr, textStatus, errorThrown) {
                 alert('댓글 등록 중 오류가 발생했습니다.');
@@ -56,15 +63,19 @@ $(function() {
 	}
 	
 	// 댓글 가져오기
-	function getCmtList() {
+	function getCmtList(pageNum) {
 
         $.ajax({
             url: `api/boards/${board_idx}/comments`,
             type: 'GET',
             dataType: 'json',
+            data: {
+				pageNum: pageNum
+			},
             success: function(res) {
-				createCommentHtml(res);
-				updateCommentCount(res.length);
+				createCommentHtml(res.comments);
+				updateCommentCount(res.pageInfo.listCount);
+				renderPagination(res.pageInfo);
             },
             error: function(xhr, textStatus, errorThrown) {
                 alert('댓글 조회 중 오류가 발생했습니다.');
@@ -82,7 +93,7 @@ $(function() {
             type: 'DELETE',
             success: function(res) {
 				alert("삭제 성공");
-				getCmtList();	
+				getCmtList(1);	
             },
             error: function(xhr, textStatus, errorThrown) {
 	            debugger;
@@ -91,60 +102,86 @@ $(function() {
         });
 	}
 	
-	// 게시글 삭제
-	function boardDelete(){
-		if (!confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
-        	return;
-    	}
-		
-		 $.ajax({
+ // 게시글 삭제
+    function boardDelete() {
+        if (!confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+            return;
+        }
+
+        $.ajax({
             url: `api/board/${board_idx}`,
             type: 'DELETE',
             success: function(res) {
-				alert("삭제 성공");
-       			location.href = 'communityMain';
+                alert("삭제 성공");
+                location.href = 'communityMain';
             },
             error: function(xhr, textStatus, errorThrown) {
                 alert('삭제 실패');
             }
         });
-	}
-	
-	// 댓글 카운트 함수
-	function updateCommentCount(count) {
-    $('#cmt_count').text(`댓글 ${count}`);
-	}
-	
-	// 댓글영역 html 생성 함수
-	function createCommentHtml(res){
-		let result = '';
-			res.forEach((e, i) => {
-				result += 
-                `
-                <div class="comment-item">
-                    <div class="comment-author-profile">
-                        <i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i>
-                    </div>
-                    <div class="comment-content">
-                        <div class="author-name">${e.member_id}</div>
-                        <p class="comment-text">${e.cmt_content}</p>
-                    </div>
-	                <div class="comment-actions">
-						<div class="comment-actions">
-			                ${e.member_id === loginId ? '<button class="delete-comment-btn">×</button>' : ''}
-			            </div>
-					</div>
-                </div>
-                `;					
-			})
-			
-			$('.comment-list').empty();
-            $('.comment-list').append(result);
-            
-//            TODO => 여유되면 애니메이션 효과 적용해보기
-//            $('.comment-list .comment-item:first-child').slideDown(300);
-	} 
+    }
 
-	
-	// --------------------------
+    // 댓글 카운트 함수
+    function updateCommentCount(count) {
+        $('#cmt_count').text(`댓글 ${count}`);
+    }
+
+    // 댓글영역 html 생성 함수
+    function createCommentHtml(comments) {
+        let result = '';
+        if (comments && comments.length > 0) {
+            comments.forEach((e) => {
+                result += `
+                    <div class="comment-item">
+                        <div class="comment-author-profile">
+                            <i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i>
+                        </div>
+                        <div class="comment-content">
+                            <div class="author-name">${e.member_id}</div>
+                            <p class="comment-text">${e.cmt_content}</p>
+                        </div>
+                        <div class="comment-actions">
+                            ${e.member_id === loginId ? `<button class="delete-comment-btn" data-comment-id="${e.cmt_idx}">×</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        } else {
+            result = '<p class="no-comments">아직 댓글이 없습니다.</p>';
+        }
+
+        $('.comment-list').empty().append(result);
+    }
+
+    // 페이지네이션 HTML 생성 함수
+    function renderPagination(pageInfo) {
+        const paginationContainer = $('.pagination');
+        paginationContainer.empty();
+
+        if (!pageInfo || pageInfo.listCount === 0) return;
+
+        let paginationHtml = '';
+
+        // 첫 페이지 버튼
+        if (pageInfo.pageNum > 1) {
+            paginationHtml += `<a href="#" class="page-arrow" data-page="1">&laquo;</a>`;
+        }
+
+        // 페이지 번호
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            if (i === pageInfo.pageNum) {
+                paginationHtml += `<a href="#" class="active" data-page="${i}">${i}</a>`;
+            } else {
+                paginationHtml += `<a href="#" data-page="${i}">${i}</a>`;
+            }
+        }
+
+        // 마지막 페이지 버튼
+        if (pageInfo.pageNum < pageInfo.maxPage) {
+            paginationHtml += `<a href="#" class="page-arrow" data-page="${pageInfo.maxPage}">&raquo;</a>`;
+        }
+
+        paginationContainer.html(paginationHtml);
+    }
+
 });

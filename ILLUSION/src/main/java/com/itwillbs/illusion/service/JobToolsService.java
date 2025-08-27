@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.illusion.mapper.JobToolsMapper;
+import com.itwillbs.illusion.util.JobToolsConstants;
 import com.itwillbs.illusion.util.SecurityUtil;
 
 @Service
@@ -41,7 +43,7 @@ public class JobToolsService {
 	
 	// 유저 토큰 수 차감
 	@Transactional
-	public int useTokenForJobTools(Map<String, Object> coverletterMap, int requiredTokens) {
+	public Map<String, Object> useTokenForJobTools(Map<String, Object> coverletterMap, int requiredTokens) {
 	    int member_idx = (int) coverletterMap.get("member_idx");
 	    
 	    int updateCount = mapper.deductToken(member_idx, requiredTokens);
@@ -50,7 +52,6 @@ public class JobToolsService {
 	        throw new RuntimeException("토큰이 부족하여 작업을 완료할 수 없습니다.");
 	    }
 	    
-	    
 	    mapper.saveCoverletter(coverletterMap);
 	    
 	    Number generatedId = (Number) coverletterMap.get("cl_idx");
@@ -58,8 +59,14 @@ public class JobToolsService {
 	    if (generatedId == null) {
 	        throw new RuntimeException("자소서 저장 후 PK를 가져오는 데 실패했습니다.");
 	    }
+		
+		Integer newTokenCount = mapper.getMemberToken(member_idx);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("generatedClIdx", generatedId.intValue());
+		result.put("newTokenCount", newTokenCount);
 	    
-	    return generatedId.intValue();
+	    return result;
 	}
 	
 	@Transactional
@@ -89,13 +96,6 @@ public class JobToolsService {
 	    return result;
 	}
 	    
-	
-	// 자소서 생성 결과 저장
-	public int saveCoverletter(Map<String, Object> map) {
-		mapper.saveCoverletter(map);
-		Number generatedId = (Number) map.get("cl_idx");
-	    return generatedId.intValue();
-	}
 	
 	// 자소서 정보 가져오기
 	public Map<String, Object> getCoverletterById(int cl_idx) {

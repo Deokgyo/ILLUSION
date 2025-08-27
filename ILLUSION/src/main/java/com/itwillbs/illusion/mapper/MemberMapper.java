@@ -3,6 +3,7 @@ package com.itwillbs.illusion.mapper;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.illusion.vo.CompanyVo;
 import com.itwillbs.illusion.vo.MailAuthInfo;
@@ -28,6 +29,10 @@ public interface MemberMapper {
 
 	// 조영재
 	public MemberVO getMemberInfoById(String id);
+	
+	// 마이페이지 토큰 결제 (이대은)
+    public void updateMemberTokens(@Param("memberIdx") int memberIdx, @Param("tokenAmount") int tokenAmount);
 
+    public Integer selectMemberTokens(int memberIdx);
 	
 }

@@ -38,7 +38,7 @@
             <%-- '홈' 메뉴 --%>
            <li><a href="./"><i class="fa-solid fa-house"></i> 홈</a></li>
     
-           <li class="has-submenu current-category">
+           <li class="has-submenu">
                <a href="#">
                    <i class="fa-solid fa-briefcase"></i> 
                    취업도구 

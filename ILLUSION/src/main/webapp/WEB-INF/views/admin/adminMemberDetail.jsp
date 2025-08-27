@@ -74,31 +74,39 @@
 			            <div class="form-column left">
 			                <div class="form-group">
 			                    <label>아이디</label>
-			                    <div class="form-value">honeyCombo</div>
+			                    <div class="form-value">${member.member_id}</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>비밀번호</label>
+			                    <div class="form-value">${member.member_pw}</div>
 			                </div>
 			                <div class="form-group">
 			                    <label>이름</label>
-			                    <div class="form-value">김교촌</div>
+			                    <div class="form-value">${member.member_name}</div>
 			                </div>
 			                <div class="form-group">
 			                    <label>이메일</label>
-			                    <div class="form-value"><a href="mailto:kyochon@chicken.com">kyochon@chicken.com</a></div>
+			                    <div class="form-value"><a href="mailto:${member.member_email}">${member.member_email}</a></div>
+			                </div>
+			                <div class="form-group">
+			                    <label>전화번호</label>
+			                    <div class="form-value">${member.member_phone}</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>우편번호</label>
+			                    <div class="form-value">${member.address_num}</div>
 			                </div>
 			                <div class="form-group">
 			                    <label>주소</label>
-			                    <div class="form-value">부산 부산진구 동천로 109 삼한골든게이트 7층</div>
-			                </div>
-			                <div class="form-group">
-			                    <label>성별</label>
-			                    <div class="form-value">남</div>
+			                    <div class="form-value">${member.address_name}</div>
 			                </div>
 			                 <div class="form-group">
 			                    <label>회원 유형</label>
-			                    <div class="form-value">개인회원</div>
+			                    <div class="form-value">${member.member_type_name}</div>
 			                </div>
 			                 <div class="form-group">
 			                    <label>가입일자</label>
-			                    <div class="form-value">2025-01-10</div>
+			                    <div class="form-value">${member.member_signup_date}</div>
 			                </div>
 			            </div>
 			
@@ -106,22 +114,57 @@
 			                 오른쪽 정보 컬럼
 			                ======================== -->
 			            <div class="form-column right">
-			                	<img src="${pageContext.request.contextPath}/resources/image/kyochon.jpg" class="image-placeholder">
+			                	<img src="${pageContext.request.contextPath}/resources/image/profile.png" class="image-placeholder">
 			                <div class="form-group">
-			                    <label>사업자등록번호</label>
-			                    <div class="form-value">XXX-XX-XXXXX</div>
+			                    <label>성별</label>
+			                    <div class="form-value">${member.gender_name}</div>
 			                </div>
-			                 <div class="form-group">
-			                    <label>기업이름</label>
-			                    <div class="form-value">교촌치킨</div>
+			                <div class="form-group">
+			                    <label>생년월일</label>
+			                    <div class="form-value">${member.resume_birth}</div>
 			                </div>
+			                <div class="form-group">
+			                    <label>마케팅 동의</label>
+			                    <div class="form-value">${member.member_marketing_agreed == true ? '동의' : '비동의'}</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>토큰</label>
+			                    <div class="form-value">${member.token}</div>
+			                </div>
+			                <div class="form-group">
+			                    <label>메일 인증 상태</label>
+			                    <div class="form-value">${member.mail_auth_status == true ? '인증됨' : '미인증'}</div>
+			                </div>
+			                <c:if test="${member.member_type_code eq 'MEM003'}">
+				                <div class="form-group">
+				                    <label>채용 담당자 이메일</label>
+				                    <div class="form-value">${member.recruiter_member_email}</div>
+				                </div>
+				                 <div class="form-group">
+				                    <label>회사 인덱스</label>
+				                    <div class="form-value">${member.company_idx}</div>
+				                </div>
+				                 <div class="form-group">
+				                    <label>채용 담당자 번호</label>
+				                    <div class="form-value">${member.recruiter_number}</div>
+				                </div>
+			                </c:if>
 			                 <div class="form-group">
 			                    <label>회원 상태</label>
-			                    <div class="form-value">정상</div>
+			                    <div class="form-value">${member.member_status_name}</div>
 			                </div>
 			                <div class="form-group">
 			                    <label>탈퇴일자</label>
-			                    <div class="form-value">미탈퇴</div>
+			                    <div class="form-value">
+			                    	<c:choose>
+			                    		<c:when test="${member.member_withdrawal_date eq null}">
+			                    			미탈퇴
+			                    		</c:when>
+			                    		<c:otherwise>
+			                    			${member.member_withdrawal_date}
+			                    		</c:otherwise>
+			                    	</c:choose>
+			                    </div>
 			                </div>
 			            </div>
 			        </div>

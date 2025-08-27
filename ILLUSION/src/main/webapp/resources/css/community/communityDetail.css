@@ -164,6 +164,16 @@
     margin-top: 40px;
 }
 
+.pagination {
+    justify-content: center;
+}
+
+.pagination a,
+.pagination span {
+    min-width: 40px;
+    text-align: center;
+}
+
 /* 신고하기 모달 */
 .modal-overlay {
     position: fixed;

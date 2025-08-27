@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itwillbs.illusion.service.BoardService;
+import com.itwillbs.illusion.vo.PageInfo;
 
 @RestController
 @RequestMapping("api/boards/{board_idx}/comments")
@@ -26,7 +27,7 @@ public class CommentApiController {
 	
 	// 커뮤니티 게시글 댓글 작성
 	@PostMapping
-	public void cmtWrite(
+	public Map<String, String> cmtWrite(
 						 @PathVariable("board_idx") String board_idx
 						,@RequestParam String comment
 						,Principal principal) {
@@ -41,13 +42,38 @@ public class CommentApiController {
 		map.put("member_idx", String.valueOf(member_idx));
 		
 		service.cmtWrite(map);
+		
+		Map<String, String> response = new HashMap<String, String>();
+		response.put("result", "success");
+		
+		return response;
 	}
 	
 	
 	// 게시글 댓글 목록 조회
 	@GetMapping
-	public List<Map<String, Object>> getCmtList(@PathVariable("board_idx") String board_idx) {
-		return service.selectComment(Integer.parseInt(board_idx));
+	public Map<String, Object> getCmtList(@PathVariable("board_idx") int board_idx, @RequestParam(defaultValue = "1") int pageNum) {
+	    int listLimit = 5; // 한 페이지에 표시할 댓글 수
+	    int pageListLimit = 10; // 한 번에 표시할 페이지 번호 수
+
+	    int startRow = (pageNum - 1) * listLimit;
+	    int listCount = service.getCommentCount(board_idx);
+	    int maxPage = (int) Math.ceil((double) listCount / listLimit);
+	    int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+	    int endPage = startPage + pageListLimit - 1;
+
+	    if (endPage > maxPage) {
+	        endPage = maxPage;
+	    }
+
+	    List<Map<String, Object>> commentList = service.selectComment(board_idx, startRow, listLimit);
+	    PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage, pageNum);
+
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("comments", commentList);
+	    response.put("pageInfo", pageInfo);
+
+	    return response;
 	}
 	
 	// 댓글 삭제
@@ -61,3 +87,4 @@ public class CommentApiController {
 	}
 	
 }
+

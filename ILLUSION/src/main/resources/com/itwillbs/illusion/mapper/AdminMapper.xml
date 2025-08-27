@@ -55,6 +55,13 @@
 	       AND t.code_group_id = 'member_type'
 	      JOIN common_code s ON m.member_status = s.code
 	       AND s.code_group_id = 'member_status'  
+	     LIMIT #{listLimit} OFFSET #{startRow}
+	</select>
+	
+	<!-- 전체 회원 수 조회 -->
+	<select id="getMemberCount" resultType="int">
+		SELECT count(*)
+		  FROM member
 	</select>
 	
 	<!-- 회원 타입 조회 -->
@@ -73,10 +80,52 @@
 	
 	<update id="updateMemberStatusAndType">
 		UPDATE member
-		   SET member_status = #{member_status} AND
-		   	   member_type = #{member_type}
+		   SET member_status = #{member_status_code} 
+		   	 , member_type = #{member_type_code}
 		 WHERE member_idx = #{member_idx}
 			
 	</update>	
+	
+	<!-- 회원 상세 정보 조회 -->
+	<select id="getMemberDetail" resultType="map">
+		SELECT 
+			   m.member_idx
+		 	 , m.member_id
+			 , m.member_name
+			 , m.member_pw
+			 , m.member_email
+			 , m.member_phone
+			 , m.address_num
+			 , m.address_name
+			 , m.member_type AS member_type_code
+			 , t.code_name AS member_type_name
+			 , m.member_signup_date
+			 , m.member_status AS member_status_code
+			 , s.code_name AS member_status_name
+			 , m.member_marketing_agreed
+			 , m.profile_picture_url
+			 , m.gender AS gender_code
+			 , g.code_name AS gender_name
+			 , m.resume_birth
+			 , m.token
+			 , m.recruiter_member_email
+			 , m.company_idx
+			 , m.recruiter_number
+			 , m.mail_auth_status
+	      FROM member m
+	      JOIN common_code t ON m.member_type = t.code
+	       AND t.code_group_id = 'member_type'
+	      JOIN common_code s ON m.member_status = s.code
+	       AND s.code_group_id = 'member_status'  
+	      JOIN common_code g ON m.gender = g.code
+	       AND g.code_group_id = 'GENDER'
+		 WHERE member_idx = #{member_idx}
+	</select>
+	
+	<!-- 회원 삭제 -->
+	<delete id="deleteMember">
+		DELETE FROM member
+		 WHERE member_idx = #{member_idx}
+	</delete>
 	
 </mapper>

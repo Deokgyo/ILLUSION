@@ -167,12 +167,20 @@ public class MypageService {
     }
 	
 	// 마이페이지 내가 쓴 글 목록
-	public List<BoardVO> getMyPostByMemberId(int member_idx, int startRow, int listLimit){
-		return myPostMapper.getMyPostByMemberId(member_idx, startRow, listLimit);
+	public List<BoardVO> getMyPostByMemberId(int member_idx, String categoryCode, int startRow, int listLimit){
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberIdx", member_idx);
+        params.put("categoryCode", categoryCode);
+        params.put("startRow", startRow);
+        params.put("listLimit", listLimit);
+		return myPostMapper.getMyPostByMemberId(params);
 	}
 	
-	public int getMyPostCountByMember (int member_idx) {
-		return myPostMapper.getMyPostCountByMember(member_idx);
+	public int getMyPostCountByMember (int member_idx, String categoryCode) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberIdx", member_idx);
+        params.put("categoryCode", categoryCode);
+		return myPostMapper.getMyPostCountByMember(params);
 	}
 	
 	// 마이페이지 내가 쓴 글 삭제 기능

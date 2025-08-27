@@ -20,6 +20,9 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminModal.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
     
+    <script type="${pageContext.request.contextPath}/resources/js/commonJs.js"></script>
+    <meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
 </head>
 <body>
 	<div class="main-container">
@@ -120,8 +123,29 @@
 			                        <td>${mem.member_id }</td>
 			                        <td>${mem.member_name }</td>
 			                        <td><a href="#">${mem.member_email }</a></td>
-			                        <td><span class="badge badge-personal">${mem.member_type_name }</span></td>
-			                        <td><span class="badge badge-active">${mem.member_status_name }</span></td>
+			                        <td>
+									<c:choose>
+										<c:when test="${mem.member_type_code eq 'MEM002'}">
+											<span class="badge badge-personal">${mem.member_type_name}</span>
+										</c:when>
+										<c:when test="${mem.member_type_code eq 'MEM003'}">
+											<span class="badge badge-corporate">${mem.member_type_name}</span>
+										</c:when>
+										<c:otherwise>
+											<span class="badge badge-admin">${mem.member_type_name}</span>
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${mem.member_status_code eq 'MES001'}">
+											<span class="badge badge-active">${mem.member_status_name}</span>
+										</c:when>
+										<c:otherwise>
+											<span class="badge badge-inactive">${mem.member_status_name}</span>
+										</c:otherwise>
+									</c:choose>
+								</td>
 			                        <td>${mem.member_signup_date }</td>
 			                        <td>
 			                            <div class="action-buttons">
@@ -133,8 +157,8 @@
 						                            data-member-status-code="${mem.member_status_code}">
 						                        변경
 						                    </button>
-			                                <a href="adminMemberDetail" class="btn btn-yellow">보기</a>
-			                                <button class="btn btn-yellow">삭제</button>
+			                                <a href="adminMemberDetail?member_idx=${mem.member_idx}" class="btn btn-yellow">보기</a>
+			                                <button class="btn btn-yellow btn-delete-member" data-member-idx="${mem.member_idx}">삭제</button>
 			                            </div>
 			                        </td>
 	                    		</tr>
@@ -145,9 +169,29 @@
 		        
 			    <!-- 페이지네이션 -->
 				<nav class="pagination">
-					<a href="#" class="page-arrow">&laquo;</a> <a href="#"
-						class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
-						href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+				    <!-- 이전 페이지 버튼 -->
+				    <c:if test="${pageInfo.pageNum > 1}">
+				    	<c:url var="pageUrl" value="adminMember">
+				    		<c:param name="pageNum" value="1"></c:param>
+				    	</c:url>
+				    	<a href="${pageUrl}">&laquo;</a>
+				    </c:if>
+				
+				    <!-- 페이지 번호 -->
+				    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+					    <c:url var="pageUrl" value="adminMember">
+					        <c:param name="pageNum" value="${i}" />
+					    </c:url>
+					    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+					</c:forEach>
+				
+				    <!-- 다음 페이지 버튼 -->
+				    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+				    	<c:url var="pageUrl" value="adminMember">
+				    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+				    	</c:url>
+			    		    <a href="${pageUrl}">&raquo;</a>
+				    </c:if>
 				</nav>
 	            </main>
 	            
@@ -164,5 +208,29 @@
 	
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/admin/adminModal.js"></script>
+	<script>
+		$(document).on('click', '.btn-delete-member', function() {
+			const memberIdx = $(this).data('member-idx');
+			const csrfToken = $("meta[name='_csrf']").attr("content");
+			const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+			if (confirm('정말로 이 회원을 삭제하시겠습니까?')) {
+				$.ajax({
+					url: 'deleteMember/' + memberIdx,
+					type: 'DELETE',
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader(csrfHeader, csrfToken);
+					},
+					success: function(res) {
+						alert('회원이 성공적으로 삭제되었습니다.');
+						location.reload();
+					},
+					error: function(xhr, status, error) {
+						alert('회원 삭제 중 오류가 발생했습니다.');
+					}
+				});
+			}
+		});
+	</script>
 </body>
 </html>

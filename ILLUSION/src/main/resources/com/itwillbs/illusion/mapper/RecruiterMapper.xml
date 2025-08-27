@@ -125,7 +125,7 @@
 	</select>
 	
 	<select id="selectTotalAppCnt">
-		SELECT sum(app_count) as app_count 
+		SELECT IFNULL(SUM(app_count), 0) as app_count 
 		  FROM recruit 
 	     WHERE recruiter_member_idx = ( SELECT member_idx 
 								 		  FROM member 
