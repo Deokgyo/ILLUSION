@@ -29,5 +29,9 @@ public interface JobToolsMapper {
 	
 	public int deductToken(@Param("member_idx") int member_idx, @Param("tokenAmount") int tokenAmount); // 회원 토큰 차감하기
 	
+	// 생성된 질문 삽입 (덕교)
 	public int insertQuestion(@Param("splitResult")List<String> splitResult, @Param("member_idx")int member_idx, @Param("cl_idx")int cl_idx);
+	
+	// 면접 예상질문 생성된거 들고오기 (덕교) 
+	public List<Map<String,String>> selectInterviewResult(int cl_idx);
 }

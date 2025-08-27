@@ -76,9 +76,14 @@ public class CoverletterController {
         }
         return "jobTools/interviewCreate";
     }
-
+    
+    // 생성된 예상 질문 결과 페이지 (덕교)
     @GetMapping("interviewResult")
-    public String interviewResult() {
+    public String interviewResult(int cl_idx, Model model) {
+    	
+    	List<Map<String,String>> interviewResultList = service.selectInterviewResult(cl_idx);
+    	model.addAttribute("interviewResultList", interviewResultList);
+    	
         return "jobTools/interviewResult";
     }
 

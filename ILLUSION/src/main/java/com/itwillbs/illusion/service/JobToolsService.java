@@ -141,13 +141,20 @@ public class JobToolsService {
 	// 진짜 토큰 차감만하는거(덕교) 
 	public int deductToken(int member_idx, int cost) {
 		Integer newTokenCount = mapper.getMemberToken(member_idx);
-		// 현재 토큰이 차감하려는 토큰 보다 작을시 0 반환, 토큰보다 더 있으면 차감 실행 
-		return newTokenCount < cost ? 0 :mapper.deductToken(member_idx, cost);
+		if (newTokenCount < cost) return 0; 
+		int result = mapper.deductToken(member_idx, cost);
+		if(result>0) principalRefresher.refreshPrincipal();
+		return result;
 	}
 	
-	// 생성된 질문 디비에 넣기 
+	// 생성된 질문 디비에 넣기 (덕교)
 	public int insertQuestion(List<String> splitResult, int member_idx, int cl_idx) {
 		return mapper.insertQuestion(splitResult, member_idx, cl_idx);
+	}
+	
+	// 면접 예상질문 생성된거 들고오기 (덕교) 
+	public List<Map<String,String>> selectInterviewResult(int cl_idx) {
+		return mapper.selectInterviewResult(cl_idx);
 	}
 	
 }

@@ -37,13 +37,13 @@
                 <p class="header-text"><strong>AI 면접 예상질문 결과</strong></p>
             </div>
 
-            <c:forEach begin="0" end="2">
+            <c:forEach var="result" items="${interviewResultList}" begin="0" end="2">
 	            <div class="question-list-container">
 	                <div class="question-card">
 	                    <div class="card-header">
 	                        <div class="question-title">
 	                            <span class="q-icon">Q</span>
-	                            <span class="q-text">자격증은 어떤 이유로 취득하게 되었나요?</span>
+	                            <span class="q-text">${result.question_text}</span>
 	                        </div>
 	                        <div class="card-actions">
 	                            <button class="btn btn-yellow">저장</button>

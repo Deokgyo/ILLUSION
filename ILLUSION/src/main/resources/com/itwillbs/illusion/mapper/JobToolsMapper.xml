@@ -126,4 +126,14 @@
 		   AND token >= #{tokenAmount}  
 	</update>
 	
+	<!-- 예상면접 질문 생성한거 가져오기(덕교) -->
+	<select id="selectInterviewResult">
+		SELECT question_idx
+			 , cl_idx
+			 , question_text
+			 , member_idx
+		  FROM question
+		 WHERE cl_idx = #{cl_idx} 
+	</select>
+	
 </mapper>
