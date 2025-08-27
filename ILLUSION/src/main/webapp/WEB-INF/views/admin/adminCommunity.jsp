@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
     
+    
+   	<meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
 </head>
 <body>
 	<div class="main-container">
@@ -67,29 +70,29 @@
 	             </div>
 		
 		        <!-- 2. 필터 및 검색 바 -->
-		        <div class="control-bar">
-		            <div class="filters">
-		                <div class="filter-group view-options">
-		                    <select name="view-count" id="view-count">
-		                        <option value="10">10</option>
-		                        <option value="30">30</option>
-		                        <option value="50">50</option>
-		                    </select>
-		                    <span>건씩 보기</span>
-		                </div>
-		                <div class="filter-group">
-		                    <span class="filter-title">게시글 성격</span>
-		                    <label><input type="radio" name="user-type" value="all" checked> 전체</label>
-		                    <label><input type="radio" name="user-type" value="personal"> 면접후기</label>
-		                    <label><input type="radio" name="user-type" value="corporate"> 직무QnA</label>
-		                    <label><input type="radio" name="user-type" value="admin"> 자유</label>
-		                </div>
-		            </div>
-		            <div class="search-box">
-		                <input type="text" placeholder="제목, 작성자 기준으로 검색">
-		                <button type="button">🔍</button>
-		            </div>
-		        </div>
+<!-- 		        <div class="control-bar"> -->
+<!-- 		            <div class="filters"> -->
+<!-- 		                <div class="filter-group view-options"> -->
+<!-- 		                    <select name="view-count" id="view-count"> -->
+<!-- 		                        <option value="10">10</option> -->
+<!-- 		                        <option value="30">30</option> -->
+<!-- 		                        <option value="50">50</option> -->
+<!-- 		                    </select> -->
+<!-- 		                    <span>건씩 보기</span> -->
+<!-- 		                </div> -->
+<!-- 		                <div class="filter-group"> -->
+<!-- 		                    <span class="filter-title">게시글 성격</span> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="all" checked> 전체</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="personal"> 면접후기</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="corporate"> 직무QnA</label> -->
+<!-- 		                    <label><input type="radio" name="user-type" value="admin"> 자유</label> -->
+<!-- 		                </div> -->
+<!-- 		            </div> -->
+<!-- 		            <div class="search-box"> -->
+<!-- 		                <input type="text" placeholder="제목, 작성자 기준으로 검색"> -->
+<!-- 		                <button type="button">🔍</button> -->
+<!-- 		            </div> -->
+<!-- 		        </div> -->
 		
 		        <!-- 3. 회원 목록 테이블 -->
 		        <div class="table-wrapper">
@@ -105,56 +108,50 @@
 		                    </tr>
 		                </thead>
 		                <tbody>
-		                    <!-- 반복될 데이터 행 (예시) -->
-		                    <tr>
-		                        <td>1</td>
-		                        <td>전체</td>
-		                        <td>안녕하세요</td>
-		                        <td>김교촌</td>
-		                        <td>2025-07-31</td>
+		                <c:forEach var="board" items="${boardInfo}" varStatus="status">
+		                	<tr>
+		                        <td>${status.index + 1 }</td>
+		                        <td>${board.board_type }</td>
+		                        <td>${board.board_title }</td>
+		                        <td>${board.member_id }</td>
+		                        <td>${board.board_create_at }</td>
 		                        <td>
 		                            <div class="action-buttons">
-		                                <a href="communityDetail" class="btn btn-yellow">작성글 보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
+		                                <a href="communityDetail?board_idx=${board.board_idx }" class="btn btn-yellow">작성글 보기</a>
+		                                <button class="btn btn-yellow delete-btn" data-board-idx="${board.board_idx }">삭제</button>
 		                            </div>
 		                        </td>
 		                    </tr>
-		                    <tr>
-		                        <td>2</td>
-		                        <td>면접 후기</td>
-		                        <td>네이버 면접 후기입니다.</td>
-		                        <td>김교촌</td>
-		                        <td>2025-08-31</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <a href="communityDetail" class="btn btn-yellow">작성글 보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>
-		                    <tr>
-		                        <td>3</td>
-		                        <td>직무 QnA</td>
-		                        <td>백엔드 관련 질문입니다</td>
-		                        <td>박집에가고싶</td>
-		                        <td>2025-08-01</td>
-		                        <td>
-		                            <div class="action-buttons">
-		                                <a href="communityDetail" class="btn btn-yellow">작성글 보기</a>
-		                                <button class="btn btn-yellow">삭제</button>
-		                            </div>
-		                        </td>
-		                    </tr>          
-		                    <!-- ... 추가 데이터 행 ... -->
+		                </c:forEach>
 		                </tbody>
 		            </table>
 		        </div>
 		        
 		        <!-- 페이지네이션 -->
 				<nav class="pagination">
-					<a href="#" class="page-arrow">&laquo;</a> <a href="#"
-						class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a
-						href="#">4</a> <a href="#">5</a> <a href="#" class="page-arrow">&raquo;</a>
+				    <!-- 이전 페이지 버튼 -->
+				    <c:if test="${pageInfo.pageNum > 1}">
+				    	<c:url var="pageUrl" value="adminCommunity">
+				    		<c:param name="pageNum" value="1"></c:param>
+				    	</c:url>
+				    	<a href="${pageUrl}">&laquo;</a>
+				    </c:if>
+				
+				    <!-- 페이지 번호 -->
+				    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+					    <c:url var="pageUrl" value="adminCommunity">
+					        <c:param name="pageNum" value="${i}" />
+					    </c:url>
+					    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+					</c:forEach>
+				
+				    <!-- 다음 페이지 버튼 -->
+				    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+				    	<c:url var="pageUrl" value="adminCommunity">
+				    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+				    	</c:url>
+			    		    <a href="${pageUrl}">&raquo;</a>
+				    </c:if>
 				</nav>
 	            </main>
 	            
@@ -166,6 +163,9 @@
 	        </div>
 	    </div>
 	</div>
-
+	
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/admin/adminCommunity.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/commonJs.js"></script>
 </body>
 </html>
