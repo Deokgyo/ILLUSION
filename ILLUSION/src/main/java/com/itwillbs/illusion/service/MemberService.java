@@ -96,7 +96,6 @@ public class MemberService {
 
         return memberInsertCount > 0;
     }
-	 // 개인회원
 
        
 }
