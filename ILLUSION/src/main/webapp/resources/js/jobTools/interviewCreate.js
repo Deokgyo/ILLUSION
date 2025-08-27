@@ -38,12 +38,44 @@ $(function() {
 		
 		// 파일 업로드 했을때 
 		if($('[data-tab="panel-file-upload"]').hasClass('active')) {
+			let file = $('#file-input-hidden')[0].files[0]
+			if(!file) {alert('파일을 선택하세요'); return;}
+			let fd = new FormData();
+			fd.append('file', file);
 			
+			 $.ajax({
+			    url: 'createInterviewByFile',
+			    method: 'POST',
+			    data: fd,
+			    processData: false,
+			    contentType: false,
+			    success: function (res) {
+			      	alert('연결성공');
+					location.href = res;
+			    },
+			    error: function (xhr) {
+			      alert(xhr.responseText || '추출 실패');
+			    }
+			  });
 			return;
 		}	
 		
 		// 저장된거 선택 했을때 
 		if($('[data-tab="panel-saved-coverletter"]').hasClass('active')) {
+			let cl_idx = $('input[type="radio"]:checked').val();
+			
+			 $.ajax({
+			    url: 'createInterviewBySavedCl',
+			    method: 'POST',
+			    data: { cl_idx: cl_idx },
+			    success: function (res) {
+			      	alert('연결성공');
+					location.href = res;
+			    },
+			    error: function (xhr) {
+			      alert(xhr.responseText || '추출 실패');
+			    }
+			  });
 			
 			return;
 		}	
@@ -68,6 +100,10 @@ $(function() {
         $clickedTab.addClass('active');
 	});
 	
+	$(document).on('click', '.resume-item.active', function () {
+	  // 자식 input[type=radio]를 찾아서 체크
+	  $(this).find('input[type="radio"]').prop('checked', true);
+	});
 	$('textarea').on('input', function() {
 		let text = $(this).val();
 		//글자 수 세기 

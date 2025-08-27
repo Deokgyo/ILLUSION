@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.tika.Tika;
+import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -123,6 +125,66 @@ public class CoverletterController {
     	// 쪼갠 질문들 디비에 넣기, 질문과 멤버 idx와 cl_idx 같이 들어가야함   
     	service.insertQuestion(splitResult, member_idx, cl_idx);
     	
+    	return "interviewResult?cl_idx=" + cl_idx;
+    }
+    
+    @PostMapping("createInterviewByFile")
+    @ResponseBody 
+    public String createInterviewByFile(@RequestParam MultipartFile file) {
+    	// 토큰 차감 로직
+    	int member_idx = SecurityUtil.getLoginUserIndex(); // member_idx 
+    	int cost = JobToolsConstants.COVER_LETTER_INTERVIEW_COST;
+    	service.deductToken(member_idx, cost);
+    	
+    	// 텍스트 추출을 위한 tika 라이브러리 사용 
+    	Tika tika = new Tika();
+    	try {
+    		//멀티 파트 파일 형식을 인풋 스트림으로 변환하고 티카 사용해서 파스 투스트링후 저장
+			String coverletter = tika.parseToString(file.getInputStream());
+			
+			//추출한 텍스트 디비에 인서트 해야함 
+	        Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), 
+	        		JobToolsConstants.TITLE_ORIGINAL_FOR_INTERVIEW, 
+	        		null, coverletter, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
+	        // 인서트 하고 인서트 후에 생성된 idx 값  받기 
+	        int cl_idx = service.saveCoverletterOnly(originalClMap);
+			
+	        // 프롬프트에 맞춰서 질문 생성하고 쪼개서 배열로 저장함 
+	        String prompt = createInterviewPrompt(coverletter);
+	    	String aiResult = geminiService.callGeminiApi(prompt);
+	    	List<String> splitResult = Arrays.asList(aiResult.split("\n"));
+	    	System.out.println(splitResult);
+	    	
+	    	// 쪼갠 질문들 디비에 넣기, 질문과 멤버 idx와 cl_idx 같이 들어가야함   
+	    	service.insertQuestion(splitResult, member_idx, cl_idx);
+	    	
+	    	return "interviewResult?cl_idx=" + cl_idx;
+		} catch (IOException | TikaException e) {
+			e.printStackTrace();
+			// 에러 터지면 에러 페이지롷 이동함 
+			return "error";
+		}
+    	
+    }
+    
+    @PostMapping("createInterviewBySavedCl")
+    @ResponseBody
+    public String createInterviewBySavedCl(int cl_idx) {
+    	// 토큰 차감 로직
+    	int member_idx = SecurityUtil.getLoginUserIndex(); // member_idx 
+    	int cost = JobToolsConstants.COVER_LETTER_INTERVIEW_COST;
+    	service.deductToken(member_idx, cost);
+    	// 디비에 저장된 자소서 불러오기 
+			Map<String, Object> originalCoverletter = service.getCoverletterById(cl_idx);
+			String coverletter = (String) originalCoverletter.get("generated_cl_content");
+			String prompt = createInterviewPrompt(coverletter);
+		    String aiResult = geminiService.callGeminiApi(prompt);
+		    List<String> splitResult = Arrays.asList(aiResult.split("\n"));
+	    	System.out.println(splitResult);
+	    	
+	    	// 쪼갠 질문들 디비에 넣기, 질문과 멤버 idx와 cl_idx 같이 들어가야함   
+	    	service.insertQuestion(splitResult, member_idx, cl_idx);
+	    	
     	return "interviewResult?cl_idx=" + cl_idx;
     }
     

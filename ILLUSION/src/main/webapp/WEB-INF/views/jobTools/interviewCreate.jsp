@@ -66,7 +66,7 @@
                     <div id="panel-file-upload" class="tab-panel">
                         <div class="drop-zone">
                             <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
-                            <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요</p>
+                            <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요<br>(txt, pdf, doc, docx, hwp 파일형식만 업로드 가능)</p>
                         </div>
                         <input type="file" id="file-input-hidden" name="uploadedFile" style="display:none;"/>
                         <div class="upload-button-wrapper">
@@ -75,7 +75,7 @@
                     </div>
 
                     <!-- 패널 3: 저장된 자기소개서 -->
-                    <div id="panel-saved-resumes" class="tab-panel">
+                    <div id="panel-saved-coverletter" class="tab-panel">
                         <div class="resume-list">
                         <c:forEach var="cl" items="${clList}" varStatus="st">
                             <div class="resume-item">

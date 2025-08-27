@@ -91,6 +91,7 @@
 		  FROM cover_letter c
 		  JOIN member m ON m.member_idx = c.member_idx
 		 WHERE m.member_idx = #{member_idx}
+		   AND cl_type != 'CL003'
 	</select>
 	
 	<!-- 자소서 저장 여부 토글 -->

@@ -15,6 +15,7 @@ public class JobToolsConstants {
 
     // 자소서 제목 TODO 
     public static final String TITLE_ORIGINAL_FOR_REFINEMENT = "원본 자기소개서 (첨삭용)";
+    public static final String TITLE_ORIGINAL_FOR_INTERVIEW = "원본 자기소개서 (예상질문생성용)";
     public static final String TITLE_REFINED = "첨삭된 자기소개서";
     public static final String TITLE_REFINED_SUFFIX = " (첨삭본)";
 
