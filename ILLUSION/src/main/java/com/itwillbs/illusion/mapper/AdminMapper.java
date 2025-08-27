@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.illusion.vo.CommonCodeVO;
+
 @Mapper
 public interface AdminMapper {
 	
@@ -37,7 +39,7 @@ public interface AdminMapper {
 	
 	public List<Map<String, String>> getBoardList(@Param("startRow") int startRow, @Param("listLimit") int listLimit); // 게리글 리스트 조회
 	
-	public List<Map<String, String>> getCommonCodeList(); // 공통 코드 리스트 조회
+	public List<Map<String, String>> getCommonCodeList(@Param("keyword") String keyword); // 공통 코드 리스트 조회
 	
 	public void deleteBoard(int board_idx); // 공통 코드 삭제
 	
@@ -45,4 +47,11 @@ public interface AdminMapper {
 	
 	public void updateCommonCode(Map<String, String> map); // 공통 코드 수정
 	
+	public List<Map<String, String>> getCommonCodeGroups(); // 공통코드 그룹 목록 조회
+
+	void insertCommonCodeGroup(Map<String, String> group); // 공통코드 그룹 추가
+
+	void insertCommonCodes(List<CommonCodeVO> codes); // 공통코드 추가
+
+	public void deleteCommonCode(String code); // 공통 코드 삭제
 }

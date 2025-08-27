@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.illusion.mapper.AdminMapper;
+import com.itwillbs.illusion.vo.CommonCodeVO;
 
 @Service
 public class AdminService {
@@ -90,8 +91,8 @@ public class AdminService {
 	}
 	
 	// 공통코드 리스트 조회
-	public List<Map<String, String>> getCommonCodeList() {
-		return mapper.getCommonCodeList();
+	public List<Map<String, String>> getCommonCodeList(String keyword) {
+		return mapper.getCommonCodeList(keyword);
 	}
 	
 	// 공통코드 하나 조회
@@ -104,5 +105,29 @@ public class AdminService {
 		mapper.updateCommonCode(param);
 	}
 	
- 	
+	// 공통코드 그룹 목록 조회
+	public List<Map<String, String>> getCommonCodeGroups() {
+		return mapper.getCommonCodeGroups();
+	}
+	
+	// 공통코드 그룹 추가
+	public void addCommonCodeGroup(Map<String, String> group) {
+		mapper.insertCommonCodeGroup(group);
+	}
+	
+	// 공통코드 추가
+	public void addCommonCodes(List<CommonCodeVO> codes) {
+	    // 비어 있거나 null인 parent_code_id를 null로 설정
+	    for (CommonCodeVO code : codes) {
+	        if (code.getParent_code_id() != null && code.getParent_code_id().trim().isEmpty()) {
+	            code.setParent_code_id(null);
+	        }
+	    }
+	    mapper.insertCommonCodes(codes);
+	}
+
+ 	// 공통코드 삭제
+	public void deleteCommonCode(String code) {
+		mapper.deleteCommonCode(code);
+	}
 }

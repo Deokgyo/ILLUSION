@@ -68,10 +68,10 @@
 			
 			        <!-- 2. 컨트롤 바 (검색, 추가/삭제 버튼) -->
 			        <div class="control-bar">
-			            <div class="search-box">
-			                <input type="text" placeholder="코드ID, 코드명, 설명 검색">
-			                <button type="button">🔍</button>
-			            </div>
+			            <form action="comcodeRegist" method="get" class="search-box">
+			                <input type="text" name="keyword" placeholder="코드ID, 코드명, 설명 검색" value="${param.keyword}">
+			                <button type="submit">🔍</button>
+			            </form>
 			            <div class="action-buttons-top">
 			            	<a href="comcodeCommit" class="btn btn-yellow">공통코드 추가 ❐</a>
 			            </div>
@@ -104,7 +104,7 @@
 				                        <td>
 				                            <div class="action-buttons">
 				                            	<a href="comcodeModify?code=${com.code}" class="btn btn-yellow">수정</a>
-           										<a href="comcodeDelete?code=${com.code}" class="btn btn-yellow">삭제</a>
+           										<a href="javascript:void(0);" onclick="confirmDelete('${com.code}')" class="btn btn-yellow">삭제</a>
 				                            </div>
 				                        </td>
 				                    </tr>
@@ -130,5 +130,12 @@
 	    </div>
 	</div>
 
+<script>
+function confirmDelete(code) {
+    if (confirm("정말로 이 공통 코드를 삭제하시겠습니까?")) {
+        window.location.href = "comcodeDelete?code=" + code;
+    }
+}
+</script>
 </body>
 </html>

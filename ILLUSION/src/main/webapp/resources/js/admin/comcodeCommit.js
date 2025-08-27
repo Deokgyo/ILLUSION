@@ -1,52 +1,39 @@
-document.addEventListener('DOMContentLoaded', () => {
+$(document).ready(function() {
+    let rowIndex = 0;
+    const tableBody = $('#code-table-body');
 
-    const addRowBtn = document.querySelector('.btn-add-row');
-    const deleteRowBtn = document.querySelector('.btn-delete-row');
-    const checkAll = document.getElementById('check-all-rows');
-    const tableBody = document.getElementById('common-code-tbody');
+    // 템플릿 HTML 가져오기
+    const templateHtml = $('#code-row-template').html();
 
-    // 행 번호를 다시 매기는 함수
-    function renumberRows() {
-        const rows = tableBody.querySelectorAll('tr');
-        rows.forEach((row, index) => {
-            row.querySelector('.row-num').textContent = index + 1;
-        });
+    function addRow() {
+        // 템플릿에서 행 복제
+        const newRow = $(templateHtml);
+
+        // 각 input/select에 고유한 name 속성을 부여합니다. (배열 형태로)
+        newRow.find('select.code-group-id').attr('name', `codes[${rowIndex}].code_group_id`);
+        newRow.find('input.code').attr('name', `codes[${rowIndex}].code`);
+        newRow.find('input.code-name').attr('name', `codes[${rowIndex}].code_name`);
+        newRow.find('input.parent-code-id').attr('name', `codes[${rowIndex}].parent_code_id`);
+
+        // 테이블 본문에 새 행을 추가합니다.
+        tableBody.append(newRow);
+        rowIndex++;
     }
 
-    // 행 추가 기능
-    addRowBtn.addEventListener('click', () => {
-        const newRow = document.createElement('tr');
-        const rowCount = tableBody.querySelectorAll('tr').length;
+    // 페이지가 로드될 때 기본으로 한 행 추가
+    addRow();
 
-        newRow.innerHTML = `
-            <td><input type="checkbox" class="row-check"></td>
-            <td class="row-num">${rowCount + 1}</td>
-            <td><input type="text" placeholder="공통 코드 ID 입력"></td>
-            <td><input type="text" placeholder="공통 코드 명 입력"></td>
-            <td><input type="text" placeholder="설명 입력"></td>
-        `;
-        tableBody.appendChild(newRow);
+    // '행 추가' 버튼 클릭 이벤트
+    $('#btn-add-row').on('click', function() {
+        addRow();
     });
 
-    // 선택된 행 삭제 기능
-    deleteRowBtn.addEventListener('click', () => {
-        const checkedRows = tableBody.querySelectorAll('.row-check:checked');
-        if (checkedRows.length === 0) {
-            alert('삭제할 행을 선택해주세요.');
-            return;
+    // '삭제' 버튼 클릭 이벤트 
+    tableBody.on('click', '.btn-remove-row', function() {
+        if (tableBody.find('tr').length > 1) {
+            $(this).closest('tr').remove();
+        } else {
+            alert("최소 한 개의 행은 필요합니다.");
         }
-        checkedRows.forEach(checkbox => {
-            checkbox.closest('tr').remove();
-        });
-        renumberRows(); // 행 삭제 후 번호 다시 매기기
     });
-
-    // 전체 선택/해제 기능
-    checkAll.addEventListener('click', () => {
-        const allCheckboxes = tableBody.querySelectorAll('.row-check');
-        allCheckboxes.forEach(checkbox => {
-            checkbox.checked = checkAll.checked;
-        });
-    });
-
 });

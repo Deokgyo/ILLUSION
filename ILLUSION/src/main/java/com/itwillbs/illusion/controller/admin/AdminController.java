@@ -1,6 +1,5 @@
 package com.itwillbs.illusion.controller.admin;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.illusion.service.AdminService;
 import com.itwillbs.illusion.util.PagingUtil;
+import com.itwillbs.illusion.vo.CodeListVO;
 import com.itwillbs.illusion.vo.PageInfo;
 
 @Controller
@@ -35,8 +35,6 @@ public class AdminController {
 		int recruitCnt = service.getRecruitCount(); // 공고 수 조회
 		int coverletterCnt = service.getCoverletterCount(); // 생성된 ai 자소서 조회
 		int getBoardCnt = service.getBoardCount(); // 커뮤니티 게시글 수 조회
-		
-		System.out.println(getBoardCnt);
 		
 		Map<String, Object> adminMainMap = new HashMap<String, Object>();
 		adminMainMap.put("applicantCnt", applicantCnt);
@@ -116,10 +114,9 @@ public class AdminController {
 	
 	// 공통코드 관리페이지 이동
 	@GetMapping("comcodeRegist")
-	public String comcodeRegist(Model model) {
+	public String comcodeRegist(Model model, @RequestParam(value = "keyword", required = false) String keyword) {
 		
-		List<Map<String, String>> commonCodeList = service.getCommonCodeList();
-		System.out.println("==========================");
+		List<Map<String, String>> commonCodeList = service.getCommonCodeList(keyword);
 		System.out.println(commonCodeList);
 		
 		
@@ -129,9 +126,27 @@ public class AdminController {
 	
 	// 공통코드 등록 페이지 이동
 	@GetMapping("comcodeCommit")
-	public String comcodeCommit() {
+	public String comcodeCommit(Model model) {
+
+		// 공통코드 그룹 목록을 조회하여 모델에 추가
+		List<Map<String, String>> codeGroups = service.getCommonCodeGroups();
+		model.addAttribute("codeGroups", codeGroups);
 
 		return "admin/comcodeCommit";
+	}
+	
+	// 공통코드 그룹 추가
+	@PostMapping("addCommonCodeGroup")
+	public String addCommonCodeGroup(@RequestParam Map<String, String> group) {
+		service.addCommonCodeGroup(group);
+		return "redirect:/comcodeCommit";
+	}
+	
+	// 공통코드 추가
+	@PostMapping("addCommonCodes")
+	public String addCommonCodes(CodeListVO codeList) {
+	    service.addCommonCodes(codeList.getCodes());
+	    return "redirect:/comcodeRegist"; 
 	}
 	
 	// 공통코드 수정 페이지 이동
@@ -198,14 +213,19 @@ public class AdminController {
 	@PostMapping("comcodeModify")
 	public String updateCommonCode(@RequestParam Map<String, String> param) {
 		
-		System.out.println("=====================");
-		System.out.println(param);
-		System.out.println("=====================");
-		
-		service.updateCommonCode(param);
+		service.updateCommonCode(param); 
 		
 		return "redirect:/comcodeRegist";
 		
+	}
+	
+	// 공통코드 삭제
+	@GetMapping("comcodeDelete")
+	public String deleteCommonCode(@RequestParam("code") String code) {
+		
+		service.deleteCommonCode(code);
+		
+		return "redirect:/comcodeRegist"; 
 	}
 	
 }
