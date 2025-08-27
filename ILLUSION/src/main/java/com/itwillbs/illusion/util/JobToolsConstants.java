@@ -5,6 +5,7 @@ public class JobToolsConstants {
     // 토큰 수
     public static final int COVER_LETTER_GENERATION_COST = 30;
     public static final int COVER_LETTER_REFINEMENT_COST = 30;
+    public static final int COVER_LETTER_INTERVIEW_COST = 30;
     public static final int CHATBOT_QUERY_COST = 5;
 
     // 자소서 타입

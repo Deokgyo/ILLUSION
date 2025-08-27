@@ -165,7 +165,13 @@
 .resume-item:hover { border-color: var(--main-color-hover); background-color: #fffbeb; }
 .resume-item.active { border: 2px solid var(--main-color-hover); background-color: #fffbeb; font-weight: 600; }
 
-
+.title {
+	  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none; /* 라벨로만 클릭 유도(선택) */
+}
 
 .resume-item .icon {
 	font-size: 20px;
@@ -191,3 +197,9 @@
 .header-text {
 	margin-bottom: 0px;
 }
+
+/* p 태그 마진 바텀 없애기  */
+p {
+	margin-bottom: 0px;
+}
+

@@ -1,5 +1,55 @@
 $(function() {
-
+	
+	/*이벤트 연결*/
+	
+	$('.create').on('click', createClick);
+	
+	// 면접 예상 질문 생성 
+	function executeInterviewCreate() {
+		
+		// 직접 입력 했을때 
+		if($('[data-tab="panel-direct-input"]').hasClass('active')) {
+			
+			let text = $('textarea').val();
+			let data = {data : text};
+			
+			if(text == '') {
+				alert('텍스트를 입력해주세요');
+				return;
+			}
+			
+			$.ajax({
+				type: 'POST',
+				url: 'createInterviewByDirect',
+				dataType: "text",
+				data: data,
+				success: function(res) {
+					alert('연결성공');
+					location.href = res;
+				},
+				error: function(xhr, status, error) {
+					alert('연결실패');
+					console.log(xhr);
+				}
+			});
+			
+			return;
+		}	
+		
+		// 파일 업로드 했을때 
+		if($('[data-tab="panel-file-upload"]').hasClass('active')) {
+			
+			return;
+		}	
+		
+		// 저장된거 선택 했을때 
+		if($('[data-tab="panel-saved-coverletter"]').hasClass('active')) {
+			
+			return;
+		}	
+	}
+		
+	
     $('.tabs-nav .tab-link').on('click', function(e) {
         e.preventDefault();
 
@@ -28,7 +78,7 @@ $(function() {
 		$('.wordCnt').text(wordCnt);
 	});
 	
-	 // --- 파일 업로드 (드롭존) 기능 ---
+	// --- 파일 업로드 (드롭존) 기능 ---
 	let $dropZone = $('.drop-zone');
 	let $fileInput = $('#file-input-hidden');
     $dropZone.on('click', function(e) {
@@ -36,7 +86,7 @@ $(function() {
     	e.preventDefault();
         $fileInput.click();
     });
-
+	
     $fileInput.on('change', function() {
 	    const allowedExtensions = ['txt', 'pdf', 'doc', 'docx', 'hwp'];
 	    if (this.files && this.files.length > 0) {
@@ -61,13 +111,13 @@ $(function() {
         e.stopPropagation();
         $(this).addClass('drag-over');
     });
-
+	
     $dropZone.on('dragleave', function(e) {
         e.preventDefault();
         e.stopPropagation();
         $(this).removeClass('drag-over');
     });
-
+	
     $dropZone.on('drop', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -78,5 +128,29 @@ $(function() {
             $fileInput.trigger('change');
         }
     });	
-	
+    
+    // --- 최종 제출 버튼 클릭 이벤트 -> 모달창 띄우기 ---
+    function createClick() {
+		const userTokens = parseInt($('#currentUserToken').val()) || 0;
+        console.log(userTokens);
+        const requiredTokens = 30; 
+
+        if (userTokens < requiredTokens) {
+            $('#token-modal').css('display', 'flex').fadeTo(300, 1);
+        } else {
+            $('#confirm-modal').css('display', 'flex').fadeTo(300, 1);
+        }
+	}
+    
+    
+    $('#confirm-yes-btn').on('click', function() {
+        $('#confirm-modal').fadeOut();
+        $('#loading-overlay').css('display', 'flex').fadeTo(300, 1);
+        executeInterviewCreate();
+    });
+    
+    $('.btn-no, .close-modal-btn').on('click', function() {
+        $(this).closest('.modal-overlay').fadeOut();
+    });
+    
 });

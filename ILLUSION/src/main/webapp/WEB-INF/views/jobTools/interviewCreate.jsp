@@ -23,12 +23,14 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/inc/top.jsp" />
-
+    <c:if test="${not empty sessionScope.loginUser}">
+        <input type="hidden" id="currentUserToken" value="${sessionScope.loginUser.token}">
+    </c:if>
     <div class="page-container">
         <jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
         <main class="main-content">
             <div class="page-title-header">
-            	<p class="header-text"><strong>AI 면접 예상질문</strong> AI가 이력서에 맞춰 면접 예상질문을 만들어 드립니다</p>
+            	<p class="header-text"><strong>AI 면접 예상질문</strong> AI가 자소서에 맞춰 면접 예상질문을 만들어 드립니다</p>
         	</div>
             <div class="interview-generator-box">
                 
@@ -42,7 +44,7 @@
                         <h3 class="tab-title">파일 업로드</h3>
                         <p class="tab-desc">자기소개서를 파일로 업로드합니다</p>
                     </a>
-                    <a href="#" class="tab-link" data-tab="panel-saved-resumes">
+                    <a href="#" class="tab-link" data-tab="panel-saved-coverletter">
                         <h3 class="tab-title">저장된 자기소개서</h3>
                         <p class="tab-desc">저장된 자기소개서를 불러옵니다</p>
                     </a>
@@ -75,23 +77,20 @@
                     <!-- 패널 3: 저장된 자기소개서 -->
                     <div id="panel-saved-resumes" class="tab-panel">
                         <div class="resume-list">
+                        <c:forEach var="cl" items="${clList}" varStatus="st">
                             <div class="resume-item">
                                 <span class="icon">📄</span>
-                                <input type="radio" name="cl_idx" class="title" value="cl_idx"> 세심한 개발자
-<!--                                 <span class="title">세심한 개발자</span> -->
+                                <input type="radio" name="cl_idx" class="title" value="${cl.cl_idx}" id="${st.index}"> 
+                                <label for="${st.index}">${cl.cl_title}</label> 
                             </div>
-                            <div class="resume-item active">
-                                <span class="icon">📄</span>
-                                <span class="title">능력있는 개발자</span>
-                            </div>
-                            <!-- ... 저장된 자소서 목록이 동적으로 추가될 영역 ... -->
+                        </c:forEach>
                         </div>
                     </div>
                 </div>
 
                 <!-- 하단 생성 버튼 -->
                 <div class="submit-button-wrapper">
-                    <button class="gradient-btn">
+                    <button class="gradient-btn create">
                         예상질문 생성
                     </button>
                 </div>
@@ -99,9 +98,9 @@
             </div>
         </main>
     </div>
-
+	<jsp:include page="/WEB-INF/views/jobTools/aiToolsModal.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
-
+	
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jobTools/interviewCreate.js"></script>

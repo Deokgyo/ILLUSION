@@ -35,12 +35,14 @@
         <intercept-url pattern="/register" access="permitAll" />    
         <intercept-url pattern="/email-auth" access="permitAll" method="POST"/>   
         <intercept-url pattern="/email-auth-check" access="permitAll" method="POST"/>   
+        <intercept-url pattern="/apply**" access="permitAll" method="POST"/>   
         <intercept-url pattern="/checkIdCount" access="permitAll" method="GET"/>   
         <intercept-url pattern="/checkRecruiterNumber" access="permitAll" method="GET"/>  
         <intercept-url pattern="/insertMemberCompany" access="permitAll" method="POST"/>   
         <intercept-url pattern="/recruitmentInfo" access="permitAll" />    
         <intercept-url pattern="/communityMain" access="permitAll" />
         <intercept-url pattern="/communityDetail**" access="permitAll" />
+<!--         <intercept-url pattern="/createInterviewByDirect" access="isAuthenticated()" /> -->
         <intercept-url pattern="/api/boards/**/comments" access="permitAll" method="GET" />
         <intercept-url pattern="/api/boards/**/comments" access="isAuthenticated()" method="POST" />
         <intercept-url pattern="/api/codes**" access="permitAll" />

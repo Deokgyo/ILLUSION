@@ -1,6 +1,8 @@
 package com.itwillbs.illusion.controller.jobTools;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,9 +65,15 @@ public class CoverletterController {
         }
         return "jobTools/coverletterRefiner";
     }
-
+    
+    // 저장된 자소서 가져오기 (덕교)
     @GetMapping("interviewCreate")
-    public String interviewCreate() {
+    public String interviewCreate(Model model) {
+    	int member_idx = SecurityUtil.getLoginUserIndex();
+        if (member_idx != -1) {
+            List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
+            model.addAttribute("clList", clList);
+        }
         return "jobTools/interviewCreate";
     }
 
@@ -77,7 +85,43 @@ public class CoverletterController {
     // ===================================================================
     // 기능 처리 (POST Mappings - @ResponseBody)
     // ===================================================================
-
+    
+    // 면접 예상 질문 생성 ajax 처리(덕교)
+    @PostMapping("createInterviewByDirect")
+    @ResponseBody
+    public String createInterviewByDirect(String data) {
+    	
+    	// 토큰 차감 로직
+    	// 토큰 차감 하려면, member_idx 필요함.. 
+    	int member_idx = SecurityUtil.getLoginUserIndex(); // member_idx 
+    	// 얼마 차감 해야하는지도 필요함 
+    	int cost = JobToolsConstants.COVER_LETTER_INTERVIEW_COST;
+    	// 차감 해라 ... 토큰 반환 
+    	int crruentTokens = service.deductToken(member_idx, cost);
+    	
+    	System.out.println("ajax로 보내준 값!!!!!!!!!!!!!");
+    	System.out.println(data);
+    	
+    	//data도 디비에 인서트 해야함 
+        Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), 
+        		JobToolsConstants.TITLE_ORIGINAL_FOR_REFINEMENT, 
+        		null, data, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
+        // 인서트 하고 인서트 후에 생성된 idx 값  받기 
+        int cl_idx = service.saveCoverletterOnly(originalClMap);
+        
+        // 프롬프트에 맞춰서 질문 생성하고 쪼개서 배열로 저장함 
+        String prompt = createInterviewPrompt(data);
+    	String aiResult = geminiService.callGeminiApi(prompt);
+    	List<String> splitResult = Arrays.asList(aiResult.split("\n"));
+    	System.out.println(splitResult);
+    	
+    	// 쪼갠 질문들 디비에 넣기, 질문과 멤버 idx와 cl_idx 같이 들어가야함   
+    	service.insertQuestion(splitResult, member_idx, cl_idx);
+    	
+    	return "interviewResult?cl_idx=" + cl_idx;
+    }
+    
+    
     @PostMapping("coverletterGenerate")
     @ResponseBody
     public Map<String, Object> coverletterGenerate(@RequestParam Map<String, String> params, HttpSession session) {
@@ -306,4 +350,18 @@ public class CoverletterController {
 	        originalContent
 	    );
 	}
+	
+	private String createInterviewPrompt(String originalContent) {
+		return String.format(
+				"당신은 회사의 베테랑 면접관입니다. 아래 자기소개서를 기반으로, 지원자의 역량과 잠재력을 파악하기 위한 날카로운 면접 질문 리스트를 생성해주세요.\n"
+				+ "질문은 다음 세 가지 유형을 반드시 포함해야 합니다.\n"
+				+ "1.경험 심층 질문: 주요 경험에 대해 STAR 기법을 활용한 핵심 질문과 그에 대한 꼬리 질문\n"
+				+ "2.약점/압박 질문: 내용의 논리적 허점이나 약점을 파고드는 질문\n"
+				+ "3.비전/기여도 질문: 회사에 어떻게 기여하고 함께 성장할 것인지 묻는 질문\n"
+				+ "출력 형식 가이드 : 진짜 딱 질문만 3개만들어주고 다른 어떤 부연 설명도 넣지마, 꼬리 질문은 문장에 이어서 해줘 따로 '*'표시하지 말고, 질문사이에 구분은 줄바꿈만하고 공백 넣고 줄바꿈 또하지마 "
+				+ "[자기 소개서 내용]\n"
+				+ originalContent);
+	}
+	
+	
 }
