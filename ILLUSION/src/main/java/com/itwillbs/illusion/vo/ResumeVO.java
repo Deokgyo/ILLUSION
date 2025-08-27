@@ -37,6 +37,10 @@ public class ResumeVO {
 	private String position; // 직위
 	private String experience; // 경력
 	private String occupation; // 직종
+	private String certificate; // 자격증
+	private String responsibilities; // 담당업무
+	private String additional_information; // 추가정보
+	
 	
 	
 		

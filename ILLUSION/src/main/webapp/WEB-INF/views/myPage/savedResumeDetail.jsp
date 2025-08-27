@@ -63,7 +63,7 @@
 									<div>${resume.resume_birth}</div>
 									<div>${resume.member_phone}</div>
 									<div>${resume.member_email}</div>
-									<div>${resume.address_name}${resume.address_num}</div>
+									<div>${resume.address_name}</div>
 								</div>
 							</div>
 						</div>
@@ -75,7 +75,7 @@
 										<th>학교명</th>
 										<th>전공</th>
 										<th>재학기간</th>
-										<th>졸업여부</th>
+										<th>학위</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -88,7 +88,21 @@
 								</tbody>
 							</table>
 						</div>
-
+						<div class="section">
+							<div class="section-title">추가 정보</div>
+							<table class="info-table">
+								<thead>
+									<tr>
+										<th>추가 정보</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${resume.additional_information != null ? resume.additional_information : "-"}</td>	
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<div class="section">
 							<div class="section-title">경력사항</div>
 							<table class="info-table">
@@ -110,6 +124,39 @@
 								</tbody>
 							</table>
 						</div>
+						<div class="section">
+							<div class="section-title">담당 업무 및 성과</div>
+							<table class="info-table">
+								<thead>
+									<tr>
+										<th>담당 업무 및 성과</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${resume.responsibilities != null ? resume.responsibilities : "-"}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="section">
+							<div class="section-title">자격증</div>
+							<table class="info-table">
+								<thead>
+									<tr>
+										<th>자격증명</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${resume.certificate != null ? resume.certificate : "-"}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+
 
 						<div class="button-wrapper">
 							<button class="list-btn" onclick="location.href='savedResumeList';">목록</button>
