@@ -6,28 +6,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.print.DocFlavor.STRING;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.illusion.service.BoardService;
@@ -35,14 +28,8 @@ import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.ResumeService;
-import com.itwillbs.illusion.util.PagingUtil;
-import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.MemberVO;
-import com.itwillbs.illusion.vo.PageInfo;
-import com.itwillbs.illusion.vo.RecruitFilterVO;
-import com.itwillbs.illusion.vo.ResumeVO;
-import com.itwillbs.illusion.vo.ScrapVO;
 
 @Controller	
 public class MypageController {
@@ -75,7 +62,7 @@ public class MypageController {
 		
 		List<CommonCodeVO> degreeList = resumeService.getCodes("DEGREE");
 		List<CommonCodeVO> experienceList = resumeService.getCodes("EXPERIENCE");
-		List<CommonCodeVO> occupationList = resumeService.getCodes("OCCUPATION");
+		List<CommonCodeVO> occupationList = resumeService.getCodes1("OCCUPATION");
 		List<CommonCodeVO> positionList = resumeService.getCodes("POSITION");
 		model.addAttribute("degreeList", degreeList);
         model.addAttribute("experienceList", experienceList);
@@ -124,36 +111,16 @@ public class MypageController {
 	    
 	    // 4. Map에 파일 경로 추가
 	    paramMap.putAll(savedFiles);
-	    
+	    System.out.println("============================");
+	    System.out.println(paramMap);
 	    
 		// 서비스 호출 - insert 시 useGeneratedKeys로 resume_idx 채워줌
 		resumeService.insertResumeAndExpInfo(paramMap);
+		
 		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") + "&member_idx="
 				+ paramMap.get("member_idx");
 	}
 
-//	/* 이력서 수정 */
-//	@GetMapping("resumeUpdate")
-//	public String resumeUpdate(@RequestParam int resume_idx, Model model) {
-//		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-//		model.addAttribute("resume", resume);
-//		List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
-//		model.addAttribute("resume_exp_info_list", resumeExpInfoList);
-//		return "myPage/resumeUpdate";
-//	}
-//
-//	/* 이력서 수정 */
-//	@PostMapping("resumeUpdate")
-//	public String resumeUpdate(@RequestParam Map<String, Object> paramMap, HttpSession session, int resume_idx,
-//			Model model) {
-//
-//		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-//		model.addAttribute("resume", resume);
-//		resumeService.updateResumeAndExpInfo(paramMap);
-//
-//		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") + "&member_idx="
-//				+ paramMap.get("member_idx");
-//	}
 
 	/* 회원정보 수정 */
 	@GetMapping("userInfoEdit")
@@ -179,30 +146,7 @@ public class MypageController {
         return "redirect:/myPage";
     }
 
-//	/* 이력서 상세보기 */
-//	@GetMapping("savedResumeDetail")
-//	public String savedResumeDetail(@RequestParam int resume_idx, @RequestParam int member_idx, Model model) {
-//		Map<String, Object> member = resumeService.selectMember(member_idx);
-//		model.addAttribute("member", member);
-//		Map<String, Object> resume = resumeService.selectResume(resume_idx);
-//		model.addAttribute("resume", resume);
-//		List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
-//		model.addAttribute("resume_exp_info_list", resumeExpInfoList);
-//		System.out.println("resumeExpInfoList = " + resumeExpInfoList);
-//
-//		return "myPage/savedResumeDetail";
-//	}
-//
-//	/* 자소서 상세보기 */
-//	@GetMapping("savedCLDetail")
-//	public String savedCLDetail(@RequestParam int cl_idx, @RequestParam int member_idx, Model model) {
-//		Map<String, Object> member = resumeService.selectMember(member_idx);
-//		model.addAttribute("member", member);
-//		Map<String, Object> cl = resumeService.selectCL(cl_idx);
-//		model.addAttribute("cl", cl);
-//
-//		return "myPage/savedCLDetail";
-//	}
+
 
 	/* 비밀번호변경 */
 	@GetMapping("changePasswd")

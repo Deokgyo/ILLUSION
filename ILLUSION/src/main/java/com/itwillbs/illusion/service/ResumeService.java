@@ -45,6 +45,8 @@ public class ResumeService {
 	   public MemberVO SelectM(String member_id) {
 			return mapper.SelectM(member_id);
 		}
+	   
+	   
 	   /*이력서 공통코드*/
 	   public List<CommonCodeVO> getCodes(String groupId) {
 	        return mapper.getCommonCodeList(groupId);
@@ -53,6 +55,8 @@ public class ResumeService {
 		   return mapper.getCommonCodeList1(groupId);
 	   }
 	  
+	   
+	   /*이력서 목록*/
 	   public List<Map<String, Object>> selectResumelist() {
 		   return mapper.selectResumelist();
 	   }

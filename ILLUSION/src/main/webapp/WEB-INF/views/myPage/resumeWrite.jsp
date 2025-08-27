@@ -118,12 +118,13 @@
 								<div class="form-group">
 									<label>학점</label>
 									<div class="gpa-group">
-										<input type="text" name="grade" placeholder="학점을 입력하세요 ex) 4.5" style="flex: 1;" autocomplete="off"> <span>/</span>
-										<select style="flex-basis: 100px;">
-											<option>4.5</option>
-											<option>4.3</option>
-											<option>4.0</option>
-										</select>
+										<input id="gradeInput" type="text" name="grade" placeholder="학점을 입력하세요 ex) 4.0" style="flex: 1;" autocomplete="off">
+											 <span>/</span>
+										<select id="gradeSelect" style="flex-basis: 100px;">
+									        <option value="4.5">4.5</option>
+									        <option value="4.3">4.3</option>
+									        <option value="4.0">4.0</option>
+									    </select>
 									</div>
 								</div>
 							</div>
@@ -131,13 +132,13 @@
 								<div class="form-group">
 									<label>입학일</label>
 									<div class="date-input-container">
-   										<input type="text" name="enroll_date" id="enroll_date" placeholder="연도-월-일" readonly="readonly">
+   										<input type="text" name="enroll_date" id="enroll_date" placeholder="연도-월-일">
 									</div>
 								</div>
 								<div class="form-group">
 									<label>졸업일</label>
 									<div class="date-input-container">
-   										<input type="text" name="graduation_date" id="graduation_date" placeholder="연도-월-일" readonly="readonly">
+   										<input type="text" name="graduation_date" id="graduation_date" placeholder="연도-월-일">
 									</div>
 									
 								</div>
@@ -174,7 +175,7 @@
 										<select name="experience">
 											<option value="" selected disabled>-- 선택 --</option>
 										    <c:forEach var="e" items="${experienceList}">
-										        <option value="${e.code_name}">${e.code_name}</option>
+										        <option value="${e.code}">${e.code_name}</option>
 										    </c:forEach>
 										</select>
 									</div>
@@ -185,7 +186,7 @@
 										<select name="occupation">
 											<option value="" selected disabled>-- 선택 --</option>
 										    <c:forEach var="e" items="${occupationList}">
-										        <option value="${e.code_name}">${e.code_name}</option>
+										        <option value="${e.code}">${e.code_name}</option>
 										    </c:forEach>
 										</select>
 									</div>
@@ -219,6 +220,77 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <script type="text/javascript">
+// 파일 채인지시 미리보기 구현
+$("#file1").on("change", function(e) {
+	    const file = e.target.files[0];
+	    if (file) {
+	        const imageUrl = URL.createObjectURL(file);
+	        $("#avatarPreview img").attr("src", imageUrl); // <img> src 변경
+	    }
+	});
+flatpickr("#enroll_date", {
+    dateFormat: "Y-m-d",
+    locale: "ko",
+    clickOpens: true,
+    allowInput: true,
+    defaultDate: null,
+    onChange: function(selectedDates, dateStr, instance) {
+        instance.input.value = dateStr; // 선택된 날짜를 input.value에 반영
+        console.log("입학일 선택:", dateStr);
+    }
+});
+flatpickr("#graduation_date", {
+    dateFormat: "Y-m-d",
+    locale: "ko",
+    clickOpens: true,
+    allowInput: true,
+    defaultDate: null,
+    onChange: function(selectedDates, dateStr, instance) {
+        instance.input.value = dateStr;
+        console.log("졸업일 선택:", dateStr);
+    }
+});
+	
+	// 학점 입력 제어
+	const gradeInput = document.getElementById("gradeInput");
+	const gradeSelect = document.getElementById("gradeSelect");
+
+	// 초기 최대값 설정
+	let maxGrade = parseFloat(gradeSelect.value) || 4.5;
+
+	// select 변경 시 최대값 업데이트
+	gradeSelect.addEventListener("change", function() {
+	    maxGrade = parseFloat(this.value) || 4.5;
+
+	    // input 값이 새 maxGrade보다 크면 자동 조정
+	    if (gradeInput.value && !isNaN(parseFloat(gradeInput.value)) && parseFloat(gradeInput.value) > maxGrade) {
+	        gradeInput.value = maxGrade;
+	    }
+	});
+
+	// input 입력 제한
+	gradeInput.addEventListener("input", function() {
+	    // 숫자와 소수점만 허용
+	    this.value = this.value.replace(/[^0-9.]/g, '');
+
+	    // 소수점 두 자리까지만 허용
+	    const parts = this.value.split('.');
+	    if (parts.length > 2) this.value = parts[0] + '.' + parts[1];
+	    if (parts[1] && parts[1].length > 2) this.value = parts[0] + '.' + parts[1].substring(0, 2);
+
+	    // maxGrade보다 크면 강제로 maxGrade로 설정
+	    if (this.value && !isNaN(parseFloat(this.value)) && parseFloat(this.value) > maxGrade) {
+	        this.value = maxGrade;
+	    }
+	});
+
+	// 초기값 동기화 (input에 값이 이미 있을 경우)
+	if (gradeInput.value && !isNaN(parseFloat(gradeInput.value)) && parseFloat(gradeInput.value) > maxGrade) {
+	    gradeInput.value = maxGrade;
+	}
+	
+	
+	//submit하기전 폼안에서의 유효성검사
 	function validateForm() {
 		const form = document.forms["resumeForm"];
 
@@ -244,16 +316,17 @@
 		}
 
 		// 학위 선택 검사 (첫 번째 select는 name 없음 -> name 추가 필요)
-		if (!form["degree_type"].value) {
-			alert("학위를 선택해주세요!");
-			form["degree_type"].focus();
-			return false;
-		}
-		// 상태 검사
 		if (!form["degree"].value) {
-			alert("상태를 선택해주세요!");
-			form["degree"].focus();
-			return false;
+		    alert("학위를 선택해주세요!");
+		    form["degree"].focus();
+		    return false;
+		}
+		
+		// 상태 검사
+		if (!form["degreetype"].value) {
+		    alert("상태를 선택해주세요!");
+		    form["degreetype"].focus();
+		    return false;
 		}
 		// 학점 검사
 		if (!form["grade"].value) {
@@ -273,31 +346,18 @@
 			form["graduation_date"].focus();
 			return false;
 		}
-
+	    // 날짜 비교
+	    const enrollDate = new Date(form["enroll_date"].value);
+	    const graduationDate = new Date(form["graduation_date"].value);
+	    if (graduationDate < enrollDate) {
+	        alert("졸업 날짜는 입학 날짜보다 이전일 수 없습니다!");
+	        form["graduation_date"].focus();
+	        return false;
+	    }
+	    
 		return true; // 모든 체크 통과하면 제출
 	}
-	
-	$("#file1").on("change", function(e) {
-	    const file = e.target.files[0];
-	    if (file) {
-	        const imageUrl = URL.createObjectURL(file);
-	        $("#avatarPreview img").attr("src", imageUrl); // <img> src 변경
-	    }
-	});
-	// 입학일 달력 출력
-	flatpickr("#enroll_date", {
-	    dateFormat: "Y-m-d",   // YYYY-MM-DD
-	    locale: "ko",
-	    clickOpens: true,       // 클릭 시 달력 열림
-	    defaultDate: null
-	});
-	flatpickr("#graduation_date", {
-	    dateFormat: "Y-m-d",   // YYYY-MM-DD
-	    locale: "ko",
-	    clickOpens: true,       // 클릭 시 달력 열림
-	    defaultDate: null
-	});
-	
+
 
 </script>
 </html>
