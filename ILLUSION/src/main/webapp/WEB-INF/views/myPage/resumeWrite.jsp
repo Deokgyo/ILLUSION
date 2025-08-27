@@ -132,13 +132,13 @@
 								<div class="form-group">
 									<label>입학일</label>
 									<div class="date-input-container">
-   										<input type="text" name="enroll_date" id="enroll_date" placeholder="연도-월-일">
+   										<input type="text" name="enroll_date" id="enroll_date" placeholder="연도-월-일" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group">
 									<label>졸업일</label>
 									<div class="date-input-container">
-   										<input type="text" name="graduation_date" id="graduation_date" placeholder="연도-월-일">
+   										<input type="text" name="graduation_date" id="graduation_date" placeholder="연도-월-일" autocomplete="off">
 									</div>
 									
 								</div>

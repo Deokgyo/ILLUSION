@@ -29,4 +29,5 @@ public interface JobToolsMapper {
 	
 	public int deductToken(@Param("member_idx") int member_idx, @Param("tokenAmount") int tokenAmount); // 회원 토큰 차감하기
 	
+	public int insertQuestion(@Param("splitResult")List<String> splitResult, @Param("member_idx")int member_idx, @Param("cl_idx")int cl_idx);
 }

@@ -42,6 +42,7 @@
         <intercept-url pattern="/recruitmentInfo" access="permitAll" />    
         <intercept-url pattern="/communityMain" access="permitAll" />
         <intercept-url pattern="/communityDetail**" access="permitAll" />
+<!--         <intercept-url pattern="/createInterviewByDirect" access="isAuthenticated()" /> -->
         <intercept-url pattern="/api/boards/**/comments" access="permitAll" method="GET" />
         <intercept-url pattern="/api/boards/**/comments" access="isAuthenticated()" method="POST" />
         <intercept-url pattern="/api/codes**" access="permitAll" />

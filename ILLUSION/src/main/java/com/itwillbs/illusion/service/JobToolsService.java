@@ -44,22 +44,26 @@ public class JobToolsService {
 	// 유저 토큰 수 차감
 	@Transactional
 	public Map<String, Object> useTokenForJobTools(Map<String, Object> coverletterMap, int requiredTokens) {
+		
 	    int member_idx = (int) coverletterMap.get("member_idx");
 	    
+	    // 토큰 차감 
 	    int updateCount = mapper.deductToken(member_idx, requiredTokens);
-	    
 	    if (updateCount == 0) {
 	        throw new RuntimeException("토큰이 부족하여 작업을 완료할 수 없습니다.");
 	    }
 	    
+	    //토큰 있으면 저장 실행 
 	    mapper.saveCoverletter(coverletterMap);
 	    
+	    // 
 	    Number generatedId = (Number) coverletterMap.get("cl_idx");
 
 	    if (generatedId == null) {
 	        throw new RuntimeException("자소서 저장 후 PK를 가져오는 데 실패했습니다.");
 	    }
 		
+	    // 차감되고 나서 얼마나 남았는지 ? 
 		Integer newTokenCount = mapper.getMemberToken(member_idx);
 		
 		Map<String, Object> result = new HashMap<>();
@@ -122,6 +126,18 @@ public class JobToolsService {
 	        throw new RuntimeException("자소서 저장 후 PK를 가져오는 데 실패했습니다.");
 	    }
 	    return generatedId.intValue();
+	}
+	
+	// 진짜 토큰 차감만하는거(덕교) 
+	public int deductToken(int member_idx, int cost) {
+		Integer newTokenCount = mapper.getMemberToken(member_idx);
+		// 현재 토큰이 차감하려는 토큰 보다 작을시 0 반환, 토큰보다 더 있으면 차감 실행 
+		return newTokenCount < cost ? 0 :mapper.deductToken(member_idx, cost);
+	}
+	
+	// 생성된 질문 디비에 넣기 
+	public int insertQuestion(List<String> splitResult, int member_idx, int cl_idx) {
+		return mapper.insertQuestion(splitResult, member_idx, cl_idx);
 	}
 	
 }
