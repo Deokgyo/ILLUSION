@@ -41,4 +41,8 @@ public interface AdminMapper {
 	
 	public void deleteBoard(int board_idx); // 공통 코드 삭제
 	
+	public Map<String, String> getCommonCode(String code); // 공통 코드 하나 조회
+	
+	public void updateCommonCode(Map<String, String> map); // 공통 코드 수정
+	
 }
