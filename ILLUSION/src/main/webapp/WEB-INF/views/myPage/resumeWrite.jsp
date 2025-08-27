@@ -145,7 +145,7 @@
 							</div>
 							<div class="form-group">
 								<label>추가정보 (선택)</label>
-								<textarea placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요 ex) 수석 졸업 등" autocomplete="off"></textarea>
+								<textarea name="additional_information" placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요 ex) 수석 졸업 등" autocomplete="off"></textarea>
 							</div>
 						</div>
 
@@ -194,13 +194,13 @@
 							</div>
 							<div class="form-group">
 								<label>담당 업무 및 성과</label>
-								<textarea placeholder="주요 담당 업무를 입력하세요" autocomplete="off"></textarea>
+								<textarea name="responsibilities" placeholder="주요 담당 업무 및 성과를 입력하세요" autocomplete="off"></textarea>
 							</div>
 						</div>
 
 						<div class="section">
 							<div class="form-group">
-								<label>자격증(선택)</label> <input type="text" placeholder="보유중인 자격증을 입력하세요" autocomplete="off">
+								<label>자격증(선택)</label> <input type="text" name="certificate" placeholder="보유중인 자격증을 입력하세요" autocomplete="off">
 							</div>
 						</div>
 

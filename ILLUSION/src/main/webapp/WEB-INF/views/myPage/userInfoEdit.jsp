@@ -95,8 +95,9 @@
 							</tr>
 							<tr>
 								<th>성별</th>
-								    <td>
-								     	<input type="text" name="gender" class="bg-text" value="${member.gender}">
+									 <td>
+										<input type="text" name="gender" class="bg-text"
+									value="${member.gender}">
    								 	</td>
 							</tr>
 							<tr>
