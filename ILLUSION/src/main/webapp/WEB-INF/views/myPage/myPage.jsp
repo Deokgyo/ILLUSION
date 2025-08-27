@@ -50,7 +50,7 @@
 				        <div class="profile-img">
 				        	<img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
 				        </div>
-				        <button class="edit-btn" onclick="location.href='userInfoEdit?member_idx=1'">회원정보수정</button>
+				        <button class="edit-btn" onclick="location.href='userInfoEdit'">회원정보수정</button>
 					</div>
 				    <div class="profile-info">
 				          <div class="main-username">${member.member_name }님</div>
