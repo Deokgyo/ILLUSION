@@ -74,7 +74,6 @@
 			            </div>
 			            <div class="action-buttons-top">
 			            	<a href="comcodeCommit" class="btn btn-yellow">공통코드 추가 ❐</a>
-			                <button class="btn btn-yellow">공통코드 삭제 🗑️</button>
 			            </div>
 			        </div>
 			        
@@ -83,114 +82,33 @@
 			            <table>
 			                <thead>
 			                    <tr>
-			                        <th><input type="checkbox" id="check-all"></th>
 			                        <th>No.</th>
 			                        <th>코드타입ID</th>
 			                        <th>코드타입명</th>
-			                        <th>코드타입 설명</th>
 			                        <th>공통코드ID</th>
 			                        <th>공통코드명</th>
 			                        <th>공통코드 설명</th>
-			                        <th>사용여부</th>
-			                        <th>순서</th>
 			                        <th>관리</th>
 			                    </tr>
 			                </thead>
 			                <tbody>
 			                    <!-- 반복될 데이터 행 (예시) -->
-			                    <tr>
-			                        <td><input type="checkbox" class="row-check"></td>
-			                        <td>1</td>
-			                        <td>MEMBER_TYPE</td>
-			                        <td>회원등급</td>
-			                        <td>회원 등급 타입</td>
-			                        <td>MEM001</td>
-			                        <td>관리자</td>
-			                        <td>관리자 회원 등급입니다.</td>
-			                        <td>
-			                            <label class="toggle-switch">
-			                                <input type="checkbox" checked>
-			                                <span class="slider"></span>
-			                            </label>
-			                        </td>
-			                        <td>1</td>
-			                        <td>
-			                            <div class="action-buttons">
-			                            	<a href="comcodeCommit" class="btn btn-yellow">수정</a>
-			                                <button class="btn btn-yellow">삭제</button>
-			                            </div>
-			                        </td>
-			                    </tr>
-			                    <tr>
-			                        <td><input type="checkbox" class="row-check"></td>
-			                        <td>2</td>
-			                        <td>MEMBER_TYPE</td>
-			                        <td>회원등급</td>
-			                        <td>회원 등급 타입</td>
-			                        <td>MEM002</td>
-			                        <td>일반회원</td>
-			                        <td>일반 회원 등급입니다.</td>
-			                        <td>
-			                             <label class="toggle-switch">
-			                                <input type="checkbox">
-			                                <span class="slider"></span>
-			                            </label>
-			                        </td>
-			                        <td>2</td>
-			                        <td>
-			                            <div class="action-buttons">
-			                                <a href="comcodeCommit" class="btn btn-yellow">수정</a>
-			                                <button class="btn btn-yellow">삭제</button>
-			                            </div>
-			                        </td>
-			                    </tr>
-			                    <tr>
-			                        <td><input type="checkbox" class="row-check"></td>
-			                        <td>3</td>
-			                        <td>GENDER</td>
-			                        <td>성별</td>
-			                        <td>성별 타입</td>
-			                        <td>GEN001</td>
-			                        <td>남</td>
-			                        <td>남자</td>
-			                        <td>
-			                             <label class="toggle-switch">
-			                                <input type="checkbox">
-			                                <span class="slider"></span>
-			                            </label>
-			                        </td>
-			                        <td>2</td>
-			                        <td>
-			                            <div class="action-buttons">
-			                                <a href="comcodeCommit" class="btn btn-yellow">수정</a>
-			                                <button class="btn btn-yellow">삭제</button>
-			                            </div>
-			                        </td>
-			                    </tr>
-			                    <tr>
-			                        <td><input type="checkbox" class="row-check"></td>
-			                        <td>4</td>
-			                        <td>GENDER</td>
-			                        <td>성별</td>
-			                        <td>성별 타입</td>
-			                        <td>GEN002</td>
-			                        <td>여</td>
-			                        <td>여자</td>
-			                        <td>
-			                             <label class="toggle-switch">
-			                                <input type="checkbox">
-			                                <span class="slider"></span>
-			                            </label>
-			                        </td>
-			                        <td>2</td>
-			                        <td>
-			                            <div class="action-buttons">
-			                                <a href="comcodeCommit" class="btn btn-yellow">수정</a>
-			                                <button class="btn btn-yellow">삭제</button>
-			                            </div>
-			                        </td>
-			                    </tr>
-			                    <!-- ... 추가 데이터 행 ... -->
+			                    <c:forEach var="com" items="${commonCodeList }" varStatus="status">
+			                    	<tr>
+				                        <td>${status.index + 1 }</td>
+				                        <td>${com.code_group_id }</td>
+				                        <td>${com.group_name }</td>
+				                        <td>${com.code }</td>
+				                        <td>${com.code_name }</td>
+				                        <td>${com.description }</td>
+				                        <td>
+				                            <div class="action-buttons">
+				                            	<a href="comcodeModify?code=${com.code}" class="btn btn-yellow">수정</a>
+           										<a href="comcodeDelete?code=${com.code}" class="btn btn-yellow">삭제</a>
+				                            </div>
+				                        </td>
+				                    </tr>
+			                    </c:forEach>
 			                </tbody>
 			            </table>
 			        </div>

@@ -128,4 +128,73 @@
 		 WHERE member_idx = #{member_idx}
 	</delete>
 	
+	<!-- 공고 리스트 조회 ㅈㅈ-->
+<!-- 	<select id="getRecruitment"> -->
+<!-- 		SELECT  -->
+<!-- 			 , recruit_subject -->
+<!-- 			 , start_date -->
+<!-- 			 , end_date -->
+			 
+<!-- 		  FROM recruit r -->
+<!-- 		  JOIN member m ON  -->
+<!-- 	</select> -->
+	
+	<!-- 게시글 리스트 조회 -->
+	<select id="getBoardList">
+		SELECT 
+			   board_idx
+			 , board_type
+			 , board_title
+			 , board_create_at
+			 , m.member_id
+		  FROM board b
+		  JOIN member m ON b.member_idx = m.member_idx
+		  LIMIT #{listLimit} OFFSET #{startRow}
+	</select>
+	
+	
+	<!-- 공통코드 전체 조회 -->
+	<select id="getCommonCodeList">
+		SELECT 
+		       code
+		     , code_name
+		     , cc.code_group_id 
+		     , description
+		     , group_name
+		  FROM common_code cc
+		  JOIN common_code_group cg ON cc.code_group_id = cg.code_group_id
+	</select>
+	
+	<!-- 공통코드 하나 조회 -->
+	<select id="getCommonCode">
+		SELECT 
+		       code
+		     , code_name
+		     , cc.code_group_id 
+		     , description
+		     , group_name
+		  FROM common_code cc
+		  JOIN common_code_group cg ON cc.code_group_id = cg.code_group_id
+		 WHERE code = #{code}
+	</select>
+	
+	
+	<!-- 공통코드 삭제 -->
+	<delete id="deleteBoard">
+		DELETE FROM board
+     	 WHERE board_idx = #{board_idx}
+	</delete>
+	
+	<!-- 공통코드 수정 -->
+	<update id="updateCommonCode">
+	    UPDATE common_code cc
+	INNER JOIN common_code_group cg ON cc.code_group_id = cg.code_group_id 
+	       SET cc.code_name = #{code_name}
+	         , cg.group_name = #{group_name}
+			 , cg.description = #{description}
+			 , cc.code = #{code}
+	     WHERE cc.code = #{code}
+	</update>
+	
+	
 </mapper>

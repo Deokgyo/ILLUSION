@@ -32,4 +32,17 @@ public interface AdminMapper {
 	public Map<String, Object> getMemberDetail(int member_idx); // 회원 상세 정보 조회
 
 	public void deleteMember(int member_idx); // 회원 삭제
+	
+	public List<Map<String, String>> getRecruitment(); // 공고 리스트 조회
+	
+	public List<Map<String, String>> getBoardList(@Param("startRow") int startRow, @Param("listLimit") int listLimit); // 게리글 리스트 조회
+	
+	public List<Map<String, String>> getCommonCodeList(); // 공통 코드 리스트 조회
+	
+	public void deleteBoard(int board_idx); // 공통 코드 삭제
+	
+	public Map<String, String> getCommonCode(String code); // 공통 코드 하나 조회
+	
+	public void updateCommonCode(Map<String, String> map); // 공통 코드 수정
+	
 }

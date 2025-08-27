@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.controller.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,13 +75,32 @@ public class AdminController {
 		return "admin/adminMember";
 	}
 	
-	@GetMapping("adminRecuritment")
-	public String adminRecuritment() {
-		return "admin/adminRecuritment";
+	// 공고관리 페이지 이동
+	@GetMapping("adminRecruitment")
+	public String adminRecruitment() {
+		
+//		List<Map<String, String>> recruitmentMap = service.getRecruitment();
+		return "admin/adminRecruitment";
 	}
 	
+	// 게시글 관리 페이지 이동
 	@GetMapping("adminCommunity")
-	public String adminCommunity() {
+	public String adminCommunity(Model model, @RequestParam(defaultValue = "1") int pageNum) {
+		
+		
+		int listLimit = 10; // 한 페이지에 표시할 회원 수
+	    int pageListLimit = 10; // 한 번에 표시할 페이지 번호 수
+
+	    int listCount = service.getBoardCount(); // 전체 게시글 수 조회
+	    PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+
+	    int startRow = (pageInfo.getPageNum() - 1) * listLimit;
+		
+	    List<Map<String, String>> boardMap = service.getBoardList(startRow, listLimit);
+	    
+	    model.addAttribute("boardInfo", boardMap);
+	    model.addAttribute("pageInfo", pageInfo);
+	    
 		return "admin/adminCommunity";
 	}
 	
@@ -94,9 +114,33 @@ public class AdminController {
 		return "admin/adminPayment";
 	}
 	
+	// 공통코드 관리페이지 이동
 	@GetMapping("comcodeRegist")
-	public String comcodeRegist() {
+	public String comcodeRegist(Model model) {
+		
+		List<Map<String, String>> commonCodeList = service.getCommonCodeList();
+		System.out.println("==========================");
+		System.out.println(commonCodeList);
+		
+		
+		model.addAttribute("commonCodeList", commonCodeList);
 		return "admin/comcodeRegist";
+	}
+	
+	// 공통코드 등록 페이지 이동
+	@GetMapping("comcodeCommit")
+	public String comcodeCommit() {
+
+		return "admin/comcodeCommit";
+	}
+	
+	// 공통코드 수정 페이지 이동
+	@GetMapping("comcodeModify")
+	public String comcodeModify(@RequestParam("code") String code, Model model) {
+	    Map<String, String> commonCode = service.getCommonCode(code);
+	    model.addAttribute("code", commonCode);
+
+	    return "admin/comcodeModify"; // 수정 페이지 이동
 	}
 	
 	@GetMapping("adminMemberDetail")
@@ -104,11 +148,6 @@ public class AdminController {
 		Map<String, Object> member = service.getMemberDetail(member_idx);
 		model.addAttribute("member", member);
 		return "admin/adminMemberDetail";
-	}
-	
-	@GetMapping("comcodeCommit")
-	public String comcodeCommit() {
-		return "admin/comcodeCommit";
 	}
 	
 	// 회원 상태, 타입 수정 
@@ -137,10 +176,34 @@ public class AdminController {
 	public Map<String, String> deleteMember(@PathVariable("member_idx") int member_idx) {
 		service.deleteMember(member_idx);
 		
-		Map<String, String> response = new HashMap<String, String>();
-		response.put("result", "success");
+		Map<String, String> res = new HashMap<String, String>();
+		res.put("result", "success");
 		
-		return response;
+		return res;
+	}
+	
+	// 게시글 삭제
+	@DeleteMapping("deleteBoard/{board_idx}")
+	@ResponseBody
+	public Map<String, String> deleteBoard(@PathVariable("board_idx") int board_idx){
+		service.deleteBoard(board_idx);
+		
+		Map<String, String> res = new HashMap<String, String>();
+		res.put("result", "success");
+		
+		return res;
+	}
+	
+	// 공통코드 수정
+	@PostMapping("comcodeModify")
+	public void updateCommonCode(@RequestParam Map<String, String> param) {
+		
+		System.out.println("=====================");
+		System.out.println(param);
+		System.out.println("=====================");
+		
+		service.updateCommonCode(param);
+		
 	}
 	
 }

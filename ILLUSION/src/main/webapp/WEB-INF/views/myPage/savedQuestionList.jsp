@@ -38,7 +38,6 @@
 	</header>
 
 	<div class="page-container">
-
 		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 		<main class="main-content">
 			<div class="page-title-header">
@@ -49,15 +48,11 @@
 			<div class="form-box">
 				<div class="ai-interview-container">
 					<!-- 질문 블록 -->
-					<c:forEach var="quest" items="${QuestList}">
+					<c:forEach var="quest" items="${QuestionList}" >
 						<div class="question-block">
 							<div class="question-header">
-								<span class="question-icon">❓</span> <span name=""
-									class="question-text">${quest.question_idx}</span>
-								<div class="button-group">
-									<button class="copy-btn">복사</button>
-									<button class="delete-btn" onclick="confirm('저장하시겠습니까?')">삭제</button>
-								</div>
+								<input type="checkbox" class="checkbox" value="${quest.question_idx}">
+								<span class="question-icon">❓</span> <span class="question-text">${quest.question_text}</span>
 							</div>
 
 							<textarea class="user-answer" placeholder="내가 작성한 답변">${quest.answer_text}</textarea>
@@ -70,32 +65,40 @@
 						</div>
 						<!-- 동일 블록 반복 추가 -->
 					</c:forEach>
-					<div class="question-block">
-						<!-- 동일 내용 반복 -->
-						<div class="question-header">
-							<span class="question-icon">❓</span> <span class="question-text">자격증은
-								어떤 이유로 취득하게 되었나요?</span>
-							<div class="button-group">
-								<button class="copy-btn">복사</button>
-								<button class="delete-btn" onclick="confirm('삭제하시겠습니까?')">삭제</button>
-							</div>
-						</div>
-						<textarea class="user-answer" placeholder="내가 작성한 답변"></textarea>
-						<div class="ai-feedback">
-							<img
-								src="https://cdn-icons-png.flaticon.com/512/4712/4712104.png"
-								alt="AI 아이콘" class="ai-icon" /> <span class="feedback-text">질문은
-								좋으나 문장의 전체적 구성력과 근거들이 부족합니다</span>
-						</div>
+					<div class="button-group">
+						<button class="delete-btn" id="delete-btn">삭제</button>
 					</div>
-
-					<!-- 예시질문 추가 버튼 -->
 					<div class="add-question-wrap">
 						<button class="add-question-btn">+ 예상질문 생성하기</button>
 					</div>
+					
+					<nav class="pagination">
+					    <!-- 이전 페이지 버튼 -->
+					    <c:if test="${pageInfo.pageNum > 1}">
+					    	<c:url var="pageUrl" value="savedQuestionList">
+					    		<c:param name="pageNum" value="1"></c:param>
+					    	</c:url>
+					    	<a href="${pageUrl}">&laquo;</a>
+					    </c:if>
+					
+					    <!-- 페이지 번호 -->
+					    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+						    <c:url var="pageUrl" value="savedQuestionList">
+						        <c:param name="pageNum" value="${i}" />
+						    </c:url>
+						    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+						</c:forEach>
+					
+					    <!-- 다음 페이지 버튼 -->
+					    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+					    	<c:url var="pageUrl" value="savedQuestionList">
+					    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+					    	</c:url>
+			    		    <a href="${pageUrl}">&raquo;</a>
+					    </c:if>
+					</nav>
+
 				</div>
-
-
 			</div>
 		</main>
 	</div>
@@ -103,8 +106,23 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	
+	<script>
+    	window.contextPath = "${pageContext.request.contextPath}";
+	</script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/myPage/myPageDelete.js"></script>
+	<script>
+	    $(function() {
+	        initializeMultipleDelete({
+	        	deleteButtonId: '#delete-btn',
+	        	itemCheckboxClass: '.checkbox',
+	        	deleteApiUrl: '/api/mypage/myQuestionList/delete',
+	        	paramName: 'idList',
+	        	itemName: '면접 질문'
+	        });
+	    });
+	</script>
 </body>
 </html>
