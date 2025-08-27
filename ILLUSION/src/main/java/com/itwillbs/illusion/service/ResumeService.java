@@ -9,7 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.illusion.mapper.ResumeMapper;
 import com.itwillbs.illusion.vo.ResumeVO;
-
+import com.itwillbs.illusion.vo.CommonCodeVO;
+import com.itwillbs.illusion.vo.MemberVO;
 
 
 @Service
@@ -40,7 +41,17 @@ public class ResumeService {
 	   public Map<String, Object> selectResume(int resumeIdx) {
 	        return mapper.selectResume(resumeIdx);
 	   }
-	   
+	   /*이력서 회원정보*/
+	   public MemberVO SelectM(String member_id) {
+			return mapper.SelectM(member_id);
+		}
+	   /*이력서 공통코드*/
+	   public List<CommonCodeVO> getCodes(String groupId) {
+	        return mapper.getCommonCodeList(groupId);
+	    }
+	   public List<CommonCodeVO> getCodes1(String groupId) {
+		   return mapper.getCommonCodeList1(groupId);
+	   }
 	  
 	   public List<Map<String, Object>> selectResumelist() {
 		   return mapper.selectResumelist();

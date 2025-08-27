@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +33,7 @@
 	<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 </header>
 <body>
+<%-- 	${sessionScope.loginUser } --%>
 	<div class="page-container">
 		<jsp:include page="/WEB-INF/views/inc/sidebar.jsp" />
 		<main class="main-content">
@@ -43,7 +45,7 @@
 
 			<div class="container">
 				<form action="resumeWrite" name="resumeForm" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
-					<input type="hidden" name="member_idx" value="1">
+					<input type="hidden" name="member_idx" value="${member.member_idx }">
 					 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="resume-form">
 						<div class="section">
@@ -65,13 +67,18 @@
 									    <input type="file" name="resume_img" id="file1" accept="image/*" style="display: none;">
 									
 									    <!-- 커스텀 버튼 -->
-									    <button type="button" class="upload-btn" onclick="document.getElementById('file1').click();">
-									        업로드
-									    </button>
+									    <button type="button" class="upload-btn" onclick="document.getElementById('file1').click();">업로드</button>
 									</div>
 								<div class="profile-info">
 									
-									<div class="info-box">회원 정보출력</div>
+									<div class="info-box">
+									<div class="name">이름: ${member.member_name }</div>
+									<div class="memberData">주소: ${member.address_name }</div>
+									<div class="memberData">전화번호: ${member.member_phone }</div>
+									<div class="memberData">성별: ${member.gender }</div>
+									<div class="memberData">이메일: ${member.member_email }</div>
+									
+									</div>
 								</div>
 							</div>
 						</div>
@@ -89,16 +96,17 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학위</label> <select name="degree_type">
-										<option value="" selected disabled>-- 선택 --</option>
-										<option>전문학사</option>
-										<option>학사</option>
-										<option>석사</option>
-										<option>박사</option>
-									</select>
+									<label>학위</label>
+									 <select name="degree">
+									 		<option value="" selected disabled>-- 선택 --</option>
+										    <c:forEach var="d" items="${degreeList}">
+										        <option value="${d.code}">${d.code_name}</option>
+										    </c:forEach>
+										</select>
 								</div>
 								<div class="form-group">
-									<label>상태</label> <select name="degree">
+									<label>상태</label>
+									 <select name="degreetype">
 										<option value="" selected disabled>-- 선택 --</option>
 										<option value="재학">재학</option>
 										<option value="중퇴">중퇴</option>
@@ -149,7 +157,14 @@
 								</div>
 								<div class="form-group">
 									<label>직책</label>
-									 <input name="position" type="text" placeholder="직책을 입력하세요" autocomplete="off">
+									<div class="date-input-container">
+										<select name="position">
+											<option value="" selected disabled>-- 선택 --</option>
+										    <c:forEach var="e" items="${positionList}">
+										        <option value="${e.code_name}">${e.code_name}</option>
+										    </c:forEach>
+										</select>
+									</div>
 								</div>
 							</div>
 							<div class="form-row">
@@ -158,27 +173,28 @@
 									<div class="date-input-container">
 										<select name="experience">
 											<option value="" selected disabled>-- 선택 --</option>
-											<option value="신입">신입</option>
-											<option value="1~3년차">1~3년차</option>
-											<option value="4~7년차">4~7년차</option>
-											<option value="4~7년차">4~7년차</option>
-											<option value="8+년차">8+년차</option>
-											<option value="경력무관">경력무관</option>
-											<option value="인턴">인턴</option>
-											<option value="인턴">계약직</option>
+										    <c:forEach var="e" items="${experienceList}">
+										        <option value="${e.code_name}">${e.code_name}</option>
+										    </c:forEach>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
-									<label>직종</label>
-										<input name="occupation" type="text" placeholder="직종을 입력하세요" autocomplete="off">
+									<label>직무</label>
+									<div class="date-input-container">
+										<select name="occupation">
+											<option value="" selected disabled>-- 선택 --</option>
+										    <c:forEach var="e" items="${occupationList}">
+										        <option value="${e.code_name}">${e.code_name}</option>
+										    </c:forEach>
+										</select>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label>담당 업무 및 성과</label>
 								<textarea placeholder="주요 담당 업무를 입력하세요" autocomplete="off"></textarea>
 							</div>
-							<button type="button" class="btn btn-add">+ 경력 추가하기</button>
 						</div>
 
 						<div class="section">
@@ -203,86 +219,85 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <script type="text/javascript">
-// 	function validateForm() {
-// 		const form = document.forms["resumeForm"];
+	function validateForm() {
+		const form = document.forms["resumeForm"];
 
-// 		// 제목 검사
-// 		if (form["resume_title"].value.trim() === "") {
-// 			alert("제목을 입력해주세요!");
-// 			form["resume_title"].focus();
-// 			return false;
-// 		}
+		// 제목 검사
+		if (form["resume_title"].value.trim() === "") {
+			alert("제목을 입력해주세요!");
+			form["resume_title"].focus();
+			return false;
+		}
 
-// 		// 학교 이름 검사
-// 		if (form["school_name"].value.trim() === "") {
-// 			alert("학교 이름을 입력해주세요!");
-// 			form["school_name"].focus();
-// 			return false;
-// 		}
+		// 학교 이름 검사
+		if (form["school_name"].value.trim() === "") {
+			alert("학교 이름을 입력해주세요!");
+			form["school_name"].focus();
+			return false;
+		}
 
-// 		// 전공 검사
-// 		if (form["major"].value.trim() === "") {
-// 			alert("전공을 입력해주세요!");
-// 			form["major"].focus();
-// 			return false;
-// 		}
+		// 전공 검사
+		if (form["major"].value.trim() === "") {
+			alert("전공을 입력해주세요!");
+			form["major"].focus();
+			return false;
+		}
 
-// 		// 학위 선택 검사 (첫 번째 select는 name 없음 -> name 추가 필요)
-// 		if (!form["degree_type"].value) {
-// 			alert("학위를 선택해주세요!");
-// 			form["degree_type"].focus();
-// 			return false;
-// 		}
-// 		// 상태 검사
-// 		if (!form["degree"].value) {
-// 			alert("상태를 선택해주세요!");
-// 			form["degree"].focus();
-// 			return false;
-// 		}
-// 		// 학점 검사
-// 		if (!form["grade"].value) {
-// 			alert("학점을 입력해주세요!");
-// 			form["grade"].focus();
-// 			return false;
-// 		}
-// 		// 입학날짜 검사
-// 		if (!form["enroll_date"].value) {
-// 			alert("입학 날짜를 선택해주세요!");
-// 			form["enroll_date"].focus();
-// 			return false;
-// 		}
-// 		// 졸업날짜 검사
-// 		if (!form["graduation_date"].value) {
-// 			alert("졸업 날짜를 선택해주세요!");
-// 			form["graduation_date"].focus();
-// 			return false;
-// 		}
+		// 학위 선택 검사 (첫 번째 select는 name 없음 -> name 추가 필요)
+		if (!form["degree_type"].value) {
+			alert("학위를 선택해주세요!");
+			form["degree_type"].focus();
+			return false;
+		}
+		// 상태 검사
+		if (!form["degree"].value) {
+			alert("상태를 선택해주세요!");
+			form["degree"].focus();
+			return false;
+		}
+		// 학점 검사
+		if (!form["grade"].value) {
+			alert("학점을 입력해주세요!");
+			form["grade"].focus();
+			return false;
+		}
+		// 입학날짜 검사
+		if (!form["enroll_date"].value) {
+			alert("입학 날짜를 선택해주세요!");
+			form["enroll_date"].focus();
+			return false;
+		}
+		// 졸업날짜 검사
+		if (!form["graduation_date"].value) {
+			alert("졸업 날짜를 선택해주세요!");
+			form["graduation_date"].focus();
+			return false;
+		}
 
-// 		return true; // 모든 체크 통과하면 제출
-// 	}
+		return true; // 모든 체크 통과하면 제출
+	}
 	
 	$("#file1").on("change", function(e) {
 	    const file = e.target.files[0];
 	    if (file) {
 	        const imageUrl = URL.createObjectURL(file);
-	        $("#avatarPreview")
-	            .css("background-image", "url(" + imageUrl + ")")
-	            .text(""); // "사진 없음" 글자 제거
+	        $("#avatarPreview img").attr("src", imageUrl); // <img> src 변경
 	    }
 	});
-	
-	flatpickr("#graduation_date", {
-	    dateFormat: "Y-m-d", // YYYY-MM-DD
-	    locale: "ko",   
-	    clickOpens: true,     // 클릭 시 달력 열림
-	    defaultDate: null
-	});
-
+	// 입학일 달력 출력
 	flatpickr("#enroll_date", {
-	    dateFormat: "Y-m-d", // YYYY-MM-DD
-	    locale: "ko",   
-	    clickOpens: true,     // 클릭 시 달력 열림
+	    dateFormat: "Y-m-d",   // YYYY-MM-DD
+	    locale: "ko",
+	    clickOpens: true,       // 클릭 시 달력 열림
 	    defaultDate: null
 	});
+	flatpickr("#graduation_date", {
+	    dateFormat: "Y-m-d",   // YYYY-MM-DD
+	    locale: "ko",
+	    clickOpens: true,       // 클릭 시 달력 열림
+	    defaultDate: null
+	});
+	
+
 </script>
 </html>

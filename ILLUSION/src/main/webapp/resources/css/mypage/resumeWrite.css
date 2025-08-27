@@ -117,6 +117,15 @@ body {
     border: 1px solid #ccc;
     display: block;
 }
+.name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--font-main-color);
+}
+.memberData{
+	color: var(--font-main-color);
+}
 .upload-btn {
   padding: 2px 29px;
   background-color: var(--main-color);
