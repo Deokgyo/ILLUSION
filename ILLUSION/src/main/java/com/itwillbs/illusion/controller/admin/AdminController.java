@@ -196,13 +196,15 @@ public class AdminController {
 	
 	// 공통코드 수정
 	@PostMapping("comcodeModify")
-	public void updateCommonCode(@RequestParam Map<String, String> param) {
+	public String updateCommonCode(@RequestParam Map<String, String> param) {
 		
 		System.out.println("=====================");
 		System.out.println(param);
 		System.out.println("=====================");
 		
 		service.updateCommonCode(param);
+		
+		return "redirect:/comcodeRegist";
 		
 	}
 	

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.illusion.mapper.JobToolsMapper;
 import com.itwillbs.illusion.util.JobToolsConstants;
+import com.itwillbs.illusion.util.PrincipalRefresher;
 import com.itwillbs.illusion.util.SecurityUtil;
 
 @Service
@@ -17,6 +18,9 @@ public class JobToolsService {
 	
 	@Autowired
 	JobToolsMapper mapper;
+	
+	@Autowired
+	PrincipalRefresher principalRefresher;
     
     @Autowired
     private GeminiService geminiService;
@@ -70,6 +74,9 @@ public class JobToolsService {
 		result.put("generatedClIdx", generatedId.intValue());
 		result.put("newTokenCount", newTokenCount);
 	    
+	    // 세션에 변경된 토큰 정보를 즉시 반영
+	    principalRefresher.refreshPrincipal();
+
 	    return result;
 	}
 	
@@ -96,6 +103,9 @@ public class JobToolsService {
 	    Map<String, Object> result = new java.util.HashMap<>();
 	    result.put("reply", aiReply);
 	    result.put("newToken", newTokenCount);
+
+	    // 세션에 변경된 토큰 정보를 즉시 반영
+	    principalRefresher.refreshPrincipal();
 
 	    return result;
 	}

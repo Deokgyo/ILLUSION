@@ -82,6 +82,5 @@
 	<!-- transaction-manager 속성값으로 5-1 의 <bean> 태그의 id 속성값 지정 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<!-- 트랜잭션 처리가 필요한 클래스(주로, Service 클래스)에서 @Transactional 어노테이션 사용 -->
-	<!-- =============================================================== -->	
-		
+	<!-- =============================================================== -->
 </beans>
