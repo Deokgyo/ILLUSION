@@ -287,20 +287,18 @@
 	</delete>
 
 	<!-- 마이페이지 자소서 목록 셀렉트 -->
-	<select id="getCLListByMemberId" parameterType="int"
-		resultType="com.itwillbs.illusion.vo.CoverLetterVO">
-		SELECT
-		c.cl_idx
-		, c.member_idx
-		, c.cl_title
-		, c.generation_date
-		, t.code_name as cl_type
-		FROM cover_letter c LEFT JOIN common_code t ON
-		t.code = c.cl_type
-		WHERE c.member_idx = #{memberIdx}
-		ORDER BY cl_idx
-		DESC
-		LIMIT #{startRow}, #{listLimit}
+	<select id="getCLListByMemberId" parameterType="int" resultType="com.itwillbs.illusion.vo.CoverLetterVO">
+		 SELECT
+		 	    c.cl_idx
+		      , c.member_idx
+		      , c.cl_title
+		      , c.generation_date
+		      , t.code_name as cl_type
+		   FROM cover_letter c LEFT JOIN common_code t ON t.code = c.cl_type 
+		  WHERE c.member_idx = #{memberIdx}
+			AND is_saved_to_mypage LIKE "%BOL002%"
+		  ORDER BY cl_idx DESC
+		  LIMIT #{startRow}, #{listLimit}
 	</select>
 
 	<!-- select한 자소서 개수 -->

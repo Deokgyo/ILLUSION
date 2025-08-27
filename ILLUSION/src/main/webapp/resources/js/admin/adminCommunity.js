@@ -10,9 +10,10 @@ $(function(){
             type: 'DELETE',
             success: function(res) {
                 alert('삭제완료');
+				location.reload();
+                
             },
             error: function(xhr, status, error) {
-				debugger;
                 alert('오류가 발생했습니다. 다시 시도해주세요.');
             }
         });

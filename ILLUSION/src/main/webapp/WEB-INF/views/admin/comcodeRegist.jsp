@@ -74,7 +74,6 @@
 			            </div>
 			            <div class="action-buttons-top">
 			            	<a href="comcodeCommit" class="btn btn-yellow">공통코드 추가 ❐</a>
-			                <button class="btn btn-yellow">공통코드 삭제 🗑️</button>
 			            </div>
 			        </div>
 			        
@@ -104,8 +103,8 @@
 				                        <td>${com.description }</td>
 				                        <td>
 				                            <div class="action-buttons">
-				                            	<a href="comcodeCommit" class="btn btn-yellow">수정</a>
-				                                <button class="btn btn-yellow">삭제</button>
+				                            	<a href="comcodeModify?code=${com.code}" class="btn btn-yellow">수정</a>
+           										<a href="comcodeDelete?code=${com.code}" class="btn btn-yellow">삭제</a>
 				                            </div>
 				                        </td>
 				                    </tr>

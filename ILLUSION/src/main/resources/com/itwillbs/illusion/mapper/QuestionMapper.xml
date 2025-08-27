@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itwillbs.illusion.mapper.QuestionMapper">
+	
+	<select id="getQuestionListByMemberId" parameterType="int" resultType="com.itwillbs.illusion.vo.QuestionVO">
+	   SELECT 
+		      q.question_idx,
+		      q.cl_idx,
+		      q.question_text,
+		      q.question_create_at,
+		      a.answer_idx,
+		      a.answer_text,
+		      a.ai_feedback,
+		      a.answer_create_at
+		 FROM question q LEFT JOIN answer a ON q.question_idx = a.question_idx 
+		  AND a.member_idx = #{memberIdx}
+		WHERE q.cl_idx = #{clIdx}
+		ORDER BY q.question_idx
+		LIMIT #{startRow}, #{listLimit}
+	</select>
+	
+	<select id="getQuestionListCountByMember" parameterType="com.itwillbs.illusion.vo.QuestionVO" resultType="int">
+	    SELECT COUNT(*)
+  	    FROM answer
+  	    WHERE member_idx = #{memberIdx}
+	</select>
+	
+	<!-- 마이페이지 여러건 면접 질문 삭제 -->
+    <delete id="deleteMyAnswerList" parameterType="map">
+	    DELETE 
+	      FROM answer
+	     WHERE member_idx = #{memberIdx}
+	       AND answer_idx IN
+	        <foreach item="answerIdx" collection="idList" open="(" separator="," close=")">
+	            #{answerIdx}
+	        </foreach>
+	</delete>
+	
+	<delete id="deleteMyQuestionList" parameterType="map">
+	    DELETE 
+	      FROM question 
+	     WHERE member_idx = #{memberIdx}
+	       AND question_idx IN
+	        <foreach item="questionIdx" collection="idList" open="(" separator="," close=")">
+	            #{questionIdx}
+	        </foreach>
+	</delete>
+</mapper>
