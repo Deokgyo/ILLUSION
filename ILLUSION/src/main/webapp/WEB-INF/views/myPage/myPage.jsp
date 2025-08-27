@@ -79,7 +79,7 @@
 		      			<div class="grid">
 					        <div class="file-card"><a href="savedResumeList">📄 생성된 이력서</a></div>
 					        <div class="file-card"><a href="savedCLList">📝 생성된 자기소개서</a></div>
-					        <div class="file-card"><a href="savedQuestionList">🎤 저장된 면접 예상 질문</a></div>
+<!-- 					        <div class="file-card"><a href="savedQuestionList">🎤 저장된 면접 예상 질문</a></div> -->
 		      			</div>
 		    		</div>
 				</div>

@@ -30,6 +30,7 @@ import com.itwillbs.illusion.vo.BoardVO;
 import com.itwillbs.illusion.vo.CoverLetterVO;
 import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.PageInfo;
+import com.itwillbs.illusion.vo.QuestionVO;
 import com.itwillbs.illusion.vo.RecruitFilterVO;
 import com.itwillbs.illusion.vo.ResumeVO;
 import com.itwillbs.illusion.vo.ScrapVO;
@@ -167,9 +168,37 @@ public class MypageController2 {
 
 	/* 면접예상질문 리스트 */
 	@GetMapping("savedQuestionList")
-	public String savedQuestionList(Model model) {
-		List<Map<String, Object>> questList = resumeService.selectquestList();
-		model.addAttribute("QuestList", questList);
+	public String savedQuestionList(Principal principal,
+			Model model,
+			@RequestParam(defaultValue = "1") int pageNum,
+			@RequestParam("cl_idx") int clIdx) {
+		
+		// 방어 코드
+		if(principal == null) {
+			return "home/login";
+		}
+		
+		String member_id = principal.getName();
+		MemberVO member = memberService.getMemberInfoById(member_id);
+		
+        // 페이징 처리-
+        int listLimit = 10; // 한페이지에 10개
+		int pageListLimit = 5;
+        
+        int listCount = mypageService.getQuestionListCountByMember(member.getMember_idx());
+        
+        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
+        PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+        
+        // 데이터 조회
+        int startRow = (pageNum - 1) * listLimit;
+		
+		List<QuestionVO> QuestionList = mypageService.getQuestionListByMemberId(
+		member.getMember_idx(), clIdx, startRow, listLimit);
+		
+		
+		model.addAttribute("QuestionList", QuestionList);
+		model.addAttribute("pageInfo", pageInfo);
 
 		return "myPage/savedQuestionList";
 	}

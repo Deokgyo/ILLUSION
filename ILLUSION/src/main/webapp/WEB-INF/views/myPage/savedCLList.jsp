@@ -49,17 +49,16 @@
 			<div class="resume-list-container">
 				<div class="resume-list">
 					<div class="resume-list-header">
-						<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span> <span>자소서 종류</span>
+						<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span>
+						<span>자소서 종류</span> <span>면접 예상질문</span>
 					</div>
 					<c:forEach var="cl" items="${CLList }">
 						<div class="resume-item">
 							<input type="checkbox" class="checkbox" value="${cl.cl_idx }">
-									<div class="title">
-										<a href="savedResumeDetail?resume_idx=${resume.resume_idx}" class="resume-link"> ${resume.resume_title}
-										</a>
-									</div>
-									<div class="date">${cl.generation_date}</div>
-									<div class="date">${cl.cl_type}</div>
+							<div class="title">${cl.cl_title}</div>
+							<div class="date">${cl.generation_date}</div>
+							<div class="date">${cl.cl_type}</div>
+							<button class="delete-btn"><a href="savedQuestionList?cl_idx=${cl.cl_idx}">확인하기</a></button>
 						</div>
 					</c:forEach>
 					<div class="resume-footer">
@@ -107,11 +106,6 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/myPage/myPageDelete.js"></script>
-	<script type="text/javascript">
-		document.getElementById(".edit-btn").onclick = function() {
-			location.href = "coverletterCreate";
-		}
-	</script>
 	<script>
 	    $(function() {
 	        initializeMultipleDelete({

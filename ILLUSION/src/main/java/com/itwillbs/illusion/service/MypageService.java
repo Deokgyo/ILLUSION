@@ -11,12 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwillbs.illusion.mapper.ApplyMapper;
 import com.itwillbs.illusion.mapper.MemberMapper;
 import com.itwillbs.illusion.mapper.MyPostMapper;
+import com.itwillbs.illusion.mapper.QuestionMapper;
 import com.itwillbs.illusion.mapper.ResumeMapper;
 import com.itwillbs.illusion.mapper.ScrapMapper;
 import com.itwillbs.illusion.vo.ApplyVO;
 import com.itwillbs.illusion.vo.BoardVO;
 import com.itwillbs.illusion.vo.CoverLetterVO;
 import com.itwillbs.illusion.vo.MemberVO;
+import com.itwillbs.illusion.vo.QuestionVO;
 import com.itwillbs.illusion.vo.ResumeVO;
 import com.itwillbs.illusion.vo.ScrapVO;
 
@@ -37,6 +39,9 @@ public class MypageService {
 	
 	@Autowired
 	ResumeMapper resumeMapper;
+	
+	@Autowired
+	QuestionMapper questionMapper;
 	
 	// 마이페이지 이력서 목록
 	
@@ -88,6 +93,34 @@ public class MypageService {
         params.put("idList", idList);
         
         return resumeMapper.deleteMyCLs(params);
+    }
+    
+	// 마이페이지 면접 예상 질문 목록
+	public List<QuestionVO> getQuestionListByMemberId(int member_idx, int clIdx, int startRow, int listLimit){
+		return questionMapper.getQuestionListByMemberId(member_idx, clIdx, startRow, listLimit);
+	}
+	
+	public int getQuestionListCountByMember(int member_idx) {
+		return questionMapper.getQuestionListCountByMember(member_idx);
+	}
+	
+	// 마이페이지 면접 질문 삭제 기능
+    @Transactional 
+    public int deleteMyQuestionList(int memberIdx, List<Integer> idList) {
+        if (idList == null || idList.isEmpty()) {
+            return 0;
+        }
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberIdx", memberIdx);
+        params.put("idList", idList);
+        
+        
+        int deletedQuestions = questionMapper.deleteMyQuestionList(params);
+        
+        int deletedAnswers = questionMapper.deleteMyAnswerList(params);
+
+        return deletedQuestions + deletedAnswers;
     }
 	
 	// 마이페이지 스크랩 목록

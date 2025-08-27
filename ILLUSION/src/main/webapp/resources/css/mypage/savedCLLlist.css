@@ -22,7 +22,7 @@
 
 .resume-list-header {
 	display: grid;
-	grid-template-columns: 2fr 6fr 2.5fr 2fr;
+	grid-template-columns: 1fr 7fr 2fr 2fr 2fr;
 	background-color:var(--main-color);
 	padding: 12px 16px;
 	border-radius: 8px;
@@ -32,7 +32,7 @@
 
 .resume-item {
 	display: grid;
-	grid-template-columns: 2fr 6fr 2.5fr 2fr;
+	grid-template-columns: 1fr 7fr 2fr 2fr 2fr;
 	padding: 14px 16px;
 	font-weight: 450;
 	font-size: 14px;

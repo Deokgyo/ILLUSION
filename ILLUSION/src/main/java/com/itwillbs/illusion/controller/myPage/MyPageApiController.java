@@ -110,7 +110,7 @@ public class MyPageApiController {
         return createSuccessResponse(deletedCount, "이력서");
     }
     
-	// 마이페이지에서 체크박스한 이력서 목록 삭제
+	// 마이페이지에서 체크박스한 자소서 목록 삭제
     @PostMapping("/api/mypage/myCL/delete")
     public ResponseEntity<Map<String, Object>> deleteMyCLs(
             @RequestParam("idList") List<Integer> idList,
@@ -124,6 +124,22 @@ public class MyPageApiController {
 
         return createSuccessResponse(deletedCount, "자기소개서");
     }
+    
+	// 마이페이지에서 체크박스한 면접질문 목록 삭제
+    @PostMapping("/api/mypage/myQuestionList/delete")
+    public ResponseEntity<Map<String, Object>> deleteMyQuestionList(
+            @RequestParam("idList") List<Integer> idList,
+            Principal principal) {
+    	
+        if (principal == null) return createUnauthorizedResponse();
+        MemberVO member = memberService.getMemberInfoById(principal.getName());
+        if (member == null) return createForbiddenResponse();
+        
+        int deletedCount = mypageService.deleteMyQuestionList(member.getMember_idx(), idList);
+
+        return createSuccessResponse(deletedCount, "면접 질문");
+    }
+
 
     // 마이페이지 api 공통 메소드
 

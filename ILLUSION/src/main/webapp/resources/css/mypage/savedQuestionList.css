@@ -123,3 +123,10 @@ textarea:focus{
 .add-question-btn:hover {
 	background-color: var(--main-color-hover);
 }
+
+.checkbox {
+	width: 20px;
+	height: 20px;
+	accent-color: #fcd34d;
+	margin: auto;
+}
