@@ -46,6 +46,7 @@
 </style>
 </head>
 <body>
+<input type="hidden" name="member_idx" value="${member.member_idx}" />
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>

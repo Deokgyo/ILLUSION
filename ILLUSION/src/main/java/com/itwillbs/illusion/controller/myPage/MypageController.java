@@ -130,6 +130,9 @@ public class MypageController {
 		
 		MemberVO member = resumeService.SelectM(id);
 		model.addAttribute("member",member);
+		List<CommonCodeVO> genderList = resumeService.getCodes("GENDER");
+		model.addAttribute("genderList", genderList);
+		
 		
 		return "myPage/userInfoEdit";
 	}
