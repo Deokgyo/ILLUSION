@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.CoverLetterVO;
+import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.ResumeVO;
 import com.itwillbs.illusion.vo.ScrapVO;
 @Mapper
@@ -19,10 +21,17 @@ public interface ResumeMapper {
 	int updateResume_exp_info(Map<String, Object> resumeMap);
     Map<String, Object> selectResume(int resumeIdx);
 	Map<String, Object> selectMember(int member_idx);
-	
+	public MemberVO getMemberInfoById(String id);
 
 	List<Map<String, Object>> selectResumeExpInfoList(int resume_idx);
 	List<Map<String, Object>> selectResumelist();
+	
+	public MemberVO SelectM(String id);
+	List<CommonCodeVO> getCommonCodeList(String groupId);
+	
+	public MemberVO SelectM1(String id);
+	List<CommonCodeVO> getCommonCodeList1(String groupId);
+	
 	
 	
 	/* 예상면접질문 */

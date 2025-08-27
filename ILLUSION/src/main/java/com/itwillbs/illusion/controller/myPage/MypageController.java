@@ -6,41 +6,30 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.print.DocFlavor.STRING;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.illusion.service.BoardService;
+import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.ResumeService;
-import com.itwillbs.illusion.util.PagingUtil;
-import com.itwillbs.illusion.vo.ApplyVO;
+import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.MemberVO;
-import com.itwillbs.illusion.vo.PageInfo;
-import com.itwillbs.illusion.vo.RecruitFilterVO;
-import com.itwillbs.illusion.vo.ResumeVO;
-import com.itwillbs.illusion.vo.ScrapVO;
 
 @Controller	
 public class MypageController {
@@ -58,18 +47,40 @@ public class MypageController {
 	
 	@Autowired
 	MypageService mypageService;
-
-	/* 이력서 등록 */
+	@Autowired
+	CommonCodeService commonCodeService;
+	
+	/*이력서 등록*/
 	@GetMapping("resumeWrite")
-	public String resumeWriteForm() {
+	public String resumeWriteForm(Principal principal, Model model) {
+		String id = principal.getName();
+		System.out.println(id);
+		
+		MemberVO member = resumeService.SelectM(id);
+		model.addAttribute("member",member);
+		
+		
+		List<CommonCodeVO> degreeList = resumeService.getCodes("DEGREE");
+		List<CommonCodeVO> experienceList = resumeService.getCodes("EXPERIENCE");
+		List<CommonCodeVO> occupationList = resumeService.getCodes1("OCCUPATION");
+		List<CommonCodeVO> positionList = resumeService.getCodes("POSITION");
+		model.addAttribute("degreeList", degreeList);
+        model.addAttribute("experienceList", experienceList);
+        model.addAttribute("occupationList", occupationList);
+        model.addAttribute("positionList", positionList);
+        
+		
 		return "myPage/resumeWrite";
 	}
-
+	
 	@PostMapping("resumeWrite")
 	public String resumeWrite(@RequestParam Map<String, Object> paramMap
 								, HttpSession session
 								,HttpServletRequest req
-								, @RequestParam("resume_img") MultipartFile file1) {
+								, @RequestParam("resume_img") MultipartFile file1
+								,Principal principal
+								, @RequestParam("member_idx") int member_idx
+								) {
 		
 		
 		//1.가상의 경로에 대한 서버상의 실제 경로 알아내기
@@ -100,26 +111,31 @@ public class MypageController {
 	    
 	    // 4. Map에 파일 경로 추가
 	    paramMap.putAll(savedFiles);
-	    
+	    System.out.println("============================");
+	    System.out.println(paramMap);
 	    
 		// 서비스 호출 - insert 시 useGeneratedKeys로 resume_idx 채워줌
 		resumeService.insertResumeAndExpInfo(paramMap);
-
+		
 		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") + "&member_idx="
 				+ paramMap.get("member_idx");
 	}
 
+
 	/* 회원정보 수정 */
 	@GetMapping("userInfoEdit")
-	public String userInfoEdit(Model model, @RequestParam int member_idx) {
-
-		System.out.println("맴버아이디" + member_idx);
-		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
-		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
+	public String userInfoEdit(Model model
+							,Principal principal) {
+		String id = principal.getName();
+		
+		MemberVO member = resumeService.SelectM(id);
+		model.addAttribute("member",member);
+		List<CommonCodeVO> genderList = resumeService.getCodes("GENDER");
+		model.addAttribute("genderList", genderList);
+		
 		
 		return "myPage/userInfoEdit";
 	}
-	
 	/*회원정보 수정 */
 	@PostMapping("userInfoEdit")
     public String userInfoEdit(@RequestParam Map<String, Object> paramMap) {
@@ -128,11 +144,12 @@ public class MypageController {
         if (paramMap.get("member_idx") instanceof String) {
             paramMap.put("member_idx", Integer.parseInt((String) paramMap.get("member_idx")));
         }
-        System.out.println("paramMap = " + paramMap);
         resumeService.updateuserInfoEdit(paramMap);
         
         return "redirect:/myPage";
     }
+
+
 
 	/* 비밀번호변경 */
 	@GetMapping("changePasswd")

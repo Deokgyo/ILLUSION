@@ -73,5 +73,26 @@ public class AdminService {
 	public void deleteMember(int member_idx) {
 		mapper.deleteMember(member_idx);
 	}
+	
+	// 공고 리스트 조회
+	public List<Map<String, String>> getRecruitment() {
+		return mapper.getRecruitment();
+	}
+	
+	// 게시글 리스트 조회
+	public List<Map<String, String>> getBoardList(int startRow, int listLimit) {
+		return mapper.getBoardList(startRow, listLimit);
+	}
+	
+	// 게시글 삭제
+	public void deleteBoard(int board_idx) {
+		mapper.deleteMember(board_idx);
+	}
+	
+	// 공통코드 리스트 조회
+	public List<Map<String, String>> getCommonCodeList() {
+		return mapper.getCommonCodeList();
+	}
+	
  	
 }

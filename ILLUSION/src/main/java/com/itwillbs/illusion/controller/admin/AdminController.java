@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.controller.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,13 +75,32 @@ public class AdminController {
 		return "admin/adminMember";
 	}
 	
-	@GetMapping("adminRecuritment")
-	public String adminRecuritment() {
-		return "admin/adminRecuritment";
+	// 공고관리 페이지 이동
+	@GetMapping("adminRecruitment")
+	public String adminRecruitment() {
+		
+//		List<Map<String, String>> recruitmentMap = service.getRecruitment();
+		return "admin/adminRecruitment";
 	}
 	
+	// 게시글 관리 페이지 이동
 	@GetMapping("adminCommunity")
-	public String adminCommunity() {
+	public String adminCommunity(Model model, @RequestParam(defaultValue = "1") int pageNum) {
+		
+		
+		int listLimit = 10; // 한 페이지에 표시할 회원 수
+	    int pageListLimit = 10; // 한 번에 표시할 페이지 번호 수
+
+	    int listCount = service.getBoardCount(); // 전체 게시글 수 조회
+	    PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+
+	    int startRow = (pageInfo.getPageNum() - 1) * listLimit;
+		
+	    List<Map<String, String>> boardMap = service.getBoardList(startRow, listLimit);
+	    
+	    model.addAttribute("boardInfo", boardMap);
+	    model.addAttribute("pageInfo", pageInfo);
+	    
 		return "admin/adminCommunity";
 	}
 	
@@ -94,8 +114,16 @@ public class AdminController {
 		return "admin/adminPayment";
 	}
 	
+	// 공통코드 관리페이지 이동
 	@GetMapping("comcodeRegist")
-	public String comcodeRegist() {
+	public String comcodeRegist(Model model) {
+		
+		List<Map<String, String>> commonCodeList = service.getCommonCodeList();
+		System.out.println("==========================");
+		System.out.println(commonCodeList);
+		
+		
+		model.addAttribute("commonCodeList", commonCodeList);
 		return "admin/comcodeRegist";
 	}
 	
@@ -106,8 +134,12 @@ public class AdminController {
 		return "admin/adminMemberDetail";
 	}
 	
+	// 공통코드 페이지 이동
 	@GetMapping("comcodeCommit")
 	public String comcodeCommit() {
+
+		
+ 		
 		return "admin/comcodeCommit";
 	}
 	
@@ -137,10 +169,24 @@ public class AdminController {
 	public Map<String, String> deleteMember(@PathVariable("member_idx") int member_idx) {
 		service.deleteMember(member_idx);
 		
-		Map<String, String> response = new HashMap<String, String>();
-		response.put("result", "success");
+		Map<String, String> res = new HashMap<String, String>();
+		res.put("result", "success");
 		
-		return response;
+		return res;
+	}
+	
+	
+	// 게시글 삭제
+	
+	@DeleteMapping("deleteBoard/{board_idx}")
+	@ResponseBody
+	public Map<String, String> deleteBoard(@PathVariable("board_idx") int board_idx){
+		service.deleteBoard(board_idx);
+		
+		Map<String, String> res = new HashMap<String, String>();
+		res.put("result", "success");
+		
+		return res;
 	}
 	
 }
