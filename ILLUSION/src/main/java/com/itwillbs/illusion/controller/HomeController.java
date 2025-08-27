@@ -64,21 +64,55 @@ public class HomeController {
 		return "home/register";
 	}
 
+//	@PostMapping("register")
+//	public String register2() {
+//		System.out.println("!@#!@#");
+//		return "";
+//	}
+	
 	@PostMapping("register")
-	public String register(MemberVO member, Model model, String address_name1, String address_name2) {
-		member.setAddress_name(address_name1 + " " + address_name2);
-		boolean result = memberService.insertMember(member);
-		if (result) {
-			MailAuthInfo mailAuthInfo = new MailAuthInfo();
-			mailAuthInfo.setEmail(member.getMember_email()); // 이메일 필드명 맞게 사용
-			memberService.updateMailAuthStatus(mailAuthInfo);
+	public String register(MemberVO member, CompanyVo company, Model model, String address_name1, String address_name2) {
+		
+		System.out.println("!@#");
+		System.out.println(member);
+		System.out.println(company);
+		
+		if (member.getMember_type().equals("MEM001")) { // 개인
+			member.setAddress_name(address_name1 + " " + address_name2);
+			boolean result = memberService.insertMember(member, company);
+			if (result) {
+				MailAuthInfo mailAuthInfo = new MailAuthInfo();
+				mailAuthInfo.setEmail(member.getMember_email()); // 이메일 필드명 맞게 사용
+				memberService.updateMailAuthStatus(mailAuthInfo);
 
-			return "redirect:/login";
-		} else {
-			// 회원가입 실패 시 오류 메시지 전달 후 가입 폼으로 이동
-			model.addAttribute("error", "회원가입 실패");
-			return "registerForm";
+				return "redirect:/login";
+			} else {
+				// 회원가입 실패 시 오류 메시지 전달 후 가입 폼으로 이동
+				model.addAttribute("error", "회원가입 실패");
+				return "registerForm";
+			}
+		} else {	// 기업
+			System.out.println("Received password: " + member.getMember_pw());
+			// 기업회원 정보 넣는거 (멤버테이블)
+			boolean memberResult = memberService.insertCompanyMember(member);
+			// 기업 정보 넣는거 (회사테이블)
+			boolean companyResult = companyService.insertMemberCompany(company);
+//			boolean addressResult = companyService.insertAddress(company);
+			
+//			company.setAddress_idx(service.getAddrPk());
+//			member.setCompany_idx(service.getCompanyPk());
+//			
+//			service.insertAddr();	// 6
+//			service.insertMemberCompany(company);
+			
+			if (memberResult && companyResult) {
+				return "redirect:/login";
+			} else {
+				model.addAttribute("error", "회원가입 실패");
+				return "redirect:/login";
+			}
 		}
+		
 	}
 
 	// 날짜관련
@@ -90,37 +124,5 @@ public class HomeController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-	// 기업회원
-//	@PostMapping("insertMemberCompany")
-//	public String insertMemberCompany(MemberVO member, CompanyVo company, Model model) {
-//		System.out.println("Received password: " + member.getMember_pw());
-//		boolean memberResult = memberService.insertCompanyMember(member);
-//		boolean companyResult = companyService.insertMemberCompany(company);
-////		boolean addressResult = companyService.insertAddress(company);
-//		
-//
-//		if (memberResult && companyResult) {
-//			return "redirect:/login";
-//		} else {
-//			model.addAttribute("error", "회원가입 실패");
-//			return "redirect:/login";
-//		}
-//	}
 	
-	@PostMapping("insertMemberCompany")
-	public Map<String, Object> insertMemberCompany(MemberVO member, CompanyVo company) {
-	    boolean memberResult = memberService.insertCompanyMember(member);
-	    boolean companyResult = companyService.insertMemberCompany(company);
-
-	    Map<String, Object> result = new HashMap<>();
-	    if (memberResult && companyResult) {
-	        result.put("status", "success");
-	        result.put("message", "회원가입 완료");
-	    } else {
-	        result.put("status", "fail");
-	        result.put("message", "회원가입 실패");
-	    }
-	    return result;
-	}
-
 }

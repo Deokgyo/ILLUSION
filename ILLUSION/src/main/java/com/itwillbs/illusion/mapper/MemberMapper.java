@@ -23,7 +23,7 @@ public interface MemberMapper {
 	
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
 	
-	public int insertCompanyMember(MemberVO member);
+	public boolean insertCompanyMember(MemberVO member);
 	
 	public int checkRecruiterNumber(String recruiterNumber); //사업자 중복체크
 

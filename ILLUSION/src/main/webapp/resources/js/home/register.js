@@ -93,9 +93,9 @@ $(document).ready(function() {
 	});
 
 	// 비밀번호 유효성
-	$("#userpw").on('keyup', checkUserPass);
-	$("#userpw2").on('keyup', checkUserPass2);
-
+	$("#userpw").on('keyup', checkUserPass);// 비밀번호 유효성
+	$("#userpw2").on('keyup', checkUserPass2);// 비밀번호 확인
+	
 	function checkUserPass() {
 		let passwd = $("#userpw").val();
 
@@ -237,6 +237,9 @@ $(document).ready(function() {
 		$('#member_type').val('MEM003');
 	});
 
+	$('#personalTab').click(function() {
+		$('#member_type').val('MEM001');
+	});
 	//	// 개인 회원가입
 	//	$('#registerForm').on('submit', function(e) {
 	//		e.preventDefault();
@@ -447,133 +450,9 @@ $(document).ready(function() {
 	});
 
 
-	function checkSubmit() {
-		// 아이디 유효성 검사 실패 시
-		if (!isCheckId) {
-			alert("아이디를 입력해주세요");
-			return false;
-		}
-
-		// 비밀번호 유효성 검사 실패 시
-		if (!isCheckPass) {
-			alert("비밀번호를 입력하세요");
-			return false;
-		}
-
-		// 비밀번호 확인 일치 검사 실패 시
-		if (!isCheckPass2) {
-			alert("비밀번호를 확인하세요");
-			return false;
-		} else {
-			alert("회원가입 성공!")
-		}
-
-		//		// 기업회원은 반드시 사업자등록번호 입력해야 함
-		//		if (selectedMemberType === "company") {
-		//			const bizNum = $('#companyNumber').val().trim();
-		//			if (!bizNum) {
-		//				alert('기업회원은 사업자등록번호를 입력해야 합니다.');
-		//				$('#companyNumber').focus();
-		//				return false;
-		//			}
-		//		}
-
-		// 모든 유효성 검사 통과
-		return true;
-	}
-
-
-
-
 	// 회원가입 폼 제출 이벤트
 	$('.signup-form').on('submit', function(e) {
-		e.preventDefault();
-
-		// 공통 입력값
-		const memberType = $('#member_type').val();
-		const userid = $('#userid').val().trim();
-		const userpw = $('#userpw').val().trim();
-		const email = $('#email').val().trim();
-
-		// 필수값 체크
-		if (!userid || !userpw || !email) {
-			alert('아이디, 비밀번호, 이메일은 필수입니다.');
-			return;
-		}
-
-		// 비밀번호 유효성 및 아이디 중복 등 추가 체크 필요 (생략)
-
-		if (memberType == 'MEM003') {
-			console.log("되것나이게");
-			// 기업회원 가입 데이터 준비
-			const data = {
-				member_id: userid,
-				member_pw: userpw,
-				member_email: email,
-				member_type: memberType,
-				recruiter_number: $('#companyNumber').val().trim(),
-				member_name: $('#username').val().trim(), // 기업명
-				companyVo: {
-					company_name: $('#username').val().trim(),
-					ceo_name: $('#companyname').val().trim(),
-					company_estab_date: $('#company_date').val(),
-					company_type: $('#compantypes').val(),
-					address_num: $('#zipcode').val().trim(),
-					address_name: $('#address1').val().trim() + " " + $('#address2').val().trim()
-				}
-			};
-			console.log("userpw:", userpw);
-			
-			// 기업회원 필수값 체크
-			if (!data.recruiter_number) {
-				alert('사업자등록번호를 입력해주세요.');
-				return;
-			}
-			if (!data.companyVo.company_name || !data.companyVo.ceo_name || !data.companyVo.company_estab_date || !data.companyVo.company_type) {
-				alert('기업 정보를 모두 입력해주세요.');
-				return;
-			}
-
-			$.ajax({
-				url: 'insertMemberCompany',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify(data),
-				success: function(response, textStatus, xhr) {
-					console.log("보나마나 안되겟지");
-					alert('기업회원 가입 성공!');
-					window.location.href = '/login';
-				},
-				error: function(xhr, textStatus, errorThrown) {
-					alert('기업회원 가입 실패 또는 서버 오류 발생');
-					console.error('Ajax 오류:', textStatus);
-				}
-			});
-		} else {
-			// 개인회원 가입 데이터 준비
-			const data = {
-				member_id: userid,
-				member_pw: userpw,
-				member_email: email,
-				member_type: memberType
-			};
-
-			$.ajax({
-				url: 'register',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify(data),
-				success: function(response, textStatus, xhr) {
-					console.log("이것도 안되면..");
-					alert('개인회원 가입 성공!');
-					window.location.href = '/login';
-				},
-				error: function(xhr, textStatus, errorThrown) {
-					alert('개인회원 가입 실패 또는 서버 오류 발생');
-					console.error('Ajax 오류:', errorThrown);
-				}
-			});
-		}
+	
 	});
 
 

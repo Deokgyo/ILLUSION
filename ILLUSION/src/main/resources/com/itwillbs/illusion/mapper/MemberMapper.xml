@@ -88,14 +88,20 @@
 	<insert id="insertCompanyMember">
 		INSERT INTO member
 					( member_id
-					 ,member_pw
-					 ,recruiter_number
-					 ,recruiter_member_email
+					, member_pw
+					, recruiter_number
+					, recruiter_member_email
+					, member_type
+                    , member_status 
+                    , member_marketing_agreed
 					)
-			VALUES  (#{member_id}
-					,#{member_pw}
-					,#{recruiter_number}
-					,#{recruiter_member_email}
+			VALUES  ( #{member_id}
+					, #{member_pw}
+					, #{recruiter_number}
+					, #{recruiter_member_email}
+					, #{member_type}
+					, #{member_status}
+					, #{member_marketing_agreed}
 					)
 	</insert>
 

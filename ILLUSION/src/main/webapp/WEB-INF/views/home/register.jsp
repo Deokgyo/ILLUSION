@@ -67,9 +67,16 @@
 		<button class="tab-btn" id="companyTab">기업 회원</button>
 	</div>
 	<div class="signup-form-box">
+	
+<!-- 	<form action="register" method="post"> -->
+<!-- 		<button class="signup-btn">회원가입</button> -->
+<!-- 	</form> -->
+	
+	
 		<form action="${pageContext.request.contextPath}/register"
 			method="post" name="registerForm" class="signup-form"
 			autocomplete="off">
+			
 			<div class="input-box" id="companyBox">
 				<label for="Number">사업자등록번호</label> <input type="text"
 					id="companyNumber" placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
@@ -82,8 +89,7 @@
 				&nbsp;<span id="UserIdSuccess"></span>
 			</div>
 			<div class="form-row">
-				<label for="userpw">비밀번호</label> <input type="password" id="userpw"
-					name="member_pw" maxlength="16"
+				<label for="userpw">비밀번호</label> <input type="password" id="userpw" name="member_pw" maxlength="16"
 					placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합" required> <span
 					id="userPwSuccess"></span>
 			</div>
@@ -198,7 +204,7 @@
 			</div>
 			
 			<!-- 참조 -->
-			<input type="hidden" name="member_type" id="member_type"> 
+			<input type="hidden" name="member_type" id="member_type" value="MEM001"> 
 			<input type="hidden" name="member_status" id="member_status">
 			
   			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 

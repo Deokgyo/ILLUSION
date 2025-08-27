@@ -13,7 +13,8 @@ public class CompanyService {
 	
 	@Autowired
 	CompanyMapper mapper;
-
+	
+	// 회사 정보 넣는거 회사 테이블 
 	public boolean insertMemberCompany(CompanyVo company) {
         return mapper.insertMemberCompany(company);
     }
