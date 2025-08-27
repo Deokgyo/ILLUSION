@@ -144,6 +144,7 @@ public class MypageController {
         if (paramMap.get("member_idx") instanceof String) {
             paramMap.put("member_idx", Integer.parseInt((String) paramMap.get("member_idx")));
         }
+                
         resumeService.updateuserInfoEdit(paramMap);
         
         return "redirect:/myPage";
