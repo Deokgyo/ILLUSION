@@ -55,7 +55,7 @@
 								<span class="question-icon">❓</span> <span class="question-text">${quest.question_text}</span>
 							</div>
 
-							<textarea class="user-answer" placeholder="내가 작성한 답변">${quest.answer_text}</textarea>
+							<textarea class="user-answer" style="resize: none;" placeholder="내가 작성한 답변" readonly>${quest.answer_text}</textarea>
 
 							<div class="ai-feedback">
 								<img
@@ -69,7 +69,7 @@
 						<button class="delete-btn" id="delete-btn">삭제</button>
 					</div>
 					<div class="add-question-wrap">
-						<button class="add-question-btn">+ 예상질문 생성하기</button>
+						<a href="interviewCreate"><button class="add-question-btn">+ 예상질문 생성하기</button></a>
 					</div>
 					
 					<nav class="pagination">

@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,16 @@ import com.itwillbs.illusion.vo.MemberVO;
 public class ResumeService {
 	@Autowired
 	ResumeMapper mapper;
+	
+	// 이력서 수정
+    public ResumeVO getResumeForEdit(int resumeIdx, int memberIdx) {
+        
+        Map<String, Integer> params = new HashMap<>();
+        params.put("resumeIdx", resumeIdx);
+        params.put("memberIdx", memberIdx);
+        
+        return mapper.getResumeForEdit(params);
+    }
 
 	    @Transactional
 	    public void insertResumeAndExpInfo(Map<String, Object> paramMap) {

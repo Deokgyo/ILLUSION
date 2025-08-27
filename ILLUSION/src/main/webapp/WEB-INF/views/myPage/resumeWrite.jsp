@@ -51,7 +51,7 @@
 						<div class="section">
 							<div class="form-row">
 								<div class="form-group">
-									<input type="text" name="resume_title" placeholder="제목을 입력하세요" autocomplete="off">
+									<input type="text" name="resume_title" placeholder="제목을 입력하세요" autocomplete="off" value="${resume.resume_title }">
 								</div>
 							</div>
 							<div class="profile-section">
@@ -87,11 +87,12 @@
 							<h4 class="form-section-title">학력</h4>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학교 이름</label> <input type="text" name="school_name" placeholder="학교명을 입력하세요" autocomplete="off">
+									<label>학교 이름</label> <input type="text" name="school_name" placeholder="학교명을 입력하세요" autocomplete="off"
+									 value="${resume.school_name }">
 								</div>
 								<div class="form-group">
 									<label>전공</label>
-									 <input type="text" name="major" placeholder="전공을 입력하세요" autocomplete="off">
+									 <input type="text" name="major" placeholder="전공을 입력하세요" autocomplete="off" value="${resume.major} ">
 								</div>
 							</div>
 							<div class="form-row">
@@ -118,7 +119,7 @@
 								<div class="form-group">
 									<label>학점</label>
 									<div class="gpa-group">
-										<input id="gradeInput" type="text" name="grade" placeholder="학점을 입력하세요 ex) 4.0" style="flex: 1;" autocomplete="off">
+										<input id="gradeInput" type="text" name="grade" placeholder="학점을 입력하세요 ex) 4.0" style="flex: 1;" autocomplete="off" value="${resume.grade }">
 											 <span>/</span>
 										<select id="gradeSelect" style="flex-basis: 100px;">
 									        <option value="4.5">4.5</option>
@@ -132,20 +133,20 @@
 								<div class="form-group">
 									<label>입학일</label>
 									<div class="date-input-container">
-   										<input type="text" name="enroll_date" id="enroll_date" placeholder="연도-월-일" autocomplete="off">
+   										<input type="text" name="enroll_date" id="enroll_date" placeholder="연도-월-일" autocomplete="off" value="${resume.enroll_date} ">
 									</div>
 								</div>
 								<div class="form-group">
 									<label>졸업일</label>
 									<div class="date-input-container">
-   										<input type="text" name="graduation_date" id="graduation_date" placeholder="연도-월-일" autocomplete="off">
+   										<input type="text" name="graduation_date" id="graduation_date" placeholder="연도-월-일" autocomplete="off" value="${resume.graduation_date }">
 									</div>
 									
 								</div>
 							</div>
 							<div class="form-group">
 								<label>추가정보 (선택)</label>
-								<textarea name="additional_information" placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요 ex) 수석 졸업 등" autocomplete="off"></textarea>
+								<textarea name="additional_information" placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요 ex) 수석 졸업 등" autocomplete="off">${resume.additional_information }</textarea>
 							</div>
 						</div>
 
@@ -200,7 +201,7 @@
 
 						<div class="section">
 							<div class="form-group">
-								<label>자격증(선택)</label> <input type="text" name="certificate" placeholder="보유중인 자격증을 입력하세요" autocomplete="off">
+								<label>자격증(선택)</label> <input type="text" name="certificate" placeholder="보유중인 자격증을 입력하세요" autocomplete="off" value="${resume.certificate }">
 							</div>
 						</div>
 

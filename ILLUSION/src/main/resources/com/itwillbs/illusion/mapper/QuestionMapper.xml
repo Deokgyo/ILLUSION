@@ -28,14 +28,35 @@
   	    WHERE member_idx = #{memberIdx}
 	</select>
 	
-	<!-- 마이페이지 여러건 면접 질문 삭제 -->
+	<!-- 마이페이지 자소서 삭제 클릭시 질문,답변도 같이 삭제 -->
+	
+	<delete id="deleteAnswersByClIdxList" parameterType="list">
+	    DELETE a 
+	      FROM answer a
+	      JOIN question q ON a.question_idx = q.question_idx
+	     WHERE q.cl_idx IN
+	    <foreach item="clIdx" collection="list" open="(" separator="," close=")">
+	        #{clIdx}
+	    </foreach>
+	</delete>
+	
+	<delete id="deleteQuestionsByClIdxList" parameterType="list">
+	   DELETE 
+	     FROM question
+	    WHERE cl_idx IN
+	    <foreach item="clIdx" collection="list" open="(" separator="," close=")">
+	        #{clIdx}
+	    </foreach>
+	</delete>
+	
+	<!-- 면접 예상 질문 리스트에서 개별 질문,답변만 삭제 -->
     <delete id="deleteMyAnswerList" parameterType="map">
 	    DELETE 
 	      FROM answer
 	     WHERE member_idx = #{memberIdx}
-	       AND answer_idx IN
-	        <foreach item="answerIdx" collection="idList" open="(" separator="," close=")">
-	            #{answerIdx}
+	       AND question_idx IN
+	        <foreach item="questionIdx" collection="idList" open="(" separator="," close=")">
+	            #{questionIdx}
 	        </foreach>
 	</delete>
 	

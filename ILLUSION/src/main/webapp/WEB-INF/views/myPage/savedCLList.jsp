@@ -50,7 +50,7 @@
 				<div class="resume-list">
 					<div class="resume-list-header">
 						<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span>
-						<span>자소서 종류</span> <span>면접 예상질문</span>
+						<span>자소서 종류</span> <span>생성된 면접 질문</span>
 					</div>
 					<c:forEach var="cl" items="${CLList }">
 						<div class="resume-item">
@@ -58,7 +58,16 @@
 							<div class="title">${cl.cl_title}</div>
 							<div class="date">${cl.generation_date}</div>
 							<div class="date">${cl.cl_type}</div>
-							<button class="delete-btn"><a href="savedQuestionList?cl_idx=${cl.cl_idx}">확인하기</a></button>
+					        <c:choose>
+					            <c:when test="${cl.question_count > 0}">
+					                <a href="savedQuestionList?cl_idx=${cl.cl_idx}">
+					                    <button class="delete-btn">확인하기</button>
+					                </a>
+					            </c:when>
+					            <c:otherwise>
+					                <button class="delete-btn disabled" disabled>질문 없음</button>
+					            </c:otherwise>
+					        </c:choose>
 						</div>
 					</c:forEach>
 					<div class="resume-footer">

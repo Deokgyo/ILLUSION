@@ -30,6 +30,7 @@ import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.ResumeService;
 import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.MemberVO;
+import com.itwillbs.illusion.vo.ResumeVO;
 
 @Controller	
 public class MypageController {
@@ -50,15 +51,32 @@ public class MypageController {
 	@Autowired
 	CommonCodeService commonCodeService;
 	
-	/*이력서 등록*/
+	/*이력서 등록, 수정*/
 	@GetMapping("resumeWrite")
-	public String resumeWriteForm(Principal principal, Model model) {
+	public String resumeWriteForm(Principal principal, Model model, 
+			@RequestParam(required = false) Integer resume_idx) {
+		
 		String id = principal.getName();
 		System.out.println(id);
 		
 		MemberVO member = resumeService.SelectM(id);
 		model.addAttribute("member",member);
 		
+	    // resume_idx 유무로 작성/수정 판별
+	    if (resume_idx != null) {
+	        ResumeVO resume = resumeService.getResumeForEdit(resume_idx, member.getMember_idx()); // 본인 확인 로직 포함
+	        
+	        if (resume == null) {
+	            model.addAttribute("msg", "잘못된 접근이거나 수정 권한이 없습니다.");
+	            return "fail_back";
+	        }
+	        
+	        model.addAttribute("resume", resume);
+	        
+	    } else {
+	        // resume_idx 파라미터가 없다면 빈 ResumeVO 객체
+	        model.addAttribute("resume", new ResumeVO());
+	    }
 		
 		List<CommonCodeVO> degreeList = resumeService.getCodes("DEGREE");
 		List<CommonCodeVO> experienceList = resumeService.getCodes("EXPERIENCE");

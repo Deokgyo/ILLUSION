@@ -30,7 +30,7 @@ public class TokenApiController {
             @RequestParam("tokenAmount") int tokenAmount, // JS로부터 충전할 토큰 양을 받음
             Principal principal) {
         
-        // 1. 로그인 사용자 확인 (필수)
+        // 로그인 사용자 확인
         if (principal == null) {
             Map<String, Object> response = new HashMap<>();
             response.put("status", "error");
@@ -50,17 +50,17 @@ public class TokenApiController {
         
         Map<String, Object> response = new HashMap<>();
         try {
-            // 2. ✨ Service를 호출하여 토큰 충전 로직 실행
+            // Service를 호출하여 토큰 충전 로직 실행
             int updatedTokens = tokenService.addTokensToMember(member.getMember_idx(), tokenAmount);
             
-            // 3. 성공 응답 생성
+            // 성공 응답 생성
             response.put("status", "success");
             response.put("message", tokenAmount + " 토큰이 성공적으로 충전되었습니다.");
             response.put("updatedTokens", updatedTokens); // 사용자의 최종 토큰 개수
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
-            // 4. 실패 응답 생성
+            // 실패 응답 생성
             response.put("status", "error");
             response.put("message", "토큰 충전 중 서버 오류가 발생했습니다.");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);

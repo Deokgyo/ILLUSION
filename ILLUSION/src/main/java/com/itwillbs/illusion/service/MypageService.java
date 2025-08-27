@@ -88,6 +88,10 @@ public class MypageService {
             return 0;
         }
         
+        questionMapper.deleteAnswersByClIdxList(idList);
+
+        questionMapper.deleteQuestionsByClIdxList(idList);
+        
         Map<String, Object> params = new HashMap<>();
         params.put("memberIdx", memberIdx);
         params.put("idList", idList);
@@ -104,7 +108,7 @@ public class MypageService {
 		return questionMapper.getQuestionListCountByMember(member_idx);
 	}
 	
-	// 마이페이지 면접 질문 삭제 기능
+	 // 마이페이지 면접 질문 삭제 기능
     @Transactional 
     public int deleteMyQuestionList(int memberIdx, List<Integer> idList) {
         if (idList == null || idList.isEmpty()) {
@@ -115,12 +119,11 @@ public class MypageService {
         params.put("memberIdx", memberIdx);
         params.put("idList", idList);
         
-        
-        int deletedQuestions = questionMapper.deleteMyQuestionList(params);
-        
-        int deletedAnswers = questionMapper.deleteMyAnswerList(params);
+        questionMapper.deleteMyAnswerList(params);
 
-        return deletedQuestions + deletedAnswers;
+        int deletedQuestions = questionMapper.deleteMyQuestionList(params);
+
+        return deletedQuestions;
     }
 	
 	// 마이페이지 스크랩 목록

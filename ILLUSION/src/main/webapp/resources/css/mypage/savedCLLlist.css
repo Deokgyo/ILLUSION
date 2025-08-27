@@ -95,11 +95,23 @@
 .delete-btn {
 	background-color: var(--main-color);
 	border: none;
-	padding: 10px 20px;
+	padding: 10px 39px;
 	font-weight: bold;
 	border-radius: 8px;
 	cursor: pointer;
 	font-size: 14px;
+}
+
+.delete-btn.disabled{
+	background-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+    border-color: #dee2e6;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
 }
 
 .delete-btn:hover {

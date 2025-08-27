@@ -38,14 +38,11 @@ $(function() {
 		xhr.setRequestHeader(header, token);
 	});
 	
-	//================================================================
-	// ✨ [새로운 기능] 현재 페이지에 해당하는 사이드바 메뉴 활성화 로직 ✨
-	//================================================================
+	// 현재 페이지에 해당하는 사이드바 메뉴 활성화 로직
 
 	function activateCurrentSidebarMenu() {
 
 		// 1. 현재 페이지의 전체 URL 경로를 가져옵니다.
-		// 예: /illusion/recruitmentInfo?sort=latest
 		const currentPath = window.location.pathname + window.location.search;
 
 		// 2. 사이드바의 모든 메뉴 링크(a 태그)를 선택합니다.
@@ -59,17 +56,11 @@ $(function() {
 			const $link = $(this);
 			const linkHref = $link.attr('href');
 
-			// 링크의 href가 유효하고, 현재 URL(currentPath)이 링크의 href로 시작하는지 확인
-			// 예: currentPath="/illusion/recruitmentInfo?..." 가 linkHref="recruitmentInfo" 로 시작하는가? (false)
-			//     => 그래서 linkHref 앞에 contextPath를 붙여서 비교하거나, currentPath에서 contextPath를 제거해야 함.
-
-			// 더 간단한 방법: 현재 URL의 파일명 부분만 비교
 			const currentPageName = window.location.pathname.split('/').pop(); // 예: "recruitmentInfo"
 
 			if (linkHref && currentPageName.includes(linkHref)) {
 
 				// 4. "가장 길게" 일치하는 링크를 찾습니다. (더 구체적인 링크 우선)
-				// 예: "communityMain" 보다 "communityDetail?id=1" 이 더 구체적
 				if (linkHref.length > longestMatchLength) {
 					longestMatchLength = linkHref.length;
 					bestMatch = $link;

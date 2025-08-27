@@ -32,6 +32,7 @@ public class MyPageApiController {
 	@Autowired
 	MemberService memberService; 
 	
+	// 채용공고 페이지 스크랩 토글기능
 	@PostMapping("api/scraps/{recruitIdx}/toggle")
 	public ResponseEntity<Map<String, Object>> toggleScrap(
 	        @PathVariable("recruitIdx") int recruitIdx,

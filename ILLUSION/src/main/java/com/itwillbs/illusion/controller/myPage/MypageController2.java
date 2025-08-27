@@ -79,7 +79,7 @@ public class MypageController2 {
 		String member_id = principal.getName();
 		MemberVO member = memberService.getMemberInfoById(member_id);
 		
-        // 페이징 처리-
+        // 페이징 처리
         int listLimit = 10; // 한페이지에 10개
 		int pageListLimit = 5;
         
@@ -98,17 +98,17 @@ public class MypageController2 {
 		return "myPage/savedResumeList";
 	}
 	
-	/* 이력서 수정 */
-	@GetMapping("resumeUpdate")
-	public String resumeUpdate() {
-		return "myPage/resumeUpdate";
-	}
-
-	/* 이력서 수정 */
-	@PostMapping("resumeUpdate")
-	public String postResumeUpdate() {
-		return "redirect:/savedResumeDetail";
-	}
+//	/* 이력서 수정 */
+//	@GetMapping("resumeUpdate")
+//	public String resumeUpdate() {
+//		return "myPage/resumeUpdate";
+//	}
+//
+//	/* 이력서 수정 */
+//	@PostMapping("resumeUpdate")
+//	public String postResumeUpdate() {
+//		return "redirect:/savedResumeDetail";
+//	}
 
 	/* 자소서 목록 */
 	@GetMapping("savedCLList")
@@ -124,16 +124,13 @@ public class MypageController2 {
 		String member_id = principal.getName();
 		MemberVO member = memberService.getMemberInfoById(member_id);
 		
-        // 페이징 처리-
-        int listLimit = 10; // 한페이지에 10개
+        int listLimit = 10;
 		int pageListLimit = 5;
         
         int listCount = mypageService.getCLListCountByMember(member.getMember_idx());
         
-        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
         
-        // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
 		
 		List<CoverLetterVO> CLList = mypageService.getCLListByMemberId(member.getMember_idx(), startRow, listLimit);
@@ -181,16 +178,13 @@ public class MypageController2 {
 		String member_id = principal.getName();
 		MemberVO member = memberService.getMemberInfoById(member_id);
 		
-        // 페이징 처리-
-        int listLimit = 10; // 한페이지에 10개
+        int listLimit = 10;
 		int pageListLimit = 5;
         
         int listCount = mypageService.getQuestionListCountByMember(member.getMember_idx());
         
-        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
         
-        // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
 		
 		List<QuestionVO> QuestionList = mypageService.getQuestionListByMemberId(
@@ -217,19 +211,16 @@ public class MypageController2 {
 		String member_id = principal.getName();
 		MemberVO member = memberService.getMemberInfoById(member_id);
 		
-        // 페이징 처리-
-        int listLimit = 10; // 한페이지에 10개
+        int listLimit = 10;
 		int pageListLimit = 5;
         
         int listCount = mypageService.getScrapCountByMember(member.getMember_idx());
         
-        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
-        
-        // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
-		
+        
 		List<ScrapVO> scrapList = mypageService.getScrapsByMemberId(member.getMember_idx(), startRow, listLimit);
+		
 		model.addAttribute("scrapList", scrapList);
 		model.addAttribute("pageInfo", pageInfo);
 		
@@ -250,18 +241,14 @@ public class MypageController2 {
 		String member_id = principal.getName();
 		MemberVO member = memberService.getMemberInfoById(member_id);
 		
-        // 페이징 처리-
-        int listLimit = 10; // 한페이지에 10개
+        int listLimit = 10;
 		int pageListLimit = 5;
         
         int listCount = mypageService.getApplyCountByMember(member.getMember_idx());
         
-        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
         
-        // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
-		
 		List<ApplyVO> applyList = mypageService.getApplyByMemberId(member.getMember_idx(), startRow, listLimit);
 		
 		model.addAttribute("applyList", applyList);
@@ -286,20 +273,15 @@ public class MypageController2 {
 		String member_id = principal.getName();
 		MemberVO member = memberService.getMemberInfoById(member_id);
 		
-        // 페이징 처리-
-        int listLimit = 10; // 한페이지에 10개
+        int listLimit = 10;
 		int pageListLimit = 5;
         
         int listCount = mypageService.getMyPostCountByMember(member.getMember_idx(), categoryCode);
         
-        // static PagingUtil 페이징 전용 유틸리티 클래스 만들어서 페이징 공통으로 쓰게끔
         PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
-        
-        // 데이터 조회
         int startRow = (pageNum - 1) * listLimit;
         
 		List<Map<String, String>> categoryList = service.selectCategory();
-		
 		List<BoardVO> myPostList = mypageService.getMyPostByMemberId(member.getMember_idx(), categoryCode, startRow, listLimit);
 		
 		model.addAttribute("categoryList", categoryList);

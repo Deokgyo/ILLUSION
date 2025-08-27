@@ -14,6 +14,9 @@ import com.itwillbs.illusion.vo.ScrapVO;
 @Mapper
 public interface ResumeMapper {
 	
+	// 이력서 수정
+	public ResumeVO getResumeForEdit(Map<String, Integer> params);
+	
 
 	int insertResume(Map<String, Object> resumeMap);
 	int insertResume_exp_info(Map<String, Object> resumeMap);

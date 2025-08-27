@@ -21,4 +21,5 @@ public class CoverLetterVO {
 	private LocalDate generation_date;
 	private String is_saved_to_mypage;
 	private String cl_type;
+	private int question_count;
 }
