@@ -24,6 +24,7 @@
 		AND
 		m.member_id = #{member_id};
 	</select>
+	<!--이력서 작성하기 -->
 	<insert id="insertResume" parameterType="map"
 		useGeneratedKeys="true" keyProperty="resume_idx">
 		INSERT INTO resume (
@@ -92,7 +93,8 @@
 		graduation_date,
 		additional_information
 		FROM resume
-		WHERE resume_idx = #{resumeIdx}
+		WHERE resume_idx =
+		#{resumeIdx}
 		AND member_idx = #{memberIdx}
 	</select>
 
@@ -107,9 +109,11 @@
 		school_name = #{school_name},
 		major = #{major},
 		grade = #{grade},
-		degree = #{degree},
+		degree
+		= #{degree},
 		enroll_date = #{enroll_date},
-		graduation_date = #{graduation_date},
+		graduation_date =
+		#{graduation_date},
 		additional_information = #{additional_information}
 		WHERE resume_idx = #{resume_idx}
 	</update>
@@ -209,6 +213,13 @@
 		WHERE member_idx =
 		#{memberIdx}
 	</select>
+
+	<update id="changePasswd">
+		UPDATE member
+		SET member_pw = #{member_pw}
+		WHERE member_idx = #{member_idx}
+	</update>
+
 
 	<!-- 예상면접질문 -->
 	<select id="selectquestList" resultType="map">

@@ -213,7 +213,13 @@ public class MypageController {
 		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
 		return "myPage/changePasswd";
 	}
-
+	@PostMapping("changePasswd")
+	public String changePasswd(@RequestParam int member_idx
+            				,@RequestParam String member_pw) {
+		
+		resumeService.changePasswd(member_idx, member_pw);
+		return "redirect:/myPage";
+	}
 	/* 회원탈퇴 */
 	@GetMapping("deleteMember")
 	public String deleteMember() {

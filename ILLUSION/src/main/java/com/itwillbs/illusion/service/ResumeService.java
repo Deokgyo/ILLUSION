@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ import com.itwillbs.illusion.vo.MemberVO;
 public class ResumeService {
 	@Autowired
 	ResumeMapper mapper;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	
 	// 이력서 수정
     public ResumeVO getResumeForEdit(int resumeIdx, int memberIdx) {
@@ -85,9 +89,11 @@ public class ResumeService {
 	   public String getProfilePicturePath(int memberIdx) {
 		    return	mapper.getProfilePicturePath(memberIdx);
 		}
-	   
-	   
-	   
+	   public void changePasswd(int member_idx, String member_pw) {
+		   
+		   	String encodedPw = passwordEncoder.encode(member_pw);
+	        mapper.changePasswd(member_idx, encodedPw);
+	    }
 	   
 	   /* 예상면접질문 */
 	   public List<Map<String, Object>> selectquestList() {

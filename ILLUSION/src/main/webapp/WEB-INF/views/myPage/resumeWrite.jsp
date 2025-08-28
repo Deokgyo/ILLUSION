@@ -163,7 +163,7 @@
 										<select name="position">
 											<option value="" selected disabled>-- 선택 --</option>
 										    <c:forEach var="e" items="${positionList}">
-										        <option value="${e.code_name}">${e.code_name}</option>
+										        <option value="${e.code}">${e.code_name}</option>
 										    </c:forEach>
 										</select>
 									</div>

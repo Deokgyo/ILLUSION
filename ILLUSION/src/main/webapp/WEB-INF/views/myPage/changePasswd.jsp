@@ -46,7 +46,6 @@
 </style>
 </head>
 <body>
-<input type="hidden" name="member_idx" value="${member.member_idx}" />
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
@@ -66,33 +65,33 @@
         <!-- '회원 정보' 타이틀 바 -->
 
         <!-- 실제 입력 폼 -->
-        <form class="password-form">
-           
+        <form action="changePasswd" class="password-form" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="hidden" name="member_idx" value="${selectuserInfoEdit.member_idx}" />
             <!-- 현재 비밀번호 입력 행 -->
             <div class="form-row">
                 <div class="form-label">현재 비밀번호</div>
                 <div class="form-input-group">
-                    <input type="password" name="current_password">
+                    <input type="password" name="member_pw1">
                 </div>
             </div>
 
             <!-- 새 비밀번호 입력 행 -->
-            <div class="form-row">
-                <div class="form-label">새 비밀번호</div>
-                <div class="form-input-group">
-                    <input type="password" name="new_password" placeholder="8~16 자리 / 영문 대소문자, 숫자, 특수문자 조합">
-                </div>
-            </div>
-
-            <!-- 새 비밀번호 확인 입력 행 -->
-            <div class="form-row">
-                <div class="form-label">새 비밀번호 확인</div>
-                <div class="form-input-group">
-                    <input type="password" placeholder="8~16 자리 / 영문 대소문자, 숫자, 특수문자 조합">
-                    <!-- 유효성 검사 메시지 (성공 시) -->
-<!--                     <p class="validation-message success">비밀번호가 일치합니다</p> -->
-                </div>
-            </div>
+               <div class="form-row">
+			        <div class="form-label">새 비밀번호</div>
+			        <div class="form-input-group">
+			            <input type="password" name="member_pw" placeholder="8~16 자리 / 영문 대소문자, 숫자, 특수문자 조합">
+			        </div>
+    			</div>
+<!--             새 비밀번호 확인 입력 행 -->
+<!--             <div class="form-row"> -->
+<!--                 <div class="form-label">새 비밀번호 확인</div> -->
+<!--                 <div class="form-input-group"> -->
+<!--                     <input type="password" name="member_pw" placeholder="8~16 자리 / 영문 대소문자, 숫자, 특수문자 조합"> -->
+<!--                     유효성 검사 메시지 (성공 시) -->
+<!-- <!--                     <p class="validation-message success">비밀번호가 일치합니다</p> --> 
+<!--                 </div> -->
+<!--             </div> -->
            
             <!-- '비밀번호 변경' 버튼 영역 -->
             <div class="submit-area">
