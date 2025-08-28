@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.illusion.service.BoardService;
 import com.itwillbs.illusion.service.CommonCodeService;
@@ -209,10 +210,22 @@ public class MypageController {
 	}
 	/* 회원탈퇴 */
 	@GetMapping("deleteMember")
-	public String deleteMember() {
+	public String deleteMember(Model model, @RequestParam int member_idx) {
+		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
+		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
 		return "myPage/deleteMember";
 	}
-	
+	@PostMapping("deleteMember")
+	public String deleteMember(@RequestParam Map<String, Object> paramMap, Model model) {
+	    boolean success = resumeService.deleteMember(paramMap);
+
+	    if (success) {
+	        model.addAttribute("msg", "정상적으로 탈퇴되었습니다.");
+	    } else {
+	        model.addAttribute("msg", "탈퇴 실패: 아이디 또는 비밀번호를 확인하세요.");
+	    }
+	    return "home/login";
+	}
 	private String createDirectories(String realPath) {
 		// Date 또는 LocalXXX 클래스 활용
 		

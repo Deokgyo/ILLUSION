@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,21 +72,24 @@
           <li>문의: illusion.com@naver.com / 02-0000-0000</li>
         </ol>
       </div>
-
-      <form class="form">
-        <label>아이디 입력</label>
-        <input type="text" placeholder="아이디 입력하세요">
-
-        <label>비밀번호 입력</label>
-        <input type="password" placeholder="비밀번호 입력하세요">
-
-        <div class="checkbox">
-          
-          <label for="agree"><input type="checkbox" id="agree" class="checkboxcss"> 상기 탈퇴 정책을 모두 확인하였으며, 이에 동의합니다.</label>
-        </div>
-
-        <button type="submit" class="withdraw-btn">회원탈퇴</button>
-      </form>
+		<form action="deleteMember" id="withdrawForm" class="form" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		    <input type="hidden" name="member_idx" value="${selectuserInfoEdit.member_idx}">
+		
+		    <label>아이디 입력</label>
+		    <input type="text" name="member_id" placeholder="아이디 입력하세요">
+		
+		    <label>비밀번호 입력</label>
+		    <input type="password" name="member_pw" placeholder="비밀번호 입력하세요">
+		
+		    <div class="checkbox">
+		        <label for="agree">
+		            <input type="checkbox" id="agree" class="checkboxcss"> 상기 탈퇴 정책을 모두 확인하였으며, 이에 동의합니다.
+		        </label>
+		    </div>
+		
+		    <button type="submit" class="withdraw-btn">회원탈퇴</button>
+		</form>
     </section>
 	</div>
 	
@@ -97,5 +101,39 @@
 </footer>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#withdrawForm").on("submit", function(e) {
+        // 체크박스 확인
+        if (!$("#agree").is(":checked")) {
+            alert("탈퇴 정책에 동의해야 합니다.");
+            e.preventDefault();
+            return;
+        }
+
+        // 아이디와 비밀번호 입력 확인
+        const memberId = $("input[name='member_id']").val().trim();
+        const memberPw = $("input[name='member_pw']").val().trim();
+
+        if (memberId === "") {
+            alert("아이디를 입력하세요.");
+            e.preventDefault();
+            return;
+        }
+
+        if (memberPw === "") {
+            alert("비밀번호를 입력하세요.");
+            e.preventDefault();
+            return;
+        }
+        // ✅ 최종 확인
+        const confirmed = confirm("정말로 탈퇴하시겠습니까?");
+        if (!confirmed) {
+            e.preventDefault(); // 취소 시 제출 중단
+            return;
+        }
+    });
+});
+</script>
 </body>
 </html>
