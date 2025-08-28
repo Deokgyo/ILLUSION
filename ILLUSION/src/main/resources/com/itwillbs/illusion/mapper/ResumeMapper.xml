@@ -55,7 +55,8 @@
 		)
 	</insert>
 	<insert id="insertResume_exp_info" parameterType="map">
-		INSERT INTO resume_exp_info(
+		INSERT INTO
+		resume_exp_info(
 		resume_idx,
 		company_name,
 		occupation,
@@ -66,42 +67,50 @@
 		) VALUES (
 		#{resume_idx},
 		#{company_name},
-		#{occupation},  <!-- 코드값 넣기 -->
+		#{occupation},
 		#{position},
-		#{experience},   <!-- 코드값 넣기 -->
+		#{experience},
 		#{certificate},
 		#{responsibilities}
 		)
 	</insert>
 
+	<!-- 이력서 수정용 SELECT -->
 	<select id="getResumeForEdit" parameterType="map"
 		resultType="com.itwillbs.illusion.vo.ResumeVO">
 		SELECT
-		*
-		FROM
-		resume
-		WHERE
-		resume_idx = #{resumeIdx}
+		resume_idx,
+		member_idx,
+		resume_title,
+		resume_create_at,
+		resume_img,
+		school_name,
+		major,
+		grade,
+		degree,
+		enroll_date,
+		graduation_date,
+		additional_information
+		FROM resume
+		WHERE resume_idx = #{resumeIdx}
 		AND member_idx = #{memberIdx}
 	</select>
 
-	<update id="updateResume" parameterType="map"
-		useGeneratedKeys="true" keyProperty="resume_idx">
+	<!-- 이력서 UPDATE -->
+	<update id="updateResume" parameterType="map">
 		UPDATE resume
 		SET
-		member_idx =
-		#{member_idx},
+		member_idx = #{member_idx},
 		resume_title = #{resume_title},
-		resume_create_at =
-		#{resume_create_at},
+		resume_create_at = #{resume_create_at},
 		resume_img = #{resume_img},
-		school_name =
-		#{school_name},
+		school_name = #{school_name},
 		major = #{major},
 		grade = #{grade},
 		degree = #{degree},
 		enroll_date = #{enroll_date},
-		graduation_date = #{graduation_date}
+		graduation_date = #{graduation_date},
+		additional_information = #{additional_information}
 		WHERE resume_idx = #{resume_idx}
 	</update>
 
@@ -197,7 +206,8 @@
 		parameterType="int">
 		SELECT profile_picture_url
 		FROM member
-		WHERE member_idx = #{memberIdx}
+		WHERE member_idx =
+		#{memberIdx}
 	</select>
 
 	<!-- 예상면접질문 -->
@@ -306,7 +316,8 @@
 		= e.resume_idx
 		LEFT JOIN common_code deg ON deg.code =
 		r.degree
-		LEFT JOIN common_code exp ON exp.code = e.experience
+		LEFT JOIN
+		common_code exp ON exp.code = e.experience
 		LEFT JOIN
 		common_code occ ON
 		occ.code = e.occupation
@@ -334,17 +345,22 @@
 		, c.member_idx
 		, c.cl_title
 		, c.generation_date
-		, t.code_name as cl_type	<!-- 서브쿼리를 이용해서 질문 갯수 확인하기 -->
+		,
+		t.code_name as cl_type	<!-- 서브쿼리를 이용해서 질문 갯수 확인하기 -->
 		,(SELECT COUNT(*)
 		FROM question q
-		WHERE q.cl_idx = c.cl_idx) AS question_count
+		WHERE q.cl_idx = c.cl_idx) AS
+		question_count
 
-		FROM cover_letter c LEFT JOIN common_code t ON t.code = c.cl_type
+		FROM cover_letter c LEFT JOIN common_code t ON t.code =
+		c.cl_type
 		WHERE c.member_idx = #{memberIdx}
-		AND is_saved_to_mypage LIKE "%BOL002%"
+		AND is_saved_to_mypage LIKE
+		"%BOL002%"
 		AND t.code NOT LIKE "%CL003%"
 		ORDER BY cl_idx DESC
-		LIMIT #{startRow}, #{listLimit}
+		LIMIT
+		#{startRow}, #{listLimit}
 	</select>
 
 	<!-- select한 자소서 개수 -->
