@@ -46,7 +46,7 @@ $(document).ready(function() {
 	let debounceTimeout;
 
 	// 아이디 유효성 체크
-	$("#userid").on('keyup', UserIdSuccess);// 
+	$("#userid").on('keyup', UserIdSuccess);
 	
 	function UserIdSuccess(){
 		clearTimeout(debounceTimeout);
@@ -363,30 +363,28 @@ $(document).ready(function() {
 		});
 	});
 
-	// 최종 제출 시 검증
-    $('.signup-form').on('submit', function(event) {
-        if (!UserIdSuccess) {
-            alert('아이디 조건을 만족하고 중복검사를 통과해야 합니다.');
-            event.preventDefault();
-            return false;
-        }
-        if (!checkUserPass) {
-            alert('비밀번호 조건을 만족해야 합니다.');
-            event.preventDefault();
-            return false;
-        }
-        if (!checkUserPass2) {
-            alert('비밀번호 확인이 일치해야 합니다.');
-            event.preventDefault();
-            return false;
-        }
-        if (!isEmailValid) {
-            alert('올바른 이메일 주소를 입력해야 합니다.');
-            event.preventDefault();
-            return false;
-        }
-        return true; // 모두 통과 시 폼 제출
-    });
-
+	$("#register-btn").click(function(e) {
+	    e.preventDefault();
+		//기업회원인지 아닌지 체크하여 사업자등록번호 체크하기 만들기
+	    if (!isCheckId) { 
+	        alert("아이디를 확인해주세요."); 
+	        return false; 
+	    }
+	    if (!isCheckPass) { 
+	        alert("비밀번호를 확인해주세요.");
+	        return false; 
+	    }
+	    if (!isCheckPass2) { 
+	        alert("비밀번호 불일치.");
+	        return false;
+	    }
+	    if (!isEmailVerified) {
+	        alert("이메일 인증을 해주세요.");
+	        return false; 
+	    }
+		
+	    // 모든 유효성 통과 시 폼 제출
+	    $("#registerForm").submit();
+	});
 
 }); //ready

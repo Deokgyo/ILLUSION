@@ -69,7 +69,7 @@
 	<div class="signup-form-box">
 	
 		<form action="${pageContext.request.contextPath}/register"
-			method="post" name="registerForm" class="signup-form"
+			method="post" id="registerForm" class="signup-form"
 			autocomplete="off">
 			
 			<div class="input-box" id="companyBox">
@@ -203,7 +203,7 @@
 			<input type="hidden" name="member_status" id="member_status">
 			
   			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-			<button class="signup-btn" type="submit">회원가입</button>
+			<button class="signup-btn" type="submit" id="register-btn">회원가입</button>
 		</form>
 	</div>
 

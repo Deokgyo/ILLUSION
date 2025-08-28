@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -65,13 +67,14 @@ public class HomeController {
 	}
 
 	@PostMapping("register")
-	public String register(MemberVO member, CompanyVo company, Model model, String address_name1,
-			String address_name2) {
+	public String register(MemberVO member, CompanyVo company, 
+						   Model model, String address_name1,
+						   String address_name2) {
 
 		System.out.println("!@#");
 		System.out.println(member);
 		System.out.println(company);
-
+		
 		// 주소 합치기
 		member.setAddress_name(address_name1 + " " + address_name2);
 
