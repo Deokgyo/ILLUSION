@@ -63,7 +63,7 @@
 			<div class="form-box">
 				<div class="member-info-container">
 					<hr>
-					<form action="userInfoEdit" method="post">
+					<form action="userInfoEdit" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type="hidden" name="member_idx" value="${member.member_idx }">
 							<input type="hidden" name="member_id" value="${member.member_id}">
@@ -71,44 +71,53 @@
 							<tr>
 								<th>프로필 이미지</th>
 								<td>
-									<div class="profile-img">
-										<img
-											src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
+							        <div class="profile-img">
+									    <c:choose>
+									        <c:when test="${not empty member.profile_picture_url}">
+									            <img src="${pageContext.request.contextPath}/resources/upload/${member.profile_picture_url}" alt="프로필 이미지" id="profilePreview">
+									        </c:when>
+									        <c:otherwise>
+									            <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" alt="기본 이미지" id="profilePreview">
+									        </c:otherwise>
+									    </c:choose>
 									</div>
-								</td>
-								<td class="right-align"><button type="button"
-										class="edit-button">수정</button></td>
-							</tr>
+							    </td>
+							   		 <td class="right-align">
+								        <!-- 숨겨진 파일 input -->
+								        <input type="file" id="profileFileInput" name="profile_picture_url" style="display:none;" accept="image/*">
+								
+								        <!-- 버튼 클릭 시 파일 선택 -->
+								        <button type="button" class="edit-button" onclick="document.getElementById('profileFileInput').click();">
+								            수정
+								        </button>
+							    	</td>
+								</tr>
 							<tr>
 								<th>아이디</th>
 								<td rowspan="1"><input type="text" name="member_id" class="bg-text" value="${member.member_id}" disabled="disabled"></td>
 							</tr>
 							<tr>
 								<th>이름</th>
-								<td><input type="text" name="member_name" class="bg-text"
-									value="${member.member_name}"></td>
+								<td><input type="text" name="member_name" class="bg-text" value="${member.member_name}"></td>
 							</tr>
 							<tr>
 								<th>생년월일</th>
 								<td><input type="text" name="resume_birth" class="bg-text"
-									value="<fmt:formatDate value='${member.resume_birth}' pattern='yyyy-MM-dd' />" ></td>
+									value="<fmt:formatDate value='${member.resume_birth}' pattern='yyyy-MM-dd' />" readonly ></td>
 							</tr>
 							<tr>
 								<th>성별</th>
 									 <td>
-										<input type="text" name="gender" class="bg-text"
-									value="${member.gender}">
+       									 <input type="text" name="gender" class="bg-text" value="${member.gender}" readonly="readonly">
    								 	</td>
 							</tr>
 							<tr>
 								<th>주소</th>
-								<td><input type="text" name="address_name" class="bg-text"
-									value="${member.address_name }" ></td>
+								<td><input type="text" name="address_name" class="bg-text" value="${member.address_name }" ></td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td><input type="text" name="member_email" class="bg-text"
-									value="${member.member_email }"></td>
+								<td><input type="text" name="member_email" class="bg-text" value="${member.member_email }"></td>
 							</tr>
 							<tr>
 							
@@ -135,5 +144,20 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	<script type="text/javascript">
+	const fileInput = document.getElementById('profileFileInput');
+	const previewImg = document.getElementById('profilePreview');
+
+	fileInput.addEventListener('change', function() {
+	    const file = this.files[0];
+	    if (file) {
+	        const reader = new FileReader();
+	        reader.onload = function(e) {
+	            previewImg.src = e.target.result; // 선택한 이미지로 바로 변경
+	        }
+	        reader.readAsDataURL(file);
+	    }
+	});
+	</script>
 </body>
 </html>

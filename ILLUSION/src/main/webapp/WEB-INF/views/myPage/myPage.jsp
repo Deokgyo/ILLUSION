@@ -48,8 +48,15 @@
 				<div class="profile-box">
 					<div class="profile-left">
 				        <div class="profile-img">
-				        	<img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
-				        </div>
+						    <c:choose>
+						        <c:when test="${not empty member.profile_picture_url}">
+						            <img src="${pageContext.request.contextPath}/resources/upload/${member.profile_picture_url}" alt="프로필 이미지" id="profilePreview">
+						        </c:when>
+						        <c:otherwise>
+						            <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" alt="기본 이미지" id="profilePreview">
+						        </c:otherwise>
+						    </c:choose>
+							</div>
 				        <button class="edit-btn" onclick="location.href='userInfoEdit'">회원정보수정</button>
 					</div>
 				    <div class="profile-info">

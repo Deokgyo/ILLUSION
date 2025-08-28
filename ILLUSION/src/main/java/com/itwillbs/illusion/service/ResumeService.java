@@ -90,7 +90,9 @@ public class ResumeService {
 	   public Map<String, Object> selectuserInfoEdit(int member_idx) {
 		   return mapper.selectuserInfoEdit(member_idx);
 	   }
-	   
+	   public String getProfilePicturePath(int memberIdx) {
+		    return	mapper.getProfilePicturePath(memberIdx);
+		}
 	   
 	   
 	   

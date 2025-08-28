@@ -1,6 +1,7 @@
 package com.itwillbs.illusion.controller.myPage;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -143,17 +145,50 @@ public class MypageController {
 	}
 	/*회원정보 수정 */
 	@PostMapping("userInfoEdit")
-    public String userInfoEdit(@RequestParam Map<String, Object> paramMap) {
+	public String userInfoEdit(@RequestParam Map<String, Object> paramMap,
+	                           HttpSession session,
+	                           HttpServletRequest req,
+	                           @RequestParam("profile_picture_url") MultipartFile file1) {
 
-        // member_idx는 Integer로 변환
-        if (paramMap.get("member_idx") instanceof String) {
-            paramMap.put("member_idx", Integer.parseInt((String) paramMap.get("member_idx")));
-        }
-                
-        resumeService.updateuserInfoEdit(paramMap);
-        
-        return "redirect:/myPage";
-    }
+	    // member_idx Integer 변환
+	    int memberIdx = Integer.parseInt(paramMap.get("member_idx").toString());
+	    paramMap.put("member_idx", memberIdx);
+
+	    // 성별 코드 변환
+	    if (paramMap.get("gender") != null) {
+	        String genderInput = paramMap.get("gender").toString();
+	        Map<String, String> genderMap = Map.of("남", "GEN001", "여", "GEN002");
+	        paramMap.put("gender", genderMap.getOrDefault(genderInput, null));
+	    }
+
+	    // 1. 기존 이미지 DB에서 조회
+	    String existingFilePath = resumeService.getProfilePicturePath(memberIdx);
+
+	    // 2. 업로드 경로 준비
+	    String realPath = req.getServletContext().getRealPath(virtualPath);
+	    String subDir = createDirectories(realPath);
+	    realPath += "/" + subDir;
+
+	    // 3. 파일 처리
+	    if (!file1.isEmpty()) {
+	        String fileName = UUID.randomUUID().toString() + "_" + file1.getOriginalFilename();
+	        String savedPath = subDir + "/" + fileName;
+	        try {
+	            file1.transferTo(new File(realPath, fileName));
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        paramMap.put("profile_picture_url", savedPath);
+	    } else {
+	        // 업로드 안 하면 기존 이미지 유지
+	        paramMap.put("profile_picture_url", existingFilePath);
+	    }
+
+	    // 4. DB 업데이트
+	    resumeService.updateuserInfoEdit(paramMap);
+
+	    return "redirect:/myPage";
+	}
 
 
 
