@@ -338,7 +338,6 @@ $(document).ready(function() {
 		const reg_num = $("#companyNumber").val();
 
 		if (!reg_num) {
-			console.log("왜 안되니");
 			alert('사업자등록번호를 입력해주세요.');
 			return false;
 		}
@@ -349,7 +348,6 @@ $(document).ready(function() {
 			data: { recruiter_number: reg_num }, // reg_num 사용
 			dataType: 'json', // 서버가 json으로 응답 시
 			success: function(data) {
-				console.log("왜 안되니2");
 				if (data.duplicate) { // 서버에서 {"duplicate": true/false} 형태로 응답할 경우
 					alert('이미 등록된 사업자등록번호입니다.');
 					$('#companyNumber').focus();
