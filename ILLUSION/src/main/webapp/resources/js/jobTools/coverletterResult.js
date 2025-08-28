@@ -23,15 +23,8 @@ $(function(){
 	        url: "saveToMypage",
 	        data: { cl_idx: cl_idx },
 	        success: function(res) {
-	            if (res.status == "saved") {
-	                alert(res.message);  
-	                $("#saveBtn").text("저장 취소"); 
-	            } else if (res.status == "unsaved") {
-	                alert(res.message); 
-	                $("#saveBtn").text("저장");
-	            } else {
-	                alert("알 수 없는 상태값: " + res.status);
-	            }
+	            alert(res.message);  
+	            $("#saveBtn").text(res.btnMsg);
 	        },
 	        error: function() {
 	            alert("저장 중 오류가 발생했습니다.");

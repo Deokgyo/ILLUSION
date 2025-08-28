@@ -4,7 +4,7 @@
 <%@ page session="false"%>
 <html>
 <head>
-	
+	<title>아이디/비밀번호 찾기</title>
 	<%-- js 파일 --%>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/home/idPwFind.js"></script>
@@ -23,95 +23,88 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home/idPwFind.css">
-<title>Home</title>
+    
+   	<meta name="_csrf" content="${_csrf.token}">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
 </head>
 <body>
 
 	<header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
 	
-	
 	<main>
 		<section class="form-body">
-			<form action="idFind" method="post" id="idFindForm">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-			
+			<!-- 아이디 찾기 폼 -->
+			<form id="idFindForm" action="#" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<article class="box-left">
 					<span class="tab">아이디 찾기</span>
 					<ul class="pw-find-input">
 						<li>
 							<div class="input-wrap">
-								<input name="member_name" class="input" type="text" placeholder="이름을 입력해주세요">
+								<input name="member_name" id="id-member-name" class="input" type="text" placeholder="이름을 입력해주세요">
 							</div>
 						</li>
 						<li>
 							<div class="email-input">
 								<div class="input-wrap">
-									<input name="member_email" class="input" type="text" placeholder="이메일을 입력해주세요">
+									<input name="member_email" id="id-member-email" class="input" type="text" placeholder="이메일을 입력해주세요">
 								</div>
-								<input id="email-btn" type="button" class="vaildNum-send btn-yellow" value="인증번호 발송">
-							</div>
-						</li>								
-						<li>
-							<div class="input-wrap">
-								<input name="" class="input" type="text" placeholder="인증 번호 입력">
+								<input id="id-send-auth-btn" type="button" class="vaildNum-send btn-yellow" value="인증번호 발송">
 							</div>
 						</li>
-						<li>
-							<span>*인증번호가 틀립니다. 다시 확인 해주세요</span>
+						<li id="id-auth-code-item" style="display: none;">
+							<div class="input-wrap">
+								<input name="auth_code" id="id-auth-code-input" class="input" type="text" placeholder="인증 번호 입력">
+							</div>
 						</li>
 					</ul>
 					<div class="idFind-btn">
-<!-- 						<input type="submit" class="btn-yellow" value="인증확인" /> -->
-						<input id="finding-id" type="submit" class="btn-yellow" value="인증확인" />
+						<input id="id-verify-btn" type="button" class="btn-yellow" value="인증확인" style="display: none;" />
 					</div>		
-					<div id="id-divider" class="divider"></div>
+					<div class="divider"></div>
 					<div class="result">
-						<p>회원님의 아이디는</p>
-						<h3>id...(디비에서 가져올 데이터)</h3>
-						<p>입니다.</p>
+						<p id="id-result-text"></p>
 					</div>
 				</article>
 			</form>
 			
 			<div class="divider"></div>
 			
-			<form action="pwFind" method="post">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-			
+			<!-- 비밀번호 찾기 폼 -->
+			<form id="pwFindForm" action="#" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<article class="box-right">
 					<span class="tab">비밀번호 찾기</span>
 					<ul class="pw-find-input">
 						<li>
 							<div class="input-wrap">
-								<input name="" class="input" type="text" placeholder="아이디를 입력해주세요">
+								<input name="member_id" id="pw-member-id" class="input" type="text" placeholder="아이디를 입력해주세요">
 							</div>
 						</li>
 						<li>
 							<div class="email-input">
 								<div class="input-wrap">
-									<input name="" class="input" type="text" placeholder="이메일을 입력해주세요">
+									<input name="member_email" id="pw-member-email" class="input" type="text" placeholder="이메일을 입력해주세요">
 								</div>
-								<input type="button" class="vaildNum-send btn-yellow" value="인증번호 발송">
-							</div>
-						</li>								
-						<li>
-							<div class="input-wrap">
-								<input name="" class="input" type="text" placeholder="인증 번호 입력">
+								<input id="pw-send-auth-btn" type="button" class="vaildNum-send btn-yellow" value="인증번호 발송">
 							</div>
 						</li>
-						<li>
-							<span>*인증번호가 틀립니다. 다시 확인 해주세요</span>
-						</li>							
+						<li id="pw-auth-code-item" style="display: none;">
+							<div class="input-wrap">
+								<input name="auth_code" id="pw-auth-code-input" class="input" type="text" placeholder="인증 번호 입력">
+							</div>
+						</li>
 					</ul>
 					<div class="pwFind-btn">
-						<input type="submit" class="btn-yellow" value="인증확인" />
+						<input id="pw-verify-btn" type="button" class="btn-yellow" value="인증확인" style="display: none;" />
 					</div>				
+					<div class="result">
+						<p id="pw-result-text"></p>
+					</div>
 				</article>
 			</form>
 		</section>
 	</main>
-	
-	
 
 	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 </body>

@@ -94,30 +94,10 @@
 		   AND cl_type != 'CL003'
 	</select>
 	
-	<!-- 자소서 저장 여부 토글 -->
-	<update id="toggleSaveStatus">
-	     UPDATE cover_letter
-	        SET is_saved_to_mypage = CASE WHEN is_saved_to_mypage = 'BOL001' THEN 'BOL002'	        								 
-	       								  									 ELSE 'BOL001' END
-     	  WHERE cl_idx = #{cl_idx}
-	</update>
-	
-<!-- 이용해서 컨트롤러 2줄로 줄이기, js도 줄여보기 (map으로) -->	
-<!-- 	SELECT is_saved_to_mypage as code -->
-<!-- 	 , CASE WHEN is_saved_to_mypage = 'BOL001' THEN '마이페이지에 저장되었습니다.' -->
-<!-- 											   ELSE '마이페이지 저장이 취소되었습니다.' END AS message -->
-<!-- 	 , CASE WHEN is_saved_to_mypage = 'BOL001' THEN '저장' -->
-<!-- 											   ELSE '저장취소' END AS btnMsg -->
-<!--    FROM cover_letter -->
-<!--   WHERE cl_idx = 100; -->
-<!-- ; -->
-	
-	
-	<!-- 자소서 저장 여부 조회 -->
-	<select id="selectSaveStatus">
-   	     SELECT is_saved_to_mypage
-   	       FROM cover_letter
-   	      WHERE cl_idx = #{cl_idx}
+	<!-- 자소서 저장 여부 토글 및 상태 조회 (프로시저 호출) -->
+	<!-- 프로시저 조회 SHOW CREATE PROCEDURE sp_toggle_and_select_save_status; -->
+	<select id="callToggleAndSelectSaveStatus" resultType="java.util.HashMap" statementType="CALLABLE">
+	    {CALL sp_toggle_and_select_save_status(#{cl_idx, mode=IN})}
 	</select>
 	
 	<!-- 유저 토큰 수 조회 -->

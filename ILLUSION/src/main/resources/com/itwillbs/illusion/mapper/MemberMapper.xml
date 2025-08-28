@@ -54,6 +54,8 @@
 		INSERT INTO mail_auth_info
 		VALUES (#{email},
 				#{auth_code})
+		ON DUPLICATE KEY UPDATE
+			auth_code = #{auth_code}
 	</insert>
 
 	<select id="selectMailAuthInfo">
