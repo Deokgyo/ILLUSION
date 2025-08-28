@@ -47,6 +47,17 @@
 					                <input type="radio" class="radiobox" name="cl_input_method" id="check-file-upload" value="file" checked/>
 					                <span>파일 업로드</span>
 					            </label>
+					           	<div class="title_company">
+			                    	<div class="input">
+			                    		<span><i class="icon fa-regular fa-pen-to-square icon"></i>자소서 제목</span>
+			                    		<input name="cl_title" class="title_file" placeholder="자소서 제목을 입력해주세요">
+			                    	</div>  
+			                    	<hr class="divider">
+			                    	<div class="input">
+			                    		<span><i class="bi bi-building icon"></i>지원하는 회사</span>
+			                    		<input name="company_name" class="company_file" placeholder="지원하는 회사를 입력해주세요">
+			                    	</div>
+	                    	    </div>
 					            <div class="content-area">
 					                <div class="drop-zone">
 					                    <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
@@ -61,6 +72,17 @@
 					                <input type="radio" class="radiobox" name="cl_input_method" id="check-direct-input" value="text"/>
 					                <span>자기소개서 내용</span>
 					            </label>
+					            <div class="title_company">
+			                    	<div class="input">
+			                    		<span><i class="icon fa-regular fa-pen-to-square icon"></i>자소서 제목</span>
+			                    		<input name="cl_title" class="title_direct" placeholder="자소서 제목을 입력해주세요">
+			                    	</div>  
+			                    	<hr class="divider">
+			                    	<div class="input">
+			                    		<span><i class="bi bi-building icon"></i>지원하는 회사</span>
+			                    		<input name="company_name" class="company_direct" placeholder="지원하는 회사를 입력해주세요">
+			                    	</div>
+	                    	    </div>
 					            <div class="content-area">
 					                <div class="textarea-wrapper">
 					                    <textarea id="direct-input-textarea" name="coverletterText" placeholder="자기소개서 내용을 입력하세요"></textarea>

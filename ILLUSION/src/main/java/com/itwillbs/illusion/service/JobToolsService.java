@@ -157,5 +157,10 @@ public class JobToolsService {
 		return mapper.selectInterviewResult(cl_idx);
 	}
 	
+	// 예상질문 답변과 피드백 저장하기 (덕교) 
+	public void insertAnswer(String question_idx, String answer_text, String ai_feedback, int member_idx) {
+		mapper.insertAnswer(question_idx, answer_text, ai_feedback, member_idx);
+	}
+	
 }
 

@@ -10,8 +10,12 @@ $(function() {
 		// 직접 입력 했을때 
 		if($('[data-tab="panel-direct-input"]').hasClass('active')) {
 			
+			let cl_title = $('.title_direct').val();
+			let company_name = $('.company_direct').val();
 			let text = $('textarea').val();
-			let data = {data : text};
+			let data = {data : text,
+						cl_title : cl_title,
+						company_name : company_name};
 			
 			if(text == '') {
 				alert('텍스트를 입력해주세요');
@@ -40,8 +44,12 @@ $(function() {
 		if($('[data-tab="panel-file-upload"]').hasClass('active')) {
 			let file = $('#file-input-hidden')[0].files[0]
 			if(!file) {alert('파일을 선택하세요'); return;}
+			let cl_title = $('.title_file').val();
+			let company_name = $('.company_file').val();
 			let fd = new FormData();
 			fd.append('file', file);
+			fd.append('cl_title', cl_title);
+			fd.append('company_name', company_name);
 			
 			 $.ajax({
 			    url: 'createInterviewByFile',

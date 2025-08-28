@@ -137,4 +137,19 @@
 		 WHERE cl_idx = #{cl_idx} 
 	</select>
 	
+	<!-- 예상 면접 질문 답변한거 피드백 저장(덕교) -->
+	<insert id="insertAnswer">
+		INSERT INTO answer 
+	  		 ( question_idx 
+       		 , member_idx
+      		 , answer_text
+       		 , ai_feedback )
+  	    VALUES ( 
+  	    	   #{question_idx}
+	   		 , #{member_idx}
+       		 , #{answer_text}
+      		 , #{ai_feedback}
+       		 )
+	</insert>
+	
 </mapper>

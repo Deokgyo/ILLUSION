@@ -37,16 +37,17 @@
                 <p class="header-text"><strong>AI 면접 예상질문 결과</strong></p>
             </div>
 
-            <c:forEach var="result" items="${interviewResultList}" begin="0" end="2">
 	            <div class="question-list-container">
+            	<c:forEach var="result" items="${interviewResultList}" varStatus="st">
 	                <div class="question-card">
 	                    <div class="card-header">
 	                        <div class="question-title">
 	                            <span class="q-icon">Q</span>
 	                            <span class="q-text">${result.question_text}</span>
+	                            <span class="question_idx" style="display:none;">${result.question_idx}</span>
 	                        </div>
 	                        <div class="card-actions">
-	                            <button class="btn btn-yellow">저장</button>
+	                            <button class="btn btn-yellow save">저장</button>
 	                            <button class="btn btn-yellow">복사</button>
 	                        </div>
 	                    </div>
@@ -54,7 +55,7 @@
 	                        <textarea placeholder="이 질문에 대한 답변을 작성해 주세요"></textarea>
 	                    </div>
 	                    <div class="card-footer">
-	                        <button class="btn btn-yellow" disabled="disabled">답변 제출하기</button>
+	                        <button class="btn btn-yellow submit">답변 제출하기</button>
 	                    </div>
 	                    <div class="feedback-box">
 	                        <div class="feedback-header">
@@ -62,13 +63,13 @@
 <!-- 	                            <span class="icon">🤖</span> -->
 	                            <span>AI 피드백</span>
 	                        </div>
-	                        <p class="feedback-text">답변은 질문과 관련이 있지만 구체성과 논리성이 부족합니다.</p>
+	                        <p class="feedback-text">답변을 제출하고 피드백을 받아보세요!</p>
 	                    </div>
-	                </div>
+	              	</div>
 					        <!-- 질문 카드 2, 3 -->
 	                <%-- ... 카드 1번대로 for문 돌릴 예정 ... --%>
+           		</c:forEach>
 	            </div>
-            </c:forEach>
 
         </main>
     </div>
@@ -77,5 +78,6 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jobTools/interviewResult.js"></script>
 </body>
 </html>

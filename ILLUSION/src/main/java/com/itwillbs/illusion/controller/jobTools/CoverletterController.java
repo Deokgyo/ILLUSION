@@ -96,7 +96,9 @@ public class CoverletterController {
     // 면접 예상 질문 생성 ajax 처리(덕교)
     @PostMapping("createInterviewByDirect")
     @ResponseBody
-    public String createInterviewByDirect(String data) {
+    public String createInterviewByDirect(@RequestParam("data")String data, 
+    			@RequestParam("company_name") String company_name, 
+    			@RequestParam("cl_title") String cl_title) {
     	
     	// 토큰 차감 로직
     	// 토큰 차감 하려면, member_idx 필요함.. 
@@ -111,8 +113,7 @@ public class CoverletterController {
     	
     	//data도 디비에 인서트 해야함 
         Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), 
-        		JobToolsConstants.TITLE_ORIGINAL_FOR_REFINEMENT, 
-        		null, data, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
+        		cl_title, company_name, data, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
         // 인서트 하고 인서트 후에 생성된 idx 값  받기 
         int cl_idx = service.saveCoverletterOnly(originalClMap);
         
@@ -130,7 +131,9 @@ public class CoverletterController {
     
     @PostMapping("createInterviewByFile")
     @ResponseBody 
-    public String createInterviewByFile(@RequestParam MultipartFile file) {
+    public String createInterviewByFile(@RequestParam MultipartFile file, 
+    		@RequestParam("company_name") String company_name, 
+			@RequestParam("cl_title") String cl_title) {
     	// 토큰 차감 로직
     	int member_idx = SecurityUtil.getLoginUserIndex(); // member_idx 
     	int cost = JobToolsConstants.COVER_LETTER_INTERVIEW_COST;
@@ -144,8 +147,7 @@ public class CoverletterController {
 			
 			//추출한 텍스트 디비에 인서트 해야함 
 	        Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), 
-	        		JobToolsConstants.TITLE_ORIGINAL_FOR_INTERVIEW, 
-	        		null, coverletter, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
+	        		cl_title, company_name, coverletter, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
 	        // 인서트 하고 인서트 후에 생성된 idx 값  받기 
 	        int cl_idx = service.saveCoverletterOnly(originalClMap);
 			
@@ -188,6 +190,30 @@ public class CoverletterController {
     	return "interviewResult?cl_idx=" + cl_idx;
     }
     
+    //예상 질문에 대한 사용자 답변 피드백 주기 (덕교)
+    @PostMapping("getAiFeedback")
+    @ResponseBody 
+    public Map<String, String> getAiFeedback(@RequestParam("question") String question, 
+    							@RequestParam("answer") String answer ) {
+    	String prompt = aiFeedbackPrompt(question, answer);
+     	String aiResult = geminiService.callGeminiApi(prompt);
+     	Map<String, String> result = new HashMap<String, String>();
+     	result.put("feedback", aiResult);
+    	return result;
+    }
+    
+    // 예상 질문과 사용자 답변과 피드백 디비에 저장하기 (덕교 ) 
+    @PostMapping("saveAnswer") 
+    @ResponseBody
+    public void saveAnswer(@RequestParam("question_idx") String question_idx, 
+    					@RequestParam("answer") String answer_text,
+    					@RequestParam("feedback") String ai_feedback) {
+    	
+    	int member_idx = SecurityUtil.getLoginUserIndex();
+    	service.insertAnswer(question_idx, answer_text, ai_feedback, member_idx);
+    	
+    }
+    
     
     @PostMapping("coverletterGenerate")
     @ResponseBody
@@ -223,7 +249,10 @@ public class CoverletterController {
     @ResponseBody
     public Map<String, Object> refineNewCoverletter(@RequestParam String cl_input_method,
             @RequestParam(required = false) MultipartFile uploadedFile,
-            @RequestParam(required = false) String coverletterText, HttpSession session) {
+            @RequestParam(required = false) String coverletterText, 
+            @RequestParam("cl_title")String cl_title,
+            @RequestParam("company_name")String company_name,
+            HttpSession session) {
 
         String originalContent = "";
         try {
@@ -243,7 +272,7 @@ public class CoverletterController {
 
         try {
             // 1. 원본 자소서 저장
-            Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), JobToolsConstants.TITLE_ORIGINAL_FOR_REFINEMENT, null, originalContent, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
+            Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title, company_name, originalContent, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
             int originalClIdx = service.saveCoverletterOnly(originalClMap);
 
             // 2. AI 첨삭 및 저장
@@ -430,5 +459,33 @@ public class CoverletterController {
 				+ originalContent);
 	}
 	
+	
+	private String aiFeedbackPrompt(String question, String answer) {
+		return String.format(
+				"당신은 20년 경력의 베테랑 면접관입니다. 당신이 제시했던 아래 [면접 질문]에 대해," 
+				+ "지원자가 [지원자 답변]과 같이 대답했습니다. 지원자의 답변을 날카롭고 구체적으로 분석하여,"
+				+ "다음 형식에 맞춰 피드백을 제공해주세요."
+				+ "피드백은 지원자가 실질적으로 답변을 개선하는 데 도움이 되도록 구체적인 예시와 함께 설명해주세요."
+				+ "[면접 질문]"
+				+ question
+				+ "[지원자 답변]"
+				+ answer
+				+ "[피드백 형식]"
+				+ "1. 총평:답변에 대한 전반적인 인상과 합격/불합격에 미칠 영향을 한두 문장으로 요약해주세요."
+				+ "2. 잘한 점: 구조적 완성도: 답변이 STAR(상황-과제-행동-결과) 기법에 따라 체계적으로 구성되었는지 평가해주세요."
+				+ "핵심 역량 어필: 답변을 통해 지원자의 어떤 역량(예: 문제 해결 능력, 주도성, 소통 능력 등)이 효과적으로 드러났는지 짚어주세요.\n"
+				+ "표현 및 전달력: 답변의 논리 전개가 명확하고, 사용된 어휘나 어조가 자신감 있고 긍정적인 인상을 주는지 평가해주세요."
+				+ "한문 장으로 해주세요"
+				+ "3. 개선할 점:"
+				+ "구체성 부족: \"열심히 했습니다\", \"좋은 결과를 얻었습니다\" 와 같이 추상적인 표현이 있다면, 이를 구체적인 수치나 객관적인 사실로 바꿀 수 있도록 예시를 들어 제안해주세요."
+				+ "논리적 허점: 주장의 근거가 부족하거나, 행동과 결과 사이의 인과관계가 명확하지 않은 부분을 지적하고 보완할 점을 설명해주세요."
+				+ "질문 의도 파악: 면접관의 질문 의도에서 벗어난 부분은 없는지, 혹은 더 강조했어야 할 포인트는 무엇인지 알려주세요."
+				+ "한문 장으로 해주세요"
+				+" [출력 형식]"
+				+ "각 항목들은 줄바꿈으로 구분좀 제대로 해줘 너의 답변이 그대로(줄바꿈, 띄어쓰기, 특수문자 강조표현등) 사용자에게 보여지는거야"
+				+ "그리고 전체 내용이 너무길어 16px 기준으로 5~6줄 정도로만 해줘, 1.너의 답변 \n 2. 너의답변 \n .. 이런형식으로 "
+				+ "줄바꿈을 html 코드로 해줄래?, 아니 *(아스트리카) 빼라고 ;;;"
+				);
+	}
 	
 }
