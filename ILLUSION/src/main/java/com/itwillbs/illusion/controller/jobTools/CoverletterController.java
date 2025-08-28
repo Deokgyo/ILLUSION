@@ -214,7 +214,7 @@ public class CoverletterController {
     	
     }
     
-    
+    // 자소서 생성
     @PostMapping("coverletterGenerate")
     @ResponseBody
     public Map<String, Object> coverletterGenerate(@RequestParam Map<String, String> params, HttpSession session) {
@@ -279,7 +279,7 @@ public class CoverletterController {
             String prompt = createRefinementPrompt(originalContent);
             String aiResult = geminiService.callGeminiApi(prompt);
 
-            Map<String, Object> refinedClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), JobToolsConstants.TITLE_REFINED, null, aiResult, JobToolsConstants.CL_TYPE_REFINED);
+            Map<String, Object> refinedClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title, company_name, aiResult, JobToolsConstants.CL_TYPE_REFINED);
 
             Map<String, Object> serviceResult = service.useTokenForJobTools(refinedClMap, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
             updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
