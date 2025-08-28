@@ -83,9 +83,31 @@
             resume_exp_info
         WHERE resume_idx = #{resumeIdx}
     </select>
+    
+    <!-- 이력서 수정용 SELECT -->
+	<select id="getResumeForEdit" parameterType="map"
+		resultType="com.itwillbs.illusion.vo.ResumeVO">
+		SELECT
+		resume_idx,
+		member_idx,
+		resume_title,
+		resume_create_at,
+		resume_img,
+		school_name,
+		major,
+		grade,
+		degree,
+		enroll_date,
+		graduation_date,
+		additional_information
+		FROM resume
+		WHERE resume_idx =
+		#{resumeIdx}
+		AND member_idx = #{memberIdx}
+	</select>
 
 	<!-- 이력서 수정용 SELECT -->
-	<select id="getResumeForEdit" parameterType="map"
+	<select id="getResumeForEdit1" parameterType="map"
 		resultType="com.itwillbs.illusion.vo.ResumeVO">
 		SELECT
 		resume_idx,
@@ -112,7 +134,6 @@
 		SET
 		member_idx = #{member_idx},
 		resume_title = #{resume_title},
-		resume_create_at = #{resume_create_at},
 		resume_img = #{resume_img},
 		school_name = #{school_name},
 		major = #{major},
@@ -326,9 +347,8 @@
 		,r.additional_information
 		,deg.code_name as degree
 		,e.company_name
-		,e.position
-		,exp.code_name as
-		experience
+		,pos.code_name as position
+		,exp.code_name as experience
 		,occ.code_name as occupation
 		,e.certificate
 		,e.responsibilities
@@ -340,6 +360,8 @@
 		= e.resume_idx
 		LEFT JOIN common_code deg ON deg.code =
 		r.degree
+		LEFT JOIN common_code pos ON pos.code =
+		e.position
 		LEFT JOIN
 		common_code exp ON exp.code = e.experience
 		LEFT JOIN
@@ -380,8 +402,8 @@
 		c.cl_type
 		WHERE c.member_idx = #{memberIdx}
 		AND is_saved_to_mypage LIKE
-		"%BOL002%"
-		AND t.code NOT LIKE "%CL003%"
+		"%BOL002%"  <!-- 저장 안함 공통코드 -->
+<!-- 		AND t.code NOT LIKE "%CL003%" 원본 자소서 인것은 빼기 -->
 		ORDER BY cl_idx DESC
 		LIMIT
 		#{startRow}, #{listLimit}

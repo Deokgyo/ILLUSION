@@ -129,14 +129,22 @@
 		        
 		        <!-- 페이지네이션 -->
 				<nav class="pagination">
-				    <!-- 이전 페이지 버튼 -->
+				    <!-- 첫 페이지 버튼 -->
 				    <c:if test="${pageInfo.pageNum > 1}">
 				    	<c:url var="pageUrl" value="adminCommunity">
 				    		<c:param name="pageNum" value="1"></c:param>
 				    	</c:url>
 				    	<a href="${pageUrl}">&laquo;</a>
 				    </c:if>
-				
+					
+					<!-- 이전페이지 버튼 10씩 감소 -->				    
+				    <c:if test="${pageInfo.startPage > 1 }">
+				    	<c:url var="pageUrl" value="adminCommunity">
+							<c:param name="pageNum" value="${pageInfo.pageNum - 10}"></c:param>
+						</c:url>
+						<a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">&lsaquo;</a>
+				    </c:if>
+				    
 				    <!-- 페이지 번호 -->
 				    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 					    <c:url var="pageUrl" value="adminCommunity">
@@ -144,13 +152,21 @@
 					    </c:url>
 					    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
 					</c:forEach>
-				
-				    <!-- 다음 페이지 버튼 -->
+					
+					<!-- 다음 페이지 버튼 10씩 증가 -->
+					<c:if test="${pageInfo.endPage < pageInfo.maxPage}">
+				    	<c:url var="pageUrl" value="adminCommunity">
+							<c:param name="pageNum" value="${pageInfo.pageNum + 10 > pageInfo.maxPage ? pageInfo.maxPage : pageInfo.pageNum + 10}"></c:param>
+						</c:url>
+						<a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">&rsaquo;</a>
+					</c:if>
+					
+				    <!-- 마지막 페이지 버튼 -->
 				    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
 				    	<c:url var="pageUrl" value="adminCommunity">
 				    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
 				    	</c:url>
-			    		    <a href="${pageUrl}">&raquo;</a>
+		    		    <a href="${pageUrl}">&raquo;</a>
 				    </c:if>
 				</nav>
 	            </main>

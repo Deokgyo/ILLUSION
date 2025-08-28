@@ -1,11 +1,16 @@
 package com.itwillbs.illusion.controller.home;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.illusion.service.LoginService;
 
@@ -44,6 +49,17 @@ public class LoginController {
         model.addAttribute("msg", "페이지에 접근할 권한이 없습니다.");
         
         return "errorPage";
+    }
+    
+    // 아이디 찾기 
+    @PostMapping("idFind")
+    @ResponseBody
+    public Map<String, String> idFind(String member_name, String member_email){
+    	
+    	
+    	Map<String, String> idFindMap = new HashMap<String, String>();
+    	
+    	return idFindMap; 
     }
 	
 // 스프링 시큐리티가 이제 다해줌

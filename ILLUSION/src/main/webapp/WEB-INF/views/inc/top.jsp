@@ -68,12 +68,12 @@
 			</nav>
             
             <!-- 검색창 -->
-            <form action="/search" method="get" class="search-form">
-                <input type="text" name="query" class="search-input" placeholder="검색">
-                <button type="submit" class="search-button">
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
+<!--             <form action="/search" method="get" class="search-form"> -->
+<!--                 <input type="text" name="query" class="search-input" placeholder="검색"> -->
+<!--                 <button type="submit" class="search-button"> -->
+<!--                     <i class="bi bi-search"></i> -->
+<!--                 </button> -->
+<!--             </form> -->
         </div>
 
         <!-- 우측 사용자 메뉴 -->

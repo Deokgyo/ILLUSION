@@ -40,6 +40,7 @@ public class ResumeVO {
 	private String certificate; // 자격증
 	private String responsibilities; // 담당업무
 	private String additional_information; // 추가정보
+	private int exp_idx; // 회원 경력 인덱스
 	
 	
 	

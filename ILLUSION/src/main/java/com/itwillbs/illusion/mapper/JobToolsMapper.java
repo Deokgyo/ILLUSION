@@ -34,4 +34,7 @@ public interface JobToolsMapper {
 	
 	// 면접 예상질문 생성된거 들고오기 (덕교) 
 	public List<Map<String,String>> selectInterviewResult(int cl_idx);
+	
+	// 면접 예상 질문 답변과 피드백 (덕교) 
+	public void insertAnswer(@Param("question_idx")String question_idx, @Param("answer_text")String answer_text, @Param("ai_feedback")String ai_feedback, @Param("member_idx")int member_idx);
 }

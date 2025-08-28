@@ -114,7 +114,7 @@ public class MypageController2 {
 	
 	/*이력서 등록, 수정*/
 	@GetMapping("resumeModify")
-	public String resumeWriteForm(Principal principal, Model model, 
+	public String resumeModifyForm(Principal principal, Model model, 
 			@RequestParam(required = false) Integer resume_idx) {
 		
 		String id = principal.getName();
@@ -126,7 +126,7 @@ public class MypageController2 {
 			return "home/login";
 		}
 		
-	    ResumeVO resume = resumeService.getResumeForEdit(resume_idx, member.getMember_idx()); // 본인 확인 로직 포함
+	    ResumeVO resume = resumeService.getResumeForEdit1(resume_idx, member.getMember_idx()); // 본인 확인 로직 포함
 	    ResumeVO exp = resumeService.getExpForEdit(resume_idx);
 	    
 	    model.addAttribute("resume", resume);
@@ -147,13 +147,22 @@ public class MypageController2 {
 	}
 	
 	@PostMapping("resumeModify")
-	public String resumeWrite(@RequestParam Map<String, Object> paramMap
+	public String resumeModify(@RequestParam Map<String, Object> paramMap
 								, HttpSession session
 								,HttpServletRequest req
 								, @RequestParam("resume_img") MultipartFile file1
 								,Principal principal
-								, @RequestParam("member_idx") int member_idx
 								) {
+		
+	    // --- 1. 본인 확인 (수정 권한 체크) ---
+	    if (principal == null) { return "redirect:/login"; }
+	    
+	    // form에서 넘어온 resume_idx를 가져옴 (반드시 String으로 먼저 받아야 함)
+	    String resumeIdxStr = (String) paramMap.get("resume_idx"); 
+	    if (resumeIdxStr == null || resumeIdxStr.isEmpty()) {
+	        return "redirect:/savedResumeList";
+	    }
+	    int resumeIdx = Integer.parseInt(resumeIdxStr);
 		
 		
 		//1.가상의 경로에 대한 서버상의 실제 경로 알아내기
@@ -187,11 +196,9 @@ public class MypageController2 {
 	    System.out.println("============================");
 	    System.out.println(paramMap);
 	    
-		// 서비스 호출 - insert 시 useGeneratedKeys로 resume_idx 채워줌
-		resumeService.insertResumeAndExpInfo(paramMap);
+		resumeService.updateResumeAndExpInfo(paramMap);
 		
-		return "redirect:/savedResumeDetail?resume_idx=" + paramMap.get("resume_idx") + "&member_idx="
-				+ paramMap.get("member_idx");
+		return "redirect:/savedResumeDetail?resume_idx=" + resumeIdx;
 	}
 
 	/* 자소서 목록 */

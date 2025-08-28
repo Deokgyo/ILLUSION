@@ -77,18 +77,7 @@
 						<input type="submit" class="btn-yellow" value="로그인" />
 					</div>
 					<ul class="find">
-						<li><a href="idPwFind">아이디 찾기</a></li>
-						<li><a href="idPwFind">비밀번호 찾기</a></li>
-					</ul>
-					<div class="social-login">
-						<div class="mini-divider"></div>
-						<span> 소셜 계정으로 로그인</span>
-						<div class="mini-divider"></div>
-					</div>
-					<ul class="social-logo">
-						<li><a href="naver"><img src="${pageContext.request.contextPath}/resources/image/naverLogin.png" alt=""></a>
-						<li><a href="kakao"><img src="${pageContext.request.contextPath}/resources/image/kakaoLogin.png" alt=""></a>
-						<li><a href="google"><img src="${pageContext.request.contextPath}/resources/image/googleLogin.png" alt=""></a>
+						<li><a href="idPwFind">아이디/비밀번호 찾기</a></li>
 					</ul>
 				</article>
 			</form>

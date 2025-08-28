@@ -55,7 +55,10 @@
 	            <!-- 메인 헤더 -->
 	            <header class="admin-header">
 	                <div class="user-actions">
-	                    <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
+	                	<form id="logoutForm" action="${pageContext.request.contextPath}/logout" method="post" style="display: inline;">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
+                        </form>
 	                    <a href="./">사용자 화면</a>
 	                </div>
 	            </header>

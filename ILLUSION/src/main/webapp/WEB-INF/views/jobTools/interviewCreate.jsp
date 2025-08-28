@@ -54,25 +54,51 @@
                 <div class="tabs-content">
                     <!-- 패널 1: 직접 입력 -->
                     <div id="panel-direct-input" class="tab-panel active">
-                        <div class="textarea-wrapper">
-                            <textarea placeholder="자기소개서 내용을 입력하세요"></textarea>
-                            <div class="char-counter">
-	                            <span class="textCnt">0</span>단어 | <span class="wordCnt">0</span> 글자
-                            </div>
-                        </div>
+                    	<div id="direct">
+	                    	<div class="title_company">
+		                    	<div class="input">
+		                    		<span><i class="icon fa-regular fa-pen-to-square icon"></i>자소서 제목</span>
+		                    		<input name="cl_title" class="title_direct" placeholder="자소서 제목을 입력해주세요">
+		                    	</div>  
+		                    	<hr class="divider">
+		                    	<div class="input">
+		                    		<span><i class="bi bi-building icon"></i>지원하는 회사</span>
+		                    		<input name="company_name" class="company_direct" placeholder="지원하는 회사를 입력해주세요">
+		                    	</div>
+	                    	</div>
+	                        <div class="textarea-wrapper">
+	                            <textarea placeholder="자기소개서 내용을 입력하세요"></textarea>
+	                            <div class="char-counter">
+		                            <span class="textCnt">0</span>단어 | <span class="wordCnt">0</span> 글자
+	                            </div>
+	                        </div>
+                    	</div>
                     </div>
 
                     <!-- 패널 2: 파일 업로드 -->
                     <div id="panel-file-upload" class="tab-panel">
-                        <div class="drop-zone">
-                            <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
-                            <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요<br>(txt, pdf, doc, docx, hwp 파일형식만 업로드 가능)</p>
-                        </div>
-                        <input type="file" id="file-input-hidden" name="uploadedFile" style="display:none;"/>
-                        <div class="upload-button-wrapper">
-                            <button class="btn btn-yellow">업로드</button>
-                        </div>
-                    </div>
+                    	<div id="direct">
+	                    	<div class="title_company">
+			                    	<div class="input">
+			                    		<span><i class="icon fa-regular fa-pen-to-square icon"></i>자소서 제목</span>
+			                    		<input name="cl_title" class="title_file" placeholder="자소서 제목을 입력해주세요">
+			                    	</div>  
+			                    	<hr class="divider">
+			                    	<div class="input">
+			                    		<span><i class="bi bi-building icon"></i>지원하는 회사</span>
+			                    		<input name="company_name" class="company_file" placeholder="지원하는 회사를 입력해주세요">
+			                    	</div>
+		                    	</div>
+	                        <div class="drop-zone">
+	                            <div class="drop-zone-icon"><i class="fa-regular fa-folder-open" style="color: var(--main-color)"></i></div>
+	                            <p class="drop-zone-text">파일을 끌어 놓거나 클릭하여 선택 하세요<br>(txt, pdf, doc, docx, hwp 파일형식만 업로드 가능)</p>
+	                        </div>
+	                        <input type="file" id="file-input-hidden" name="uploadedFile" style="display:none;"/>
+	                        <div class="upload-button-wrapper">
+	                            <button class="btn btn-yellow">업로드</button>
+	                        </div>
+	                    	</div>
+                    	</div>
 
                     <!-- 패널 3: 저장된 자기소개서 -->
                     <div id="panel-saved-coverletter" class="tab-panel">
@@ -98,7 +124,7 @@
             </div>
         </main>
     </div>
-	<jsp:include page="/WEB-INF/views/jobTools/aiToolsModal.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/jobTools/interviewCreateModal.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
