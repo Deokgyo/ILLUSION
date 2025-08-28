@@ -214,7 +214,7 @@ public class CoverletterController {
     	
     }
     
-    
+    // 자소서 생성
     @PostMapping("coverletterGenerate")
     @ResponseBody
     public Map<String, Object> coverletterGenerate(@RequestParam Map<String, String> params, HttpSession session) {
@@ -279,7 +279,7 @@ public class CoverletterController {
             String prompt = createRefinementPrompt(originalContent);
             String aiResult = geminiService.callGeminiApi(prompt);
 
-            Map<String, Object> refinedClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), JobToolsConstants.TITLE_REFINED, null, aiResult, JobToolsConstants.CL_TYPE_REFINED);
+            Map<String, Object> refinedClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title, company_name, aiResult, JobToolsConstants.CL_TYPE_REFINED);
 
             Map<String, Object> serviceResult = service.useTokenForJobTools(refinedClMap, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
             updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
@@ -342,22 +342,13 @@ public class CoverletterController {
             return createErrorResponse(e.getMessage());
         }
     }
-
+    
+    // 저장버튼 토글 기능
     @PostMapping("saveToMypage")
-    @ResponseBody
-    public Map<String, String> saveToMypage(@RequestParam("cl_idx") int cl_idx) {
-        // TODO: 권한 검사 로직 추가
-        String newStatus = service.toggleSaveToMypage(cl_idx);
-        Map<String, String> map = new HashMap<>();
-        if ("BOL001".equals(newStatus)) {
-            map.put("message", "마이페이지에 저장되었습니다.");
-            map.put("status", "saved");
-        } else {
-            map.put("message", "마이페이지 저장이 취소되었습니다.");
-            map.put("status", "unsaved");
-        }
-        return map;
-    }
+	@ResponseBody
+	public Map<String, String> saveToMypage(@RequestParam("cl_idx") int cl_idx) {
+		return service.toggleSaveToMypage(cl_idx);
+	}
 
     // ===================================================================
     // Helper Methods

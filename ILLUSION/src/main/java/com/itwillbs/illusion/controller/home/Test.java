@@ -6,8 +6,4 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class Test {
 	
-	@PostMapping("pwFind") 
-	public String pwFind () {
-		return "myPage/changePasswd";
-	}
 }

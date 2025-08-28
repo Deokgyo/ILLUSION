@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.mapper.AdminMapper;
 import com.itwillbs.illusion.vo.CommonCodeVO;
@@ -29,7 +30,10 @@ public class AdminService {
 	public int getRecruitCount() {
 		return mapper.getRecruitCount();
 	}
-	
+	// 공고 목록 불러오기 
+	public List<Map<String, Object>> getAdminRecruitmentList(String status) {
+		return mapper.getAdminRecruitmentList(status);
+	}
 	// 생성된 ai 자소서 수 조회
 	public int getCoverletterCount() {
 		return mapper.getCoverletterCount();
@@ -73,11 +77,6 @@ public class AdminService {
 	// 회원 삭제
 	public void deleteMember(int member_idx) {
 		mapper.deleteMember(member_idx);
-	}
-	
-	// 공고 리스트 조회
-	public List<Map<String, String>> getRecruitment() {
-		return mapper.getRecruitment();
 	}
 	
 	// 게시글 리스트 조회

@@ -123,9 +123,8 @@ public class JobToolsService {
 	
 	
 	// 자소서 저장 여부 토글
-	public String toggleSaveToMypage(int cl_idx) {
-	    mapper.toggleSaveStatus(cl_idx);   // 토글 실행
-	    return mapper.selectSaveStatus(cl_idx); // 바뀐 값 조회
+		public Map<String, String> toggleSaveToMypage(int cl_idx) {
+		return mapper.callToggleAndSelectSaveStatus(cl_idx);
 	}
 	
 	// 토큰 차감 없이 자소서만 저장하는 메소드

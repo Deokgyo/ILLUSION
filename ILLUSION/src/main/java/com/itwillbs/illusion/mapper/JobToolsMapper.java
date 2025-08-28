@@ -21,9 +21,8 @@ public interface JobToolsMapper {
 	
 	public List<Map<String, String>> getCoverletterTitlesByMember(int member_idx); // 특정 회원의 자소서 목록 조회
 	
-	// 자소서 저장 여부 수정
-	public int toggleSaveStatus(int cl_idx);
-	public String selectSaveStatus(int cl_idx);
+	// 자소서 저장 여부 수정 (프로시저 호출)
+	public Map<String, String> callToggleAndSelectSaveStatus(@Param("cl_idx") int cl_idx);
 
 	public Integer getMemberToken(int member_idx); // 유저 토큰 수 가져오기
 	

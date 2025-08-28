@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.controller.admin;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,9 +77,14 @@ public class AdminController {
 	// 공고관리 페이지 이동
 	@GetMapping("adminRecruitment")
 	public String adminRecruitment() {
-		
-//		List<Map<String, String>> recruitmentMap = service.getRecruitment();
 		return "admin/adminRecruitment";
+	}
+	
+	@GetMapping("getAdminRecruitmentList")
+	@ResponseBody
+	public List<Map<String, Object>> getRecruitmentList(@RequestParam(defaultValue = "RECS%") String status) {
+		List<Map<String, Object>> recruitmentList = service.getAdminRecruitmentList(status);
+		return recruitmentList;
 	}
 	
 	// 게시글 관리 페이지 이동

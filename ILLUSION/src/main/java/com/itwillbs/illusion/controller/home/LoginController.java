@@ -37,11 +37,6 @@ public class LoginController {
 		return "home/login";
 	}
 	
-	// 관리자 로그인 페이지 이동
-	@GetMapping("adminLogin")
-	public String adminLogin() {
-		return "admin/adminLogin";
-	}
 	
 	// 접근 제한 시 에러페이지 TODO 여기 메서드들 나중에 홈쪽 컨트롤러로 이동
     @GetMapping("/accessDenied")
@@ -51,57 +46,42 @@ public class LoginController {
         return "errorPage";
     }
     
-    // 아이디 찾기 
-    @PostMapping("idFind")
+    
+    // 아이디 찾기 - 인증번호 발송
+    @PostMapping("idFind/sendAuthCode")
     @ResponseBody
-    public Map<String, String> idFind(String member_name, String member_email){
+    public Map<String, Object> sendIdAuthCode(String member_name, String member_email) {
+    	boolean isSuccess = service.sendIdFindAuthCode(member_name, member_email);
     	
+    	Map<String, Object> response = new HashMap<String, Object>();
+    	response.put("success", isSuccess);
     	
-    	Map<String, String> idFindMap = new HashMap<String, String>();
-    	
-    	return idFindMap; 
+    	return response;
     }
-	
-// 스프링 시큐리티가 이제 다해줌
-//	
-//	// 로그인 기능
-//	@PostMapping("login")
-//	public String login(
-//			@RequestParam Map<String, String> memberMap,
-//			Model model,
-//			HttpSession session,
-//			HttpServletResponse res) {
-//		
-//		
-//		Map<String, Object> loginMember = service.loginMember(memberMap);
-//		
-//		System.out.println("memberMap: ======== " + memberMap);
-//		
-//		System.out.println(loginMember);
-//		
-//		if (loginMember == null) {
-//			model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-//			System.out.println("임시 에러");
-//			return "";
-//		} 
-//		
-//		boolean isRememberId = "true".equals(memberMap.get("rememberId"));
-//		int maxAge = isRememberId ? 60 * 60 * 24 * 30 : 0;
-//		Cookie cookie = new Cookie("rememberId", (String) loginMember.get("member_id"));
-//		cookie.setMaxAge(maxAge);
-//		res.addCookie(cookie);
-//		
-//		session.setAttribute("sId", loginMember);
-//		session.setMaxInactiveInterval(600);
-//		
-//		
-//		return "redirect:/";
-//	}
-	
-	
-//	@GetMapping("MemberLogout")
-//	public String memberLogout(HttpSession session) {
-//		session.invalidate();
-//		return "redirect:/";
-//	}
+    
+    // 아이디 찾기 - 인증 확인 및 아이디 반환
+    @PostMapping("idFind/verify")
+    @ResponseBody
+    public Map<String, String> verifyId(String member_email, String auth_code, String member_name) {
+    	return service.verifyIdAndReturnId(member_email, auth_code, member_name);
+    }
+    
+    // 비밀번호 찾기 - 인증번호 발송
+    @PostMapping("pwFind/sendAuthCode")
+    @ResponseBody
+    public Map<String, Object> sendPwAuthCode(String member_id, String member_email) {
+    	boolean isSuccess = service.sendPasswordResetAuthCode(member_id, member_email);
+    	
+    	Map<String, Object> response = new HashMap<String, Object>();
+    	response.put("success", isSuccess);
+    	
+    	return response;
+    }
+    
+    // 비밀번호 찾기 - 인증 및 재설정
+    @PostMapping("pwFind/verifyAndReset")
+    @ResponseBody
+    public Map<String, String> verifyAndReset(String member_id, String member_email, String auth_code) {
+    	return service.verifyCodeAndResetPassword(member_id, member_email, auth_code);
+    }
 }

@@ -128,16 +128,6 @@
 		 WHERE member_idx = #{member_idx}
 	</delete>
 	
-	<!-- 공고 리스트 조회 ㅈㅈ-->
-<!-- 	<select id="getRecruitment"> -->
-<!-- 		SELECT  -->
-<!-- 			 , recruit_subject -->
-<!-- 			 , start_date -->
-<!-- 			 , end_date -->
-			 
-<!-- 		  FROM recruit r -->
-<!-- 		  JOIN member m ON  -->
-<!-- 	</select> -->
 	
 	<!-- 게시글 리스트 조회 -->
 	<select id="getBoardList">
@@ -265,6 +255,27 @@
 		DELETE FROM common_code
 		 WHERE code = #{code}
 	</delete>
+	
+	
+	<select id="getAdminRecruitmentList">
+		SELECT r.recruit_subject
+			 , c.code_name as 'rec_status'
+		     , r.app_count
+		     , r.post_create_at
+		     , r.end_date
+		     , r.recruit_idx
+             , m.member_id as 'writer'
+             , co.company_name
+		  FROM recruit r 
+		  JOIN common_code c 
+		    ON r.rec_status = c.code
+		  JOIN member m 
+			ON m.member_idx = r.recruiter_member_idx
+		  JOIN company co 
+			ON co.company_idx = m.company_idx
+		 WHERE r.rec_status like #{status}
+	</select>
+	
 	
 	
 </mapper>
