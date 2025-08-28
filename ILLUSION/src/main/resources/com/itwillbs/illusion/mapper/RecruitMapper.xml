@@ -190,7 +190,7 @@
 <!-- 			LEFT JOIN common_code cin ON c.company_industry = cin.code -->
 			LEFT JOIN common_code wsd ON r.work_start_day = wsd.code
 			LEFT JOIN common_code wed ON r.work_end_day = wed.code
-			LEFT JOIN address a ON c.address_idx = a.address_idx
+			LEFT JOIN address a ON c.company_idx = a.address_idx
 		WHERE 
 			r.recruit_idx = #{recruit_idx};
 	</select>
