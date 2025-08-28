@@ -23,14 +23,23 @@ public class ResumeService {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	
+	// 이력서 작성
+    public ResumeVO getResumeForEdit(int memberIdx) {
+        
+        Map<String, Integer> params = new HashMap<>();
+        params.put("memberIdx", memberIdx);
+        
+        return mapper.getResumeForEdit(params);
+    }
+    
 	// 이력서 수정
-    public ResumeVO getResumeForEdit(int resumeIdx, int memberIdx) {
+    public ResumeVO getResumeForEdit1(int resumeIdx, int memberIdx) {
         
         Map<String, Integer> params = new HashMap<>();
         params.put("resumeIdx", resumeIdx);
         params.put("memberIdx", memberIdx);
         
-        return mapper.getResumeForEdit(params);
+        return mapper.getResumeForEdit1(params);
     }
     
     public ResumeVO getExpForEdit(int resumeIdx) {

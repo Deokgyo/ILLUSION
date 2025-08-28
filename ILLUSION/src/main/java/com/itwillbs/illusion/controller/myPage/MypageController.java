@@ -53,18 +53,19 @@ public class MypageController {
 	@Autowired
 	CommonCodeService commonCodeService;
 	
-	/*이력서 등록, 수정*/
+	/*이력서 등록*/
 	@GetMapping("resumeWrite")
-	public String resumeWriteForm(Principal principal, Model model, 
-			@RequestParam(required = false) Integer resume_idx) {
+	public String resumeWriteForm(Principal principal, Model model) {
 		
 		String id = principal.getName();
 		System.out.println(id);
 		
 		MemberVO member = resumeService.SelectM(id);
-		model.addAttribute("member",member);
 		
-	    ResumeVO resume = resumeService.getResumeForEdit(resume_idx, member.getMember_idx()); // 본인 확인 로직 포함
+		model.addAttribute("member", member);
+		
+	    ResumeVO resume = resumeService.getResumeForEdit(member.getMember_idx()); // 본인 확인 로직 포함
+	    
 	    model.addAttribute("resume", resume);
 	    
 		List<CommonCodeVO> degreeList = resumeService.getCodes("DEGREE");
