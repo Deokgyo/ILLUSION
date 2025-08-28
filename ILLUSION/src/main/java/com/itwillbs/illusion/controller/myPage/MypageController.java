@@ -62,22 +62,9 @@ public class MypageController {
 		MemberVO member = resumeService.SelectM(id);
 		model.addAttribute("member",member);
 		
-	    // resume_idx 유무로 작성/수정 판별
-	    if (resume_idx != null) {
-	        ResumeVO resume = resumeService.getResumeForEdit(resume_idx, member.getMember_idx()); // 본인 확인 로직 포함
-	        
-	        if (resume == null) {
-	            model.addAttribute("msg", "잘못된 접근이거나 수정 권한이 없습니다.");
-	            return "fail_back";
-	        }
-	        
-	        model.addAttribute("resume", resume);
-	        
-	    } else {
-	        // resume_idx 파라미터가 없다면 빈 ResumeVO 객체
-	        model.addAttribute("resume", new ResumeVO());
-	    }
-		
+	    ResumeVO resume = resumeService.getResumeForEdit(resume_idx, member.getMember_idx()); // 본인 확인 로직 포함
+	    model.addAttribute("resume", resume);
+	    
 		List<CommonCodeVO> degreeList = resumeService.getCodes("DEGREE");
 		List<CommonCodeVO> experienceList = resumeService.getCodes("EXPERIENCE");
 		List<CommonCodeVO> occupationList = resumeService.getCodes1("OCCUPATION");

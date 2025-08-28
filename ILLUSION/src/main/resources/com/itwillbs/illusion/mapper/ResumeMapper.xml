@@ -79,6 +79,14 @@
             resume_idx = #{resumeIdx}
             AND member_idx = #{memberIdx}
     </select>
+    
+    <select id="getExpForEdit" parameterType="map" resultType="com.itwillbs.illusion.vo.ResumeVO">
+        SELECT
+            *
+        FROM
+            resume_exp_info
+        WHERE resume_idx = #{resumeIdx}
+    </select>
 	
 	<update id="updateResume" parameterType="map"
 		useGeneratedKeys="true" keyProperty="resume_idx">

@@ -60,7 +60,7 @@
 								</div>
 								<div class="date">${resume.resume_create_at}</div>
 								<button class="edit-btn"
-									onclick="location.href='resumeWrite?resume_idx=${resume.resume_idx}'">수정</button>
+									onclick="location.href='resumeModify?resume_idx=${resume.resume_idx}'">수정</button>
 							</div>
 						</c:forEach>
 					</div>

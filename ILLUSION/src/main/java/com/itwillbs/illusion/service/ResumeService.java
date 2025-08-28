@@ -28,6 +28,14 @@ public class ResumeService {
         
         return mapper.getResumeForEdit(params);
     }
+    
+    public ResumeVO getExpForEdit(int resumeIdx) {
+        
+        Map<String, Integer> params = new HashMap<>();
+        params.put("resumeIdx", resumeIdx);
+        
+        return mapper.getExpForEdit(params);
+    }
 
 	    @Transactional
 	    public void insertResumeAndExpInfo(Map<String, Object> paramMap) {
