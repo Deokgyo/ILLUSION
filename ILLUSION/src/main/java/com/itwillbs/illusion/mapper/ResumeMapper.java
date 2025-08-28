@@ -49,7 +49,7 @@ public interface ResumeMapper {
 	int updateuserInfoEdit(Map<String, Object> paramMap);
 	Map<String, Object> selectuserInfoEdit(int member_idx);
 	
-	
+	String getProfilePicturePath(int memberIdx);
 	
 	/* 자기소개서 */
 	Map<String, Object> selectcl(int cl_idx);
