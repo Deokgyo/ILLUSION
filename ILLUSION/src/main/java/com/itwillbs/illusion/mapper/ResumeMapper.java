@@ -16,6 +16,7 @@ public interface ResumeMapper {
 	
 	// 이력서 수정
 	public ResumeVO getResumeForEdit(Map<String, Integer> params);
+	public ResumeVO getExpForEdit(Map<String, Integer> params);
 	
 
 	int insertResume(Map<String, Object> resumeMap);

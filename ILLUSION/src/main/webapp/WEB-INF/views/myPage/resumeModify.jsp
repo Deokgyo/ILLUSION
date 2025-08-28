@@ -45,8 +45,10 @@
 
 			<div class="container">
 				<form action="resumeWrite" name="resumeForm" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
-					<input type="hidden" name="member_idx" value="${member.member_idx }">
-					 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<%-- 					<input type="hidden" name="member_idx" value="${member.member_idx }"> --%>
+<%-- 					<input type="hidden" name="resume_idx" value="${resume.resume_idx}"> --%>
+<%-- 					<input type="hidden" name="exp_idx" value="${exp.exp_idx}"> --%>
+<%-- 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 					<div class="resume-form">
 						<div class="section">
 							<div class="form-row">
@@ -154,6 +156,7 @@
 
 						<div class="section">
 							<h4 class="form-section-title">경력사항 (선택)</h4>
+							<h3>${exp }</h3>
 							<div class="form-row">
 								<div class="form-group">
 									<label>회사명</label>
@@ -164,9 +167,10 @@
 									<div class="date-input-container">
 										<select name="position">
 											<option value="" selected disabled>-- 선택 --</option>
-										    <c:forEach var="e" items="${positionList}">
-										        <option value="${e.code}">${e.code_name}</option>
-
+										    <c:forEach var="p" items="${positionList}">
+								                <option value="${p.code}" ${resume.position == p.code ? 'selected' : ''}>
+								                    ${p.code_name}
+								                </option>
 										    </c:forEach>
 										</select>
 									</div>

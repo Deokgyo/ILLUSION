@@ -75,6 +75,14 @@
 		#{responsibilities}
 		)
 	</insert>
+    
+    <select id="getExpForEdit" parameterType="map" resultType="com.itwillbs.illusion.vo.ResumeVO">
+        SELECT
+            *
+        FROM
+            resume_exp_info
+        WHERE resume_idx = #{resumeIdx}
+    </select>
 
 	<!-- 이력서 수정용 SELECT -->
 	<select id="getResumeForEdit" parameterType="map"
