@@ -19,7 +19,7 @@ public interface MemberMapper {
 	
 	public MailAuthInfo selectMailAuthInfo(MailAuthInfo mailAuthInfo);
 	
-	public int updateMailAuthStatus(MailAuthInfo mailAuthInfo);
+	public int updateMailAuthStatus(Map<String, String> param);
 	
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
 	

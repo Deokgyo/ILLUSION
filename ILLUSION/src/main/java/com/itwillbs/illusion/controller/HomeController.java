@@ -38,7 +38,7 @@ public class HomeController {
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	@Autowired
 	private CompanyService companyService;
 
@@ -64,55 +64,42 @@ public class HomeController {
 		return "home/register";
 	}
 
-//	@PostMapping("register")
-//	public String register2() {
-//		System.out.println("!@#!@#");
-//		return "";
-//	}
-	
 	@PostMapping("register")
-	public String register(MemberVO member, CompanyVo company, Model model, String address_name1, String address_name2) {
-		
+	public String register(MemberVO member, CompanyVo company, Model model, String address_name1,
+			String address_name2) {
+
 		System.out.println("!@#");
 		System.out.println(member);
 		System.out.println(company);
-		
-		if (member.getMember_type().equals("MEM001")) { // 개인
-			member.setAddress_name(address_name1 + " " + address_name2);
-			boolean result = memberService.insertMember(member, company);
-			if (result) {
-				MailAuthInfo mailAuthInfo = new MailAuthInfo();
-				mailAuthInfo.setEmail(member.getMember_email()); // 이메일 필드명 맞게 사용
-				memberService.updateMailAuthStatus(mailAuthInfo);
 
-				return "redirect:/login";
-			} else {
-				// 회원가입 실패 시 오류 메시지 전달 후 가입 폼으로 이동
-				model.addAttribute("error", "회원가입 실패");
-				return "registerForm";
-			}
-		} else {	// 기업
-			System.out.println("Received password: " + member.getMember_pw());
-			// 기업회원 정보 넣는거 (멤버테이블)
-			boolean memberResult = memberService.insertCompanyMember(member);
-			// 기업 정보 넣는거 (회사테이블)
-			boolean companyResult = companyService.insertMemberCompany(company);
-//			boolean addressResult = companyService.insertAddress(company);
-			
-//			company.setAddress_idx(service.getAddrPk());
-//			member.setCompany_idx(service.getCompanyPk());
-//			
-//			service.insertAddr();	// 6
-//			service.insertMemberCompany(company);
-			
-			if (memberResult && companyResult) {
-				return "redirect:/login";
+		// 주소 합치기
+		member.setAddress_name(address_name1 + " " + address_name2);
+
+		// 기업 개인 상관 없이 회원 테이블에 정보 넣기
+		boolean result = memberService.insertMember(member, company);
+
+		// 정보 넣는거 성공하면
+		if (result) {
+			MailAuthInfo mailAuthInfo = new MailAuthInfo();
+			Map<String, String> param = new HashMap<>();
+			param.put("email", member.getMember_email());
+			memberService.updateMailAuthStatus(param);
+
+			// 근데 기업회원이면
+			if (member.getMember_type().equals("MEM003")) {
+				// 기업 테이블에 정보 넣기
+				boolean companyResult = companyService.insertMemberCompany(company);
 			} else {
 				model.addAttribute("error", "회원가입 실패");
 				return "redirect:/login";
 			}
+			return "redirect:/login";
+			// 개인 회원 인서트 성공 했을때
+		} else {
+			model.addAttribute("error", "회원가입 실패");
+			return "redirect:/login";
 		}
-		
+
 	}
 
 	// 날짜관련
@@ -124,5 +111,4 @@ public class HomeController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-	
 }

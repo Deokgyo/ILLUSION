@@ -35,8 +35,8 @@ public class MemberService {
 		return mapper.insertMailAuthInfo(mailAuthInfo);
 	}
 
-	public int updateMailAuthStatus(MailAuthInfo mailAuthInfo) {
-		return mapper.updateMailAuthStatus(mailAuthInfo);
+	public int updateMailAuthStatus(Map<String, String> param) {
+		return mapper.updateMailAuthStatus(param);
 	}
 
 	public int checkIdCount(String member_id) {
@@ -47,10 +47,6 @@ public class MemberService {
 		return mapper.checkRecruiterNumber(recruiterNumber);
 	}
 	
-	public boolean insertCompanyMember(MemberVO member) {
-		return mapper.insertCompanyMember(member);
-	}
-
 	// 조영재
 	public MemberVO getMemberInfoById(String member_id) {
 		return mapper.getMemberInfoById(member_id);
@@ -79,7 +75,6 @@ public class MemberService {
 	// 회원가입 비즈니스 로직 메서드
 	@Transactional
 	public boolean insertMember(MemberVO member, CompanyVo company) {
-		String memetype = member.getMember_type();
 		// 비밀번호 암호화
         String rawPassword = member.getMember_pw();
         if (rawPassword == null || rawPassword.isEmpty()) {
@@ -87,15 +82,13 @@ public class MemberService {
         }
         String encodedPassword = passwordEncoder.encode(rawPassword);
         member.setMember_pw(encodedPassword);
-
+        
         int memberInsertCount = mapper.insertMember(member);
-
+        
         if (member.getMember_type().equals("MEM003")) { // 기업회원인 경우 회사 정보도 저장
         	companymapper.insertMemberCompany(company);
         }
-
         return memberInsertCount > 0;
     }
 
-       
 }

@@ -68,18 +68,13 @@
 	</div>
 	<div class="signup-form-box">
 	
-<!-- 	<form action="register" method="post"> -->
-<!-- 		<button class="signup-btn">회원가입</button> -->
-<!-- 	</form> -->
-	
-	
 		<form action="${pageContext.request.contextPath}/register"
 			method="post" name="registerForm" class="signup-form"
 			autocomplete="off">
 			
 			<div class="input-box" id="companyBox">
 				<label for="Number">사업자등록번호</label> <input type="text"
-					id="companyNumber" placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
+					id="companyNumber" name="recruiter_number" placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
 				<button class="btn-company" id="btncompany" value="등록번호검색" name="btncompanyNumber">사업자 인증</button>
 			</div>
 			<div class="form-row">
@@ -108,7 +103,7 @@
 				</div>
 				<div class="flex-half" id="company">
 					<label for="compname">대표자명</label> <input type="text"
-						id="companyname" name="company_name" placeholder="대표자명을 입력해주세요"
+						id="companyname" name="ceo_name" placeholder="대표자명을 입력해주세요"
 						required>
 				</div>
 				<div class="flex-half gender-row" id="genderHide">
@@ -136,11 +131,11 @@
 					<label for="comtype" id="companytype">기업형태</label> <select
 						id="compantypes" name="company_type" class="comtype" required>
 						<option value="">선택</option>
-						<option value="GEN001">대기업</option>
-						<option value="GEN002">공기업</option>
-						<option value="GEN001">중견기업</option>
-						<option value="GEN002">중소기업</option>
-						<option value="GEN002">스타트업</option>
+						<option value="CPT001">대기업</option>
+						<option value="CPT002">중견기업</option>
+						<option value="CPT003">중소기업</option>
+						<option value="CPT004">스타트업</option>
+						<option value="CPT005">공기업</option>
 					</select>
 				</div>
 			</div>

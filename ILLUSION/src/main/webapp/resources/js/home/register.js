@@ -46,7 +46,9 @@ $(document).ready(function() {
 	let debounceTimeout;
 
 	// 아이디 유효성 체크
-	$input.on('keyup', function() {
+	$("#userid").on('keyup', UserIdSuccess);// 
+	
+	function UserIdSuccess(){
 		clearTimeout(debounceTimeout);
 		const memberId = $input.val().trim();
 
@@ -90,15 +92,14 @@ $(document).ready(function() {
 			});
 
 		}, 300); // 300ms 딜레이
-	});
+	};
 
 	// 비밀번호 유효성
 	$("#userpw").on('keyup', checkUserPass);// 비밀번호 유효성
 	$("#userpw2").on('keyup', checkUserPass2);// 비밀번호 확인
-	
+
 	function checkUserPass() {
 		let passwd = $("#userpw").val();
-
 
 		if (passwd == null || passwd == "") {
 			//alert(passwd);
@@ -235,88 +236,14 @@ $(document).ready(function() {
 
 	$('#companyTab').click(function() {
 		$('#member_type').val('MEM003');
+		$('#username').attr('name', 'company_name');
 	});
 
 	$('#personalTab').click(function() {
 		$('#member_type').val('MEM001');
+		$('#email').attr('name', 'member_email');
 	});
-	//	// 개인 회원가입
-	//	$('#registerForm').on('submit', function(e) {
-	//		e.preventDefault();
-	//
-	//		const userid = $('#userid').val().trim();
-	//		const userpw = $('#userpw').val().trim();
-	//		const email = $('#email').val().trim();
-	//
-	//		if (!userid || !userpw || !email) {
-	//			alert('모든 필드를 입력해주세요.');
-	//			return;
-	//		}
-	//
-	//		$.ajax({
-	//			url: 'register', // 절대 경로 혹은 서버에 맞게 수정
-	//			type: 'POST',
-	//			contentType: 'application/json',
-	//			data: JSON.stringify({
-	//				member_id: userid,
-	//				member_pw: userpw,
-	//				member_email: email
-	//			}),
-	//			success: function(response, textStatus, xhr) {
-	//				const redirectUrl = xhr.getResponseHeader('Location');
-	//				if (redirectUrl) {
-	//					alert('회원가입 성공!');
-	//					window.location.href = redirectUrl;
-	//				} else {
-	//					alert('회원가입 성공!');
-	//				}
-	//			},
-	//			error: function(xhr, textStatus, errorThrown) {
-	//				alert('회원가입 실패 또는 서버 오류 발생');
-	//				console.error('Ajax 오류:', errorThrown);
-	//			}
-	//		});
-	//	});
-	//	
-	//	
-	//	// 기업 회원가입
-	//	$('#registerForm').on('submit', function(e) {
-	//		e.preventDefault();
-	//
-	//		const userid = $('#userid').val().trim();
-	//		const userpw = $('#userpw').val().trim();
-	//		const email = $('#email').val().trim();
-	//
-	//		if (!userid || !userpw || !email) {
-	//			alert('모든 필드를 입력해주세요.');
-	//			return;
-	//		}
-	//
-	//		$.ajax({
-	//			url: 'insertMemberCompany', // 절대 경로 혹은 서버에 맞게 수정
-	//			type: 'POST',
-	//			contentType: 'application/json',
-	//			data: JSON.stringify({
-	//				member_id: userid,
-	//				member_pw: userpw,
-	//				member_email: email
-	//			}),
-	//			success: function(response, textStatus, xhr) {
-	//				console.log("이제 그만하고 싶다");
-	//				const redirectUrl = xhr.getResponseHeader('Location');
-	//				if (redirectUrl) {
-	//					alert('회원가입 성공!');
-	//					window.location.href = redirectUrl;
-	//				} else {
-	//					alert('회원가입 성공!');
-	//				}
-	//			},
-	//			error: function(xhr, textStatus, errorThrown) {
-	//				alert('회원가입 실패 또는 서버 오류 발생');
-	//				console.error('Ajax 오류:', errorThrown);
-	//			}
-	//		});
-	//	});
+
 	// 입력값 초기화 함수
 	function resetFormInputs() {
 		// .signup-form 내부의 모든 input/select/textarea 초기화
@@ -351,7 +278,7 @@ $(document).ready(function() {
 		resetFormInputs();
 
 		// 성별, 생년월일 숨김
-		$('#genderHide').hide();
+		//		$('#genderHide').hide();
 		$('#birthHide').hide();
 
 		// 실제 select, input 요소에 필수 속성 제거
@@ -436,32 +363,30 @@ $(document).ready(function() {
 		});
 	});
 
-
-
-//	$('.signup-form').on('submit', checkSubmit);   // 최종 가입 버튼 클릭 이벤트
-
-	$('.signup-form').on('submit', function(event) {
-		// checkSubmit이 false 반환하면 폼 제출 막기
-		if (!checkSubmit()) {
-			event.preventDefault(); // 기본 제출 차단
-			return false;           // 이벤트 정지
-		}
-		// true 반환 시 폼 제출 계속 진행
-	});
-
-
-	// 회원가입 폼 제출 이벤트
-	$('.signup-form').on('submit', function(e) {
-	
-	});
-
-
-
-
-
-
-
-
+	// 최종 제출 시 검증
+    $('.signup-form').on('submit', function(event) {
+        if (!UserIdSuccess) {
+            alert('아이디 조건을 만족하고 중복검사를 통과해야 합니다.');
+            event.preventDefault();
+            return false;
+        }
+        if (!checkUserPass) {
+            alert('비밀번호 조건을 만족해야 합니다.');
+            event.preventDefault();
+            return false;
+        }
+        if (!checkUserPass2) {
+            alert('비밀번호 확인이 일치해야 합니다.');
+            event.preventDefault();
+            return false;
+        }
+        if (!isEmailValid) {
+            alert('올바른 이메일 주소를 입력해야 합니다.');
+            event.preventDefault();
+            return false;
+        }
+        return true; // 모두 통과 시 폼 제출
+    });
 
 
 }); //ready
