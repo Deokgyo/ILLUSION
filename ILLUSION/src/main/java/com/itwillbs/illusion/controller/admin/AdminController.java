@@ -114,13 +114,27 @@ public class AdminController {
 	
 	// 공통코드 관리페이지 이동
 	@GetMapping("comcodeRegist")
-	public String comcodeRegist(Model model, @RequestParam(value = "keyword", required = false) String keyword) {
+	public String comcodeRegist(
+			  Model model
+			, @RequestParam(value = "keyword", required = false) String keyword 
+			, @RequestParam(defaultValue = "1") int pageNum
+	) {
 		
-		List<Map<String, String>> commonCodeList = service.getCommonCodeList(keyword);
-		System.out.println(commonCodeList);
+		
+		int listLimit = 10; // 한 페이지에 표시할 회원 수
+	    int pageListLimit = 10; // 한 번에 표시할 페이지 번호 수
+
+	    int listCount = service.getCommonCodeCount(keyword); // 전체 공통 코드 수 조회
+	    PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
+		
+	    int startRow = (pageInfo.getPageNum() - 1) * listLimit;
+	    
+		List<Map<String, String>> commonCodeList = service.getCommonCodeList(keyword, startRow, listLimit);
 		
 		
 		model.addAttribute("commonCodeList", commonCodeList);
+		model.addAttribute("pageInfo", pageInfo);
+		
 		return "admin/comcodeRegist";
 	}
 	

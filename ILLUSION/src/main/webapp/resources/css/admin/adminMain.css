@@ -4,6 +4,7 @@
 body {
     /* global.css에서 폰트와 마진은 이미 설정되어 있습니다. */
     background-color: #f4f6f9; /* 콘텐츠 영역 외부의 배경색 */
+    min-width: 1200px;
 }
 
 .main-container {

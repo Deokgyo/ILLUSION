@@ -91,13 +91,18 @@ public class AdminService {
 	}
 	
 	// 공통코드 리스트 조회
-	public List<Map<String, String>> getCommonCodeList(String keyword) {
-		return mapper.getCommonCodeList(keyword);
+	public List<Map<String, String>> getCommonCodeList(String keyword, int startRow, int listLimit) {
+		return mapper.getCommonCodeList(keyword, startRow, listLimit);
 	}
 	
 	// 공통코드 하나 조회
 	public Map<String, String> getCommonCode(String code) {
 		return mapper.getCommonCode(code);
+	}
+	
+	// 공통코드 수 조회
+	public int getCommonCodeCount(String keyword) {
+		return mapper.getCommonCodeCount(keyword);
 	}
 
 	// 공통코드 수정
@@ -130,4 +135,5 @@ public class AdminService {
 	public void deleteCommonCode(String code) {
 		mapper.deleteCommonCode(code);
 	}
+	
 }
