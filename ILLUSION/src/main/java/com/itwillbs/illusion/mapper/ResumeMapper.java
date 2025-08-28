@@ -16,6 +16,7 @@ public interface ResumeMapper {
 	
 	// 이력서 수정
 	public ResumeVO getResumeForEdit(Map<String, Integer> params);
+	public ResumeVO getResumeForEdit1(Map<String, Integer> params);
 	public ResumeVO getExpForEdit(Map<String, Integer> params);
 	
 
@@ -48,6 +49,7 @@ public interface ResumeMapper {
 	
 	/*회원정보 */
 	int updateuserInfoEdit(Map<String, Object> paramMap);
+	
 	Map<String, Object> selectuserInfoEdit(int member_idx);
 	
 	String getProfilePicturePath(int memberIdx);
@@ -56,6 +58,9 @@ public interface ResumeMapper {
 	/*비밀번호 변경*/
 	int changePasswd(@Param("member_idx") int member_idx,
             @Param("member_pw") String member_pw);
+	/*회원탈퇴*/
+	int deleteMember(Map<String, Object> paramMap);
+	
 	/* 자기소개서 */
 	Map<String, Object> selectcl(int cl_idx);
 	List<Map<String, Object>> selectcllist();

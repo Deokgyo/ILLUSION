@@ -7,15 +7,15 @@
 
 	<insert id="insertMemberCompany">
 	INSERT INTO company
-				( company_name
-				 ,ceo_name
-<!-- 				 ,company_type -->
-				 ,company_estab_date
+				(company_name
+				,ceo_name
+				,company_type
+				,company_estab_date
 			   )
 		VALUES ( #{company_name}
-				,#{ceo_name}
-<!-- 				,#{company_type} -->
-				,#{company_estab_date}
+			   , #{ceo_name}
+			   , #{company_type}
+			   , #{company_estab_date}
 			   )
 	</insert>
 

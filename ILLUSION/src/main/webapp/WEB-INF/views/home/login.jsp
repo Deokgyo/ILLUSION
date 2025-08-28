@@ -95,5 +95,10 @@
         </script>
     </c:if>
 	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+	<c:if test="${not empty msg}">
+    <script>
+        alert('${msg}');
+    </script>
+	</c:if>	
 </body>
 </html>

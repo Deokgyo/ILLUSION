@@ -23,14 +23,23 @@ public class ResumeService {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	
+	// 이력서 작성
+    public ResumeVO getResumeForEdit(int memberIdx) {
+        
+        Map<String, Integer> params = new HashMap<>();
+        params.put("memberIdx", memberIdx);
+        
+        return mapper.getResumeForEdit(params);
+    }
+    
 	// 이력서 수정
-    public ResumeVO getResumeForEdit(int resumeIdx, int memberIdx) {
+    public ResumeVO getResumeForEdit1(int resumeIdx, int memberIdx) {
         
         Map<String, Integer> params = new HashMap<>();
         params.put("resumeIdx", resumeIdx);
         params.put("memberIdx", memberIdx);
         
-        return mapper.getResumeForEdit(params);
+        return mapper.getResumeForEdit1(params);
     }
     
     public ResumeVO getExpForEdit(int resumeIdx) {
@@ -97,10 +106,15 @@ public class ResumeService {
 	   public String getProfilePicturePath(int memberIdx) {
 		    return	mapper.getProfilePicturePath(memberIdx);
 		}
+	   /*비밀번호 변경*/
 	   public void changePasswd(int member_idx, String member_pw) {
 		   
 		   	String encodedPw = passwordEncoder.encode(member_pw);
 	        mapper.changePasswd(member_idx, encodedPw);
+	    }
+	   public boolean deleteMember(Map<String, Object> paramMap) {
+		   int result = mapper.deleteMember(paramMap); // 삭제된 행 수 반환
+		    return result > 0; // 1 이상이면 삭제 성공
 	    }
 	   
 	   /* 예상면접질문 */
