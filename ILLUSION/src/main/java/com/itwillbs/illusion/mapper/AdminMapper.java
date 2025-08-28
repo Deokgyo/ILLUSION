@@ -28,14 +28,12 @@ public interface AdminMapper {
 	public List<Map<String, String>> getMemberType(); // 회원 타입 조회
 	
 	public List<Map<String, String>> getMemberStatus(); // 회원 상태 조회
-	
+	public List<Map<String, Object>> getAdminRecruitmentList(String status); // 공고 목록 조회
 	public void updateMemberStatusAndType(Map<String, Object> map); // 회원 상태 타입 수정
 
 	public Map<String, Object> getMemberDetail(int member_idx); // 회원 상세 정보 조회
 
 	public void deleteMember(int member_idx); // 회원 삭제
-	
-	public List<Map<String, String>> getRecruitment(); // 공고 리스트 조회
 	
 	public List<Map<String, String>> getBoardList(@Param("startRow") int startRow, @Param("listLimit") int listLimit); // 게리글 리스트 조회
 	
