@@ -55,8 +55,18 @@
 						<div class="form-box">
 							<div class="profile-card-1">
 								<div class="profile-img">
-									<img
-										src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
+									<div class="profile-img">
+									    <c:choose>
+									        <c:when test="${not empty resume.resume_img}">
+									            <img src="${pageContext.request.contextPath}/resources/upload/${resume.resume_img}" 
+									                 alt="프로필 이미지" id="profilePreview">
+									        </c:when>
+									        <c:otherwise>
+									            <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" 
+									                 alt="기본 이미지" id="profilePreview">
+									        </c:otherwise>
+									    </c:choose>
+									</div>	
 								</div>
 								<div class="profile-info">
 									<div class="name">${resume.member_name}</div>

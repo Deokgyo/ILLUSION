@@ -345,6 +345,7 @@
 		,r.enroll_date
 		,r.graduation_date
 		,r.additional_information
+		,r.resume_img
 		,deg.code_name as degree
 		,e.company_name
 		,pos.code_name as position
