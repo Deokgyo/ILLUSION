@@ -34,9 +34,9 @@
 }
 
 .form-box {
-	margin: auto;
-	width: 960px;
-	margin-bottom: 30px;
+    margin: auto;
+    width: 800px;
+    margin-bottom: 30px;
 }
 
 .page-title-header {
@@ -120,16 +120,17 @@
 								<td><input type="text" name="member_email" class="bg-text" value="${member.member_email }"></td>
 							</tr>
 						</table>
-						<div class="form-submit-container">
-			    <button type="submit" class="edit-button">수정</button>
-			</div>
+						<div class="form-submit-container" style="text-align:center; margin-top:10px;">
+						    <button type="submit" class="edit-button">확인</button>
+						    <button type="submit" class="edit-button">취소</button>
+							<hr>
+						</div>
+				<button type="button" class="passwd-button"
+    				onclick="location.href='changePasswd?member_idx=${member.member_idx}';">비밀번호 수정</button>
+				<button type="button" class="infodelete-button"
+					onclick="location.href='deleteMember?member_idx=${member.member_idx}';">회원탈퇴</button>
 					</form>
 				</div>
-				<hr>
-				<button class="passwd-button"
-    				onclick="location.href='changePasswd?member_idx=${member.member_idx}';">비밀번호 수정</button>
-				<button class="infodelete-button"
-					onclick="location.href='deleteMember?member_idx=${member.member_idx}';">회원탈퇴</button>
 			</div>
 
 		</main>

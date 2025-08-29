@@ -80,15 +80,15 @@ td {
 }
 
 .passwd-button {
-	background-color: var(--main-color);
-	border: none;
-	padding: 6px 14px;
-	border-radius: 8px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: 0.2s;
-	text-align: right;
-	margin: 20px 0px 15px 680px;
+    background-color: var(--main-color);
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: right;
+    margin: 0px 0px 15px 521px;
 }
 
 .infodelete-button {
