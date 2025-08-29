@@ -52,7 +52,7 @@ public class LoginController {
     	return "home/termsOfService";
     }
     
-    // TODO 개인정보 처ㄹ방침 페이지도 이동
+    // TODO 개인정보 처ㄹ방침 페이wl 
     @GetMapping("privacyPolicy")
     public String privacyPolicy() {
     	return "home/privacyPolicy";

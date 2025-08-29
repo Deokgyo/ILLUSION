@@ -138,7 +138,7 @@
 			                <c:if test="${member.member_type_code eq 'MEM003'}">
 				                <div class="form-group">
 				                    <label>채용 담당자 이메일</label>
-				                    <div class="form-value">${member.recruiter_member_email}</div>
+				                    <div class="form-value">${member.member_email}</div>
 				                </div>
 				                 <div class="form-group">
 				                    <label>회사 인덱스</label>

@@ -403,7 +403,7 @@
 		c.cl_type
 		WHERE c.member_idx = #{memberIdx}
 		AND is_saved_to_mypage LIKE
-		"%BOL002%"  <!-- 저장 안함 공통코드 -->
+		"%BOL001%"  <!-- 저장 안함 공통코드 -->
 <!-- 		AND t.code NOT LIKE "%CL003%" 원본 자소서 인것은 빼기 -->
 		ORDER BY cl_idx DESC
 		LIMIT
