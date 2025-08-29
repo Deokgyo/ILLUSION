@@ -65,7 +65,7 @@
 				
                 
                 <div class="text-center mt-4">
-                    <button id="backBtn" class="btn btn-lg btn-outline-secondary" onclick="history.back()">이전</button>
+                    <button id="detele-btn" class="btn-yellow" onclick="history.back()">이전</button>
                 </div>
             </div>
         </main>

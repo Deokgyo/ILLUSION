@@ -20,6 +20,12 @@ public class RecruitService {
 	
 	@Autowired
 	RecruitMapper mapper;
+	
+    public List<RecruitVO> homeSelectRecruitList(RecruitFilterVO filterVO) {
+        
+        return mapper.homeSelectRecruitList(filterVO);
+    }
+	
 
     public List<RecruitVO> selectRecruitList(RecruitFilterVO filterVO) {
         

@@ -37,6 +37,18 @@
 	        </if>
         </where>
     </sql>
+    
+    <select id="homeSelectRecruitList" parameterType="com.itwillbs.illusion.vo.RecruitFilterVO" resultType="com.itwillbs.illusion.vo.RecruitVO">
+    	SELECT 
+    		   recruit_idx
+    		   ,start_date
+			   ,end_date
+			   ,recruit_subject
+			   ,views_count
+    	  FROM recruit
+    	 ORDER BY views_count DESC, recruit_idx DESC
+    	 LIMIT #{startRow}, #{listLimit}
+    </select>
 	
 	<select id="selectRecruitList" parameterType="com.itwillbs.illusion.vo.RecruitFilterVO" resultType="com.itwillbs.illusion.vo.RecruitVO">
 	    SELECT

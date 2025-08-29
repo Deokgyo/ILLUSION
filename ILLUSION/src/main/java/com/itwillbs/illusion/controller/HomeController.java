@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -27,9 +28,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.illusion.service.CompanyService;
 import com.itwillbs.illusion.service.MemberService;
+import com.itwillbs.illusion.service.RecruitService;
 import com.itwillbs.illusion.vo.CompanyVo;
 import com.itwillbs.illusion.vo.MailAuthInfo;
 import com.itwillbs.illusion.vo.MemberVO;
+import com.itwillbs.illusion.vo.RecruitFilterVO;
+import com.itwillbs.illusion.vo.RecruitVO;
 
 // 
 
@@ -43,9 +47,22 @@ public class HomeController {
 
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	RecruitService recruitService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
+	public String home(Model model) {
+		
+		RecruitFilterVO filterVO = new RecruitFilterVO();
+		
+		filterVO.setListLimit(4);
+		filterVO.setStartRow(0);
+		
+		List<RecruitVO> recruitList = recruitService.homeSelectRecruitList(filterVO);
+		
+		model.addAttribute("recruitList", recruitList);   // 화면에 표시할 목록
+		
 		return "home";
 	}
 

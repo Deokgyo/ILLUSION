@@ -13,7 +13,9 @@ import com.itwillbs.illusion.vo.RecruitVO;
 
 @Mapper
 public interface RecruitMapper {
-
+	
+	public List<RecruitVO> homeSelectRecruitList(RecruitFilterVO filterVO);
+	
 	public List<RecruitVO> selectRecruitList(RecruitFilterVO filterVO);
 	
 	int getBoardListCount(RecruitFilterVO filterVO);

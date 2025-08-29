@@ -367,25 +367,34 @@ div.illusion-feature-title {
 	width: 100%;
 }
 
+.team-job-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;       /* 카드 간격 */
+  justify-content: center; /* ← 가로 가운데 정렬 */
+}
+
 /* 카드 스타일 */
 .team-job-card {
-	flex: 0 0 calc(50% - 16px); /* 한 줄에 2개! (gap 감안) */
+	flex: 0 0 calc(70% - 16px); /* 한 줄에 2개! (gap 감안) */
 	background: #fff;
 	display: flex;
 	flex-direction: column;
 	transition: box-shadow 0.2s;
 	cursor: pointer;
 	margin-bottom: 24px;
-	width: 500px;
+/* 	width: 500px; */
 	height: 500px;
 	position: relative;
 	overflow: hidden;
-	transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow
-		0.4s cubic-bezier(0.19, 1, 0.22, 1);
+/* 	transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow */
+/* 		0.4s cubic-bezier(0.19, 1, 0.22, 1); */
 	box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
 	background: #fff;
 	border-radius: 12px;
-	will-change: transform, box-shadow;}
+	will-change: transform, box-shadow;
+	}
+	
 
 .team-job-card::before {
 	content: "";
@@ -411,6 +420,7 @@ div.illusion-feature-title {
 	align-items: center;
 	gap: 20px;;
 	padding: 0 0 16px 0;
+	justify-content: space-between; /* 왼쪽: 제목, 오른쪽: 다른 요소 */
 }
 
 /* 로고 이미지 */
@@ -425,11 +435,12 @@ div.illusion-feature-title {
 
 /* 카드 안 텍스트 */
 .team-job-title {
-	flex: 1;
+/* 	flex: 1; */
 	font-size: 30px;
 	font-weight: 600;
 	color: #26313d;
-	margin-right: 155px;
+	margin-right: 20px;
+	margin-left: 20px;
 }
 
 p {
@@ -441,7 +452,8 @@ p {
 	flex-direction: row;
 	align-items: flex-end;
 	gap: 4px;
-	margin-left: 245px;
+	margin-left: 200px;
+
 }
 
 .team-card-meta span {
@@ -485,4 +497,12 @@ p {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.views-count{
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--font-main-color);
 }

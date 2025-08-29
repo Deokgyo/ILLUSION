@@ -23,6 +23,9 @@
 	href="${pageContext.request.contextPath}/resources/css/bottom.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/home/home.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/recruitmentInfo.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css"> --%>
+	
 <style type="text/css">
 .btn-bd-primary {
 	background-color: #FFE585;
@@ -52,8 +55,12 @@
 		</h1>
 		<p class="desc">이력서부터 면접까지, 당신의 커리어를 스마트하게 설계하세요.</p>
 		<div class="btn-group">
-			<button onclick="location.href='${pageContext.request.contextPath}/coverletterCreate'">자기소개서 생성하기</button>
-			<button onclick="location.href='${pageContext.request.contextPath}/recruitmentInfo'">채용정보 바로 가기</button>
+			<button
+				onclick="location.href='${pageContext.request.contextPath}/coverletterCreate'">자기소개서
+				생성하기</button>
+			<button
+				onclick="location.href='${pageContext.request.contextPath}/recruitmentInfo'">채용정보
+				바로 가기</button>
 		</div>
 		<div class="bottom-menu">
 			<span>📝 자기소개서 생성하기</span> <span>✏️ 자기소개서 다듬기</span> <span>🤖
@@ -78,7 +85,9 @@
 				<div class="illusion-feature-desc">
 					"사용자의 경험과 강점을 분석해 맞춤형 자기소개서를<br> 빠르게 생성하는 AI 자기소개서 생성기"
 				</div>
-				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/coverletterCreate'">자세히 보기</button>
+				<button class="illusion-feature-btn"
+					onclick="location.href='${pageContext.request.contextPath}/coverletterCreate'">자세히
+					보기</button>
 			</div>
 		</div>
 
@@ -92,7 +101,9 @@
 				<div class="illusion-feature-name">자기소개서 다듬기</div>
 				<div class="illusion-feature-desc">"지원 직무와 회사 맞춤형으로 논리적이고 감정이
 					돋보이는 문장으로 자동 첨삭해 드립니다."</div>
-				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/coverletterRefiner'">자세히 보기</button>
+				<button class="illusion-feature-btn"
+					onclick="location.href='${pageContext.request.contextPath}/coverletterRefiner'">자세히
+					보기</button>
 			</div>
 		</div>
 
@@ -107,7 +118,9 @@
 				<div class="illusion-feature-name">AI 면접 예상 질문</div>
 				<div class="illusion-feature-desc">"매번 달라지는 최신 트렌드를 반영한 직무/분기
 					업종 맞춤 AI 면접 예상질문 생성 기능"</div>
-				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/interviewResult'">자세히 보기</button>
+				<button class="illusion-feature-btn"
+					onclick="location.href='${pageContext.request.contextPath}/interviewResult'">자세히
+					보기</button>
 			</div>
 		</div>
 
@@ -122,7 +135,9 @@
 				<div class="illusion-feature-name">취업상담 챗봇</div>
 				<div class="illusion-feature-desc">"채용 트렌드 분석, 지원서 작성, 면접 대비까지
 					취업 전 과정을 챗봇이 친절하게 안내합니다."</div>
-				<button class="illusion-feature-btn" onclick="location.href='${pageContext.request.contextPath}/chatbot'">자세히 보기</button>
+				<button class="illusion-feature-btn"
+					onclick="location.href='${pageContext.request.contextPath}/chatbot'">자세히
+					보기</button>
 			</div>
 		</div>
 
@@ -165,78 +180,31 @@
 
 
 	<section class="team-job-listings">
-  <h2 class="team-job-title-main">지금 핫한 채용정보는?</h2>
-  
-  <!-- 1줄: 네이버, 현대 -->
-  <div class="team-job-row">
-    <article class="team-job-card">
-      <div class="team-card-header">
-        <div class="team-logo-image">
-          <img src="/illusion/resources/image/logo-naver.jpg" alt="NAVER">
-        </div>
-        <p class="team-job-title">경력, 신입 엔지니어 채용</p>
-        <div class="team-card-meta">
-          <span>~9/10</span>
-          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
-        </div>
-      </div>
-      <div class="team-card-image">
-        <img src="/illusion/resources/image/naver.jpg" alt="NAVER 광고">
-      </div>
-    </article>
+		<h2 class="team-job-title-main">지금 핫한 채용정보는?</h2>
 
-    <article class="team-job-card">
-      <div class="team-card-header">
-        <div class="team-logo-image">
-          <img src="/illusion/resources/image/logo-hyundai.jpg" alt="HYUNDAI">
-        </div>
-        <p class="team-job-title">경력, 신입 엔지니어 채용</p>
-        <div class="team-card-meta">
-          <span>~9/10</span>
-          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
-        </div>
-      </div>
-      <div class="team-card-image">
-        <img src="/illusion/resources/image/hyundai.jpg" alt="HYUNDAI 광고">
-      </div>
-    </article>
-  </div>
-
-  <!-- 2줄: 삼성, 우성정공 -->
-  <div class="team-job-row">
-    <article class="team-job-card">
-      <div class="team-card-header">
-        <div class="team-logo-image">
-          <img src="/illusion/resources/image/logo-samsung.jpg" alt="SAMSUNG">
-        </div>
-        <p class="team-job-title">경력, 신입 엔지니어 채용</p>
-        <div class="team-card-meta">
-          <span>~9/10</span>
-          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
-        </div>
-      </div>
-      <div class="team-card-image">
-        <img src="/illusion/resources/image/samsung.jpg" alt="SAMSUNG 광고">
-      </div>
-    </article>
-
-    <article class="team-job-card">
-      <div class="team-card-header">
-        <div class="team-logo-image">
-          <img src="/illusion/resources/image/logo-hyundai.jpg" alt="HYUNDAI">
-        </div>
-        <p class="team-job-title">경력, 신입 엔지니어 채용</p>
-        <div class="team-card-meta">
-          <span>~9/10</span>
-          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
-        </div>
-      </div>
-      <div class="team-card-image">
-        <img src="/illusion/resources/image/hyundai.jpg" alt="HYUNDAI 광고">
-      </div>
-    </article>
-  </div>
-</section>
+		<!-- 1줄: 네이버, 현대 -->
+		<c:forEach var="r" items="${recruitList }">
+			<div class="team-job-row">
+				<article class="team-job-card">
+					<div class="team-card-header">
+						<div class="team-logo-image">
+							<img src="/illusion/resources/image/logo-naver.jpg" alt="NAVER">
+						</div>
+						<p class="team-job-title">${r.recruit_subject }</p>
+						<div class="team-card-meta">
+							<span>마감일 : ${r.endDateFormatted } / 조회수 : ${r.views_count }</span>
+							<a href="recruitmentDetail?recruit_idx=${r.recruit_idx }" class="stretched-link"></a>
+						</div>
+					</div>
+					<div class="team-card-image">
+						<img
+							src="/illusion/resources/image/ILLUSION_recruitment_image.png"
+							alt="ILLUSION_recruitment_image">
+					</div>
+				</article>
+			</div>
+		</c:forEach>
+	</section>
 
 
 
@@ -245,6 +213,7 @@
 	</footer>
 
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/home/home.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/home/home.js"></script>
 </body>
 </html>

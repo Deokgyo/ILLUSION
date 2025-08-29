@@ -98,6 +98,10 @@
 					    </c:if>
 					</nav>
 
+	                <div class="text-center mt-4">
+	                    <button id="detele-btn" class="btn-yellow" onclick="history.back()">이전페이지로</button>
+	                </div>
+
 				</div>
 			</div>
 		</main>

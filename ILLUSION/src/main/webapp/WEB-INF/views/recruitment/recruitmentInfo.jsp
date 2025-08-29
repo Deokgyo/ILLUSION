@@ -135,7 +135,7 @@
 	                            <a href="recruitmentDetail?recruit_idx=${r.recruit_idx }" class="stretched-link"></a>
 		                    </div>
 		                    <div class="card-image">
-		                        <img src="${pageContext.request.contextPath}/resources/image/samsung.jpg" alt="Samsung Building">
+		                        <img src="${pageContext.request.contextPath}/resources/image/ILLUSION_recruitment_image.png" alt="ILLUSION_recruitment_image">
 		                    </div>
 		                </article>
 	                </c:forEach>
