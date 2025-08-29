@@ -60,6 +60,19 @@
 			</div>
 
 			<div class="board-list">
+						<c:if test="${empty myPostList}">
+					    	<div class="board-header">
+					<span>선택</span> <span>게시글 유형</span> <span>게시물 제목</span> <span>조회수</span>
+					<span>작성일자</span> <span>관리</span>
+				</div>
+					        <div class="resume-empty-box">
+					            <p class="resume-text">작성한 게시글이 없습니다</p>
+					            <button class="resume-btn" onclick="location.href='communityWrite'">
+					                + 글 작성하기
+					            </button>
+					        </div>
+					    </c:if>
+					    <c:if test="${not empty myPostList}">
 				<div class="board-header">
 					<span>선택</span> <span>게시글 유형</span> <span>게시물 제목</span> <span>조회수</span>
 					<span>작성일자</span> <span>관리</span>
@@ -83,6 +96,7 @@
 						</div>
 					</div>
 				</c:forEach>
+				</c:if>
 			</div>
 			<button id="delete-btn" class="delete-btn">삭제</button>
 

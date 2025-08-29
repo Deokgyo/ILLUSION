@@ -38,7 +38,7 @@
 		degree,
 		enroll_date,
 		graduation_date,
-		certificate,
+		
 		additional_information
 		) VALUES (
 		#{member_idx},
@@ -51,7 +51,7 @@
 		#{degree},
 		#{enroll_date},
 		#{graduation_date},
-		#{certificate},
+		
 		#{additional_information}
 		)
 	</insert>

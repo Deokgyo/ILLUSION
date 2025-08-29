@@ -4,9 +4,6 @@
 	<html>
 	<head>
 	<meta charset="UTF-8">
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script
-	src="${pageContext.request.contextPath}/resources/js/myPage/changePasswd.js"></script>
 	<title>비밀번호 변경</title>
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -103,8 +100,9 @@
 	
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
-	</footer>
-	
+	</footer>	
 	    <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+	    	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/myPage/changePasswd.js"></script>
 	</body>
 	</html>

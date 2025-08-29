@@ -46,6 +46,19 @@
 			</div>
 			<div class="form-box">
 				<div class="resume-list-container">
+				    <!-- 이력서가 없을 때 -->
+					    <c:if test="${empty resumeList}">
+					    <div class="resume-list-header">
+												<span>선택</span> <span>이력서 제목</span> <span>이력서 생성일</span> <span>관리</span>
+											</div>
+					        <div class="resume-empty-box">
+					            <p class="resume-text">저장된 이력서가 없습니다</p>
+					            <button class="resume-btn" onclick="location.href='resumeWrite'">
+					                + 이력서 작성하기
+					            </button>
+					        </div>
+					    </c:if>
+    				 <c:if test="${not empty resumeList}">
 					<div class="resume-list">
 						<div class="resume-list-header">
 							<span>선택</span> <span>이력서 제목</span> <span>이력서 생성일</span> <span>관리</span>
@@ -92,6 +105,7 @@
 			    		    <a href="${pageUrl}">&raquo;</a>
 					    </c:if>
 					</nav>
+					  </c:if>
 				</div>
 			</div>
 		</main>

@@ -47,6 +47,19 @@
 				</p>
 			</div>
 			<div class="resume-list-container">
+			<c:if test="${empty CLList}">
+					    <div class="resume-list-header">
+												<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span>
+						<span>자소서 종류</span> <span>생성된 면접 질문</span>
+											</div>
+					        <div class="resume-empty-box">
+					            <p class="resume-text">저장된 자기소개서가 없습니다</p>
+					            <button class="resume-btn" onclick="location.href='coverletterCreate'">
+					                + 자기소개서 생성하기
+					            </button>
+					        </div>
+					    </c:if>
+    				 <c:if test="${not empty CLList}">
 				<div class="resume-list">
 					<div class="resume-list-header">
 						<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span>
@@ -101,6 +114,7 @@
 					    </c:if>
 					</nav>
 				</div>
+				</c:if>
 			</div>
 		</main>
 	</div>
