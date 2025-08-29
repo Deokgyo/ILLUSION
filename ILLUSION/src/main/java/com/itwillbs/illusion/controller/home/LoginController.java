@@ -46,6 +46,18 @@ public class LoginController {
         return "errorPage";
     }
     
+    // TODO 이용약관 페이지 나중에 홈 컨트롤러로 
+    @GetMapping("termsOfService")
+    public String termsOfService() {
+    	return "home/termsOfService";
+    }
+    
+    // TODO 개인정보 처ㄹ방침 페이지도 이동
+    @GetMapping("privacyPolicy")
+    public String privacyPolicy() {
+    	return "home/privacyPolicy";
+    }
+    
     
     // 아이디 찾기 - 인증번호 발송
     @PostMapping("idFind/sendAuthCode")

@@ -54,8 +54,10 @@
 		            <select name="category" class="form-select category-select" required>
 		                <option value="" disabled selected>카테고리 선택</option>
 		                
-		                <c:forEach var="category" items="${categoryList }" >
-			                <option value="${category.code }">${category.code_name}</option>
+		                <c:forEach var="category" items="${categoryList }" varStatus="status">
+		                	<c:if test="${!status.first }">
+		                		<option value="${category.code }">${category.code_name}</option>
+		                	</c:if>
 		                </c:forEach>
 		            </select>
 		        </div>

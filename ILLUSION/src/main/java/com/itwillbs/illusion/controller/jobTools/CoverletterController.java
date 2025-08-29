@@ -38,14 +38,16 @@ public class CoverletterController {
     // ===================================================================
     // 페이지 이동 (GET Mappings)
     // ===================================================================
-
+    
+    // 자소서 생성 페이지 이동
     @GetMapping("coverletterCreate")
     public String coverletterCreate(Model model) {
         model.addAttribute("occupationList", service.getOccupation());
         model.addAttribute("expList", service.getExperience());
         return "jobTools/coverletterCreate";
     }
-
+    
+    // 자소서 결과 페이지 이동
     @GetMapping("coverletterResult")
     public String showCoverletterResult(Model model, @RequestParam("cl_idx") int cl_idx,
             @RequestParam("original_cl_idx") int original_cl_idx) {
@@ -57,7 +59,7 @@ public class CoverletterController {
     }
 
     
-
+    // 자소서 다듬기
     @GetMapping("coverletterRefiner")
     public String coverletterRefiner(Model model) {
         int member_idx = SecurityUtil.getLoginUserIndex();
@@ -245,6 +247,7 @@ public class CoverletterController {
         }
     }
 
+    // 새 자소서 다듬기
     @PostMapping("refineNewCoverletter")
     @ResponseBody
     public Map<String, Object> refineNewCoverletter(@RequestParam String cl_input_method,
@@ -279,7 +282,7 @@ public class CoverletterController {
             String prompt = createRefinementPrompt(originalContent);
             String aiResult = geminiService.callGeminiApi(prompt);
 
-            Map<String, Object> refinedClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title, company_name, aiResult, JobToolsConstants.CL_TYPE_REFINED);
+            Map<String, Object> refinedClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title + JobToolsConstants.TITLE_REFINED_SUFFIX, company_name, aiResult, JobToolsConstants.CL_TYPE_REFINED);
 
             Map<String, Object> serviceResult = service.useTokenForJobTools(refinedClMap, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
             updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
@@ -297,7 +300,8 @@ public class CoverletterController {
             return createErrorResponse(e.getMessage());
         }
     }
-
+    
+    // 저장된 자소서 다듬기
     @PostMapping("refineSavedCoverletter")
     @ResponseBody
     public Map<String, Object> refineSavedCoverletter(@RequestParam int cl_idx, HttpSession session) {
@@ -353,7 +357,7 @@ public class CoverletterController {
     // ===================================================================
     // Helper Methods
     // ===================================================================
-
+    
     private Map<String, Object> buildCoverletterMap(int memberIdx, String title, String company, String aiResult, String clType) {
         Map<String, Object> map = new HashMap<>();
         map.put("member_idx", memberIdx);
@@ -365,7 +369,7 @@ public class CoverletterController {
         map.put("cl_type", clType);
         return map;
     }
-
+    
     private void updateSessionToken(HttpSession session, Integer newTokenCount) {
         if (newTokenCount != null) {
             MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");

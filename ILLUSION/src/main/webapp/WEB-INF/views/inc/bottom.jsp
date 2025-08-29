@@ -29,16 +29,16 @@
                 </div>
             </div>
             <div class="social-links-v2">
-                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                <a href="#" aria-label="KakaoTalk"><i class="fa-brands fa-kakao-talk"></i></a>
+                <a href="https://www.instagram.com/" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.facebook.com/" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.youtube.com/results?search_query=%EC%9D%BC%EB%A3%A8%EC%85%98" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                <a href="https://www.kakaocorp.com/" aria-label="KakaoTalk"><i class="fa-brands fa-kakao-talk"></i></a>
             </div>
         </div>
         <nav class="footer-legal-v2">
             <ul>
-                <li><a href="#">이용약관</a></li>
-                <li><a href="#">개인정보 처리방침</a></li>
+                <li><a href="termsOfService">이용약관</a></li>
+                <li><a href="privacyPolicy">개인정보 처리방침</a></li>
                 <li><a href="adminMain">관리자</a></li>
             </ul>
         </nav>

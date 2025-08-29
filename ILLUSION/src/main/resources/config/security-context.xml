@@ -27,6 +27,8 @@
         <intercept-url pattern="/register" access="permitAll" />
         <intercept-url pattern="/idPwFind" access="permitAll" />
         <intercept-url pattern="/errorPage" access="permitAll" />
+        <intercept-url pattern="/privacyPolicy" access="permitAll" />
+        <intercept-url pattern="/termsOfService" access="permitAll" />
 	
             
         <intercept-url pattern="/recruiterMain" access="permitAll" />

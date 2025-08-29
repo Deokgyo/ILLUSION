@@ -1,4 +1,7 @@
 $(function() {
+	// 초기실행
+	$('#section-direct-input').find('input[name="cl_title"], input[name="company_name"]').prop('disabled', true);
+	
     // ======================================================
     //  DOM Element Variables
     // ======================================================
@@ -125,9 +128,13 @@ $(function() {
         if ($('#check-file-upload').is(':checked')) {
             $sectionFileUpload.removeClass('disabled');
             $sectionDirectInput.addClass('disabled');
+            $('#section-file-upload').find('input[name="cl_title"], input[name="company_name"]').prop('disabled', false);
+        	$('#section-direct-input').find('input[name="cl_title"], input[name="company_name"]').prop('disabled', true);
         } else {
             $sectionDirectInput.removeClass('disabled');
             $sectionFileUpload.addClass('disabled');
+            $('#section-direct-input').find('input[name="cl_title"], input[name="company_name"]').prop('disabled', false);
+        	$('#section-file-upload').find('input[name="cl_title"], input[name="company_name"]').prop('disabled', true);
         }
     });
 

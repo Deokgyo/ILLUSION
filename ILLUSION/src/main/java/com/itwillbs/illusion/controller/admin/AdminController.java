@@ -50,6 +50,8 @@ public class AdminController {
 		return "admin/adminMain";
 	}
 	
+	
+	// TODO 기업회원이면 이름 말고 기업명 출력 되게 
 	// 관리자 회원 정보 관리 페이지 이동
 	@GetMapping("adminMember")
 	public String adminMember(Model model, @RequestParam(defaultValue = "1") int pageNum) {
