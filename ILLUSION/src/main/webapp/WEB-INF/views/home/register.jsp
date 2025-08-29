@@ -106,8 +106,7 @@
 						name="member_name" placeholder="이름을 입력해주세요">
 				</div>
 				<div class="flex-half" id="company">
-					<label for="compname">대표자명</label> <input type="text"
-						id="companyname" name="ceo_name" placeholder="대표자명을 입력해주세요">
+					<label for="compname">대표자명</label> <input type="text" id="companyname" name="ceo_name" placeholder="대표자명을 입력해주세요">
 				</div>
 				<div class="flex-half gender-row" id="genderHide">
 					<label for="gender">성별</label> <select id="gender" name="gender">
@@ -118,9 +117,8 @@
 				</div>
 			</div>
 
-			<div class="form-row birth_user" id="birthHide">
-				<label for="birth">생년월일</label> <input type="date" id="birth"
-					name="resume_birth">
+			<div class="form-row birth_user" id=birthHide>
+				<label for="birth">생년월일</label> <input type="date" id="birth" name="resume_birth">
 			</div>
 
 			<div class="horizontal-wrapper">
@@ -144,8 +142,7 @@
 			<div class="form-row address-row">
 				<label for="zipcode">주소</label> <input type="text" id="zipcode"
 					name="address_num" placeholder="" class="zip-input">
-				<button class="btn-yellow" id="btnaddress" value="주소검색">주소
-					찾기</button>
+				<button type="button" class="btn-yellow" id="btnaddress" value="주소검색">주소찾기</button>
 			</div>
 			<div class="form-row addr">
 				<input type="text" id="address1" name="address_name1"
@@ -204,7 +201,7 @@
 
 			<!-- 참조 -->
 			<input type="hidden" name="member_type" id="member_type"
-				value="MEM001"> <input type="hidden" name="member_status"
+				value="MEM002"> <input type="hidden" name="member_status"
 				id="member_status"> <input type="hidden"
 				name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<button class="signup-btn" id="register-btn">회원가입</button>

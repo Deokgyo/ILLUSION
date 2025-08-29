@@ -244,19 +244,43 @@ $(document).ready(function() {
 	// 참조
 	$('#member_status').val('MES001'); // 회원상태는 항상 '정상'
 
-	$('#member_type').val('MEM001'); // 기본 회원유형은 '개인회원'
+	$('#member_type').val('MEM002'); // 기본 회원유형은 '개인회원'
 
 	// 개인회원 기본값 세팅
 	$('#company').hide();
 	$('#compdate').hide();
 	$('#companytypes').hide();
-	$('#companytype').removeAttr('required');
 
-	// required 제거
-	$('#companyname').removeAttr('required');
-	$('#company_date').removeAttr('required');
-	$('#compantypes').removeAttr('required');
+	// 개인회원 클릭 시
+	$('#personalTab').on('click', function() {
+		$('#member_type').val('MEM002');
+		$('#companyTab').removeClass('selected');
+		$(this).addClass('selected');
+		$('#companyBox').fadeOut(120);
 
+		// 성별, 생년월일 보이기
+		$('#gender').show();
+		$('#birthHide').show();
+
+		// 기업명 -> 이름으로 라벨 및 placeholder 원복
+		$('label[for="username"]').text('이름');
+		$('#username').attr('placeholder', '이름을 입력해주세요');
+
+		// 대표자명 숨기기 및 입력란 초기화
+		$('#company').hide();
+		$('#companyname').removeAttr('required');
+		$('#companyname').val('');
+
+		// 설립일 숨기기 및 입력란 초기화
+		$('#compdate').hide();
+		$('#comdates').removeAttr('required');
+		$('#comdates').val('');
+
+		// 기업형태 숨기기 및 required 제거
+		$('#companytypes').hide();
+		$('#compantype').removeAttr('required');
+	});
+	
 	// 기업회원 클릭 시
 	$('#companyTab').on('click', function() {
 
@@ -291,37 +315,6 @@ $(document).ready(function() {
 		// 기업형태(ddl) 보이기 및 required 설정
 		$('#companytypes').show();
 		$('#compantype').attr('required', 'required');
-	});
-
-	// 개인회원 클릭 시
-	$('#personalTab').on('click', function() {
-		$('#member_type').val('MEM001');
-		$('#email').attr('name', 'member_email');
-		$('#companyTab').removeClass('selected');
-		$(this).addClass('selected');
-		$('#companyBox').fadeOut(120);
-
-		// 성별, 생년월일 보이기
-		$('#gender').show();
-		$('#birth_user').show();
-
-		// 기업명 -> 이름으로 라벨 및 placeholder 원복
-		$('label[for="username"]').text('이름');
-		$('#username').attr('placeholder', '이름을 입력해주세요');
-
-		// 대표자명 숨기기 및 입력란 초기화
-		$('#company').hide();
-		$('#companyname').removeAttr('required');
-		$('#companyname').val('');
-
-		// 설립일 숨기기 및 입력란 초기화
-		$('#compdate').hide();
-		$('#comdates').removeAttr('required');
-		$('#comdates').val('');
-
-		// 기업형태 숨기기 및 required 제거
-		$('#companytypes').hide();
-		$('#compantype').removeAttr('required');
 	});
 
 
