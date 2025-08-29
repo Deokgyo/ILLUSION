@@ -68,7 +68,16 @@
 						<c:forEach var="cl" items="${CLList }">
 							<div class="resume-item">
 								<input type="checkbox" class="checkbox" value="${cl.cl_idx }">
-								<div class="title"><a href="coverletterResult?cl_idx=${cl.cl_idx }&original_cl_idx=${cl.cl_idx }">${cl.cl_title}</a></div>
+																<div class="title">
+									<c:choose>
+										<c:when test="${not empty cl.original_cl_idx && cl.original_cl_idx != 0}">
+											<a href="coverletterResult?cl_idx=${cl.cl_idx }&original_cl_idx=${cl.original_cl_idx }">${cl.cl_title}</a>
+										</c:when>
+										<c:otherwise>
+											<a href="coverletterResult?cl_idx=${cl.cl_idx }&original_cl_idx=${cl.cl_idx }">${cl.cl_title}</a>
+										</c:otherwise>
+									</c:choose>
+								</div>
 								<div class="date">${cl.generation_date}</div>
 								<div class="date">${cl.cl_type}</div>
 						        <c:choose>

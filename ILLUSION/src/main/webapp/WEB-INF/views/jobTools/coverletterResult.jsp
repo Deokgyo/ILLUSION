@@ -33,7 +33,6 @@
             
                 <!-- 첨삭된 자소서일때만 출력 -->
 				<c:if test="${coverletter.cl_type eq 'CL002'}">
-					
 					<h3 style="text-align: center">원본자소서</h3>
 					<div class="result-meta">
 	                    <div class="char-count">
@@ -44,10 +43,14 @@
 					<textarea id="generated-text" readonly>${originalCoverletter.generated_cl_content }</textarea>
 				</c:if> 
                 
-                <br><br>
-				<hr>
-				<br>
-				<h3 style="text-align: center">수정된 자소서</h3>
+                
+				<c:if test="${coverletter.cl_type eq 'CL002'}">
+					<br><br><hr><br>
+					<h3 style="text-align: center">수정된 자소서</h3>
+				</c:if>
+				<c:if test="${coverletter.cl_type eq 'CL001'}">
+					<h3 style="text-align: center">생성된 자소서</h3>
+				</c:if>
 				<br><br>
 				
                 <div class="result-meta">

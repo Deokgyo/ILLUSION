@@ -6,7 +6,7 @@
 
 <%-- js 파일 --%>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/home/login.js"></script>
+
 
 <%-- 외부 라이브러리 CSS --%>
 <link rel="stylesheet"
@@ -24,8 +24,6 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/layout.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/header.css">
-<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bottom.css">
@@ -33,7 +31,7 @@
 	href="${pageContext.request.contextPath}/resources/css/components.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/home/login.css">
-<title>Home</title>
+<title>Admin Login</title>
 </head>
 <body>
 
@@ -57,10 +55,21 @@
 
 			<form action="${pageContext.request.contextPath}/loginPro" method="post">
 				<article class="box-right">
-					<h3 align="center">관리자 로그인</h3>
+					<div class="tab">
+						<ul class="member_type">
+							<li class="type">관리자</li>
+						</ul>
+					</div>
 					<ul class="login-input">
-						<li><input type="text" name="member_id" placeholder="아이디" class="form-control" name="id" value="${cookie.rememberId.value }" ></li>
-						<li><input type="text" name="member_pw" placeholder="비밀번호" class="form-control" name="passwd"></li>
+						<li><input type="text" name="member_id" placeholder="아이디" class="form-control" value="${cookie.rememberId.value }" ></li>
+						<li><input type="password" name="member_pw" placeholder="비밀번호" class="form-control"></li>
+						<li>
+						    <label><input type="checkbox" name="remember-me" value="true"> 로그인 유지</label> 
+						    <label>
+							    <input type="checkbox" name="rememberId" value="true" 
+							        <c:if test="${not empty cookie.rememberId.value}">checked</c:if>> 아이디 저장
+							</label>
+						</li>
 					</ul>
 					<div class="login-btn">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -82,5 +91,10 @@
         </script>
     </c:if>
 	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
+	<c:if test="${not empty msg}">
+    <script>
+        alert('${msg}');
+    </script>
+	</c:if>	
 </body>
 </html>

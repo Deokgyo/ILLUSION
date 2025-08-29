@@ -398,6 +398,7 @@
 		FROM question q
 		WHERE q.cl_idx = c.cl_idx) AS
 		question_count
+		,c.original_cl_idx
 
 		FROM cover_letter c LEFT JOIN common_code t ON t.code =
 		c.cl_type

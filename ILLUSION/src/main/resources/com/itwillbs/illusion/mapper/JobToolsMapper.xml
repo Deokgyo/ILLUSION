@@ -41,7 +41,9 @@
 			 , generated_cl_content
 			 , generated_char_count
 			 , generated_char_count_no_space
-			 , cl_type)			  
+			 , cl_type
+			 , original_cl_idx
+			 )			  
 	    VALUES (
 		  	  #{member_idx}
 		  	, #{title}
@@ -49,7 +51,9 @@
 		  	, #{aiResult}
 		  	, #{generated_char_count}
 		  	, #{generated_char_count_no_space}
-		  	, #{cl_type} )
+		  	, #{cl_type}
+		  	, #{original_cl_idx} 
+		  	)
 	</insert>
 	
 	<!-- 자소서 정보 가져오기 -->

@@ -113,7 +113,6 @@ public class JobToolsService {
 	
 	// 자소서 정보 가져오기
 	public Map<String, Object> getCoverletterById(int cl_idx) {
-		System.out.println("### 서비스 계층에서 받은 ID: " + cl_idx + " ###");
 		return mapper.getCoverletterById(cl_idx);
 	}
 	// 특정 회원의 자소서 목록 조회

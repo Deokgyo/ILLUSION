@@ -283,6 +283,7 @@ public class CoverletterController {
             String aiResult = geminiService.callGeminiApi(prompt);
 
             Map<String, Object> refinedClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title + JobToolsConstants.TITLE_REFINED_SUFFIX, company_name, aiResult, JobToolsConstants.CL_TYPE_REFINED);
+            refinedClMap.put("original_cl_idx", originalClIdx);
 
             Map<String, Object> serviceResult = service.useTokenForJobTools(refinedClMap, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
             updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
@@ -330,6 +331,7 @@ public class CoverletterController {
             aiResult,
             JobToolsConstants.CL_TYPE_REFINED
         );
+        newCoverletterMap.put("original_cl_idx", cl_idx);
 
         try {
             Map<String, Object> serviceResult = service.useTokenForJobTools(newCoverletterMap, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);

@@ -27,6 +27,12 @@ public class AdminController {
 	AdminService service;
 	
 	
+	// 관리자 로그인 페이지 이동
+	@GetMapping("adminLogin")
+	public String adminLogin() {
+		return "admin/adminLogin";
+	}
+	
 	// 관리자 메인 페이지 이동
 	@GetMapping("adminMain")
 	public String adminMain(Model model) {

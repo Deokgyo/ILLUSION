@@ -10,6 +10,8 @@ $(function() {
 			return;
 		}
 
+		$(this).prop('disabled', true).val('전송중!');
+
 		$.ajax({
 			url: 'idFind/sendAuthCode',
 			type: 'POST',
@@ -26,10 +28,12 @@ $(function() {
 					$('#id-member-name, #id-member-email').prop('readonly', true);
 				} else {
 					alert('일치하는 회원 정보가 없습니다.');
+					$('#id-send-auth-btn').prop('disabled', false).val('인증번호 발송');
 				}
 			},
 			error: function() {
 				alert('인증번호 발송 중 오류가 발생했습니다.');
+				$('#id-send-auth-btn').prop('disabled', false).val('인증번호 발송');
 			}
 		});
 	});
@@ -74,6 +78,8 @@ $(function() {
 			return;
 		}
 
+		$(this).prop('disabled', true).val('전송중!');
+
 		$.ajax({
 			url: 'pwFind/sendAuthCode',
 			type: 'POST',
@@ -90,10 +96,12 @@ $(function() {
 					$('#pw-member-id, #pw-member-email').prop('readonly', true);
 				} else {
 					alert('일치하는 회원 정보가 없습니다.');
+					$('#pw-send-auth-btn').prop('disabled', false).val('인증번호 발송');
 				}
 			},
 			error: function() {
 				alert('인증번호 발송 중 오류가 발생했습니다.');
+				$('#pw-send-auth-btn').prop('disabled', false).val('인증번호 발송');
 			}
 		});
 	});
