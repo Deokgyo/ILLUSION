@@ -26,8 +26,8 @@
 	                    <li><a href="./adminMember">회원 관리</a></li>
 	                    <li><a href="./adminRecruitment">공고 관리</a></li>
 	                    <li><a href="./adminCommunity">게시글 관리</a></li>
-	                    <li><a href="./adminSupport">고객 문의</a></li>
-	                    <li><a href="./adminPayment">결제 이력</a></li>
+<!-- 	                    <li><a href="./adminSupport">고객 문의</a></li> -->
+<!-- 	                    <li><a href="./adminPayment">결제 이력</a></li> -->
 	                    <li><a href="./comcodeRegist">공통 코드 관리</a></li>
 	                </ul>
 	            </nav>
