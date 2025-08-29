@@ -37,7 +37,7 @@
 	opacity: .65;
 }
 </style>
-<title>Home</title>
+<title>ILLUSION</title>
 </head>
 <body>
 	<header>
@@ -177,7 +177,7 @@
         <p class="team-job-title">경력, 신입 엔지니어 채용</p>
         <div class="team-card-meta">
           <span>~9/10</span>
-          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
+          <a href="${pageContext.request.contextPath}/recruitmentDetail?recruit_idx=17" class="team-btn-yellow">입사지원</a>
         </div>
       </div>
       <div class="team-card-image">
@@ -193,7 +193,7 @@
         <p class="team-job-title">경력, 신입 엔지니어 채용</p>
         <div class="team-card-meta">
           <span>~9/10</span>
-          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
+          <a href="${pageContext.request.contextPath}/recruitmentDetail?recruit_idx=19" class="team-btn-yellow">입사지원</a>
         </div>
       </div>
       <div class="team-card-image">
@@ -212,7 +212,7 @@
         <p class="team-job-title">경력, 신입 엔지니어 채용</p>
         <div class="team-card-meta">
           <span>~9/10</span>
-          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
+          <a href="${pageContext.request.contextPath}/recruitmentDetail?recruit_idx=24" class="team-btn-yellow">입사지원</a>
         </div>
       </div>
       <div class="team-card-image">
@@ -228,7 +228,7 @@
         <p class="team-job-title">경력, 신입 엔지니어 채용</p>
         <div class="team-card-meta">
           <span>~9/10</span>
-          <a href="recruitmentDetail" class="team-btn-yellow">입사지원</a>
+          <a href="${pageContext.request.contextPath}/recruitmentDetail?recruit_idx=33" class="team-btn-yellow">입사지원</a>
         </div>
       </div>
       <div class="team-card-image">
@@ -237,8 +237,6 @@
     </article>
   </div>
 </section>
-
-
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
