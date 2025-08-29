@@ -108,7 +108,7 @@
 			 , g.code_name AS gender_name
 			 , m.resume_birth
 			 , m.token
-			 , m.recruiter_member_email
+			 , m.member_email
 			 , m.company_idx
 			 , m.recruiter_number
 			 , m.mail_auth_status
