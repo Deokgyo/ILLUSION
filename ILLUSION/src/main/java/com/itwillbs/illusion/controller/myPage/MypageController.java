@@ -78,7 +78,7 @@ public class MypageController {
         model.addAttribute("occupationList", occupationList);
         model.addAttribute("positionList", positionList);
         
-		
+        
 		return "myPage/resumeWrite";
 	}
 	
