@@ -5,6 +5,7 @@
 /* 모든페이지에서 항상 스크롤바 공간 차지 */
 html {
     overflow-y: scroll;
+    min-width: 1200px;
 } 
  
 body {

@@ -443,7 +443,7 @@ public class CoverletterController {
 	}
 	
 	private String createInterviewPrompt(String originalContent) {
-		return String.format(
+		return
 				"당신은 회사의 베테랑 면접관입니다. 아래 자기소개서를 기반으로, 지원자의 역량과 잠재력을 파악하기 위한 날카로운 면접 질문 리스트를 생성해주세요.\n"
 				+ "질문은 다음 세 가지 유형을 반드시 포함해야 합니다.\n"
 				+ "1.경험 심층 질문: 주요 경험에 대해 STAR 기법을 활용한 핵심 질문과 그에 대한 꼬리 질문\n"
@@ -451,12 +451,12 @@ public class CoverletterController {
 				+ "3.비전/기여도 질문: 회사에 어떻게 기여하고 함께 성장할 것인지 묻는 질문\n"
 				+ "출력 형식 가이드 : 진짜 딱 질문만 3개만들어주고 다른 어떤 부연 설명도 넣지마, 꼬리 질문은 문장에 이어서 해줘 따로 '*'표시하지 말고, 질문사이에 구분은 줄바꿈만하고 공백 넣고 줄바꿈 또하지마 "
 				+ "[자기 소개서 내용]\n"
-				+ originalContent);
+				+ originalContent;
 	}
 	
 	
 	private String aiFeedbackPrompt(String question, String answer) {
-		return String.format(
+		return 
 				"당신은 20년 경력의 베테랑 면접관입니다. 당신이 제시했던 아래 [면접 질문]에 대해," 
 				+ "지원자가 [지원자 답변]과 같이 대답했습니다. 지원자의 답변을 날카롭고 구체적으로 분석하여,"
 				+ "다음 형식에 맞춰 피드백을 제공해주세요."
@@ -480,7 +480,7 @@ public class CoverletterController {
 				+ "각 항목들은 줄바꿈으로 구분좀 제대로 해줘 너의 답변이 그대로(줄바꿈, 띄어쓰기, 특수문자 강조표현등) 사용자에게 보여지는거야"
 				+ "그리고 전체 내용이 너무길어 16px 기준으로 5~6줄 정도로만 해줘, 1.너의 답변 \n 2. 너의답변 \n .. 이런형식으로 "
 				+ "줄바꿈을 html 코드로 해줄래?, 아니 *(아스트리카) 빼라고 ;;;"
-				);
+				;
 	}
 	
 }
