@@ -19,8 +19,6 @@
 	<link rel="stylesheet"
 		href="${pageContext.request.contextPath}/resources/css/layout.css">
 	<link rel="stylesheet"
-		href="${pageContext.request.contextPath}/resources/css/top.css">
-	<link rel="stylesheet"
 		href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 	<link rel="stylesheet"
 		href="${pageContext.request.contextPath}/resources/css/bottom.css">
@@ -42,6 +40,28 @@
 						<strong>관심공고 목록</strong>
 					</p>
 				</div>
+					<c:if test="${empty scrapList}">
+					<div class="table-box">
+					<table class="favorite-table">
+						<thead>
+							<tr>
+								<th>선택</th>
+								<th>공고 제목</th>
+								<th>공고 상태</th>
+								<th>등록일</th>
+								<th>마감일</th>
+							</tr>
+						</thead>
+						</table>
+						</div>
+				        <div class="resume-empty-box">
+				            <p class="resume-text">저장된 관심공고가 없습니다</p>
+				            <button class="resume-btn" onclick="location.href='recruitmentInfo'">
+				                + 공고 보러가기
+				            </button>
+				        </div>
+				    </c:if>
+				<c:if test="${not empty scrapList}">
 				<div class="table-box">
 					<table class="favorite-table">
 						<thead>
@@ -68,36 +88,37 @@
 						</tbody>
 					</table>
 				</div>
-
+				
 				<div class="action-buttons">
 					<button id="delete-btn" class="delete-btn">삭제</button>
 				</div>
 
 				<nav class="pagination">
-				    <!-- 이전 페이지 버튼 -->
-				    <c:if test="${pageInfo.pageNum > 1}">
-				    	<c:url var="pageUrl" value="scraprecruitList">
-				    		<c:param name="pageNum" value="1"></c:param>
-				    	</c:url>
-				    	<a href="${pageUrl}">&laquo;</a>
-				    </c:if>
-				
-				    <!-- 페이지 번호 -->
-				    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-					    <c:url var="pageUrl" value="scraprecruitList">
-					        <c:param name="pageNum" value="${i}" />
-					    </c:url>
-					    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
-					</c:forEach>
-				
-				    <!-- 다음 페이지 버튼 -->
-				    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
-				    	<c:url var="pageUrl" value="scraprecruitList">
-				    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
-				    	</c:url>
-		    		    <a href="${pageUrl}">&raquo;</a>
-				    </c:if>
-				</nav>
+					    <!-- 이전 페이지 버튼 -->
+					    <c:if test="${pageInfo.pageNum > 1}">
+					    	<c:url var="pageUrl" value="scraprecruitList">
+					    		<c:param name="pageNum" value="1"></c:param>
+					    	</c:url>
+					    	<a href="${pageUrl}">&laquo;</a>
+					    </c:if>
+					
+					    <!-- 페이지 번호 -->
+					    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+						    <c:url var="pageUrl" value="scraprecruitList">
+						        <c:param name="pageNum" value="${i}" />
+						    </c:url>
+						    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+						</c:forEach>
+					
+					    <!-- 다음 페이지 버튼 -->
+					    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+					    	<c:url var="pageUrl" value="scraprecruitList">
+					    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+					    	</c:url>
+			    		    <a href="${pageUrl}">&raquo;</a>
+					    </c:if>
+					</nav>
+				</c:if>
 			</div>
 		</main>
 	</div>

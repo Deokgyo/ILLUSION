@@ -119,13 +119,10 @@
 								<th>이메일</th>
 								<td><input type="text" name="member_email" class="bg-text" value="${member.member_email }"></td>
 							</tr>
-							<tr>
-							
-								<td class="right-align">
-									<button type="submit" class="edit-button">수정</button>
-								</td>
-							</tr>
 						</table>
+						<div class="form-submit-container">
+			    <button type="submit" class="edit-button">수정</button>
+			</div>
 					</form>
 				</div>
 				<hr>
