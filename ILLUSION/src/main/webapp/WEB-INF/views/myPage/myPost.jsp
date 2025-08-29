@@ -60,6 +60,19 @@
 			</div>
 
 			<div class="board-list">
+						<c:if test="${empty myPostList}">
+					    	<div class="board-header">
+					<span>선택</span> <span>게시글 유형</span> <span>게시물 제목</span> <span>조회수</span>
+					<span>작성일자</span> <span>관리</span>
+				</div>
+					        <div class="resume-empty-box">
+					            <p class="resume-text">작성한 게시글이 없습니다</p>
+					            <button class="resume-btn" onclick="location.href='communityWrite'">
+					                + 글 작성하기
+					            </button>
+					        </div>
+					    </c:if>
+					    <c:if test="${not empty myPostList}">
 				<div class="board-header">
 					<span>선택</span> <span>게시글 유형</span> <span>게시물 제목</span> <span>조회수</span>
 					<span>작성일자</span> <span>관리</span>
@@ -83,36 +96,40 @@
 						</div>
 					</div>
 				</c:forEach>
+				</c:if>
 			</div>
-			<button id="delete-btn" class="delete-btn">삭제</button>
+			<c:if test="${not empty myPostList}">
+			
+				<button id="delete-btn" class="delete-btn">삭제</button>
 
-			<nav class="pagination">
-				<!-- 이전 페이지 버튼 -->
-				<c:if test="${pageInfo.pageNum > 1}">
-					<c:url var="pageUrl" value="myPost">
-						<c:param name="pageNum" value="1"></c:param>
-					</c:url>
-					<a href="${pageUrl}">&laquo;</a>
-				</c:if>
-
-				<!-- 페이지 번호 -->
-				<c:forEach var="i" begin="${pageInfo.startPage}"
-					end="${pageInfo.endPage}">
-					<c:url var="pageUrl" value="myPost">
-						<c:param name="pageNum" value="${i}" />
-					</c:url>
-					<a href="${pageUrl}"
-						class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
-				</c:forEach>
-
-				<!-- 다음 페이지 버튼 -->
-				<c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
-					<c:url var="pageUrl" value="myPost">
-						<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
-					</c:url>
-					<a href="${pageUrl}">&raquo;</a>
-				</c:if>
-			</nav>
+				<nav class="pagination">
+					<!-- 이전 페이지 버튼 -->
+					<c:if test="${pageInfo.pageNum > 1}">
+						<c:url var="pageUrl" value="myPost">
+							<c:param name="pageNum" value="1"></c:param>
+						</c:url>
+						<a href="${pageUrl}">&laquo;</a>
+					</c:if>
+	
+					<!-- 페이지 번호 -->
+					<c:forEach var="i" begin="${pageInfo.startPage}"
+						end="${pageInfo.endPage}">
+						<c:url var="pageUrl" value="myPost">
+							<c:param name="pageNum" value="${i}" />
+						</c:url>
+						<a href="${pageUrl}"
+							class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+					</c:forEach>
+	
+					<!-- 다음 페이지 버튼 -->
+					<c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+						<c:url var="pageUrl" value="myPost">
+							<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+						</c:url>
+						<a href="${pageUrl}">&raquo;</a>
+					</c:if>
+				</nav>
+			</c:if>
 		</main>
 	</div>
 

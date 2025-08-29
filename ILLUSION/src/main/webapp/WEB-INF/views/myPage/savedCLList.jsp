@@ -46,60 +46,75 @@
 					<strong>자기소개서 현황</strong>
 				</p>
 			</div>
-			<div class="resume-list-container">
-				<div class="resume-list">
-					<div class="resume-list-header">
-						<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span>
-						<span>자소서 종류</span> <span>생성된 면접 질문</span>
-					</div>
-					<c:forEach var="cl" items="${CLList }">
-						<div class="resume-item">
-							<input type="checkbox" class="checkbox" value="${cl.cl_idx }">
-							<div class="title"><a href="coverletterResult?cl_idx=${cl.cl_idx }&original_cl_idx=${cl.cl_idx }">${cl.cl_title}</a></div>
-							<div class="date">${cl.generation_date}</div>
-							<div class="date">${cl.cl_type}</div>
-					        <c:choose>
-					            <c:when test="${cl.question_count > 0}">
-					                <a href="savedQuestionList?cl_idx=${cl.cl_idx}">
-					                    <button class="delete-btn">확인하기</button>
-					                </a>
-					            </c:when>
-					            <c:otherwise>
-					                <button class="delete-btn disabled" disabled>질문 없음</button>
-					            </c:otherwise>
-					        </c:choose>
+			<div class="form-box">
+				<div class="resume-list-container">
+				<c:if test="${empty CLList}">
+						    <div class="resume-list-header">
+							<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span>
+							<span>자소서 종류</span> <span>생성된 면접 질문</span></div>
+						        <div class="resume-empty-box">
+						            <p class="resume-text">저장된 자기소개서가 없습니다</p>
+						            <button class="resume-btn" onclick="location.href='coverletterCreate'">
+						                + 자기소개서 생성하기
+						            </button>
+						        </div>
+						    </c:if>
+	    				 <c:if test="${not empty CLList}">
+					<div class="resume-list">
+						<div class="resume-list-header">
+							<span>선택</span> <span>자기소개서 제목</span> <span>작성일자</span>
+							<span>자소서 종류</span> <span>생성된 면접 질문</span>
 						</div>
-					</c:forEach>
-					<div class="resume-footer">
-						<button class="delete-btn" id="delete-btn">삭제</button>
-	
-					</div>
-	
-					<nav class="pagination">
-					    <!-- 이전 페이지 버튼 -->
-					    <c:if test="${pageInfo.pageNum > 1}">
-					    	<c:url var="pageUrl" value="savedCLList">
-					    		<c:param name="pageNum" value="1"></c:param>
-					    	</c:url>
-					    	<a href="${pageUrl}">&laquo;</a>
-					    </c:if>
-					
-					    <!-- 페이지 번호 -->
-					    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-						    <c:url var="pageUrl" value="savedCLList">
-						        <c:param name="pageNum" value="${i}" />
-						    </c:url>
-						    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+						<c:forEach var="cl" items="${CLList }">
+							<div class="resume-item">
+								<input type="checkbox" class="checkbox" value="${cl.cl_idx }">
+								<div class="title"><a href="coverletterResult?cl_idx=${cl.cl_idx }&original_cl_idx=${cl.cl_idx }">${cl.cl_title}</a></div>
+								<div class="date">${cl.generation_date}</div>
+								<div class="date">${cl.cl_type}</div>
+						        <c:choose>
+						            <c:when test="${cl.question_count > 0}">
+						                <a href="savedQuestionList?cl_idx=${cl.cl_idx}">
+						                    <button class="delete-btn">확인하기</button>
+						                </a>
+						            </c:when>
+						            <c:otherwise>
+						                <button class="delete-btn disabled" disabled>질문 없음</button>
+						            </c:otherwise>
+						        </c:choose>
+							</div>
 						</c:forEach>
-					
-					    <!-- 다음 페이지 버튼 -->
-					    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
-					    	<c:url var="pageUrl" value="savedCLList">
-					    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
-					    	</c:url>
-			    		    <a href="${pageUrl}">&raquo;</a>
-					    </c:if>
-					</nav>
+						<div class="resume-footer">
+							<button class="delete-btn" id="delete-btn">삭제</button>
+		
+						</div>
+		
+						<nav class="pagination">
+						    <!-- 이전 페이지 버튼 -->
+						    <c:if test="${pageInfo.pageNum > 1}">
+						    	<c:url var="pageUrl" value="savedCLList">
+						    		<c:param name="pageNum" value="1"></c:param>
+						    	</c:url>
+						    	<a href="${pageUrl}">&laquo;</a>
+						    </c:if>
+						
+						    <!-- 페이지 번호 -->
+						    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+							    <c:url var="pageUrl" value="savedCLList">
+							        <c:param name="pageNum" value="${i}" />
+							    </c:url>
+							    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
+							</c:forEach>
+						
+						    <!-- 다음 페이지 버튼 -->
+						    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
+						    	<c:url var="pageUrl" value="savedCLList">
+						    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+						    	</c:url>
+				    		    <a href="${pageUrl}">&raquo;</a>
+						    </c:if>
+						</nav>
+					</div>
+					</c:if>
 				</div>
 			</div>
 		</main>

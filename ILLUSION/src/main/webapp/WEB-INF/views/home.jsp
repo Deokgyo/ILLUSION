@@ -23,9 +23,7 @@
 	href="${pageContext.request.contextPath}/resources/css/bottom.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/home/home.css">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruitment/recruitmentInfo.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css"> --%>
-	
+
 <style type="text/css">
 .btn-bd-primary {
 	background-color: #FFE585;
@@ -40,7 +38,7 @@
 	opacity: .65;
 }
 </style>
-<title>Home</title>
+<title>ILLUSION</title>
 </head>
 <body>
 	<header>
@@ -178,10 +176,8 @@
 
 	<!--------------------------채용정보 ----------------------------->
 
-
 	<section class="team-job-listings">
 		<h2 class="team-job-title-main">지금 핫한 채용정보는?</h2>
-
 		<!-- 1줄: 네이버, 현대 -->
 		<c:forEach var="r" items="${recruitList }">
 			<div class="team-job-row">
@@ -193,7 +189,8 @@
 						<p class="team-job-title">${r.recruit_subject }</p>
 						<div class="team-card-meta">
 							<span>마감일 : ${r.endDateFormatted } / 조회수 : ${r.views_count }</span>
-							<a href="recruitmentDetail?recruit_idx=${r.recruit_idx }" class="stretched-link"></a>
+							<a href="recruitmentDetail?recruit_idx=${r.recruit_idx }"
+								class="stretched-link"></a>
 						</div>
 					</div>
 					<div class="team-card-image">
@@ -205,8 +202,6 @@
 			</div>
 		</c:forEach>
 	</section>
-
-
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />

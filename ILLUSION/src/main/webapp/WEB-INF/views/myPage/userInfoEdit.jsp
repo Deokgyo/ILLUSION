@@ -119,13 +119,10 @@
 								<th>이메일</th>
 								<td><input type="text" name="member_email" class="bg-text" value="${member.member_email }"></td>
 							</tr>
-							<tr>
-							
-								<td class="right-align">
-									<button type="submit" class="edit-button">수정</button>
-								</td>
-							</tr>
 						</table>
+						<div class="form-submit-container">
+			    <button type="submit" class="edit-button">수정</button>
+			</div>
 					</form>
 				</div>
 				<hr>
@@ -144,20 +141,6 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-	<script type="text/javascript">
-	const fileInput = document.getElementById('profileFileInput');
-	const previewImg = document.getElementById('profilePreview');
-
-	fileInput.addEventListener('change', function() {
-	    const file = this.files[0];
-	    if (file) {
-	        const reader = new FileReader();
-	        reader.onload = function(e) {
-	            previewImg.src = e.target.result; // 선택한 이미지로 바로 변경
-	        }
-	        reader.readAsDataURL(file);
-	    }
-	});
-	</script>
+		<script src="${pageContext.request.contextPath}/resources/js/myPage/userInfoEdit.js"></script>
 </body>
 </html>

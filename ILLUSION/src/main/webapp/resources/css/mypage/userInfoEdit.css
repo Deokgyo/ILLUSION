@@ -65,7 +65,10 @@ td {
 	padding: 14px;
 	vertical-align: middle;
 }
-
+.form-submit-container {
+    text-align: right;
+    margin-top: 20px;
+}
 .edit-button {
 	background-color: var(--main-color);
 	border: none;

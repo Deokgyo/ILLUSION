@@ -63,7 +63,7 @@
 					</div>
 					<ul class="login-input">
 						<li><input type="text" name="member_id" placeholder="아이디" class="form-control" value="${cookie.rememberId.value }" ></li>
-						<li><input type="text" name="member_pw" placeholder="비밀번호" class="form-control"></li>
+						<li><input type="password" name="member_pw" placeholder="비밀번호" class="form-control"></li>
 						<li>
 						    <label><input type="checkbox" name="remember-me" value="true"> 로그인 유지</label> 
 						    <label>

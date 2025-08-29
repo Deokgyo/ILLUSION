@@ -41,6 +41,30 @@
 					<strong>입사 지원 현황</strong>
 				</p>
 			</div>
+			<c:if test="${empty applyList}">
+					<div class="table-box">
+				<table class="interest-table">
+					<thead>
+						<tr>
+							<th>선택</th>
+							<th>공고 제목</th>
+							<th>공고 상태</th>
+							<th>등록일</th>
+							<th>마감일</th>
+							<th>지원 상태</th>
+							<th>기업 열람</th>
+						</tr>
+					</thead>
+						</table>
+						</div>
+				        <div class="resume-empty-box">
+				            <p class="resume-text">등록된 지원내역이 없습니다</p>
+				            <button class="resume-btn" onclick="location.href='recruitmentInfo'">
+				                + 지원 하러가기
+				            </button>
+				        </div>
+				    </c:if>
+				<c:if test="${not empty applyList}">
 			<div class="interest-section">
 				<table class="interest-table">
 					<thead>
@@ -69,6 +93,7 @@
 					</tbody>
 				</table>
 			</div>
+			
 			<button id="delete-btn" class="delete-btn">삭제</button>
 
 			<nav class="pagination">
@@ -96,6 +121,7 @@
 	    		    <a href="${pageUrl}">&raquo;</a>
 			    </c:if>
 			</nav>
+			</c:if>
 		</main>
 	</div>
 	<footer>

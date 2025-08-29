@@ -1,4 +1,12 @@
 $(document).ready(function() {
+	
+	
+	let isCheckId = false;
+	let isCheckPass = false;
+	let isCheckPass2 = false;
+	let isEmailVerified = false; // 이메일 인증 성공 여부 저장 변수
+	var isBusinessNumberVerified = false;
+	
 	// 이용약관 전체 동의
 	$('.tab-btn').on('click', function() {
 		$('.tab-btn').removeClass('active');  // 모든 탭에서 active 제거
@@ -36,19 +44,14 @@ $(document).ready(function() {
 	});
 
 	// 회원가입 유효성 체크
-
-	let isCheckId = false;
-	let isCheckPass = false;
-	let isCheckPass2 = false;
-
 	const $input = $('#userid');
 	const $msg = $('#UserIdSuccess');
 	let debounceTimeout;
 
 	// 아이디 유효성 체크
 	$("#userid").on('keyup', UserIdSuccess);
-	
-	function UserIdSuccess(){
+
+	function UserIdSuccess() {
 		clearTimeout(debounceTimeout);
 		const memberId = $input.val().trim();
 
@@ -170,8 +173,6 @@ $(document).ready(function() {
 
 
 	// 이메일 인증
-	let isEmailVerified = false; // 이메일 인증 성공 여부 저장 변수
-
 	$("#email-btn").click(function() {
 		const emailVal = $("#email").val().trim();
 		if (emailVal === "") {
@@ -228,22 +229,6 @@ $(document).ready(function() {
 	});
 
 
-
-	// 참조
-	$('#member_status').val('MES001'); // 회원상태는 항상 '정상'
-
-	$('#member_type').val('MEM001'); // 기본 회원유형은 '개인회원'
-
-	$('#companyTab').click(function() {
-		$('#member_type').val('MEM003');
-		$('#username').attr('name', 'company_name');
-	});
-
-	$('#personalTab').click(function() {
-		$('#member_type').val('MEM001');
-		$('#email').attr('name', 'member_email');
-	});
-
 	// 입력값 초기화 함수
 	function resetFormInputs() {
 		// .signup-form 내부의 모든 input/select/textarea 초기화
@@ -251,14 +236,16 @@ $(document).ready(function() {
 			$(this).val('');
 		});
 
-		// 유효성 메시지 초기화
+		 // 유효성 메시지 초기화
 		$('#UserIdSuccess, #userPwSuccess, #userPwSuccess2').text('');
-
-		// 상태 변수 리셋
-		isCheckId = false;
-		isCheckPass = false;
-		isCheckPass2 = false;
 	}
+
+
+	// 참조
+	$('#member_status').val('MES001'); // 회원상태는 항상 '정상'
+
+	$('#member_type').val('MEM001'); // 기본 회원유형은 '개인회원'
+
 	// 개인회원 기본값 세팅
 	$('#company').hide();
 	$('#compdate').hide();
@@ -272,6 +259,9 @@ $(document).ready(function() {
 
 	// 기업회원 클릭 시
 	$('#companyTab').on('click', function() {
+
+		$('#member_type').val('MEM003');
+		$('#username').attr('name', 'company_name');
 		$('#personalTab').removeClass('selected');
 		$(this).addClass('selected');
 		$('#companyBox').fadeIn(120);
@@ -305,6 +295,8 @@ $(document).ready(function() {
 
 	// 개인회원 클릭 시
 	$('#personalTab').on('click', function() {
+		$('#member_type').val('MEM001');
+		$('#email').attr('name', 'member_email');
 		$('#companyTab').removeClass('selected');
 		$(this).addClass('selected');
 		$('#companyBox').fadeOut(120);
@@ -345,13 +337,18 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'checkRecruiterNumber',
 			type: 'GET',
-			data: { recruiter_number: reg_num }, // reg_num 사용
-			dataType: 'json', // 서버가 json으로 응답 시
+			data: { recruiter_number: reg_num }, 
+			dataType: 'json', 
 			success: function(data) {
-				if (data.duplicate) { // 서버에서 {"duplicate": true/false} 형태로 응답할 경우
+				console.log("사업자등록번호 인증 Ajax 콜백 진입", data);
+				if (data.duplicate) { 
 					alert('이미 등록된 사업자등록번호입니다.');
 					$('#companyNumber').focus();
+					isBusinessNumberVerified = false;
 				} else {
+					isBusinessNumberVerified = true;
+					console.log("isBusinessNumberVerified:", isBusinessNumberVerified);
+					console.log("사업자 인증 후 isBusinessNumberVerified:", isBusinessNumberVerified);
 					alert('사업자번호 인증 성공');
 				}
 			},
@@ -362,27 +359,41 @@ $(document).ready(function() {
 	});
 
 	$("#register-btn").click(function(e) {
-	    e.preventDefault();
-		//기업회원인지 아닌지 체크하여 사업자등록번호 체크하기 만들기
-	    if (!isCheckId) { 
-	        alert("아이디를 확인해주세요."); 
-	        return false; 
-	    }
-	    if (!isCheckPass) { 
-	        alert("비밀번호를 확인해주세요.");
-	        return false; 
-	    }
-	    if (!isCheckPass2) { 
-	        alert("비밀번호 불일치.");
-	        return false;
-	    }
-	    if (!isEmailVerified) {
-	        alert("이메일 인증을 해주세요.");
-	        return false; 
-	    }
+		e.preventDefault();
+
+		var member_type = $("#member_type").val();
+		console.log('isBusinessNumberVerified:', isBusinessNumberVerified);
+		console.log('isCheckId:', isCheckId);
+		console.log('isCheckPass:', isCheckPass);
+		console.log('isCheckPass2:', isCheckPass2);
+		console.log('isEmailVerified:', isEmailVerified);
+		console.log('회원가입 버튼 클릭 시 isBusinessNumberVerified:', isBusinessNumberVerified);
+		if (member_type === 'MEM003' && !isBusinessNumberVerified ) {
+			alert("사업자등록번호를 인증해주세요");
+			return false;
+		}
+
+		if (!isCheckId) {
+			alert("아이디를 확인해주세요.");
+			return false;
+		}
+		if (!isCheckPass) {
+			alert("비밀번호를 확인해주세요.");
+			return false;
+		}
+		if (!isCheckPass2) {
+			alert("비밀번호 불일치.");
+			return false;
+		}
+		if (!isEmailVerified) {
+			alert("이메일 인증을 해주세요.");
+			return false;
+		}
 		
-	    // 모든 유효성 통과 시 폼 제출
-	    $("#registerForm").submit();
+		console.log('가입');
+		
+		// 모든 유효성 통과 시 폼 제출
+		$("#registerForm").submit();
 	});
 
 }); //ready
