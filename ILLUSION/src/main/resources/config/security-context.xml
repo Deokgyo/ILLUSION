@@ -34,7 +34,6 @@
         <intercept-url pattern="/recruiterMain" access="permitAll" />
         <intercept-url pattern="/recruitmentInfo" access="permitAll" />
         <intercept-url pattern="/recruitmentDetail**" access="permitAll" />    
-        <intercept-url pattern="/register" access="permitAll" />    
         <intercept-url pattern="/email-auth" access="permitAll" method="POST"/>   
         <intercept-url pattern="/email-auth-check" access="permitAll" method="POST"/>   
         <intercept-url pattern="/apply**" access="permitAll" method="POST"/>   
