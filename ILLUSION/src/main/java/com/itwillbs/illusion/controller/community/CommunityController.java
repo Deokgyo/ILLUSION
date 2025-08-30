@@ -28,13 +28,14 @@ public class CommunityController {
 								Model model, 
 								@RequestParam(value="categoryCode", required = false) String categoryCode,
 								@RequestParam(value="sort", defaultValue = "latest") String sort,
+								@RequestParam(value="searchKeyword", required = false) String searchKeyword,
 								@RequestParam(defaultValue = "1") int pageNum) {
 		
 		// 페이지 네이션
 		int listLimit = 10;
 		int startRow = (pageNum - 1) * listLimit;
 		
-		int listCount = service.getBoardListCount();
+		int listCount = service.getBoardListCount(categoryCode, searchKeyword);
 		System.out.println("listCount -----------------" + listCount);
 		int pageListLimit = 10;
 		
@@ -59,11 +60,12 @@ public class CommunityController {
 		model.addAttribute("categoryList", categoryList);
 		
 		// 게시글 리스트 가져오기
-		List<Map<String, Object>> boardList = service.selectBoardList(categoryCode, sort, startRow, listLimit);
+		List<Map<String, Object>> boardList = service.selectBoardList(categoryCode, sort, searchKeyword, startRow, listLimit);
 		model.addAttribute("boardList", boardList);
 
 		model.addAttribute("selectedCategoryCode", categoryCode);
 		model.addAttribute("sort", sort);
+		model.addAttribute("searchKeyword", searchKeyword);
 		
 		
 		

@@ -18,10 +18,11 @@ public class BoardService {
 	BoardMapper mapper;
 	 
 	// 게시글 전체 조회
-	public List<Map<String, Object>> selectBoardList(String categoryCode, String sort, int startRow, int listLimit) {
+	public List<Map<String, Object>> selectBoardList(String categoryCode, String sort, String searchKeyword, int startRow, int listLimit) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("categoryCode", categoryCode);
 		map.put("sort", sort);
+		map.put("searchKeyword", searchKeyword);
 		map.put("startRow", startRow);
 		map.put("listLimit", listLimit);
 		
@@ -58,8 +59,12 @@ public class BoardService {
 		mapper.boardDelete(board_idx);
 	}
 	
-	public int getBoardListCount() {
-		return mapper.getBoardListCount();
+	public int getBoardListCount(String categoryCode, String searchKeyword) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("categoryCode", categoryCode);
+		map.put("searchKeyword", searchKeyword);
+		
+		return mapper.getBoardListCount(map);
 	}
 	
 	

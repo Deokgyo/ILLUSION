@@ -63,10 +63,21 @@ public class LoginController {
     @PostMapping("idFind/sendAuthCode")
     @ResponseBody
     public Map<String, Object> sendIdAuthCode(String member_name, String member_email) {
+    	Map<String, Object> response = new HashMap<String, Object>();
+    	
+    	// 탈퇴된 회원인지 먼저 확인
+    	if (service.isWithdrawnMemberForIdFind(member_name, member_email)) {
+    		response.put("success", false);
+    		response.put("message", "탈퇴된 회원입니다.");
+    		return response;
+    	}
+    	
     	boolean isSuccess = service.sendIdFindAuthCode(member_name, member_email);
     	
-    	Map<String, Object> response = new HashMap<String, Object>();
     	response.put("success", isSuccess);
+    	if (!isSuccess) {
+    		response.put("message", "일치하는 회원 정보가 없습니다.");
+    	}
     	
     	return response;
     }
@@ -82,10 +93,21 @@ public class LoginController {
     @PostMapping("pwFind/sendAuthCode")
     @ResponseBody
     public Map<String, Object> sendPwAuthCode(String member_id, String member_email) {
+    	Map<String, Object> response = new HashMap<String, Object>();
+    	
+    	// 탈퇴된 회원인지 먼저 확인
+    	if (service.isWithdrawnMemberForPwFind(member_id, member_email)) {
+    		response.put("success", false);
+    		response.put("message", "탈퇴된 회원입니다.");
+    		return response;
+    	}
+    	
     	boolean isSuccess = service.sendPasswordResetAuthCode(member_id, member_email);
     	
-    	Map<String, Object> response = new HashMap<String, Object>();
     	response.put("success", isSuccess);
+    	if (!isSuccess) {
+    		response.put("message", "일치하는 회원 정보가 없습니다.");
+    	}
     	
     	return response;
     }

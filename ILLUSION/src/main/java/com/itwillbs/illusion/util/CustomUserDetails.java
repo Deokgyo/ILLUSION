@@ -58,6 +58,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        // MES002(탈퇴상태)인 경우 false 반환
+        return !"MES002".equals(member.getMember_status());
     }
+    
+//    // 탈퇴 상태인지 확인하는 메서드 추가
+//    public boolean isWithdrawn() {
+//        return "MES002".equals(member.getMember_status());
+//    }
 }

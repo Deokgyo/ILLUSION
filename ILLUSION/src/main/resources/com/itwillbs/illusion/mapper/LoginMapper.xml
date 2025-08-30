@@ -60,6 +60,30 @@
 		UPDATE member
 		   SET member_pw = #{member_passwd}
 		 WHERE member_id = #{member_id}
-	</update>	
+	</update>
+	
+	<!-- 이름과 이메일로 탈퇴된 회원인지 확인 -->
+	<select id="isWithdrawnMember" resultType="boolean">
+		SELECT CASE 
+		         WHEN COUNT(*) > 0 THEN true
+		         ELSE false
+		       END
+		  FROM member
+		 WHERE member_name = #{member_name}
+		   AND member_email = #{member_email}
+		   AND member_status = 'MES002'
+	</select>
+	
+	<!-- 아이디와 이메일로 탈퇴된 회원인지 확인 -->
+	<select id="isWithdrawnMemberById" resultType="boolean">
+		SELECT CASE 
+		         WHEN COUNT(*) > 0 THEN true
+		         ELSE false
+		       END
+		  FROM member
+		 WHERE member_id = #{member_id}
+		   AND member_email = #{member_email}
+		   AND member_status = 'MES002'
+	</select>
 </mapper>
 

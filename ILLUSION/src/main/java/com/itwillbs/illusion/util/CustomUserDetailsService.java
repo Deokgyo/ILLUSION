@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.illusion.mapper.MemberMapper;
@@ -21,6 +22,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         if (member == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+
+        // 탈퇴된 회원인지 먼저 확인 (아이디/비밀번호 체크 전에)
+        if ("MES002".equals(member.getMember_status())) {
+            throw new DisabledException("이미 탈퇴처리된 회원입니다.");
         }
 
         return new CustomUserDetails(member);
