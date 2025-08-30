@@ -31,7 +31,7 @@ public class AjaxController {
 	@Autowired
 	RecruiterService service;
 	// 업로드 할 가상 경로 
-	String virtualPath = "/resources/upload";
+	String virtualPath = "/resources/upload/temp";
 	
 	@GetMapping("getlocDetailList")
 	public List<Map<String, String>> getlocDetailList(@RequestParam String location) {
@@ -92,7 +92,7 @@ public class AjaxController {
 		Map<String, String> data = new HashMap<String, String>();
 //		data.put("url", "resources/upload/" + subDir + "/" + fileName);
 		String contextPath = req.getContextPath();
-		data.put("url", contextPath + "/upload/" + subDir + "/" + fileName);
+		data.put("url", contextPath + "/upload/temp/" + subDir + "/" + fileName);
 		return data;
 	}
 	

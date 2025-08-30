@@ -14,6 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.9.1/summernote-bs4.min.css" rel="stylesheet">
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bottom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterRegistForm.css">

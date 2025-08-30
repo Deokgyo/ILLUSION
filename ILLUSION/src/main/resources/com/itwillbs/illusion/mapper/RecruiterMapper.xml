@@ -47,7 +47,17 @@
 		 WHERE code_group_id = 'occupation'	
 		   AND parent_code_id = #{occupation};
 	</select>
-
+	
+	
+	<!-- 스케줄러사용해서 주기적으로 공고 마감 처리 -->
+	<select id="expiredRecruiteClose">
+		UPDATE recruit
+		   SET rec_status = 'RECS02'
+	  	 WHERE DATE(end_date) &lt; CURDATE()
+		   AND rec_status = 'RECS01'
+	</select>
+	
+	
 	<select id="getRecruitmentList">
 		SELECT r.recruit_subject
 			 , c.code_name as 'rec_status'
