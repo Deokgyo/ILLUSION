@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.illusion.service.BoardService;
+import com.itwillbs.illusion.util.SecurityUtil;
 import com.itwillbs.illusion.vo.PageInfo;
 
 @Controller
@@ -132,6 +136,41 @@ public class CommunityController {
 		service.boardWrite(map);
 		
 		return "redirect:communityMain";
+	}
+	
+	// 게시글 삭제 (작성자 및 관리자 권한)
+	@DeleteMapping("community/deleteBoard/{board_idx}")
+	@ResponseBody
+	public Map<String, Object> deleteBoardFromCommunity(@PathVariable int board_idx, Principal principal) {
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			// 권한 검사: 작성자 본인이거나 관리자여야 삭제 가능
+			String loginId = principal.getName();
+			String memberType = SecurityUtil.getLoginUserType();
+			
+			// 게시글 작성자 확인
+			Map<String, Object> board = service.boardDetail(board_idx);
+			String boardWriterId = (String) board.get("member_id");
+			
+			// 작성자 본인이거나 관리자(MEM001)인 경우에만 삭제 허용
+			if (!loginId.equals(boardWriterId) && !"MEM001".equals(memberType)) {
+				response.put("success", false);
+				response.put("message", "삭제 권한이 없습니다.");
+				return response;
+			}
+			
+			service.boardDelete(board_idx);
+			
+			response.put("success", true);
+			response.put("message", "게시글이 삭제되었습니다.");
+			
+		} catch (Exception e) {
+			response.put("success", false);
+			response.put("message", "삭제 중 오류가 발생했습니다.");
+		}
+		
+		return response;
 	}
 	
 }

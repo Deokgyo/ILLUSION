@@ -34,6 +34,14 @@ public class BoardService {
 		return mapper.selectBoard(board_idx);
 	}
 	
+	// 게시글 상세 조회 (Object 타입 반환)
+	public Map<String, Object> boardDetail(int board_idx) {
+		Map<String, String> boardStr = mapper.selectBoard(board_idx);
+		Map<String, Object> boardObj = new HashMap<>();
+		boardObj.putAll(boardStr);
+		return boardObj;
+	}
+	
 	// 게시글 작성
 	public int boardWrite(Map<String, Object> map) {
 		return mapper.boardWrite(map);

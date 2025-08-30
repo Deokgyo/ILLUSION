@@ -81,6 +81,16 @@
     background-color: #e9ecef;
     cursor: not-allowed;
 }
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    resize: vertical;
+    min-height: 80px;
+}
 
 
 /* 모달 푸터 */

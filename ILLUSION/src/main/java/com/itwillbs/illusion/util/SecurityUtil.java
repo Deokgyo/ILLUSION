@@ -91,4 +91,19 @@ public class SecurityUtil {
         
         return null;
     }
+    
+    /**
+     * 현재 로그인한 사용자의 회원 타입(member_type)을 직접 반환하는 메소드.
+     * 내부적으로 getLoginUser()를 호출하므로 DB 조회가 발생합니다.
+     * @return 로그인한 경우 member_type, 비로그인 시 null
+     */
+    public static String getLoginUserType() {
+        MemberVO loginUser = getLoginUser();
+        
+        if (loginUser != null) {
+            return loginUser.getMember_type();
+        }
+        
+        return null;
+    }
 }

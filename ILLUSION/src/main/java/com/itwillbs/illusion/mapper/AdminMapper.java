@@ -54,4 +54,8 @@ public interface AdminMapper {
 	void insertCommonCodes(List<CommonCodeVO> codes); // 공통코드 추가
 
 	public void deleteCommonCode(String code); // 공통 코드 삭제
+	
+	public List<Map<String, Object>> getAiUsageChartData(); // AI 생성 건수 추이 데이터 조회
+	
+	public List<Map<String, Object>> getMemberSignupChartData(); // 회원가입 추이 데이터 조회
 }

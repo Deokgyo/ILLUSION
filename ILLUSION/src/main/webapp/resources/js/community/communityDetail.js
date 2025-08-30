@@ -9,10 +9,15 @@ $(function() {
 	// -------- events --------
 	
 	$('form').on('submit', cmtSubmit); // 댓글 작성
-	$('#delete_btn').on('click', boardDelete); // 게시글 삭제
+	$('#delete_btn').on('click', boardDelete); // 게시글 삭제 (작성자)
+	$('#admin_delete_btn').on('click', adminBoardDelete); // 게시글 삭제 (관리자)
 	$('.comment-list').on('click', '.delete-comment-btn', function() {
 	    const cmt_idx = $(this).data('comment-id'); 
 	    deleteComment(cmt_idx);
+	});
+	$('.comment-list').on('click', '.admin-delete-comment-btn', function() {
+	    const cmt_idx = $(this).data('comment-id'); 
+	    adminDeleteComment(cmt_idx);
 	});
 	
 	// 페이지네이션 클릭 이벤트
@@ -142,6 +147,7 @@ $(function() {
                         </div>
                         <div class="comment-actions">
                             ${e.member_id === loginId ? `<button class="delete-comment-btn" data-comment-id="${e.cmt_idx}">×</button>` : ''}
+                            ${e.member_id !== loginId && isAdmin === 'true' ? `<button class="admin-delete-comment-btn btn-red-small" data-comment-id="${e.cmt_idx}">관리자 삭제</button>` : ''}
                         </div>
                     </div>
                 `;
@@ -182,6 +188,44 @@ $(function() {
         }
 
         paginationContainer.html(paginationHtml);
+    }
+    
+    // 관리자 게시글 삭제 함수
+    function adminBoardDelete() {
+        if (!confirm('관리자 권한으로 이 게시글을 삭제하시겠습니까?\n삭제된 게시글은 복구할 수 없습니다.')) {
+            return;
+        }
+        
+        $.ajax({
+            url: `community/deleteBoard/${board_idx}`,
+            type: 'DELETE',
+            success: function(response) {
+                alert('게시글이 관리자에 의해 삭제되었습니다.');
+                location.href = 'communityMain';
+            },
+            error: function(xhr, status, error) {
+                alert('삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+    }
+    
+    // 관리자 댓글 삭제 함수
+    function adminDeleteComment(cmt_idx) {
+        if (!confirm('관리자 권한으로 이 댓글을 삭제하시겠습니까?\n삭제된 댓글은 복구할 수 없습니다.')) {
+            return;
+        }
+        
+        $.ajax({
+            url: `api/boards/${board_idx}/comments/${cmt_idx}`,
+            type: 'DELETE',
+            success: function(response) {
+                alert('댓글이 관리자에 의해 삭제되었습니다.');
+                getCmtList(1); // 댓글 목록 새로고침
+            },
+            error: function(xhr, status, error) {
+                alert('댓글 삭제 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
     }
 
 });

@@ -57,9 +57,14 @@
 				<div class="post-btn">
 				    <div class="post-btn">
 					    <div class="post-actions">
+					        <!-- 작성자 또는 관리자만 수정/삭제 가능 -->
 					        <c:if test="${loginUser.member_id eq board.member_id}">
 					            <a href="communityModify?board_idx=${board.board_idx}" class="btn btn-yellow">수정</a>
 					            <button id="delete_btn" class="btn btn-yellow">삭제</button>
+					        </c:if>
+					        <!-- 관리자는 삭제만 가능 (수정은 불가) -->
+					        <c:if test="${loginUser.member_id ne board.member_id and loginUser.member_type eq 'MEM001'}">
+					            <button id="admin_delete_btn" class="btn btn-yellow">관리자 삭제</button>
 					        </c:if>
 					    </div>
 					</div>
@@ -114,6 +119,7 @@
     <script>
     	const board_idx = "${param.board_idx}";
 	    const loginId = "${not empty loginUser ? loginUser.member_id : ''}";
+	    const isAdmin = "${not empty loginUser ? (loginUser.member_type eq 'MEM001' ? 'true' : 'false') : 'false'}";
 	    window.addEventListener('pageshow', function (e) {
 		    // bfcache에서 복원된 경우 또는 back/forward 내비게이션이면 새로고침
 		    if (e.persisted || (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]?.type === 'back_forward')) {

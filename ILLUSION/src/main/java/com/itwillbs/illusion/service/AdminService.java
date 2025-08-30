@@ -135,4 +135,14 @@ public class AdminService {
 		mapper.deleteCommonCode(code);
 	}
 	
+	// AI 생성 건수 추이 데이터 조회 (차트용)
+	public List<Map<String, Object>> getAiUsageChartData() {
+		return mapper.getAiUsageChartData();
+	}
+	
+	// 회원가입 추이 데이터 조회 (차트용)
+	public List<Map<String, Object>> getMemberSignupChartData() {
+		return mapper.getMemberSignupChartData();
+	}
+	
 }
