@@ -76,10 +76,10 @@
 			                    <label>아이디</label>
 			                    <div class="form-value">${member.member_id}</div>
 			                </div>
-			                <div class="form-group">
-			                    <label>비밀번호</label>
-			                    <div class="form-value">${member.member_pw}</div>
-			                </div>
+<!-- 			                <div class="form-group"> -->
+<!-- 			                    <label>비밀번호</label> -->
+<%-- 			                    <div class="form-value">${member.member_pw}</div> --%>
+<!-- 			                </div> -->
 			                <div class="form-group">
 			                    <label>이름</label>
 			                    <div class="form-value">${member.member_name}</div>
@@ -91,6 +91,10 @@
 			                <div class="form-group">
 			                    <label>전화번호</label>
 			                    <div class="form-value">${member.member_phone}</div>
+			                </div>
+        			        <div class="form-group">
+			                    <label>생년월일</label>
+			                    <div class="form-value">${member.resume_birth}</div>
 			                </div>
 			                <div class="form-group">
 			                    <label>우편번호</label>
@@ -118,10 +122,6 @@
 			                <div class="form-group">
 			                    <label>성별</label>
 			                    <div class="form-value">${member.gender_name}</div>
-			                </div>
-			                <div class="form-group">
-			                    <label>생년월일</label>
-			                    <div class="form-value">${member.resume_birth}</div>
 			                </div>
 			                <div class="form-group">
 			                    <label>마케팅 동의</label>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.illusion.mapper.JobToolsMapper;
+import com.itwillbs.illusion.util.AIPromptManager;
 import com.itwillbs.illusion.util.JobToolsConstants;
 import com.itwillbs.illusion.util.PrincipalRefresher;
 import com.itwillbs.illusion.util.SecurityUtil;
@@ -24,6 +25,9 @@ public class JobToolsService {
     
     @Autowired
     private GeminiService geminiService;
+    
+    @Autowired
+    private AIPromptManager promptManager;
 	
 	// 직무 대분류 가져오기 
 	public List<Map<String, String>> getOccupation() {
@@ -159,6 +163,65 @@ public class JobToolsService {
 	public void insertAnswer(String question_idx, String answer_text, String ai_feedback, int member_idx) {
 		mapper.insertAnswer(question_idx, answer_text, ai_feedback, member_idx);
 	}
+
+	@Transactional
+	public Map<String, Object> generateAndSaveCoverletter(Map<String, String> params) {
+	    String prompt = promptManager.createGenerationPrompt(params);
+	    String aiResult = geminiService.callGeminiApi(prompt);
+
+	    Map<String, Object> coverletterMap = new HashMap<>();
+	    coverletterMap.put("member_idx", SecurityUtil.getLoginUserIndex());
+	    coverletterMap.put("title", params.get("title"));
+	    coverletterMap.put("company", params.get("company"));
+	    coverletterMap.put("aiResult", aiResult);
+	    coverletterMap.put("generated_char_count", aiResult.length());
+	    coverletterMap.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
+	    coverletterMap.put("cl_type", JobToolsConstants.CL_TYPE_GENERATED);
+
+	    return useTokenForJobTools(coverletterMap, JobToolsConstants.COVER_LETTER_GENERATION_COST);
+	}
+
+	
+	@Transactional
+	public Map<String, Object> refineAndSaveCoverletter(Map<String, Object> params) {
+	    // 1. 파라미터 추출
+	    String originalContent = (String) params.get("original_content");
+	    int memberIdx = (int) params.get("member_idx");
+	    String title = (String) params.get("title");
+	    String companyName = (String) params.get("company_name");
+	    Integer originalClIdx = (Integer) params.get("original_cl_idx"); // null일 수 있음
+
+	    // 2. AI 호출하여 첨삭된 내용 생성
+	    String prompt = promptManager.createRefinementPrompt(originalContent);
+	    String aiResult = geminiService.callGeminiApi(prompt);
+
+	    // 3. 첨삭된 자소서를 저장할 Map 생성
+	    Map<String, Object> refinedClMap = new HashMap<>();
+	    refinedClMap.put("member_idx", memberIdx);
+	    refinedClMap.put("title", title + JobToolsConstants.TITLE_REFINED_SUFFIX);
+	    refinedClMap.put("company_name", companyName);
+	    refinedClMap.put("aiResult", aiResult);
+	    refinedClMap.put("generated_char_count", aiResult.length());
+	    refinedClMap.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
+	    refinedClMap.put("cl_type", JobToolsConstants.CL_TYPE_REFINED);
+	    if (originalClIdx != null) {
+	        refinedClMap.put("original_cl_idx", originalClIdx);
+	    }
+
+	    // 4. 토큰 사용 및 자소서 저장
+	    Map<String, Object> serviceResult = useTokenForJobTools(refinedClMap, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
+
+	    // 5. 결과 반환
+	    Map<String, Object> finalResult = new HashMap<>();
+	    finalResult.put("refinedClIdx", serviceResult.get("generatedClIdx"));
+	    finalResult.put("originalClIdx", originalClIdx);
+	    finalResult.put("newTokenCount", serviceResult.get("newTokenCount"));
+
+	    return finalResult;
+	}
+
+	
+	
 	
 }
 

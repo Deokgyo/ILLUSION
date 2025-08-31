@@ -48,6 +48,11 @@ public class LoginService {
 		int count = mapper.selectMemberByNameAndEmail(findParams);
 
 		if(count > 0) {
+			// 1-1. 탈퇴된 회원인지 확인
+			if (isWithdrawnMember(member_name, member_email)) {
+				return false; // 탈퇴된 회원
+			}
+			
 			// 2. 메일 발송을 위한 MemberVO 객체 생성
 			MemberVO member = new MemberVO();
 			member.setMember_email(member_email);
@@ -155,4 +160,30 @@ public class LoginService {
 		return response;
 	}
     
+	// 탈퇴된 회원인지 확인 (이름과 이메일로)
+	private boolean isWithdrawnMember(String member_name, String member_email) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("member_name", member_name);
+		params.put("member_email", member_email);
+		return mapper.isWithdrawnMember(params);
+	}
+	
+	// 탈퇴된 회원인지 확인 (아이디와 이메일로)
+	private boolean isWithdrawnMemberById(String member_id, String member_email) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("member_id", member_id);
+		params.put("member_email", member_email);
+		return mapper.isWithdrawnMemberById(params);
+	}
+	
+	// 아이디 찾기용 탈퇴된 회원 확인 (public)
+	public boolean isWithdrawnMemberForIdFind(String member_name, String member_email) {
+		return isWithdrawnMember(member_name, member_email);
+	}
+	
+	// 비밀번호 찾기용 탈퇴된 회원 확인 (public)
+	public boolean isWithdrawnMemberForPwFind(String member_id, String member_email) {
+		return isWithdrawnMemberById(member_id, member_email);
+	}
+
 }

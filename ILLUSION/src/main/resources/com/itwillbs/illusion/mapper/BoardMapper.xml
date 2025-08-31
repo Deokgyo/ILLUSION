@@ -27,13 +27,17 @@
             <otherwise>
             </otherwise>
         </choose>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            AND (b.board_title LIKE CONCAT('%', #{searchKeyword}, '%') 
+                 OR b.board_content LIKE CONCAT('%', #{searchKeyword}, '%'))
+        </if>
     </where>
     <choose>
         <when test="sort != null and sort == 'views'">
-            ORDER BY b.board_viewcnt DESC, b.board_idx DESC
+            ORDER BY b.board_viewcnt DESC, b.board_create_at DESC
         </when>
         <otherwise>
-            ORDER BY b.board_create_at DESC
+            ORDER BY b.board_create_at DESC, b.board_idx DESC
         </otherwise>
     </choose>
     LIMIT #{startRow}, #{listLimit}
@@ -113,9 +117,23 @@
 	</update>
 	
 	<!-- 게시글 카운트 -->
-	<select id="getBoardListCount">
+	<select id="getBoardListCount" parameterType="map" resultType="int">
 		SELECT count(*)
-		  FROM board
+		  FROM board b
+		  JOIN member m ON b.member_idx = m.member_idx
+		<where>
+			<choose>
+				<when test="categoryCode != null and categoryCode != '' and categoryCode != 'BRD001'">
+					AND b.board_type = #{categoryCode}
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (b.board_title LIKE CONCAT('%', #{searchKeyword}, '%') 
+					 OR b.board_content LIKE CONCAT('%', #{searchKeyword}, '%'))
+			</if>
+		</where>
 	</select>
 	
 	<!-- 댓글 조회 -->

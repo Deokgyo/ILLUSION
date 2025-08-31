@@ -65,7 +65,7 @@
 	
 	            <!-- 메인 콘텐츠가 표시될 영역 -->
 	            <main class="admin-content">
-		            <main class="dashboard-content">
+		            
 		
 		        <!-- =======================
 		             상단 요약 카드 그리드
@@ -131,22 +131,21 @@
 		        <!-- =======================
 		             하단 차트 그리드
 		            ======================== -->
-		        <section class="charts-grid">
-		            <div class="chart-card">
-		                <h4 class="chart-title">매출액 추이</h4>
-		                <div class="chart-container">
-		                    <canvas id="salesChart"></canvas>
-		                </div>
-		            </div>
-		            <div class="chart-card">
-		                <h4 class="chart-title">AI 이용 건수 추이</h4>
-		                 <div class="chart-container">
-		                    <canvas id="aiUsageChart"></canvas>
-		                </div>
-		            </div>
-		        </section>
+<!-- 		        <section class="charts-grid"> -->
+<!-- 		            <div class="chart-card"> -->
+<!-- 		                <h4 class="chart-title">회원가입 추이 (최근 30일)</h4> -->
+<!-- 		                <div class="chart-container"> -->
+<%-- 		                    <canvas id="memberSignupChart"></canvas> --%>
+<!-- 		                </div> -->
+<!-- 		            </div> -->
+<!-- 		            <div class="chart-card"> -->
+<!-- 		                <h4 class="chart-title">AI 이용 건수 추이 (최근 30일)</h4> -->
+<!-- 		                 <div class="chart-container"> -->
+<%-- 		                    <canvas id="aiUsageChart"></canvas> --%>
+<!-- 		                </div> -->
+<!-- 		            </div> -->
+<!-- 		        </section> -->
 		
-		    		</main>
 	            </main>
 	            
 	            <!-- 메인 푸터 -->

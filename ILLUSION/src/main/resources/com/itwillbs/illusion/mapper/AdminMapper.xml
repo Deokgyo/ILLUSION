@@ -132,13 +132,15 @@
 	<!-- 게시글 리스트 조회 -->
 	<select id="getBoardList">
 		SELECT 
-			   board_idx
-			 , board_type
-			 , board_title
-			 , board_create_at
+			   b.board_idx
+			 , b.board_type AS board_type_code
+			 , cc.code_name AS board_type
+			 , b.board_title
+			 , DATE_FORMAT(b.board_create_at, '%Y-%m-%d') AS board_create_at
 			 , m.member_id
 		  FROM board b
 		  JOIN member m ON b.member_idx = m.member_idx
+		  JOIN common_code cc ON b.board_type = cc.code
 		  LIMIT #{listLimit} OFFSET #{startRow}
 	</select>
 	
@@ -247,7 +249,7 @@
 	         , cg.group_name = #{group_name}
 			 , cg.description = #{description}
 			 , cc.code = #{code}
-	     WHERE cc.code = #{code}
+	     WHERE cc.code = #{original_code}
 	</update>
 	
 	<!-- 공통코드 삭제 -->
@@ -276,6 +278,26 @@
 		 WHERE r.rec_status like #{status}
 	</select>
 	
+	<!-- AI 생성 건수 추이 데이터 조회 (최근 30일) -->
+	<select id="getAiUsageChartData" resultType="map">
+		SELECT 
+		    DATE_FORMAT(create_date, '%Y-%m-%d') as date,
+		    COUNT(*) as count
+		FROM cover_letter 
+		WHERE create_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+		GROUP BY DATE_FORMAT(create_date, '%Y-%m-%d')
+		ORDER BY date ASC
+	</select>
 	
+	<!-- 회원가입 추이 데이터 조회 (최근 30일) -->
+	<select id="getMemberSignupChartData" resultType="map">
+		SELECT 
+		    DATE_FORMAT(regist_date, '%Y-%m-%d') as date,
+		    COUNT(*) as count
+		FROM member 
+		WHERE regist_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+		GROUP BY DATE_FORMAT(regist_date, '%Y-%m-%d')
+		ORDER BY date ASC
+	</select>
 	
 </mapper>

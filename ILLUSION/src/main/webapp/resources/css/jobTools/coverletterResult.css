@@ -58,7 +58,7 @@
 }
 
 /* 생성된 텍스트 영역 */
-#generated-text {
+#generated-text, #original-text {
     width: 100%;
     height: 450px; /* 적절한 높이 지정 */
     padding: 20px;
@@ -73,7 +73,7 @@
     outline: none;  /* 포커스 시 외곽선 제거 */
 }
 
-/* 커스텀 스크롤바 스타일 */
+/* 커스텀 스크롤바 스타일 - 생성된 텍스트 */
 #generated-text::-webkit-scrollbar {
     width: 8px;
 }
@@ -86,5 +86,21 @@
     border-radius: 10px;
 }
 #generated-text::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+/* 커스텀 스크롤바 스타일 - 원본 텍스트 */
+#original-text::-webkit-scrollbar {
+    width: 8px;
+}
+#original-text::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+#original-text::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+#original-text::-webkit-scrollbar-thumb:hover {
     background: #aaa;
 }

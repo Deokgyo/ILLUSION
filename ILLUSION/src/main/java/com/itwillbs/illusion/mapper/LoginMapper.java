@@ -18,4 +18,8 @@ public interface LoginMapper {
 	public int selectMemberByNameAndEmail(Map<String, String> params); // 아이디 찾기 - 이름과 이메일로 회원 존재 여부 확인
 	
 	public int checkMemberIdAndEmailExists(Map<String, String> params); // 아이디와 이메일로 회원 존재 여부 확인
+	
+	public boolean isWithdrawnMember(Map<String, String> params); // 이름과 이메일로 탈퇴된 회원인지 확인
+	
+	public boolean isWithdrawnMemberById(Map<String, String> params); // 아이디와 이메일로 탈퇴된 회원인지 확인
 }

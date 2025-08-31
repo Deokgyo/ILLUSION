@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">
-    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminModal.css">
 </head>
 <body>
 	<div class="main-container">
@@ -103,7 +103,12 @@
 				                        <td>${com.description }</td>
 				                        <td>
 				                            <div class="action-buttons">
-				                            	<a href="comcodeModify?code=${com.code}" class="btn btn-yellow">수정</a>
+				                            	<button type="button" class="btn btn-yellow edit-btn" 
+				                            		data-code="${com.code}"
+				                            		data-code-name="${com.code_name}"
+				                            		data-group-id="${com.code_group_id}"
+				                            		data-group-name="${com.group_name}"
+				                            		data-description="${com.description}">수정</button>
            										<a href="javascript:void(0);" onclick="confirmDelete('${com.code}')" class="btn btn-yellow">삭제</a>
 				                            </div>
 				                        </td>
@@ -198,12 +203,43 @@
 	    </div>
 	</div>
 
+<jsp:include page="/WEB-INF/views/admin/comcodeModal.jsp"></jsp:include>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 function confirmDelete(code) {
     if (confirm("정말로 이 공통 코드를 삭제하시겠습니까?")) {
         window.location.href = "comcodeDelete?code=" + code;
     }
 }
+
+function openModal() {
+    $('#editModal').removeClass('hidden');
+}
+
+function closeModal() {
+    $('#editModal').addClass('hidden');
+}
+
+$(document).ready(function() {
+    $('.edit-btn').on('click', function() {
+        const button = $(this);
+        const code = button.data('code');
+        const codeName = button.data('code-name');
+        const codeGroupId = button.data('group-id');
+        const groupName = button.data('group-name');
+        const description = button.data('description');
+
+        $('#codeGroupId').val(codeGroupId);
+        $('#groupName').val(groupName);
+        $('#code').val(code);
+        $('#codeName').val(codeName);
+        $('#description').val(description);
+        $('#original_code').val(code);
+
+        openModal();
+    });
+});
 </script>
 </body>
 </html>

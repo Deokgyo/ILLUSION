@@ -94,6 +94,15 @@
             alert("다른 기기에서 로그인하여 자동으로 로그아웃되었습니다.");
         </script>
     </c:if>
+    
+    <!-- 탈퇴된 회원 메시지 표시 -->
+    <c:if test="${not empty sessionScope.loginErrorMessage}">
+        <script>
+            alert("${sessionScope.loginErrorMessage}");
+        </script>
+        <c:remove var="loginErrorMessage" scope="session"/>
+    </c:if>
+    
 	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
 	<c:if test="${not empty msg}">
     <script>

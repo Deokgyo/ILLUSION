@@ -22,22 +22,16 @@ public class GeminiService {
  
  
  public GeminiService() {
-     System.out.println("==========================================");
-     System.out.println("GeminiService 객체가 생성되었습니다.");
+//     System.out.println("GeminiService 객체가 생성되었습니다.");
  }
 
  public String callGeminiApi(String prompt)  {
-	    System.out.println("==========================================");
-	    System.out.println("callGeminiApi 호출됨");
-	    System.out.println("### 주입된 API URL: " + apiUrl);
-	    System.out.println("### 주입된 API KEY: " + apiKey);
-	    System.out.println("==========================================");
 
 	    RestTemplate restTemplate = new RestTemplate();
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 
-	    // ✅ Gemini API 요청 JSON 구조 (공식 문서 기준)
+	    // Gemini API 요청 JSON 구조 (공식 문서 기준)
 	    String requestBody = "";
 	    try {
 	        requestBody = String.format(
@@ -55,7 +49,7 @@ public class GeminiService {
 	    try {
 	        ResponseEntity<String> response = restTemplate.postForEntity(fullApiUrl, entity, String.class);
 
-	        System.out.println("### Raw Response: " + response.getBody()); // 🔍 응답 전체 확인
+	        System.out.println("### Raw Response: " + response.getBody()); // 응답 전체 확인
 
 	        ObjectMapper mapper = new ObjectMapper();
 	        JsonNode root = mapper.readTree(response.getBody());

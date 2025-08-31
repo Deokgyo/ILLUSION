@@ -101,7 +101,7 @@
 					                <div class="content-area">
 					                    <span class="icon">📄</span>
 					                    <!-- -->
-					                    <a href="savedCLDetail?cl_idx=${cl.cl_idx }&member_idx=1" class="title-link">
+					                    <a href="coverletterResult?cl_idx=${cl.cl_idx}" class="title-link">
 					                        <span class="title">${cl.cl_title} - ${cl.company_name}</span>
 					                    </a>
 					                </div>

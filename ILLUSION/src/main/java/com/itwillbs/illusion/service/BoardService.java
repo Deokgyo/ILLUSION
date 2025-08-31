@@ -18,10 +18,11 @@ public class BoardService {
 	BoardMapper mapper;
 	 
 	// 게시글 전체 조회
-	public List<Map<String, Object>> selectBoardList(String categoryCode, String sort, int startRow, int listLimit) {
+	public List<Map<String, Object>> selectBoardList(String categoryCode, String sort, String searchKeyword, int startRow, int listLimit) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("categoryCode", categoryCode);
 		map.put("sort", sort);
+		map.put("searchKeyword", searchKeyword);
 		map.put("startRow", startRow);
 		map.put("listLimit", listLimit);
 		
@@ -31,6 +32,14 @@ public class BoardService {
 	// 게시글 하나 조회
 	public Map<String, String> selectBoard(int board_idx) {
 		return mapper.selectBoard(board_idx);
+	}
+	
+	// 게시글 상세 조회 (Object 타입 반환)
+	public Map<String, Object> boardDetail(int board_idx) {
+		Map<String, String> boardStr = mapper.selectBoard(board_idx);
+		Map<String, Object> boardObj = new HashMap<>();
+		boardObj.putAll(boardStr);
+		return boardObj;
 	}
 	
 	// 게시글 작성
@@ -58,8 +67,12 @@ public class BoardService {
 		mapper.boardDelete(board_idx);
 	}
 	
-	public int getBoardListCount() {
-		return mapper.getBoardListCount();
+	public int getBoardListCount(String categoryCode, String searchKeyword) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("categoryCode", categoryCode);
+		map.put("searchKeyword", searchKeyword);
+		
+		return mapper.getBoardListCount(map);
 	}
 	
 	
