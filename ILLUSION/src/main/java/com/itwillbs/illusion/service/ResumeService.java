@@ -73,6 +73,7 @@ public class ResumeService {
 	   public Map<String, Object> selectResume(int resumeIdx) {
 	        return mapper.selectResume(resumeIdx);
 	   }
+	   
 	   /*이력서 회원정보*/
 	   public MemberVO SelectM(String member_id) {
 			return mapper.SelectM(member_id);
