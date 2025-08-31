@@ -12,6 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -214,27 +216,38 @@ public class RecruiterController {
 		return "recruiter/recruiterRegistForm";
 	}
 	
+	String virtualPath = "/resources/upload/temp";
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")
-	public String recruiterRegistForm(RecruitVO recruit, Principal principal) {
+	public String recruiterRegistForm(RecruitVO recruit, Principal principal, HttpServletRequest req) {
 		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
 		System.out.println(recruit);
 		String member_id = principal.getName();
-//		String context = recruit.getRecruit_context();
-//		
+		String context = recruit.getRecruit_context();
+		String realPath = req.getServletContext().getRealPath(virtualPath);
+//		System.out.println(realPath +"실제 경로");
+//		D:\workspace_spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ILLUSION\resources\ upload\temp실제 경로
 //		// 본문 내용에서 src 경로 추출해서 real로 수정해야함 
 //		// src 경로 추출하기 위한 정규식 
-//		Pattern pattern = Pattern.compile("<img[^>]+src=[\"'](/illusion/upload/temp/[^\"']+)[\"'][^>]*>");
+		Pattern pattern = Pattern.compile("src=\"([^\"]+)\"");
 //		// 정규식을 바탕으로 본분 값에서 정규식에 매칭 되는 값 찾기 
-//		Matcher matcher = pattern.matcher(context);
+		Matcher matcher = pattern.matcher(context);
+		String imgUrl = matcher.group();
+		System.out.println("이미지 경로 가져오기" + imgUrl);
+		
+		Pattern filePattern = Pattern.compile("(\\d{4}/\\d{2}/\\d{2})/([0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12})_(.+)\\.([A-Za-z0-9]+)\r\n");
+		Matcher filematcher = filePattern.matcher(imgUrl);
+		String fileUrl = filematcher.group();
+		System.out.println("이게 진짠가");
+		System.out.println(fileUrl);
 //		
 //		while(matcher.find()) {
-//		String imgUrl = matcher.group();
-//		// 파일 이동 해야함 
-////		imgUrl.su
-//		// temp를 real로 수정해야함..
+////		<img src="/illusion/upload/temp/2025/08/31/f146cfe3-3433-4ab4-a623-a035a032c63e_스크린샷 2025-08-01 144023.png" style="width: 818.4px;">
+////		// 파일 이동 해야함 
+//		// 실제로 저장된 경로에서 파일을 이동 해야함 
 //		
-////		System.out.println("이미지 경로 가져오기" + imgUrl);
+////		// temp를 real로 수정해야함..
+////		
 //		}
 		
 		
