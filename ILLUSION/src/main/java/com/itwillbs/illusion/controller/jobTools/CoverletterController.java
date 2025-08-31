@@ -85,25 +85,19 @@ public class CoverletterController {
     @PostMapping("coverletterGenerate")
     @ResponseBody
     public CoverletterResponse coverletterGenerate(@RequestParam Map<String, String> params, HttpSession session) {
-        try {
-            // 검증 로직
-            validator.validateLoginStatus();
-            validator.validateGenerationRequest(params);
-            validator.validateTokenBalance(SecurityUtil.getLoginUserIndex(), JobToolsConstants.COVER_LETTER_GENERATION_COST);
-            
-            // 비즈니스 로직
-            Map<String, Object> serviceResult = service.generateAndSaveCoverletter(params);
-            updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
-            
-            int generatedClIdx = (int) serviceResult.get("generatedClIdx");
-            Integer newToken = (Integer) serviceResult.get("newTokenCount");
-            
-            return CoverletterResponse.success(generatedClIdx, generatedClIdx, newToken);
-        } catch (ValidationException e) {
-            return CoverletterResponse.failure(e.getMessage());
-        } catch (RuntimeException e) {
-            return CoverletterResponse.failure(e.getMessage());
-        }
+        // 검증 로직
+        validator.validateLoginStatus();
+        validator.validateGenerationRequest(params);
+        validator.validateTokenBalance(SecurityUtil.getLoginUserIndex(), JobToolsConstants.COVER_LETTER_GENERATION_COST);
+        
+        // 비즈니스 로직
+        Map<String, Object> serviceResult = service.generateAndSaveCoverletter(params);
+        updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
+        
+        int generatedClIdx = (int) serviceResult.get("generatedClIdx");
+        Integer newToken = (Integer) serviceResult.get("newTokenCount");
+        
+        return CoverletterResponse.success(generatedClIdx, generatedClIdx, newToken);
     }
 
     // 새 자소서 다듬기
@@ -114,91 +108,76 @@ public class CoverletterController {
             @RequestParam(required = false) String coverletterText, 
             @RequestParam("cl_title")String cl_title,
             @RequestParam("company_name")String company_name,
-            HttpSession session) {
+            HttpSession session) throws IOException {
 
-        try {
-            // 기본 검증
-            validator.validateLoginStatus();
-            validator.validateTokenBalance(SecurityUtil.getLoginUserIndex(), JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
-            
-            String originalContent = "";
-            
-            // 입력 방식별 검증 및 처리
-            if ("file".equals(cl_input_method)) {
-                validator.validateFileUpload(uploadedFile);
-                originalContent = new String(uploadedFile.getBytes(), "UTF-8");
-            } else if ("text".equals(cl_input_method)) {
-                validator.validateRefinementTextRequest(coverletterText, cl_title, company_name);
-                originalContent = coverletterText;
-            } else {
-                throw new ValidationException("올바르지 않은 입력 방식입니다.");
-            }
-
-            // 1. 원본 자소서 저장
-            Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title, company_name, originalContent, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
-            int originalClIdx = service.saveCoverletterOnly(originalClMap);
-
-            // 2. 서비스 호출
-            Map<String, Object> params = new HashMap<>();
-            params.put("original_content", originalContent);
-            params.put("member_idx", SecurityUtil.getLoginUserIndex());
-            params.put("title", cl_title);
-            params.put("company_name", company_name);
-            params.put("original_cl_idx", originalClIdx);
-
-            Map<String, Object> result = service.refineAndSaveCoverletter(params);
-            updateSessionToken(session, (Integer) result.get("newTokenCount"));
-
-            // 3. 성공 응답 반환
-            int refinedClIdx = (int) result.get("refinedClIdx");
-            Integer newToken = (Integer) result.get("newTokenCount");
-            
-            return CoverletterResponse.success(refinedClIdx, originalClIdx, newToken);
-
-        } catch (ValidationException e) {
-            return CoverletterResponse.failure(e.getMessage());
-        } catch (IOException e) {
-            return CoverletterResponse.failure("파일을 읽는 중 오류가 발생했습니다.");
-        } catch (RuntimeException e) {
-            return CoverletterResponse.failure(e.getMessage());
+        // 기본 검증
+        validator.validateLoginStatus();
+        validator.validateTokenBalance(SecurityUtil.getLoginUserIndex(), JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
+        
+        String originalContent = "";
+        
+        // 입력 방식별 검증 및 처리
+        if ("file".equals(cl_input_method)) {
+            validator.validateFileUpload(uploadedFile);
+            originalContent = new String(uploadedFile.getBytes(), "UTF-8");
+        } else if ("text".equals(cl_input_method)) {
+            validator.validateRefinementTextRequest(coverletterText, cl_title, company_name);
+            originalContent = coverletterText;
+        } else {
+            throw new ValidationException("올바르지 않은 입력 방식입니다.");
         }
+
+        // 1. 원본 자소서 저장
+        Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title, company_name, originalContent, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
+        int originalClIdx = service.saveCoverletterOnly(originalClMap);
+
+        // 2. 서비스 호출
+        Map<String, Object> params = new HashMap<>();
+        params.put("original_content", originalContent);
+        params.put("member_idx", SecurityUtil.getLoginUserIndex());
+        params.put("title", cl_title);
+        params.put("company_name", company_name);
+        params.put("original_cl_idx", originalClIdx);
+
+        Map<String, Object> result = service.refineAndSaveCoverletter(params);
+        updateSessionToken(session, (Integer) result.get("newTokenCount"));
+
+        // 3. 성공 응답 반환
+        int refinedClIdx = (int) result.get("refinedClIdx");
+        Integer newToken = (Integer) result.get("newTokenCount");
+        
+        return CoverletterResponse.success(refinedClIdx, originalClIdx, newToken);
     }
     
     // 저장된 자소서 다듬기
     @PostMapping("refineSavedCoverletter")
     @ResponseBody
     public CoverletterResponse refineSavedCoverletter(@RequestParam int cl_idx, HttpSession session) {
-        try {
-            // 기본 검증
-            validator.validateLoginStatus();
-            int currentMemberIdx = SecurityUtil.getLoginUserIndex();
-            validator.validateTokenBalance(currentMemberIdx, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
-            
-            // 자소서 조회 및 권한 검증
-            Map<String, Object> originalCoverletter = service.getCoverletterById(cl_idx);
-            validator.validateRefinementPermission(originalCoverletter);
+        // 기본 검증
+        validator.validateLoginStatus();
+        int currentMemberIdx = SecurityUtil.getLoginUserIndex();
+        validator.validateTokenBalance(currentMemberIdx, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
+        
+        // 자소서 조회 및 권한 검증
+        Map<String, Object> originalCoverletter = service.getCoverletterById(cl_idx);
+        validator.validateRefinementPermission(originalCoverletter);
 
-            // 비즈니스 로직
-            Map<String, Object> params = new HashMap<>();
-            params.put("original_content", originalCoverletter.get("generated_cl_content"));
-            params.put("member_idx", currentMemberIdx);
-            params.put("title", (String) originalCoverletter.get("cl_title"));
-            params.put("company_name", (String) originalCoverletter.get("company_name"));
-            params.put("original_cl_idx", cl_idx);
+        // 비즈니스 로직
+        Map<String, Object> params = new HashMap<>();
+        params.put("original_content", originalCoverletter.get("generated_cl_content"));
+        params.put("member_idx", currentMemberIdx);
+        params.put("title", (String) originalCoverletter.get("cl_title"));
+        params.put("company_name", (String) originalCoverletter.get("company_name"));
+        params.put("original_cl_idx", cl_idx);
 
-            Map<String, Object> result = service.refineAndSaveCoverletter(params);
-            updateSessionToken(session, (Integer) result.get("newTokenCount"));
+        Map<String, Object> result = service.refineAndSaveCoverletter(params);
+        updateSessionToken(session, (Integer) result.get("newTokenCount"));
 
-            int refinedClIdx = (int) result.get("refinedClIdx");
-            int originalClIdx = (int) result.get("originalClIdx");
-            Integer newToken = (Integer) result.get("newTokenCount");
-            
-            return CoverletterResponse.success(refinedClIdx, originalClIdx, newToken);
-        } catch (ValidationException e) {
-            return CoverletterResponse.failure(e.getMessage());
-        } catch (RuntimeException e) {
-            return CoverletterResponse.failure(e.getMessage());
-        }
+        int refinedClIdx = (int) result.get("refinedClIdx");
+        int originalClIdx = (int) result.get("originalClIdx");
+        Integer newToken = (Integer) result.get("newTokenCount");
+        
+        return CoverletterResponse.success(refinedClIdx, originalClIdx, newToken);
     }
     
     // 저장버튼 토글 기능

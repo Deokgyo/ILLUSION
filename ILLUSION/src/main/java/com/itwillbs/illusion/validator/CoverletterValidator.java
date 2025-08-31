@@ -39,9 +39,9 @@ public class CoverletterValidator {
         
         // 'experience_period'는 경력 선택 시에만 값이 존재함
         // 따라서 이 값이 있을 때만 'experience' (경력 상세 내용) 필드를 검증
-        if (StringUtils.hasText(params.get("experience_period"))) {
-            validateRequired(params.get("experience"), "경력 상세 내용");
-        }
+//        if (StringUtils.hasText(params.get("experience_period"))) {
+//            validateRequired(params.get("experience"), "경력 상세 내용");
+//        }
         
         validateLength(params.get("title"), "제목", 1, 100);
         validateLength(params.get("company"), "회사명", 1, 50);
