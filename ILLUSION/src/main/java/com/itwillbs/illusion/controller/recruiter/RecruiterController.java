@@ -220,22 +220,22 @@ public class RecruiterController {
 		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
 		System.out.println(recruit);
 		String member_id = principal.getName();
-//		String context = recruit.getRecruit_context();
-//		
-//		// 본문 내용에서 src 경로 추출해서 real로 수정해야함 
+		String context = recruit.getRecruit_context();
+		
+		// 본문 내용에서 src 경로 추출해서 real로 수정해야함 
 //		// src 경로 추출하기 위한 정규식 
-//		Pattern pattern = Pattern.compile("<img[^>]+src=[\"'](/illusion/upload/temp/[^\"']+)[\"'][^>]*>");
-//		// 정규식을 바탕으로 본분 값에서 정규식에 매칭 되는 값 찾기 
-//		Matcher matcher = pattern.matcher(context);
-//		
-//		while(matcher.find()) {
-//		String imgUrl = matcher.group();
+		Pattern pattern = Pattern.compile("<img[^>]+src=[\"'](/illusion/upload/temp/[^\"']+)[\"'][^>]*>");
+		// 정규식을 바탕으로 본분 값에서 정규식에 매칭 되는 값 찾기 
+		Matcher matcher = pattern.matcher(context);
+		
+		while(matcher.find()) {
+		String imgUrl = matcher.group();
 //		// 파일 이동 해야함 
-////		imgUrl.su
+//		imgUrl.su
 //		// temp를 real로 수정해야함..
-//		
-////		System.out.println("이미지 경로 가져오기" + imgUrl);
-//		}
+		
+		System.out.println("이미지 경로 가져오기" + imgUrl);
+		}
 		
 		
 		int insertCnt = service.insertRecruitment(recruit, member_id);
