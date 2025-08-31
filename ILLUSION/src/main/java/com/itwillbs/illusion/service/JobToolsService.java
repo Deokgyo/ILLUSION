@@ -58,7 +58,7 @@ public class JobToolsService {
 	    // 토큰 차감 
 	    int updateCount = mapper.deductToken(member_idx, requiredTokens);
 	    if (updateCount == 0) {
-	        throw new RuntimeException("토큰이 부족하여 작업을 완료할 수 없습니다.");
+	        throw new RuntimeException(JobToolsConstants.ERROR_TOKEN_INSUFFICIENT);
 	    }
 	    
 	    //토큰 있으면 저장 실행 
@@ -68,7 +68,7 @@ public class JobToolsService {
 	    Number generatedId = (Number) coverletterMap.get("cl_idx");
 
 	    if (generatedId == null) {
-	        throw new RuntimeException("자소서 저장 후 PK를 가져오는 데 실패했습니다.");
+	        throw new RuntimeException(JobToolsConstants.ERROR_COVERLETTER_SAVE_FAILED);
 	    }
 		
 	    // 차감되고 나서 얼마나 남았는지 ? 
@@ -88,13 +88,13 @@ public class JobToolsService {
 	public Map<String, Object> useTokenForChatbot(String message, int requiredTokens) {
 	    int member_idx = SecurityUtil.getLoginUserIndex();
 	    if (member_idx == -1) {
-	        throw new RuntimeException("로그인이 필요합니다.");
+	        throw new RuntimeException(JobToolsConstants.ERROR_LOGIN_REQUIRED);
 	    }
 	    
 	    int updateCount = mapper.deductToken(member_idx, requiredTokens);
 	    
 	    if (updateCount == 0) {
-	        throw new RuntimeException("토큰이 부족하여 챗봇을 이용할 수 없습니다.");
+	        throw new RuntimeException(JobToolsConstants.ERROR_CHATBOT_TOKEN_INSUFFICIENT);
 	    }
 	    
 	    // AI 응답 호출
@@ -135,7 +135,7 @@ public class JobToolsService {
 		mapper.saveCoverletter(map);
 		Number generatedId = (Number) map.get("cl_idx");
 	    if (generatedId == null) {
-	        throw new RuntimeException("자소서 저장 후 PK를 가져오는 데 실패했습니다.");
+	        throw new RuntimeException(JobToolsConstants.ERROR_COVERLETTER_SAVE_FAILED);
 	    }
 	    return generatedId.intValue();
 	}
@@ -169,10 +169,18 @@ public class JobToolsService {
 	    String prompt = promptManager.createGenerationPrompt(params);
 	    String aiResult = geminiService.callGeminiApi(prompt);
 
+	    if (JobToolsConstants.AI_SERVICE_UNAVAILABLE.equals(aiResult)) {
+            throw new RuntimeException(JobToolsConstants.ERROR_AI_SERVICE_OVERLOAD);
+        } else if (JobToolsConstants.AI_SAFETY_BLOCK.equals(aiResult)) {
+            throw new RuntimeException(JobToolsConstants.ERROR_AI_SAFETY_BLOCK);
+        } else if (JobToolsConstants.AI_FAILURE.equals(aiResult)) {
+            throw new RuntimeException(JobToolsConstants.ERROR_AI_SERVICE_FAILED);
+        }
+
 	    Map<String, Object> coverletterMap = new HashMap<>();
 	    coverletterMap.put("member_idx", SecurityUtil.getLoginUserIndex());
 	    coverletterMap.put("title", params.get("title"));
-	    coverletterMap.put("company", params.get("company"));
+	    coverletterMap.put("company_name", params.get("company"));
 	    coverletterMap.put("aiResult", aiResult);
 	    coverletterMap.put("generated_char_count", aiResult.length());
 	    coverletterMap.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
@@ -195,11 +203,19 @@ public class JobToolsService {
 	    String prompt = promptManager.createRefinementPrompt(originalContent);
 	    String aiResult = geminiService.callGeminiApi(prompt);
 
+	    if (JobToolsConstants.AI_SERVICE_UNAVAILABLE.equals(aiResult)) {
+            throw new RuntimeException(JobToolsConstants.ERROR_AI_SERVICE_OVERLOAD);
+        } else if (JobToolsConstants.AI_SAFETY_BLOCK.equals(aiResult)) {
+            throw new RuntimeException(JobToolsConstants.ERROR_AI_SAFETY_BLOCK);
+        } else if (JobToolsConstants.AI_FAILURE.equals(aiResult)) {
+            throw new RuntimeException(JobToolsConstants.ERROR_AI_SERVICE_FAILED);
+        }
+
 	    // 3. 첨삭된 자소서를 저장할 Map 생성
 	    Map<String, Object> refinedClMap = new HashMap<>();
 	    refinedClMap.put("member_idx", memberIdx);
 	    refinedClMap.put("title", title + JobToolsConstants.TITLE_REFINED_SUFFIX);
-	    refinedClMap.put("company_name", companyName);
+	    refinedClMap.put("company", companyName);
 	    refinedClMap.put("aiResult", aiResult);
 	    refinedClMap.put("generated_char_count", aiResult.length());
 	    refinedClMap.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
