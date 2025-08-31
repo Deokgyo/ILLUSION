@@ -50,33 +50,14 @@ $(function() {
     
     
 
-    // 기본 질문 클릭 시
-    $('.suggested-questions a').on('click', function(e) {
-        e.preventDefault();
-        // [삭제됨] 불필요한 프론트엔드 토큰 체크 로직
-        const questionText = $(this).find('span').text();
-        startConversation();
-        addMessage(questionText, 'user');
-        getAiResponse(questionText);
-    });
-    
-    // 메시지 입력 폼 제출 시 
-    $inputForm.on('submit', function(e) {
-        e.preventDefault();
-        const messageText = $messageInput.val().trim();
-        if (messageText === '') return;
-
-        const $submitButton = $(this).find('button[type="submit"]');
-        $submitButton.prop('disabled', true);
-        $messageInput.prop('disabled', true);
-
-        startConversation();
-        addMessage(messageText, 'user');
-        $messageInput.val('');
-        
+    function getAiResponse(messageText) {
         const $loadingBubble = $('<div class="chat-bubble bot typing"><span>.</span><span>.</span><span>.</span></div>');
         $chatMessages.append($loadingBubble);
         $chatArea.scrollTop($chatArea[0].scrollHeight);
+
+        const $submitButton = $inputForm.find('button[type="submit"]');
+        $submitButton.prop('disabled', true);
+        $messageInput.prop('disabled', true);
 
         $.ajax({
             type: 'POST',
@@ -105,6 +86,28 @@ $(function() {
                 $messageInput.prop('disabled', false);
             }
         });
+    }
+
+    // 기본 질문 클릭 시
+    $('.suggested-questions a').on('click', function(e) {
+        e.preventDefault();
+        const questionText = $(this).find('span').text();
+        startConversation();
+        addMessage(questionText, 'user');
+        getAiResponse(questionText);
+    });
+    
+    // 메시지 입력 폼 제출 시 
+    $inputForm.on('submit', function(e) {
+        e.preventDefault();
+        const messageText = $messageInput.val().trim();
+        if (messageText === '') return;
+
+        startConversation();
+        addMessage(messageText, 'user');
+        $messageInput.val('');
+        
+        getAiResponse(messageText);
     });
 
     // 토큰 충전 버튼 클릭 시

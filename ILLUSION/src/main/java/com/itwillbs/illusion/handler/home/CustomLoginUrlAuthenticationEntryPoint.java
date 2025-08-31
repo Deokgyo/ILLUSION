@@ -38,6 +38,7 @@ public class CustomLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticati
         return super.determineUrlToUseForThisRequest(request, response, exception);
     }
     
+    // 인증되지 않은 사용자 요청 들어올 때 호출
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
