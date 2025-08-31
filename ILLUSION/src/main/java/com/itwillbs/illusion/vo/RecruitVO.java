@@ -58,6 +58,8 @@ public class RecruitVO {
 	private String rec_status; // 공고 상태 
     private String locationName;   // "서울특별시 강남구"
     private String occupationName; // "소프트웨어 개발자"
+    private String address_name; // 근무 지역
+    private String member_email; // 회원 이메일
     
     
 //  ----------------------------------
