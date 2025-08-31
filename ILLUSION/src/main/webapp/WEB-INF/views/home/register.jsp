@@ -105,7 +105,8 @@
 						name="member_name" placeholder="이름을 입력해주세요">
 				</div>
 				<div class="flex-half" id="company">
-					<label for="compname">대표자명</label> <input type="text" id="companyname" name="ceo_name" placeholder="대표자명을 입력해주세요">
+					<label for="compname">대표자명</label> 
+					<input type="text" id="companyname" name="ceo_name" placeholder="대표자명을 입력해주세요">
 				</div>
 				<div class="flex-half gender-row" id="genderHide">
 					<label for="gender">성별</label> <select id="gender" name="gender">
@@ -140,7 +141,7 @@
 			</div>
 			<div class="form-row address-row">
 				<label for="zipcode">주소</label> <input type="text" id="zipcode"
-					name="address_num" placeholder="" class="zip-input">
+					name="address_num" placeholder="우편번호" class="zip-input" >
 				<button type="button" class="btn-yellow" id="btnaddress" value="주소검색">주소찾기</button>
 			</div>
 			<div class="form-row addr">
@@ -164,11 +165,10 @@
 			</div>
 			<div class="flex-half">
 				<label for="emailcode">인증번호 확인</label>
-				<div class="email-flex">
+				<div class="email-flex2">
 					<input type="text" id="emailcode" maxlength="6"
 						placeholder="인증번호를 입력하세요">
-					<button type="button" class="btn-yellow1" id="checkAuthBtn">인증번호
-						확인</button>
+					<button type="button" class="btn-yellow1" id="checkAuthBtn">인증번호 확인</button>
 				</div>
 			</div>
 
