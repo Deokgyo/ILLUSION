@@ -11,6 +11,7 @@
 		m.member_name,
 		m.resume_birth,
 		m.member_phone,
+		m.address_num,
 		m.address_name,
 		c.code_name AS gender,
 		m.member_email
@@ -234,6 +235,7 @@
 		member_id = #{member_id},
 		member_email =
 		#{member_email},
+		address_num = #{address_num},
 		address_name = #{address_name},
 		gender = #{gender},
 		resume_birth = #{resume_birth}

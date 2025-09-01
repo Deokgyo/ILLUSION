@@ -37,7 +37,6 @@
 
 	<header><jsp:include page="/WEB-INF/views/inc/top.jsp" /></header>
 
-
 	<main>
 		<section class="form-body">
 			<article class="box-left">
