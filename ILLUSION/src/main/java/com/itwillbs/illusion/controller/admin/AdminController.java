@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,7 @@ public class AdminController {
 		int employerCnt = service.getEmployerCount(); // 구직자 수 조회
 		int recruitCnt = service.getRecruitCount(); // 공고 수 조회
 		int coverletterCnt = service.getCoverletterCount(); // 생성된 ai 자소서 조회
-		int getBoardCnt = service.getBoardCount(); // 커뮤니티 게시글 수 조회
+		int getBoardCnt = service.getBoardCount(null); // 커뮤니티 게시글 수 조회
 		
 		Map<String, Object> adminMainMap = new HashMap<String, Object>();
 		adminMainMap.put("applicantCnt", applicantCnt);
@@ -60,17 +61,19 @@ public class AdminController {
 	// TODO 기업회원이면 이름 말고 기업명 출력 되게 
 	// 관리자 회원 정보 관리 페이지 이동
 	@GetMapping("adminMember")
-	public String adminMember(Model model, @RequestParam(defaultValue = "1") int pageNum) {
+	public String adminMember(Model model, 
+	                         @RequestParam(defaultValue = "1") int pageNum,
+	                         @RequestParam(value = "keyword", required = false) String keyword) {
 		
 		int listLimit = 10; // 한 페이지에 표시할 회원 수
 	    int pageListLimit = 10; // 한 번에 표시할 페이지 번호 수
 
-	    int listCount = service.getMemberCount(); // 전체 회원 수 조회
+	    int listCount = service.getMemberCount(keyword); // 검색 조건 포함한 회원 수 조회
 	    PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
 
 	    int startRow = (pageInfo.getPageNum() - 1) * listLimit;
 	    
-		List<Map<String, String>> memberInfo = service.getMember(startRow, listLimit);
+		List<Map<String, String>> memberInfo = service.getMember(keyword, startRow, listLimit);
 		List<Map<String, String>> memberType = service.getMemberType();
 		List<Map<String, String>> memberStatus = service.getMemberStatus();
 	
@@ -78,6 +81,7 @@ public class AdminController {
 		model.addAttribute("memberType", memberType);
 		model.addAttribute("memberStatus", memberStatus);
 		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("keyword", keyword); 
 		
 		return "admin/adminMember";
 	}
@@ -97,21 +101,24 @@ public class AdminController {
 	
 	// 게시글 관리 페이지 이동
 	@GetMapping("adminCommunity")
-	public String adminCommunity(Model model, @RequestParam(defaultValue = "1") int pageNum) {
+	public String adminCommunity(Model model, 
+	                           @RequestParam(defaultValue = "1") int pageNum,
+	                           @RequestParam(value = "keyword", required = false) String keyword) {
 		
 		
 		int listLimit = 10; // 한 페이지에 표시할 회원 수
 	    int pageListLimit = 10; // 한 번에 표시할 페이지 번호 수
 
-	    int listCount = service.getBoardCount(); // 전체 게시글 수 조회
+	    int listCount = service.getBoardCount(keyword); // 검색 조건 포함한 게시글 수 조회
 	    PageInfo pageInfo = PagingUtil.getPageInfo(pageNum, listLimit, pageListLimit, listCount);
 
 	    int startRow = (pageInfo.getPageNum() - 1) * listLimit;
 		
-	    List<Map<String, String>> boardMap = service.getBoardList(startRow, listLimit);
+	    List<Map<String, String>> boardMap = service.getBoardList(keyword, startRow, listLimit);
 	    
 	    model.addAttribute("boardInfo", boardMap);
 	    model.addAttribute("pageInfo", pageInfo);
+	    model.addAttribute("keyword", keyword); // 검색어를 뷰에 전달
 	    
 		return "admin/adminCommunity";
 	}

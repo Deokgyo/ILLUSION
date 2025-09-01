@@ -29,9 +29,8 @@ public class CoverletterValidator {
     // 최대 파일 크기 (10MB)
     private static final long MAX_FILE_SIZE = 10 * 1024 * 1024;
     
-    /**
-     * 자소서 생성 요청 검증
-     */
+    
+    // 자소서 생성 요청 검증
     public void validateGenerationRequest(Map<String, String> params) {
         validateRequired(params.get("title"), "제목");
         validateRequired(params.get("company"), "회사명");
@@ -60,9 +59,8 @@ public class CoverletterValidator {
         }
     }
     
-    /**
-     * 자소서 첨삭 요청 검증 (텍스트 입력)
-     */
+    
+    // 자소서 첨삭 요청 검증 (텍스트 입력)
     public void validateRefinementTextRequest(String coverletterText, String title, String companyName) {
         validateRequired(coverletterText, "첨삭할 자소서 내용");
         validateRequired(title, "제목");
@@ -73,9 +71,8 @@ public class CoverletterValidator {
         validateLength(coverletterText, "자소서 내용", 50, 10000);
     }
     
-    /**
-     * 파일 업로드 검증
-     */
+    
+    // 파일 업로드 검증
     public void validateFileUpload(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new ValidationException("파일이 선택되지 않았습니다.");
@@ -98,9 +95,8 @@ public class CoverletterValidator {
         }
     }
     
-    /**
-     * 저장된 자소서 첨삭 권한 검증
-     */
+    
+    // 저장된 자소서 첨삭 권한 검증
     public void validateRefinementPermission(Map<String, Object> coverletter) {
         if (coverletter == null) {
             throw new ValidationException("존재하지 않는 자소서입니다.");
@@ -124,9 +120,7 @@ public class CoverletterValidator {
         }
     }
     
-    /**
-     * 토큰 보유량 검증
-     */
+    // 토큰 보유량 검증
     public void validateTokenBalance(int memberIdx, int requiredTokens) {
         Integer currentTokens = jobToolsService.getMemberToken(memberIdx);
         if (currentTokens == null || currentTokens < requiredTokens) {
@@ -135,9 +129,8 @@ public class CoverletterValidator {
         }
     }
     
-    /**
-     * 로그인 상태 검증
-     */
+    
+    // 로그인 상태 검증
     public void validateLoginStatus() {
         int memberIdx = SecurityUtil.getLoginUserIndex();
         if (memberIdx == -1) {
@@ -146,21 +139,18 @@ public class CoverletterValidator {
     }
     
     // ===================================================================
-    // Private Helper Methods
+    // Helper Methods
     // ===================================================================
     
-    /**
-     * 필수 입력 검증
-     */
+    // 필수 입력 검증
     private void validateRequired(String value, String fieldName) {
         if (!StringUtils.hasText(value)) {
             throw new ValidationException(fieldName + "은(는) 필수입니다.");
         }
     }
     
-    /**
-     * 길이 검증
-     */
+    
+    // 길이 검증
     private void validateLength(String value, String fieldName, int min, int max) {
         if (!StringUtils.hasText(value)) {
             return; // 필수 검증은 별도로 처리
@@ -173,9 +163,8 @@ public class CoverletterValidator {
         }
     }
     
-    /**
-     * 파일 확장자 추출
-     */
+    
+    // 파일 확장자 추출
     private String getFileExtension(String filename) {
         int lastDotIndex = filename.lastIndexOf('.');
         if (lastDotIndex == -1 || lastDotIndex == filename.length() - 1) {

@@ -138,9 +138,16 @@
 				<c:forEach var="board" items="${boardList}">
 					<div class="post-item">
 						<div class="post-author">
-							<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
+							<c:choose>
+						        <c:when test="${not empty board.profile_picture_url}">
+						            <img src="${pageContext.request.contextPath}/resources/upload/${board.profile_picture_url}" alt="프로필 이미지" id="profilePreview">
+						        </c:when>
+						        <c:otherwise>
+          							<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
+						        </c:otherwise>
+						    </c:choose>
 											<!-- * 회원테이블과 조인 -->
-							<span class="author-name">${board.member_name }</span> 
+							<span class="author-name">${board.member_id }</span> 
 						</div>
 						<div class="post-content">
 							<div class="post-title-wrapper">

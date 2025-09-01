@@ -41,7 +41,16 @@
             <div class="post-detail-container">
                 <!-- 게시글 영역 -->
                 <div class="post-header">
-                    <div class="post-author-profile"><img src="${pageContext.request.contextPath}/resources/image/logop.png"/></div>
+                    <div class="post-author-profile">
+                    	<c:choose>
+					        <c:when test="${not empty board.profile_picture_url}">
+						            <img src="${pageContext.request.contextPath}/resources/upload/${board.profile_picture_url}" alt="프로필 이미지" id="profilePreview">
+					        </c:when>
+					        <c:otherwise>
+         							<img src="${pageContext.request.contextPath}/resources/image/logop.png" />
+					        </c:otherwise>
+					    </c:choose>
+                   </div>
 
                     <div class="post-title-area">
                         <div class="author-name">${board.member_id }</div>
@@ -120,6 +129,7 @@
     	const board_idx = "${param.board_idx}";
 	    const loginId = "${not empty loginUser ? loginUser.member_id : ''}";
 	    const isAdmin = "${not empty loginUser ? (loginUser.member_type eq 'MEM001' ? 'true' : 'false') : 'false'}";
+	    const contextPath = "${pageContext.request.contextPath}";
 	    window.addEventListener('pageshow', function (e) {
 		    // bfcache에서 복원된 경우 또는 back/forward 내비게이션이면 새로고침
 		    if (e.persisted || (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]?.type === 'back_forward')) {

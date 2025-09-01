@@ -95,7 +95,7 @@
 			                    <!-- 반복될 데이터 행 (예시) -->
 			                    <c:forEach var="com" items="${commonCodeList }" varStatus="status">
 			                    	<tr>
-				                        <td>${status.index + 1 }</td>
+				                        <td>${(pageInfo.pageNum - 1) * 10 + status.index + 1}</td>
 				                        <td>${com.code_group_id }</td>
 				                        <td>${com.group_name }</td>
 				                        <td>${com.code }</td>

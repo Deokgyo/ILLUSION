@@ -6,7 +6,20 @@
         <div class="sidebar-logo">ILLUSION</div>
         <div class="profile-card">
             <div class="profile-image">
-                <a href="#"></a> <img src="${pageContext.request.contextPath}/resources/image/logop.png" alt="프로필 이미지">
+            	<sec:authorize access="isAuthenticated()">
+			        <c:set var="profileUrl"><sec:authentication property="principal.profile_picture_url" /></c:set>
+			        <c:choose>
+			            <c:when test="${not empty profileUrl and profileUrl ne 'null'}">
+			                <img src="${pageContext.request.contextPath}/resources/upload/${profileUrl}" alt="프로필 이미지">
+			            </c:when>
+			            <c:otherwise>
+			                <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" alt="기본 이미지" id="profilePreview">
+			            </c:otherwise>
+			        </c:choose>
+			    </sec:authorize>
+			    <sec:authorize access="isAnonymous()">
+			        <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" alt="기본 이미지" id="profilePreview">
+			    </sec:authorize>
             </div>
             <div class="username">
                 <sec:authorize access="isAuthenticated()">

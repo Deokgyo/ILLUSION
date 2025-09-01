@@ -88,10 +88,6 @@
 			                    <label>이메일</label>
 			                    <div class="form-value"><a href="mailto:${member.member_email}">${member.member_email}</a></div>
 			                </div>
-			                <div class="form-group">
-			                    <label>전화번호</label>
-			                    <div class="form-value">${member.member_phone}</div>
-			                </div>
         			        <div class="form-group">
 			                    <label>생년월일</label>
 			                    <div class="form-value">${member.resume_birth}</div>
@@ -110,7 +106,8 @@
 			                </div>
 			                 <div class="form-group">
 			                    <label>가입일자</label>
-			                    <div class="form-value">${member.member_signup_date}</div>
+			                   
+			                    <div class="form-value">ㅇㅇ${member.member_signup_date}</div>
 			                </div>
 			            </div>
 			
@@ -118,7 +115,14 @@
 			                 오른쪽 정보 컬럼
 			                ======================== -->
 			            <div class="form-column right">
-			                	<img src="${pageContext.request.contextPath}/resources/image/profile.png" class="image-placeholder">
+					        <c:choose>
+					            <c:when test="${not empty member.profile_picture_url}">
+					                <img src="${pageContext.request.contextPath}/resources/upload/${member.profile_picture_url}" alt="프로필 이미지">
+					            </c:when>
+					            <c:otherwise>
+					                <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" alt="기본 이미지" id="profilePreview">
+					            </c:otherwise>
+					        </c:choose>
 			                <div class="form-group">
 			                    <label>성별</label>
 			                    <div class="form-value">${member.gender_name}</div>

@@ -70,36 +70,15 @@
 	         	    <p class="header-text"><strong>구직자/기업 회원목록</strong></p>
 	             </div>
 		
-		        <!-- 2. 필터 및 검색 바 -->
-<!-- 		        <div class="control-bar"> -->
-<!-- 		            <div class="filters"> -->
-<!-- 		                <div class="filter-group view-options"> -->
-<!-- 		                    <select name="view-count" id="view-count"> -->
-<!-- 		                        <option value="10">10</option> -->
-<!-- 		                        <option value="30">30</option> -->
-<!-- 		                        <option value="50">50</option> -->
-<!-- 		                    </select> -->
-<!-- 		                    <span>건씩 보기</span> -->
-<!-- 		                </div> -->
-<!-- 		                <div class="filter-group"> -->
-<!-- 		                    <span class="filter-title">유형별</span> -->
-<!-- 		                    <label><input type="radio" name="user-type" value="all" checked> 전체</label> -->
-<!-- 		                    <label><input type="radio" name="user-type" value="personal"> 개인</label> -->
-<!-- 		                    <label><input type="radio" name="user-type" value="corporate"> 기업</label> -->
-<!-- 		                    <label><input type="radio" name="user-type" value="admin"> 관리자</label> -->
-<!-- 		                </div> -->
-<!-- 		                <div class="filter-group"> -->
-<!-- 		                    <span class="filter-title">상태</span> -->
-<!-- 		                    <label><input type="radio" name="user-status" value="all" checked> 전체</label> -->
-<!-- 		                    <label><input type="radio" name="user-status" value="active"> 정상</label> -->
-<!-- 		                    <label><input type="radio" name="user-status" value="inactive"> 탈퇴</label> -->
-<!-- 		                </div> -->
-<!-- 		            </div> -->
-<!-- 		            <div class="search-box"> -->
-<!-- 		                <input type="text" placeholder="회원 이름, 아이디, 이메일 검색"> -->
-<!-- 		                <button type="button">🔍</button> -->
-<!-- 		            </div> -->
-<!-- 		        </div> -->
+		        <!-- 2. 검색 바 -->
+		        <div class="control-bar">
+		            <div class="search-box">
+		            	<form method="get" action="adminMember">
+		                	<input type="text" name="keyword" placeholder="회원 이름, 아이디, 이메일 검색" value="${keyword}">
+		                	<button type="submit">🔍</button>
+		                </form>
+		            </div>
+		        </div>
 		
 		        <!-- 3. 회원 목록 테이블 -->
 		        <div class="table-wrapper">
@@ -119,7 +98,7 @@
 		                <tbody>
 	                    	<c:forEach var="mem" items="${memberInfo }" varStatus="status">
 	                    		<tr>
-	                    			<td>${status.index + 1}</td>
+	                    			<td>${(pageInfo.pageNum - 1) * 10 + status.index + 1}</td>
 			                        <td>${mem.member_id }</td>
 			                        <td>${mem.member_name }</td>
 			                        <td><a href="#">${mem.member_email }</a></td>
@@ -173,6 +152,9 @@
 				    <c:if test="${pageInfo.pageNum > 1}">
 				    	<c:url var="pageUrl" value="adminMember">
 				    		<c:param name="pageNum" value="1"></c:param>
+				    		<c:if test="${keyword != null and keyword != ''}">
+				    			<c:param name="keyword" value="${keyword}"></c:param>
+				    		</c:if>
 				    	</c:url>
 				    	<a href="${pageUrl}">&laquo;</a>
 				    </c:if>
@@ -181,6 +163,9 @@
 				    <c:if test="${pageInfo.startPage > 1 }">
 				    	<c:url var="pageUrl" value="adminMember">
 							<c:param name="pageNum" value="${pageInfo.pageNum - 10}"></c:param>
+							<c:if test="${keyword != null and keyword != ''}">
+								<c:param name="keyword" value="${keyword}"></c:param>
+							</c:if>
 						</c:url>
 						<a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">&lsaquo;</a>
 				    </c:if>
@@ -189,6 +174,9 @@
 				    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 					    <c:url var="pageUrl" value="adminMember">
 					        <c:param name="pageNum" value="${i}" />
+					        <c:if test="${keyword != null and keyword != ''}">
+					        	<c:param name="keyword" value="${keyword}"></c:param>
+					        </c:if>
 					    </c:url>
 					    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
 					</c:forEach>
@@ -197,6 +185,9 @@
 					<c:if test="${pageInfo.endPage < pageInfo.maxPage}">
 				    	<c:url var="pageUrl" value="adminMember">
 							<c:param name="pageNum" value="${pageInfo.pageNum + 10 > pageInfo.maxPage ? pageInfo.maxPage : pageInfo.pageNum + 10}"></c:param>
+							<c:if test="${keyword != null and keyword != ''}">
+								<c:param name="keyword" value="${keyword}"></c:param>
+							</c:if>
 						</c:url>
 						<a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">&rsaquo;</a>
 					</c:if>
@@ -205,6 +196,9 @@
 				    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
 				    	<c:url var="pageUrl" value="adminMember">
 				    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+				    		<c:if test="${keyword != null and keyword != ''}">
+				    			<c:param name="keyword" value="${keyword}"></c:param>
+				    		</c:if>
 				    	</c:url>
 		    		    <a href="${pageUrl}">&raquo;</a>
 				    </c:if>

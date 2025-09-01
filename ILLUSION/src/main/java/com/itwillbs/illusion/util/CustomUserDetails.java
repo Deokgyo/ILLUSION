@@ -22,6 +22,10 @@ public class CustomUserDetails implements UserDetails {
         return member.getToken();
     }
     
+    public String getProfile_picture_url() {
+    	return member.getProfile_picture_url();
+    }
+    
     public MemberVO getMember() {
         return member;
     }

@@ -12,10 +12,12 @@ import com.itwillbs.illusion.exception.ValidationException;
 import com.itwillbs.illusion.vo.CoverletterResponse;
 
 /**
- * 전역 예외 처리 핸들러
- * 자소서 관련 예외를 일관성 있게 처리
+ * 자소서 관련 예외 처리 핸들러
+ * 자소서 관련 컨트롤러에서만 적용
  */
-@ControllerAdvice
+@ControllerAdvice(assignableTypes = {
+    com.itwillbs.illusion.controller.jobTools.CoverletterController.class
+})
 public class GlobalExceptionHandler {
     
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);

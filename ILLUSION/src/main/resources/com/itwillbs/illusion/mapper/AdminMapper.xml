@@ -25,10 +25,19 @@
 		  FROM recruit
 	</select>
 	
-	<!-- 게시글 수 조회 -->
+	<!-- 게시글 수 조회 (검색 기능 포함) -->
 	<select id="getBoardCount">
 		SELECT count(*)
-	      FROM board		
+	      FROM board b
+	      JOIN member m ON b.member_idx = m.member_idx
+	      JOIN common_code cc ON b.board_type = cc.code
+	     <where>
+			<if test="keyword != null and keyword != ''">
+				b.board_title LIKE CONCAT('%', #{keyword}, '%')
+				OR m.member_id LIKE CONCAT('%', #{keyword}, '%')
+				OR cc.code_name LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
 	</select>
 	
 	<!-- 생성된 ai 자소서 수 조회 -->
@@ -38,7 +47,7 @@
 	</select>
 	
 	
-	<!-- 회원 정보 조회 -->
+	<!-- 회원 정보 조회 (검색 기능 포함) -->
 	<select id="getMember">
 		SELECT 
 			   m.member_idx
@@ -54,14 +63,28 @@
 	      JOIN common_code t ON m.member_type = t.code
 	       AND t.code_group_id = 'member_type'
 	      JOIN common_code s ON m.member_status = s.code
-	       AND s.code_group_id = 'member_status'  
+	       AND s.code_group_id = 'member_status'
+	     <where>
+			<if test="keyword != null and !keyword.equals('')">
+				m.member_id LIKE CONCAT('%', #{keyword}, '%')
+				OR m.member_name LIKE CONCAT('%', #{keyword}, '%')
+				OR m.member_email LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
 	     LIMIT #{listLimit} OFFSET #{startRow}
 	</select>
 	
-	<!-- 전체 회원 수 조회 -->
+	<!-- 전체 회원 수 조회 (검색 기능 포함) -->
 	<select id="getMemberCount" resultType="int">
 		SELECT count(*)
 		  FROM member
+		<where>
+			<if test="keyword != null and keyword != ''">
+				member_id LIKE CONCAT('%', #{keyword}, '%')
+				OR member_name LIKE CONCAT('%', #{keyword}, '%')
+				OR member_email LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
 	</select>
 	
 	<!-- 회원 타입 조회 -->
@@ -129,7 +152,7 @@
 	</delete>
 	
 	
-	<!-- 게시글 리스트 조회 -->
+	<!-- 게시글 리스트 조회 (검색 기능 포함) -->
 	<select id="getBoardList">
 		SELECT 
 			   b.board_idx
@@ -141,6 +164,13 @@
 		  FROM board b
 		  JOIN member m ON b.member_idx = m.member_idx
 		  JOIN common_code cc ON b.board_type = cc.code
+		 <where>
+			<if test="keyword != null and keyword != ''">
+				b.board_title LIKE CONCAT('%', #{keyword}, '%')
+				OR m.member_id LIKE CONCAT('%', #{keyword}, '%')
+				OR cc.code_name LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
 		  LIMIT #{listLimit} OFFSET #{startRow}
 	</select>
 	
@@ -289,15 +319,5 @@
 		ORDER BY date ASC
 	</select>
 	
-	<!-- 회원가입 추이 데이터 조회 (최근 30일) -->
-	<select id="getMemberSignupChartData" resultType="map">
-		SELECT 
-		    DATE_FORMAT(regist_date, '%Y-%m-%d') as date,
-		    COUNT(*) as count
-		FROM member 
-		WHERE regist_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-		GROUP BY DATE_FORMAT(regist_date, '%Y-%m-%d')
-		ORDER BY date ASC
-	</select>
 	
 </mapper>
