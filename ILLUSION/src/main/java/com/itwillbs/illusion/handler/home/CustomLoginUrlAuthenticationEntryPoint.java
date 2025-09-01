@@ -27,8 +27,8 @@ public class CustomLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticati
         // 1. 사용자가 원래 요청했던 주소(URL)를 가져옵니다.
         String requestedUrl = request.getRequestURI();
         
-        // 2. 만약 원래 가려던 주소가 "/admin/"으로 시작한다면,
-        if (requestedUrl != null && requestedUrl.startsWith(request.getContextPath() + "/admin")) {
+        // 2. 만약 원래 가려던 주소가 "admin"을 포함한다면,
+        if (requestedUrl != null && requestedUrl.contains("admin")) {
             // "이번에는 관리자 로그인 페이지 URL을 사용해!" 라고 반환합니다.
             return "/adminLogin"; 
         }
@@ -38,6 +38,7 @@ public class CustomLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticati
         return super.determineUrlToUseForThisRequest(request, response, exception);
     }
     
+    // 인증되지 않은 사용자 요청 들어올 때 호출
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {

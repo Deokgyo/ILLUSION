@@ -91,6 +91,9 @@ public interface ResumeMapper {
 	public int getCLListCountByMember(@Param("memberIdx") int member_idx);
 	
     // 마이페이지 이력서 여러건 삭제
+	    // 마이페이지 이력서 여러건 삭제
 	public int deleteMyCLs(Map<String, Object> params);
+	
+	public Map<String, Object> findOriginalCoverLetter(Map<String, Object> params);
 	
 }

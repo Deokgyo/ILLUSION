@@ -100,7 +100,7 @@
 		                <thead>
 		                    <tr>
 		                        <th>No.</th>
-		                        <th>게시글 성격</th>
+		                        <th>게시글 유형</th>
 		                        <th>제목</th>
 		                        <th>작성자</th>
 		                        <th>작성일</th>

@@ -17,6 +17,7 @@
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMain.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminMember.css">

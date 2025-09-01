@@ -27,6 +27,12 @@ public class AdminController {
 	AdminService service;
 	
 	
+	// 관리자 로그인 페이지 이동
+	@GetMapping("adminLogin")
+	public String adminLogin() {
+		return "admin/adminLogin";
+	}
+	
 	// 관리자 메인 페이지 이동
 	@GetMapping("adminMain")
 	public String adminMain(Model model) {
@@ -171,14 +177,8 @@ public class AdminController {
 	    return "redirect:/comcodeRegist"; 
 	}
 	
-	// 공통코드 수정 페이지 이동
-	@GetMapping("comcodeModify")
-	public String comcodeModify(@RequestParam("code") String code, Model model) {
-	    Map<String, String> commonCode = service.getCommonCode(code);
-	    model.addAttribute("code", commonCode);
-
-	    return "admin/comcodeModify"; // 수정 페이지 이동
-	}
+	// 공통코드 수정 페이지 이동 - 모달로 변경되어 더 이상 필요 없음
+	// @GetMapping("comcodeModify") - 제거됨
 	
 	@GetMapping("adminMemberDetail")
 	public String adminMemberDetail(@RequestParam("member_idx") int member_idx, Model model) {
@@ -248,6 +248,32 @@ public class AdminController {
 		service.deleteCommonCode(code);
 		
 		return "redirect:/comcodeRegist"; 
+	}
+	
+	// AI 생성 건수 추이 데이터 조회 (차트용)
+	@GetMapping("getAiUsageChartData")
+	@ResponseBody
+	public Map<String, Object> getAiUsageChartData() {
+		List<Map<String, Object>> aiUsageData = service.getAiUsageChartData();
+		
+		Map<String, Object> response = new HashMap<>();
+		response.put("success", true);
+		response.put("data", aiUsageData);
+		
+		return response;
+	}
+	
+	// 회원가입 추이 데이터 조회 (차트용)
+	@GetMapping("getMemberSignupChartData")
+	@ResponseBody
+	public Map<String, Object> getMemberSignupChartData() {
+		List<Map<String, Object>> signupData = service.getMemberSignupChartData();
+		
+		Map<String, Object> response = new HashMap<>();
+		response.put("success", true);
+		response.put("data", signupData);
+		
+		return response;
 	}
 	
 }

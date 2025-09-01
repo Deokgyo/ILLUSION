@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,8 +61,8 @@
 			<!-- 검색 및 필터 영역 -->
 			<div class="community-search mt-4">
 				<div class="search-input-group">
-					<input type="text" placeholder="관심있는 내용을 검색해 보세요">
-					<button>
+					<input type="text" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="제목과 내용에서 검색해 보세요">
+					<button type="button" id="searchBtn">
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</button>
 				</div>
@@ -71,6 +72,9 @@
 					        <c:param name="categoryCode" value="${category.code}" />
 					        <c:if test="${not empty sort}">
 					            <c:param name="sort" value="${sort}" />
+					        </c:if>
+					        <c:if test="${not empty searchKeyword}">
+					            <c:param name="searchKeyword" value="${searchKeyword}" />
 					        </c:if>
 					    </c:url>
 					    <a href="${filterUrl}"
@@ -92,6 +96,9 @@
 			                    <c:param name="categoryCode" value="${selectedCategoryCode}" />
 			                </c:if>
 			                <c:param name="sort" value="latest" />
+			                <c:if test="${not empty searchKeyword}">
+			                    <c:param name="searchKeyword" value="${searchKeyword}" />
+			                </c:if>
 			            </c:url>
 			
 			            <li class="${empty sort or sort == 'latest' ? 'active' : ''}">
@@ -103,6 +110,9 @@
 			                    <c:param name="categoryCode" value="${selectedCategoryCode}" />
 			                </c:if>
 			                <c:param name="sort" value="views" />
+			                <c:if test="${not empty searchKeyword}">
+			                    <c:param name="searchKeyword" value="${searchKeyword}" />
+			                </c:if>
 			            </c:url>
 			            
 			            <li class="${sort == 'views' ? 'active' : ''}">
@@ -110,9 +120,16 @@
 			            </li>
 			        </ul>
 			    </div>
-			    <a href="communityWrite" class="btn btn-yellow">
-			        <i class="fa-regular fa-pen-to-square"></i> 글쓰기
-			    </a>
+			    <sec:authorize access="isAuthenticated()">
+				    <a href="communityWrite" class="btn btn-yellow">
+				        <i class="fa-regular fa-pen-to-square"></i> 글쓰기
+				    </a>
+			    </sec:authorize>
+			    <sec:authorize access="isAnonymous()">
+				    <a href="${pageContext.request.contextPath}/login" class="btn btn-yellow">
+				        <i class="fa-regular fa-pen-to-square"></i> 로그인하고 게시글 작성하기
+				    </a>
+			    </sec:authorize>
 			</div>
 			<hr class="hr-11">
 
@@ -153,6 +170,9 @@
 			    		    <c:if test='${not empty sort}'>
 			    		    	<c:param name="sort" value="${sort}"></c:param>
 			    		    </c:if>
+			    		    <c:if test='${not empty searchKeyword}'>
+			    		    	<c:param name="searchKeyword" value="${searchKeyword}"></c:param>
+			    		    </c:if>
 			    	</c:url>
 			    	<a href="${pageUrl}">&laquo;</a>
 			    </c:if>
@@ -167,6 +187,9 @@
 				        <c:if test="${not empty sort}">
 				            <c:param name="sort" value="${sort}" />
 				        </c:if>
+				        <c:if test="${not empty searchKeyword}">
+				            <c:param name="searchKeyword" value="${searchKeyword}" />
+				        </c:if>
 				    </c:url>
 				    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
 				</c:forEach>
@@ -180,6 +203,9 @@
 			    		    </c:if>
 			    		    <c:if test='${not empty sort}'>
 			    		    	<c:param name="sort" value="${sort}"></c:param>
+			    		    </c:if>
+			    		    <c:if test='${not empty searchKeyword}'>
+			    		    	<c:param name="searchKeyword" value="${searchKeyword}"></c:param>
 			    		    </c:if>
 			    	</c:url>
 	    		    <a href="${pageUrl}">&raquo;</a>

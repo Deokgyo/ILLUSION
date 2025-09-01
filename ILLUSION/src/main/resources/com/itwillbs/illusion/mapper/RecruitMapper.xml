@@ -147,7 +147,7 @@
 <!-- 		r.recruit_idx = #{recruit_idx}; -->
 	  SELECT 
 		    r.recruit_idx,
-		    r.recruiter_member_idx,
+		    r.member_idx,	<!-- recruit_member_idx 이제 안씀 -->
 		    occ.code_name AS occupation,
 		    exp.code_name AS experience,
 		    pos.code_name AS position,
@@ -162,19 +162,13 @@
 		    r.recruit_hiring_num,
 		    r.start_time,
 		    r.end_time,
-		    ema.recruiter_member_email,
+		    m.address_name,
+		    m.member_email,
 		    c.company_idx,
 		    c.ceo_name,
 		    c.company_name,
 		    cty.code_name AS company_type,
-<!-- 		    cin.code_name AS company_industry, -->
 		    c.company_estab_date,
-		    a.province,
-		    a.city_district,
-		    a.postcode,
-		    a.road_address,
-		    a.detail_address,
-		    a.full_address,
 		    r.preferred,
 		    r.apply_doc,
 		    r.apply_method,
@@ -196,13 +190,11 @@
 			LEFT JOIN common_code sal ON r.salary       = sal.code
 			LEFT JOIN common_code deg ON r.degree       = deg.code
 			LEFT JOIN common_code typ ON r.recruit_type = typ.code
-			LEFT JOIN recruiter_member ema ON r.recruiter_member_idx = ema.recruiter_member_idx
-			LEFT JOIN company c ON ema.company_idx = c.company_idx
+			LEFT JOIN member m ON r.member_idx = m.member_idx
+			LEFT JOIN company c ON m.company_idx = c.company_idx	<!-- 이 부분 수정함 member_idx로 -->
 			LEFT JOIN common_code cty ON c.company_type     = cty.code
-<!-- 			LEFT JOIN common_code cin ON c.company_industry = cin.code -->
 			LEFT JOIN common_code wsd ON r.work_start_day = wsd.code
 			LEFT JOIN common_code wed ON r.work_end_day = wed.code
-			LEFT JOIN address a ON c.company_idx = a.address_idx
 		WHERE 
 			r.recruit_idx = #{recruit_idx};
 	</select>

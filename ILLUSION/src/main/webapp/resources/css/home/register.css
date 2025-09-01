@@ -174,7 +174,7 @@ input[type=text], input[type=password], input[type=date], select {
 }
 
 input:focus, select:focus {
-	border: 1.3px solid #fbe162;
+	border: 1.3px solid #fbe162  !important;
 }
 
 input[type=date] {
@@ -206,7 +206,7 @@ select {
 
 .form-row.addr input[type="text"] {
 	margin-bottom: -8px;
-	margin-left: 97px;
+	margin-left: 109px;
 	width: 45%;
 	padding: 5px;
 	font-size: 15px;
@@ -254,19 +254,25 @@ select {
 }
 
 /* ====== 주소/이메일 인증, 버튼 ====== */
-.address-flex, .email-flex {
+.email-flex {
 	display: flex;
 	gap: 7px;
 	align-items: center;
 }
-
+.email-flex2{
+	display: flex;
+	gap: 7px;
+	align-items: center;
+	margin-left: 17px;
+	margin-top: -7px;
+}
 .form-row addr input[type="text"] {
 	margin: 20px;
 }
 
 .email-flex input[type=email1] {
 	margin-bottom: -12px;
-	margin-left: 1px;
+	margin-left: 30px;
 	width: 50%;
 	padding: 7px;
 	font-size: 15px;
@@ -302,10 +308,6 @@ button.btn-yellow {
 	cursor: pointer;
 	transition: background 0.16s;
 	width: 100px;
-}
-
-#emailcode-btn {
-	margin-top: -14px;
 }
 
 button {
@@ -519,7 +521,7 @@ button.btn-company {
 select#compantypes {
     height: 37px;
     width: 62%;
-    margin-left: 43px; 
+    margin-left: 11px; 
 }
 
 .horizontal-wrapper {
@@ -530,6 +532,8 @@ select#compantypes {
     align-content: stretch;
     justify-content: space-around;
     align-items: stretch;
+    margin-bottom: -8px;
+    margin-top: -10px;
 }
 
 .form-row,
@@ -542,3 +546,38 @@ input#company_date{
 	width: 62%;
 }
 
+.form-row {
+  display: flex;
+  flex-wrap: wrap; /* 줄바꿈 허용 필수 */
+  gap: 10px;       /* 옵션: 아이템 간 간격 */
+}
+.form-row.personal #username_container,
+.form-row.personal #genderHide {
+  flex-basis: 48%;  /* 각각 48% 너비 */
+}
+
+.form-row.personal #company {
+  display: none;    /* 개인회원일 때 대표자명 숨김 */
+}
+
+/* 기업회원 레이아웃 */
+/* 이름은 한 줄 전체, 대표자명과 성별은 다음 줄에 옆으로 배치 */
+.form-row.corporate #username_container {
+  flex-basis: 100%; /* 이름 줄 전체 차지 */
+}
+
+.form-row.corporate #company,
+.form-row.corporate #genderHide {
+  flex-basis: 48%;  /* 대표자명과 성별 48%씩 */
+  display: flex;   /* 숨김 해제 */
+}
+input#userpw2,
+input#username,
+input#email,
+input#emailcode{
+	margin-left: 11px;
+}
+input#companyNumber,
+input#companyname{
+	margin-left: 10px;
+}

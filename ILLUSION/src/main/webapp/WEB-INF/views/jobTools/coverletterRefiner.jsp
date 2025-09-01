@@ -101,9 +101,18 @@
 					                <div class="content-area">
 					                    <span class="icon">📄</span>
 					                    <!-- -->
-					                    <a href="savedCLDetail?cl_idx=${cl.cl_idx }&member_idx=1" class="title-link">
-					                        <span class="title">${cl.cl_title} - ${cl.company_name}</span>
-					                    </a>
+					                    <c:choose>
+					                        <c:when test="${not empty cl.original_cl_idx && cl.original_cl_idx != 0}">
+					                            <a href="coverletterResult?cl_idx=${cl.cl_idx}&original_cl_idx=${cl.original_cl_idx}" class="title-link">
+					                                <span class="title">${cl.cl_title} - ${cl.company_name}</span>
+					                            </a>
+					                        </c:when>
+					                        <c:otherwise>
+					                            <a href="coverletterResult?cl_idx=${cl.cl_idx}&original_cl_idx=${cl.cl_idx}" class="title-link">
+					                                <span class="title">${cl.cl_title} - ${cl.company_name}</span>
+					                            </a>
+					                        </c:otherwise>
+					                    </c:choose>
 					                </div>
 					            </div>
 					        </c:forEach>

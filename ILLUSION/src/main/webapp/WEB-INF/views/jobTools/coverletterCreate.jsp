@@ -89,10 +89,10 @@
 					        <h3 class="title">경력사항</h3>
 					    </div>
 					    
-					    <div id="experience-toggle" class="segmented-control">
-					        <div class="option" data-value="new">신입</div>
-					        <div class="option active" data-value="experienced">경력</div>
-					    </div>
+<!-- 					    <div id="experience-toggle" class="segmented-control"> -->
+<!-- 					        <div class="option" data-value="new">신입</div> -->
+<!-- 					        <div class="option active" data-value="experienced">경력</div> -->
+<!-- 					    </div> -->
 					
 					    <div id="experience-fields" class="mt-3">
 					        

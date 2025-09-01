@@ -15,7 +15,7 @@
 		     , c.code_name as rec_status
 		  FROM scrap s LEFT JOIN recruit r ON s.recruit_idx = r.recruit_idx
 		  LEFT JOIN common_code c ON r.rec_status = c.code
-		 WHERE member_idx = #{memberIdx}
+		 WHERE s.member_idx = #{memberIdx}
 		 ORDER BY s.scrap_idx DESC
 		 LIMIT #{startRow}, #{listLimit}
 	</select>

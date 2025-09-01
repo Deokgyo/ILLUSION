@@ -19,4 +19,27 @@ public class JobToolsConstants {
     public static final String TITLE_REFINED = "첨삭된 자기소개서";
     public static final String TITLE_REFINED_SUFFIX = " (첨삭본)";
 
+    // 저장 상태 (Common Code)
+    public static final String SAVE_STATUS_NOT_SAVED = "BOL001";  // 저장 안함
+    public static final String SAVE_STATUS_SAVED = "BOL002";      // 저장함
+
+    // URL 패턴
+    public static final String COVERLETTER_RESULT_URL_FORMAT = "coverletterResult?cl_idx=%d&original_cl_idx=%d";
+
+    // AI 응답 상태
+    public static final String AI_SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE";
+    public static final String AI_SAFETY_BLOCK = "SAFETY";
+    public static final String AI_FAILURE = "실패.";
+
+    // 에러 메시지
+    public static final String ERROR_TOKEN_INSUFFICIENT = "토큰이 부족하여 작업을 완료할 수 없습니다.";
+    public static final String ERROR_CHATBOT_TOKEN_INSUFFICIENT = "토큰이 부족하여 챗봇을 이용할 수 없습니다.";
+    public static final String ERROR_LOGIN_REQUIRED = "로그인이 필요합니다.";
+    public static final String ERROR_COVERLETTER_SAVE_FAILED = "자소서 저장 후 PK를 가져오는 데 실패했습니다.";
+    public static final String ERROR_AI_SERVICE_OVERLOAD = "AI 서비스가 현재 과부하 상태입니다. 잠시 후 다시 시도해주세요.";
+    public static final String ERROR_AI_SAFETY_BLOCK = "AI가 안전상의 이유로 응답을 거부했습니다. 다른 내용으로 시도해주세요.";
+    public static final String ERROR_AI_SERVICE_FAILED = "AI 서비스 호출에 실패했습니다.";
+    public static final String ERROR_ALREADY_REFINED = "이미 첨삭된 자소서는 다시 다듬을 수 없습니다.";
+    public static final String ERROR_ACCESS_DENIED = "자신이 작성한 자소서만 다듬을 수 있습니다.";
+
 }

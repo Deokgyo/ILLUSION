@@ -1,16 +1,12 @@
 package com.itwillbs.illusion.controller.jobTools;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.tika.Tika;
-import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,20 +16,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.itwillbs.illusion.service.GeminiService;
 import com.itwillbs.illusion.service.JobToolsService;
 import com.itwillbs.illusion.util.JobToolsConstants;
 import com.itwillbs.illusion.util.SecurityUtil;
+import com.itwillbs.illusion.validator.CoverletterValidator;
 import com.itwillbs.illusion.vo.MemberVO;
+import com.itwillbs.illusion.vo.CoverletterResponse;
+import com.itwillbs.illusion.exception.ValidationException;
+
+
+// 자소서 생성 및 첨삭 전용 컨트롤러
 
 @Controller
 public class CoverletterController {
 
     @Autowired
     private JobToolsService service;
-
+    
     @Autowired
-    private GeminiService geminiService;
+    private CoverletterValidator validator;
 
     // ===================================================================
     // 페이지 이동 (GET Mappings)
@@ -47,14 +48,20 @@ public class CoverletterController {
         return "jobTools/coverletterCreate";
     }
     
-    // 자소서 결과 페이지 이동
+    // 자소서 결과 페이지 이동 (통합)
     @GetMapping("coverletterResult")
     public String showCoverletterResult(Model model, @RequestParam("cl_idx") int cl_idx,
-            @RequestParam("original_cl_idx") int original_cl_idx) {
+            @RequestParam(value = "original_cl_idx", required = false) Integer original_cl_idx) {
+        
         Map<String, Object> coverletter = service.getCoverletterById(cl_idx);
-        Map<String, Object> originalCoverletter = service.getCoverletterById(original_cl_idx);
         model.addAttribute("coverletter", coverletter);
-        model.addAttribute("originalCoverletter", originalCoverletter);
+        
+        // CL002(첨삭된 자소서)인 경우에만 원본 자소서 정보 추가
+        if (coverletter != null && "CL002".equals(coverletter.get("cl_type")) && original_cl_idx != null) {
+            Map<String, Object> originalCoverletter = service.getCoverletterById(original_cl_idx);
+            model.addAttribute("originalCoverletter", originalCoverletter);
+        }
+        
         return "jobTools/coverletterResult";
     }
 
@@ -70,281 +77,107 @@ public class CoverletterController {
         return "jobTools/coverletterRefiner";
     }
     
-    // 저장된 자소서 가져오기 (덕교)
-    @GetMapping("interviewCreate")
-    public String interviewCreate(Model model) {
-    	int member_idx = SecurityUtil.getLoginUserIndex();
-        if (member_idx != -1) {
-            List<Map<String, String>> clList = service.getCoverletterTitlesByMember(member_idx);
-            model.addAttribute("clList", clList);
-        }
-        return "jobTools/interviewCreate";
-    }
-    
-    // 생성된 예상 질문 결과 페이지 (덕교)
-    @GetMapping("interviewResult")
-    public String interviewResult(int cl_idx, Model model) {
-    	
-    	List<Map<String,String>> interviewResultList = service.selectInterviewResult(cl_idx);
-    	model.addAttribute("interviewResultList", interviewResultList);
-    	
-        return "jobTools/interviewResult";
-    }
 
     // ===================================================================
-    // 기능 처리 (POST Mappings - @ResponseBody)
+    // 자소서 기능 처리 (POST Mappings - @ResponseBody)
     // ===================================================================
-    
-    // 면접 예상 질문 생성 ajax 처리(덕교)
-    @PostMapping("createInterviewByDirect")
-    @ResponseBody
-    public String createInterviewByDirect(@RequestParam("data")String data, 
-    			@RequestParam("company_name") String company_name, 
-    			@RequestParam("cl_title") String cl_title) {
-    	
-    	// 토큰 차감 로직
-    	// 토큰 차감 하려면, member_idx 필요함.. 
-    	int member_idx = SecurityUtil.getLoginUserIndex(); // member_idx 
-    	// 얼마 차감 해야하는지도 필요함 
-    	int cost = JobToolsConstants.COVER_LETTER_INTERVIEW_COST;
-    	// 차감 해라 ... 토큰 반환 
-    	int crruentTokens = service.deductToken(member_idx, cost);
-    	
-    	System.out.println("ajax로 보내준 값!!!!!!!!!!!!!");
-    	System.out.println(data);
-    	
-    	//data도 디비에 인서트 해야함 
-        Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), 
-        		cl_title, company_name, data, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
-        // 인서트 하고 인서트 후에 생성된 idx 값  받기 
-        int cl_idx = service.saveCoverletterOnly(originalClMap);
-        
-        // 프롬프트에 맞춰서 질문 생성하고 쪼개서 배열로 저장함 
-        String prompt = createInterviewPrompt(data);
-    	String aiResult = geminiService.callGeminiApi(prompt);
-    	List<String> splitResult = Arrays.asList(aiResult.split("\n"));
-    	System.out.println(splitResult);
-    	
-    	// 쪼갠 질문들 디비에 넣기, 질문과 멤버 idx와 cl_idx 같이 들어가야함   
-    	service.insertQuestion(splitResult, member_idx, cl_idx);
-    	
-    	return "interviewResult?cl_idx=" + cl_idx;
-    }
-    
-    @PostMapping("createInterviewByFile")
-    @ResponseBody 
-    public String createInterviewByFile(@RequestParam MultipartFile file, 
-    		@RequestParam("company_name") String company_name, 
-			@RequestParam("cl_title") String cl_title) {
-    	// 토큰 차감 로직
-    	int member_idx = SecurityUtil.getLoginUserIndex(); // member_idx 
-    	int cost = JobToolsConstants.COVER_LETTER_INTERVIEW_COST;
-    	service.deductToken(member_idx, cost);
-    	
-    	// 텍스트 추출을 위한 tika 라이브러리 사용 
-    	Tika tika = new Tika();
-    	try {
-    		//멀티 파트 파일 형식을 인풋 스트림으로 변환하고 티카 사용해서 파스 투스트링후 저장
-			String coverletter = tika.parseToString(file.getInputStream());
-			
-			//추출한 텍스트 디비에 인서트 해야함 
-	        Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), 
-	        		cl_title, company_name, coverletter, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
-	        // 인서트 하고 인서트 후에 생성된 idx 값  받기 
-	        int cl_idx = service.saveCoverletterOnly(originalClMap);
-			
-	        // 프롬프트에 맞춰서 질문 생성하고 쪼개서 배열로 저장함 
-	        String prompt = createInterviewPrompt(coverletter);
-	    	String aiResult = geminiService.callGeminiApi(prompt);
-	    	List<String> splitResult = Arrays.asList(aiResult.split("\n"));
-	    	System.out.println(splitResult);
-	    	
-	    	// 쪼갠 질문들 디비에 넣기, 질문과 멤버 idx와 cl_idx 같이 들어가야함   
-	    	service.insertQuestion(splitResult, member_idx, cl_idx);
-	    	
-	    	return "interviewResult?cl_idx=" + cl_idx;
-		} catch (IOException | TikaException e) {
-			e.printStackTrace();
-			// 에러 터지면 에러 페이지롷 이동함 
-			return "error";
-		}
-    	
-    }
-    
-    @PostMapping("createInterviewBySavedCl")
-    @ResponseBody
-    public String createInterviewBySavedCl(int cl_idx) {
-    	// 토큰 차감 로직
-    	int member_idx = SecurityUtil.getLoginUserIndex(); // member_idx 
-    	int cost = JobToolsConstants.COVER_LETTER_INTERVIEW_COST;
-    	service.deductToken(member_idx, cost);
-    	// 디비에 저장된 자소서 불러오기 
-			Map<String, Object> originalCoverletter = service.getCoverletterById(cl_idx);
-			String coverletter = (String) originalCoverletter.get("generated_cl_content");
-			String prompt = createInterviewPrompt(coverletter);
-		    String aiResult = geminiService.callGeminiApi(prompt);
-		    List<String> splitResult = Arrays.asList(aiResult.split("\n"));
-	    	System.out.println(splitResult);
-	    	
-	    	// 쪼갠 질문들 디비에 넣기, 질문과 멤버 idx와 cl_idx 같이 들어가야함   
-	    	service.insertQuestion(splitResult, member_idx, cl_idx);
-	    	
-    	return "interviewResult?cl_idx=" + cl_idx;
-    }
-    
-    //예상 질문에 대한 사용자 답변 피드백 주기 (덕교)
-    @PostMapping("getAiFeedback")
-    @ResponseBody 
-    public Map<String, String> getAiFeedback(@RequestParam("question") String question, 
-    							@RequestParam("answer") String answer ) {
-    	String prompt = aiFeedbackPrompt(question, answer);
-     	String aiResult = geminiService.callGeminiApi(prompt);
-     	Map<String, String> result = new HashMap<String, String>();
-     	result.put("feedback", aiResult);
-    	return result;
-    }
-    
-    // 예상 질문과 사용자 답변과 피드백 디비에 저장하기 (덕교 ) 
-    @PostMapping("saveAnswer") 
-    @ResponseBody
-    public void saveAnswer(@RequestParam("question_idx") String question_idx, 
-    					@RequestParam("answer") String answer_text,
-    					@RequestParam("feedback") String ai_feedback) {
-    	
-    	int member_idx = SecurityUtil.getLoginUserIndex();
-    	service.insertAnswer(question_idx, answer_text, ai_feedback, member_idx);
-    	
-    }
-    
     // 자소서 생성
     @PostMapping("coverletterGenerate")
     @ResponseBody
-    public Map<String, Object> coverletterGenerate(@RequestParam Map<String, String> params, HttpSession session) {
-        String prompt = createGenerationPrompt(params);
-        String aiResult = geminiService.callGeminiApi(prompt);
-
-        Map<String, Object> coverletterMap = buildCoverletterMap(
-            SecurityUtil.getLoginUserIndex(),
-            params.get("title"),
-            params.get("company"),
-            aiResult,
-            JobToolsConstants.CL_TYPE_GENERATED
-        );
-
-        try {
-            Map<String, Object> serviceResult = service.useTokenForJobTools(coverletterMap, JobToolsConstants.COVER_LETTER_GENERATION_COST);
-            updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
-            
-            int generatedClIdx = (int) serviceResult.get("generatedClIdx");
-            
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("redirectUrl", String.format("coverletterResult?cl_idx=%d&original_cl_idx=%d", generatedClIdx, generatedClIdx));
-            response.put("newToken", serviceResult.get("newTokenCount"));
-            return response;
-        } catch (RuntimeException e) {
-            return createErrorResponse(e.getMessage());
-        }
+    public CoverletterResponse coverletterGenerate(@RequestParam Map<String, String> params, HttpSession session) {
+        // 검증 로직
+        validator.validateLoginStatus();
+        validator.validateGenerationRequest(params);
+        validator.validateTokenBalance(SecurityUtil.getLoginUserIndex(), JobToolsConstants.COVER_LETTER_GENERATION_COST);
+        
+        // 비즈니스 로직
+        Map<String, Object> serviceResult = service.generateAndSaveCoverletter(params);
+        updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
+        
+        int generatedClIdx = (int) serviceResult.get("generatedClIdx");
+        Integer newToken = (Integer) serviceResult.get("newTokenCount");
+        
+        return CoverletterResponse.success(generatedClIdx, generatedClIdx, newToken);
     }
 
     // 새 자소서 다듬기
     @PostMapping("refineNewCoverletter")
     @ResponseBody
-    public Map<String, Object> refineNewCoverletter(@RequestParam String cl_input_method,
+    public CoverletterResponse refineNewCoverletter(@RequestParam String cl_input_method,
             @RequestParam(required = false) MultipartFile uploadedFile,
             @RequestParam(required = false) String coverletterText, 
             @RequestParam("cl_title")String cl_title,
             @RequestParam("company_name")String company_name,
-            HttpSession session) {
+            HttpSession session) throws IOException {
 
+        // 기본 검증
+        validator.validateLoginStatus();
+        validator.validateTokenBalance(SecurityUtil.getLoginUserIndex(), JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
+        
         String originalContent = "";
-        try {
-            if ("file".equals(cl_input_method) && uploadedFile != null && !uploadedFile.isEmpty()) {
-                originalContent = new String(uploadedFile.getBytes(), "UTF-8");
-            } else if ("text".equals(cl_input_method) && coverletterText != null) {
-                originalContent = coverletterText;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return createErrorResponse("파일을 읽는 중 오류가 발생했습니다.");
+        
+        // 입력 방식별 검증 및 처리
+        if ("file".equals(cl_input_method)) {
+            validator.validateFileUpload(uploadedFile);
+            originalContent = new String(uploadedFile.getBytes(), "UTF-8");
+        } else if ("text".equals(cl_input_method)) {
+            validator.validateRefinementTextRequest(coverletterText, cl_title, company_name);
+            originalContent = coverletterText;
+        } else {
+            throw new ValidationException("올바르지 않은 입력 방식입니다.");
         }
 
-        if (originalContent.trim().isEmpty()) {
-            return createErrorResponse("첨삭할 자기소개서 내용이 비어있습니다.");
-        }
+        // 1. 원본 자소서 저장
+        Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title, company_name, originalContent, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
+        int originalClIdx = service.saveCoverletterOnly(originalClMap);
 
-        try {
-            // 1. 원본 자소서 저장
-            Map<String, Object> originalClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title, company_name, originalContent, JobToolsConstants.CL_TYPE_ORIGINAL_FOR_REFINEMENT);
-            int originalClIdx = service.saveCoverletterOnly(originalClMap);
+        // 2. 서비스 호출
+        Map<String, Object> params = new HashMap<>();
+        params.put("original_content", originalContent);
+        params.put("member_idx", SecurityUtil.getLoginUserIndex());
+        params.put("title", cl_title);
+        params.put("company_name", company_name);
+        params.put("original_cl_idx", originalClIdx);
 
-            // 2. AI 첨삭 및 저장
-            String prompt = createRefinementPrompt(originalContent);
-            String aiResult = geminiService.callGeminiApi(prompt);
+        Map<String, Object> result = service.refineAndSaveCoverletter(params);
+        updateSessionToken(session, (Integer) result.get("newTokenCount"));
 
-            Map<String, Object> refinedClMap = buildCoverletterMap(SecurityUtil.getLoginUserIndex(), cl_title + JobToolsConstants.TITLE_REFINED_SUFFIX, company_name, aiResult, JobToolsConstants.CL_TYPE_REFINED);
-
-            Map<String, Object> serviceResult = service.useTokenForJobTools(refinedClMap, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
-            updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
-
-            int refinedClIdx = (int) serviceResult.get("generatedClIdx");
-
-            // 3. 성공 응답 반환
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("redirectUrl", String.format("coverletterResult?cl_idx=%d&original_cl_idx=%d", refinedClIdx, originalClIdx));
-            response.put("newToken", serviceResult.get("newTokenCount"));
-            return response;
-
-        } catch (RuntimeException e) {
-            return createErrorResponse(e.getMessage());
-        }
+        // 3. 성공 응답 반환
+        int refinedClIdx = (int) result.get("refinedClIdx");
+        Integer newToken = (Integer) result.get("newTokenCount");
+        
+        return CoverletterResponse.success(refinedClIdx, originalClIdx, newToken);
     }
     
     // 저장된 자소서 다듬기
     @PostMapping("refineSavedCoverletter")
     @ResponseBody
-    public Map<String, Object> refineSavedCoverletter(@RequestParam int cl_idx, HttpSession session) {
+    public CoverletterResponse refineSavedCoverletter(@RequestParam int cl_idx, HttpSession session) {
+        // 기본 검증
+        validator.validateLoginStatus();
+        int currentMemberIdx = SecurityUtil.getLoginUserIndex();
+        validator.validateTokenBalance(currentMemberIdx, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
+        
+        // 자소서 조회 및 권한 검증
         Map<String, Object> originalCoverletter = service.getCoverletterById(cl_idx);
+        validator.validateRefinementPermission(originalCoverletter);
 
-        String cl_type = (String) originalCoverletter.get("cl_type");
-        if (JobToolsConstants.CL_TYPE_REFINED.equals(cl_type)) {
-            return createErrorResponse("이미 첨삭된 자소서는 다시 다듬을 수 없습니다.");
-        }
+        // 비즈니스 로직
+        Map<String, Object> params = new HashMap<>();
+        params.put("original_content", originalCoverletter.get("generated_cl_content"));
+        params.put("member_idx", currentMemberIdx);
+        params.put("title", (String) originalCoverletter.get("cl_title"));
+        params.put("company_name", (String) originalCoverletter.get("company_name"));
+        params.put("original_cl_idx", cl_idx);
 
-        int writer_idx = (Integer) originalCoverletter.get("member_idx");
-        int current_member_idx = SecurityUtil.getLoginUserIndex();
+        Map<String, Object> result = service.refineAndSaveCoverletter(params);
+        updateSessionToken(session, (Integer) result.get("newTokenCount"));
 
-        if (writer_idx != current_member_idx) {
-            return createErrorResponse("자신이 작성한 자소서만 다듬을 수 있습니다.");
-        }
-
-        String originalContent = (String) originalCoverletter.get("generated_cl_content");
-        String prompt = createRefinementPrompt(originalContent);
-        String aiResult = geminiService.callGeminiApi(prompt);
-
-        Map<String, Object> newCoverletterMap = buildCoverletterMap(
-            current_member_idx,
-            originalCoverletter.get("cl_title") + JobToolsConstants.TITLE_REFINED_SUFFIX,
-            (String) originalCoverletter.get("company_name"),
-            aiResult,
-            JobToolsConstants.CL_TYPE_REFINED
-        );
-
-        try {
-            Map<String, Object> serviceResult = service.useTokenForJobTools(newCoverletterMap, JobToolsConstants.COVER_LETTER_REFINEMENT_COST);
-            updateSessionToken(session, (Integer) serviceResult.get("newTokenCount"));
-            
-            int generatedClIdx = (int) serviceResult.get("generatedClIdx");
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("redirectUrl", String.format("coverletterResult?cl_idx=%d&original_cl_idx=%d", generatedClIdx, cl_idx));
-            response.put("newToken", serviceResult.get("newTokenCount"));
-            return response;
-        } catch (RuntimeException e) {
-            return createErrorResponse(e.getMessage());
-        }
+        int refinedClIdx = (int) result.get("refinedClIdx");
+        int originalClIdx = (int) result.get("originalClIdx");
+        Integer newToken = (Integer) result.get("newTokenCount");
+        
+        return CoverletterResponse.success(refinedClIdx, originalClIdx, newToken);
     }
     
     // 저장버튼 토글 기능
@@ -358,11 +191,11 @@ public class CoverletterController {
     // Helper Methods
     // ===================================================================
     
-    private Map<String, Object> buildCoverletterMap(int memberIdx, String title, String company, String aiResult, String clType) {
+    private Map<String, Object> buildCoverletterMap(int memberIdx, String title, String companyName, String aiResult, String clType) {
         Map<String, Object> map = new HashMap<>();
         map.put("member_idx", memberIdx);
         map.put("title", title);
-        map.put("company", company);
+        map.put("company_name", companyName);
         map.put("aiResult", aiResult);
         map.put("generated_char_count", aiResult.length());
         map.put("generated_char_count_no_space", aiResult.replaceAll("\\s", "").length());
@@ -379,108 +212,7 @@ public class CoverletterController {
             }
         }
     }
-    
-    private Map<String, Object> createErrorResponse(String message) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", false);
-        response.put("message", message);
-        return response;
-    }
 
-    private String createGenerationPrompt(Map<String, String> params) {
-	    String company = params.getOrDefault("company", "해당 없음");
-	    String occupation = params.getOrDefault("occupation", "해당 없음");
-	    String question = params.getOrDefault("question", "자유 양식");
-	    String prevCompany = params.getOrDefault("prevCompany", "해당 없음");
-	    String prevJob = params.getOrDefault("prevJob", "해당 없음");
-	    String experience = params.getOrDefault("experience", "해당 없음");
-	    String keywords = params.getOrDefault("keywords", "해당 없음");
-	    String maxLength = params.getOrDefault("maxLength", "1000");
-	    String experiencePeriod = params.getOrDefault("experience_period", ""); 
-	
-	    return String.format(
-            "너는 대한민국 최고의 채용 컨설턴트이자 자기소개서 작성 전문가야. "
-          + "주어진 핵심 정보를 바탕으로, 지원자의 역량이 최대한 돋보이도록 매력적인 자기소개서를 '완성된 하나의 문단'으로 작성해줘.\n\n"
-          + "### 작성 조건:\n"
-          + "1. **지원 회사:** %s\n"
-          + "2. **지원 직무:** %s\n"
-          + "3. **자기소개서 문항:** %s\n"
-          + "4. **주요 경력:** %s에서 %s 직무를 %s 동안 수행함\n"
-          + "5. **핵심 경험/역량:** %s\n"
-          + "6. **필수 포함 키워드:** %s\n"
-          + "7. **분량:** 공백 미포함 %s자에 최대한 맞춰서 풍부하게 작성\n\n"
-          + "### 글쓰기 스타일 가이드:\n"
-          + "- **STAR 기법 활용:** 지원자의 핵심 경험을 서술할 때, '상황(Situation)-과제(Task)-행동(Action)-결과(Result)'가 명확히 드러나도록 구체적이고 논리적으로 작성해줘.\n"
-          + "- **직무 연관성 부각:** 경험과 성과가 지원 직무에 어떻게 기여할 수 있을지 명확하게 연결하여 서술해줘.\n"
-          + "- **전문적인 어투:** 긍정적이고 자신감 있는 어투를 사용하되, 성과를 구체적인 수치나 사실에 기반하여 진솔하게 표현해줘.\n"
-          + "- **가독성:** 문장은 간결하면서도 핵심 내용이 잘 전달되도록 구성하고, 맞춤법과 띄어쓰기를 완벽하게 지켜줘.\n"
-          + "- **출력 형식:** 다른 설명이나 제목 없이, 오직 완성된 자기소개서 본문 내용만 출력해줘.",
-            company, occupation, question, prevCompany, prevJob, experiencePeriod, experience, keywords, maxLength
-	        );
-	    }
     
-	private String createRefinementPrompt(String originalContent) {
-	    return String.format(
-	        "너는 대한민국 최고의 커리어 코치이자 자기소개서 첨삭 전문가야. "
-	      + "아래의 [자소서 원문]을 '채용 담당자의 관점'에서 깊이 있게 분석하고, 지원자의 역량이 극대화되도록 수정 및 보완한 뒤 구체적인 피드백을 제공해줘.\n\n"
-	      + "### 첨삭 지침:\n"
-	      + "1. **내용 보강 및 가독성 향상:** 맞춤법, 띄어쓰기, 문법 오류를 교정하고, 길고 복잡한 문장은 간결하게 다듬어줘. 만약 내용이 부족하다면, 직무 역량을 어필할 수 있는 방향으로 내용을 더 풍부하게 보강해줘.\n"
-	      + "2. **논리 구조 강화 (STAR 기법):** 경험 서술의 흐름이 '상황(S)-과제(T)-행동(A)-결과(R)'에 따라 명확히 드러나도록 문단 구조를 재배치하거나 연결어를 보강해줘.\n"
-	      + "3. **성과 부각 및 수치화:** '노력했다', '기여했다' 같은 추상적인 표현을 '매출 15%% 증대', '프로세스 3일 단축' 등 구체적이고 측정 가능한 성과로 바꾸어 신뢰도를 높여줘.\n"
-	      + "4. **직무 연관성 강화:** 지원자의 경험과 역량이 지원 직무에 정확히 어떻게 기여할 수 있는지 직접적이고 명확하게 연결하여 문장을 개선해줘.\n\n"
-	      + "### 출력 형식 (매우 중요!):\n"
-	      + "아래의 형식을 반드시 정확하게 지켜서 출력해줘. 각 섹션의 제목을 그대로 사용하고, 다른 부가적인 설명은 절대 추가하지 마.\n"
-	      + "---[수정된 자기소개서]---\n"
-	      + "(여기에 모든 지침이 반영되어, 내용까지 완벽하게 보강된 자기소개서 전체 내용을 작성)\n\n"
-	      + "---[핵심 피드백]---\n"
-	      + "1. **핵심 성과:** (가장 눈에 띄게 개선된 성과 표현에 대한 피드백과 수정 방향 제시)\n"
-	      + "2. **문장 구조:** (논리적 흐름이나 가독성 측면에서 가장 효과적으로 개선된 부분에 대한 피드백과 수정 방향 제시)\n"
-	      + "3. **직무 적합성:** (지원 직무와의 연결성이 어떻게 강화되었는지에 대한 피드백과 수정 방향 제시)\n\n"
-	      + "### 자소서 원문:\n"
-	      + "%s",
-	        originalContent
-	    );
-	}
-	
-	private String createInterviewPrompt(String originalContent) {
-		return String.format(
-				"당신은 회사의 베테랑 면접관입니다. 아래 자기소개서를 기반으로, 지원자의 역량과 잠재력을 파악하기 위한 날카로운 면접 질문 리스트를 생성해주세요.\n"
-				+ "질문은 다음 세 가지 유형을 반드시 포함해야 합니다.\n"
-				+ "1.경험 심층 질문: 주요 경험에 대해 STAR 기법을 활용한 핵심 질문과 그에 대한 꼬리 질문\n"
-				+ "2.약점/압박 질문: 내용의 논리적 허점이나 약점을 파고드는 질문\n"
-				+ "3.비전/기여도 질문: 회사에 어떻게 기여하고 함께 성장할 것인지 묻는 질문\n"
-				+ "출력 형식 가이드 : 진짜 딱 질문만 3개만들어주고 다른 어떤 부연 설명도 넣지마, 꼬리 질문은 문장에 이어서 해줘 따로 '*'표시하지 말고, 질문사이에 구분은 줄바꿈만하고 공백 넣고 줄바꿈 또하지마 "
-				+ "[자기 소개서 내용]\n"
-				+ originalContent);
-	}
-	
-	
-	private String aiFeedbackPrompt(String question, String answer) {
-		return String.format(
-				"당신은 20년 경력의 베테랑 면접관입니다. 당신이 제시했던 아래 [면접 질문]에 대해," 
-				+ "지원자가 [지원자 답변]과 같이 대답했습니다. 지원자의 답변을 날카롭고 구체적으로 분석하여,"
-				+ "다음 형식에 맞춰 피드백을 제공해주세요."
-				+ "피드백은 지원자가 실질적으로 답변을 개선하는 데 도움이 되도록 구체적인 예시와 함께 설명해주세요."
-				+ "[면접 질문]"
-				+ question
-				+ "[지원자 답변]"
-				+ answer
-				+ "[피드백 형식]"
-				+ "1. 총평:답변에 대한 전반적인 인상과 합격/불합격에 미칠 영향을 한두 문장으로 요약해주세요."
-				+ "2. 잘한 점: 구조적 완성도: 답변이 STAR(상황-과제-행동-결과) 기법에 따라 체계적으로 구성되었는지 평가해주세요."
-				+ "핵심 역량 어필: 답변을 통해 지원자의 어떤 역량(예: 문제 해결 능력, 주도성, 소통 능력 등)이 효과적으로 드러났는지 짚어주세요.\n"
-				+ "표현 및 전달력: 답변의 논리 전개가 명확하고, 사용된 어휘나 어조가 자신감 있고 긍정적인 인상을 주는지 평가해주세요."
-				+ "한문 장으로 해주세요"
-				+ "3. 개선할 점:"
-				+ "구체성 부족: \"열심히 했습니다\", \"좋은 결과를 얻었습니다\" 와 같이 추상적인 표현이 있다면, 이를 구체적인 수치나 객관적인 사실로 바꿀 수 있도록 예시를 들어 제안해주세요."
-				+ "논리적 허점: 주장의 근거가 부족하거나, 행동과 결과 사이의 인과관계가 명확하지 않은 부분을 지적하고 보완할 점을 설명해주세요."
-				+ "질문 의도 파악: 면접관의 질문 의도에서 벗어난 부분은 없는지, 혹은 더 강조했어야 할 포인트는 무엇인지 알려주세요."
-				+ "한문 장으로 해주세요"
-				+" [출력 형식]"
-				+ "각 항목들은 줄바꿈으로 구분좀 제대로 해줘 너의 답변이 그대로(줄바꿈, 띄어쓰기, 특수문자 강조표현등) 사용자에게 보여지는거야"
-				+ "그리고 전체 내용이 너무길어 16px 기준으로 5~6줄 정도로만 해줘, 1.너의 답변 \n 2. 너의답변 \n .. 이런형식으로 "
-				+ "줄바꿈을 html 코드로 해줄래?, 아니 *(아스트리카) 빼라고 ;;;"
-				);
-	}
 	
 }

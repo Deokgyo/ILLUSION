@@ -15,6 +15,7 @@
     
     <%-- 우리가 만든 CSS 파일들 --%>
     <link rel="stylesheet" href="./resources/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
     <link rel="stylesheet" href="./resources/css/top.css">
     <link rel="stylesheet" href="./resources/css/bottom.css">
     <link rel="stylesheet" href="./resources/css/recruiter/recruiterMain2.css">

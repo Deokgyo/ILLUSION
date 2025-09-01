@@ -61,4 +61,7 @@ public interface RecruiterMapper {
 	
 	// 기업 정보 들고오기 
 	public Map<String, String> getCompanyInfo(String member_id);
+	
+	// 스케줄러 사용해서 주기적으로 공고 마감 처리 
+	public void expiredRecruiteClose();
 }

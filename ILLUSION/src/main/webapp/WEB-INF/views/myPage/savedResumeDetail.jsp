@@ -56,17 +56,17 @@
 							<div class="profile-card-1">
 								<div class="profile-img">
 									<div class="profile-img">
-									    <c:choose>
-									        <c:when test="${not empty resume.resume_img}">
-									            <img src="${pageContext.request.contextPath}/resources/upload/${resume.resume_img}" 
-									                 alt="프로필 이미지" id="profilePreview">
-									        </c:when>
-									        <c:otherwise>
-									            <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" 
-									                 alt="기본 이미지" id="profilePreview">
-									        </c:otherwise>
-									    </c:choose>
-									</div>	
+								    <c:choose>
+								        <c:when test="${not empty resume.resume_img}">
+								            <img src="${pageContext.request.contextPath}/resources/upload/${resume.resume_img}" 
+								                 alt="프로필 이미지" id="profilePreview">
+								        </c:when>
+								        <c:otherwise>
+								            <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" 
+								                 alt="기본 이미지" id="profilePreview">
+								        </c:otherwise>
+								    </c:choose>
+								</div>
 								</div>
 								<div class="profile-info">
 									<div class="name">${resume.member_name}</div>
@@ -108,7 +108,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>${resume.additional_information != null ? resume.additional_information : "-"}</td>	
+										<td>${empty resume.additional_information  ? '-' : resume.additional_information}</td>	
 									</tr>
 								</tbody>
 							</table>
@@ -126,10 +126,10 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>${resume.company_name}</td>
-										<td>${resume.position}</td>
-										<td>${resume.occupation}</td>
-										<td>${resume.experience}</td>
+										<td>${empty resume.company_name ? '-' : resume.company_name}</td>
+										<td>${empty resume.position ? '-' : resume.position}</td>
+										<td>${empty resume.occupation ? '-' : resume.occupation}</td>
+										<td>${empty resume.experience ? '-' : resume.experience}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -145,7 +145,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>${resume.responsibilities != null ? resume.responsibilities : "-"}</td>
+										<td>${empty resume.responsibilities ? '-' : resume.responsibilities}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -160,7 +160,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>${resume.certificate != null ? resume.certificate : "-"}</td>
+										<td>${empty resume.certificate ? '-': resume.certificate }</td>
 									</tr>
 								</tbody>
 							</table>

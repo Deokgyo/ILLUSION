@@ -48,16 +48,21 @@ $(function() {
 	}
 
     
-    //서버에 메시지를 보내고 AI 답변을 받아오는 함수
-    function getAiResponse(userMessage) {
+    
+
+    function getAiResponse(messageText) {
         const $loadingBubble = $('<div class="chat-bubble bot typing"><span>.</span><span>.</span><span>.</span></div>');
         $chatMessages.append($loadingBubble);
         $chatArea.scrollTop($chatArea[0].scrollHeight);
 
+        const $submitButton = $inputForm.find('button[type="submit"]');
+        $submitButton.prop('disabled', true);
+        $messageInput.prop('disabled', true);
+
         $.ajax({
             type: 'POST',
             url: 'aiChat', 
-            data: { message: userMessage },
+            data: { message: messageText },
             dataType: 'json', 
             success: function(res) {
                 $loadingBubble.remove();
@@ -75,6 +80,10 @@ $(function() {
                 $loadingBubble.remove();
                 console.error("AJAX Error:", status, error); 
                 addMessage('죄송합니다. 서버와 통신 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'bot');
+            },
+            complete: function() {
+                $submitButton.prop('disabled', false);
+                $messageInput.prop('disabled', false);
             }
         });
     }
@@ -82,7 +91,6 @@ $(function() {
     // 기본 질문 클릭 시
     $('.suggested-questions a').on('click', function(e) {
         e.preventDefault();
-        // [삭제됨] 불필요한 프론트엔드 토큰 체크 로직
         const questionText = $(this).find('span').text();
         startConversation();
         addMessage(questionText, 'user');
@@ -94,9 +102,11 @@ $(function() {
         e.preventDefault();
         const messageText = $messageInput.val().trim();
         if (messageText === '') return;
+
         startConversation();
         addMessage(messageText, 'user');
         $messageInput.val('');
+        
         getAiResponse(messageText);
     });
 

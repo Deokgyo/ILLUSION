@@ -41,7 +41,9 @@
 			 , generated_cl_content
 			 , generated_char_count
 			 , generated_char_count_no_space
-			 , cl_type)			  
+			 , cl_type
+			 , original_cl_idx
+			 )			  
 	    VALUES (
 		  	  #{member_idx}
 		  	, #{title}
@@ -49,7 +51,9 @@
 		  	, #{aiResult}
 		  	, #{generated_char_count}
 		  	, #{generated_char_count_no_space}
-		  	, #{cl_type} )
+		  	, #{cl_type}
+		  	, #{original_cl_idx} 
+		  	)
 	</insert>
 	
 	<!-- 자소서 정보 가져오기 -->
@@ -88,6 +92,7 @@
 			   cl_idx
 			,  cl_title
 			,  company_name
+			,  original_cl_idx
 		  FROM cover_letter c
 		  JOIN member m ON m.member_idx = c.member_idx
 		 WHERE m.member_idx = #{member_idx}

@@ -31,36 +31,65 @@
           	</div>
             <div class="result-box">
             
-                <!-- 첨삭된 자소서일때만 출력 -->
-				<c:if test="${coverletter.cl_type eq 'CL002'}">
-					
-					<h3 style="text-align: center">원본자소서</h3>
-					<div class="result-meta">
-	                    <div class="char-count">
-	                        <i class="fa-solid fa-star"></i> 
-	                        <span>${originalCoverletter.generated_char_count}자 (공백 미포함 ${originalCoverletter.generated_char_count_no_space }자)</span>
-	                    </div>
-	                </div>
-					<textarea id="generated-text" readonly>${originalCoverletter.generated_cl_content }</textarea>
-				</c:if> 
+                <!-- CL001: 생성된 자소서 -->
+                <c:if test="${coverletter.cl_type eq 'CL001'}">
+                    <h3 style="text-align: center">생성된 자소서</h3>
+                    <div class="result-meta">
+                        <div class="char-count">
+                            <i class="fa-solid fa-star"></i> 
+                            <span>${coverletter.generated_char_count}자 (공백 미포함 ${coverletter.generated_char_count_no_space }자)</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="saveBtn" class="btn btn-outline-secondary" data-cl-idx=${coverletter.cl_idx }>저장</button>
+                            <button id="copyBtn" class="btn btn-yellow">복사</button>
+                        </div>
+                    </div>
+                    <textarea id="generated-text" readonly>${coverletter.generated_cl_content }</textarea>
+                </c:if>
                 
-                <br><br>
-				<hr>
-				<br>
-				<h3 style="text-align: center">수정된 자소서</h3>
-				<br><br>
-				
-                <div class="result-meta">
-                    <div class="char-count">
-                        <i class="fa-solid fa-star"></i> 
-                        <span>${coverletter.generated_char_count}자 (공백 미포함 ${coverletter.generated_char_count_no_space }자)</span>
+                <!-- CL002: 첨삭된 자소서 (원본 + 수정본) -->
+                <c:if test="${coverletter.cl_type eq 'CL002'}">
+                    <!-- 원본 자소서 -->
+                    <h3 style="text-align: center">원본 자소서</h3>
+                    <div class="result-meta">
+                        <div class="char-count">
+                            <i class="fa-solid fa-star"></i> 
+                            <span>${originalCoverletter.generated_char_count}자 (공백 미포함 ${originalCoverletter.generated_char_count_no_space }자)</span>
+                        </div>
                     </div>
-                    <div class="action-buttons">
-                        <button id="saveBtn" class="btn btn-outline-secondary"  data-cl-idx=${coverletter.cl_idx }>저장</button>
-                        <button id="copyBtn" class="btn btn-yellow">복사</button>
+                    <textarea id="original-text" readonly>${originalCoverletter.generated_cl_content }</textarea>
+                    
+                    <br><br><hr><br>
+                    
+                    <!-- 첨삭된 자소서 -->
+                    <h3 style="text-align: center">첨삭된 자소서</h3>
+                    <div class="result-meta">
+                        <div class="char-count">
+                            <i class="fa-solid fa-star"></i> 
+                            <span>${coverletter.generated_char_count}자 (공백 미포함 ${coverletter.generated_char_count_no_space }자)</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="saveBtn" class="btn btn-outline-secondary" data-cl-idx=${coverletter.cl_idx }>저장</button>
+                            <button id="copyBtn" class="btn btn-yellow">복사</button>
+                        </div>
                     </div>
-                </div>
-                <textarea id="generated-text" readonly>${coverletter.generated_cl_content }</textarea>
+                    <textarea id="generated-text" readonly>${coverletter.generated_cl_content }</textarea>
+                </c:if>
+                
+                <!-- 기타 타입: 일반 저장된 자소서 -->
+                <c:if test="${coverletter.cl_type ne 'CL001' and coverletter.cl_type ne 'CL002'}">
+                    <h3 style="text-align: center">저장된 자소서</h3>
+                    <div class="result-meta">
+                        <div class="char-count">
+                            <i class="fa-solid fa-star"></i> 
+                            <span>${coverletter.generated_char_count}자 (공백 미포함 ${coverletter.generated_char_count_no_space }자)</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="copyBtn" class="btn btn-yellow">복사</button>
+                        </div>
+                    </div>
+                    <textarea id="generated-text" readonly>${coverletter.generated_cl_content }</textarea>
+                </c:if>
                 
 				
                 

@@ -20,7 +20,7 @@
 		 LEFT JOIN common_code sta ON r.rec_status = sta.code
 		 LEFT JOIN common_code app ON a.apply_status = app.code
 		 LEFT JOIN common_code vie ON a.is_viewed = vie.code
-		WHERE member_idx = #{memberIdx}
+		WHERE a.member_idx = #{memberIdx}
 		ORDER BY a.apply_idx DESC
 		LIMIT #{startRow}, #{listLimit}
 	</select>

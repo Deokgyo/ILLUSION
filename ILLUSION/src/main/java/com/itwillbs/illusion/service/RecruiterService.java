@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -102,6 +103,12 @@ public class RecruiterService {
 	//미열람 이력서의 제목, 경력, 학력, 거주지 가져오기 
 	public List<Map<String, String>> selectResumeInfo(String member_id) {
 		return mapper.selectResumeInfo(member_id);
+	}
+	
+	
+	// 스케줄러 사용해서 주기적으로 공고 마감 처리 
+	public void expiredRecruiteClose() {
+		mapper.expiredRecruiteClose();
 	}
 	
 }
