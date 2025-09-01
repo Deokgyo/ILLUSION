@@ -164,6 +164,7 @@
 		    r.end_time,
 		    m.address_name,
 		    m.member_email,
+		    m.gender
 		    c.company_idx,
 		    c.ceo_name,
 		    c.company_name,

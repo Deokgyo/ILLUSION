@@ -26,6 +26,7 @@
 					,gender
 					,resume_birth
 					,recruiter_number
+					,company_idx
 					)
 			VALUES  (#{member_name}
 					,#{member_id}
@@ -40,6 +41,7 @@
 					,#{gender}
 					,#{resume_birth}
 					,#{recruiter_number}
+					,#{company_idx}
 					)
 					
 	</insert>
@@ -81,6 +83,23 @@
 		FROM member
 		WHERE member_id = #{member_id}
 	</select>
+	
+	<select id="getMemberCompanyInfoById">
+	   SELECT 
+	            m.member_idx
+			   ,m.member_name
+		       ,c.company_name
+		       ,m.member_id
+		       ,m.member_email
+		       ,m.address_name
+		       ,m.token
+		       ,typ.code_name as member_type
+		 FROM member m LEFT JOIN company c ON m.company_idx = c.company_idx
+    LEFT JOIN common_code typ ON typ.code = m.member_type
+		WHERE m.member_id = #{member_id}
+	</select>
+	
+	
 	
 	<select id="checkRecruiterNumber">
 	 SELECT COUNT(*)

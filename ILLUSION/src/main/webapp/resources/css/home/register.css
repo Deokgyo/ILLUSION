@@ -1,3 +1,12 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 500vh;
+    margin: 0;
+    background-color: var(--body-bg-color);
+}
+
+
 /* ===== 메인 브랜드 Section ===== */
 .main-brand-section {
 	width: 100%;
@@ -103,7 +112,9 @@
 
 /* ===== 회원가입 전체 박스 (흰색) ===== */
 .signup-form-box {
-	max-width: 470%;
+	width: 90%;           /* 화면 폭의 90% 내에서 유연하게 */
+  	max-width: 900px;     /* 최대 넓이 제한 */
+  	min-width: 320px; 
 	margin: 25px auto;
 	background: #fff;
 	border-radius: 14px;
@@ -112,7 +123,6 @@
 	padding: 38px 32px 28px 32px;
 	overflow: hidden;
 	position: relative;
-	width: 45%;
 }
 
 .signup-form-box::before {
@@ -136,7 +146,8 @@
 .form-row {
 	display: flex;
 	align-items: center;
-	margin-bottom: 12px;
+	gap: 10px;                  /* input과 span 간격 */
+ 	margin-bottom: 12px;   
 }
 
 .form-row label {
@@ -581,3 +592,4 @@ input#companyNumber,
 input#companyname{
 	margin-left: 10px;
 }
+

@@ -51,6 +51,10 @@ public class MemberService {
 	public MemberVO getMemberInfoById(String member_id) {
 		return mapper.getMemberInfoById(member_id);
 	}
+	
+	public MemberVO getMemberCompanyInfoById(String member_id) {
+		return mapper.getMemberCompanyInfoById(member_id);
+	}
 
 	@Transactional
 	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
@@ -83,11 +87,14 @@ public class MemberService {
         String encodedPassword = passwordEncoder.encode(rawPassword);
         member.setMember_pw(encodedPassword);
         
-        int memberInsertCount = mapper.insertMember(member);
         
         if (member.getMember_type().equals("MEM003")) { // 기업회원인 경우 회사 정보도 저장
         	companymapper.insertMemberCompany(company);
+        	member.setCompany_idx(company.getCompany_idx()); // 이 부분 수정 member에 Company_idx set
         }
+        
+        int memberInsertCount = mapper.insertMember(member);
+        
         return memberInsertCount > 0;
     }
 

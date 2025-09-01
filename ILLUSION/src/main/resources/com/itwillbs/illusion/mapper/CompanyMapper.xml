@@ -5,7 +5,7 @@
 
 <mapper namespace="com.itwillbs.illusion.mapper.CompanyMapper">
 
-	<insert id="insertMemberCompany">
+	<insert id="insertMemberCompany" useGeneratedKeys="true" keyProperty="company_idx">
 	INSERT INTO company
 				(company_name
 				,ceo_name

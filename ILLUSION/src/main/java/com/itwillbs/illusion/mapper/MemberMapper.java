@@ -30,6 +30,8 @@ public interface MemberMapper {
 	// 조영재
 	public MemberVO getMemberInfoById(String id);
 	
+	public MemberVO getMemberCompanyInfoById(String id);
+	
 	// 마이페이지 토큰 결제 (이대은)
     public void updateMemberTokens(@Param("memberIdx") int memberIdx, @Param("tokenAmount") int tokenAmount);
 
