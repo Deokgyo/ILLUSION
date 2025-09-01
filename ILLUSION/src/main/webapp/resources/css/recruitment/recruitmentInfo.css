@@ -55,6 +55,7 @@ body {
     border: 1px solid #dee2e6;
     border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .search-box input {

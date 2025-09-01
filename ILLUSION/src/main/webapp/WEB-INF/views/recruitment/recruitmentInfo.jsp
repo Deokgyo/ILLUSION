@@ -33,17 +33,21 @@
 	         		<p class="header-text"><strong>채용정보</strong></p>
 	            </div>
 	        <header class="search-header mt-4">
+	       		<div class="search-box">
+	                <input type="text" name="keyword" placeholder="검색어를 입력하세요" value="${param.keyword}">
+	                <button class="search-btn"><i class="fas fa-search"></i></button>
+	            </div>
 	        
-			<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
-			<%@ page import="com.itwillbs.illusion.vo.RecruitFilterVO" %>
-			<%
-			    RecruitFilterVO selectedFilters = (RecruitFilterVO) request.getAttribute("selectedFilters");
-			    ObjectMapper mapper = new ObjectMapper();
-			    String selectedFiltersJson = (selectedFilters != null) ? mapper.writeValueAsString(selectedFilters) : "{}";
-			%>
+				<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+				<%@ page import="com.itwillbs.illusion.vo.RecruitFilterVO" %>
+				<%
+				    RecruitFilterVO selectedFilters = (RecruitFilterVO) request.getAttribute("selectedFilters");
+				    ObjectMapper mapper = new ObjectMapper();
+				    String selectedFiltersJson = (selectedFilters != null) ? mapper.writeValueAsString(selectedFilters) : "{}";
+				%>
 			
-	        <form action="${pageContext.request.contextPath}/recruitmentInfo" method="get" id="filter-form"
-	        data-selected-filters='<%= selectedFiltersJson %>'>  
+	        	<form action="${pageContext.request.contextPath}/recruitmentInfo" method="get" id="filter-form"
+	        	data-selected-filters='<%= selectedFiltersJson %>'>  
 		            <div class="filter-button-wrapper">
 						<jsp:include page="/WEB-INF/views/recruitment/locationFilter.jsp" />
 						<jsp:include page="/WEB-INF/views/recruitment/occupationFilter.jsp" />

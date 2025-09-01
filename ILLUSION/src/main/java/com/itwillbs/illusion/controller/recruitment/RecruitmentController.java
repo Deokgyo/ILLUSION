@@ -54,6 +54,7 @@ public class RecruitmentController {
 	// 채용정보 페이지 이동
 	@GetMapping("recruitmentInfo")
 	public String recruitmentInfo(@ModelAttribute RecruitFilterVO filterVO,
+			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(defaultValue = "1") int pageNum,
 			Model model) {
 		

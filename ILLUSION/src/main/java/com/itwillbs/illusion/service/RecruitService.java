@@ -26,7 +26,6 @@ public class RecruitService {
         return mapper.homeSelectRecruitList(filterVO);
     }
 	
-
     public List<RecruitVO> selectRecruitList(RecruitFilterVO filterVO) {
         
         return mapper.selectRecruitList(filterVO);
