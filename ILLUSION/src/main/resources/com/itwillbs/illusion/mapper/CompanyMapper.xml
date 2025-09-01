@@ -17,7 +17,7 @@
 			   , #{ceo_name}
 			   , #{company_type}
 			   , #{company_estab_date}
-			   , <![CDATA[<img src="/illusion/resources/mypage_image/profile.png"></img>]]>
+			   , #{company_logo}
 			   )
 	</insert>
 

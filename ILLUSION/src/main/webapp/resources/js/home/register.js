@@ -348,7 +348,6 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		var member_type = $("#member_type").val();
-		g
 		if (member_type === 'MEM003' && !isBusinessNumberVerified ) {
 			alert("사업자등록번호를 인증해주세요");
 			return false;
