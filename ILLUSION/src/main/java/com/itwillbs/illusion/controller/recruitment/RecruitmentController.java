@@ -135,7 +135,7 @@ public class RecruitmentController {
 	        member_idx = service.selectMemberIdx(member_id);
 
 	        // 작성자 여부 판별
-	        boolean isAuthor = recruit.getRecruiter_member_idx() == member_idx;
+	        boolean isAuthor = recruit.getMember_idx() == member_idx;
 	        model.addAttribute("isAuthor", isAuthor);
 	        
 			// 모달에 넘겨줄 정보들
@@ -170,8 +170,7 @@ public class RecruitmentController {
 			, Principal principal) {
 		
 		System.out.println("멤버 idx 넘어오나.....");
-		System.out.println(apply.getMember_idx());
-		
+		System.out.println(apply);
 		
 		String realPath = req.getServletContext().getRealPath(virtualPath);
 		String subDir = createDirectories(realPath);

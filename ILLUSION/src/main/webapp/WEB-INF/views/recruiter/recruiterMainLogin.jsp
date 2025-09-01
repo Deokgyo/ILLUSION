@@ -144,7 +144,7 @@
 		                        거주지 : ${info.address }
 		                    </p>
 	                	</div>
-	                	<input type="button" class="gradient-btn" onclick="location.href='viewResume?resume_idx=${info.resume_idx}&member_idx=${info.member_idx}'" value="이력서 보기">
+	                	<input type="button" class="gradient-btn" onclick="location.href='viewResume?resume_idx=${info.resume_idx}&member_idx=${info.member_idx}&apply_idx=${info.apply_idx}'" value="이력서 보기">
 	       				</div>
 			    	</c:forEach>
             

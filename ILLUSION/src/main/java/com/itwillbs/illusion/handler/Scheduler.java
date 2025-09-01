@@ -17,8 +17,6 @@ public class Scheduler {
 		recruiterService.expiredRecruiteClose();
 	}
 	
-	// 게시글에 없지만,서버에 저장된 파일 삭제 하려면 .. 
-	// 서버에 저장된 파일명을 다들고오고, 디비에 파일 명도 다 들고와서 일일이 다 비교 작업...???? 
 	
 	
 }

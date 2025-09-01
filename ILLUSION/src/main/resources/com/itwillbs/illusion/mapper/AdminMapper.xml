@@ -272,7 +272,7 @@
 		  JOIN common_code c 
 		    ON r.rec_status = c.code
 		  JOIN member m 
-			ON m.member_idx = r.recruiter_member_idx
+			ON m.member_idx = r.member_idx
 		  JOIN company co 
 			ON co.company_idx = m.company_idx
 		 WHERE r.rec_status like #{status}

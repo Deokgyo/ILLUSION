@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RecruitVO {
 	private int recruit_idx; // 공고 idx
-	private int recruiter_member_idx; // 멤버 idx
+	private int member_idx; // 멤버 idx
 	private String occupation;	// 세부 직무 
 	private String location; // 근무 지역
 	private String experience; // 경력 요건 

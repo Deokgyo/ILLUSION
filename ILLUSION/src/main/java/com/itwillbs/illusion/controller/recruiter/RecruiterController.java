@@ -1,5 +1,6 @@
 package com.itwillbs.illusion.controller.recruiter;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.RecruiterService;
 import com.itwillbs.illusion.service.ResumeService;
+import com.itwillbs.illusion.util.SecurityUtil;
 import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.RecruitVO;
 import com.itwillbs.illusion.vo.ResumeVO;
@@ -58,7 +61,7 @@ public class RecruiterController {
 	public String recruiterMainLogin(Model model, Principal principal) {
 		// 현재 로그인된 아이디 가져오기 
 		String member_id = principal.getName();
-		
+		int member_idx = SecurityUtil.getLoginUserIndex();
 		// 채용중인 공고 개수 가져오기 
 		String RecruitmentCnt = service.getRecruitmentCnt(member_id);
 		model.addAttribute("RecruitmentCnt", RecruitmentCnt);
@@ -78,15 +81,19 @@ public class RecruiterController {
 		model.addAttribute("recruitmentSubjectDate", recruitmentSubjectDate);
 		
 		// 미열람 이력서 수 가져오기 
-		int unViewedCnt = service.selectUnViewedCnt(member_id);
+		int unViewedCnt = service.selectUnViewedCnt(member_idx);
 		model.addAttribute("unViewedCnt", unViewedCnt);
 		
 		// 총 지원자 수 가져오기 
 		int totalAppCnt = service.selectTotalAppCnt(member_id);
 		model.addAttribute("totalAppCnt", totalAppCnt);
 		
+	
+		
 		// 미 열람 이력서 제목, 경력, 학력, 거주지 가져오기 
-		List<Map<String,String>> resumeInfo = service.selectResumeInfo(member_id);
+		List<Map<String,String>> resumeInfo = service.selectResumeInfo(SecurityUtil.getLoginUserIndex());
+		System.out.println("안뜨냐");
+		System.out.println(resumeInfo);
 		model.addAttribute("resumeInfo", resumeInfo);
 		
 		return "recruiter/recruiterMainLogin"; 
@@ -94,14 +101,10 @@ public class RecruiterController {
 		
 	//이력서 상세 보기 
 	@GetMapping("viewResume")
-	public String viewResume(int resume_idx, int member_idx, Model model) {
-//			Map<String, Object> member = resumeService.selectMember(member_idx);
-//			model.addAttribute("member", member);
-//			Map<String, Object> resume = resumeService.selectResume(resume_idx);
-//			model.addAttribute("resume", resume);
-//			List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
-//			model.addAttribute("resume_exp_info_list", resumeExpInfoList);
+	public String viewResume(int resume_idx, int member_idx, Model model, int apply_idx) {
 		
+		// 열람 함으로 바꾸기 .. 
+		service.updateIsviewed(apply_idx);
 		
 		List<ResumeVO> resume = mypageService.savedResumeDetail(resume_idx);
 		model.addAttribute("resume", resume);
@@ -216,46 +219,17 @@ public class RecruiterController {
 		return "recruiter/recruiterRegistForm";
 	}
 	
-	String virtualPath = "/resources/upload/temp";
+	@Autowired
+	ServletContext servletContext;
+	
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")
 	public String recruiterRegistForm(RecruitVO recruit, Principal principal, HttpServletRequest req) {
-		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
-		System.out.println(recruit);
 		String member_id = principal.getName();
-		String context = recruit.getRecruit_context();
-		String realPath = req.getServletContext().getRealPath(virtualPath);
-//		System.out.println(realPath +"실제 경로");
-//		D:\workspace_spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ILLUSION\resources\ upload\temp실제 경로
-//		// 본문 내용에서 src 경로 추출해서 real로 수정해야함 
-//		// src 경로 추출하기 위한 정규식 
-
-		Pattern pattern = Pattern.compile("src=\"([^\"]+)\"");
-//		// 정규식을 바탕으로 본분 값에서 정규식에 매칭 되는 값 찾기 
-		Matcher matcher = pattern.matcher(context);
-		String imgUrl = matcher.group();
-		System.out.println("이미지 경로 가져오기" + imgUrl);
-		
-		Pattern filePattern = Pattern.compile("(\\d{4}/\\d{2}/\\d{2})/([0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12})_(.+)\\.([A-Za-z0-9]+)\r\n");
-		Matcher filematcher = filePattern.matcher(imgUrl);
-		String fileUrl = filematcher.group();
-		System.out.println("이게 진짠가");
-		System.out.println(fileUrl);
-//		
-//		while(matcher.find()) {
-////		<img src="/illusion/upload/temp/2025/08/31/f146cfe3-3433-4ab4-a623-a035a032c63e_스크린샷 2025-08-01 144023.png" style="width: 818.4px;">
-////		// 파일 이동 해야함 
-//		// 실제로 저장된 경로에서 파일을 이동 해야함 
-//		
-////		// temp를 real로 수정해야함..
-////		
-//		}
-		
 		
 		int insertCnt = service.insertRecruitment(recruit, member_id);
 		
-		
-		return "redirect:/recruiterList";
+		return insertCnt > 0 ? "redirect:/recruiterList" : "redirect:/error";
 	}
 	
 	

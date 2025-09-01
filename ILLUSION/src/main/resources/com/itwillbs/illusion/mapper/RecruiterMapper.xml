@@ -69,7 +69,7 @@
 		  JOIN common_code c 
 		    ON r.rec_status = c.code
 		 WHERE r.rec_status like #{status}
-		   AND recruiter_member_idx = ( SELECT member_idx
+		   AND member_idx = ( SELECT member_idx
 										  FROM member 
 									     WHERE member_id = #{member_id})
 	</select>
@@ -107,9 +107,9 @@
 		SELECT count(*)
 		  FROM recruit 
 		 WHERE rec_status = 'RECS01' 
-		 AND recruiter_member_idx = ( select member_idx
-										from member 
-									   where member_id = #{member_id})
+		 AND member_idx = ( select member_idx
+							  from member 
+							 where member_id = #{member_id})
 	</select>
 	
 	<!-- 공고 제목과 마감일 들고오기  -->
@@ -117,61 +117,55 @@
 		SELECT recruit_subject, end_date, recruit_idx
 		  FROM recruit 
 		 WHERE rec_status = 'RECS01' 
-		   AND recruiter_member_idx = ( SELECT member_idx
-										  FROM member 
-									     WHERE member_id = #{member_id} )
+		   AND member_idx = ( SELECT member_idx
+							  FROM member 
+						     WHERE member_id = #{member_id} )
 		 LIMIT 5;
 	</select>
 	
 	<!-- 미열람 이력서 수 가져오기  -->
 	<select id="selectUnViewedCnt">
-		 SELECT COUNT(*) AS total_unviewed
-		   FROM apply a
-		   JOIN recruit r ON a.recruit_idx = r.recruit_idx
-		  WHERE a.is_viewed = 'bol002'
-		    AND r.recruiter_member_idx = ( SELECT member_idx 
-											 FROM member 
-		                                    WHERE member_id = #{member_id});     
+		 SELECT count(*)
+		   FROM apply a 
+		   LEFT JOIN recruit r ON a.recruit_idx = r.recruit_idx
+		   LEFT JOIN resume res ON a.resume_idx = res.resume_idx -- resume_idx로 조인해서 resume 테이블 접근
+		   JOIN member m ON a.member_idx = m.member_idx
+		   JOIN resume_exp_info rex  on a.resume_idx = rex.resume_idx -- resume_idx
+		   JOIN common_code degree ON res.degree = degree.code
+		   JOIN common_code experience ON rex.experience = experience.code
+		  WHERE r.member_idx = #{member_idx} -- 이부분 컨트롤러에서 들고오는 값 대체 
+		    AND a.is_viewed = 'BOL002' -- 미열람 조건 
 	</select>
 	
 	<select id="selectTotalAppCnt">
 		SELECT IFNULL(SUM(app_count), 0) as app_count 
 		  FROM recruit 
-	     WHERE recruiter_member_idx = ( SELECT member_idx 
-								 		  FROM member 
-									     WHERE member_id = #{member_id});
+	     WHERE member_idx = ( SELECT member_idx 
+					 		  FROM member 
+						     WHERE member_id = #{member_id});
 	</select>
 	
+	<!--  -->
+	
+	<!-- 미열람 이력서 정보 가죠오기 -->
 	<select id="selectResumeInfo">
-		SELECT 
-			res.resume_idx,
-		    res.resume_title,
-		    m.address_name       AS address,
-		    degree.code_name     AS degree_name,
-		    exp.code_name        AS experience_name,
-		    res.major,
-		    m.member_idx
-		FROM apply a
-		JOIN recruit r 
-		    ON a.recruit_idx = r.recruit_idx
-		JOIN resume res
-		    ON a.resume_idx = res.resume_idx
-		JOIN member m
-		    ON a.member_idx = m.member_idx
-		LEFT JOIN common_code degree
-		    ON res.degree = degree.code
-		   AND degree.code_group_id = 'DEGREE'
-		LEFT JOIN resume_exp_info rei
-		    ON res.resume_idx = rei.resume_idx
-		LEFT JOIN common_code exp
-		    ON rei.experience = exp.code
-		   AND exp.code_group_id = 'EXPERIENCE'
-		WHERE a.is_viewed = 'bol002'
-		  AND r.recruiter_member_idx = (
-		        SELECT member_idx 
-		        FROM member 
-		        WHERE member_id = #{member_id}
-		  );
+		 SELECT res.resume_title -- 지원한 사람의 이력서 제목 
+	          , degree.code_name  as degree
+	          , res.major -- 지원자 전공 
+	          , SUBSTRING(m.address_name, 1, LOCATE('구', m.address_name)) as address -- 지원자의 주소 
+	          , experience.code_name as experience
+	          , m.member_idx
+	          , res.resume_idx
+	          , apply_idx
+		   FROM apply a 
+		   LEFT JOIN recruit r ON a.recruit_idx = r.recruit_idx
+		   LEFT JOIN resume res ON a.resume_idx = res.resume_idx -- resume_idx로 조인해서 resume 테이블 접근
+		   JOIN member m ON a.member_idx = m.member_idx
+		   JOIN resume_exp_info rex  on a.resume_idx = rex.resume_idx -- resume_idx
+		   JOIN common_code degree ON res.degree = degree.code
+		   JOIN common_code experience ON rex.experience = experience.code
+		  WHERE r.member_idx = #{member_idx} -- 이부분 컨트롤러에서 들고오는 값 대체 
+		    AND a.is_viewed = 'BOL002' -- 미열람 조건 
 	</select>
 	
 <!--  기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기  -->
@@ -187,7 +181,7 @@
 	 LEFT JOIN company c 
 		    ON c.company_idx = m.company_idx
      LEFT JOIN recruit r 
-		    ON r.recruiter_member_idx = m.member_idx
+		    ON r.member_idx = m.member_idx
 		 WHERE m.member_id = #{member_id}  
 	  GROUP BY m.member_name, m.member_email, c.company_name
 	</select>
@@ -228,9 +222,9 @@
 	<!-- 공고 수정 작업  -->
 	<update id="recruitModify">
 		UPDATE recruit
-		   SET recruiter_member_idx = ( SELECT member_idx 
-			                              FROM member 
-			                             WHERE member_id = #{member_id} )
+		   SET member_idx = ( SELECT member_idx 
+                              FROM member 
+                             WHERE member_id = #{member_id} )
 		     , occupation = #{recruit.occupation}
 		 	 , location = #{recruit.location}
 			 , experience = #{recruit.experience}
@@ -258,7 +252,7 @@
 <!-- 	// 공고 등록  -->
 	<insert id="insertRecruitment">
 		insert into recruit
-	 		 ( recruiter_member_idx, 
+	 		 ( member_idx, 
 	   		   occupation, 
        		   location, 
        		   experience,
