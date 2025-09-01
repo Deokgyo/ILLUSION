@@ -175,26 +175,29 @@
 			<hr class="terms-divider">
 			<div class="form-terms">
 				<div class="terms-title">이용 약관</div>
+					<div class="terms-row">
+						<label><input type="checkbox" id="agree-all"> 
+							<span class="agree-label2">전체 동의</span> 
+						</label>
+					</div>
 				<div class="terms-row">
-					<label><input type="checkbox" id="agree-all"> <span
-						class="agree-label2">전체 동의</span> </label>
+					<label><input type="checkbox" class="agree-each">
+						<span class="agree-label">이용 약관 동의 (필수)</span> 
+					</label> 
+						<a href="#" class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
 					<label><input type="checkbox" class="agree-each">
-						<span class="agree-label">이용 약관 동의 (필수)</span> </label> <a href="#"
-						class="agreeCheck">내용 보기</a>
-				</div>
-				<div class="terms-row">
-					<label><input type="checkbox" class="agree-each">
-						<span class="agree-label">개인정보 처리 동의 (필수)</span> </label> <a href="#"
-						class="agreeCheck">내용 보기</a>
+						<span class="agree-label">개인정보 처리 동의 (필수)</span> 
+					</label> 
+						<a href="#" class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
 					<label> <input type="checkbox" class="agree-each"
 						name="member_marketing_agreed" value="BOL001"> <span
 						class="agree-label">마케팅 동의 (선택)</span>
-					</label> <a href="#" class="agreeCheck">내용 보기</a> <input type="hidden"
-						name="member_marketing_agreed" value="BOL002" />
+					</label> <a href="#" class="agreeCheck">내용 보기</a> 
+						<input type="hidden" name="member_marketing_agreed" value="BOL002" />
 				</div>
 			</div>
 

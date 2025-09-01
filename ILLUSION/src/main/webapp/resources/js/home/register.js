@@ -348,12 +348,7 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		var member_type = $("#member_type").val();
-		console.log('isBusinessNumberVerified:', isBusinessNumberVerified);
-		console.log('isCheckId:', isCheckId);
-		console.log('isCheckPass:', isCheckPass);
-		console.log('isCheckPass2:', isCheckPass2);
-		console.log('isEmailVerified:', isEmailVerified);
-		console.log('회원가입 버튼 클릭 시 isBusinessNumberVerified:', isBusinessNumberVerified);
+		g
 		if (member_type === 'MEM003' && !isBusinessNumberVerified ) {
 			alert("사업자등록번호를 인증해주세요");
 			return false;

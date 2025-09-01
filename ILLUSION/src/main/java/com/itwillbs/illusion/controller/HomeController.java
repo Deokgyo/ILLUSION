@@ -92,6 +92,8 @@ public class HomeController {
 		System.out.println(member);
 		System.out.println(company);
 		
+		Map<String, Object> response = new HashMap<>();
+		
 		// 주소 합치기
 		member.setAddress_name(address_name1 + " " + address_name2);
 
