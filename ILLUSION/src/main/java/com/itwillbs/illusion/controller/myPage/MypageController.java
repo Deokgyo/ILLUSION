@@ -31,6 +31,7 @@ import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.ResumeService;
+import com.itwillbs.illusion.util.PrincipalRefresher;
 import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.ResumeVO;
@@ -53,6 +54,9 @@ public class MypageController {
 	MypageService mypageService;
 	@Autowired
 	CommonCodeService commonCodeService;
+	
+	@Autowired
+	PrincipalRefresher principalRefresher;
 	
 	/*이력서 등록*/
 	@GetMapping("resumeWrite")
@@ -163,15 +167,12 @@ public class MypageController {
 	        paramMap.put("gender", genderMap.getOrDefault(genderInput, null));
 	    }
 
-	    // 1. 기존 이미지 DB에서 조회
 	    String existingFilePath = resumeService.getProfilePicturePath(memberIdx);
 
-	    // 2. 업로드 경로 준비
 	    String realPath = req.getServletContext().getRealPath(virtualPath);
 	    String subDir = createDirectories(realPath);
 	    realPath += "/" + subDir;
 
-	    // 3. 파일 처리
 	    if (!file1.isEmpty()) {
 	        String fileName = UUID.randomUUID().toString() + "_" + file1.getOriginalFilename();
 	        String savedPath = subDir + "/" + fileName;
@@ -182,12 +183,13 @@ public class MypageController {
 	        }
 	        paramMap.put("profile_picture_url", savedPath);
 	    } else {
-	        // 업로드 안 하면 기존 이미지 유지
 	        paramMap.put("profile_picture_url", existingFilePath);
 	    }
 
-	    // 4. DB 업데이트
 	    resumeService.updateuserInfoEdit(paramMap);
+	    
+	    // 로그인 세션에 회원정보 수정 즉시 반영
+	    principalRefresher.refreshPrincipal();
 
 	    return "redirect:/myPage";
 	}

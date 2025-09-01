@@ -38,7 +38,7 @@
 		degree,
 		enroll_date,
 		graduation_date,
-		
+
 		additional_information
 		) VALUES (
 		#{member_idx},
@@ -51,7 +51,7 @@
 		#{degree},
 		#{enroll_date},
 		#{graduation_date},
-		
+
 		#{additional_information}
 		)
 	</insert>
@@ -75,16 +75,17 @@
 		#{responsibilities}
 		)
 	</insert>
-    
-    <select id="getExpForEdit" parameterType="map" resultType="com.itwillbs.illusion.vo.ResumeVO">
-        SELECT
-            *
-        FROM
-            resume_exp_info
-        WHERE resume_idx = #{resumeIdx}
-    </select>
-    
-    <!-- 이력서 수정용 SELECT -->
+
+	<select id="getExpForEdit" parameterType="map"
+		resultType="com.itwillbs.illusion.vo.ResumeVO">
+		SELECT
+		*
+		FROM
+		resume_exp_info
+		WHERE resume_idx = #{resumeIdx}
+	</select>
+
+	<!-- 이력서 수정용 SELECT -->
 	<select id="getResumeForEdit" parameterType="map"
 		resultType="com.itwillbs.illusion.vo.ResumeVO">
 		SELECT
@@ -134,16 +135,19 @@
 		SET
 		member_idx = #{member_idx},
 		resume_title = #{resume_title},
-		resume_img = #{resume_img},
+		resume_img =
+		#{resume_img},
 		school_name = #{school_name},
 		major = #{major},
-		grade = #{grade},
+		grade =
+		#{grade},
 		degree
 		= #{degree},
 		enroll_date = #{enroll_date},
 		graduation_date =
 		#{graduation_date},
-		additional_information = #{additional_information}
+		additional_information =
+		#{additional_information}
 		WHERE resume_idx = #{resume_idx}
 	</update>
 
@@ -246,13 +250,15 @@
 	<update id="changePasswd">
 		UPDATE member
 		SET member_pw = #{member_pw}
-		WHERE member_idx = #{member_idx}
+		WHERE
+		member_idx = #{member_idx}
 	</update>
 	<!-- 회원탈퇴 -->
 	<update id="deleteMember">
 		UPDATE member
 		SET member_status = 'MES002'
-		WHERE member_idx = #{member_idx}
+		WHERE
+		member_idx = #{member_idx}
 	</update>
 
 	<!-- 예상면접질문 -->
@@ -353,13 +359,16 @@
 		,occ.code_name as occupation
 		,e.certificate
 		,e.responsibilities
-		FROM resume r LEFT JOIN member m
+		FROM
+		resume r LEFT JOIN member m
 		ON
 		r.member_idx = m.member_idx
-		LEFT JOIN resume_exp_info e ON
+		LEFT JOIN
+		resume_exp_info e ON
 		r.resume_idx
 		= e.resume_idx
-		LEFT JOIN common_code deg ON deg.code =
+		LEFT JOIN common_code
+		deg ON deg.code =
 		r.degree
 		LEFT JOIN common_code pos ON pos.code =
 		e.position
@@ -400,12 +409,13 @@
 		question_count
 		,c.original_cl_idx
 
-		FROM cover_letter c LEFT JOIN common_code t ON t.code =
+		FROM cover_letter c LEFT JOIN
+		common_code t ON t.code =
 		c.cl_type
 		WHERE c.member_idx = #{memberIdx}
 		AND is_saved_to_mypage LIKE
 		"%BOL001%"  <!-- 저장 안함 공통코드 -->
-<!-- 		AND t.code NOT LIKE "%CL003%" 원본 자소서 인것은 빼기 -->
+		<!-- AND t.code NOT LIKE "%CL003%" 원본 자소서 인것은 빼기 -->
 		ORDER BY cl_idx DESC
 		LIMIT
 		#{startRow}, #{listLimit}
