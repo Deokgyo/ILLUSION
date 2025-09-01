@@ -22,4 +22,5 @@ public class CoverLetterVO {
 	private String is_saved_to_mypage;
 	private String cl_type;
 	private int question_count;
+	private int original_cl_idx;
 }
