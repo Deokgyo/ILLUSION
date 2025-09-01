@@ -59,7 +59,7 @@ public interface ResumeMapper {
 	int changePasswd(@Param("member_idx") int member_idx,
             @Param("member_pw") String member_pw);
 	/*회원탈퇴*/
-	int deleteMember(Map<String, Object> paramMap);
+	int deleteMember(int member_idx);
 	
 	/* 자기소개서 */
 	Map<String, Object> selectcl(int cl_idx);

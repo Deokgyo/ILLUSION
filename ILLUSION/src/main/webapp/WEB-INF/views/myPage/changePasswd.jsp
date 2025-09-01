@@ -87,7 +87,7 @@
 	           
 	            <!-- '비밀번호 변경' 버튼 영역 -->
 	            <div class="submit-area">
-	                <button type="submit" class="submit-btn">비밀번호 변경</button>
+	                <button type="submit" class="submit-btn" onclick="return confirmSubmit();">비밀번호 변경</button>
 	            </div>
 		
 	        </form>

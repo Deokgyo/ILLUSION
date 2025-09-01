@@ -49,6 +49,7 @@
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	</header>
 	<div class="page-container">
 
@@ -98,30 +99,45 @@
 							</tr>
 							<tr>
 								<th>이름</th>
-								<td><input type="text" name="member_name" class="bg-text" value="${member.member_name}"></td>
+								<td>
+									<input type="text" name="member_name" class="bg-text" value="${member.member_name}">
+								</td>
+								
 							</tr>
 							<tr>
 								<th>생년월일</th>
-								<td><input type="text" name="resume_birth" class="bg-text"
-									value="<fmt:formatDate value='${member.resume_birth}' pattern='yyyy-MM-dd' />" readonly ></td>
+								<td>
+								<input type="text" name="resume_birth" class="bg-text" value="<fmt:formatDate value='${member.resume_birth}' pattern='yyyy-MM-dd' />"  disabled="disabled">
+								<input type="hidden" name="resume_birth" value="<fmt:formatDate value='${member.resume_birth}' pattern='yyyy-MM-dd' />">
+								</td>
 							</tr>
 							<tr>
 								<th>성별</th>
 									 <td>
-       									 <input type="text" name="gender" class="bg-text" value="${member.gender}" readonly="readonly">
+       									 <input type="text" name="gender" class="bg-text" value="${member.gender}" disabled>
+       									 <input type="hidden" name="gender" value="${member.gender}">
    								 	</td>
 							</tr>
 							<tr>
 								<th>주소</th>
-								<td><input type="text" name="address_name" class="bg-text" value="${member.address_name }" ></td>
+								<td>
+								 <div style="display: flex; gap: 5px; align-items: center; width: 50%">
+						            <input type="text" id="postcode" name="address_num" class="bg-text" 
+						                   placeholder="우편번호" style="flex: 1;" 
+						                   value="${member.address_num}">
+						            <button type="button" class="edit-button" onclick="execDaumPostcode()">주소 찾기</button>
+						        </div>
+								<input type="text" id="roadAddress" name="address_name" class="bg-text input-row" placeholder="도로명 주소" value="${member.address_name}">
+<%-- 								<input type="text" id ="roadAddress" name="address_name" class="bg-text" value="${member.address_name }" > --%>
+								</td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td><input type="text" name="member_email" class="bg-text" value="${member.member_email }"></td>
+								<td><input type="email" name="member_email" class="bg-text" value="${member.member_email }" required></td>
 							</tr>
 						</table>
 						<div class="form-submit-container" style="text-align:center; margin-top:10px;">
-						    <button type="submit" class="edit-button">확인</button>
+						    <button type="submit" class="edit-button" onclick="return confirmSubmit();">확인</button>
 						    <button type="submit" class="edit-button">취소</button>
 							<hr>
 						</div>

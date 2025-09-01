@@ -113,10 +113,10 @@ public class ResumeService {
 		   	String encodedPw = passwordEncoder.encode(member_pw);
 	        mapper.changePasswd(member_idx, encodedPw);
 	    }
-	   public boolean deleteMember(Map<String, Object> paramMap) {
-		   int result = mapper.deleteMember(paramMap); // 삭제된 행 수 반환
-		    return result > 0; // 1 이상이면 삭제 성공
-	    }
+	// ResumeService.java
+	   public boolean deleteMember(int memberIdx) {
+	       return mapper.deleteMember(memberIdx) > 0; // Mapper 쿼리와 일치
+	   }
 	   
 	   /* 예상면접질문 */
 	   public List<Map<String, Object>> selectquestList() {
