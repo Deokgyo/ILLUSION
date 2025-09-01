@@ -29,4 +29,5 @@ public class MemberVO {
 	private String recruiter_member_email;
 	private int company_idx;
 	private String mail_auth_status;
+	private String company_name;
 }

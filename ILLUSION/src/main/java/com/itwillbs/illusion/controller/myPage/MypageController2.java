@@ -73,7 +73,9 @@ public class MypageController2 {
 		
 		String member_id = principal.getName();
 		
-		MemberVO member = memberService.getMemberInfoById(member_id);
+		MemberVO member = memberService.getMemberCompanyInfoById(member_id);
+		System.out.println("@#%#@%@#%@#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		System.out.println(member);
 		model.addAttribute("member", member);
 	
 		return "myPage/myPage";

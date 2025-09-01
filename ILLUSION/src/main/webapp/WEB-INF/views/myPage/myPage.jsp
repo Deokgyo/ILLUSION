@@ -65,7 +65,8 @@
 				        <button class="edit-btn" onclick="location.href='userInfoEdit'">회원정보수정</button>
 					</div>
 				    <div class="profile-info">
-				          <div class="main-username">${member.member_name }님</div>
+				          <div class="main-username">${member.member_name }${member.company_name }님</div>
+				          <div class="email">${member.member_type }</div>
 				          <div class="email">${member.member_email }</div>
 				          <div class="token">
 				          	<img src="${pageContext.request.contextPath}/resources/mypage_image/token.png">

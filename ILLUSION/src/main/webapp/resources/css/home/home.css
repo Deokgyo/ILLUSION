@@ -82,6 +82,7 @@
 }
 
 footer, header {
+	
 	min-height: 60px;
 	background: #fff;
 }
@@ -506,3 +507,4 @@ p {
     font-size: 0.9rem;
     color: var(--font-main-color);
 }
+
