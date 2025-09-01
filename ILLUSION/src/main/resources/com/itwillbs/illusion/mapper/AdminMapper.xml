@@ -87,6 +87,12 @@
 		</where>
 	</select>
 	
+	<!-- 입사지원자 수 조회 -->
+	<select id="getApplyCount">
+		SELECT count(*)
+		  FROM apply
+	</select>
+	
 	<!-- 회원 타입 조회 -->
 	<select id="getMemberType">
 		SELECT code, code_name

@@ -25,6 +25,8 @@ public interface AdminMapper {
 	
 	public int getMemberCount(@Param("keyword") String keyword); // 전체 회원 수 조회
 	
+	public int getApplyCount(); // 입사지원자 수 조회
+	
 	public List<Map<String, String>> getMemberType(); // 회원 타입 조회
 	
 	public List<Map<String, String>> getMemberStatus(); // 회원 상태 조회

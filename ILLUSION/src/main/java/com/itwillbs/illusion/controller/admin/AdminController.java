@@ -43,6 +43,7 @@ public class AdminController {
 		int recruitCnt = service.getRecruitCount(); // 공고 수 조회
 		int coverletterCnt = service.getCoverletterCount(); // 생성된 ai 자소서 조회
 		int getBoardCnt = service.getBoardCount(null); // 커뮤니티 게시글 수 조회
+		int applyCount = service.getApplyCount(); // 입사지원자 수 조회
 		
 		Map<String, Object> adminMainMap = new HashMap<String, Object>();
 		adminMainMap.put("applicantCnt", applicantCnt);
@@ -50,6 +51,7 @@ public class AdminController {
 		adminMainMap.put("recruitCnt", recruitCnt);
 		adminMainMap.put("coverletterCnt", coverletterCnt);
 		adminMainMap.put("boardCnt", getBoardCnt);
+		adminMainMap.put("applyCount", applyCount);
 		
 		
 		model.addAttribute("mainInfo", adminMainMap);

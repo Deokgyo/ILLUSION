@@ -54,6 +54,11 @@ public class AdminService {
 		return mapper.getMemberCount(keyword);
 	}
 	
+	// 입사지원자 수 조회
+	public int getApplyCount() {
+		return mapper.getApplyCount();
+	}
+	
 	// 회원 타입 조회
 	public List<Map<String, String>> getMemberType() {
 		return mapper.getMemberType();

@@ -101,11 +101,11 @@
 		            </div>
 		            <div class="stat-card">
 		                <div class="stat-info">
-		                    <span class="stat-title">매출액</span>
-		                    <p class="stat-value">5000 만원</p>
+		                    <span class="stat-title">입사 지원자 수</span>
+		                    <p class="stat-value">${mainInfo.applyCount }</p>
 		                </div>
 		                <div class="stat-icon">
-		                    <i class="bi bi-coin fs-1"></i>
+		                	<i class="bi bi-send-check fs-1"></i>
 		                </div>
 		            </div>
 		            <div class="stat-card">
@@ -123,7 +123,7 @@
 		                    <p class="stat-value">${mainInfo.boardCnt }건</p>
 		                </div>
 		                <div class="stat-icon">
-		                    <i class="bi bi-person-exclamation fs-1"></i>
+		                    <i class="bi bi-book-half fs-1"></i>
 		                </div>
 		            </div>
 		        </section>
