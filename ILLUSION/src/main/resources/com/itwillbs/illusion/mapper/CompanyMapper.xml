@@ -11,11 +11,13 @@
 				,ceo_name
 				,company_type
 				,company_estab_date
+				,company_logo -- 기본 이미지 경로 추가 (덕교)
 			   )
 		VALUES ( #{company_name}
 			   , #{ceo_name}
 			   , #{company_type}
 			   , #{company_estab_date}
+			   , <![CDATA[<img src="/illusion/resources/mypage_image/profile.png"></img>]]>
 			   )
 	</insert>
 
