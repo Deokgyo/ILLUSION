@@ -1,5 +1,13 @@
 package com.itwillbs.illusion.controller.recruiter;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystemException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +31,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.itwillbs.illusion.handler.recruiter.CodeGroups;
+import com.itwillbs.illusion.handler.recruiter.MoveAndWrite;
 import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.RecruiterService;
@@ -216,41 +225,13 @@ public class RecruiterController {
 		return "recruiter/recruiterRegistForm";
 	}
 	
-	String virtualPath = "/resources/upload/temp";
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")
 	public String recruiterRegistForm(RecruitVO recruit, Principal principal, HttpServletRequest req) {
-		System.out.println("여기다 이놈아 ~~~~~~~~~~~~~~");
-		System.out.println(recruit);
 		String member_id = principal.getName();
 		String context = recruit.getRecruit_context();
-		String realPath = req.getServletContext().getRealPath(virtualPath);
-//		System.out.println(realPath +"실제 경로");
-//		D:\workspace_spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ILLUSION\resources\ upload\temp실제 경로
-//		// 본문 내용에서 src 경로 추출해서 real로 수정해야함 
-//		// src 경로 추출하기 위한 정규식 
-
-		Pattern pattern = Pattern.compile("src=\"([^\"]+)\"");
-//		// 정규식을 바탕으로 본분 값에서 정규식에 매칭 되는 값 찾기 
-		Matcher matcher = pattern.matcher(context);
-		String imgUrl = matcher.group();
-		System.out.println("이미지 경로 가져오기" + imgUrl);
 		
-		Pattern filePattern = Pattern.compile("(\\d{4}/\\d{2}/\\d{2})/([0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12})_(.+)\\.([A-Za-z0-9]+)\r\n");
-		Matcher filematcher = filePattern.matcher(imgUrl);
-		String fileUrl = filematcher.group();
-		System.out.println("이게 진짠가");
-		System.out.println(fileUrl);
-//		
-//		while(matcher.find()) {
-////		<img src="/illusion/upload/temp/2025/08/31/f146cfe3-3433-4ab4-a623-a035a032c63e_스크린샷 2025-08-01 144023.png" style="width: 818.4px;">
-////		// 파일 이동 해야함 
-//		// 실제로 저장된 경로에서 파일을 이동 해야함 
-//		
-////		// temp를 real로 수정해야함..
-////		
-//		}
-		
+//		recruit.setRecruit_context(MoveAndWrite.moveAndRewrite(context));
 		
 		int insertCnt = service.insertRecruitment(recruit, member_id);
 		
