@@ -1,3 +1,5 @@
+
+
 /* 메인 컨텐츠를 화면 중앙에 정렬 */
 .center-content {
 	min-height: 60vh; /* 헤더/푸터 제외 영역 확보 */
@@ -82,9 +84,14 @@
 }
 
 footer, header {
-	
 	min-height: 60px;
 	background: #fff;
+}
+
+footer p,
+.footer-address p {
+    line-height: 1 !important;
+    margin-bottom: 4px !important;
 }
 
 /* ------------------------------ILLUSION 기능------------------------- */
@@ -507,4 +514,5 @@ p {
     font-size: 0.9rem;
     color: var(--font-main-color);
 }
+
 

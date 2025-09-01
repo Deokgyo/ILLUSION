@@ -100,28 +100,6 @@ public class HomeController {
 		// 기업 개인 상관 없이 회원 테이블에 정보 넣기
 		boolean result = memberService.insertMember(member, company);
 
-//		// 정보 넣는거 성공하면
-//		if (result) {
-//			MailAuthInfo mailAuthInfo = new MailAuthInfo();
-//			Map<String, String> param = new HashMap<>();
-//			param.put("email", member.getMember_email());
-//			memberService.updateMailAuthStatus(param);
-//
-//			// 근데 기업회원이면
-//			if (member.getMember_type().equals("MEM003")) {
-//				// 기업 테이블에 정보 넣기
-//				boolean companyResult = companyService.insertMemberCompany(company);
-//			} else {
-//				model.addAttribute("error", "회원가입 실패");
-//				return "redirect:/login";
-//			}
-//			return "redirect:/login";
-//			// 개인 회원 인서트 성공 했을때
-//		} else {
-//			model.addAttribute("error", "회원가입 실패");
-//			return "redirect:/login";
-//		}
-		
 	    // 서비스 호출 결과에 따라 분기 처리
 	    if (result) {
 	        Map<String, String> param = new HashMap<>();
