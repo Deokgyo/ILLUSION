@@ -115,4 +115,10 @@ public class RecruiterService {
 		mapper.expiredRecruiteClose();
 	}
 	
+	
+	// company_idx 가져오기 
+	public int selectCompany_idx(int member_idx) {
+		return mapper.selectCompany_idx(member_idx);
+	}
+	
 }

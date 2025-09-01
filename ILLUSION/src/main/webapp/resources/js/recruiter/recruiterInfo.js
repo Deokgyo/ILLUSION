@@ -1,5 +1,6 @@
   $(document).ready(function () {
 
+let data = [];
   const editableKeys = new Set(['담당자 이메일','기업 로고']);
 
   let editingKey = null; // 현재 편집중인 key
@@ -47,8 +48,8 @@ const grid = new gridjs.Grid({
       method: 'POST',
       dataType: 'json'
     }).then(res => {
-      // DB에 <img> 태그가 이미 들어 있으므로 그대로 반환
-      return Object.entries(res).map(([key, value]) => [key, value]);
+      data = Object.entries(res).map(([key, value]) => ({ key, value }));
+      return data.map(r => [r.key, r.value]);
     });
   },
   search: false, 
@@ -94,19 +95,47 @@ grid.on('ready', hideHeader);
   });
 
   // 파일 선택 시 로고 업데이트
-  document.getElementById('logoFile').addEventListener('change', (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
-    if (!file.type.startsWith('image/')) { alert('이미지 파일만 업로드하세요.'); return; }
+ document.getElementById('logoFile').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  const company_idx = $('input[name="company_idx"]').val();
+  
+  if (!file) return;
+  if (!file.type.startsWith('image/')) { 
+    alert('이미지 파일만 업로드하세요.'); 
+    return; 
+  }
 
-    const previewUrl = URL.createObjectURL(file);
-    const i = data.findIndex(r => r.key === '기업로고');
-    if (i >= 0) {
-      data[i].value = previewUrl;
-      grid.updateConfig({ data: data.map(r => [r.key, r.value]) }).forceRender();
+  const formData = new FormData();
+  formData.append('logo', file);
+  formData.append('company_idx', company_idx);
+	
+  $.ajax({
+    url: 'uploadCompanyLogo', // 서버에서 파일 저장 + DB 업데이트
+    method: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    dataType: "json",
+    success: function(res) {
+      if (res && res.logoUrl) {
+        // 그리드에 미리보기 반영
+        const i = data.findIndex(r => r.key === '기업 로고');
+        if (i >= 0) {
+          data[i].value = `<img src="${res.logoUrl}" style="max-width:100px;">`;
+          grid.updateConfig({ data: data.map(r => [r.key, r.value]) }).forceRender();
+        }
+      } else {
+        alert('업로드 실패');
+      }
+    },
+    error: function() {
+      alert('업로드 중 오류 발생');
+    },
+    complete: function() {
+      e.target.value = '';
     }
-    e.target.value = '';
   });
+});
 
   // 인풋 포커스 아웃 시 값 저장
   document.addEventListener('blur', (e) => {

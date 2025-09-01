@@ -20,6 +20,12 @@ public class CompanyService {
     	company.setCompany_logo("<img src='/illusion/resources/mypage_image/profile.png'>");
         return mapper.insertMemberCompany(company);
     }
+	
+	// 회사 로고 업데이트(덕교) 
+	public void updateCompanyLogo(int company_idx, String logoTag) {
+		mapper.updateCompanyLogo(company_idx, logoTag);
+	}
+	
 //	
 //	public boolean insertAddress(CompanyVo company) {
 //        return mapper.insertAddress(company);

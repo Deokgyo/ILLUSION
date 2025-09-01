@@ -20,5 +20,12 @@
 			   , #{company_logo}
 			   )
 	</insert>
-
+	<!-- 로고 업데이트((덕교) -->
+	<update id="updateCompanyLogo">
+		UPDATE company 
+		   SET company_logo = #{logoTag}
+		 WHERE company_idx = #{company_idx}
+	</update>
+	
+	
 </mapper>

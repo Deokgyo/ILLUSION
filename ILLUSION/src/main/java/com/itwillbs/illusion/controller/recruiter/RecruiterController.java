@@ -115,7 +115,11 @@ public class RecruiterController {
 	
 	// 기업 정보 수정으로 이동 
 	@GetMapping("recruiterInfo")
-	public String recruiterInfo() {
+	public String recruiterInfo(Model model) {
+		
+		int member_idx = SecurityUtil.getLoginUserIndex();
+		int company_idx = service.selectCompany_idx(member_idx);
+		model.addAttribute("company_idx", company_idx);
 		return "recruiter/recruiterInfo";
 	}
 	

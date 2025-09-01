@@ -83,7 +83,8 @@
 	                        <p>회사 이메일 : ${recruit.member_email }</p><br>
 	                    </div>
 	                    <div class="company-logo">
-	                        <img src="${pageContext.request.contextPath}/resources/image/logo_f5af7dd2.jpeg">
+	                    	${recruit.company_logo }
+<%-- 	                        <img src="${pageContext.request.contextPath}/resources/image/logo_f5af7dd2.jpeg"> --%>
 	                    </div>
 	                </div>
 	            </section>

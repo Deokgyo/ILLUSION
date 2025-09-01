@@ -25,7 +25,6 @@
 	</header>
 
 	<div class="page-container">
-
 		<main class="main-content">
 			<div class="page-title-header">
 				<p class="header-text">회원정보 수정 </p>
@@ -34,6 +33,7 @@
 				<div id="companyTable"></div>
 				<input type="file" id="logoFile" accept="image/*" style="display:none" />
 				</div>
+				<input type="hidden" name="company_idx" value="${company_idx}">
 		</main>
 	</div>
 

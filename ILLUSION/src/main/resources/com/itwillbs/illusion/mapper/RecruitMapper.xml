@@ -170,6 +170,7 @@
 		    c.company_name,
 		    cty.code_name AS company_type,
 		    c.company_estab_date,
+		    c.company_logo,
 		    r.preferred,
 		    r.apply_doc,
 		    r.apply_method,

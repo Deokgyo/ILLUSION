@@ -102,6 +102,13 @@
 		 WHERE member_id = #{member_id} 
 	</select>
 	
+	<!-- company_idx 가져오기 -->
+	<select id="selectCompany_idx">
+		select company_idx 
+		from member
+		where member_idx = #{member_idx}
+	</select>
+	
 	<!-- 채용중인 공고 개수 가져오기  -->
 	<select id="getRecruitmentCnt">
 		SELECT count(*)

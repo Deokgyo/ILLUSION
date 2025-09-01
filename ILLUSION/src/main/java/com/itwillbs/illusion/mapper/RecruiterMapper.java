@@ -65,4 +65,7 @@ public interface RecruiterMapper {
 	
 	// 스케줄러 사용해서 주기적으로 공고 마감 처리 
 	public void expiredRecruiteClose();
+	
+	// company_idx 가져오기 
+	public int selectCompany_idx(int member_idx);
 }

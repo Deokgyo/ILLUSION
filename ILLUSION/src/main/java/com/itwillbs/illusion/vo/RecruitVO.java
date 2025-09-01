@@ -60,7 +60,7 @@ public class RecruitVO {
     private String occupationName; // "소프트웨어 개발자"
     private String address_name; // 근무 지역
     private String member_email; // 회원 이메일
-    
+    private String company_logo; //회사 로고 
     
 //  ----------------------------------
 //    	채용 시작일, 마감일 날짜 관련 포맷팅  
