@@ -107,7 +107,7 @@
 						</div>
 
 						<div class="button-wrapper">
-							<button class="list-btn" onclick="location.href='savedResumeList';">목록</button>
+							<button class="list-btn" onclick="location.href='recruiterMainLogin';">목록</button>
 						</div>
 					</c:forEach>
 				</div>

@@ -299,11 +299,11 @@
              , m.member_id as 'writer'
              , co.company_name
 		  FROM recruit r 
-		  JOIN common_code c 
+		  left JOIN common_code c 
 		    ON r.rec_status = c.code
-		  JOIN member m 
+		  left JOIN member m 
 			ON m.member_idx = r.member_idx
-		  JOIN company co 
+		  left JOIN company co 
 			ON co.company_idx = m.company_idx
 		 WHERE r.rec_status like #{status}
 	</select>

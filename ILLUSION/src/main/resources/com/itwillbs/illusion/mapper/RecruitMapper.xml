@@ -164,6 +164,7 @@
 		    r.end_time,
 		    m.address_name,
 		    m.member_email,
+		    m.gender,
 		    c.company_idx,
 		    c.ceo_name,
 		    c.company_name,
@@ -220,10 +221,6 @@
 	</select>
 	
 	<insert id="insertApply">
-<!-- 	<selectKey keyProperty="apply_idx" resultType="int" order="BEFORE"> -->
-<!-- 	SELECT IFNULL(MAX(apply_idx), 0) + 1 -->
-<!-- 	  FROM apply -->
-<!-- 	</selectKey> -->
 	INSERT INTO apply
 		 ( member_idx
 		 , recruit_idx

@@ -13,6 +13,11 @@
 	object-fit: cover;
 }
 
+.input-row {
+  display: block;
+  width: 100%;
+  margin-top: 6px; /* input 사이 여백 */
+}
 .info-table {
 	border-collapse: collapse;
 	width: 100%;
