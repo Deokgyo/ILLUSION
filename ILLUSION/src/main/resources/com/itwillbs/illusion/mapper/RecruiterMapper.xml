@@ -98,7 +98,7 @@
 			 , m.member_name as '담당자 이름'
 			 , m.member_email as '담당자 이메일'
 		  FROM member m 
-		  JOIN company c ON c.member_idx = m.member_idx
+		  JOIN company c ON c.company_idx = m.company_idx
 		 WHERE member_id = #{member_id} 
 	</select>
 	
@@ -145,7 +145,13 @@
 						     WHERE member_id = #{member_id});
 	</select>
 	
-	<!--  -->
+	<!-- 미열람 이력서 조회할때 조회 했다고 바꾸기  -->
+	<select id="updateIsviewed">
+		UPDATE apply
+		   SET is_viewed = 'BOL001'
+		 WHERE apply_idx = #{apply_idx};
+	
+	</select>
 	
 	<!-- 미열람 이력서 정보 가죠오기 -->
 	<select id="selectResumeInfo">
