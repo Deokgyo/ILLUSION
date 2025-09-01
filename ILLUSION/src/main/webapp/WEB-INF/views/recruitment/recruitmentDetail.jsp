@@ -122,6 +122,18 @@
 	                        <p>지원자 수</p>
 	                        <span class="applicant-count">${recruit.app_count }명</span>
 	                    </div>
+	                    <div class="stat-card">
+	                        <p>성별 현황</p>
+							<canvas id="pieChart" width="140" height="140"></canvas>
+							<div class="gender-count">
+								<p>여성 : 19명</p>
+								<p>남성 : 12명</p>
+							</div>
+	                    </div>
+	                    <div class="stat-card">
+	                        <p>연봉별 현황</p>
+						<canvas id="barChart" width="230" height="230"></canvas>
+	                    </div>
 	                </div>
 	            </section>
 	        </main>
