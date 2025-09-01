@@ -13,10 +13,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +35,7 @@ import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MemberService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.ResumeService;
+import com.itwillbs.illusion.util.PrincipalRefresher;
 import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.ResumeVO;
@@ -53,6 +58,11 @@ public class MypageController {
 	MypageService mypageService;
 	@Autowired
 	CommonCodeService commonCodeService;
+	
+	@Autowired
+	PrincipalRefresher principalRefresher;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	/*이력서 등록*/
 	@GetMapping("resumeWrite")
@@ -142,7 +152,6 @@ public class MypageController {
 		List<CommonCodeVO> genderList = resumeService.getCodes("GENDER");
 		model.addAttribute("genderList", genderList);
 		
-		
 		return "myPage/userInfoEdit";
 	}
 	/*회원정보 수정 */
@@ -150,7 +159,8 @@ public class MypageController {
 	public String userInfoEdit(@RequestParam Map<String, Object> paramMap,
 	                           HttpSession session,
 	                           HttpServletRequest req,
-	                           @RequestParam("profile_picture_url") MultipartFile file1) {
+	                           @RequestParam("profile_picture_url") MultipartFile file1,
+	                           RedirectAttributes redirectAttributes) {
 
 	    // member_idx Integer 변환
 	    int memberIdx = Integer.parseInt(paramMap.get("member_idx").toString());
@@ -163,15 +173,12 @@ public class MypageController {
 	        paramMap.put("gender", genderMap.getOrDefault(genderInput, null));
 	    }
 
-	    // 1. 기존 이미지 DB에서 조회
 	    String existingFilePath = resumeService.getProfilePicturePath(memberIdx);
 
-	    // 2. 업로드 경로 준비
 	    String realPath = req.getServletContext().getRealPath(virtualPath);
 	    String subDir = createDirectories(realPath);
 	    realPath += "/" + subDir;
 
-	    // 3. 파일 처리
 	    if (!file1.isEmpty()) {
 	        String fileName = UUID.randomUUID().toString() + "_" + file1.getOriginalFilename();
 	        String savedPath = subDir + "/" + fileName;
@@ -182,13 +189,16 @@ public class MypageController {
 	        }
 	        paramMap.put("profile_picture_url", savedPath);
 	    } else {
-	        // 업로드 안 하면 기존 이미지 유지
 	        paramMap.put("profile_picture_url", existingFilePath);
 	    }
 
-	    // 4. DB 업데이트
 	    resumeService.updateuserInfoEdit(paramMap);
-
+	    
+	    // 로그인 세션에 회원정보 수정 즉시 반영
+	    principalRefresher.refreshPrincipal();
+	    
+	    redirectAttributes.addFlashAttribute("msg", "회원 정보가 수정되었습니다.");
+	    
 	    return "redirect:/myPage";
 	}
 
@@ -209,6 +219,7 @@ public class MypageController {
 		resumeService.changePasswd(member_idx, member_pw);
 		return "redirect:/myPage";
 	}
+	
 	/* 회원탈퇴 */
 	@GetMapping("deleteMember")
 	public String deleteMember(Model model, @RequestParam int member_idx) {
@@ -217,15 +228,40 @@ public class MypageController {
 		return "myPage/deleteMember";
 	}
 	@PostMapping("deleteMember")
-	public String deleteMember(@RequestParam Map<String, Object> paramMap, Model model) {
-	    boolean success = resumeService.deleteMember(paramMap);
+	public String deleteMember(@RequestParam int member_idx,
+	                           @RequestParam String member_id,
+	                           @RequestParam String member_pw,
+	                           HttpSession session,
+	                           RedirectAttributes redirectAttributes,
+	                           Model model
+	                           ) {
 
-	    if (success) {
-	        model.addAttribute("msg", "정상적으로 탈퇴되었습니다.");
-	    } else {
-	        model.addAttribute("msg", "탈퇴 실패: 아이디 또는 비밀번호를 확인하세요.");
+	    // 1. DB에서 회원 정보 조회
+	    Map<String, Object> user = resumeService.selectuserInfoEdit(member_idx);
+	    if (user == null) {
+	    	model.addAttribute("msg", "회원 정보가 존재하지 않습니다.");
+	        return "myPage/deleteMember";
 	    }
-	    return "home/login";
+
+	    String savedId = user.get("member_id").toString();
+	    String savedPw = user.get("member_pw").toString(); // 암호화된 비밀번호
+
+	    // 2. 아이디/비밀번호 검증
+	    if (!savedId.equals(member_id) || !passwordEncoder.matches(member_pw, savedPw)) {
+	        model.addAttribute("msg", "탈퇴 실패: 아이디 또는 비밀번호가 일치하지 않습니다.");
+	        return "myPage/deleteMember"; // redirect 없이 JSP 반환
+	    }
+	    // 3. 탈퇴 처리
+	    boolean success = resumeService.deleteMember(member_idx); // int 기반 메서드
+	    if (success) {
+	    	session.invalidate();
+	    	SecurityContextHolder.clearContext();
+	        redirectAttributes.addFlashAttribute("msg", "정상적으로 탈퇴되었습니다.");
+	        return "redirect:login";
+	    } else {
+	    	model.addAttribute("msg", "탈퇴 처리 중 오류가 발생했습니다.");
+	        return "myPage/deleteMember";
+	    }
 	}
 	private String createDirectories(String realPath) {
 		// Date 또는 LocalXXX 클래스 활용

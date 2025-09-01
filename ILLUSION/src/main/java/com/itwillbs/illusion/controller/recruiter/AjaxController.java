@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwillbs.illusion.service.CompanyService;
 import com.itwillbs.illusion.service.RecruiterService;
 import com.itwillbs.illusion.vo.RecruitVO;
 
@@ -30,6 +31,10 @@ public class AjaxController {
 	
 	@Autowired
 	RecruiterService service;
+	
+	@Autowired
+	CompanyService companyService;
+	
 	// 업로드 할 가상 경로 
 	String virtualPath = "/resources/upload/";
 	
@@ -59,11 +64,37 @@ public class AjaxController {
 		return companyInfoMap;
 	}
 	
-//	public List<RecruitVO> getRecruitmentList() {
-//		List<RecruitVO> recruitmentList = service.getRecruitmentList();
-//		return recruitmentList;
-//	}
-	
+	@PostMapping("uploadCompanyLogo") 
+	public Map<String, Object> uploadCompanyLogo(
+			@RequestParam("logo") MultipartFile file,
+			@RequestParam("company_idx") int company_idx,
+			HttpServletRequest req) {
+		
+	    Map<String, Object> result = new HashMap<>();
+		String realPath = req.getServletContext().getRealPath(virtualPath);
+		String subDir = createDirectories(realPath);
+		realPath += "/" + subDir;
+		
+	    try {
+	        // 1. 파일 저장
+	        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+	        file.transferTo(new File(realPath, fileName));
+	        String contextPath = req.getContextPath(); 
+	        String savePath = contextPath + virtualPath + subDir + "/" + fileName;
+//	        // 2. DB 업데이트
+	        String logoTag = "<img src='" + savePath + "'>";
+	        System.out.println("로고 태그 뭔데");
+	        System.out.println(logoTag);
+	        companyService.updateCompanyLogo(company_idx, logoTag);
+
+	        // 3. URL 반환
+	        result.put("logoUrl", savePath);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        result.put("error", "파일 업로드 실패");
+	    }
+	    return result;
+	}
 	
 	@PostMapping("imgUpload")
 	public Map<String,String> imgUpload(

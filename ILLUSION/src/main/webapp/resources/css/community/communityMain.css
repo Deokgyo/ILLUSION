@@ -144,6 +144,10 @@
     font-size: 13px;
     color: var(--font-sub-color);
 }
+
+.post-author img{
+	border-radius: 10px;
+}
 .post-content {
     flex: 1;
     display: flex;
@@ -156,8 +160,6 @@
     font-weight: 500;
     margin: 0;
     color: var(--font-main-color);
-}
-.post-title-wrapper {
 }
 
 .post-meta {

@@ -29,6 +29,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.post-author-profile img{
+	border-radius: 10px;
+}
+
 .post-title-area .author-name {
     font-size: 14px;
     font-weight: 600;
@@ -111,12 +116,14 @@
 .comment-item {
 	position: relative; 
     display: flex;
-    gap: 15px;
-    padding: 20px 0;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
     border-bottom: 1px solid #f0f0f0;
     box-shadow: var(--main-box-shadow);
     border-radius: 15px;
     margin-bottom: 20px;
+    overflow: hidden;
 }
 .comment-item:last-child {
     border-bottom: none;
@@ -143,20 +150,42 @@
 }
 
 .comment-author-profile { /* 게시글 프로필과 동일한 스타일 사용 */
-	margin-left: 15px;
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     border-radius: 50%;
     background-color: #f0f0f0;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
 }
+
+.comment-author-profile .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+.comment-content {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
 .comment-content .author-name {
     font-weight: 600;
+    margin-bottom: 5px;
 }
+
 .comment-content .comment-text {
-    margin-top: 5px;
+    margin: 5px 0 0 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* 페이지네이션 */

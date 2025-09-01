@@ -39,19 +39,24 @@ public class AdminService {
 		return mapper.getCoverletterCount();
 	}
 	
-	// 커뮤니티 게시글 수 조회
-	public int getBoardCount() {
-		return mapper.getBoardCount();
+	// 커뮤니티 게시글 수 조회 (검색 기능 포함)
+	public int getBoardCount(String keyword) {
+		return mapper.getBoardCount(keyword);
 	}
 	
-	// 회원 정보 조회
-	public List<Map<String, String>> getMember(int startRow, int listLimit){
-		return mapper.getMember(startRow, listLimit);
+	// 회원 정보 조회 (검색 기능 포함)
+	public List<Map<String, String>> getMember(String keyword, int startRow, int listLimit){
+		return mapper.getMember(keyword, startRow, listLimit);
 	}
 
-	// 전체 회원 수 조회
-	public int getMemberCount() {
-		return mapper.getMemberCount();
+	// 전체 회원 수 조회 (검색 기능 포함)
+	public int getMemberCount(String keyword) {
+		return mapper.getMemberCount(keyword);
+	}
+	
+	// 입사지원자 수 조회
+	public int getApplyCount() {
+		return mapper.getApplyCount();
 	}
 	
 	// 회원 타입 조회
@@ -79,9 +84,9 @@ public class AdminService {
 		mapper.deleteMember(member_idx);
 	}
 	
-	// 게시글 리스트 조회
-	public List<Map<String, String>> getBoardList(int startRow, int listLimit) {
-		return mapper.getBoardList(startRow, listLimit);
+	// 게시글 리스트 조회 (검색 기능 포함)
+	public List<Map<String, String>> getBoardList(String keyword, int startRow, int listLimit) {
+		return mapper.getBoardList(keyword, startRow, listLimit);
 	}
 	
 	// 게시글 삭제

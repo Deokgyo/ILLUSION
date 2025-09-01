@@ -257,7 +257,8 @@ $(document).ready(function() {
 		$('#companyTab').removeClass('selected');
 		$(this).addClass('selected');
 		$('#companyBox').fadeOut(120);
-
+		
+		$('.form-row').addClass('personal').removeClass('corporate');
 		// 성별, 생년월일 보이기
 		$('#gender').show();
 		$('#birthHide').show();
@@ -268,17 +269,14 @@ $(document).ready(function() {
 
 		// 대표자명 숨기기 및 입력란 초기화
 		$('#company').hide();
-		$('#companyname').removeAttr('required');
 		$('#companyname').val('');
 
 		// 설립일 숨기기 및 입력란 초기화
 		$('#compdate').hide();
-		$('#comdates').removeAttr('required');
 		$('#comdates').val('');
 
 		// 기업형태 숨기기 및 required 제거
 		$('#companytypes').hide();
-		$('#compantype').removeAttr('required');
 	});
 	
 	// 기업회원 클릭 시
@@ -291,13 +289,10 @@ $(document).ready(function() {
 		$('#companyBox').fadeIn(120);
 		resetFormInputs();
 
+		$('.form-row').addClass('corporate').removeClass('personal');
 		// 성별, 생년월일 숨김
 		//		$('#genderHide').hide();
 		$('#birthHide').hide();
-
-		// 실제 select, input 요소에 필수 속성 제거
-		$('#gender').removeAttr('required');
-		$('#birth').removeAttr('required');
 
 		// 이름(개인명) -> 기업명으로 라벨 및 placeholder 변경
 		$('label[for="username"]').text('기업명');
@@ -310,11 +305,9 @@ $(document).ready(function() {
 
 		// 설립일(ddl) 보이기 및 required 설정
 		$('#compdate').show();
-		$('#comdates').attr('required', 'required');
 
 		// 기업형태(ddl) 보이기 및 required 설정
 		$('#companytypes').show();
-		$('#compantype').attr('required', 'required');
 	});
 
 
@@ -355,12 +348,6 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		var member_type = $("#member_type").val();
-		console.log('isBusinessNumberVerified:', isBusinessNumberVerified);
-		console.log('isCheckId:', isCheckId);
-		console.log('isCheckPass:', isCheckPass);
-		console.log('isCheckPass2:', isCheckPass2);
-		console.log('isEmailVerified:', isEmailVerified);
-		console.log('회원가입 버튼 클릭 시 isBusinessNumberVerified:', isBusinessNumberVerified);
 		if (member_type === 'MEM003' && !isBusinessNumberVerified ) {
 			alert("사업자등록번호를 인증해주세요");
 			return false;

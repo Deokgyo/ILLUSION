@@ -1,13 +1,6 @@
 package com.itwillbs.illusion.controller.recruiter;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystemException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +30,7 @@ import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.RecruiterService;
 import com.itwillbs.illusion.service.ResumeService;
+import com.itwillbs.illusion.util.SecurityUtil;
 import com.itwillbs.illusion.vo.CommonCodeVO;
 import com.itwillbs.illusion.vo.RecruitVO;
 import com.itwillbs.illusion.vo.ResumeVO;
@@ -67,7 +62,7 @@ public class RecruiterController {
 	public String recruiterMainLogin(Model model, Principal principal) {
 		// 현재 로그인된 아이디 가져오기 
 		String member_id = principal.getName();
-		
+		int member_idx = SecurityUtil.getLoginUserIndex();
 		// 채용중인 공고 개수 가져오기 
 		String RecruitmentCnt = service.getRecruitmentCnt(member_id);
 		model.addAttribute("RecruitmentCnt", RecruitmentCnt);
@@ -87,15 +82,19 @@ public class RecruiterController {
 		model.addAttribute("recruitmentSubjectDate", recruitmentSubjectDate);
 		
 		// 미열람 이력서 수 가져오기 
-		int unViewedCnt = service.selectUnViewedCnt(member_id);
+		int unViewedCnt = service.selectUnViewedCnt(member_idx);
 		model.addAttribute("unViewedCnt", unViewedCnt);
 		
 		// 총 지원자 수 가져오기 
 		int totalAppCnt = service.selectTotalAppCnt(member_id);
 		model.addAttribute("totalAppCnt", totalAppCnt);
 		
+	
+		
 		// 미 열람 이력서 제목, 경력, 학력, 거주지 가져오기 
-		List<Map<String,String>> resumeInfo = service.selectResumeInfo(member_id);
+		List<Map<String,String>> resumeInfo = service.selectResumeInfo(SecurityUtil.getLoginUserIndex());
+		System.out.println("안뜨냐");
+		System.out.println(resumeInfo);
 		model.addAttribute("resumeInfo", resumeInfo);
 		
 		return "recruiter/recruiterMainLogin"; 
@@ -103,14 +102,10 @@ public class RecruiterController {
 		
 	//이력서 상세 보기 
 	@GetMapping("viewResume")
-	public String viewResume(int resume_idx, int member_idx, Model model) {
-//			Map<String, Object> member = resumeService.selectMember(member_idx);
-//			model.addAttribute("member", member);
-//			Map<String, Object> resume = resumeService.selectResume(resume_idx);
-//			model.addAttribute("resume", resume);
-//			List<Map<String, Object>> resumeExpInfoList = resumeService.selectResumeExpInfoList(resume_idx);
-//			model.addAttribute("resume_exp_info_list", resumeExpInfoList);
+	public String viewResume(int resume_idx, int member_idx, Model model, int apply_idx) {
 		
+		// 열람 함으로 바꾸기 .. 
+		service.updateIsviewed(apply_idx);
 		
 		List<ResumeVO> resume = mypageService.savedResumeDetail(resume_idx);
 		model.addAttribute("resume", resume);
@@ -121,7 +116,11 @@ public class RecruiterController {
 	
 	// 기업 정보 수정으로 이동 
 	@GetMapping("recruiterInfo")
-	public String recruiterInfo() {
+	public String recruiterInfo(Model model) {
+		
+		int member_idx = SecurityUtil.getLoginUserIndex();
+		int company_idx = service.selectCompany_idx(member_idx);
+		model.addAttribute("company_idx", company_idx);
 		return "recruiter/recruiterInfo";
 	}
 	
@@ -225,18 +224,17 @@ public class RecruiterController {
 		return "recruiter/recruiterRegistForm";
 	}
 	
+	@Autowired
+	ServletContext servletContext;
+	
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")
 	public String recruiterRegistForm(RecruitVO recruit, Principal principal, HttpServletRequest req) {
 		String member_id = principal.getName();
-		String context = recruit.getRecruit_context();
-		
-//		recruit.setRecruit_context(MoveAndWrite.moveAndRewrite(context));
 		
 		int insertCnt = service.insertRecruitment(recruit, member_id);
 		
-		
-		return "redirect:/recruiterList";
+		return insertCnt > 0 ? "redirect:/recruiterList" : "redirect:/error";
 	}
 	
 	

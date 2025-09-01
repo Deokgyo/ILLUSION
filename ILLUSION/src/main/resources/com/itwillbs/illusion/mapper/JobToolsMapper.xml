@@ -92,6 +92,7 @@
 			   cl_idx
 			,  cl_title
 			,  company_name
+			,  original_cl_idx
 		  FROM cover_letter c
 		  JOIN member m ON m.member_idx = c.member_idx
 		 WHERE m.member_idx = #{member_idx}

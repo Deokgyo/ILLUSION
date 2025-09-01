@@ -17,6 +17,7 @@
          , b.cmt_count
          , m.member_id
          , m.member_name
+         , m.profile_picture_url
       FROM board b
       JOIN member m ON b.member_idx = m.member_idx
     <where>
@@ -54,6 +55,7 @@
 			  , m.member_idx
 			  , member_id
 			  , member_name
+			  , m.profile_picture_url
 		   FROM board b
 		   JOIN member m ON b.member_idx = m.member_idx
 		  WHERE board_idx = #{board_idx}
@@ -141,7 +143,8 @@
 		 SELECT 
 		 		cmt_idx
 		 	  ,	cmt_content
-		      , member_id	    
+		      , member_id
+		      , profile_picture_url	    
 		   FROM comment c 
 		   JOIN member m ON c.member_idx = m.member_idx
 		  WHERE c.board_idx = #{board_idx} 

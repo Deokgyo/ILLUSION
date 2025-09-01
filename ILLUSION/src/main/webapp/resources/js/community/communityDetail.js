@@ -136,10 +136,14 @@ $(function() {
         let result = '';
         if (comments && comments.length > 0) {
             comments.forEach((e) => {
+                console.log('-----------' +  e); 
                 result += `
                     <div class="comment-item">
                         <div class="comment-author-profile">
-                            <i class="fa-solid fa-user fa-lg" style="color:#ccc;"></i>
+                            ${e.profile_picture_url && e.profile_picture_url !== 'null' ? 
+                                `<img src="${contextPath}/resources/upload/${e.profile_picture_url}" alt="프로필 이미지" class="profile-img">` : 
+                                `<img src="${contextPath}/resources/mypage_image/profile.png" alt="기본 프로필" class="profile-img">`
+                            }
                         </div>
                         <div class="comment-content">
                             <div class="author-name">${e.member_id}</div>

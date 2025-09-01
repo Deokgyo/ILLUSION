@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RecruitVO {
 	private int recruit_idx; // 공고 idx
-	private int recruiter_member_idx; // 멤버 idx
+	private int member_idx; // 멤버 idx
 	private String occupation;	// 세부 직무 
 	private String location; // 근무 지역
 	private String experience; // 경력 요건 
@@ -58,7 +58,9 @@ public class RecruitVO {
 	private String rec_status; // 공고 상태 
     private String locationName;   // "서울특별시 강남구"
     private String occupationName; // "소프트웨어 개발자"
-    
+    private String address_name; // 근무 지역
+    private String member_email; // 회원 이메일
+    private String company_logo; //회사 로고 
     
 //  ----------------------------------
 //    	채용 시작일, 마감일 날짜 관련 포맷팅  

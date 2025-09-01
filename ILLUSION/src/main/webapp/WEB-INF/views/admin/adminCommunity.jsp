@@ -69,30 +69,15 @@
 	         	    <p class="header-text"><strong>게시판 관리목록</strong></p>
 	             </div>
 		
-		        <!-- 2. 필터 및 검색 바 -->
-<!-- 		        <div class="control-bar"> -->
-<!-- 		            <div class="filters"> -->
-<!-- 		                <div class="filter-group view-options"> -->
-<!-- 		                    <select name="view-count" id="view-count"> -->
-<!-- 		                        <option value="10">10</option> -->
-<!-- 		                        <option value="30">30</option> -->
-<!-- 		                        <option value="50">50</option> -->
-<!-- 		                    </select> -->
-<!-- 		                    <span>건씩 보기</span> -->
-<!-- 		                </div> -->
-<!-- 		                <div class="filter-group"> -->
-<!-- 		                    <span class="filter-title">게시글 성격</span> -->
-<!-- 		                    <label><input type="radio" name="user-type" value="all" checked> 전체</label> -->
-<!-- 		                    <label><input type="radio" name="user-type" value="personal"> 면접후기</label> -->
-<!-- 		                    <label><input type="radio" name="user-type" value="corporate"> 직무QnA</label> -->
-<!-- 		                    <label><input type="radio" name="user-type" value="admin"> 자유</label> -->
-<!-- 		                </div> -->
-<!-- 		            </div> -->
-<!-- 		            <div class="search-box"> -->
-<!-- 		                <input type="text" placeholder="제목, 작성자 기준으로 검색"> -->
-<!-- 		                <button type="button">🔍</button> -->
-<!-- 		            </div> -->
-<!-- 		        </div> -->
+		        <!-- 2. 검색 바 -->
+		        <div class="control-bar">
+		            <div class="search-box">
+		            	<form method="get" action="adminCommunity">
+		                	<input type="text" name="keyword" placeholder="게시글 제목, 작성자, 게시글 유형으로 검색" value="${keyword}">
+		                	<button type="submit">🔍</button>
+		                </form>
+		            </div>
+		        </div>
 		
 		        <!-- 3. 회원 목록 테이블 -->
 		        <div class="table-wrapper">
@@ -110,7 +95,7 @@
 		                <tbody>
 		                <c:forEach var="board" items="${boardInfo}" varStatus="status">
 		                	<tr>
-		                        <td>${status.index + 1 }</td>
+		                        <td>${(pageInfo.pageNum - 1) * 10 + status.index + 1}</td>
 		                        <td>${board.board_type }</td>
 		                        <td>${board.board_title }</td>
 		                        <td>${board.member_id }</td>
@@ -133,6 +118,9 @@
 				    <c:if test="${pageInfo.pageNum > 1}">
 				    	<c:url var="pageUrl" value="adminCommunity">
 				    		<c:param name="pageNum" value="1"></c:param>
+				    		<c:if test="${keyword != null and keyword != ''}">
+				    			<c:param name="keyword" value="${keyword}"></c:param>
+				    		</c:if>
 				    	</c:url>
 				    	<a href="${pageUrl}">&laquo;</a>
 				    </c:if>
@@ -141,6 +129,9 @@
 				    <c:if test="${pageInfo.startPage > 1 }">
 				    	<c:url var="pageUrl" value="adminCommunity">
 							<c:param name="pageNum" value="${pageInfo.pageNum - 10}"></c:param>
+							<c:if test="${keyword != null and keyword != ''}">
+								<c:param name="keyword" value="${keyword}"></c:param>
+							</c:if>
 						</c:url>
 						<a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">&lsaquo;</a>
 				    </c:if>
@@ -149,6 +140,9 @@
 				    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 					    <c:url var="pageUrl" value="adminCommunity">
 					        <c:param name="pageNum" value="${i}" />
+					        <c:if test="${keyword != null and keyword != ''}">
+					        	<c:param name="keyword" value="${keyword}"></c:param>
+					        </c:if>
 					    </c:url>
 					    <a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">${i}</a>
 					</c:forEach>
@@ -157,6 +151,9 @@
 					<c:if test="${pageInfo.endPage < pageInfo.maxPage}">
 				    	<c:url var="pageUrl" value="adminCommunity">
 							<c:param name="pageNum" value="${pageInfo.pageNum + 10 > pageInfo.maxPage ? pageInfo.maxPage : pageInfo.pageNum + 10}"></c:param>
+							<c:if test="${keyword != null and keyword != ''}">
+								<c:param name="keyword" value="${keyword}"></c:param>
+							</c:if>
 						</c:url>
 						<a href="${pageUrl}" class="${i == pageInfo.pageNum ? 'active' : ''}">&rsaquo;</a>
 					</c:if>
@@ -165,6 +162,9 @@
 				    <c:if test="${pageInfo.pageNum < pageInfo.maxPage}">
 				    	<c:url var="pageUrl" value="adminCommunity">
 				    		<c:param name="pageNum" value="${pageInfo.maxPage }"></c:param>
+				    		<c:if test="${keyword != null and keyword != ''}">
+				    			<c:param name="keyword" value="${keyword}"></c:param>
+				    		</c:if>
 				    	</c:url>
 		    		    <a href="${pageUrl}">&raquo;</a>
 				    </c:if>

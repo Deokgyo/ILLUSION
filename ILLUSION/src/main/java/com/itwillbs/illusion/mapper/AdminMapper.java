@@ -19,11 +19,13 @@ public interface AdminMapper {
 	
 	public int getCoverletterCount(); // 생성된 ai 자소서 수 조회
 	
-	public int  getBoardCount(); // 커뮤니티 게시글 수 조회 
+	public int  getBoardCount(@Param("keyword") String keyword); // 커뮤니티 게시글 수 조회 
 	
-	public List<Map<String, String>> getMember(@Param("startRow") int startRow, @Param("listLimit") int listLimit); // 회원 정보 조회
+	public List<Map<String, String>> getMember(@Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit); // 회원 정보 조회
 	
-	public int getMemberCount(); // 전체 회원 수 조회
+	public int getMemberCount(@Param("keyword") String keyword); // 전체 회원 수 조회
+	
+	public int getApplyCount(); // 입사지원자 수 조회
 	
 	public List<Map<String, String>> getMemberType(); // 회원 타입 조회
 	
@@ -35,7 +37,7 @@ public interface AdminMapper {
 
 	public void deleteMember(int member_idx); // 회원 삭제
 	
-	public List<Map<String, String>> getBoardList(@Param("startRow") int startRow, @Param("listLimit") int listLimit); // 게리글 리스트 조회
+	public List<Map<String, String>> getBoardList(@Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit); // 게리글 리스트 조회
 	
 	public List<Map<String, String>> getCommonCodeList(@Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit); // 공통 코드 리스트 조회
 	

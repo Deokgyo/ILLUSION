@@ -16,8 +16,16 @@ public class CompanyService {
 	
 	// 회사 정보 넣는거 회사 테이블 
 	public boolean insertMemberCompany(CompanyVo company) {
+		//기본 로고 넣기 (덕교)
+    	company.setCompany_logo("<img src='/illusion/resources/mypage_image/profile.png'>");
         return mapper.insertMemberCompany(company);
     }
+	
+	// 회사 로고 업데이트(덕교) 
+	public void updateCompanyLogo(int company_idx, String logoTag) {
+		mapper.updateCompanyLogo(company_idx, logoTag);
+	}
+	
 //	
 //	public boolean insertAddress(CompanyVo company) {
 //        return mapper.insertAddress(company);

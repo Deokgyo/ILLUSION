@@ -72,6 +72,13 @@
           <li>문의: illusion.com@naver.com / 02-0000-0000</li>
         </ol>
       </div>
+      
+
+   <c:if test="${not empty msg}">
+    <script type="text/javascript">
+        alert("${msg}");
+    </script>
+</c:if>
 		<form action="deleteMember" id="withdrawForm" class="form" method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		    <input type="hidden" name="member_idx" value="${selectuserInfoEdit.member_idx}">

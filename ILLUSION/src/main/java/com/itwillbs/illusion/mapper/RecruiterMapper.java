@@ -51,17 +51,21 @@ public interface RecruiterMapper {
 	public Map<String, String> getRecruiterInfo(String member_id);
 	
 	// 미 열람 이력서 수 가져오기 
-	public int selectUnViewedCnt(String member_id) ;
-	
+	public int selectUnViewedCnt(int member_idx) ;
+	// 미열람 이력서 상세 보기 클릭시 열람 함으로 바꾸기 
+	public void updateIsviewed(int apply_idx);
 	// 총 지원자수 가져오기 
 	public int selectTotalAppCnt(String member_id);
 	
 	//미 열람 이력서의 제목, 경력, 학력, 거주지 가져오기 
-	public List<Map<String, String>> selectResumeInfo(String member_id);
+	public List<Map<String, String>> selectResumeInfo(int member_idx);
 	
 	// 기업 정보 들고오기 
 	public Map<String, String> getCompanyInfo(String member_id);
 	
 	// 스케줄러 사용해서 주기적으로 공고 마감 처리 
 	public void expiredRecruiteClose();
+	
+	// company_idx 가져오기 
+	public int selectCompany_idx(int member_idx);
 }

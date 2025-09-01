@@ -226,7 +226,7 @@
 							<div class="form-group">
 								<label>자격증(선택)</label> <input type="text" name="certificate"
 									placeholder="보유중인 자격증을 입력하세요" autocomplete="off"
-									value="${resume.certificate }">
+									value="${exp.certificate }">
 							</div>
 						</div>
 

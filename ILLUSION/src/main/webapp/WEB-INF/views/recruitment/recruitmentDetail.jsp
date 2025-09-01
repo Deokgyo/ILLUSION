@@ -79,18 +79,19 @@
 	                        <p>대표자명 : ${recruit.ceo_name }</p>
 	                        <p>기업 형태 : ${recruit.company_type }</p>
 	                        <p>설립일 : ${recruit.company_estab_date }</p>
-	                        <p>기업 주소 : ${recruit.full_address }</p>
-	                        <p>회사 이메일 : ${recruit.recruiter_member_email }</p><br>
+	                        <p>기업 주소 : ${recruit.address_name }</p>
+	                        <p>회사 이메일 : ${recruit.member_email }</p><br>
 	                    </div>
 	                    <div class="company-logo">
-	                        <img src="https://i.ibb.co/L5kQV9j/illusion-logo.png" alt="Illusion Logo">
+	                    	${recruit.company_logo }
+<%-- 	                        <img src="${pageContext.request.contextPath}/resources/image/logo_f5af7dd2.jpeg"> --%>
 	                    </div>
 	                </div>
 	            </section>
 	            
 	            <h3 class="section-title">근무지 위치</h3>
 				<div id="map" style="width: 500px; height: 400px;"
-				data-address="${recruit.full_address}" data-name="${recruit.company_name }">
+				data-address="${recruit.address_name}" data-name="${recruit.company_name }">
 				</div>
 
 	            <section class="info-section">

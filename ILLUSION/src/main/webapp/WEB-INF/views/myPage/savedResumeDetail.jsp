@@ -165,9 +165,6 @@
 								</tbody>
 							</table>
 						</div>
-						
-
-
 						<div class="button-wrapper">
 							<button class="list-btn" onclick="history.back()">목록</button>
 						</div>

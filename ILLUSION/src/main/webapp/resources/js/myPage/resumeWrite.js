@@ -10,7 +10,7 @@ flatpickr("#enroll_date", {
     dateFormat: "Y-m-d",
     locale: "ko",
     clickOpens: true,
-    allowInput: true,
+    allowInput: false,
     defaultDate: null,
     onChange: function(selectedDates, dateStr, instance) {
         instance.input.value = dateStr; // 선택된 날짜를 input.value에 반영
