@@ -15,12 +15,16 @@
 		m.address_name,
 		c.code_name AS gender,
 		m.member_email
-		FROM member m
+		FROM
+		member m
 		JOIN common_code c ON m.gender = c.code
-		JOIN common_code_group g ON c.code_group_id = g.code_group_id
-		LEFT JOIN company c2 ON m.company_idx = c2.company_idx
+		JOIN common_code_group
+		g ON c.code_group_id = g.code_group_id
+		LEFT JOIN company c2 ON
+		m.company_idx = c2.company_idx
 		WHERE g.code_group_id = 'GENDER'
-		AND m.member_id = #{member_id}
+		AND
+		m.member_id = #{member_id}
 	</select>
 	<!--이력서 작성하기 -->
 	<insert id="insertResume" parameterType="map"
@@ -222,7 +226,7 @@
 	</select>
 
 
-
+	<!-- 회원정보 수정 -->
 	<update id="updateuserInfoEdit" parameterType="map">
 		UPDATE member
 		SET
@@ -239,6 +243,7 @@
 		resume_birth = #{resume_birth}
 		WHERE member_idx = #{member_idx}
 	</update>
+	<!-- 프로필파일 들고오기 -->
 	<select id="getProfilePicturePath" resultType="String"
 		parameterType="int">
 		SELECT profile_picture_url
@@ -260,6 +265,13 @@
 		WHERE
 		member_idx = #{member_idx}
 	</update>
+	<!-- 이메일 중복체크 -->
+    <select id="isEmailExists" parameterType="string" resultType="int">
+        SELECT COUNT(*) 
+        FROM member 
+        WHERE member_email = #{email}
+    </select>
+
 
 	<!-- 예상면접질문 -->
 	<select id="selectquestList" resultType="map">

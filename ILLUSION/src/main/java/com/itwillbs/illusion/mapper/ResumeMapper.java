@@ -54,6 +54,10 @@ public interface ResumeMapper {
 	
 	String getProfilePicturePath(int memberIdx);
 	
+	/*이메일 중복체크*/
+	int isEmailExists(String email);
+	
+	
 	
 	/*비밀번호 변경*/
 	int changePasswd(@Param("member_idx") int member_idx,
