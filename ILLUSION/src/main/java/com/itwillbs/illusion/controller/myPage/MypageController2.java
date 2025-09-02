@@ -42,7 +42,6 @@ import com.itwillbs.illusion.vo.CoverLetterVO;
 import com.itwillbs.illusion.vo.MemberVO;
 import com.itwillbs.illusion.vo.PageInfo;
 import com.itwillbs.illusion.vo.QuestionVO;
-import com.itwillbs.illusion.vo.RecruitFilterVO;
 import com.itwillbs.illusion.vo.ResumeVO;
 import com.itwillbs.illusion.vo.ScrapVO;
 
@@ -74,8 +73,6 @@ public class MypageController2 {
 		String member_id = principal.getName();
 		
 		MemberVO member = memberService.getMemberCompanyInfoById(member_id);
-		System.out.println("@#%#@%@#%@#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		System.out.println(member);
 		model.addAttribute("member", member);
 	
 		return "myPage/myPage";
