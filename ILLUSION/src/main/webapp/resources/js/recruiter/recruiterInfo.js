@@ -1,7 +1,7 @@
   $(document).ready(function () {
 
 let data = [];
-  const editableKeys = new Set(['담당자 이메일','기업 로고']);
+  const editableKeys = new Set(['기업 로고']);
 
   let editingKey = null; // 현재 편집중인 key
 
@@ -23,7 +23,7 @@ const grid = new gridjs.Grid({
         }
 
         // 편집 모드 - 담당자 이메일
-        if (key === editingKey && key === '담당자 이메일') {
+        if (key === editingKey) {
           return gridjs.html(
             `<input type="text" class="edit-input" value="${cell}" data-key="${key}"/>`
           );

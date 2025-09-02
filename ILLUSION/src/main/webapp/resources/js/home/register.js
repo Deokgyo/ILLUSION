@@ -61,7 +61,7 @@ $(document).ready(function() {
 				isCheckId = false;
 				return;
 			}
-			const regex = /^[A-Za-z](?=.*[0-9?!@])[A-Za-z0-9?!@]{3,19}$/;
+			const regex = /^[A-Za-z](?=.*[0-9_])[A-Za-z0-9_]{3,19}$/;
 			///^[A-Za-z](?=.*[0-9])(?=.*[?!@])(?=.*[A-Za-z])[A-Za-z0-9?!@]{3,19}$/;  영문, 숫자, 특수문자 모두 포함
 			// /^[A-Za-z][A-Za-z0-9?!@]{3,19}$/; // 꼭 포함은 아니고 허용
 
@@ -175,10 +175,18 @@ $(document).ready(function() {
 	// 이메일 인증
 	$("#email-btn").click(function() {
 		const emailVal = $("#email").val().trim();
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 이메일 정규식
+		
 		if (emailVal === "") {
-			alert("이메일을 입력하세요.");
-			return;
-		}
+	        alert("이메일을 입력하세요.");
+	        return;
+   		}
+   		if (!emailRegex.test(emailVal)) {
+	        alert("올바른 이메일 형식이 아닙니다.");
+	        return;
+   		}
+   		
+   		$("#email-btn").prop("disabled", true); // 버튼 비활성화
 
 		$.ajax({
 			type: "POST",
@@ -191,9 +199,9 @@ $(document).ready(function() {
 				} else {
 					alert("인증번호 발송에 실패했습니다.");
 				}
+				 $("#email-btn").prop("disabled", false);
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				console.error('Error Details:', jqXHR, textStatus, errorThrown);
 				alert("서버와 통신 중 오류가 발생했습니다.");
 			}
 		});
@@ -314,11 +322,17 @@ $(document).ready(function() {
 	// 사업자등록번호 인증
 	$('#btncompany').click(function() {
 		const reg_num = $("#companyNumber").val();
+		const regNumRegex = /^\d{10}$/; // 숫자 10자리 정규식[4]
 
 		if (!reg_num) {
 			alert('사업자등록번호를 입력해주세요.');
 			return false;
 		}
+		if (!regNumRegex.test(reg_num)) {
+	        alert('사업자등록번호는 숫자 10자리를 입력해주세요.');
+	        $('#companyNumber').focus();
+        	return false;
+    }
 
 		$.ajax({
 			url: 'checkRecruiterNumber',
@@ -326,15 +340,12 @@ $(document).ready(function() {
 			data: { recruiter_number: reg_num }, 
 			dataType: 'json', 
 			success: function(data) {
-				console.log("사업자등록번호 인증 Ajax 콜백 진입", data);
 				if (data.duplicate) { 
 					alert('이미 등록된 사업자등록번호입니다.');
 					$('#companyNumber').focus();
 					isBusinessNumberVerified = false;
 				} else {
 					isBusinessNumberVerified = true;
-					console.log("isBusinessNumberVerified:", isBusinessNumberVerified);
-					console.log("사업자 인증 후 isBusinessNumberVerified:", isBusinessNumberVerified);
 					alert('사업자번호 인증 성공');
 				}
 			},
@@ -346,6 +357,23 @@ $(document).ready(function() {
 
 	$("#register-btn").click(function(e) {
 		e.preventDefault();
+		var form = document.getElementById("registerForm");
+		
+		if (!customValidation()) {
+			return false;
+		}
+		    // HTML5 폼 기본 유효성 검사 수행
+		if (!form.checkValidity()) {
+			form.reportValidity();
+			return false; // 유효하지 않으면 제출 중단
+		}
+		
+
+		form.submit();
+	});
+
+
+	function customValidation() {	
 
 		var member_type = $("#member_type").val();
 		if (member_type === 'MEM003' && !isBusinessNumberVerified ) {
@@ -354,11 +382,11 @@ $(document).ready(function() {
 		}
 
 		if (!isCheckId) {
-			alert("아이디를 확인해주세요.");
+			alert("아이디를 입력해주세요.");
 			return false;
 		}
 		if (!isCheckPass) {
-			alert("비밀번호를 확인해주세요.");
+			alert("비밀번호를 입력해주세요.");
 			return false;
 		}
 		if (!isCheckPass2) {
@@ -369,11 +397,7 @@ $(document).ready(function() {
 			alert("이메일 인증을 해주세요.");
 			return false;
 		}
-		
-		console.log('가입');
-		
-		// 모든 유효성 통과 시 폼 제출
-		$("#registerForm").submit();
-	});
+		 return true;
+	}
 
 }); //ready

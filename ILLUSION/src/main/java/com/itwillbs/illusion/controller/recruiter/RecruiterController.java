@@ -120,6 +120,7 @@ public class RecruiterController {
 		int member_idx = SecurityUtil.getLoginUserIndex();
 		int company_idx = service.selectCompany_idx(member_idx);
 		model.addAttribute("company_idx", company_idx);
+		model.addAttribute("member_idx", member_idx);
 		return "recruiter/recruiterInfo";
 	}
 	
@@ -146,7 +147,9 @@ public class RecruiterController {
 	@GetMapping("recruitDelete") 
 	public String recruitDelete(int recruit_idx) {
 		boolean isDelete = service.recruitDelete(recruit_idx);
-		return "redirect:/recruiterList";
+		boolean memType = SecurityUtil.getLoginUserType().equals("MEM001");
+		// 관리자가 삭제했을시 리다이렉트 경로
+		return memType ? "redirect:/adminRecruitment" : "redirect:/recruiterList";
 	}
 	
 	// 공고 수정 버튼 누르고 공고 수정 페이지로 이동함 

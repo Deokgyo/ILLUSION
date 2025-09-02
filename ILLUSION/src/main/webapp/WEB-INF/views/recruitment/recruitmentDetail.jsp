@@ -47,10 +47,14 @@
 						<button type="button" class="bookmark-btn ${activeClass}" data-recruit-idx="${recruit.recruit_idx}">
 						    <i class="fa-regular fa-bookmark"></i>
 						</button>
-	                    <button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
-	                    <c:if test="${isAuthor}">
-	                    	<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow" id="job-apply-btn">수정하기<i class="fa-solid fa-paper-plane"></i></a>
-	                    </c:if>
+	                    <c:choose>
+	                    	<c:when test="${isAuthor}">
+	                    		<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow" id="job-apply-btn">수정하기<i class="fa-solid fa-paper-plane"></i></a>
+	                    	</c:when>
+	                    	<c:otherwise>
+			                    <button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
+	                    	</c:otherwise>
+	                    </c:choose>
 	                </div>
 	            </section>
 	
