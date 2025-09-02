@@ -22,31 +22,7 @@ function execDaumPostcode() {
 	    }
 	});
 
-let emailValid = false;	
-function validateEmail(input) {
-    const email = input.value.trim();
-    const msg = document.getElementById("emailMsg");
 
-    if(email === "") {
-        msg.textContent = "";
-        emailValid = false;
-        return;
-    }
-
-    fetch("/illusion/checkEmail?email=" + encodeURIComponent(email))
-        .then(res => res.text())
-        .then(data => {
-            if(data.trim() === "duplicate") {
-                msg.textContent = "이미 사용중인 이메일입니다.";
-                msg.style.color = "red";
-                emailValid = false;
-            } else {
-                msg.textContent = "사용 가능한 이메일입니다.";
-                msg.style.color = "green";
-                emailValid = true;
-            }
-        });
-}
 function confirmSubmit() {
     const name = document.querySelector("input[name='member_name']").value.trim();
     const postcode = document.getElementById("postcode").value.trim();
@@ -85,4 +61,38 @@ function clearAddress() {
     document.getElementById("roadAddress").value = "";
     const jibun = document.getElementById("jibunAddress");
     if(jibun) jibun.value = "";
+}
+
+let emailValid = false;	
+function validateEmail(input) {
+    const email = input.value.trim();
+    const msg = document.getElementById("emailMsg");
+
+    if(email === "") {
+        msg.textContent = "";
+        emailValid = false;
+        return;
+    }
+        // 1. 이메일 형식 체크
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!regex.test(email)) {
+        msg.textContent = "올바른 이메일 형식이 아닙니다.";
+        msg.style.color = "red";
+        emailValid = false;
+        return;
+    }
+
+    fetch("/illusion/checkEmail?email=" + encodeURIComponent(email))
+        .then(res => res.text())
+        .then(data => {
+            if(data.trim() === "duplicate") {
+                msg.textContent = "이미 사용중인 이메일입니다.";
+                msg.style.color = "red";
+                emailValid = false;
+            } else {
+                msg.textContent = "사용 가능한 이메일입니다.";
+                msg.style.color = "green";
+                emailValid = true;
+            }
+        });
 }
