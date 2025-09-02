@@ -22,6 +22,7 @@
 					,address_name
 					,member_type
 					,member_status
+					,member_signup_date
 					,member_marketing_agreed
 					,gender
 					,resume_birth
@@ -37,6 +38,7 @@
 					,#{address_name}
 					,#{member_type}
 					,#{member_status}
+					,now()
 					,#{member_marketing_agreed}
 					,#{gender}
 					,#{resume_birth}
@@ -52,6 +54,12 @@
 	   WHERE member_id = #{member_id}
 	</select>
 	
+	<select id="countByEmail" >
+    SELECT COUNT(*)
+      FROM member
+     WHERE member_email = #{email}
+    </select>
+    
 	<insert id="insertMailAuthInfo">
 		INSERT INTO mail_auth_info
 		VALUES (#{email},

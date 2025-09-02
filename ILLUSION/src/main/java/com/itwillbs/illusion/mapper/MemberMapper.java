@@ -23,6 +23,8 @@ public interface MemberMapper {
 	
 	public int deleteMailAuthInfo(MailAuthInfo mailAuthInfo);
 	
+	public int countByEmail(String email);
+	
 	public boolean insertCompanyMember(MemberVO member);
 	
 	public int checkRecruiterNumber(String recruiterNumber); //사업자 중복체크
@@ -36,5 +38,8 @@ public interface MemberMapper {
     public void updateMemberTokens(@Param("memberIdx") int memberIdx, @Param("tokenAmount") int tokenAmount);
 
     public Integer selectMemberTokens(int memberIdx);
+
+	public boolean isEmailExist(String email);
+
 	
 }
