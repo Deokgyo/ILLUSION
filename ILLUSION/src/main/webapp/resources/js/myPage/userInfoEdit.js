@@ -10,7 +10,7 @@ function execDaumPostcode() {
 }
 	const fileInput = document.getElementById('profileFileInput');
 	const previewImg = document.getElementById('profilePreview');
-
+ 
 	fileInput.addEventListener('change', function() {
 	    const file = this.files[0];
 	    if (file) {
@@ -49,10 +49,7 @@ function confirmSubmit() {
         return false;
     }
         // 이메일 중복 체크
-    if(!emailValid) {
-        alert("이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.");
-        return false;
-    }
+
 
     return confirm("수정하시겠습니까?");
 }
