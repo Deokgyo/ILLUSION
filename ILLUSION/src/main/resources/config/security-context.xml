@@ -20,6 +20,7 @@
         <!-- 순서가 매우 중요합니다! 구체적인 경로를 먼저, 넓은 범위를 나중에 작성해야 합니다. -->
 
         <intercept-url pattern="/resources/**" access="permitAll" /> 
+        <intercept-url pattern="/upload/**" access="permitAll" /> 
         <intercept-url pattern="/" access="permitAll" />           <!-- 메인 페이지는 모두 허용 -->
 <!--         <intercept-url pattern="/login" access="permitAll" /> -->
 		<intercept-url pattern="/login" access="isAnonymous()" />
