@@ -22,12 +22,14 @@ function execDaumPostcode() {
 	    }
 	});
 
+let emailValid = false;	
 function validateEmail(input) {
     const email = input.value.trim();
     const msg = document.getElementById("emailMsg");
 
     if(email === "") {
         msg.textContent = "";
+        emailValid = false;
         return;
     }
 
@@ -37,13 +39,14 @@ function validateEmail(input) {
             if(data.trim() === "duplicate") {
                 msg.textContent = "이미 사용중인 이메일입니다.";
                 msg.style.color = "red";
+                emailValid = false;
             } else {
                 msg.textContent = "사용 가능한 이메일입니다.";
                 msg.style.color = "green";
+                emailValid = true;
             }
         });
 }
-let emailValid = false;	
 function confirmSubmit() {
     const name = document.querySelector("input[name='member_name']").value.trim();
     const postcode = document.getElementById("postcode").value.trim();
