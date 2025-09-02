@@ -72,9 +72,8 @@
 								<div class="profile-info">
 									
 									<div class="info-box">
-									<div class="name">이름: ${member.member_name }</div>
+									<div class="name">이름: ${member.member_name } ${member.company_name }</div>
 									<div class="memberData">주소: ${member.address_name }</div>
-									<div class="memberData">전화번호: ${member.member_phone }</div>
 									<div class="memberData">성별: ${member.gender }</div>
 									<div class="memberData">이메일: ${member.member_email }</div>
 									
@@ -98,7 +97,7 @@
 							<div class="form-row">
 								<div class="form-group">
 									<label>학위</label>
-									 <select name="degree">
+									 <select name="degree" class="degree-select">
 									 		<option value="" selected disabled>-- 선택 --</option>
 										    <c:forEach var="d" items="${degreeList}">
 								                <option value="${d.code}" ${resume.degree == d.code ? 'selected' : ''}>
@@ -106,15 +105,6 @@
 								                </option>
 										    </c:forEach>
 										</select>
-								</div>
-								<div class="form-group">
-									<label>상태</label>
-									 <select name="degreetype">
-										<option value="" selected disabled>-- 선택 --</option>
-										<option value="재학">재학</option>
-										<option value="중퇴">중퇴</option>
-										<option value="졸업">졸업</option>
-									</select>
 								</div>
 							</div>
 							<div class="form-row">

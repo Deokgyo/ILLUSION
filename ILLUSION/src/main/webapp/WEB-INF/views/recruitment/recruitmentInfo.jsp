@@ -33,10 +33,10 @@
 	         		<p class="header-text"><strong>채용정보</strong></p>
 	            </div>
 	        <header class="search-header mt-4">
-	       		<div class="search-box">
-	                <input type="text" name="keyword" placeholder="검색어를 입력하세요" value="${param.keyword}">
-	                <button class="search-btn"><i class="fas fa-search"></i></button>
-	            </div>
+            	<form method="get" action="recruitmentInfo" class="search-box">
+                	<input type="text" name="keyword" placeholder="제목을 입력하세요" value="${keyword}">
+                	<button class="search-btn"><i class="fas fa-search"></i></button>
+                </form>
 	        
 				<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 				<%@ page import="com.itwillbs.illusion.vo.RecruitFilterVO" %>
@@ -127,11 +127,11 @@
 		                <article class="job-card">
 		                    <div class="card-header">
 								<div class="logo-image">
-									<img src="${pageContext.request.contextPath}/resources/image/logo-samsung.jpg" alt="Samsung Logo">
+									${r.company_logo }
 								</div>
 		                        <p class="job-title">${r.recruit_subject }</p>
 		                        <p class="views-count">조회수 : ${r.views_count }</p>
-		                        <p class="sub-title">지역 : ${r.location }</p><span class="sub-title">직종 : ${r.occupation }</span>
+		                        <p class="sub-title">지역 : ${r.locationName }</p><span class="sub-title">직종 : ${r.occupationName }</span>
 		                        <div class="sub-font">
 		                        	<p>시작일 : ${r.startDateFormatted }</p> <%-- 공고 시작일 마감일 --%>
 		                        	<p>마감일 : ${r.endDateFormatted }</p> <%-- 공고 시작일 마감일 --%>

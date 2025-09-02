@@ -1,7 +1,8 @@
 $(function () {
 	
 	// 1. 제출 유효성 검사 
-//	$('form').on('submit', onSubmitRequired);
+//	$(document).on('submit', 'form', onSubmitRequired)
+	$('form').on('submit', onSubmitRequired);
 		
 	// 2.근무 지역 선택
 	$('#major-region-list').on('click', handleMajorRegionClick);
@@ -107,16 +108,23 @@ function ajaxReq(url, method, key, value, func) {
 }
 //==============================1 . 유효성 검사 ============================================
  const requiredFields = [
-	{ selector: '#subject', message: '제목을 입력해주세요.' },
-	{ selector: 'select[name="recruit_type"]', message: '채용 유형을 선택해주세요.' },
-    { selector: 'select[name="workTime"]', message: '근무 시간을 선택해주세요.' },
-    { selector: '#selected-locations', message: '근무 지역을 선택해주세요.' },
-    { selector: 'input[name="occupation"]', message: '채용 직무를 선택해주세요.' },
-    { selector: 'input[name="recruit_hiring_num"]', message: '채용 인원을 선택해주세요.' },
-    { selector: 'select[name="experience"]', message: '경력 조건을 선택해주세요.' },
-    { selector: 'select[name="category"]', message: '학력을 선택해주세요.' },
-    { selector: 'select[name="salary"]', message: '급여를 선택해주세요.' },
-    { selector: 'input[name="end_date"]', message: '공고 마감 날짜를 선택해주세요.' }
+  { selector: '#subject', message: '제목을 입력해주세요.' },
+  { selector: 'select[name="recruit_type"]', message: '채용 유형을 선택해주세요.' },
+  { selector: 'select[name="work_start_day"]', message: '근무 시작 요일 선택해주세요.' },
+  { selector: 'select[name="work_end_day"]', message: '근무 종료 요일 선택해주세요.' },
+  { selector: 'input[name="start_time"]', message: '근무 시작 시간을 선택해주세요.' },
+  { selector: 'input[name="end_time"]', message: '근무 시작 시간을 선택해주세요.' },
+  { selector: '#selected-locations', message: '근무 지역을 선택해주세요.' },
+  { selector: 'input[name="occupation"]', message: '채용 직무를 선택해주세요.' },
+  { selector: 'input[name="recruit_hiring_num"]', message: '채용 인원을 선택해주세요.' },
+  { selector: 'select[name="position"]', message: '직급을 선택해주세요.' },
+  { selector: 'select[name="experience"]', message: '경력 조건을 선택해주세요.' },
+  { selector: 'select[name="category"]', message: '학력을 선택해주세요.' },
+  { selector: 'select[name="salary"]', message: '급여를 선택해주세요.' },
+  { selector: 'input[name="start_date"]', message: '채용 시작 날짜를 선택해주세요.' },
+  { selector: 'input[name="end_date"]', message: '채용 마감 날짜를 선택해주세요.' },
+  { selector: 'input[name="apply_doc"]', message: '필요 지원 서류를 입력해주세요.' },
+  { selector: 'input[name="apply_method"]', message: '지원 방법을 입력해주세요.' }
 ];
 
 function isEmpty(value) {
@@ -124,18 +132,34 @@ function isEmpty(value) {
 }
 
 function onSubmitRequired(e) {
-	for (const field of requiredFields) {
-		const el = $(field.selector);
-		if (el.length == 0) continue; // 엘리먼트 없으면 패스
-	    const val = el.val();
-	    if (isEmpty(val)) {
-	      alert(field.message);
-	      el.focus();
-	      e.preventDefault();
-	      return false;
-	    }
-	 }
-	return true;
+  for (const field of requiredFields) {
+    let el = $(field.selector);
+    if (el.length == 0) continue;
+
+    let val = el.val();
+
+    // 체크박스/라디오일 경우
+    if (el.is(':checkbox') || el.is(':radio')) {
+      if (!el.is(':checked')) {
+        alert(field.message);
+        e.preventDefault();
+        return false;
+      }
+    }
+    // hidden input이나 일반 input/select
+    else {
+      if (isEmpty(val)) {
+        alert(field.message);
+        // hidden input은 focus 불가 → focus 생략
+        if (!el.is(':hidden')) {
+          el.focus();
+        }
+        e.preventDefault();
+        return false;
+      }
+    }
+  }
+  return true;
 }
 //==============================2. 근무 지역 선택 ========================================
 function updateCheckAllState() {

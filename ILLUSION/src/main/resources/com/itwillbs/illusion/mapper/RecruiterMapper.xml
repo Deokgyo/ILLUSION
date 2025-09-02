@@ -104,9 +104,9 @@
 	
 	<!-- company_idx 가져오기 -->
 	<select id="selectCompany_idx">
-		select company_idx 
-		from member
-		where member_idx = #{member_idx}
+		SELECT IFNULL(company_idx, 0) as company_idx
+		  FROM member
+		 WHERE member_idx = #{member_idx}
 	</select>
 	
 	<!-- 채용중인 공고 개수 가져오기  -->
@@ -136,10 +136,10 @@
 		   FROM apply a 
 		   LEFT JOIN recruit r ON a.recruit_idx = r.recruit_idx
 		   LEFT JOIN resume res ON a.resume_idx = res.resume_idx -- resume_idx로 조인해서 resume 테이블 접근
-		   JOIN member m ON a.member_idx = m.member_idx
-		   JOIN resume_exp_info rex  on a.resume_idx = rex.resume_idx -- resume_idx
-		   JOIN common_code degree ON res.degree = degree.code
-		   JOIN common_code experience ON rex.experience = experience.code
+		   LEFT JOIN member m ON a.member_idx = m.member_idx
+		   LEFT JOIN resume_exp_info rex  on a.resume_idx = rex.resume_idx -- resume_idx
+		   LEFT JOIN common_code degree ON res.degree = degree.code
+		   LEFT JOIN common_code experience ON rex.experience = experience.code
 		  WHERE r.member_idx = #{member_idx} -- 이부분 컨트롤러에서 들고오는 값 대체 
 		    AND a.is_viewed = 'BOL002' -- 미열람 조건 
 	</select>
@@ -162,23 +162,23 @@
 	
 	<!-- 미열람 이력서 정보 가죠오기 -->
 	<select id="selectResumeInfo">
-		 SELECT res.resume_title -- 지원한 사람의 이력서 제목 
-	          , degree.code_name  as degree
-	          , res.major -- 지원자 전공 
-	          , SUBSTRING(m.address_name, 1, LOCATE('구', m.address_name)) as address -- 지원자의 주소 
-	          , experience.code_name as experience
+		 SELECT res.resume_title 
+	          , degree.code_name as degree_name
+	          , res.major 
+	          , SUBSTRING(m.address_name, 1, LOCATE('구', m.address_name)) as address  
+	          , experience.code_name as experience_name
 	          , m.member_idx
 	          , res.resume_idx
 	          , apply_idx
 		   FROM apply a 
 		   LEFT JOIN recruit r ON a.recruit_idx = r.recruit_idx
-		   LEFT JOIN resume res ON a.resume_idx = res.resume_idx -- resume_idx로 조인해서 resume 테이블 접근
-		   JOIN member m ON a.member_idx = m.member_idx
-		   JOIN resume_exp_info rex  on a.resume_idx = rex.resume_idx -- resume_idx
-		   JOIN common_code degree ON res.degree = degree.code
-		   JOIN common_code experience ON rex.experience = experience.code
-		  WHERE r.member_idx = #{member_idx} -- 이부분 컨트롤러에서 들고오는 값 대체 
-		    AND a.is_viewed = 'BOL002' -- 미열람 조건 
+		   LEFT JOIN resume res ON a.resume_idx = res.resume_idx 
+		   LEFT JOIN member m ON a.member_idx = m.member_idx
+		   LEFT JOIN resume_exp_info rex  on a.resume_idx = rex.resume_idx 
+		   LEFT JOIN common_code degree ON res.degree = degree.code
+		   LEFT JOIN common_code experience ON rex.experience = experience.code
+		  WHERE r.member_idx = #{member_idx} 
+		    AND a.is_viewed = 'BOL002'
 	</select>
 	
 <!--  기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기  -->

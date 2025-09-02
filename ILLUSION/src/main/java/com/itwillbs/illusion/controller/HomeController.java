@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.illusion.service.CompanyService;
 import com.itwillbs.illusion.service.MemberService;
@@ -85,8 +86,8 @@ public class HomeController {
 
 	@PostMapping("register")
 	public String register(MemberVO member, CompanyVo company, 
-						   Model model, String address_name1,
-						   String address_name2) {
+						   String address_name1, String address_name2,
+						   RedirectAttributes redirectAttributes) {
 
 		System.out.println("!@#");
 		System.out.println(member);
@@ -106,11 +107,12 @@ public class HomeController {
 	        param.put("email", member.getMember_email());
 	        memberService.updateMailAuthStatus(param);
 	        
+	        redirectAttributes.addFlashAttribute("msg", "회원가입 성공! 로그인 해주세요.");
 	        // 성공했으므로 로그인 페이지로 리다이렉트
 	        return "redirect:/login";
 	    } else {
 	        // 회원가입 실패 시
-	        model.addAttribute("error", "회원가입 실패");
+	    	redirectAttributes.addFlashAttribute("error", "회원가입 실패");
 	        return "redirect:/login";
 	    }
 

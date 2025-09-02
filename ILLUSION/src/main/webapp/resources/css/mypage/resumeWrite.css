@@ -234,6 +234,12 @@ body {
   gap: 10px;
 }
 
+.degree-select {
+    width: 100%;
+    max-width: 471px; /* 최대폭 */
+    min-width: 80px;  /* 최소폭 */
+    box-sizing: border-box;
+}
 .date-input-container {
   position: relative;
 }

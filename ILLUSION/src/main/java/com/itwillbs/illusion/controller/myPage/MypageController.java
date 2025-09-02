@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -206,7 +207,10 @@ public class MypageController {
 
 	/* 비밀번호변경 */
 	@GetMapping("changePasswd")
-	public String changePasswd(Model model, @RequestParam int member_idx) {
+	public String changePasswd(Model model,
+							@RequestParam int member_idx,
+							RedirectAttributes redirectAttributes) {
+		
 		System.out.println("맴버아이디" + member_idx);
 		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
 		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
@@ -214,9 +218,11 @@ public class MypageController {
 	}
 	@PostMapping("changePasswd")
 	public String changePasswd(@RequestParam int member_idx
-            				,@RequestParam String member_pw) {
+            				,@RequestParam String member_pw
+            				,RedirectAttributes redirectAttributes) {
 		
 		resumeService.changePasswd(member_idx, member_pw);
+		redirectAttributes.addFlashAttribute("msg", "비밀 번호가 변경되었습니다.");
 		return "redirect:/myPage";
 	}
 	
@@ -263,6 +269,14 @@ public class MypageController {
 	        return "myPage/deleteMember";
 	    }
 	}
+	/*이메일 중복체크*/
+	@GetMapping("/checkEmail")
+    @ResponseBody
+    public String checkEmail(@RequestParam String email) {
+        boolean exists = resumeService.isEmailExists(email);
+        System.out.println("컨트롤러에서 exists = " + exists);
+        return exists ? "duplicate" : "ok"; // "duplicate" = 이미 DB에 존재, "ok" = 사용 가능
+    }
 	private String createDirectories(String realPath) {
 		// Date 또는 LocalXXX 클래스 활용
 		

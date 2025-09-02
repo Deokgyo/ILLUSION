@@ -87,9 +87,9 @@
 							</select>
 			        	</div>
 			        	<div class="startEndDate"> 
-				        	<input type="time" name="start_time" class="form-select category-select  valid" required>
+				        	<input type="time" name="start_time" class="form-select category-select  valid">
 				        	~
-				        	<input type="time" name="end_time" class="form-select category-select  valid" required>
+				        	<input type="time" name="end_time" class="form-select category-select  valid">
 			        	</div>
 		        	</div>
         		</section>

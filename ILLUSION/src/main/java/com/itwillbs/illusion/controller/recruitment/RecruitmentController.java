@@ -54,7 +54,6 @@ public class RecruitmentController {
 	// 채용정보 페이지 이동
 	@GetMapping("recruitmentInfo")
 	public String recruitmentInfo(@ModelAttribute RecruitFilterVO filterVO,
-			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(defaultValue = "1") int pageNum,
 			Model model) {
 		
@@ -93,11 +92,11 @@ public class RecruitmentController {
 		model.addAttribute("pageInfo", pageInfo);         // 페이지네이션 UI를 위한 정보
 		
 		// -----------------------------------------------
-        // 2. 필터 UI를 위한 대분류 목록 가져오기
+        // 필터 UI를 위한 대분류 목록 가져오기
         Map<String, List<CommonCodeVO>> filterOptions = commonCodeService.getFilterOptionsForRecruit();
         model.addAttribute("filterOptions", filterOptions);
 
-        // 3. 현재 필터/정렬 상태를 View에 전달
+        // 현재 필터/정렬 상태를 View에 전달
 		model.addAttribute("selectedFilters", filterVO);
 		
 		

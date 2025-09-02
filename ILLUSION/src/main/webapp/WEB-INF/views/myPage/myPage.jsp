@@ -62,7 +62,14 @@
 						        </c:otherwise>
 						    </c:choose>
 							</div>
-				        <button class="edit-btn" onclick="location.href='userInfoEdit'">회원정보수정</button>
+				        <c:choose>
+						    <c:when test="${member.member_type == '기업회원'}">
+						        <button class="edit-btn" onclick="location.href='recruiterInfo'">기업정보수정</button>
+						    </c:when>
+						    <c:otherwise>
+						        <button class="edit-btn" onclick="location.href='userInfoEdit'">회원정보수정</button>
+						    </c:otherwise>
+						</c:choose>
 					</div>
 				    <div class="profile-info">
 				          <div class="main-username">${member.member_name }${member.company_name }님</div>

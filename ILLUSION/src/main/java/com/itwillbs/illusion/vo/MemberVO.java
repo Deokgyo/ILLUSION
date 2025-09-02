@@ -30,4 +30,5 @@ public class MemberVO {
 	private int company_idx;
 	private String mail_auth_status;
 	private String company_name;
+	private String company_estab_date;
 }

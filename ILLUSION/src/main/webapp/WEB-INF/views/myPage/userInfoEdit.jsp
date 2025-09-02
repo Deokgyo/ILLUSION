@@ -5,7 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <title>회원정보 수정</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -123,8 +126,7 @@
 								<td>
 								 <div style="display: flex; gap: 5px; align-items: center; width: 50%">
 						            <input type="text" id="postcode" name="address_num" class="bg-text" 
-						                   placeholder="우편번호" style="flex: 1;" 
-						                   value="${member.address_num}">
+						                   placeholder="우편번호" style="flex: 1;" value="${member.address_num}" >
 						            <button type="button" class="edit-button" onclick="execDaumPostcode()">주소 찾기</button>
 						        </div>
 								<input type="text" id="roadAddress" name="address_name" class="bg-text input-row" placeholder="도로명 주소" value="${member.address_name}">
@@ -133,12 +135,15 @@
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td><input type="email" name="member_email" class="bg-text" value="${member.member_email }" required></td>
+								<td>
+									<input type="text" class="bg-text" id="email" name="member_email" placeholder="이메일 입력" oninput="validateEmail(this)" value="${member.member_email}">
+									<span id="emailMsg" style="color:red;"></span>
+								</td>
 							</tr>
 						</table>
 						<div class="form-submit-container" style="text-align:center; margin-top:10px;">
 						    <button type="submit" class="edit-button" onclick="return confirmSubmit();">확인</button>
-						    <button type="submit" class="edit-button">취소</button>
+						    <button type="button" class="edit-button" onclick="if(confirm('취소하시겠습니까?')) { history.back(); }">취소</button>
 							<hr>
 						</div>
 				<button type="button" class="passwd-button"
@@ -155,9 +160,8 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/myPage/userInfoEdit.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/myPage/userInfoEdit.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
+		
 </body>
 </html>

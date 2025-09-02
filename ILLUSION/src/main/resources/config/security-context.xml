@@ -20,6 +20,7 @@
         <!-- 순서가 매우 중요합니다! 구체적인 경로를 먼저, 넓은 범위를 나중에 작성해야 합니다. -->
 
         <intercept-url pattern="/resources/**" access="permitAll" /> 
+        <intercept-url pattern="/upload/**" access="permitAll" /> 
         <intercept-url pattern="/" access="permitAll" />           <!-- 메인 페이지는 모두 허용 -->
 <!--         <intercept-url pattern="/login" access="permitAll" /> -->
 		<intercept-url pattern="/login" access="isAnonymous()" />
@@ -35,7 +36,8 @@
         <intercept-url pattern="/recruitmentInfo" access="permitAll" />
         <intercept-url pattern="/recruitmentDetail**" access="permitAll" />    
         <intercept-url pattern="/email-auth" access="permitAll" method="POST"/>   
-        <intercept-url pattern="/email-auth-check" access="permitAll" method="POST"/>   
+        <intercept-url pattern="/email-auth-check" access="permitAll" method="POST"/>  
+        <intercept-url pattern="/email-check" access="permitAll" method="GET"/>   
         <intercept-url pattern="/apply**" access="permitAll" method="POST"/>   
         <intercept-url pattern="/checkIdCount" access="permitAll" method="GET"/>   
         <intercept-url pattern="/checkRecruiterNumber" access="permitAll" method="GET"/>  

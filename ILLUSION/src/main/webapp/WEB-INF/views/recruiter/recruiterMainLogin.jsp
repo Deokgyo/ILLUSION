@@ -114,7 +114,7 @@
 						  </dl>
 						</div>
 						  <!-- 3. 액션 버튼 -->
-						  <a href="memberModify" class="gradient-btn">회원 정보 수정</a>
+						  <a href="recruiterInfo" class="gradient-btn">회원 정보 수정</a>
 							</div>
 						</div>
 				</div>
@@ -139,7 +139,7 @@
 		            	</div>
 		            	<div class="card-content">
 		                    <p>
-		                        경력 : ${info.experience_name }<br>
+		                        경력 : <c:if test="${empty info.experience_name }">신입</c:if> ${info.experience_name }<br>
 		                        학력 : ${info.degree_name } | ${info.major}<br>
 		                        거주지 : ${info.address }
 		                    </p>

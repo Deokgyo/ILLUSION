@@ -140,4 +140,10 @@ public class ResumeService {
 	   public List<Map<String, Object>> selectboard() {
 		   return mapper.selectboard();
 	   }
+	   /*이메일 중복체크*/
+	   public boolean isEmailExists(String email) {
+	        int cnt = mapper.isEmailExists(email); // DB COUNT(*) 조회
+	        System.out.println("DB 조회 count = " + cnt + " for email = " + email);
+	        return cnt > 0; // true = 중복 있음, false = 사용 가능
+	    }
 }
