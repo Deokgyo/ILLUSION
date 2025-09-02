@@ -136,14 +136,14 @@
 							<tr>
 								<th>이메일</th>
 								<td>
-									<input type="text" class="bg-text" id="email" name="member_email" placeholder="이메일 입력" oninput="validateEmail(this)">
+									<input type="text" class="bg-text" id="email" name="member_email" placeholder="이메일 입력" oninput="validateEmail(this)" value="${member.member_email}">
 									<span id="emailMsg" style="color:red;"></span>
 								</td>
 							</tr>
 						</table>
 						<div class="form-submit-container" style="text-align:center; margin-top:10px;">
 						    <button type="submit" class="edit-button" onclick="return confirmSubmit();">확인</button>
-						    <button type="submit" class="edit-button">취소</button>
+						    <button type="button" class="edit-button" onclick="if(confirm('취소하시겠습니까?')) { history.back(); }">취소</button>
 							<hr>
 						</div>
 				<button type="button" class="passwd-button"
