@@ -74,7 +74,7 @@
 
 			<div class="input-box" id="companyBox">
 				<label for="Number">사업자등록번호</label> <input type="text"
-					id="companyNumber" name="recruiter_number"
+					id="companyNumber" name="recruiter_number" maxlength="10"
 					placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
 				<button type="button" class="btn-company" id="btncompany"
 					value="등록번호검색" name="btncompanyNumber">사업자 인증</button>
@@ -82,7 +82,7 @@
 			<div class="form-row">
 				<label for="userid">아이디</label> <input type="text" id="userid"
 					name="member_id" maxlength="20"
-					placeholder="4~20 자리 / 영문, 숫자, 특수문자 ?!@ 입력 가능"> &nbsp;<span
+					placeholder="4~20 자리 / 영문, 숫자, 특수문자 _ 입력 가능"> &nbsp;<span
 					id="UserIdSuccess"></span>
 			</div>
 			<div class="form-row">
@@ -102,14 +102,14 @@
 			<div class="form-row flex-row">
 				<div class="flex-half" id="username_container">
 					<label for="username">이름</label> <input type="text" id="username"
-						name="member_name" placeholder="이름을 입력해주세요">
+						name="member_name" placeholder="이름을 입력해주세요" required>
 				</div>
 				<div class="flex-half" id="company">
 					<label for="compname">대표자명</label> 
 					<input type="text" id="companyname" name="ceo_name" placeholder="대표자명을 입력해주세요">
 				</div>
 				<div class="flex-half gender-row" id="genderHide">
-					<label for="gender">성별</label> <select id="gender" name="gender">
+					<label for="gender">성별</label> <select id="gender" name="gender" required>
 						<option value="">선택</option>
 						<option value="GEN001">남성</option>
 						<option value="GEN002">여성</option>
@@ -118,7 +118,7 @@
 			</div>
 
 			<div class="form-row birth_user" id=birthHide>
-				<label for="birth">생년월일</label> <input type="date" id="birth" name="resume_birth">
+				<label for="birth">생년월일</label> <input type="date" id="birth" name="resume_birth" required>
 			</div>
 
 			<div class="horizontal-wrapper">
@@ -146,11 +146,11 @@
 			</div>
 			<div class="form-row addr">
 				<input type="text" id="address1" name="address_name1"
-					placeholder="주소를 입력해 주세요">
+					placeholder="주소를 입력해 주세요" required>
 			</div>
 			<div class="form-row addr">
 				<input type="text" id="address2" name="address_name2"
-					placeholder="나머지 주소">
+					placeholder="나머지 주소" required>
 			</div>
 			<div class="form-row flex-row">
 				<div class="flex-half">
@@ -181,13 +181,13 @@
 						</label>
 					</div>
 				<div class="terms-row">
-					<label><input type="checkbox" class="agree-each">
+					<label><input type="checkbox" class="agree-each" name="agreeTerms" required>
 						<span class="agree-label">이용 약관 동의 (필수)</span> 
 					</label> 
 						<a href="#" class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
-					<label><input type="checkbox" class="agree-each">
+					<label><input type="checkbox" class="agree-each" name="agreePrivacy" required>
 						<span class="agree-label">개인정보 처리 동의 (필수)</span> 
 					</label> 
 						<a href="#" class="agreeCheck">내용 보기</a>
@@ -202,11 +202,10 @@
 			</div>
 
 			<!-- 참조 -->
-			<input type="hidden" name="member_type" id="member_type"
-				value="MEM002"> <input type="hidden" name="member_status"
-				id="member_status"> <input type="hidden"
-				name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<button class="signup-btn" id="register-btn">회원가입</button>
+			<input type="hidden" name="member_type" id="member_type" value="MEM002">
+			<input type="hidden" name="member_status" id="member_status"> 
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<button type="submit" class="signup-btn" id="register-btn">회원가입</button>
 		</form>
 	</div>
 
