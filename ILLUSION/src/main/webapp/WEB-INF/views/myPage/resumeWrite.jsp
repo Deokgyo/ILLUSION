@@ -97,7 +97,7 @@
 							<div class="form-row">
 								<div class="form-group">
 									<label>학위</label>
-									 <select name="degree">
+									 <select name="degree" class="degree-select">
 									 		<option value="" selected disabled>-- 선택 --</option>
 										    <c:forEach var="d" items="${degreeList}">
 								                <option value="${d.code}" ${resume.degree == d.code ? 'selected' : ''}>

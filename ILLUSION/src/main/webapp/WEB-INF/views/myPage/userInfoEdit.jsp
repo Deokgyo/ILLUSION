@@ -143,7 +143,7 @@
 						</table>
 						<div class="form-submit-container" style="text-align:center; margin-top:10px;">
 						    <button type="submit" class="edit-button" onclick="return confirmSubmit();">확인</button>
-						    <button type="submit" class="edit-button">취소</button>
+						    <button type="button" class="edit-button" onclick="if(confirm('취소하시겠습니까?')) { history.back(); }">취소</button>
 							<hr>
 						</div>
 				<button type="button" class="passwd-button"
