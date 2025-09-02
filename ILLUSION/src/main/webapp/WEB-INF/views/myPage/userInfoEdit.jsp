@@ -136,7 +136,7 @@
 							<tr>
 								<th>이메일</th>
 								<td>
-									<input type="text" class="bg-text" id="email" name="member_email" placeholder="이메일 입력" oninput="validateEmail(this)">
+									<input type="text" class="bg-text" id="email" name="member_email" placeholder="이메일 입력" oninput="validateEmail(this)" value="${member.member_email}">
 									<span id="emailMsg" style="color:red;"></span>
 								</td>
 							</tr>
