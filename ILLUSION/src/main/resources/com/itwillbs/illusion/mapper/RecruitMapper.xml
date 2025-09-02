@@ -60,10 +60,13 @@
 	        r.start_date,
 	        r.end_date,
 	        r.views_count,
+	        c.company_logo,
 	        GROUP_CONCAT(DISTINCT CONCAT(c_parent.code_name, ' ', c_child.code_name) SEPARATOR ', ') AS locationName,
 	        GROUP_CONCAT(DISTINCT occ.code_name SEPARATOR ', ') AS occupationName
 	    FROM 
 	        recruit r
+	        LEFT JOIN member m ON r.member_idx = m.member_idx
+	        LEFT JOIN company c ON m.company_idx = c.company_idx
 		    LEFT JOIN common_code c_child ON FIND_IN_SET(c_child.code, r.location)
 		    LEFT JOIN common_code c_parent ON c_child.parent_code_id = c_parent.code
 		    LEFT JOIN common_code occ ON FIND_IN_SET(occ.code, r.occupation)
