@@ -72,9 +72,8 @@
 								<div class="profile-info">
 									
 									<div class="info-box">
-									<div class="name">이름: ${member.member_name }</div>
+									<div class="name">이름: ${member.member_name } ${member.company_name }</div>
 									<div class="memberData">주소: ${member.address_name }</div>
-									<div class="memberData">전화번호: ${member.member_phone }</div>
 									<div class="memberData">성별: ${member.gender }</div>
 									<div class="memberData">이메일: ${member.member_email }</div>
 									

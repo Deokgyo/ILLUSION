@@ -11,8 +11,32 @@
 	        reader.readAsDataURL(file);
 	    }
 	});
-	
-	function confirmSubmit() {
+function confirmSubmit() {
+    const name = document.querySelector("input[name='member_name']").value.trim();
+    const postcode = document.getElementById("postcode").value.trim();
+    const roadAddress = document.getElementById("roadAddress").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if(name === "") {
+        alert("이름을 입력해주세요.");
+        return false;
+    }
+    if(postcode === "" || roadAddress === "") {
+        alert("주소를 입력해주세요.");
+        return false;
+    }
+    if(email === "") {
+        alert("이메일을 입력해주세요.");
+        return false;
+    }
+
+    // 이메일 형식 체크
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!regex.test(email)) {
+        alert("올바른 이메일 형식이 아닙니다.");
+        return false;
+    }
+
     return confirm("수정하시겠습니까?");
 }
 function execDaumPostcode() {
@@ -20,8 +44,6 @@ function execDaumPostcode() {
         oncomplete: function(data) {
             // 도로명 주소
             document.getElementById("roadAddress").value = data.roadAddress;
-            // 지번 주소
-            document.getElementById("jibunAddress").value = data.jibunAddress;
             // 우편번호
             document.getElementById("postcode").value = data.zonecode;
         }
@@ -32,4 +54,19 @@ function clearAddress() {
     document.getElementById("roadAddress").value = "";
     const jibun = document.getElementById("jibunAddress");
     if(jibun) jibun.value = "";
+}
+function validateEmail(input) { 
+    const email = input.value;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const msg = document.getElementById("emailMsg");
+
+    if (email === "") {
+        msg.textContent = "";
+    } else if (!regex.test(email)) {
+        msg.textContent = "올바른 이메일 형식이 아닙니다.";
+        msg.style.color = "red";
+    } else {
+        msg.textContent = "올바른 이메일 형식";
+        msg.style.color = "green";  // 올바르면 초록색으로
+    }
 }

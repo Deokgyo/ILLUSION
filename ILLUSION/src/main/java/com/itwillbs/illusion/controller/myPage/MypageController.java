@@ -206,7 +206,10 @@ public class MypageController {
 
 	/* 비밀번호변경 */
 	@GetMapping("changePasswd")
-	public String changePasswd(Model model, @RequestParam int member_idx) {
+	public String changePasswd(Model model,
+							@RequestParam int member_idx,
+							RedirectAttributes redirectAttributes) {
+		
 		System.out.println("맴버아이디" + member_idx);
 		Map<String, Object> selectuserInfoEdit = resumeService.selectuserInfoEdit(member_idx);
 		model.addAttribute("selectuserInfoEdit", selectuserInfoEdit);
@@ -214,9 +217,11 @@ public class MypageController {
 	}
 	@PostMapping("changePasswd")
 	public String changePasswd(@RequestParam int member_idx
-            				,@RequestParam String member_pw) {
+            				,@RequestParam String member_pw
+            				,RedirectAttributes redirectAttributes) {
 		
 		resumeService.changePasswd(member_idx, member_pw);
+		redirectAttributes.addFlashAttribute("msg", "비밀 번호가 변경되었습니다.");
 		return "redirect:/myPage";
 	}
 	

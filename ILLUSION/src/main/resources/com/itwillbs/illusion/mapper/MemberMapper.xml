@@ -90,6 +90,7 @@
 			   ,m.member_name
 		       ,c.company_name
 		       ,m.member_id
+		       ,m.profile_picture_url
 		       ,m.member_email
 		       ,m.address_name
 		       ,m.token
