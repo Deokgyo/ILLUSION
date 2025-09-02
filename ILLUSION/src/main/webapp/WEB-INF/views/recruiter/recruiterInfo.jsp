@@ -32,6 +32,12 @@
 			<div class="form-box">
 				<div id="companyTable"></div>
 				<input type="file" id="logoFile" accept="image/*" style="display:none" />
+				<div class="btnGroup d-flex flex-row justify-content-end">
+					<button type="button" class="passwd-button"
+			    				onclick="location.href='changePasswd?member_idx=${member_idx}';">비밀번호 수정</button>
+					<button type="button" class="infodelete-button"
+								onclick="location.href='deleteMember?member_idx=${member_idx}';">회원탈퇴</button>
+				</div>
 				</div>
 				<input type="hidden" name="company_idx" value="${company_idx}">
 		</main>
