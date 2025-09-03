@@ -119,11 +119,5 @@ function listChange() {
 		      return [];
 		    });
 		} 
-
-// 마감 이벤트 
-
-function recruitClose () {
-	
-}
 	
 	

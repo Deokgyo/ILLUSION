@@ -49,7 +49,7 @@
 						</button>
 	                    <c:choose>
 	                    	<c:when test="${isAuthor}">
-	                    		<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow" id="job-apply-btn">수정하기<i class="fa-solid fa-paper-plane"></i></a>
+	                    		<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow">수정하기</a>
 	                    	</c:when>
 	                    	<c:otherwise>
 			                    <button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
