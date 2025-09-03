@@ -162,7 +162,9 @@
 		#{company_name},
 		position = #{position},
 		experience = #{experience},
-		occupation = #{occupation}
+		occupation = #{occupation},
+		certificate = #{certificate},
+		responsibilities = #{responsibilities}
 		WHERE exp_idx = #{exp_idx}
 	</update>
 
