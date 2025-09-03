@@ -70,7 +70,7 @@
 
 		<form action="${pageContext.request.contextPath}/register"
 			method="post" id="registerForm" class="signup-form"
-			autocomplete="off">
+			autocomplete="off" >
 
 			<div class="input-box" id="companyBox">
 				<label for="Number">사업자등록번호</label> <input type="text"
@@ -106,7 +106,7 @@
 				</div>
 				<div class="flex-half" id="company">
 					<label for="compname">대표자명</label> 
-					<input type="text" id="companyname" name="ceo_name" placeholder="대표자명을 입력해주세요">
+					<input type="text" id="companyname" name="ceo_name" placeholder="대표자명을 입력해주세요" required>
 				</div>
 				<div class="flex-half gender-row" id="genderHide">
 					<label for="gender">성별</label> <select id="gender" name="gender" required>
@@ -118,18 +118,18 @@
 			</div>
 
 			<div class="form-row birth_user" id=birthHide>
-				<label for="birth">생년월일</label> <input type="date" id="birth" name="resume_birth" required>
+				<label for="birth">생년월일</label> <input type="date" id="birth" name="resume_birth" max="오늘날짜" required>
 			</div>
 
 			<div class="horizontal-wrapper">
 				<div class="form-row" id="compdate">
 					<label for="comdate" id="comdates">설립일</label> <input type="date"
-						id="company_date" name="company_estab_date">
+						id="company_date" name="company_estab_date" required>
 				</div>
 
 				<div class="company-row" id="companytypes">
 					<label for="comtype" id="companytype">기업형태</label> <select
-						id="compantypes" name="company_type" class="comtype">
+						id="cotypes" name="company_type" class="comtype" required>
 						<option value="">선택</option>
 						<option value="CPT001">대기업</option>
 						<option value="CPT002">중견기업</option>
@@ -193,9 +193,8 @@
 						<a href="#" class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
-					<label> <input type="checkbox" class="agree-each"
-						name="member_marketing_agreed" value="BOL001"> <span
-						class="agree-label">마케팅 동의 (선택)</span>
+					<label> <input type="checkbox" class="agree-each" name="member_marketing_agreed" value="BOL001"> 
+					<span class="agree-label">마케팅 동의 (선택)</span>
 					</label> <a href="#" class="agreeCheck">내용 보기</a> 
 						<input type="hidden" name="member_marketing_agreed" value="BOL002" />
 				</div>

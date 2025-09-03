@@ -127,7 +127,7 @@
 		                <article class="job-card">
 		                    <div class="card-header">
 								<div class="logo-image">
-									<img src="${pageContext.request.contextPath}/resources/image/logo-samsung.jpg" alt="Samsung Logo">
+									${r.company_logo }
 								</div>
 		                        <p class="job-title">${r.recruit_subject }</p>
 		                        <p class="views-count">조회수 : ${r.views_count }</p>
