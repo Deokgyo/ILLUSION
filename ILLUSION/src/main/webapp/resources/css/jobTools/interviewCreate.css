@@ -199,9 +199,9 @@
 }
 
 /* p 태그 마진 바텀 없애기  */
-p {
-	margin-bottom: 0px;
-}
+/* p { */
+/* 	margin-bottom: 0px; */
+/* } */	
 
 .title_company {
 	display: flex;
