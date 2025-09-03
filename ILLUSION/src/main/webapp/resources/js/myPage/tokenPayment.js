@@ -1,15 +1,9 @@
 $(function() {
 
-	//================================================
-	// 1. 설정 및 정보
-	//================================================
-
-
-	// JSP 파일에서 <script> window.contextPath = "..."; </script> 로 선언되어야 합니다.
 	const contextPath = window.contextPath || "";
 
 	// 아임포트 가맹점 식별코드
-	const iamportCode = 'imp63658187'; // TODO: 실제 발급받은 코드로 변경해야 합니다.
+	const iamportCode = 'imp63658187'; // 실제 발급받은 코드S
 
 	// 판매할 토큰 상품 목록 (상품 카탈로그)
 	const productInfo = {
@@ -24,23 +18,20 @@ $(function() {
 	let selectedProductId = null;
 
 	$('.token-option').on('click', function() {
-		// 모든 버튼에서 'selected' 클래스 제거
+		// 모든 버튼에서 selected 클래스 제거
 		$('.token-option').removeClass('selected');
 
-		// 내가 클릭한 버튼에만 'selected' 클래스 추가 (시각적 표시)
+		// 내가 클릭한 버튼에만 selected 클래스 추가
 		$(this).addClass('selected');
 
-		// ✨ 선택된 상품의 ID를 전역 변수에 저장
+		// 선택된 상품의 ID를 전역 변수에 저장
 		selectedProductId = $(this).data('product-id');
 
 		console.log("선택된 상품 ID:", selectedProductId);
 	});
 
 
-
-	//================================================
-	// 2. 아임포트 초기화
-	//================================================
+	// 아임포트 초기화
 	var IMP = window.IMP;
 	IMP.init(iamportCode);
 
@@ -66,7 +57,7 @@ $(function() {
 			name: selectedProduct.name,
 			amount: selectedProduct.amount,
 			buyer_name: "테스트유저"
-		}, handlePaymentResponse); // ✨ 단순화된 콜백 함수를 호출
+		}, handlePaymentResponse); // 단순화된 콜백 함수를 호출
 	});
 
 
@@ -85,9 +76,6 @@ $(function() {
 
 			alert(msg);
 
-			// 결제 성공 후, 원하는 페이지로 이동 (선택사항)
-			// location.href = "/main";
-
 		} else {
 			// --- 결제 실패 시 ---
 			console.log("결제 실패 응답:", rsp);
@@ -96,21 +84,21 @@ $(function() {
 
 	}
 	
-	// [이벤트 2] 최종 '결제' 버튼(#submit-payment-btn)을 클릭했을 때
+	// [이벤트 2] 최종 결제 버튼(#submit-payment-btn)을 클릭했을 때
 	$('#submit-btn').on('click', function() {
 
-		// 1. ✨ 사용자가 상품을 선택했는지 확인
+		// 1. 사용자가 상품을 선택했는지 확인
 		if (selectedProductId === null) {
 			alert("충전할 토큰을 먼저 선택해주세요.");
 			return; // 아무것도 선택 안 했으면 함수 종료
 		}
 
-		// 2. ✨ 저장해 둔 ID로 상품 정보를 가져옴
+		// 2. 저장해 둔 ID로 상품 정보를 가져옴
 		const selectedProduct = productInfo[selectedProductId];
 
 		if (confirm(`${selectedProduct.tokens} 토큰을 충전(결제)하시겠습니까?`)) {
 
-			// 3. ✨ 서버에 토큰 충전을 요청하는 AJAX 호출 (이전과 동일)
+			// 3. 서버에 토큰 충전을 요청하는 AJAX 호출
 			$.ajax({
 				url: window.contextPath + "/api/tokens/charge",
 				method: "POST",

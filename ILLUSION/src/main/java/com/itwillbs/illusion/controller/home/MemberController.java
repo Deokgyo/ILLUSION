@@ -1,6 +1,5 @@
 package com.itwillbs.illusion.controller.home;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,6 +48,11 @@ public class MemberController {
 		return Map.of("result", isValid);
 	}
 	
+	@GetMapping("email-check")
+	public Map<String, Object> checkEmailDuplicate(@RequestParam String email) {
+	    boolean exists = memberService.isEmailExist(email); // 이메일 중복 여부 확인 서비스 호출
+	    return Map.of("exists", exists);
+	}
 	//사업자등록번호 인증 
 	@GetMapping("checkRecruiterNumber")
 	@ResponseBody

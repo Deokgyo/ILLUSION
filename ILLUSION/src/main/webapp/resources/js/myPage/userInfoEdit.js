@@ -8,6 +8,12 @@ function execDaumPostcode() {
         }
     }).open();
 }
+function clearAddress() {
+    document.getElementById("postcode").value = "";
+    document.getElementById("roadAddress").value = "";
+    const jibun = document.getElementById("jibunAddress");
+    if(jibun) jibun.value = "";
+}
 	const fileInput = document.getElementById('profileFileInput');
 	const previewImg = document.getElementById('profilePreview');
  
@@ -52,12 +58,6 @@ function confirmSubmit() {
 
 
     return confirm("수정하시겠습니까?");
-}
-function clearAddress() {
-    document.getElementById("postcode").value = "";
-    document.getElementById("roadAddress").value = "";
-    const jibun = document.getElementById("jibunAddress");
-    if(jibun) jibun.value = "";
 }
 
 let emailValid = false;	

@@ -51,6 +51,7 @@
 						<div class="section">
 							<div class="form-row">
 								<div class="form-group">
+								<h4 class="form-section-title">제목(필수)</h4>
 									<input type="text" name="resume_title" placeholder="제목을 입력하세요" autocomplete="off" value="${resume.resume_title }">
 								</div>
 							</div>
@@ -83,20 +84,20 @@
 						</div>
 
 						<div class="section">
-							<h4 class="form-section-title">학력</h4>
+							<h4 class="form-section-title">학력 (필수)</h4>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학교 이름</label> <input type="text" name="school_name" placeholder="학교명을 입력하세요" autocomplete="off"
+									<label>학교 이름*</label> <input type="text" name="school_name" placeholder="학교명을 입력하세요" autocomplete="off"
 									 value="${resume.school_name }">
 								</div>
 								<div class="form-group">
-									<label>전공</label>
+									<label>전공*</label>
 									 <input type="text" name="major" placeholder="전공을 입력하세요" autocomplete="off" value="${resume.major} ">
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학위</label>
+									<label>학위*</label>
 									 <select name="degree" class="degree-select">
 									 		<option value="" selected disabled>-- 선택 --</option>
 										    <c:forEach var="d" items="${degreeList}">
@@ -109,7 +110,7 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학점</label>
+									<label>학점*</label>
 									<div class="gpa-group">
 										<input id="gradeInput" type="text" name="grade" placeholder="학점을 입력하세요 ex) 4.0" style="flex: 1;" autocomplete="off" value="${resume.grade }">
 											 <span>/</span>
@@ -123,13 +124,13 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label>입학일</label>
+									<label>입학일*</label>
 									<div class="date-input-container">
    										<input type="text" name="enroll_date" id="enroll_date" placeholder="연도-월-일" autocomplete="off" value="${resume.enroll_date} ">
 									</div>
 								</div>
 								<div class="form-group">
-									<label>졸업일</label>
+									<label>졸업일*</label>
 									<div class="date-input-container">
    										<input type="text" name="graduation_date" id="graduation_date" placeholder="연도-월-일" autocomplete="off" value="${resume.graduation_date }">
 									</div>

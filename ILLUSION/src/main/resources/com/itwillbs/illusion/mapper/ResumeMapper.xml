@@ -8,6 +8,7 @@
 		SELECT m.member_idx,
 		m.profile_picture_url,
 		m.member_id,
+		m.member_pw,
 		m.member_name,
 		c2.company_name,
 		m.resume_birth,
@@ -162,7 +163,9 @@
 		#{company_name},
 		position = #{position},
 		experience = #{experience},
-		occupation = #{occupation}
+		occupation = #{occupation},
+		certificate = #{certificate},
+		responsibilities = #{responsibilities}
 		WHERE exp_idx = #{exp_idx}
 	</update>
 

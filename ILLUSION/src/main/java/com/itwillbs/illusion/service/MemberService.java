@@ -56,6 +56,11 @@ public class MemberService {
 		return mapper.getMemberCompanyInfoById(member_id);
 	}
 
+	public boolean isEmailExist(String email) {
+		int count = mapper.countByEmail(email); // DB에서 해당 이메일 개수 조회
+        return count > 0;
+	}
+
 	@Transactional
 	public boolean requestEmailAuth(MailAuthInfo mailAuthInfo) {
 
@@ -99,5 +104,6 @@ public class MemberService {
         
         return memberInsertCount > 0;
     }
+
 
 }
