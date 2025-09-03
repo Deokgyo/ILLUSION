@@ -26,7 +26,7 @@ function loadAndRenderGrid() {
     // --- 1. 최종 데이터 배열 순서 정의 ---
     // formatter에서 사용할 모든 데이터를 명확한 순서로 배열에 담습니다.
     const gridData = response.map(applicant => [
-        applicant.apply_idx,        // 0번
+        applicant.rn,				//0번
         applicant.member_name,      // 1번
         applicant.recruit_idx,      // 2번
         applicant.recruit_subject,  // 3번
@@ -35,16 +35,18 @@ function loadAndRenderGrid() {
         applicant.cl_idx,           // 6번
         applicant.cl_title,         // 7번
         applicant.status_code,      // 8번 (상태 코드)
-        applicant.status            // 9번 (상태 이름, 예: "심사중")
+        applicant.status,            // 9번 (상태 이름, 예: "심사중")
+        applicant.apply_idx,        // 10번
     ]);
 
     // --- 2. 위 데이터 순서에 맞춰 컬럼 정의 ---
     const grid = new gridjs.Grid({
         columns: [
             // 컬럼 1: 번호 (CSS로 자동 생성, 데이터 사용 안 함)
-            { 
+            { 	
+				id: 'rn',
                 name: '번호',
-                width: '70px',
+                width: '70px'
             },
             // 컬럼 2: 지원자 이름 (데이터 1번 인덱스 사용)
             { name: '지원자 이름' },
@@ -54,7 +56,7 @@ function loadAndRenderGrid() {
                 formatter: (_, row) => {
                     const recruitIdx = row.cells[2].data;
                     const recruitSubject = row.cells[3].data;
-                    return gridjs.html(`<a href='/recruit/detail?idx=${recruitIdx}'>${recruitSubject}</a>`);
+                    return gridjs.html(`<a href='recruitmentDetail?recruit_idx=${recruitIdx}'>${recruitSubject}</a>`);
                 }
             },
             // 컬럼 4: 이력서 제목 (데이터 4, 5번 인덱스 사용)
@@ -63,7 +65,7 @@ function loadAndRenderGrid() {
                 formatter: (_, row) => {
                     const resumeIdx = row.cells[4].data;
                     const resumeTitle = row.cells[5].data;
-                    return gridjs.html(`<a href='/resume/detail?idx=${resumeIdx}'>${resumeTitle}</a>`);
+                    return gridjs.html(`<a href='savedResumeDetail?resume_idx=${resumeIdx}'>${resumeTitle}</a>`);
                 }
             },
             // 컬럼 5: 자소서 제목 (데이터 6, 7번 인덱스 사용)
@@ -72,20 +74,24 @@ function loadAndRenderGrid() {
                 formatter: (_, row) => {
                     const clIdx = row.cells[6].data;
                     const clTitle = row.cells[7].data;
-                    return gridjs.html(`<a href='/coverletter/detail?idx=${clIdx}'>${clTitle}</a>`);
+                    return clTitle == '자소서가 없습니다' ? 
+                    gridjs.html(`${clTitle}`) : 
+                    gridjs.html(`<a href='coverletterResult?cl_idx=${clIdx}'>${clTitle}</a>`);
+//                    return gridjs.html(`<a href='coverletterResult?cl_idx=${clIdx}'>${clTitle}</a>`);
                 }
             },
             // 컬럼 6: 상태변경 (데이터 0, 8, 9번 인덱스 사용)
             {
                 name: '상태변경',
+                sort: false,
+                width: '300px',
                 formatter: (_, row) => {
-                    const applyIdx = row.cells[0].data;
+                    const applyIdx = row.cells[10].data;
                     const currentStatusCode = row.cells[8].data;
-                    
-                    // common_code 같은 테이블을 만들어서 동적으로 생성하면 더 좋습니다.
+                    const Status = row.cells[9].data;
                     const options = `
                         <option value="APS001" ${currentStatusCode === 'APS001' ? 'selected' : ''}>심사중</option>
-                        <option value="APS002" ${currentStatusCode === 'APS002' ? 'selected' : ''}>서류 합격</option>
+                        <option value="APS002" ${currentStatusCode === 'APS002' ? 'selected' : ''}>합격</option>
                         <option value="APS003" ${currentStatusCode === 'APS003' ? 'selected' : ''}>불합격</option>
                     `;
                     return gridjs.html(
@@ -110,8 +116,20 @@ function loadAndRenderGrid() {
 
         data: gridData,
         search: true,
-        pagination: { limit: 5 },
-        sort: true
+        pagination: { limit: 10 },
+        sort: true,
+        language: {
+		search: {
+	      placeholder: '검색어를 입력하세요'   // 검색창 placeholder
+	    },
+    	pagination: {
+	      previous: '<',
+	      next: '>',
+		 },
+	   	loading: '불러오는 중...',
+	    noRecordsFound: '검색 결과가 없습니다',   // ← 여기
+	    error: '데이터를 불러오는 중 오류가 발생했습니다'
+	},
     });
 
             // --- 3. 그리드를 실제 화면에 렌더링합니다. ---
@@ -126,20 +144,16 @@ function loadAndRenderGrid() {
                 const newStatus = selectElement.val();
                 const statusText = selectElement.find('option:selected').text();
 
-                if (confirm(`지원 번호 ${applyId}의 상태를 '${statusText}'(으)로 변경하시겠습니까?`)) {
+                if (confirm(`상태를 '${statusText}'(으)로 변경하시겠습니까?`)) {
                     $.ajax({
-                        url: '/api/applicants/update-status',
+                        url: 'updateApplyStatus',
                         method: 'POST',
                         data: {
                             apply_idx: applyId, // 백엔드에 apply_idx 전송
                             status: newStatus
                         },
-                        success: function(res) {
-                            if(res.success) {
-                                alert("상태가 성공적으로 변경되었습니다.");
-                            } else {
-                                alert("상태 변경에 실패했습니다.");
-                            }
+                        success: function() {
+                            alert("상태가 성공적으로 변경되었습니다.");
                         },
                         error: function() {
                             alert("서버 통신 중 오류가 발생했습니다.");

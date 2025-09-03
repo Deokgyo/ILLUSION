@@ -69,6 +69,9 @@ public interface RecruiterMapper {
 	//지원자 관리를 위한 정보 가져오기 
 	public List<Map<String, Object>> getApply(int member_idx);
 	
+	// 지원 상태 변경 
+	public boolean updateApplyStatus(@Param("apply_idx") int apply_idx, @Param("apply_status") String apply_status);
+	
 	// company_idx 가져오기 
 	public int selectCompany_idx(int member_idx);
 }

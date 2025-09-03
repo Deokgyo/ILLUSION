@@ -60,6 +60,7 @@
 	<!-- 지원자 관리를 위한 정보 가져오기 -->
 	<select id="getApply">
 	    SELECT 
+    ROW_NUMBER() OVER (ORDER BY a.apply_idx DESC) AS rn, -- 카운트 컬럼 추가
     r.recruit_idx,                  -- 공고 ID
     r.recruit_subject,              -- 공고 제목
     a.apply_idx,                    -- 지원 ID
@@ -85,10 +86,19 @@ LEFT JOIN
     cover_letter cl ON a.cl_idx = cl.cl_idx
 LEFT JOIN
     common_code cc ON a.apply_status = cc.code
-		 WHERE
-		       m_recruiter.member_idx = #{member_idx}	
+WHERE
+    m_recruiter.member_idx = #{member_idx};
 	
 	</select>
+	
+	<update id="updateApplyStatus">
+		update apply
+		   set apply_status = #{apply_status}
+		 where apply_idx = #{apply_idx}
+	
+	</update>
+	
+	
 	<select id="getRecruitmentList">
 		SELECT r.recruit_subject
 			 , c.code_name as 'rec_status'

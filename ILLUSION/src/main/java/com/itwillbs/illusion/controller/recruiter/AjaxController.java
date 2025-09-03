@@ -72,6 +72,14 @@ public class AjaxController {
 		return applyList; 
 	}
 	
+	@PostMapping("updateApplyStatus") 
+	public boolean updateApplyStatus(
+			@RequestParam("apply_idx") int apply_idx, 
+			@RequestParam("status") String apply_status) {
+		boolean isSuccess = service.updateApplyStatus(apply_idx, apply_status);
+		return true;
+	}
+	
 	@PostMapping("uploadCompanyLogo") 
 	public Map<String, Object> uploadCompanyLogo(
 			@RequestParam("logo") MultipartFile file,

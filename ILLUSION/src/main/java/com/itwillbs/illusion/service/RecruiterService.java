@@ -120,10 +120,15 @@ public class RecruiterService {
 		return mapper.getApply(member_idx);
 	}
 	
+	// 지원 상태 변경 
+	public boolean updateApplyStatus(int apply_idx, String apply_status) {
+		return mapper.updateApplyStatus(apply_idx, apply_status);
+	}
 	
 	// company_idx 가져오기 
 	public int selectCompany_idx(int member_idx) {
 		return mapper.selectCompany_idx(member_idx);
 	}
+	
 	
 }
