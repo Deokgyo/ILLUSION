@@ -51,15 +51,14 @@
 
 	<div class="main-brand-section">
 		<div class="brand-logo-wrap">
-			<a href="./"> <img src="./resources/image/logo2.png" alt="메인로고"
-				class="main-logo-img">
+			<a href="./"> 
+			<img src="./resources/image/logo2.png" alt="메인로고" class="main-logo-img">
 			</a>
 			<div class="brand-title-group"></div>
 		</div>
 	</div>
 	<div class="brand-slogan-wrap">
-		<span class="slogan-bg-text"> 채용의 모든 솔루션, <span
-			class="slogan-emph">일루션</span>에서 시작됩니다.
+		<span class="slogan-bg-text"> 채용의 모든 솔루션, <span class="slogan-emph">일루션</span>에서 시작됩니다.
 		</span>
 	</div>
 	<div class="member-tabs">
@@ -68,22 +67,16 @@
 	</div>
 	<div class="signup-form-box">
 
-		<form action="${pageContext.request.contextPath}/register"
-			method="post" id="registerForm" class="signup-form"
-			autocomplete="off" >
+		<form action="${pageContext.request.contextPath}/register" method="post" id="registerForm" class="signup-form" autocomplete="off" >
 
 			<div class="input-box" id="companyBox">
-				<label for="Number">사업자등록번호</label> <input type="text"
-					id="companyNumber" name="recruiter_number" maxlength="10"
-					placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
-				<button type="button" class="btn-company" id="btncompany"
-					value="등록번호검색" name="btncompanyNumber">사업자 인증</button>
+				<label for="Number">사업자등록번호</label> <input type="text" id="companyNumber" name="recruiter_number" 
+				 maxlength="10" placeholder="사업자등록번호 10자리 '-' 제거 후 입력">
+				<button type="button" class="btn-company" id="btncompany" value="등록번호검색" name="btncompanyNumber">사업자 인증</button>
 			</div>
 			<div class="form-row">
-				<label for="userid">아이디</label> <input type="text" id="userid"
-					name="member_id" maxlength="20"
-					placeholder="4~20 자리 / 영문, 숫자, 특수문자 _ 입력 가능"> &nbsp;<span
-					id="UserIdSuccess"></span>
+				<label for="userid">아이디</label> <input type="text" id="userid" name="member_id" maxlength="20"
+					placeholder="4~20 자리 / 영문, 숫자, 특수문자 _ 입력 가능"> &nbsp;<span id="UserIdSuccess"></span>
 			</div>
 			<div class="form-row">
 				<label for="userpw">비밀번호</label> <input type="password" id="userpw"
@@ -184,18 +177,18 @@
 					<label><input type="checkbox" class="agree-each" name="agreeTerms" required>
 						<span class="agree-label">이용 약관 동의 (필수)</span> 
 					</label> 
-						<a href="#" class="agreeCheck">내용 보기</a>
+						<a href="termsOfService" class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
 					<label><input type="checkbox" class="agree-each" name="agreePrivacy" required>
 						<span class="agree-label">개인정보 처리 동의 (필수)</span> 
 					</label> 
-						<a href="#" class="agreeCheck">내용 보기</a>
+						<a href="privacyPolicy" class="agreeCheck">내용 보기</a>
 				</div>
 				<div class="terms-row">
 					<label> <input type="checkbox" class="agree-each" name="member_marketing_agreed" value="BOL001"> 
 					<span class="agree-label">마케팅 동의 (선택)</span>
-					</label> <a href="#" class="agreeCheck">내용 보기</a> 
+					</label> <a href="marketing" class="agreeCheck">내용 보기</a> 
 						<input type="hidden" name="member_marketing_agreed" value="BOL002" />
 				</div>
 			</div>

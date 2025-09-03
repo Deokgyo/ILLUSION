@@ -30,6 +30,7 @@
         <intercept-url pattern="/errorPage" access="permitAll" />
         <intercept-url pattern="/privacyPolicy" access="permitAll" />
         <intercept-url pattern="/termsOfService" access="permitAll" />
+        <intercept-url pattern="/marketing" access="permitAll" />
 	
             
         <intercept-url pattern="/recruiterMain" access="permitAll" />

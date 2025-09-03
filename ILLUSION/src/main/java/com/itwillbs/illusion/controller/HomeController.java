@@ -66,7 +66,8 @@ public class HomeController {
 		
 		return "home";
 	}
-
+	
+	//에러페이지 이동 
 	@GetMapping("errorPage")
 	public String errorPage() {
 		return "errorPage";
@@ -83,7 +84,26 @@ public class HomeController {
 	public String register() {
 		return "home/register";
 	}
-
+	
+	// 이용약관 이동 
+    @GetMapping("termsOfService")
+    public String termsOfService() {
+    	return "home/termsOfService";
+    }
+    
+    // 개인정보 이동 
+    @GetMapping("privacyPolicy")
+    public String privacyPolicy() {
+    	return "home/privacyPolicy";
+    }
+    
+    //마케팅 이동 
+    @GetMapping("marketing")
+    public String marketing() {
+    	return "home/marketing";
+    }
+    
+    //회원가입
 	@PostMapping("register")
 	public String register(MemberVO member, CompanyVo company, 
 						   String address_name1, String address_name2,
