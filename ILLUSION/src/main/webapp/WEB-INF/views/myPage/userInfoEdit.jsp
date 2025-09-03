@@ -147,7 +147,7 @@
 							<hr>
 						</div>
 				<button type="button" class="passwd-button"
-    				onclick="location.href='changePasswd?member_idx=${member.member_idx}';">비밀번호 수정</button>
+    				onclick="location.href='changePasswd?member_idx=${member.member_idx}';">비밀번호 변경</button>
 				<button type="button" class="infodelete-button"
 					onclick="location.href='deleteMember?member_idx=${member.member_idx}';">회원탈퇴</button>
 					</form>
