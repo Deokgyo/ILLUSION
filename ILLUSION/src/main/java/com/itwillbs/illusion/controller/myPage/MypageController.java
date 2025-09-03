@@ -145,7 +145,13 @@ public class MypageController {
 	/* 회원정보 수정 */
 	@GetMapping("userInfoEdit")
 	public String userInfoEdit(Model model
-							,Principal principal) {
+							,Principal principal
+							,HttpSession session) {
+	    Boolean auth = (Boolean) session.getAttribute("authenticated");
+	    if(auth == null || !auth) {
+	        return "redirect:/identityCheck"; // 인증 페이지로 이동
+	    }
+		
 		String id = principal.getName();
 		
 		MemberVO member = resumeService.SelectM(id);
@@ -198,13 +204,41 @@ public class MypageController {
 	    // 로그인 세션에 회원정보 수정 즉시 반영
 	    principalRefresher.refreshPrincipal();
 	    
+	    session.removeAttribute("authenticated");
+	    
 	    redirectAttributes.addFlashAttribute("msg", "회원 정보가 수정되었습니다.");
 	    
 	    return "redirect:/myPage";
 	}
+	/*본인 인증*/
+	@GetMapping("identityCheck")
+	public String identityCheck(Model model,Principal principal) {
+		String id = principal.getName();
+		MemberVO member = resumeService.SelectM(id);
+		model.addAttribute("member",member);
+		return "myPage/identityCheck";
+	}
+	@PostMapping("identityCheck1")
+	@ResponseBody
+	public String identityCheck(@RequestParam int member_idx,
+	                            @RequestParam String member_id,
+	                            @RequestParam String member_pw,
+	                            HttpSession session) {
 
+	    Map<String, Object> user = resumeService.selectuserInfoEdit(member_idx);
+	    if(user == null || !user.containsKey("member_pw")) {
+	        return "fail";
+	    }
+	    String savedPw = user.get("member_pw").toString();
 
-
+	    if(passwordEncoder.matches(member_pw, savedPw)) {
+	    	session.setAttribute("authenticated", true); 
+	        return "ok";
+	    } else {
+	        return "fail";
+	    }
+	    
+	}
 	/* 비밀번호변경 */
 	@GetMapping("changePasswd")
 	public String changePasswd(Model model,

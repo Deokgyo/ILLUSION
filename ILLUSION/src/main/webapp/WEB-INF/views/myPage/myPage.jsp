@@ -67,7 +67,7 @@
 						        <button class="edit-btn" onclick="location.href='recruiterInfo'">기업정보수정</button>
 						    </c:when>
 						    <c:otherwise>
-						        <button class="edit-btn" onclick="location.href='userInfoEdit'">회원정보수정</button>
+						        <button class="edit-btn" onclick="location.href='identityCheck'">회원정보수정</button>
 						    </c:otherwise>
 						</c:choose>
 					</div>

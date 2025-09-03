@@ -51,6 +51,7 @@
 						<div class="section">
 							<div class="form-row">
 								<div class="form-group">
+								<h4 class="form-section-title">제목(필수)</h4>
 									<input type="text" name="resume_title" placeholder="제목을 입력하세요" autocomplete="off" value="${resume.resume_title }">
 								</div>
 							</div>
