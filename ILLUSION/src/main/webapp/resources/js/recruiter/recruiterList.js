@@ -24,7 +24,12 @@ $(function () {
       {
 		id: 'recruit_subject',
 		name : '공고 제목',
-		width: '300px'
+		width: '300px',
+		formatter: (_, row) => {
+                    const recruitSubject = row.cells[7].data;
+                    const recruitIdx = row.cells[6].data;
+                    return gridjs.html(`<a href='recruitmentDetail?recruit_idx=${recruitIdx}'>${recruitSubject}</a>`);
+                }
 	  },		
       {
 		id: 'rec_status',
