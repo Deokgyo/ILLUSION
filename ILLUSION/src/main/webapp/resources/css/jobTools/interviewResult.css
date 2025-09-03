@@ -15,6 +15,12 @@
     margin-bottom: 20px;
 }
 
+.save {
+	width: 86px;
+	}
+.copy {
+	width: 86px;
+}
 .question-card{
 	position: relative;
     overflow: hidden;
@@ -30,6 +36,9 @@
     background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */	
 }
 
+.card-actions {
+	display: flex;
+}
 
 .question-card .question-title {
     display: flex;
@@ -42,7 +51,7 @@
     justify-content: center;
     width: 36px;
     height: 36px;
-    background-color: var(--main-color);
+/*     background-color: var(--main-color); */
     color: var(--font-main-color);
     border-radius: 50%;
     font-weight: 700;

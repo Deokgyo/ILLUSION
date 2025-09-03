@@ -115,6 +115,11 @@ public class RecruiterService {
 		mapper.expiredRecruiteClose();
 	}
 	
+	// 지원자 관리를 위한 정보 가져오기 
+	public List<Map<String, Object>> getApply(int member_idx) {
+		return mapper.getApply(member_idx);
+	}
+	
 	
 	// company_idx 가져오기 
 	public int selectCompany_idx(int member_idx) {

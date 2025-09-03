@@ -588,3 +588,31 @@ label {
     border-color: #ffc107;
     outline: 0;
 }
+.note-editor.note-airframe, .note-editor.note-frame {
+    border: 1px solid rgba(0, 0, 0, .196);
+    border-radius: 7px !important;
+}
+.note-image-url {
+	display:none;
+}
+.close {
+	background-color: #fff;
+    border: 0px;
+}
+
+select option:hover {
+  background-color: var(--main-color);
+}
+
+.note-form-label:last-of-type {
+  display:none;
+}
+.modal-footer {
+	display: none;
+}
+.note-toolbar {
+background-color: #ffffff !important;
+    border-bottom: 1px solid !important;
+    border-color: var(--bs-border-color-translucent) !important;
+    border-radius: 5px;
+    }

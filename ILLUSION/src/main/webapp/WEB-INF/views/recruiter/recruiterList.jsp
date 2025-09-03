@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruiter/recruiterList.css">
 	
-	<title>Home</title>
+	<title>채용의 모든 솔루션, 일루션에서 시작됩니다.</title>
+	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/logop.png" type="image/x-icon">
 </head>
 <body>
 	<header>

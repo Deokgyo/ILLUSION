@@ -47,6 +47,7 @@ public class RecruiterController {
 	@Autowired 
 	MypageService mypageService;
 	
+	
 	// 기업 메인 페이지로 이동 
 	@GetMapping("recruiterMain") 
 	public String recruiterMain(Principal principal) {
@@ -73,7 +74,6 @@ public class RecruiterController {
 		
 //		공고의 제목과 마감일 가져오기 
 		List<Map<String, Object>> recruitmentSubjectDate = service.getRecruitmentSubjectDate(member_id);
-		System.out.println(recruitmentSubjectDate);
 		for (Map<String, Object> r : recruitmentSubjectDate) {
 			LocalDateTime endDate = (LocalDateTime) r.get("end_date"); // Map에서 키로 꺼냄
 			String formatted = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -89,14 +89,9 @@ public class RecruiterController {
 		int totalAppCnt = service.selectTotalAppCnt(member_id);
 		model.addAttribute("totalAppCnt", totalAppCnt);
 		
-	
-		
 		// 미 열람 이력서 제목, 경력, 학력, 거주지 가져오기 
 		List<Map<String,String>> resumeInfo = service.selectResumeInfo(SecurityUtil.getLoginUserIndex());
-		System.out.println("안뜨냐");
-		System.out.println(resumeInfo);
 		model.addAttribute("resumeInfo", resumeInfo);
-		
 		return "recruiter/recruiterMainLogin"; 
 	}
 		
@@ -117,7 +112,6 @@ public class RecruiterController {
 	// 기업 정보 수정으로 이동 
 	@GetMapping("recruiterInfo")
 	public String recruiterInfo(Model model) {
-		
 		int member_idx = SecurityUtil.getLoginUserIndex();
 		int company_idx = service.selectCompany_idx(member_idx);
 		model.addAttribute("company_idx", company_idx);
@@ -135,6 +129,12 @@ public class RecruiterController {
 	@GetMapping("memberModify")
 	public String memberModify() {
 		return "recruiter/memberModify";
+	}
+	
+	// 지원자 관리 페이지 이동
+	@GetMapping("applyManage")
+	public String applyManage() {
+		return "recruiter/applyManage";
 	}
 	
 	// 공고 마감 버튼 누를 때 
@@ -158,7 +158,6 @@ public class RecruiterController {
 	public String recruitModify(int recruit_idx, Model model) {
 		
 		RecruitVO vo = service.selectRecruitModify(recruit_idx);
-		System.out.println("vo 어케 찍히노: " + vo);
 		model.addAttribute("savedData", vo);
 		
 		// 디비 공통코드에서 주소 값 가져오기 
@@ -176,7 +175,6 @@ public class RecruiterController {
 										.collect(Collectors.toList());
 		// 그룹을 파라미터로 넘겨서 해당하는 공통 코드와 이름을 조회해서 배열에 담음 
 		List<CommonCodeVO> commonList = comService.selectAllCommonList(codeGroups);
-		System.out.println(commonList);
 		
 		// 배열에 담아온 값을 그룹아이디를 기준으로 그룹화 하여서 맵 형태로 바꿈 
 		Map<String,List<CommonCodeVO>> commonListMap 
@@ -215,7 +213,6 @@ public class RecruiterController {
 		
 		// 그룹을 파라미터로 넘겨서 해당하는 공통 코드와 이름을 조회해서 배열에 담음 
 		List<CommonCodeVO> commonList = comService.selectAllCommonList(codeGroups);
-		System.out.println(commonList);
 		
 		// 배열에 담아온 값을 그룹아이디를 기준으로 그룹화 하여서 맵 형태로 바꿈 
 		Map<String,List<CommonCodeVO>> commonListMap 

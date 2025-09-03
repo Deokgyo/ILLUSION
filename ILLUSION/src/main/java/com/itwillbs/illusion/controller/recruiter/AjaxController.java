@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.illusion.service.CompanyService;
 import com.itwillbs.illusion.service.RecruiterService;
+import com.itwillbs.illusion.util.SecurityUtil;
 import com.itwillbs.illusion.vo.RecruitVO;
 
 @RestController
@@ -64,6 +65,13 @@ public class AjaxController {
 		return companyInfoMap;
 	}
 	
+	@PostMapping("getApply")
+	public List<Map<String, Object>> getApply() {
+		int member_idx = SecurityUtil.getLoginUserIndex();
+		List<Map<String, Object>> applyList = service.getApply(member_idx);
+		return applyList; 
+	}
+	
 	@PostMapping("uploadCompanyLogo") 
 	public Map<String, Object> uploadCompanyLogo(
 			@RequestParam("logo") MultipartFile file,
@@ -83,8 +91,6 @@ public class AjaxController {
 	        String savePath = contextPath + virtualPath + subDir + "/" + fileName;
 //	        // 2. DB 업데이트
 	        String logoTag = "<img src='" + savePath + "'>";
-	        System.out.println("로고 태그 뭔데");
-	        System.out.println(logoTag);
 	        companyService.updateCompanyLogo(company_idx, logoTag);
 
 	        // 3. URL 반환

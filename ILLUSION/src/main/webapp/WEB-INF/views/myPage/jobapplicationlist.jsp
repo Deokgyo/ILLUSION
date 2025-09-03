@@ -86,7 +86,7 @@
 								<td>${app.rec_status }</td>
 								<td>${app.applyDateFormatted }</td>
 								<td>${app.endDateFormatted }</td>
-								<td>${app.rec_status }</td>
+								<td>${app.apply_status }</td>
 								<td>${app.is_viewed }</td>
 							</tr>
 						</c:forEach>
