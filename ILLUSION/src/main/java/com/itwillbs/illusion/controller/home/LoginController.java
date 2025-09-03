@@ -36,30 +36,8 @@ public class LoginController {
 		
 		return "home/login";
 	}
-	
-	
-	// 접근 제한 시 에러페이지 TODO 여기 메서드들 나중에 홈쪽 컨트롤러로 이동
-    @GetMapping("/accessDenied")
-    public String accessDenied(Model model) {
-        model.addAttribute("msg", "페이지에 접근할 권한이 없습니다.");
-        
-        return "errorPage";
-    }
-    
-    // TODO 이용약관 페이지 나중에 홈 컨트롤러로 
-    @GetMapping("termsOfService")
-    public String termsOfService() {
-    	return "home/termsOfService";
-    }
-    
-    // TODO 개인정보 처ㄹ방침 페이wl 
-    @GetMapping("privacyPolicy")
-    public String privacyPolicy() {
-    	return "home/privacyPolicy";
-    }
-    
-    
-    // 아이디 찾기 - 인증번호 발송
+
+	// 아이디 찾기 - 인증번호 발송
     @PostMapping("idFind/sendAuthCode")
     @ResponseBody
     public Map<String, Object> sendIdAuthCode(String member_name, String member_email) {
