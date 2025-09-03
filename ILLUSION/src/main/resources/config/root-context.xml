@@ -31,6 +31,7 @@
 	
 	<!-- SQL 로그 출력을 위해 log4jdbc 라이브러리 관련 DBCP 정보 변경 필요 -->
 	<!-- (driverClassName, jdbcUrl 속성만 변경) -->
+	<!-- 원래 디비 아이디 비밀번호는 암호화 되어 있어야함 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://itwillbs.com:3306/c2d2505t2p1"></property>

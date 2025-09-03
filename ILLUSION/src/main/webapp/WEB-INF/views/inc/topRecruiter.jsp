@@ -2,6 +2,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/top.css">
 <%--
 	작성자: 박덕교
 	용도 : 기업 페이지 헤더 영역 
@@ -11,7 +12,6 @@
     <meta name="_csrf_header" content="${_csrf.headerName}">
 <header class="site-header">
     <div class="header-container">
-    
         <!-- 로고 -->
         <div class="site-logo">
             <a href="./">
@@ -30,6 +30,7 @@
 	            </sec:authorize>
                 <li><a href="recruiterRegistForm">공고등록</a></li>
                 <li><a href="recruiterList">공고목록</a></li>
+                <li><a href="applyManage">지원자 관리</a></li>
             </ul>
         </nav>
 

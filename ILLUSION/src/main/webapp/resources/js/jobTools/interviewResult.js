@@ -17,8 +17,25 @@ $(function() {
 	//======================================
 	
 	
+	// --- 최종 제출 버튼 클릭 이벤트 -> 모달창 띄우기 ---
+    function createClick() {
+	$('#confirm-modal').fadeOut();
+        $('#loading-overlay').css('display', 'flex').fadeTo(300, 1);
+            
+        }
+    
+    $('.btn-no, .close-modal-btn').on('click', function() {
+    	$(this).closest('.modal-overlay').fadeOut();    
+    });
+    
+	
+	
+	
 	// 답변에 대한 피드백 받기 
 	function submit(button) {
+		
+		// 모달 띄우기
+		createClick();
 		// 클릭한 버튼 기준으로 부모 카드 찾기
         const card = $(button).closest('.question-card');
         // 질문 텍스트
@@ -37,6 +54,7 @@ $(function() {
 			data: {question : question,
 				   answer : answer},
 			success: function(res) {
+				$('.btn-no, .close-modal-btn').click();
 				feedback.empty().html(res.feedback);
 			},
 			error: function(xhr, status, error) {

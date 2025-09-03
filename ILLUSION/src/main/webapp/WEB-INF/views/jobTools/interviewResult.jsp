@@ -48,7 +48,7 @@
 	                        </div>
 	                        <div class="card-actions">
 	                            <button class="btn btn-yellow save">저장</button>
-	                            <button class="btn btn-yellow">복사</button>
+	                            <button class="btn btn-yellow copy">복사</button>
 	                        </div>
 	                    </div>
 	                    <div class="card-body">
@@ -73,7 +73,7 @@
 
         </main>
     </div>
-
+	<jsp:include page="/WEB-INF/views/jobTools/aiFeedbackModal.jsp"></jsp:include>
     <jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

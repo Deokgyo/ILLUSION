@@ -57,7 +57,38 @@
 		   AND rec_status = 'RECS01'
 	</select>
 	
+	<!-- 지원자 관리를 위한 정보 가져오기 -->
+	<select id="getApply">
+	    SELECT 
+    r.recruit_idx,                  -- 공고 ID
+    r.recruit_subject,              -- 공고 제목
+    a.apply_idx,                    -- 지원 ID
+    a.resume_idx,                   -- 제출한 이력서 ID
+    a.cl_idx,                       -- 제출한 자소서 ID
+    m_applicant.member_idx AS member_idx, -- 지원자의 회원 ID
+    m_applicant.member_name AS member_name, -- 지원자의 이름
+    res.resume_title,               -- 제출한 이력서 제목
+    IFNULL(cl.cl_title, '자소서가 없습니다') AS cl_title, -- 제출한 자소서 제목
+    a.apply_status AS status_code,  -- 상태 코드 (e.g., 'apply01')
+    cc.code_name AS status          -- 상태 코드명 (e.g., '서류 검토')
+FROM 
+    apply a
+LEFT JOIN
+    recruit r ON a.recruit_idx = r.recruit_idx
+LEFT JOIN
+    member m_applicant ON a.member_idx = m_applicant.member_idx
+LEFT JOIN
+    member m_recruiter ON r.member_idx = m_recruiter.member_idx
+LEFT JOIN
+    resume res ON a.resume_idx = res.resume_idx
+LEFT JOIN
+    cover_letter cl ON a.cl_idx = cl.cl_idx
+LEFT JOIN
+    common_code cc ON a.apply_status = cc.code
+		 WHERE
+		       m_recruiter.member_idx = #{member_idx}	
 	
+	</select>
 	<select id="getRecruitmentList">
 		SELECT r.recruit_subject
 			 , c.code_name as 'rec_status'

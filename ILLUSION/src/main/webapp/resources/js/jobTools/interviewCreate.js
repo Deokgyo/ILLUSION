@@ -28,7 +28,6 @@ $(function() {
 				dataType: "text",
 				data: data,
 				success: function(res) {
-					alert('연결성공');
 					location.href = res;
 				},
 				error: function(xhr, status, error) {
@@ -58,7 +57,6 @@ $(function() {
 			    processData: false,
 			    contentType: false,
 			    success: function (res) {
-			      	alert('연결성공');
 					location.href = res;
 			    },
 			    error: function (xhr) {
@@ -77,7 +75,6 @@ $(function() {
 			    method: 'POST',
 			    data: { cl_idx: cl_idx },
 			    success: function (res) {
-			      	alert('연결성공');
 					location.href = res;
 			    },
 			    error: function (xhr) {
