@@ -40,7 +40,7 @@
 		<main class="main-content">
 			<div class="page-title-header">
 				<p class="header-text">
-					<strong>이력서 등록</strong>
+					<strong>이력서 수정</strong>
 				</p>
 			</div>
 
@@ -56,6 +56,7 @@
 						<div class="section">
 							<div class="form-row">
 								<div class="form-group">
+									<h4 class="form-section-title">제목(필수)</h4>
 									<input type="text" name="resume_title" placeholder="제목을 입력하세요"
 										autocomplete="off" value="${resume.resume_title }">
 								</div>
@@ -64,10 +65,14 @@
 								<div class="avatar-container">
 									<!-- 미리보기 영역 -->
 									<div class="avatar-placeholder" id="avatarPreview">
-
-										<img
-											src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
-
+									    <c:choose>
+									        <c:when test="${not empty resume.resume_img}">
+									            <img src="${resume.resume_img}" alt="프로필 이미지">
+									        </c:when>
+									        <c:otherwise>
+									            <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" alt="기본 프로필 이미지">
+									        </c:otherwise>
+									    </c:choose>
 									</div>
 
 									<!-- 실제 업로드 input (숨김) -->
@@ -93,22 +98,20 @@
 						</div>
 
 						<div class="section">
-							<h4 class="form-section-title">학력</h4>
+							<h4 class="form-section-title">학력 (필수)</h4>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학교 이름</label> <input type="text" name="school_name"
-										placeholder="학교명을 입력하세요" autocomplete="off"
-										value="${resume.school_name }">
+									<label>학교 이름*</label>
+									 <input type="text" name="school_name" placeholder="학교명을 입력하세요" autocomplete="off" value="${resume.school_name }">
 								</div>
 								<div class="form-group">
-									<label>전공</label> <input type="text" name="major"
-										placeholder="전공을 입력하세요" autocomplete="off"
-										value="${resume.major} ">
+									<label>전공*</label>
+									 <input type="text" name="major" placeholder="전공을 입력하세요" autocomplete="off" value="${resume.major} ">
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학위</label>
+									<label>학위*</label>
 									 <select name="degree" class="degree-select">
 										<option value="" selected disabled>-- 선택 --</option>
 										<c:forEach var="d" items="${degreeList}">
@@ -121,11 +124,9 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학점</label>
+									<label>학점*</label>
 									<div class="gpa-group">
-										<input id="gradeInput" type="text" name="grade"
-											placeholder="학점을 입력하세요 ex) 4.0" style="flex: 1;"
-											autocomplete="off" value="${resume.grade }"> <span>/</span>
+										<input id="gradeInput" type="text" name="grade" placeholder="학점을 입력하세요 ex) 4.0" style="flex: 1;" autocomplete="off" value="${resume.grade }"> <span>/</span>
 										<select id="gradeSelect" style="flex-basis: 100px;">
 											<option value="4.5">4.5</option>
 											<option value="4.3">4.3</option>
@@ -136,38 +137,29 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label>입학일</label>
+									<label>입학일*</label>
 									<div class="date-input-container">
-										<input type="text" name="enroll_date" id="enroll_date"
-											placeholder="연도-월-일" autocomplete="off"
-											value="${resume.enroll_date} ">
+										<input type="text" name="enroll_date" id="enroll_date" placeholder="연도-월-일" autocomplete="off" value="${resume.enroll_date} ">
 									</div>
 								</div>
 								<div class="form-group">
-									<label>졸업일</label>
+									<label>졸업일*</label>
 									<div class="date-input-container">
-										<input type="text" name="graduation_date" id="graduation_date"
-											placeholder="연도-월-일" autocomplete="off"
-											value="${resume.graduation_date }">
+										<input type="text" name="graduation_date" id="graduation_date" placeholder="연도-월-일" autocomplete="off" value="${resume.graduation_date }">
 									</div>
-
 								</div>
 							</div>
 							<div class="form-group">
 								<label>추가정보 (선택)</label>
-								<textarea name="additional_information"
-									placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요 ex) 수석 졸업 등"
-									autocomplete="off">${resume.additional_information }</textarea>
+								<textarea name="additional_information" placeholder="기타 성과, 수상 경력, 관련 프로젝트 등을 입력하세요 ex) 수석 졸업 등" autocomplete="off">${resume.additional_information }</textarea>
 							</div>
 						</div>
-
 						<div class="section">
 							<h4 class="form-section-title">경력사항 (선택)</h4>
 							<div class="form-row">
 								<div class="form-group">
-									<label>회사명</label> <input name="company_name" type="text"
-										placeholder="회사명을 입력하세요" autocomplete="off"
-										value="${exp.company_name }">
+									<label>회사명</label>
+									 <input name="company_name" type="text" placeholder="회사명을 입력하세요" autocomplete="off" value="${exp.company_name }">
 								</div>
 								<div class="form-group">
 									<label>직책</label> <select name="position">
@@ -217,12 +209,10 @@
 
 						<div class="section">
 							<div class="form-group">
-								<label>자격증(선택)</label> <input type="text" name="certificate"
-									placeholder="보유중인 자격증을 입력하세요" autocomplete="off"
-									value="${exp.certificate }">
+								<label>자격증(선택)</label>
+								 <input type="text" name="certificate" placeholder="보유중인 자격증을 입력하세요" autocomplete="off" value="${exp.certificate }">
 							</div>
 						</div>
-
 					</div>
 					<button type="submit" class="btn btn-save"
 						onclick="return confirm('저장하시겠습니까?');">저장</button>

@@ -115,12 +115,12 @@ public class MypageController {
 		Map<String, String> savedFiles = new HashMap<>();
 		MultipartFile[] files = {file1};
 		String[] keys = {"resume_img"};
-	    
+		String contextPath = req.getContextPath();
 	    for (int i = 0; i < files.length; i++) {
 	        MultipartFile mFile = files[i];
 	        if (!mFile.isEmpty()) {
 	            String fileName = UUID.randomUUID().toString() + "_" + mFile.getOriginalFilename();
-	            savedFiles.put(keys[i], subDir + "/" + fileName);
+	            savedFiles.put(keys[i], contextPath + "/resources/upload/" + subDir + "/" + fileName);
 	            try {
 	                mFile.transferTo(new File(realPath, fileName));
 	            } catch (Exception e) {
