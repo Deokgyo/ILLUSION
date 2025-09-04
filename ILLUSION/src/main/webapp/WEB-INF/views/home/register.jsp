@@ -43,7 +43,8 @@
 	href="${pageContext.request.contextPath}/resources/css/home/login.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/home/register.css">
-<title>회원가입</title>
+<title>채용의 모든 솔루션, 일루션에서 시작됩니다</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/image/logop.png" type="image/x-icon">
 </head>
 <body>
 

@@ -32,7 +32,7 @@
 	     });
 	</script>
 	<%-- --------------- 브라우저 볼때 탭 영역 ----------- --%>
-	<title>채용의 모든 솔루션, 일루션에서 시작됩니다.</title>
+	<title>채용의 모든 솔루션, 일루션에서 시작됩니다</title>
 	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/logop.png" type="image/x-icon">
 	<%-- --------------- 브라우저 볼때 탭 영역 ----------- --%>
 </head>

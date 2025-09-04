@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>채용의 모든 솔루션, 일루션에서 시작됩니다.</title>
+	<title>채용의 모든 솔루션, 일루션에서 시작됩니다</title>
 	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/logop.png" type="image/x-icon">
 	<%-- 외부 css 파일 --%>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">

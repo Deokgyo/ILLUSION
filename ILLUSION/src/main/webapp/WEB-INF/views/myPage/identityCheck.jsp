@@ -4,7 +4,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>본인 확인</title>
+<title>채용의 모든 솔루션, 일루션에서 시작됩니다</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/image/logop.png" type="image/x-icon">	
+	
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/components.css">
@@ -24,9 +26,9 @@
 				src="${pageContext.request.contextPath}/resources/image/logo.png"
 				alt="이미지 설명" />
 		</div>
-		<div class="user-info">
-			${member.member_id}<br> <small>${member.member_email}</small>
-		</div>
+<!-- 		<div class="user-info"> -->
+<%-- 			${member.member_id}<br> <small>${member.member_email}</small> --%>
+<!-- 		</div> -->
 		<p>계속하려면 먼저 본인임을 인증하세요.</p>
 
 		<div class="input-group">

@@ -4,7 +4,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>AI 취업 상담 챗봇</title>
+    <title>채용의 모든 솔루션, 일루션에서 시작됩니다</title>
+	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/logop.png" type="image/x-icon">
+	
    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
