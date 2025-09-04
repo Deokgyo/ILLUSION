@@ -14,6 +14,10 @@ main {
     padding: 10px 20px;
 }
 
+.footer-address p {
+	margin: 15px 0px;
+}
+
 /* 전체 배경 및 레이아웃 */
 .hero-section {
     position: relative; /* 배경 텍스트의 기준점 */

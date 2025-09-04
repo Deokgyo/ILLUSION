@@ -124,9 +124,6 @@ public class ResumeService {
 	   }
 	   
 	   
-	 
-	   
-	   
 	   	   
 	   /*자기소개서*/
 	   public Map<String, Object> selectCL(int cl_idx) {

@@ -5,7 +5,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>채용공고 상세페이지</title>
+    <title>채용의 모든 솔루션, 일루션에서 시작됩니다</title>
+	<link rel="icon" href="${pageContext.request.contextPath}/resources/image/logop.png" type="image/x-icon">
 
     <%-- 외부 라이브러리 CSS --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -47,12 +48,18 @@
 						<button type="button" class="bookmark-btn ${activeClass}" data-recruit-idx="${recruit.recruit_idx}">
 						    <i class="fa-regular fa-bookmark"></i>
 						</button>
+						
 	                    <c:choose>
 	                    	<c:when test="${isAuthor}">
 	                    		<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow">수정하기</a>
 	                    	</c:when>
 	                    	<c:otherwise>
-			                    <button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
+	                    		<sec:authorize access="isAuthenticated()">
+			                    	<button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
+	                    		</sec:authorize>
+	                    		<sec:authorize access="isAnonymous()">
+			                    	<button class="btn btn-yellow" onclick="location.href='login'">로그인 후 지원 해보세요!<i class="fa-solid fa-paper-plane"></i></button>
+	                    		</sec:authorize>
 	                    	</c:otherwise>
 	                    </c:choose>
 	                </div>

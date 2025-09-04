@@ -37,9 +37,9 @@
 		<jsp:include page="/WEB-INF/views/inc/topRecruiter.jsp" />
 	</header>
 	
-	<div class="page-container">
+		<div class="page-container">
 
-	<main class="main-content">
+		<main class="main-content">
 			<div class="page-title-header">
 				<p class="header-text">
 					<strong>이력서 상세페이지</strong>
@@ -51,14 +51,25 @@
 						<div class="form-box">
 							<div class="profile-card-1">
 								<div class="profile-img">
-									<img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png">
+									<div class="profile-img">
+								    <c:choose>
+								        <c:when test="${not empty resume.resume_img}">
+								            <img src="${pageContext.request.contextPath}/resources/upload/${resume.resume_img}" 
+								                 alt="프로필 이미지" id="profilePreview">
+								        </c:when>
+								        <c:otherwise>
+								            <img src="${pageContext.request.contextPath}/resources/mypage_image/profile.png" 
+								                 alt="기본 이미지" id="profilePreview">
+								        </c:otherwise>
+								    </c:choose>
+								</div>
 								</div>
 								<div class="profile-info">
 									<div class="name">${resume.member_name}</div>
 									<div>${resume.resume_birth}</div>
 									<div>${resume.member_phone}</div>
 									<div>${resume.member_email}</div>
-									<div>${resume.address_name}${resume.address_num}</div>
+									<div>${resume.address_name}</div>
 								</div>
 							</div>
 						</div>
@@ -70,7 +81,7 @@
 										<th>학교명</th>
 										<th>전공</th>
 										<th>재학기간</th>
-										<th>졸업여부</th>
+										<th>학위</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -83,7 +94,21 @@
 								</tbody>
 							</table>
 						</div>
-
+						<div class="section">
+							<div class="section-title">추가 정보</div>
+							<table class="info-table">
+								<thead>
+									<tr>
+										<th>추가 정보</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${empty resume.additional_information  ? '-' : resume.additional_information}</td>	
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<div class="section">
 							<div class="section-title">경력사항</div>
 							<table class="info-table">
@@ -97,17 +122,47 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>${resume.company_name}</td>
-										<td>${resume.position}</td>
-										<td>${resume.occupation}</td>
-										<td>${resume.experience}</td>
+										<td>${empty resume.company_name ? '-' : resume.company_name}</td>
+										<td>${empty resume.position ? '-' : resume.position}</td>
+										<td>${empty resume.occupation ? '-' : resume.occupation}</td>
+										<td>${empty resume.experience ? '-' : resume.experience}</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
+						<div class="section">
+							<div class="section-title">담당 업무 및 성과</div>
+							<table class="info-table">
+								<thead>
+									<tr>
+										<th>담당 업무 및 성과</th>
 
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${empty resume.responsibilities ? '-' : resume.responsibilities}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="section">
+							<div class="section-title">자격증</div>
+							<table class="info-table">
+								<thead>
+									<tr>
+										<th>자격증명</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${empty resume.certificate ? '-': resume.certificate }</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<div class="button-wrapper">
-							<button class="list-btn" onclick="location.href='recruiterMainLogin';">목록</button>
+							<button class="list-btn" onclick="history.back()">목록</button>
 						</div>
 					</c:forEach>
 				</div>

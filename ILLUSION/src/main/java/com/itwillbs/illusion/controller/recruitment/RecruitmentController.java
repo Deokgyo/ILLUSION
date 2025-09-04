@@ -169,9 +169,6 @@ public class RecruitmentController {
 			, HttpServletRequest req
 			, Principal principal) {
 		
-		System.out.println("멤버 idx 넘어오나.....");
-		System.out.println(apply);
-		
 		String realPath = req.getServletContext().getRealPath(virtualPath);
 		String subDir = createDirectories(realPath);
 		realPath += "/" + subDir;
@@ -179,7 +176,6 @@ public class RecruitmentController {
 		
 		String fileName = "";
 		String origin = file.getOriginalFilename();
-		
 		// 파일 이름 난수 넣어서 저장함 
 		if(!origin.equals("")) {
 			fileName = UUID.randomUUID().toString() + "_" + origin;
@@ -193,9 +189,9 @@ public class RecruitmentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		apply.setApply_files_path(subDir + "/" + fileName);
-		
+		String contextPath = req.getContextPath(); 
+        String savePath = fileName.equals("") ? "" : contextPath + virtualPath + subDir + "/" + fileName;
+		apply.setApply_files_path(savePath);
 		int insertCnt = service.insertApply(apply);
 		
 		return "redirect:/recruitmentDetail?recruit_idx=" + apply.getRecruit_idx();

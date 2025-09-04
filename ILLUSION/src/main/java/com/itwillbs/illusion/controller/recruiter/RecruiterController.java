@@ -23,10 +23,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.handler.recruiter.CodeGroups;
-import com.itwillbs.illusion.handler.recruiter.MoveAndWrite;
 import com.itwillbs.illusion.service.CommonCodeService;
+import com.itwillbs.illusion.service.JobToolsService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.RecruiterService;
 import com.itwillbs.illusion.service.ResumeService;
@@ -62,18 +63,17 @@ public class RecruiterController {
 	@GetMapping("recruiterMainLogin") 
 	public String recruiterMainLogin(Model model, Principal principal) {
 		// 현재 로그인된 아이디 가져오기 
-		String member_id = principal.getName();
 		int member_idx = SecurityUtil.getLoginUserIndex();
 		// 채용중인 공고 개수 가져오기 
-		String RecruitmentCnt = service.getRecruitmentCnt(member_id);
+		String RecruitmentCnt = service.getRecruitmentCnt(member_idx);
 		model.addAttribute("RecruitmentCnt", RecruitmentCnt);
 		
 		// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
-		Map<String, String> RecruiterInfo = service.getRecruiterInfo(member_id);
+		Map<String, String> RecruiterInfo = service.getRecruiterInfo(member_idx);
 		model.addAttribute("RecruiterInfo", RecruiterInfo);
 		
 //		공고의 제목과 마감일 가져오기 
-		List<Map<String, Object>> recruitmentSubjectDate = service.getRecruitmentSubjectDate(member_id);
+		List<Map<String, Object>> recruitmentSubjectDate = service.getRecruitmentSubjectDate(member_idx);
 		for (Map<String, Object> r : recruitmentSubjectDate) {
 			LocalDateTime endDate = (LocalDateTime) r.get("end_date"); // Map에서 키로 꺼냄
 			String formatted = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -86,28 +86,43 @@ public class RecruiterController {
 		model.addAttribute("unViewedCnt", unViewedCnt);
 		
 		// 총 지원자 수 가져오기 
-		int totalAppCnt = service.selectTotalAppCnt(member_id);
+		int totalAppCnt = service.selectTotalAppCnt(member_idx);
 		model.addAttribute("totalAppCnt", totalAppCnt);
 		
 		// 미 열람 이력서 제목, 경력, 학력, 거주지 가져오기 
-		List<Map<String,String>> resumeInfo = service.selectResumeInfo(SecurityUtil.getLoginUserIndex());
+		List<Map<String,String>> resumeInfo = service.selectResumeInfo(member_idx);
 		model.addAttribute("resumeInfo", resumeInfo);
 		return "recruiter/recruiterMainLogin"; 
 	}
 		
 	//이력서 상세 보기 
 	@GetMapping("viewResume")
-	public String viewResume(int resume_idx, int member_idx, Model model, int apply_idx) {
-		
+	public String viewResume(int resume_idx, Model model, @RequestParam(value = "apply_idx", required = false) int apply_idx) {
 		// 열람 함으로 바꾸기 .. 
 		service.updateIsviewed(apply_idx);
-		
 		List<ResumeVO> resume = mypageService.savedResumeDetail(resume_idx);
 		model.addAttribute("resume", resume);
-		
 		return "recruiter/viewResume";
 	}
+	
+	@Autowired
+	JobToolsService jobService;
+    @GetMapping("viewCoverletter")
+    public String showCoverletterResult(Model model, @RequestParam("cl_idx") int cl_idx,
+            @RequestParam(value = "original_cl_idx", required = false) Integer original_cl_idx) {
+        
+        Map<String, Object> coverletter = jobService.getCoverletterById(cl_idx);
+        model.addAttribute("coverletter", coverletter);
+        // CL002(첨삭된 자소서)인 경우에만 원본 자소서 정보 추가
+        if (coverletter != null && "CL002".equals(coverletter.get("cl_type")) && original_cl_idx != null) {
+            Map<String, Object> originalCoverletter = jobService.getCoverletterById(original_cl_idx);
+            model.addAttribute("originalCoverletter", originalCoverletter);
+        }
+        
+        return "jobTools/viewCoverletter";
+    }
 
+	
 	
 	// 기업 정보 수정으로 이동 
 	@GetMapping("recruiterInfo")
@@ -224,8 +239,6 @@ public class RecruiterController {
 		return "recruiter/recruiterRegistForm";
 	}
 	
-	@Autowired
-	ServletContext servletContext;
 	
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")

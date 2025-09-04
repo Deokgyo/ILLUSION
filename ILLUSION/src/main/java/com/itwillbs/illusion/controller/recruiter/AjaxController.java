@@ -77,7 +77,7 @@ public class AjaxController {
 			@RequestParam("apply_idx") int apply_idx, 
 			@RequestParam("status") String apply_status) {
 		boolean isSuccess = service.updateApplyStatus(apply_idx, apply_status);
-		return true;
+		return isSuccess;
 	}
 	
 	@PostMapping("uploadCompanyLogo") 
@@ -135,7 +135,6 @@ public class AjaxController {
 			e.printStackTrace();
 		}
 		Map<String, String> data = new HashMap<String, String>();
-//		data.put("url", "resources/upload/" + subDir + "/" + fileName);
 		String contextPath = req.getContextPath();
 		data.put("url", contextPath + "/upload/" + subDir + "/" + fileName);
 		return data;

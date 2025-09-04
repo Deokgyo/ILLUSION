@@ -70,17 +70,17 @@ public class RecruiterService {
 	}
 	
 	//채용 공고 개수 
-	public String getRecruitmentCnt(String member_id) {
-		return mapper.getRecruitmentCnt(member_id);
+	public String getRecruitmentCnt(int member_idx) {
+		return mapper.getRecruitmentCnt(member_idx);
 	}
 	//채용 공고 제목과 날짜
-	public List<Map<String, Object>> getRecruitmentSubjectDate(String member_id) {
-		return mapper.getRecruitmentSubjectDate(member_id);
+	public List<Map<String, Object>> getRecruitmentSubjectDate(int member_idx) {
+		return mapper.getRecruitmentSubjectDate(member_idx);
 	}
 	
 	// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
-	public Map<String, String> getRecruiterInfo(String member_id) {
-		return mapper.getRecruiterInfo(member_id) ;
+	public Map<String, String> getRecruiterInfo(int member_idx) {
+		return mapper.getRecruiterInfo(member_idx) ;
 		
 	}
 	
@@ -91,8 +91,8 @@ public class RecruiterService {
 	
 	
 	// 총 지원자 수 가져오기 
-	public int selectTotalAppCnt(String member_id) {
-		return mapper.selectTotalAppCnt(member_id);
+	public int selectTotalAppCnt(int member_idx) {
+		return mapper.selectTotalAppCnt(member_idx);
 	}
 	
 	//기업 정보 들고오기 
