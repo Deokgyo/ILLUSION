@@ -147,10 +147,10 @@ public class MypageController {
 	public String userInfoEdit(Model model
 							,Principal principal
 							,HttpSession session) {
-	    Boolean auth = (Boolean) session.getAttribute("authenticated");
-	    if(auth == null || !auth) {
-	        return "redirect:/identityCheck"; // 인증 페이지로 이동
-	    }
+//	    Boolean auth = (Boolean) session.getAttribute("authenticated");
+//	    if(auth == null || !auth) {
+//	        return "redirect:/identityCheck"; // 인증 페이지로 이동
+//	    }
 		
 		String id = principal.getName();
 		
