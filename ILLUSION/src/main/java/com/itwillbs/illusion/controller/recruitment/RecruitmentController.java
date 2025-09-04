@@ -59,7 +59,7 @@ public class RecruitmentController {
 		
 		// 페이징 처리 계산
 		// ------------------------------------------------
-		int listLimit = 12; // 페이지 당 게시물 수
+		int listLimit = 9; // 페이지 당 게시물 수
 		int pageListLimit = 5; // 하단 페이지 번호 수
 
 	    // 1. 필터링된 전체 게시물 갯수를 정확히 조회
