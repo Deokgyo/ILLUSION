@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.handler.recruiter.CodeGroups;
-import com.itwillbs.illusion.handler.recruiter.MoveAndWrite;
 import com.itwillbs.illusion.service.CommonCodeService;
 import com.itwillbs.illusion.service.JobToolsService;
 import com.itwillbs.illusion.service.MypageService;
@@ -64,18 +63,17 @@ public class RecruiterController {
 	@GetMapping("recruiterMainLogin") 
 	public String recruiterMainLogin(Model model, Principal principal) {
 		// 현재 로그인된 아이디 가져오기 
-		String member_id = principal.getName();
 		int member_idx = SecurityUtil.getLoginUserIndex();
 		// 채용중인 공고 개수 가져오기 
-		String RecruitmentCnt = service.getRecruitmentCnt(member_id);
+		String RecruitmentCnt = service.getRecruitmentCnt(member_idx);
 		model.addAttribute("RecruitmentCnt", RecruitmentCnt);
 		
 		// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
-		Map<String, String> RecruiterInfo = service.getRecruiterInfo(member_id);
+		Map<String, String> RecruiterInfo = service.getRecruiterInfo(member_idx);
 		model.addAttribute("RecruiterInfo", RecruiterInfo);
 		
 //		공고의 제목과 마감일 가져오기 
-		List<Map<String, Object>> recruitmentSubjectDate = service.getRecruitmentSubjectDate(member_id);
+		List<Map<String, Object>> recruitmentSubjectDate = service.getRecruitmentSubjectDate(member_idx);
 		for (Map<String, Object> r : recruitmentSubjectDate) {
 			LocalDateTime endDate = (LocalDateTime) r.get("end_date"); // Map에서 키로 꺼냄
 			String formatted = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -88,11 +86,11 @@ public class RecruiterController {
 		model.addAttribute("unViewedCnt", unViewedCnt);
 		
 		// 총 지원자 수 가져오기 
-		int totalAppCnt = service.selectTotalAppCnt(member_id);
+		int totalAppCnt = service.selectTotalAppCnt(member_idx);
 		model.addAttribute("totalAppCnt", totalAppCnt);
 		
 		// 미 열람 이력서 제목, 경력, 학력, 거주지 가져오기 
-		List<Map<String,String>> resumeInfo = service.selectResumeInfo(SecurityUtil.getLoginUserIndex());
+		List<Map<String,String>> resumeInfo = service.selectResumeInfo(member_idx);
 		model.addAttribute("resumeInfo", resumeInfo);
 		return "recruiter/recruiterMainLogin"; 
 	}

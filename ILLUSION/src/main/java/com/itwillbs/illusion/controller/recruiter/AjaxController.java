@@ -135,7 +135,6 @@ public class AjaxController {
 			e.printStackTrace();
 		}
 		Map<String, String> data = new HashMap<String, String>();
-//		data.put("url", "resources/upload/" + subDir + "/" + fileName);
 		String contextPath = req.getContextPath();
 		data.put("url", contextPath + "/upload/" + subDir + "/" + fileName);
 		return data;

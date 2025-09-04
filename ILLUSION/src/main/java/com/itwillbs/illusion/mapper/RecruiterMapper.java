@@ -27,7 +27,6 @@ public interface RecruiterMapper {
 	
 	// 공고 목록 가져오기 
 	public List<Map<String, Object>> getRecruitmentList(@Param("status")String status, @Param("member_id")String member_id);
-//	public List<RecruitVO> getRecruitmentList();
 	
 	// 공고 마감 처리 
 	public int recruitClose(int recruit_idx);
@@ -42,20 +41,20 @@ public interface RecruiterMapper {
 	public int recruitModify(@Param("recruit")RecruitVO recruit, @Param("member_id") String member_id);
 	
 	//채용중 공고 갯수 가져오기 
-	public String getRecruitmentCnt(String member_id);
+	public String getRecruitmentCnt(int member_idx);
 	
 	//공고 제목과 마감일 가져오기 
-	public List<Map<String, Object>> getRecruitmentSubjectDate(String member_id);
+	public List<Map<String, Object>> getRecruitmentSubjectDate(int member_idx);
 	
 	//// 기업 이름, 담당자 이름, 담당자 이메일, 마감 임박 공고 개수 가져오기 
-	public Map<String, String> getRecruiterInfo(String member_id);
+	public Map<String, String> getRecruiterInfo(int member_idx);
 	
 	// 미 열람 이력서 수 가져오기 
 	public int selectUnViewedCnt(int member_idx) ;
 	// 미열람 이력서 상세 보기 클릭시 열람 함으로 바꾸기 
 	public void updateIsviewed(int apply_idx);
 	// 총 지원자수 가져오기 
-	public int selectTotalAppCnt(String member_id);
+	public int selectTotalAppCnt(int member_idx);
 	
 	//미 열람 이력서의 제목, 경력, 학력, 거주지 가져오기 
 	public List<Map<String, String>> selectResumeInfo(int member_idx);
