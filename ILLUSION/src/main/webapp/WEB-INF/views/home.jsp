@@ -184,7 +184,7 @@
 				<article class="team-job-card">
 					<div class="team-card-header">
 						<div class="team-logo-image">
-							<img src="/illusion/resources/image/logo-naver.jpg" alt="NAVER">
+							${r.company_logo } 
 						</div>
 						<p class="team-job-title">${r.recruit_subject }</p>
 						<div class="team-card-meta">
@@ -194,9 +194,8 @@
 						</div>
 					</div>
 					<div class="team-card-image">
-						<img
-							src="/illusion/resources/image/ILLUSION_recruitment_image.png"
-							alt="ILLUSION_recruitment_image">
+						<img src="${pageContext.request.contextPath}/resources/image/ILLUSION_recruitment_image.png"
+						alt="ILLUSION_recruitment_image">
 					</div>
 				</article>
 			</div>

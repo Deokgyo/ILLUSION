@@ -14,7 +14,7 @@
       <div class="region-panel-left">
         <ul class="major-list major-region-list">
           <c:forEach var="occ_major" items="${filterOptions.OCCUPATION}" varStatus="status">
-            <li class="major-item major-region-item ${status.first ? 'active' : ''}" data-code="${occ_major.code}">
+            <li class="major-item major-region-item" data-code="${occ_major.code}">
               ${occ_major.code_name}
             </li>
             

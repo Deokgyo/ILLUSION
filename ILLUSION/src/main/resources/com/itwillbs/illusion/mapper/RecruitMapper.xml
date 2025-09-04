@@ -7,16 +7,21 @@
 
     <sql id="recruitFilterCondition">
         <where>
-            <!-- 지역 필터 -->
-            <if test="location != null and !location.isEmpty()">
-                AND r.location IN
-                <foreach item="locCode" collection="location" open="(" separator="," close=")">#{locCode}</foreach>
-            </if>
-            <!-- 직무 필터 -->
-            <if test="occupation != null and !occupation.isEmpty()">
-                AND r.occupation IN
-                <foreach item="occCode" collection="occupation" open="(" separator="," close=")">#{occCode}</foreach>
-            </if>
+	        <if test="location != null and !location.isEmpty()">
+	            AND (
+	                <foreach item="locCode" collection="location" separator=" OR ">
+	                    FIND_IN_SET(#{locCode}, REPLACE(r.location, ' ', ''))
+	                </foreach>
+	            )
+	        </if>
+	
+	        <if test="occupation != null and !occupation.isEmpty()">
+	            AND (
+	                <foreach item="occCode" collection="occupation" separator=" OR ">
+	                    FIND_IN_SET(#{occCode}, REPLACE(r.occupation, ' ', ''))
+	                </foreach>
+	            )
+	        </if>
 	        <if test="experience != null and !experience.isEmpty()">
 	            AND r.experience IN
 	            <foreach item="expCode" collection="experience" open="(" separator="," close=")">
@@ -36,19 +41,21 @@
 	            </foreach>
 	        </if>
 	        <if test="keyword != null and keyword != ''">
-				r.recruit_subject LIKE CONCAT('%', #{keyword}, '%')
+				AND r.recruit_subject LIKE CONCAT('%', #{keyword}, '%')
 			</if>
         </where>
     </sql>
     
     <select id="homeSelectRecruitList" parameterType="com.itwillbs.illusion.vo.RecruitFilterVO" resultType="com.itwillbs.illusion.vo.RecruitVO">
     	SELECT 
-    		   recruit_idx
-    		   ,start_date
-			   ,end_date
-			   ,recruit_subject
-			   ,views_count
-    	  FROM recruit
+    		   r.recruit_idx
+    		   ,r.start_date
+			   ,r.end_date
+			   ,r.recruit_subject
+			   ,r.views_count
+			   ,c.company_logo
+    	  FROM recruit r LEFT JOIN member m ON r.member_idx = m.member_idx
+    	  LEFT JOIN company c ON m.company_idx = c.company_idx
     	 ORDER BY views_count DESC, recruit_idx DESC
     	 LIMIT #{startRow}, #{listLimit}
     </select>
@@ -75,14 +82,13 @@
 			LEFT JOIN common_code deg ON r.degree = deg.code
 	    
 		<include refid="recruitFilterCondition"></include>
-		GROUP BY r.recruit_idx
-				 , r.recruit_subject
-				 , r.start_date
-				 , r.end_date
-				 , r.views_count
-				 , exp.code_name
-				 , sal.code_name
-				 , deg.code_name
+		GROUP BY
+		    r.recruit_idx,
+		    r.recruit_subject,
+		    r.start_date,
+		    r.end_date,
+		    r.views_count,
+		    c.company_logo
 	    ORDER BY
 	    <choose>
 	        <!-- DTO의 sort 필드 값을 확인하여 정렬 기준을 결정 -->

@@ -18,7 +18,7 @@
             <%--
               - status.first를 사용하여, 목록의 첫 번째 항목에만 'active' 클래스를 부여합니다.
             --%>
-            <li class="major-item major-region-item ${status.first ? 'active' : ''}" data-code="${loc_major.code}">
+            <li class="major-item major-region-item" data-code="${loc_major.code}">
               ${loc_major.code_name}
             </li>
             
