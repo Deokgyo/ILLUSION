@@ -56,8 +56,6 @@
                             <a href="#" onclick="document.getElementById('logoutRecruiterForm').submit(); return false;">로그아웃</a>
                         </form>
                     </li>
-	                <li class="separator">|</li> 
-	                <li><a href="recruiterInfo">정보 수정</a></li> 
                 </sec:authorize>
             </ul>
         </nav>

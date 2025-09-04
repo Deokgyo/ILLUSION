@@ -98,13 +98,10 @@ public class RecruiterController {
 	//이력서 상세 보기 
 	@GetMapping("viewResume")
 	public String viewResume(int resume_idx, Model model, @RequestParam(value = "apply_idx", required = false) int apply_idx) {
-		
 		// 열람 함으로 바꾸기 .. 
 		service.updateIsviewed(apply_idx);
-		
 		List<ResumeVO> resume = mypageService.savedResumeDetail(resume_idx);
 		model.addAttribute("resume", resume);
-		
 		return "recruiter/viewResume";
 	}
 	
@@ -116,7 +113,6 @@ public class RecruiterController {
         
         Map<String, Object> coverletter = jobService.getCoverletterById(cl_idx);
         model.addAttribute("coverletter", coverletter);
-        
         // CL002(첨삭된 자소서)인 경우에만 원본 자소서 정보 추가
         if (coverletter != null && "CL002".equals(coverletter.get("cl_type")) && original_cl_idx != null) {
             Map<String, Object> originalCoverletter = jobService.getCoverletterById(original_cl_idx);
@@ -243,8 +239,6 @@ public class RecruiterController {
 		return "recruiter/recruiterRegistForm";
 	}
 	
-	@Autowired
-	ServletContext servletContext;
 	
 	// 공고 등록 폼 제출 
 	@PostMapping("recruiterRegistForm")

@@ -77,7 +77,7 @@ public class AjaxController {
 			@RequestParam("apply_idx") int apply_idx, 
 			@RequestParam("status") String apply_status) {
 		boolean isSuccess = service.updateApplyStatus(apply_idx, apply_status);
-		return true;
+		return isSuccess;
 	}
 	
 	@PostMapping("uploadCompanyLogo") 

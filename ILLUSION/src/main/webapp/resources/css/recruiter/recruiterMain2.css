@@ -19,6 +19,10 @@ main {
   gap: 60px; /* 각 섹션("대시보드", "맞춤인재" 등) 사이의 간격 */
 }
 
+.footer-address p {
+	margin: 15px 0px;
+}
+
 /* 모든 섹션의 공통 제목 스타일 */
 .section-name {
 	font-weight: bold;
