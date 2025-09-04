@@ -47,12 +47,18 @@
 						<button type="button" class="bookmark-btn ${activeClass}" data-recruit-idx="${recruit.recruit_idx}">
 						    <i class="fa-regular fa-bookmark"></i>
 						</button>
+						
 	                    <c:choose>
 	                    	<c:when test="${isAuthor}">
 	                    		<a href="recruitModify?recruit_idx=${param.recruit_idx}" class="btn btn-yellow">수정하기</a>
 	                    	</c:when>
 	                    	<c:otherwise>
-			                    <button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
+	                    		<sec:authorize access="isAuthenticated()">
+			                    	<button class="btn btn-yellow" id="job-apply-btn">입사지원<i class="fa-solid fa-paper-plane"></i></button>
+	                    		</sec:authorize>
+	                    		<sec:authorize access="isAnonymous()">
+			                    	<button class="btn btn-yellow" onclick="location.href='login'">로그인 후 지원 해보세요!<i class="fa-solid fa-paper-plane"></i></button>
+	                    		</sec:authorize>
 	                    	</c:otherwise>
 	                    </c:choose>
 	                </div>
