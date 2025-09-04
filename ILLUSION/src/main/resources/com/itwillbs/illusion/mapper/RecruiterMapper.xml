@@ -71,7 +71,8 @@
     res.resume_title,               -- 제출한 이력서 제목
     IFNULL(cl.cl_title, '자소서가 없습니다') AS cl_title, -- 제출한 자소서 제목
     a.apply_status AS status_code,  -- 상태 코드 (e.g., 'apply01')
-    cc.code_name AS status          -- 상태 코드명 (e.g., '서류 검토')
+    cc.code_name AS status,          -- 상태 코드명 (e.g., '서류 검토')
+    IF(a.apply_files_path = '', '첨부파일 없음', a.apply_files_path) AS apply_files_path        
 FROM 
     apply a
 LEFT JOIN

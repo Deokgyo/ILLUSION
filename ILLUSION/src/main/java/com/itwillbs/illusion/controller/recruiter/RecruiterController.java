@@ -23,10 +23,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.illusion.handler.recruiter.CodeGroups;
 import com.itwillbs.illusion.handler.recruiter.MoveAndWrite;
 import com.itwillbs.illusion.service.CommonCodeService;
+import com.itwillbs.illusion.service.JobToolsService;
 import com.itwillbs.illusion.service.MypageService;
 import com.itwillbs.illusion.service.RecruiterService;
 import com.itwillbs.illusion.service.ResumeService;
@@ -97,7 +99,7 @@ public class RecruiterController {
 		
 	//이력서 상세 보기 
 	@GetMapping("viewResume")
-	public String viewResume(int resume_idx, int member_idx, Model model, int apply_idx) {
+	public String viewResume(int resume_idx, Model model, @RequestParam(value = "apply_idx", required = false) int apply_idx) {
 		
 		// 열람 함으로 바꾸기 .. 
 		service.updateIsviewed(apply_idx);
@@ -107,7 +109,26 @@ public class RecruiterController {
 		
 		return "recruiter/viewResume";
 	}
+	
+	@Autowired
+	JobToolsService jobService;
+    @GetMapping("viewCoverletter")
+    public String showCoverletterResult(Model model, @RequestParam("cl_idx") int cl_idx,
+            @RequestParam(value = "original_cl_idx", required = false) Integer original_cl_idx) {
+        
+        Map<String, Object> coverletter = jobService.getCoverletterById(cl_idx);
+        model.addAttribute("coverletter", coverletter);
+        
+        // CL002(첨삭된 자소서)인 경우에만 원본 자소서 정보 추가
+        if (coverletter != null && "CL002".equals(coverletter.get("cl_type")) && original_cl_idx != null) {
+            Map<String, Object> originalCoverletter = jobService.getCoverletterById(original_cl_idx);
+            model.addAttribute("originalCoverletter", originalCoverletter);
+        }
+        
+        return "jobTools/viewCoverletter";
+    }
 
+	
 	
 	// 기업 정보 수정으로 이동 
 	@GetMapping("recruiterInfo")

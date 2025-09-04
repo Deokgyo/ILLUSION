@@ -7,6 +7,10 @@ $(function () {
 // ================================================================
 // ==         함 수 선 언 부                                     ==
 // ================================================================
+	$('.download').on('click', function() {
+		alert('이거언제뜨냐');
+	});
+
 
 /**
  * 서버에서 지원자 목록 데이터를 비동기(AJAX)로 가져와
@@ -22,7 +26,7 @@ function loadAndRenderGrid() {
         alert("표시할 지원자 데이터가 없습니다.");
         return;
     }
-
+	console.log(response);
     // --- 1. 최종 데이터 배열 순서 정의 ---
     // formatter에서 사용할 모든 데이터를 명확한 순서로 배열에 담습니다.
     const gridData = response.map(applicant => [
@@ -37,6 +41,7 @@ function loadAndRenderGrid() {
         applicant.status_code,      // 8번 (상태 코드)
         applicant.status,            // 9번 (상태 이름, 예: "심사중")
         applicant.apply_idx,        // 10번
+        applicant.apply_files_path        // 11번
     ]);
 
     // --- 2. 위 데이터 순서에 맞춰 컬럼 정의 ---
@@ -65,7 +70,8 @@ function loadAndRenderGrid() {
                 formatter: (_, row) => {
                     const resumeIdx = row.cells[4].data;
                     const resumeTitle = row.cells[5].data;
-                    return gridjs.html(`<a href='savedResumeDetail?resume_idx=${resumeIdx}'>${resumeTitle}</a>`);
+                    const applyIdx = row.cells[10].data;
+                    return gridjs.html(`<a href='viewResume?resume_idx=${resumeIdx}&apply_idx=${applyIdx}'>${resumeTitle}</a>`);
                 }
             },
             // 컬럼 5: 자소서 제목 (데이터 6, 7번 인덱스 사용)
@@ -76,10 +82,19 @@ function loadAndRenderGrid() {
                     const clTitle = row.cells[7].data;
                     return clTitle == '자소서가 없습니다' ? 
                     gridjs.html(`${clTitle}`) : 
-                    gridjs.html(`<a href='coverletterResult?cl_idx=${clIdx}'>${clTitle}</a>`);
+                    gridjs.html(`<a href='viewCoverletter?cl_idx=${clIdx}'>${clTitle}</a>`);
 //                    return gridjs.html(`<a href='coverletterResult?cl_idx=${clIdx}'>${clTitle}</a>`);
                 }
             },
+            {
+				name:'첨부파일',
+				formatter: (_,row) => {
+					let apply_files_path = row.cells[11].data;
+					return apply_files_path == '첨부파일 없음' ? 
+					gridjs.html(`${apply_files_path}`) : 
+					gridjs.html(`<a href="${apply_files_path}" download class="download">다운로드하기</a>`)				
+				}
+			},
             // 컬럼 6: 상태변경 (데이터 0, 8, 9번 인덱스 사용)
             {
                 name: '상태변경',
