@@ -4,6 +4,7 @@
 <%@ page session="false"%>
 <html>
 <head>
+
 <%-- 외부 라이브러리 CSS --%>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -38,7 +39,8 @@
 	opacity: .65;
 }
 </style>
-<title>ILLUSION</title>
+<title>채용의 모든 솔루션, 일루션에서 시작됩니다</title>
+<link rel="icon" href="${pageContext.request.contextPath}/resources/image/logop.png" type="image/x-icon">
 </head>
 <body>
 	<header>
@@ -204,8 +206,9 @@
 	</section>
 
 	<footer><jsp:include page="/WEB-INF/views/inc/bottom.jsp" /></footer>
-	
+
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/home/home.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/home/home.js"></script>
 </body>
 </html>
