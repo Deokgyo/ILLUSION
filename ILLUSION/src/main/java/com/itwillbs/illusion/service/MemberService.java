@@ -95,7 +95,7 @@ public class MemberService {
         
         if (member.getMember_type().equals("MEM003")) { // 기업회원인 경우 회사 정보도 저장
         	//기본 로고 넣기 (덕교)
-        	company.setCompany_logo("<img src='/illusion/resources/image/ILLUSION_recruitment_image.png'>");
+        	company.setCompany_logo("<img src='/illusion/resources/image/ILLUSION_logo.png'>");
         	companymapper.insertMemberCompany(company);
         	member.setCompany_idx(company.getCompany_idx()); // 이 부분 수정 member에 Company_idx set
         }
