@@ -108,21 +108,14 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label>학위</label> <select name="degree">
+									<label>학위</label>
+									 <select name="degree" class="degree-select">
 										<option value="" selected disabled>-- 선택 --</option>
 										<c:forEach var="d" items="${degreeList}">
 											<option value="${d.code}"
 												${resume.degree == d.code ? 'selected' : ''}>
 												${d.code_name}</option>
 										</c:forEach>
-									</select>
-								</div>
-								<div class="form-group">
-									<label>상태</label> <select name="degreetype">
-										<option value="" selected disabled>-- 선택 --</option>
-										<option value="재학">재학</option>
-										<option value="중퇴">중퇴</option>
-										<option value="졸업">졸업</option>
 									</select>
 								</div>
 							</div>
@@ -352,12 +345,6 @@
 			return false;
 		}
 
-		// 상태 검사
-		if (!form["degreetype"].value) {
-			alert("상태를 선택해주세요!");
-			form["degreetype"].focus();
-			return false;
-		}
 		// 학점 검사
 		if (!form["grade"].value) {
 			alert("학점을 입력해주세요!");
