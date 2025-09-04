@@ -1,12 +1,12 @@
 $(document).ready(function() {
-	
-	
+
+
 	let isCheckId = false;
 	let isCheckPass = false;
 	let isCheckPass2 = false;
 	let isEmailVerified = false; // 이메일 인증 성공 여부 저장 변수
 	var isBusinessNumberVerified = false;
-	
+
 	// 이용약관 전체 동의
 	$('.tab-btn').on('click', function() {
 		$('.tab-btn').removeClass('active');  // 모든 탭에서 active 제거
@@ -160,17 +160,17 @@ $(document).ready(function() {
 	$("#email-btn").click(function() {
 		const emailVal = $("#email").val().trim();
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 이메일 정규식
-		
+
 		if (emailVal === "") {
-	        alert("이메일을 입력하세요.");
-	        return;
-   		}
-   		if (!emailRegex.test(emailVal)) {
-	        alert("올바른 이메일 형식이 아닙니다.");
-	        return;
-   		}
-   		
-   		$("#email-btn").prop("disabled", true); // 버튼 비활성화
+			alert("이메일을 입력하세요.");
+			return;
+		}
+		if (!emailRegex.test(emailVal)) {
+			alert("올바른 이메일 형식이 아닙니다.");
+			return;
+		}
+
+		$("#email-btn").prop("disabled", true); // 버튼 비활성화
 
 		$.ajax({
 			type: "POST",
@@ -183,7 +183,7 @@ $(document).ready(function() {
 				} else {
 					alert("인증번호 발송에 실패했습니다.");
 				}
-				 $("#email-btn").prop("disabled", false);
+				$("#email-btn").prop("disabled", false);
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				alert("서버와 통신 중 오류가 발생했습니다.");
@@ -219,17 +219,17 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
+
 	//이메일 중복 체크
 	function checkEmailDuplicate(email) {
-	    return $.ajax({
-	        url: 'email-check',
-	        type: 'GET',
-	        data: { email: email },
-	        dataType: 'json'
-	    });
+		return $.ajax({
+			url: 'email-check',
+			type: 'GET',
+			data: { email: email },
+			dataType: 'json'
+		});
 	}
-	
+
 	$('#email').on('blur', function() {
 		var email = $(this).val().trim();
 		if (email === '') return;  // 빈값일 경우 검사 스킵
@@ -247,7 +247,7 @@ $(document).ready(function() {
 			alert('서버와 통신 중 오류가 발생했습니다.');
 		});
 	});
-	
+
 	// 입력값 초기화 함수
 	function resetFormInputs() {
 		// .signup-form 내부의 모든 input/select/textarea 초기화
@@ -255,37 +255,43 @@ $(document).ready(function() {
 			$(this).val('');
 		});
 
-		 // 유효성 메시지 초기화
+		// 유효성 메시지 초기화
 		$('#UserIdSuccess, #userPwSuccess, #userPwSuccess2').text('');
 	}
 	
-	// 생년월일 미래x
-	$('#birth').on('input change blur', function() {
-		var val = $(this).val();
-		if (!val) return;
+	function validateDate(val, typeLabel) {
+		if (!val) return true; // 빈값은 통과(필수 체크는 따로)
 
-		// YYYY-MM-DD 정규표현식 검사: 연도는 1900~2099 사이 4자리
 		var dateRegex = /^(19|20)\d{2}-\d{2}-\d{2}$/;
 		if (!dateRegex.test(val)) {
-			alert('생년월일 형식에 맞게 입력해 주세요.');
-			$(this).val('');
-			$(this).focus();
-			return;
+			alert(typeLabel + ' 형식에 맞게 입력해 주세요.');
+			return false;
 		}
 
-		// 날짜 객체 생성
 		var date = new Date(val);
 		var today = new Date();
-		today.setHours(0, 0, 0, 0); // 오늘 0시 기준
+		today.setHours(0, 0, 0, 0);
 
-		// 미래 날짜 체크
 		if (date > today) {
-			alert('생년월일을 바르게 입력해 주세요.');
+			alert(typeLabel + '을 바르게 입력해 주세요.');
+			return false;
+		}
+
+		return true;
+	}
+
+	$('#birth, #company_date').on('input change blur', function() {
+		var val = $(this).val();
+		var memberType = $('#member_type').val();
+		var fieldId = this.id;
+		var typeLabel = (memberType === 'MEM003' && fieldId === 'company_date') ? '설립일' : '생년월일';
+
+		if (!validateDate(val, typeLabel)) {
 			$(this).val('');
 			$(this).focus();
-			return;
 		}
 	});
+
 	// 참조
 	$('#member_status').val('MES001'); // 회원상태는 항상 '정상'
 
@@ -305,7 +311,7 @@ $(document).ready(function() {
 		$('#companyTab').removeClass('selected');
 		$(this).addClass('selected');
 		$('#companyBox').fadeOut(120);
-		
+
 		$('.form-row').addClass('personal').removeClass('corporate');
 		// 성별, 생년월일 보이기
 		$('#gender').show();
@@ -326,7 +332,7 @@ $(document).ready(function() {
 		// 기업형태 숨기기 및 required 제거
 		$('#companytypes').hide();
 	});
-	
+
 	// 기업회원 클릭 시
 	$('#companyTab').on('click', function() {
 		$('#member_type').val('MEM003');
@@ -339,7 +345,7 @@ $(document).ready(function() {
 		$('.form-row').addClass('corporate').removeClass('personal');
 		// 생년월일 숨김
 		$('#birthHide').hide();
-		$('#birth').val('').removeAttr('required');		
+		$('#birth').val('').removeAttr('required');
 
 		// 이름(개인명) -> 기업명으로 라벨 및 placeholder 변경
 		$('label[for="username"]').text('기업명');
@@ -370,18 +376,18 @@ $(document).ready(function() {
 			return false;
 		}
 		if (!regNumRegex.test(reg_num)) {
-	        alert('사업자등록번호는 숫자 10자리를 입력해주세요.');
-	        $('#companyNumber').focus();
-        	return false;
-    }
+			alert('사업자등록번호는 숫자 10자리를 입력해주세요.');
+			$('#companyNumber').focus();
+			return false;
+		}
 
 		$.ajax({
 			url: 'checkRecruiterNumber',
 			type: 'GET',
-			data: { recruiter_number: reg_num }, 
-			dataType: 'json', 
+			data: { recruiter_number: reg_num },
+			dataType: 'json',
 			success: function(data) {
-				if (data.duplicate) { 
+				if (data.duplicate) {
 					alert('이미 등록된 사업자등록번호입니다.');
 					$('#companyNumber').focus();
 					isBusinessNumberVerified = false;
@@ -398,16 +404,16 @@ $(document).ready(function() {
 
 
 	$('#register-btn').click(function(e) {
-	    e.preventDefault();
-	    $('#registerForm').submit(); // 폼 submit 이벤트 트리거
-	  });
-	  
+		e.preventDefault();
+		$('#registerForm').submit(); // 폼 submit 이벤트 트리거
+	});
+
 	$("#registerForm").on('submit', function(e) {
 		var form = document.getElementById("registerForm");
-		
-		
+
+
 		var member_type = $("#member_type").val();
-		if (member_type === 'MEM003' && !isBusinessNumberVerified ) {
+		if (member_type === 'MEM003' && !isBusinessNumberVerified) {
 			alert("사업자등록번호를 인증해주세요");
 			return false;
 		}
@@ -424,17 +430,17 @@ $(document).ready(function() {
 			alert("비밀번호 불일치.");
 			return false;
 		}
-		    // HTML5 폼 기본 유효성 검사 수행
+		// HTML5 폼 기본 유효성 검사 수행
 		if (!form.checkValidity()) {
 			form.reportValidity();
 			return false; // 유효하지 않으면 제출 중단
 		}
-		
+
 		if (!isEmailVerified) {
 			alert("이메일 인증을 해주세요.");
 			return false;
 		}
-		
+
 		var $checkbox = $(this).find('input[type="checkbox"][name="member_marketing_agreed"]');
 		var $hidden = $(this).find('input[type="hidden"][name="member_marketing_agreed"]');
 
@@ -446,7 +452,7 @@ $(document).ready(function() {
 			$checkbox.prop('disabled', true);
 			$hidden.prop('disabled', false);
 		}
-		 return true;
+		return true;
 	});
-	
+
 }); //ready
