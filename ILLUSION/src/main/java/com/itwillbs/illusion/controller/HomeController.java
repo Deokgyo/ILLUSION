@@ -72,6 +72,13 @@ public class HomeController {
 	public String errorPage() {
 		return "errorPage";
 	}
+	
+	// 접근 권한 없음 페이지 이동
+	@GetMapping("accessDenied")
+	public String accessDenied(Model model) {
+		model.addAttribute("msg", "접근 권한이 없습니다");
+		return "errorPage";
+	}
 
 	// 로그인 이동
 	@GetMapping("idPwFind")
