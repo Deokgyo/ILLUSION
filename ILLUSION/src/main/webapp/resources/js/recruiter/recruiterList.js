@@ -6,13 +6,13 @@ $(function () {
 	    $(this).addClass('active');
 	    // 탭 전환 시 필요한 추가 동작 넣기
 	    grid.updateConfig({
-		  data: grid.config.data // 👉 원래 넣어둔 data 함수 다시 실행
+		  data: grid.config.data 
 		}).forceRender();
  	 });
-	
-	// ==========================================================	
-	// girs.js 	
-	// ==========================================================	
+
+// ==========================================================	
+// girs.js 	
+// ==========================================================	
 		
   const grid = new gridjs.Grid({
     columns: [
@@ -104,20 +104,19 @@ $(function () {
 	}
   });
   grid.render(document.getElementById("grid"));
-  
 });// 도큐ㅜ먼트 레디 
 
 // 위에 필터 눌렀을때 그리드.js 데이터 불러오는게 다름 
 function listChange() {
-		let val = $('.tab-container .tab.active').data('value');
-		let url = val == undefined ? 'getRecruitmentList' : `getRecruitmentList?status=${val}`;
-		return fetch(url)
-		    .then(r => r.json())
-		    .then(list => list.map((it, i) => ({ no: i + 1, ...it })))
-		    .catch(err => {
-		      console.error(err);
-		      return [];
-		    });
-		} 
+	let val = $('.tab-container .tab.active').data('value');
+	let url = val == undefined ? 'getRecruitmentList' : `getRecruitmentList?status=${val}`;
+	return fetch(url)
+	    .then(r => r.json())
+	    .then(list => list.map((it, i) => ({ no: i + 1, ...it })))
+	    .catch(err => {
+	      console.error(err);
+	      return [];
+		});
+} 
 	
 	
