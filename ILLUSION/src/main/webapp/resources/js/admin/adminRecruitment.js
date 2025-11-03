@@ -80,7 +80,7 @@ $(function () {
     className: { table: 'grid-custom-table'},
 	rowAttributes: function (row)  {
 	  const statusCell = row?.cells?.find(cell => cell.column.id == 'rec_status');
-	  return statusCell?.data === '채용중' ? { class: 'active-row' } : {};
+	  return statusCell?.data == '채용중' ? { class: 'active-row' } : {};
 	}
   });
   grid.render(document.getElementById("grid"));

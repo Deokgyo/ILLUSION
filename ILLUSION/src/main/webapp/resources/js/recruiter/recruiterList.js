@@ -109,7 +109,7 @@ $(function () {
 // 위에 필터 눌렀을때 그리드.js 데이터 불러오는게 다름 
 function listChange() {
 	let val = $('.tab-container .tab.active').data('value');
-	let url = val == undefined ? 'getRecruitmentList' : `getRecruitmentList?status=${val}`;
+	let url = val == undefined ? `getRecruitmentList` : `getRecruitmentList?status=${val}`;
 	return fetch(url)
 	    .then(r => r.json())
 	    .then(list => list.map((it, i) => ({ no: i + 1, ...it })))
