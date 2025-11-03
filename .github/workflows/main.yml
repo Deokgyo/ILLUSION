@@ -58,6 +58,6 @@ jobs:
       - name: Force new ECS deployment
         run: |
           aws ecs update-service \
-            --cluster my-cluster \
-            --service my-legacy-app-service \
+            --cluster illusion-project-itwillbs \
+            --service illusion-deokgyo-service-y0kqyrmh \
             --force-new-deployment
