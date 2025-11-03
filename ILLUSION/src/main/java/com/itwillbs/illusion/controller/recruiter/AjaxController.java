@@ -16,6 +16,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +47,7 @@ public class AjaxController {
 	}
 	
 	@GetMapping("getJobList")
+	@CrossOrigin("http://localhost:3000/")
 	public List<Map<String, String>> getJobList(@RequestParam String occupation) {
 		List<Map<String, String>> getJobList = service.getJobList(occupation);
 		return getJobList;

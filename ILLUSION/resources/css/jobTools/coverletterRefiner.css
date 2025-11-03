@@ -1,0 +1,248 @@
+@charset "UTF-8";
+
+/* ======================================================
+ *      자소서 다듬기 페이지 전용 스타일
+ * ====================================================== */
+
+.refiner-box {
+    background-color: var(--body-bg-color);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: var(--main-box-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.refiner-box::before{
+	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */
+}
+
+/* 탭 네비게이션 (심플 버전) */
+.refiner-tabs-nav {
+    display: flex;
+    gap: 25px;
+    border-bottom: 2px solid #f0f0f0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.refiner-tabs-nav .tab-link {
+    padding: 10px 5px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--font-sub-color);
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    top: 2px;
+}
+.refiner-tabs-nav .tab-link.active,
+.refiner-tabs-nav .tab-link:hover {
+    color: var(--font-main-color);
+    font-weight: 700;
+    border-bottom-color: var(--main-color);
+}
+
+/* 탭 패널 기본 스타일 */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* 입력 방식 선택 섹션 */
+.input-method-section {
+    padding: 20px;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: opacity 0.3s;
+}
+.input-method-section .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.input-method-section .section-header .form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+}
+.input-method-section .content-area {
+    margin-top: 20px;
+    padding-left: 28px;
+    transition: opacity 0.3s;
+}
+
+/* 비활성화 상태 스타일 */
+.input-method-section.disabled .content-area {
+    opacity: 0.4; 
+    pointer-events: none; /* 이 영역 안의 모든 마우스 이벤트를 막음 */
+}
+
+/* 파일 업로드 드롭존 */
+.drop-zone {
+    border: 2px dashed #E0E0E0;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.drop-zone:hover {
+	border-color: var(--main-color);
+}
+
+.drop-zone-icon { font-size: 30px; color: #a9c2e0; margin-bottom: 10px; }
+.drop-zone-text { color: var(--font-sub-color); }
+.upload-button-wrapper { text-align: right; margin-top: 15px; }
+
+/* 자소서 내용 (Textarea) */
+.textarea-wrapper textarea { width: 100%; height: 150px; padding: 15px; border-radius: 8px; resize: vertical; }
+.char-counter { text-align: right; margin-top: 8px; font-size: 14px; color: var(--font-sub-color); }
+
+/* 저장된 자기소개서 목록 */
+/* 목록 전체를 감싸는 컨테이너 */
+.resume-list {
+    margin-bottom: 40px;
+}
+
+/* 각 항목을 감싸는 링크(a) 태그 스타일 */
+.resume-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 각 항목(행)의 내부 스타일 */
+.resume-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    cursor: pointer; /* 박스 클릭 가능하게 */
+    transition: background 0.2s;
+}
+
+.resume-item:hover {
+    background: #f9f9f9;
+}
+
+.resume-item.active {
+    border-color: #007bff;
+    background: #e9f3ff;
+}
+
+.resume-item .icon { font-size: 20px; color: var(--main-color); }
+.resume-item:hover { border-color: var(--main-color-hover); background-color: #fffbeb; }
+.resume-item.active { border: 2px solid var(--main-color-hover); background-color: #fffbeb; font-weight: 600; }
+
+/* 하단 버튼 */
+.submit-button-wrapper {
+    display: flex; 
+    justify-content: center;
+    margin-top: 40px;
+}
+.gradient-btn:disabled {
+    opacity: var(--button-disabled-opacity);
+    cursor: not-allowed;
+}
+
+.gradient-btn{
+	width: 200px;
+	height: 55px;
+}
+
+
+.title-link {
+    text-decoration: none;
+    color: inherit;
+}
+.title-link:hover .title {
+    text-decoration: underline;
+    color: var(--main-color-hover);
+}
+
+.radiobox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  transition: 0.2s all linear;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.radiobox:checked {
+  border: 3px solid var(--main-color-hover); 
+  box-shadow: inset 0 0 0 4px white;
+  background-color: var(--main-color-hover);
+ 
+}
+
+#loading-overlay .spinner-border {
+	margin: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    border-radius: 20px; 
+    padding: 50px 40px; 
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+#loading-overlay .modal-content h4 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.title_company {
+	display: flex;
+	flex-direction: row;
+	gap:10px;
+	padding: 15px;
+}
+
+.input {
+	display:flex;
+	flex-direction: column; 
+	gap:5px;
+	flex:1;
+	
+}
+i {
+	margin-right: 3px;
+}
+.divider { 
+	border: none; height: 100%; 
+	background-color: black; 
+	margin: 1px; width: 1px; }
+input {
+		border: 1px solid #E0E0E0;
+	border-radius: 8px;
+	padding: 4px;
+}
+
+#direct {
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+}

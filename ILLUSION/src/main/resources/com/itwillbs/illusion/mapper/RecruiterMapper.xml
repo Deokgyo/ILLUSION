@@ -199,7 +199,16 @@
 		 SELECT res.resume_title 
 	          , degree.code_name as degree_name
 	          , res.major 
-	          , SUBSTRING(m.address_name, 1, LOCATE('구', m.address_name)) as address  
+	          , CASE
+				    WHEN m.address_name LIKE '%구 %' THEN
+				        SUBSTRING(m.address_name, 1, LOCATE('구 ', m.address_name))
+				    WHEN m.address_name LIKE '%시 %' THEN
+				        SUBSTRING(m.address_name, 1, LOCATE('시 ', m.address_name))
+				    WHEN m.address_name LIKE '%군 %' THEN
+				        SUBSTRING(m.address_name, 1, LOCATE('군 ', m.address_name))
+				    ELSE
+				        SUBSTRING_INDEX(m.address_name, ' ', 1)
+				END as address
 	          , experience.code_name as experience_name
 	          , m.member_idx
 	          , res.resume_idx

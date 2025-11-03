@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.illusion.mapper.ResumeMapper">
+	<select id="SelectM">
+		SELECT m.member_idx,
+		m.profile_picture_url,
+		m.member_id,
+		m.member_pw,
+		m.member_name,
+		c2.company_name,
+		m.resume_birth,
+		m.address_num,
+		m.address_name,
+		c.code_name AS gender,
+		m.member_email
+		FROM
+		member m
+		JOIN common_code c ON m.gender = c.code
+		JOIN common_code_group
+		g ON c.code_group_id = g.code_group_id
+		LEFT JOIN company c2 ON
+		m.company_idx = c2.company_idx
+		WHERE g.code_group_id = 'GENDER'
+		AND
+		m.member_id = #{member_id}
+	</select>
+	<!--이력서 작성하기 -->
+	<insert id="insertResume" parameterType="map"
+		useGeneratedKeys="true" keyProperty="resume_idx">
+		INSERT INTO resume (
+		member_idx,
+		resume_title,
+		resume_create_at,
+		resume_img,
+		school_name,
+		major,
+		grade,
+		degree,
+		enroll_date,
+		graduation_date,
+
+		additional_information
+		) VALUES (
+		#{member_idx},
+		#{resume_title},
+		NOW(),
+		#{resume_img},
+		#{school_name},
+		#{major},
+		#{grade},
+		#{degree},
+		#{enroll_date},
+		#{graduation_date},
+
+		#{additional_information}
+		)
+	</insert>
+	<insert id="insertResume_exp_info" parameterType="map">
+		INSERT INTO
+		resume_exp_info(
+		resume_idx,
+		company_name,
+		occupation,
+		position,
+		experience,
+		certificate,
+		responsibilities
+		) VALUES (
+		#{resume_idx},
+		#{company_name},
+		#{occupation},
+		#{position},
+		#{experience},
+		#{certificate},
+		#{responsibilities}
+		)
+	</insert>
+
+	<select id="getExpForEdit" parameterType="map"
+		resultType="com.itwillbs.illusion.vo.ResumeVO">
+		SELECT
+		*
+		FROM
+		resume_exp_info
+		WHERE resume_idx = #{resumeIdx}
+	</select>
+
+	<!-- 이력서 수정용 SELECT -->
+	<select id="getResumeForEdit" parameterType="map"
+		resultType="com.itwillbs.illusion.vo.ResumeVO">
+		SELECT
+		resume_idx,
+		member_idx,
+		resume_title,
+		resume_create_at,
+		resume_img,
+		school_name,
+		major,
+		grade,
+		degree,
+		enroll_date,
+		graduation_date,
+		additional_information
+		FROM resume
+		WHERE resume_idx =
+		#{resumeIdx}
+		AND member_idx = #{memberIdx}
+	</select>
+
+	<!-- 이력서 수정용 SELECT -->
+	<select id="getResumeForEdit1" parameterType="map"
+		resultType="com.itwillbs.illusion.vo.ResumeVO">
+		SELECT
+		resume_idx,
+		member_idx,
+		resume_title,
+		resume_create_at,
+		resume_img,
+		school_name,
+		major,
+		grade,
+		degree,
+		enroll_date,
+		graduation_date,
+		additional_information
+		FROM resume
+		WHERE resume_idx =
+		#{resumeIdx}
+		AND member_idx = #{memberIdx}
+	</select>
+
+	<!-- 이력서 UPDATE -->
+	<update id="updateResume" parameterType="map">
+		UPDATE resume
+		SET
+		member_idx = #{member_idx},
+		resume_title = #{resume_title},
+		resume_img =
+		#{resume_img},
+		school_name = #{school_name},
+		major = #{major},
+		grade =
+		#{grade},
+		degree
+		= #{degree},
+		enroll_date = #{enroll_date},
+		graduation_date =
+		#{graduation_date},
+		additional_information =
+		#{additional_information}
+		WHERE resume_idx = #{resume_idx}
+	</update>
+
+	<update id="updateResume_exp_info" parameterType="map">
+		UPDATE
+		resume_exp_info
+		SET
+		resume_idx = #{resume_idx},
+		company_name =
+		#{company_name},
+		position = #{position},
+		experience = #{experience},
+		occupation = #{occupation},
+		certificate = #{certificate},
+		responsibilities = #{responsibilities}
+		WHERE exp_idx = #{exp_idx}
+	</update>
+
+
+
+	<select id="selectResumeExpInfoList" parameterType="int"
+		resultType="map">
+		SELECT
+		resume_idx,
+		company_name,
+		occupation,
+		position,
+		experience,
+		certificate,
+		responsibilities
+		FROM
+		resume_exp_info
+		WHERE
+		resume_idx = #{resume_idx}
+	</select>
+
+	<select id="selectResumelist" resultType="map">
+		SELECT resume_idx,
+		resume_title, resume_create_at
+		FROM resume
+	</select>
+
+
+	<select id="selectResume" parameterType="int" resultType="map">
+		SELECT
+		* FROM resume WHERE resume_idx = #{resume_idx}
+	</select>
+
+
+	<select id="selectMember" parameterType="int" resultType="map">
+		SELECT
+		* FROM member WHERE member_idx = #{member_idx}
+	</select>
+
+	<!-- 이력서 삭제 -->
+	<delete id="deleteResume" parameterType="map">
+
+		DELETE FROM resume
+		WHERE
+		resume_idx=#{resume_idx}
+
+	</delete>
+	<!-- 이력서 경력삭제 -->
+	<delete id="deleteResume_exp_info" parameterType="map">
+		DELETE FROM
+		resume_exp_info
+		WHERE exp_idx=#{exp_idx}
+	</delete>
+
+
+	<!-- 회원정보 조회 -->
+	<select id="selectuserInfoEdit" parameterType="int"
+		resultType="map">
+		SELECT* FROM member
+		WHERE member_idx =#{member_idx}
+	</select>
+
+
+	<!-- 회원정보 수정 -->
+	<update id="updateuserInfoEdit" parameterType="map">
+		UPDATE member
+		SET
+		profile_picture_url = #{profile_picture_url},
+		member_name =
+		#{member_name},
+		member_id = #{member_id},
+		member_email =
+		#{member_email},
+		address_num = #{address_num},
+		address_name =
+		#{address_name},
+		gender = #{gender},
+		resume_birth = #{resume_birth}
+		WHERE member_idx = #{member_idx}
+	</update>
+	<!-- 프로필파일 들고오기 -->
+	<select id="getProfilePicturePath" resultType="String"
+		parameterType="int">
+		SELECT profile_picture_url
+		FROM member
+		WHERE member_idx =
+		#{memberIdx}
+	</select>
+	<!-- 비밀번호 변경 -->
+	<update id="changePasswd">
+		UPDATE member
+		SET member_pw = #{member_pw}
+		WHERE
+		member_idx = #{member_idx}
+	</update>
+	<!-- 회원탈퇴 -->
+	<update id="deleteMember">
+		UPDATE member
+		SET member_status = 'MES002'
+		WHERE
+		member_idx = #{member_idx}
+	</update>
+	<!-- 이메일 중복체크 -->
+    <select id="isEmailExists" parameterType="string" resultType="int">
+        SELECT COUNT(*) 
+        FROM member 
+        WHERE member_email = #{email}
+    </select>
+
+
+	<!-- 예상면접질문 -->
+	<select id="selectquestList" resultType="map">
+		SELECT answer_idx,
+		question_idx, member_idx, answer_text, ai_feedback, answer_create_at
+		FROM answer
+	</select>
+
+
+
+	<!-- 커뮤니티 목록 -->
+	<select id="selectboard" resultType="map">
+		SELECT board_idx,
+		board_title, board_create_at, board_viewcnt,cmt_count
+		FROM board
+	</select>
+
+
+
+	<!-- 자소서상세페이지 -->
+	<select id="selectcl" parameterType="int" resultType="map">
+		SELECT *
+		FROM cover_letter WHERE cl_idx = #{cl_idx}
+	</select>
+	<!-- 자소서리스트 -->
+	<select id="selectcllist" resultType="map">
+		SELECT cl_idx, cl_title,
+		generation_date
+		FROM cover_letter
+	</select>
+	<!-- 이력서 작성 공통코드 가져오기 -->
+	<select id="getCommonCodeList" parameterType="string"
+		resultType="com.itwillbs.illusion.vo.CommonCodeVO">
+		SELECT code, code_name, parent_code_id, code_group_id
+		FROM
+		common_code
+		WHERE code_group_id = #{codeGroupId}
+		ORDER BY code
+	</select>
+	<!-- 이력서 작성 직무가져오기 세부직무x -->
+	<select id="getCommonCodeList1" parameterType="string"
+		resultType="com.itwillbs.illusion.vo.CommonCodeVO">
+		SELECT code, code_name, parent_code_id, code_group_id
+		FROM
+		common_code
+		WHERE code_group_id = #{codeGroupId}
+		AND parent_code_id IS
+		NULL
+		ORDER BY code
+	</select>
+	<!-- ////////////////////////// -->
+	<!-- 마이페이지 이력서 목록 셀렉트 -->
+	<select id="getResumeListByMemberId" parameterType="int"
+		resultType="com.itwillbs.illusion.vo.ResumeVO">
+		SELECT
+		resume_idx
+		, member_idx
+		, resume_title
+		,
+		resume_create_at
+		FROM resume
+		WHERE member_idx = #{memberIdx}
+		ORDER BY
+		resume_idx DESC
+		LIMIT #{startRow}, #{listLimit}
+	</select>
+
+	<!-- select한 이력서 개수 -->
+	<select id="getResumeListCountByMember"
+		parameterType="com.itwillbs.illusion.vo.ResumeVO" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM resume
+		WHERE member_idx = #{memberIdx}
+	</select>
+
+	<select id="savedResumeDetail" parameterType="int"
+		resultType="com.itwillbs.illusion.vo.ResumeVO">
+		SELECT r.resume_idx
+		,m.member_idx
+		,m.member_name
+		,m.resume_birth
+		,m.member_phone
+		,m.member_email
+		,m.address_name
+		,m.address_num
+		,r.school_name
+		,r.major
+		,r.enroll_date
+		,r.graduation_date
+		,r.additional_information
+		,r.resume_img
+		,deg.code_name as degree
+		,e.company_name
+		,pos.code_name as position
+		,exp.code_name as experience
+		,occ.code_name as occupation
+		,e.certificate
+		,e.responsibilities
+		FROM
+		resume r LEFT JOIN member m
+		ON
+		r.member_idx = m.member_idx
+		LEFT JOIN
+		resume_exp_info e ON
+		r.resume_idx
+		= e.resume_idx
+		LEFT JOIN common_code
+		deg ON deg.code =
+		r.degree
+		LEFT JOIN common_code pos ON pos.code =
+		e.position
+		LEFT JOIN
+		common_code exp ON exp.code = e.experience
+		LEFT JOIN
+		common_code occ ON
+		occ.code = e.occupation
+		WHERE r.resume_idx =
+		#{resumeIdx}
+	</select>
+
+	<!-- 마이페이지 여러건 이력서 삭제 -->
+	<delete id="deleteMyResumes" parameterType="map">
+		DELETE
+		FROM resume
+		WHERE member_idx = #{memberIdx}
+		AND resume_idx IN
+		<foreach item="resumeIdx" collection="idList" open="("
+			separator="," close=")">
+			#{resumeIdx}
+		</foreach>
+	</delete>
+
+	<!-- 마이페이지 자소서 목록 셀렉트 -->
+	<select id="getCLListByMemberId" parameterType="int"
+		resultType="com.itwillbs.illusion.vo.CoverLetterVO">
+		SELECT
+		c.cl_idx
+		, c.member_idx
+		, c.cl_title
+		, c.generation_date
+		,
+		t.code_name as cl_type	<!-- 서브쿼리를 이용해서 질문 갯수 확인하기 -->
+		,(SELECT COUNT(*)
+		FROM question q
+		WHERE q.cl_idx = c.cl_idx) AS
+		question_count
+		,c.original_cl_idx
+
+		FROM cover_letter c LEFT JOIN
+		common_code t ON t.code =
+		c.cl_type
+		WHERE c.member_idx = #{memberIdx}
+		AND is_saved_to_mypage LIKE
+		"%BOL001%"  <!-- 저장 안함 공통코드 -->
+		<!-- AND t.code NOT LIKE "%CL003%" 원본 자소서 인것은 빼기 -->
+		ORDER BY cl_idx DESC
+		LIMIT
+		#{startRow}, #{listLimit}
+	</select>
+
+	<!-- select한 자소서 개수 -->
+	<select id="getCLListCountByMember"
+		parameterType="com.itwillbs.illusion.vo.CoverLetterVO"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM cover_letter
+		WHERE member_idx =
+		#{memberIdx}
+	</select>
+
+	<!-- 마이페이지 여러건 자소서 삭제 -->
+	<delete id="deleteMyCLs" parameterType="map">
+		DELETE
+		FROM cover_letter
+		WHERE member_idx = #{memberIdx}
+		AND cl_idx IN
+		<foreach item="clIdx" collection="idList" open="("
+			separator="," close=")">
+			#{clIdx}
+		</foreach>
+	</delete>
+
+</mapper>

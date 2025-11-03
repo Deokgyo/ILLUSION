@@ -1,0 +1,105 @@
+@charset "UTF-8";
+/* ========================
+    메인 컨테이너 및 폼 기본
+   ======================== */
+.admin-content {
+    background-color: var(--body-bg-color);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--main-box-shadow);
+    max-width: 1000px;
+    margin: auto;
+}
+.content-header {
+    background: var(--background-gradient-horizontally);
+    padding: 15px 25px;
+    border-radius: 50px;
+    margin-bottom: 40px;
+}
+.content-header h2 { font-size: 18px; margin: 0; color: var(--font-main-color); }
+
+/* ========================
+    폼 섹션 및 입력 필드
+   ======================== */
+.form-section { margin-bottom: 30px; }
+.form-group { margin-bottom: 24px; }
+.form-group label {
+    display: block; margin-bottom: 10px; font-size: 16px;
+    font-weight: 700; color: var(--font-main-color);
+}
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 50px;
+    font-size: 14px;
+    background-color: #fdfdfd;
+}
+.form-group input::placeholder { color: var(--font-placeholder-color); }
+.divider { border: 0; border-top: 1px solid #f0f0f0; margin: 40px 0; }
+
+/* ========================
+    동적 테이블
+   ======================== */
+.table-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px;
+}
+.table-header h3 { font-size: 16px; font-weight: 700; margin: 0; }
+.table-controls { display: flex; gap: 8px; }
+.table-controls .btn {
+    padding: 6px 14px; border: none; border-radius: 6px;
+    font-size: 13px; cursor: pointer; color: var(--font-main-color);
+}
+.btn-add-row {
+	background-color: var(--main-color);
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+}
+.btn-delete-row {
+	background-color: var(--main-color);
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+}
+
+.btn-add-row:hover {
+	background-color: var(--main-color-hover);
+}
+
+.btn-delete-row:hover {
+	background-color: var(--main-color-hover);
+}
+
+
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px; text-align: center; vertical-align: middle; }
+thead { background-color: var(--main-color); }
+th { padding: 12px 8px; font-weight: 500; font-size: 14px; }
+tbody input[type="text"] {
+    width: 100%; padding: 8px 15px; border: 1px solid #e0e0e0;
+    border-radius: 50px; font-size: 13px;
+}
+
+/* ========================
+    최종 등록 버튼
+   ======================== */
+.form-actions { text-align: center; margin-top: 40px; }
+.btn-submit {
+    padding: 14px 60px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--main-color);
+    color: var(--font-main-color);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-submit:hover { background-color: var(--main-color-hover); }
+
+.form-control:focus {
+	border-color: var(--main-color);
+	box-shadow: 0 0 0 .25rem var(--main-color); 
+}

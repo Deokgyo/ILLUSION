@@ -1,0 +1,167 @@
+@charset "UTF-8";
+/* ========================
+    메인 컨테이너
+   ======================== */
+body{
+	min-width: 1200px;
+}
+.admin-content {
+    background-color: var(--body-bg-color);
+    padding: 30px;
+    border-radius: 20px;
+    /* global.css에 새로 추가된 box-shadow 변수 사용 */
+    box-shadow: var(--main-box-shadow);
+}
+
+.content-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+/* ========================
+    컨트롤 바 (필터, 검색)
+   ======================== */
+.control-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.filter-title {
+    font-weight: 500;
+    color: var(--font-main-color);
+}
+
+.filter-group label {
+    cursor: pointer;
+    color: var(--font-sub-color);
+}
+.filter-group input[type="radio"] {
+    display: none; /* 기본 라디오 버튼 숨기기 */
+}
+/* 선택된 라디오 버튼의 라벨 스타일 */
+.filter-group input[type="radio"]:checked + label {
+    color: var(--font-main-color);
+    font-weight: bold;
+}
+.filter-group input[type="radio"]:checked + label::before {
+    content: '●';
+    color: var(--main-color);
+    margin-right: 5px;
+}
+
+.search-box {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 8px 15px;
+    font-size: 13px;
+    width: 250px;
+}
+.search-box input::placeholder {
+    color: var(--font-placeholder-color);
+}
+.search-box button {
+    border: none;
+    background: none;
+    padding: 0 15px;
+    cursor: pointer;
+    color: var(--font-sub-color);
+}
+
+/* ========================
+    테이블 스타일
+   ======================== */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* 내용이 넘칠 경우 가로 스크롤 생성 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 15px 10px;
+    vertical-align: middle;
+    border-right: 1px solid #f0f0f0;
+}
+th:last-child, td:last-child {
+    border-right: none;
+}
+
+thead {
+    background-color: var(--main-color);
+}
+
+th {
+    font-weight: 500;
+    color: var(--font-main-color);
+}
+
+tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+td a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* ========================
+    뱃지 (상태, 유형) 및 버튼 스타일
+   ======================== */
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-personal { background-color: rgb(243, 255, 11); color: rgb(0, 0, 0); }
+.badge-corporate { background-color: #e7f5ff; color: #0d6efd; }
+.badge-admin { background-color: #fff0f6; color: #d63384; }
+.badge-active { background-color: #e6fcf5; color: #198754; }
+.badge-inactive { background-color: #f8f9fa; color: #6c757d; border: 1px solid #dee2e6;}
+
+.badge-status { background-color: #fff0f6; color: #d63384; }
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--font-main-color);
+}
+

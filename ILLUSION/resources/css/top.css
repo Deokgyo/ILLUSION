@@ -1,0 +1,317 @@
+@charset "UTF-8";
+
+/* ======================================================
+ *      헤더 전용 스타일 (Header)
+ * ====================================================== */
+
+/* 웹 폰트 및 기본 스타일 초기화 */
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap')
+	;
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+li {
+	list-style: none;
+}
+
+/* 헤더 전체 컨테이너 */
+.site-header {
+	width: 100%;
+	background-color: #fff;
+	border-bottom: 1px solid #EAEAEA;
+	padding: 2x 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 헤더 내부 컨텐츠 */
+/* 헤더 내부 컨텐츠 (수정) */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 모든 자식 요소를 수직 중앙 정렬 */
+    width: 100%;
+    max-width: 1280px;
+    margin: 20px auto;
+    gap: 30px;
+}
+
+/* 로고 스타일 */
+.site-logo a {
+	display: block;
+	padding-left: 5px 8px;
+	align-items: center;
+}
+
+/* 중앙 메뉴 (수정) */
+.center-menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: 86px;
+    /* transform: translate(44px);  <-- 이 줄을 삭제하거나 주석 처리하세요. */
+}
+
+/* 메인 네비게이션 */
+.main-nav>ul {
+    display: flex;
+gap: 30px;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: center;
+}
+/* 개별 메뉴 링크(텍스트) */ 
+.main-nav a {
+	font-size:23px;
+	font-weight: bold;
+	color: var(--font-sub-color);
+/* 	padding: 10px 0; */
+	padding: 0;
+	position: relative;
+	transition: color 0.3s ease;
+	white-space: nowrap;
+}
+
+nav.main-nav {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* 메뉴 호버(색상 강조) */
+.main-nav a:hover {
+	color: var(--font-main-color);
+}
+/* 밑줄 애니메이션 효과바 */
+.main-nav>ul>li:not(.dropdown)>a::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 2px;
+	background-color: var(--main-color);
+	transition: width 0.3s ease;
+}
+/* 호버시 밑줄 확장 */ 
+.main-nav>ul>li:not(.dropdown)>a:hover::after {
+	width: 100%;
+}
+
+/* 검색창 */
+.search-form {
+    /* margin-top: 0px; */
+    border: 2px solid #FFD400;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 0px;
+    transition: all 0.3s ease;
+    height: 50px;
+    margin: 0px;
+}
+
+/* 검색창 포커스 효과 */
+.search-form:focus-within {
+	position: relative;
+	border-color: var(--main-color);
+	border: 1px solid #E0E0E0;
+	box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+	
+}
+
+/* 입력란 스타일 */
+.search-input {
+    border: none;
+    outline: none;
+    border-radius: 22px;
+    font-size: 15px;
+    width: 200px;
+    height: 40px;
+    color: #333;
+    /* padding-right: 5px; */
+    margin-left: 10px;
+    padding: 0px;
+}
+
+.search-input::placeholder {
+	/*     color: #999; */
+	color: var(--font-placeholder-color);
+}
+
+.search-button {
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.search-button i {
+	font-size: 20px;
+	color: var(- -font-sub-color);
+	opacity: 0.7;
+	transition: opacity 0.3s ease;
+	margin-right: 10px;
+}
+
+.search-button:hover i {
+	opacity: 1;
+	
+}
+
+
+
+/* 드롭다운 메뉴 */
+.dropdown {
+	position: relative;
+}
+
+.dropdown>a {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 23px;
+}
+
+.dropdown>a::after {
+	content: '▼';
+	font-size: 12px;
+	color: var(--font-sub-color);
+	transform-origin: center;
+	transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.dropdown:hover>a::after {
+	transform: rotate(180deg);
+	color: var(--main-color-hover);
+	/*     color: #007BFF; */
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  background-color: #fff;
+  border-radius: 12px;
+  border: 1px solid #F0F0F0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding-top: 0;
+  margin-top: 10;
+  min-width: 220px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  /* 외곽선 위쪽에만 그라데이션 바 생성 (가상요소 활용) */
+  overflow: hidden; /* 아래 ::before의 둥근 상단을 위해 필요 */
+}
+
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 5px; /* 바 두께(이미지 참고) */
+  background: var(--background-gradient-horizontally); /* 원하는 컬러 그라데이션 */
+  border-radius: 12px 12px 0 0; /* 윗쪽 모서리만 둥글게 */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 드롭다운 열릴 때 */
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+transform: translateX(-50%);
+  line-height: 1; 
+}
+
+.dropdown-menu li a {
+	DISPLAY: FLEX;
+	ALIGN-ITEMS: CENTER;
+	GAP: 12PX;
+	PADDING: 12PX 16PX;
+	BORDER-RADIUS: 8PX;
+	FONT-SIZE: 19PX;
+	FONT-WEIGHT: 500;
+	COLOR: VAR(--font-sub-color);
+/* 	     COLOR: #333;  */
+	TRANSITION: BACKGROUND-COLOR 0.2S EASE, COLOR 0.2S EASE;
+	WHITE-SPACE: NOWRAP;
+}
+.dropdown-menu li {
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/* 메뉴 항목에 마우스 올릴 때 */
+.dropdown-menu li a:hover {
+  color: var(--font-main-color);
+  }
+
+.dropdown-menu .icon {
+	font-size: 18px;
+	width: 20px;
+	text-align: center;
+	color: var(--font-sub-color);
+	transition: color 0.2s ease;
+}
+
+.dropdown-menu li a:hover .icon {
+	color: var(--main-color-hover);
+}
+
+/* 우측 사용자 메뉴 */
+.user-menu {
+/* 	margin-left: 100px; */
+}
+
+
+
+.user-menu ul {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	justify-content: flex-end;
+/* 	margin-top: 30px; */
+	margin:0px;
+	padding: 0px;
+}
+
+.user-menu a {
+	font-size: 18px;
+	color: var( --font-sub-color);
+	font-weight: 700;
+/* 	padding: 5px 8px; */
+	border-radius: 5px;
+	transition: all 0.3s ease;
+	white-space: nowrap;
+
+	
+}
+
+.user-menu a:hover {
+	color: var(--font-main-color);
+	
+}
+
+.user-menu .separator {
+	font-size: 13px;
+	/*     color: #DCDCDC; */
+	color: var(--font-main-color);
+}
+

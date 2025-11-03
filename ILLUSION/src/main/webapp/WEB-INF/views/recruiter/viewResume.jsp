@@ -54,7 +54,7 @@
 									<div class="profile-img">
 								    <c:choose>
 								        <c:when test="${not empty resume.resume_img}">
-								            <img src="${pageContext.request.contextPath}/resources/upload/${resume.resume_img}" 
+								            <img src="${resume.resume_img}" 
 								                 alt="프로필 이미지" id="profilePreview">
 								        </c:when>
 								        <c:otherwise>

@@ -16,6 +16,9 @@
 		<!-- <org.aspectj-version>1.6.10</org.aspectj-version> -->
 		<org.aspectj-version>1.9.22</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<maven.compiler.source>11</maven.compiler.source>
+	    <maven.compiler.target>11</maven.compiler.target>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
 	<!-- Maven에서 관리하는 의존성 패키지(라이브러리)를 관리하는 위치 -->
@@ -28,6 +31,7 @@
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.24</version>
+		    <scope>provided</scope>
 		</dependency>
 	
 		<!-- 2. MySQL - JDBC 연동에 필요한 라이브러리 -->
@@ -361,7 +365,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.10.1</version>
                 <configuration>
                 	<!-- 자바(JRE) 버전 설정 위치 -->
                 	<!-- <java-version>11</java-version> -->

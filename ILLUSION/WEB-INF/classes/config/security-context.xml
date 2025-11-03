@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/security 
+                        http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<beans:bean id="customLoginEntryPoint" class="com.itwillbs.illusion.handler.home.CustomLoginUrlAuthenticationEntryPoint">
+    	<beans:constructor-arg name="loginFormUrl" value="/login" />
+	</beans:bean>
+
+    <!-- =================================================================== -->
+    <!-- 1. 보안 규칙 설정 (가장 중요한 부분) -->
+    <!-- =================================================================== -->
+    <http entry-point-ref="customLoginEntryPoint">
+    	
+        <!-- 1-1) URL별 접근 권한 설정 -->
+        <!-- 순서가 매우 중요합니다! 구체적인 경로를 먼저, 넓은 범위를 나중에 작성해야 합니다. -->
+
+        <intercept-url pattern="/resources/**" access="permitAll" /> 
+        <intercept-url pattern="/upload/**" access="permitAll" /> 
+        <intercept-url pattern="/" access="permitAll" />           <!-- 메인 페이지는 모두 허용 -->
+<!--         <intercept-url pattern="/login" access="permitAll" /> -->
+		<intercept-url pattern="/login" access="isAnonymous()" />
+        <intercept-url pattern="/adminLogin" access="permitAll" />        
+        <intercept-url pattern="/register" access="permitAll" />
+        <intercept-url pattern="/idPwFind" access="permitAll" />
+        <intercept-url pattern="/errorPage" access="permitAll" />
+        <intercept-url pattern="/privacyPolicy" access="permitAll" />
+        <intercept-url pattern="/termsOfService" access="permitAll" />
+        <intercept-url pattern="/marketing" access="permitAll" />
+	
+            
+        <intercept-url pattern="/recruiterMain" access="permitAll" />
+        <intercept-url pattern="/recruitmentInfo" access="permitAll" />
+        <intercept-url pattern="/recruitmentDetail**" access="permitAll" />    
+        <intercept-url pattern="/email-auth" access="permitAll" method="POST"/>   
+        <intercept-url pattern="/email-auth-check" access="permitAll" method="POST"/>  
+        <intercept-url pattern="/email-check" access="permitAll" method="GET"/>   
+        <intercept-url pattern="/apply**" access="permitAll" method="POST"/>   
+        <intercept-url pattern="/checkIdCount" access="permitAll" method="GET"/>   
+        <intercept-url pattern="/checkRecruiterNumber" access="permitAll" method="GET"/>  
+        <intercept-url pattern="/insertMemberCompany" access="permitAll" method="POST"/>   
+        <intercept-url pattern="/recruitmentInfo" access="permitAll" />    
+        <intercept-url pattern="/communityMain" access="permitAll" />
+        <intercept-url pattern="/communityDetail**" access="permitAll" />
+        <intercept-url pattern="/idFind/sendAuthCode" access="permitAll" method="POST"/>
+        <intercept-url pattern="/idFind/verify" access="permitAll" method="POST"/>
+        <intercept-url pattern="/pwFind/sendAuthCode" access="permitAll" method="POST"/>
+        <intercept-url pattern="/pwFind/verifyAndReset" access="permitAll" method="POST"/>
+<!--         <intercept-url pattern="/createInterviewByDirect" access="isAuthenticated()" /> -->
+        <intercept-url pattern="/api/boards/**/comments" access="permitAll" method="GET" />
+        <intercept-url pattern="/api/boards/**/comments" access="isAuthenticated()" method="POST" />
+        <intercept-url pattern="/api/codes**" access="permitAll" />
+        
+        <intercept-url pattern="/api/scraps/**/toggle" access="isAuthenticated()" />
+        
+        
+
+	    <intercept-url pattern="/adminMain" access="hasRole('MEM001')" /> 
+	    <intercept-url pattern="/admin**/**" access="hasRole('MEM001')" /> 
+	
+	    <intercept-url pattern="/recruiter**" access="hasAnyRole('MEM001', 'MEM003')" />
+	    
+	    <intercept-url pattern="/**" access="isAuthenticated()" />
+        
+
+    	<!-- 커스텀 로그인 폼 설정  -->
+		<form-login 
+			login-page="/login"  
+		    login-processing-url="/loginPro"                    
+		    username-parameter="member_id"                       
+		    password-parameter="member_pw"                      
+		    authentication-success-handler-ref="customLoginSuccessHandler"
+		    authentication-failure-handler-ref="customLoginFailureHandler" />
+
+        <!-- 로그아웃 설정 -->
+        <logout 
+            logout-url="/logout"                                 
+            logout-success-url="/"                               
+            invalidate-session="true"                           
+            delete-cookies="JSESSIONID, autoLoginId" />          
+            
+        <!-- 동시 세션 제어 설정 (동시에 같은 계정으로 로그인 불가) -->
+        <session-management>
+	        <concurrency-control 
+	            max-sessions="1" 
+	            expired-url="/login?expired=true" />
+	    </session-management>
+            
+        <!-- CSRF(Cross-Site Request Forgery) 공격 방어 활성화 (기본값) -->
+        <csrf />
+        
+        <remember-me
+        key="yourSecretKey"  
+        token-validity-seconds="2592000" 
+        remember-me-parameter="remember-me" />
+        
+         <access-denied-handler error-page="/accessDenied" />
+    </http>
+
+    <!-- =================================================================== -->
+    <!-- 2. 인증 관리자 설정 (로그인 처리 방법 정의) -->
+    <!-- =================================================================== -->
+    <authentication-manager>
+        <authentication-provider user-service-ref="customUserDetailsService">
+            <!-- 2-1) 비밀번호 암호화 방식 정의 (BCrypt 사용) -->
+            <!-- BCrypt는 현재 가장 표준적이고 안전한 암호화 방식입니다. -->
+            <password-encoder ref="bcryptPasswordEncoder" />
+
+            <!-- 2-2) CustomUserDetailsService를 사용하여 인증 처리를 위임 -->
+            <!-- 이제부터 CustomUserDetailsService가 DB에서 사용자 정보를 조회하고,
+                 CustomUserDetails 객체를 생성하여 Spring Security에 제공합니다. -->
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- BCryptPasswordEncoder를 스프링 빈(Bean)으로 등록 -->
+    <beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+</beans:beans>

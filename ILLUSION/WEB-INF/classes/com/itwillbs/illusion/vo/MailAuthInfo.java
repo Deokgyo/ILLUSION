@@ -1,0 +1,16 @@
+package com.itwillbs.illusion.vo;
+
+import java.sql.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class MailAuthInfo {
+
+	private String email;
+	private String auth_code;
+   
+}

@@ -28,16 +28,9 @@
 	
 	<main>
     	<section class="list-header">
-			<h1>지원자 관리</h1>
+			<h1>지원자 관리 배포 잘되니?</h1>
 		</section>
-    	
-    
     		<div id="applicant-grid"></div>
-
-	
-
-
-
 	</main>
 		
 	<footer>

@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+
+.title {
+  text-align: center;
+  margin: 30px 0 20px;
+  font-size: 28px;
+  background: linear-gradient(to right, #ffe5e5, #fff2c5);
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 16px;
+}
+
+.withdrawal-box {
+  
+  margin-bottom: 30px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.notice {
+  font-size: 14px;
+  margin-bottom: 20px;
+  border: 1px dashed #aaa;
+  padding: 20px;
+  border-radius: 8px;
+  background: #fefefe;
+}
+
+.form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.form input[type="text"],
+.form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.form input[type="text"]:focus,.form input[type="password"]:focus,.form textarea:focus
+	{
+	 border: 1px solid var(--main-color);
+  outline: none;  /* 기본 파란 아웃라인 제거 */
+  box-shadow: 0 0 3px var(--main-color);
+}
+
+.checkbox {
+  margin: 20px 0;
+  font-size: 14px;
+}
+.checkboxcss {
+	width: 14px;
+	height: 14px;
+	accent-color: #fcd34d;
+	margin: auto;
+}
+.withdraw-btn {
+  width: 100%;
+  background: var(--main-color);
+  border: none;
+  padding: 15px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.withdraw-btn:hover {
+  background: var(--main-color-hover);
+}

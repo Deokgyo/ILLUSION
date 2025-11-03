@@ -1,0 +1,246 @@
+@charset "UTF-8";
+
+/* ======================================================
+ *      공통 컴포넌트 스타일 (Components)
+ * ====================================================== */
+
+/* 메인 콘텐츠 내부의 폼 박스 */
+.form-box {
+    width: 100%;
+    padding: 30px;
+/*     background-color: #fffef9;  */
+    background-color: var(--body-bg-color);
+    border-radius: 12px;      
+    box-shadow: var(--main-box-shadow);
+    position: relative; /* 1. ::before의 위치 기준점이 되도록 설정 */
+    overflow: hidden;   /* 2. ::before가 둥근 모서리 밖으로 삐져나가지 않도록 잘라냄 */
+}
+
+.form-box::before{
+  	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */
+}
+
+/* 섹션 제목 (예: AI 생성 요구사항) */
+.section-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 30px;
+}
+
+/* 노란색 버튼 */
+.btn-yellow {
+/*     background-color: #fde68a; */
+	background-color: var(--main-color);
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+}
+
+.btn-yellow:hover {
+	background-color: var(--main-color-hover);
+}
+
+
+
+.btn-yellow:disabled {
+	background-color: var(--main-color-hover);
+	opacity: var(--button-disabled-opacity);
+}
+.btn-yellow.btn:active {
+    background-color: var(--main-color-hover) !important;
+    color: inherit;  /* 필요 시 텍스트 색상 유지 */
+    transform: scale(0.95);
+    
+}
+
+/* 공통 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pagination a {
+    color: #495057;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin: 0 5px;
+    border-radius: 8px;
+}
+
+.pagination a.active {
+    background-color: var(--main-color-hover);
+    color: white;
+    font-weight: bold;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #e9ecef;
+}
+
+.page-arrow {
+	font-size: 23px;
+}
+
+/* 페이지 상단에 텍스트 부분 */
+.page-title-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: var(--background-gradient-horizontally);
+    border-radius: 50px;
+}
+
+.page-title-header .header-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--font-main-color);
+    margin: 0;
+}
+
+.page-title-header .header-text strong {
+    font-weight: 700;
+    font-size: 20px
+}
+
+
+/* 그라데이션 버튼 */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.buttons {
+    margin: 10%;
+    text-align: center;
+}
+
+.gradient-btn {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--font-main); 
+    cursor: pointer;
+/*     margin: 20px; */
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 15px;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    /* .color-1의 스타일 통합 */
+    background-image: var(--background-gradient-horizontally);
+    box-shadow: 0 4px 15px 0 rgba(159, 175, 174, 0.75);
+}
+
+.gradient-btn:hover, .gradient-btn:active {
+    background-position: 100% 0;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.gradient-btn:active:not(:disabled) {
+    transform: scale(0.95);
+    background-position: 100% 0;
+}
+
+
+.gradient-btn:focus {
+    outline: none;
+}
+
+.gradient-btn:disabled {
+    opacity: 0.55; 
+    cursor: not-allowed; 
+    background-position: 0 0;
+}
+
+
+/* ======================================================
+ *      공통 모달 스타일 (Modal) - 최종 단순화 버전
+ * ====================================================== */
+
+.modal-overlay {
+    /* 화면 전체를 덮는 기본 스타일 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+}
+.close-modal-btn:hover {
+    color: #333;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.modal-header .icon {
+    font-size: 24px;
+    color: var(--main-color);
+}
+.modal-header h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modal-content p {
+    color: var(--font-sub-color);
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.modal-buttons .btn {
+    flex: 1;
+}

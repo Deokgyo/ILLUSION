@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itwillbs.illusion.mapper.CommonCodeMapper">
+	
+	<select id="findCodesByParentCode" parameterType="map" resultType="com.itwillbs.illusion.vo.CommonCodeVO">
+        SELECT
+            code_group_id,
+            code,
+            code_name,
+            parent_code_id
+        FROM
+            common_code
+        <where>
+            AND code_group_id = #{groupId}
+            
+            <if test="parentCode != null">
+                AND parent_code_id = #{parentCode}
+            </if>
+            
+            <if test="parentCode == null">
+                AND parent_code_id IS NULL
+            </if>
+        </where>
+        ORDER BY
+            code ASC
+	</select>
+	
+<!-- 	<select id="findLocationsByName" resultType="com.itwillbs.illusion.vo.CommonCodeVO"> -->
+<!-- 		SELECT -->
+<!--             code_group_id, code, code_name, parent_code_id -->
+<!--         FROM -->
+<!--             common_code -->
+<!--         WHERE -->
+<!--             code_group_id = 'LOCATION' -->
+<!--             AND code_name LIKE CONCAT('%', #{keyword}, '%') -->
+<!--         ORDER BY -->
+<!--             code_name ASC -->
+<!-- 	</select> -->
+
+	<select id="selectAllCommonList" parameterType="list">
+		SELECT code_group_id, code, code_name
+		  FROM common_code
+		 WHERE code_group_id in 
+		<foreach collection="codeGroups" item="group" open="(" close=")" separator=",">
+			#{group}
+		</foreach>
+	</select>
+
+
+</mapper>	

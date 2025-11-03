@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itwillbs.illusion.mapper.MyPostMapper">
+
+	<sql id="myPostFilter">
+	    <where>
+	        AND member_idx = #{memberIdx}
+	        <if test="categoryCode != null and categoryCode != 'BRD001'">
+	            AND board_type = #{categoryCode}
+	        </if>
+	    </where>
+	</sql>
+	
+	<select id="getMyPostByMemberId" parameterType="int" resultType="com.itwillbs.illusion.vo.BoardVO">
+	   SELECT 
+			b.board_idx
+		    , b.board_title
+		    , b.member_idx
+		    , typ.code_name as board_type
+		    , DATE_FORMAT(b.board_create_at, '%Y-%m-%d') AS board_create_at
+		    , b.board_viewcnt
+		    , b.cmt_count
+		 FROM board b LEFT JOIN common_code typ ON b.board_type = typ.code
+		 <include refid="myPostFilter"/>
+		ORDER BY b.board_idx DESC
+		LIMIT #{startRow}, #{listLimit}
+	</select>
+	
+	<select id="getMyPostCountByMember" parameterType="com.itwillbs.illusion.vo.BoardVO" resultType="int">
+	    SELECT COUNT(*)
+  	     FROM board
+  	    <include refid="myPostFilter"/>
+	</select>
+	
+	<!-- 마이페이지 여러건 입사지원 삭제 -->
+    <delete id="deleteMyPosts" parameterType="map">
+    DELETE 
+      FROM board
+     WHERE member_idx = #{memberIdx}
+       AND board_idx IN
+        <foreach item="boardIdx" collection="idList" open="(" separator="," close=")">
+            #{boardIdx}
+        </foreach>
+	</delete>
+	
+	
+	
+</mapper>

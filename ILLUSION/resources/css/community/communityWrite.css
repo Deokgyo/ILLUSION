@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+/* ======================================================
+ *      커뮤니티 글쓰기 폼 전용 스타일
+ * ====================================================== */
+
+/* 폼 박스에 와이어프레임에 맞는 여백 적용 */
+.write-form-box {
+    margin-top: 30px;
+    padding: 40px;
+}
+
+/* 글쓰기 폼의 각 섹션 */
+.write-form-section {
+    margin-bottom: 40px;
+}
+.write-form-section:last-of-type {
+    margin-bottom: 0;
+}
+.write-form-section .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.write-form-section .section-header .icon {
+    font-size: 20px;
+    color: var(--main-color); /* 아이콘 색상을 메인 컬러로 */
+}
+.write-form-section .section-header .title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* 입력 필드 스타일 */
+.title-input, .category-select {
+    height: 50px;
+}
+.category-select {
+    max-width: 300px;
+}
+.content-textarea {
+    height: 350px;
+    resize: vertical;
+}
+
+/* 하단 버튼 영역 */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px;
+}

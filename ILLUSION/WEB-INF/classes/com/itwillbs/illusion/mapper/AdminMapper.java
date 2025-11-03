@@ -1,0 +1,63 @@
+package com.itwillbs.illusion.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import com.itwillbs.illusion.vo.CommonCodeVO;
+
+@Mapper
+public interface AdminMapper {
+	
+	public int getApplicantCount(); // 구직자 수 조회
+	
+	public int getEmployerCount(); // 구인자 수 조회
+	 
+	public int getRecruitCount(); // 공고 수 조회
+	
+	public int getCoverletterCount(); // 생성된 ai 자소서 수 조회
+	
+	public int  getBoardCount(@Param("keyword") String keyword); // 커뮤니티 게시글 수 조회 
+	
+	public List<Map<String, String>> getMember(@Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit); // 회원 정보 조회
+	
+	public int getMemberCount(@Param("keyword") String keyword); // 전체 회원 수 조회
+	
+	public int getApplyCount(); // 입사지원자 수 조회
+	
+	public List<Map<String, String>> getMemberType(); // 회원 타입 조회
+	
+	public List<Map<String, String>> getMemberStatus(); // 회원 상태 조회
+	public List<Map<String, Object>> getAdminRecruitmentList(String status); // 공고 목록 조회
+	public void updateMemberStatusAndType(Map<String, Object> map); // 회원 상태 타입 수정
+
+	public Map<String, Object> getMemberDetail(int member_idx); // 회원 상세 정보 조회
+
+	public void deleteMember(int member_idx); // 회원 삭제
+	
+	public List<Map<String, String>> getBoardList(@Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit); // 게리글 리스트 조회
+	
+	public List<Map<String, String>> getCommonCodeList(@Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit); // 공통 코드 리스트 조회
+	
+	public void deleteBoard(int board_idx); // 공통 코드 삭제
+	
+	public Map<String, String> getCommonCode(String code); // 공통 코드 하나 조회
+	
+	public int getCommonCodeCount(@Param("keyword") String keyword); // 공통코드 수 조회
+	
+	public void updateCommonCode(Map<String, String> map); // 공통 코드 수정
+	
+	public List<Map<String, String>> getCommonCodeGroups(); // 공통코드 그룹 목록 조회
+
+	void insertCommonCodeGroup(Map<String, String> group); // 공통코드 그룹 추가
+
+	void insertCommonCodes(List<CommonCodeVO> codes); // 공통코드 추가
+
+	public void deleteCommonCode(String code); // 공통 코드 삭제
+	
+	public List<Map<String, Object>> getAiUsageChartData(); // AI 생성 건수 추이 데이터 조회
+	
+	public List<Map<String, Object>> getMemberSignupChartData(); // 회원가입 추이 데이터 조회
+}

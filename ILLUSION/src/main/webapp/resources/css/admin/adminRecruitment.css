@@ -3,3 +3,7 @@
 .admin-content {
 	gap:0px !important;
 }
+
+.btn {
+	padding: 6px 7px !important;
+}

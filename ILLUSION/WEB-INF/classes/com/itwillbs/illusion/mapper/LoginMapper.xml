@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.itwillbs.illusion.mapper.LoginMapper">
+	<select id="selectMemberById">
+		SELECT * -- todo
+			  
+		  FROM member
+		 WHERE member_id = #{member_id}
+	</select>
+	
+		<!-- 아이디 찾기 - 이름과 이메일로 회원 존재 여부 확인 -->
+	<select id="selectMemberByNameAndEmail" resultType="int">
+		SELECT count(*)
+		  FROM member
+		 WHERE member_name = #{member_name}
+		   AND member_email = #{member_email}
+	</select>
+
+	<!-- 아이디 찾기 - 아이디 반환 -->
+	<select id="selectMemberId" resultType="map">
+		SELECT 
+		    CASE 
+		        WHEN COUNT(member_id) > 0 THEN 'success'
+		        ELSE 'fail'
+		    END as result,
+		    CASE 
+		        WHEN COUNT(member_id) > 0 THEN MAX(member_id)
+		        ELSE NULL
+		    END as member_id,
+		    CASE 
+		        WHEN COUNT(member_id) > 0 THEN CONCAT('회원님의 아이디는 [ ', MAX(member_id), ' ] 입니다.')
+		        ELSE '일치하는 회원 정보가 없습니다.'
+		    END as msg
+		  FROM member
+		 WHERE member_name = #{member_name}
+		   AND member_email = #{member_email}
+	</select>
+
+	<!-- 아이디와 이메일로 회원 존재 여부 확인 -->
+	<select id="checkMemberIdAndEmailExists" resultType="int">
+		SELECT count(*)
+		  FROM member
+		 WHERE member_id = #{member_id}
+		   AND member_email = #{member_email}
+	</select>
+
+	<!-- 비밀번호 재설정을 위한 회원 확인 -->
+	<select id="selectMemberForPasswordReset" resultType="int">
+		SELECT count(*)
+		  FROM member
+		 WHERE member_id = #{member_id}
+		   AND member_email = #{member_email}
+	</select>
+
+	<!-- 회원 비밀번호 업데이트 -->
+	<update id="updateMemberPassword">
+		UPDATE member
+		   SET member_pw = #{member_passwd}
+		 WHERE member_id = #{member_id}
+	</update>
+	
+	<!-- 이름과 이메일로 탈퇴된 회원인지 확인 -->
+	<select id="isWithdrawnMember" resultType="boolean">
+		SELECT CASE 
+		         WHEN COUNT(*) > 0 THEN true
+		         ELSE false
+		       END
+		  FROM member
+		 WHERE member_name = #{member_name}
+		   AND member_email = #{member_email}
+		   AND member_status = 'MES002'
+	</select>
+	
+	<!-- 아이디와 이메일로 탈퇴된 회원인지 확인 -->
+	<select id="isWithdrawnMemberById" resultType="boolean">
+		SELECT CASE 
+		         WHEN COUNT(*) > 0 THEN true
+		         ELSE false
+		       END
+		  FROM member
+		 WHERE member_id = #{member_id}
+		   AND member_email = #{member_email}
+		   AND member_status = 'MES002'
+	</select>
+</mapper>
+
