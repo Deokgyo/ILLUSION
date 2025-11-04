@@ -15,7 +15,7 @@
 	
 	
 	<!-- gemini api 사용하기 위해 설정 -->
-	<context:property-placeholder location="classpath:/config/config.properties" />
+	<context:property-placeholder location="classpath:/config/config.properties"/>
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- Root Context: defines shared resources visible to all other web components -->
