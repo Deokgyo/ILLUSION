@@ -9,7 +9,7 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 # "my-app.war" 부분을 Export로 생성한 .war 파일 이름으로 정확히 바꿔주세요.
 # 이 Dockerfile과 같은 폴더에 .war 파일이 있어야 합니다.
 COPY /*.war /usr/local/tomcat/webapps/ROOT.war
-
+# 4. 포트 노출: Tomcat 기본 포트인 8080 노출
 # 4. 포트 노출: Tomcat 기본 포트인 8080 노출
 EXPOSE 8080
 
