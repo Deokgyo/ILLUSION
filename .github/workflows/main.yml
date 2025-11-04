@@ -26,7 +26,6 @@ jobs:
       # (3) .war 파일 빌드 (Maven)
       - name: Build with Maven
         run: mvn clean package
-        working-directory: ILLUSION
       # (4) AWS 로그인 (GitHub Secrets에 저장한 키 사용)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -47,7 +46,6 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: deokgyo/illusion   # (수정) ECR 리포지토리 이름
           IMAGE_TAG: latest
-        working-directory: ILLUSION  
         run: |
           # .war 파일이 있는 곳에서 Dockerfile을 실행해야 함
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
