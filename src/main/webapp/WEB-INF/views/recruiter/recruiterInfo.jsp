@@ -28,7 +28,7 @@
 	<div class="page-container">
 		<main class="main-content">
 			<div class="page-title-header">
-				<p class="header-text">회원정보 수정 </p>
+				<p class="header-text">회원정보 수정</p>
 			</div>
 			<div class="form-box">
 				<div id="companyTable"></div>
