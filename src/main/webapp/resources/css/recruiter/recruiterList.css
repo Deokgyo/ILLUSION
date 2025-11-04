@@ -1,0 +1,383 @@
+@charset "UTF-8";
+
+/* = a====================================================
+ *      0. 기본 및 전체 페이지 스타일
+ * ====================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 모든 요소의 크기 계산 방식을 통일 (매우 중요) */
+}
+
+main {
+  font-family: var(--font-family, 'Noto Sans KR', sans-serif);
+  color: #333;
+  max-width: 1400px; /* 콘텐츠의 최대 너비 설정 */
+  margin: 20px auto; /* 페이지 좌우 중앙 정렬 및 상하 여백 */
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* 각 섹션("대시보드", "맞춤인재" 등) 사이의 간격 */
+}
+
+/* ======================================================
+ *       "공고 목록" 헤더 스타일 (section)
+ * ====================================================== */
+.list-header {
+  /* ✨수정✨: 그라데이션 변수 적용 */
+  background: var(--background-gradient-horizontally);
+  
+  /* 모양 및 그림자 */
+  border-radius: 50px; /* 타원형 모양 */
+  box-shadow: var(--main-box-shadow);
+  max-width: 100%;
+  /* 내부 h1 태그를 위한 설정 */
+  padding: 15px 30px;
+}
+
+.list-header h1 {
+  /* ✨수정✨: 폰트 색상 변수 적용 */
+  color: var(--font-main-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0; /* h1의 기본 마진 제거 */
+}
+
+
+/* ======================================================
+ *      하얀색 폼 바디 스타일
+ * ====================================================== */
+.main-list {
+ 	background-color: var(--body-bg-color);
+    box-shadow: var(--main-box-shadow);
+    border-radius: 20px;
+    width: 100%;
+/*     min-height: 75vh; */
+    padding: 30px;
+    display: flex;
+	justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+    position: relative;
+/*     overflow: hidden; */
+/*     gap: 20px; */
+}
+
+/* 그라데이션 테두리 요소 추가  */
+.main-list::before {
+	content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--background-gradient-horizontally);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* section { */
+/* 	margin-bottom:2rem; */
+/* } */
+
+/* ======================================================
+ *      안내 문구 박스
+ * ====================================================== */
+
+.notice-box {
+  background-color: white;
+  border-radius: 20px;
+  padding: 24px;
+  width: inherit;
+/*   max-width: 800px; */
+	box-shadow: var(--main-box-shadow);
+}
+
+.notice-box ul {
+  list-style: none;
+/*   padding-left: 20px; */
+  margin: 0;
+}
+
+.notice-box li {
+  color: var(--font-sub-color); /* 흐릿한 회색 */
+  font-size: 16px;
+  line-height: 1.8;
+  display: list-item;  
+/*   word-break: keep-all; */
+  position: relative;
+  padding-left: 20px;
+}
+
+.notice-box .dot {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 3px;
+  height: 3px;
+  background-color: var(--font-sub-color);
+  border-radius: 50%;
+}
+
+
+/* ======================================================
+ *      리스트의 탭 영역 
+ * ====================================================== */
+
+
+.tab-container {
+  display: flex;
+  gap: 24px; /* 탭 사이 간격 */
+}
+
+.tab {
+  padding: 12px 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--main-font-color);
+  cursor: pointer;
+  border-bottom: 2px solid var(--sub-font-color);
+}
+
+.tab.active {
+  color: var(--main-color); /* 노란색 글자 */
+  border-bottom: 2px solid var(--main-color); /* 노란 밑줄 */
+}
+
+/* ======================================================
+ *      조회 조건 필터링 +.검색창 나란히 배치 
+ * ====================================================== */
+
+.filter-search {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap:0px;
+}
+
+/* ======================================================
+ *      조회 조건 필터링
+ * ====================================================== */
+
+.radio-group {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.radio-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+}
+
+/* 실제 input은 숨김 */
+.radio-button input[type="radio"] {
+  display: none;
+}
+
+/* 노란 원 */
+.custom-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #eee;
+  margin-right: 8px;
+  transition: background-color 0.2s;
+}
+
+/* 체크됐을 때만 노란색으로 바뀜 */
+.radio-button input[type="radio"]:checked + .custom-dot {
+  background-color: #ffe179;
+}
+
+/* ======================================================
+ *      공고 목록 검색 창
+ * ====================================================== */
+
+
+.form-control {
+	border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    height: 50px;
+    font-size: 16px;
+    color: var(--font-main-color);
+    box-shadow: none !important;
+    transition: border-color 0.2s;
+	width: 373px;
+}
+
+.form-control:focus {
+	color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #ffc107;
+}
+
+
+.recruit-search-bar {
+	widows: 100%
+}
+
+
+
+/* ======================================================
+ *      리스트 영역 
+ * ====================================================== */
+ 
+ .list {
+  background-color: var(--body-bg-color);
+  border-radius: 20px;
+  padding: 24px;
+  width: inherit;
+/*   max-width: 800px; */
+	box-shadow: var(--main-box-shadow);
+	height: 573px;
+ }
+ 
+ 
+ 
+ /* ======================================================
+ *      빈 리스트 영역 
+ * ====================================================== */
+ 
+ .empty-box {
+ 	display: flex;
+ 	flex-direction: column;
+ 	align-items: center;
+ 	justify-content: center;
+ 	height: 400px;
+ 	border-radius: 20px;
+ 	background-color: var(--body-bg-color);
+ 	text-align: center;
+ 	padding: 40px 20px;
+	box-shadow: var(--main-box-shadow);
+  	width: inherit;
+  	height: 573px;
+}
+
+.empty-text {
+  font-size: 50px;
+  font-weight: bold;
+  color: var(--main-font-color);
+  margin-bottom: 24px;
+}
+
+.btn-yellow {
+	border-radius: 20px;
+}
+
+
+
+ /* ======================================================
+ *      테이블 꾸미기 테꾸 
+ * ====================================================== */
+
+/* .gridjs-container{ */
+	
+/* /* 	 min-height: 573px;  */ */
+/* } */
+
+th.gridjs-th-sort:focus, th.gridjs-th-sort:hover {
+    background-color: var(--main-color-hover);
+}
+
+.gridjs-tr:hover, .gridjs-tr:focus {
+	 background-color: var(--main-color-hover) !important;
+}
+.gridjs-tr:hover .gridjs-td {
+  background-color: #fff3c0;
+}
+
+/* 노란 헤더 */
+th.gridjs-th {
+	border:none !important;
+	background-color: var(--main-color);
+}
+.custom-grid {
+ width: auto;
+  max-width: 100%;
+  overflow-x: visible;  /* 줄바꿈 허용 */
+}
+.gridjs-wrapper {
+  max-height: none !important;
+}
+
+td.gridjs-td {
+	border: none !important;
+}
+
+
+
+.grid-custom-table thead tr {
+  background-color: #ffe179;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 일반 셀 */
+.grid-custom-table td,
+.grid-custom-table th {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+/* 체크박스 칼럼 */
+.grid-custom-table td:first-child,
+.grid-custom-table th:first-child {
+  width: 60px;
+}
+
+/* 노란 버튼 */
+.btn {
+  padding: 6px 10px;
+  font-weight: bold;
+  border-radius: 999px;
+  border: none;
+  background-color: #ffe179;
+  color: #111;
+  margin: 0 4px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+/* 강조된 행 */
+.active-row {
+  background-color: #fff2c7 !important;
+  border-left: 4px solid #ffe179;
+  border-radius: 8px;
+}
+
+.gridjs-td {
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.gridjs-summary {
+  display: none !important;
+}
+
+.gridjs-footer {
+	display: flex;
+	justify-content: center;
+	border-top: 0px !important;
+	box-shadow: 0 1px 2px 0px #b5b5b5 !important;
+}
+
+.gridjs-head {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+.gridjs-search-input {
+    width: 400px !important;
+}
+
+span{
+	display:flex;
+}

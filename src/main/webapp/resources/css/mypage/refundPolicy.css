@@ -1,0 +1,114 @@
+@charset "UTF-8";
+.refund-container {
+    width: 100%;
+    
+    margin: auto;
+}
+
+.title-bar {
+    background-color: #f7f8e3;
+    border-radius: 25px;
+    padding: 10px 0;
+    margin-bottom: 2rem;
+}
+
+.title-bar h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #333;
+}
+
+.policy-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 15px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.policy-card h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.policy-section {
+    margin-bottom: 2rem;
+}
+
+.policy-section h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.policy-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.policy-section li {
+    position: relative;
+    padding-left: 1.2rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.policy-section li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.notice {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+    margin-top: 2rem;
+}
+
+.agreement {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.agreement input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    accent-color: #ffd700;
+}
+
+.agreement label {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.button-wrapper {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.refund-button {
+    background-color: #fce47a;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 80px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.refund-button:hover {
+    background-color: #f7d64b;
+}

@@ -1,0 +1,475 @@
+@charset "UTF-8";
+
+
+
+/*본문 영역*/
+
+main {
+	font-family: var(--font-family);
+	color: var(--font-main-color);
+}
+
+.section-container {
+	margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.footer-address p {
+	margin: 15px 0px;
+}
+
+/* 전체 배경 및 레이아웃 */
+.hero-section {
+    position: relative; /* 배경 텍스트의 기준점 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+    /* 제공된 그라데이션 변수 사용 */
+    background: var(--background-gradient);
+    overflow: hidden; /* 배경 텍스트가 넘치지 않도록 설정 */
+}
+
+
+/* 배경에 희미하게 깔리는 텍스트 */
+.background-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15vw;   /* 매우 크게! */
+  color: #d8d3d3;   /* 연한 회색 */
+  opacity: 0.18;    /* 투명하게 */
+  font-weight: bold;
+  z-index: 0;
+  pointer-events: none; /* 클릭 무시 */
+  user-select: none;    /* 드래그 차단 */
+  white-space: nowrap;
+}
+
+/* 메인 콘텐츠 (텍스트, 버튼) */
+.hero-content {
+    position: relative;
+    z-index: 2; /* 배경 텍스트보다 위에 위치 */
+}
+
+/* 메인 타이틀 */
+.hero-title {
+    color: var(--font-sub-color);
+    font-size: 90px; /* 48px */
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0px;
+}
+
+/* 서브 타이틀 */
+.hero-subtitle {
+    color: var(--font-sub-color);
+    
+    /* 이 값을 조절하여 위쪽 여백을 늘립니다. */
+    margin-top: 0.5rem;
+
+
+    margin-bottom: 1rem; 
+    font-size: 1.5rem;
+}
+
+/* 버튼 그룹 */
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* 버튼 사이 간격 */
+}
+
+/* 버튼 공통 스타일 */
+.btn {
+    display: inline-block;
+    padding: 14px 40px;
+    
+    /* Corner radius: 161 -> border-radius */
+    border-radius: 161px; 
+    
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    
+    /* Fill: #FAFAFA, Opacity: 70% -> rgba로 배경색만 반투명하게 설정 */
+	background-color: #f6f6f9;
+
+    /* 원본 이미지의 미세한 테두리와 그림자 유지 (필요 없다면 이 두 줄을 삭제하세요) */
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 4px #ececec;
+    color: var(--font-sub-color);
+}
+
+/* 버튼 호버 효과 */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    color: var(--font-main-color);
+}
+
+
+
+/* --- 기능 소개 섹션 스타일 --- */
+.features-section {
+    width: 100%;
+    /* 제공된 변수 사용 또는 기본 흰색 배경 */
+    background-color: #ffffff;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.section-title {
+    color: var(--font-main-color, #212529);
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 7rem; /* 카드와의 간격 확보 */
+}
+
+/* 카드들을 담는 그리드 */
+.features-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 모바일 화면 대응 */
+    gap: 10rem; /* 카드 사이의 간격 */
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+/* 개별 카드와 아이콘을 감싸는 아이템 */
+/* ★★★★★ 부모 요소: 위치 기준점 설정이 중요! ★★★★★ */
+.feature-item {
+    position: relative; /* 자식인 아이콘의 위치 기준점이 됨 */
+    width: 380px;
+}
+
+/* 반투명 정보 카드 (투명도 높임 - 추천) */
+.feature-card {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    
+    /* 
+     * [핵심 수정] background의 알파 값을 0.85에서 0.65로 낮췄습니다.
+    */
+/*     background: rgba(255, 255, 255, 0.65); */
+    background: rgba(255, 255, 255, 0.1);
+    
+    /* 
+     * 투명도가 높아졌으므로, 블러(blur) 효과를 조금 더 강하게 주면
+     * 텍스트 가독성을 유지하는 데 도움이 됩니다. (12px -> 15px)
+    */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+/*       backdrop-filter: blur(18px); */
+/*     -webkit-backdrop-filter: blur(18px); */
+    
+    /* 테두리도 배경에 맞춰 조금 더 투명하게 변경 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+    
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+/* 굵은 그라데이션 윗쪽 테두리 역할을 할 가상 요소 */
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    height: 7px; /* 테두리 두께 */
+    background: var(--background-gradient-horizontally); /* 그라데이션 변수 적용 */
+}
+
+.feature-card h2 {
+    color: var(--font-main-color, #212529);
+    font-size: 1.5rem;
+    font-weight: 700;
+    
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: var(--font-sub-color, #555555);
+    font-size: 1.2rem;
+    line-height: 1.7;
+}
+
+/* 아이콘의 각 파츠(모양)를 만드는 가상 요소 공통 스타일 */
+
+.icon-background {
+    position: absolute;
+    z-index: 1;
+}
+
+.icon-background::before,
+.icon-background::after {
+    content: '';
+    position: absolute;
+    
+    /* 가로 그라데이션 적용 (이전 요청 반영) */
+    background: var(--background-gradient-horizontally);
+    
+    /* 아이콘 투명도 */
+    opacity: 0.6;
+}
+
+
+/* 1. 왼쪽 아이콘: 클립보드와 펜 모양 */
+.icon-clipboard {
+    width: 280px;
+    height: 300px;
+    top: -125px;  /* 카드의 위쪽으로 얼마나 올라갈지 */
+    left: -119px; /* 카드의 왼쪽으로 얼마나 나갈지 */
+}
+
+/* 클립보드 보드 부분 */
+.icon-clipboard::before {
+    width: 210px;
+    height: 260px;
+    border-radius: 40px; /* 둥근 모서리 */
+    top: 0;
+    left: 0;
+}
+
+/* 펜 부분 */
+.icon-clipboard::after {
+    width: 60px;
+    height: 230px;
+    border-radius: 30px; /* 둥근 모양 */
+    top: 25px;
+    left: 170px;
+    transform: rotate(30deg); /* 30도 기울이기 */
+}
+
+
+/* 2. 오른쪽 아이콘: 서랍 모양 */
+.icon-drawer {
+    width: 250px;
+    height: 240px;
+    top: -125px;   /* 카드의 위쪽으로 얼마나 올라갈지 */
+    right: -119px; /* 카드의 오른쪽으로 얼마나 나갈지 */
+}
+
+/* 위쪽 서랍 */
+.icon-drawer::before {
+    width: 220px;
+    height: 100px;
+    border-radius: 35px; /* 둥근 모서리 */
+    top: 0;
+    left: 0;
+}
+
+/* 아래쪽 서랍 */
+.icon-drawer::after {
+    width: 220px;
+    height: 100px;
+    border-radius: 35px; /* 둥근 모서리 */
+    top: 130px; /* 위쪽 서랍과의 간격 (100px 높이 + 30px 간격) */
+    left: 0;
+}
+
+/* 
+  '기업들이 일루션을 찾는 이유' 섹션 전체를 감싸는 컨테이너
+*/
+.reasons-section {
+  width: 100%; /* 너비를 100%로 설정합니다. */
+  padding: 80px 20px; /* 상하, 좌우 여백을 줍니다. */
+  background-color: var(--body-bg-color); /* 본문 영역 배경색을 적용합니다. */
+  box-sizing: border-box; /* padding과 border가 너비에 포함되도록 설정합니다. */
+}
+
+/* 
+  섹션의 메인 타이틀('기업들이 일루션을 찾는 이유') 스타일입니다.
+*/
+.section-title {
+  font-size: 28px; /* 폰트 크기를 설정합니다. */
+  font-weight: 700; /* 폰트 두께를 bold로 설정합니다. */
+  color: var(--font-main-color); /* 메인 텍스트 색상을 적용합니다. */
+  text-align: center; /* 텍스트를 중앙 정렬합니다. */
+  margin-bottom: 80px; /* 카드와의 간격을 위해 하단 마진을 줍니다. */
+}
+
+/* 
+  3개의 카드를 감싸는 flex 컨테이너입니다.
+  카드들의 배치와 정렬을 담당합니다.
+*/
+.card-container {
+  display: flex; /* 자식 요소들을 flexbox로 정렬합니다. */
+  justify-content: center; /* 자식 요소들을 수평 중앙에 배치합니다. */
+  /* 자식 요소(카드)들이 컨테이너의 교차 축(cross-axis)을 꽉 채우도록 늘려줍니다. */
+  /* 이 속성 하나로 모든 카드의 높이가 가장 높은 카드를 기준으로 동일해집니다. */
+  align-items: stretch; 
+  flex-wrap: nowrap; /* 화면 너비가 좁아지면 카드가 다음 줄로 넘어가도록 설정합니다. */
+  gap: 30px; /* 카드 사이의 간격을 설정합니다. */
+}
+
+/* 
+  개별 카드(리뷰 박스)의 기본 스타일입니다.
+  모든 카드에 공통적으로 적용됩니다.
+*/
+.reason-card {
+  position: relative; /* 자식 같은 ::before의 위치 기준점이 됩니다. */
+  background-color: #ffffff; /* 카드 배경색을 흰색으로 설정합니다. */
+  border-radius: 20px; /* 모서리를 둥글게 만듭니다. */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 효과를 줍니다. */
+  padding: 40px 35px; /* 카드 내부의 상하, 좌우 여백을 줍니다. */
+  text-align: center; /* 카드 내부 텍스트를 중앙 정렬합니다. */
+  width: 100%; /* 모바일 화면을 위해 너비를 100%로 설정합니다. */
+  max-width: 380px; /* 카드의 최대 너비를 제한합니다. */
+  box-sizing: border-box; /* padding과 border가 너비에 포함되도록 설정합니다. */
+  
+   /* ✨ 추가됨: 카드 자체를 flex 컨테이너로 설정 */
+  /* 카드 높이가 늘어났을 때 내부 콘텐츠의 수직 정렬을 제어하기 위함입니다. */
+  display: flex;
+  flex-direction: column; /* 자식 요소(제목, 설명)들을 수직으로 쌓습니다. */
+}
+
+/* 
+  카드의 상단 그라데이션 테두리를 만들기 위한 가상 요소(pseudo-element)입니다.
+*/
+.reason-card::before {
+  content: ""; /* 가상 요소는 content 속성이 필수입니다. */
+  position: absolute; /* .reason-card를 기준으로 위치를 잡습니다. */
+  top: 0; /* 카드 상단에 붙입니다. */
+  left: 0; /* 카드 왼쪽에 붙입니다. */
+  right: 0; /* 카드 오른쪽에 붙입니다. */
+  height: 6px; /* 그라데이션 테두리의 높이(두께)를 설정합니다. */
+  background: var(--background-gradient-horizontally); /* 수평 그라데이션 변수를 배경으로 적용합니다. */
+  border-top-left-radius: 20px; /* 그라데이션의 왼쪽 상단 모서리를 둥글게 합니다. */
+  border-top-right-radius: 20px; /* 그라데이션의 오른쪽 상단 모서리를 둥글게 합니다. */
+}
+
+
+/* 
+  카드 내의 제목('모든 직군의 인재를...') 스타일입니다.
+*/
+.card-title {
+  font-size: 22px; /* 폰트 크기를 설정합니다. */
+  font-weight: 700; /* 폰트 두께를 bold로 설정합니다. */
+  color: var(--font-main-color); /* 메인 텍스트 색상을 적용합니다. */
+  margin-bottom: 20px; /* 설명과의 간격을 위해 하단 마진을 줍니다. */
+  line-height: 1.4; /* 줄 간격을 설정하여 가독성을 높입니다. */
+}
+
+/* 
+  카드 내의 설명 텍스트 스타일입니다.
+*/
+.card-description {
+  font-size: 16px; /* 폰트 크기를 설정합니다. */
+  color: var(--font-sub-color); /* 서브 텍스트 색상을 적용합니다. */
+  line-height: 1.7; /* 줄 간격을 넓혀 가독성을 높입니다. */
+}
+
+/* 
+  이미지와 같은 카드 배치를 위해 개별 카드의 수직 위치를 조정합니다.
+  transform을 사용하면 다른 요소의 레이아웃에 영향을 주지 않고 위치를 옮길 수 있습니다.
+*/
+.card-container .reason-card:nth-child(1),
+.card-container .reason-card:nth-child(3) {
+  transform: translateY(-72px); /* 첫 번째와 세 번째 카드를 위로 40px 이동시킵니다. */
+}
+
+.card-container .reason-card:nth-child(2) {
+  transform: translateY(40px); /* 두 번째(중앙) 카드를 아래로 40px 이동시킵니다. */
+}
+
+
+/* 
+  '파트너사' 섹션 전체를 감싸는 컨테이너입니다.
+*/
+.partners-section {
+  width: 100%; /* 너비를 100%로 설정합니다. */
+  padding: 80px 20px; /* 상하, 좌우 여백을 줍니다. */
+  background-color: #ffffff; /* 본문 영역 배경색을 적용합니다. */
+  box-sizing: border-box; /* padding과 border가 너비에 포함되도록 설정합니다. */
+}
+
+/* 
+  텍스트 영역과 로고 영역을 양쪽으로 배치하기 위한 flex 컨테이너입니다.
+*/
+.partners-container {
+  display: flex; /* 자식 요소(텍스트, 로고)들을 flexbox로 정렬합니다. */
+  align-items: center; /* 자식 요소들을 수직 중앙에 정렬합니다. */
+  justify-content: center; /* 자식 요소들을 수평 중앙에 배치합니다. */
+  flex-wrap: wrap; /* 화면이 좁아지면 다음 줄로 넘어가도록 설정합니다. */
+  gap: 60px; /* 텍스트 영역과 로고 영역 사이의 간격을 줍니다. */
+  max-width: 1200px; /* 섹션의 최대 너비를 제한합니다. */
+  margin: 0 auto; /* 컨테이너를 수평 중앙에 배치합니다. */
+}
+
+/* 
+  왼쪽 텍스트 영역(.partners-text) 스타일입니다.
+*/
+.partners-text {
+  flex: 1; /* flex-grow: 1, flex-shrink: 1, flex-basis: 0% */
+  /* 로고 영역과 공간을 유연하게 나눠 갖습니다. */
+  min-width: 300px; /* 텍스트 영역의 최소 너비를 설정하여 줄바꿈이 심해지는 것을 방지합니다. */
+}
+
+/* 
+  '파트너사' 섹션의 제목 스타일입니다.
+*/
+.partners-title {
+  font-size: 26px; /* 폰트 크기를 설정합니다. */
+  font-weight: 700; /* 폰트 두께를 bold로 설정합니다. */
+  color: var(--font-main-color); /* 메인 텍스트 색상을 적용합니다. */
+  margin-bottom: 42px; /* 설명과의 간격을 위해 하단 마진을 줍니다. */
+  text-align: center;
+}
+
+/* 
+  '파트너사' 섹션의 설명 텍스트 스타일입니다.
+*/
+.partners-description {
+  font-size: 16px; /* 폰트 크기를 설정합니다. */
+  color: var(--font-sub-color); /* 서브 텍스트 색상을 적용합니다. */
+  line-height: 1.8; /* 줄 간격을 넓혀 가독성을 높입니다. */
+  text-align: center;
+}
+
+/* 
+  오른쪽 로고들을 담는 그리드 컨테이너입니다.
+*/
+.partners-logos {
+  flex: 1.5; /* 텍스트 영역보다 조금 더 넓은 공간을 차지하도록 비율을 조정합니다. */
+  display: grid; /* 로고들을 격자 형태로 배치하기 위해 grid를 사용합니다. */
+  /* 
+    너비가 1fr인 3개의 열을 만듭니다. (1fr은 사용 가능한 공간을 동일하게 나눈다는 의미) 
+    결과적으로 3개의 동일한 너비의 열이 생성됩니다.
+  */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 38px 0px; /* 로고들 사이의 간격을 설정합니다. (상하 40px, 좌우 60px) */
+}
+
+/* 
+  개별 로고 아이템(이미지)을 감싸는 div입니다.
+  로고를 그리드 셀 안에서 중앙에 배치하는 역할을 합니다.
+*/
+.logo-item {
+  display: flex; /* 내부 아이템(이미지) 정렬을 위해 flex를 사용합니다. */
+  justify-content: center; /* 이미지를 수평 중앙에 정렬합니다. */
+  align-items: center; /* 이미지를 수직 중앙에 정렬합니다. */
+}
+
+/* 
+  로고 이미지 스타일입니다.
+*/
+.logo-item img {
+  max-width: 100%; /* 로고의 너비가 그리드 셀을 넘어가지 않도록 합니다. */
+  max-height: 60px; /* 로고들의 높이를 일정하게 유지하여 깔끔하게 보이도록 합니다. */
+  object-fit: contain; /* 이미지의 비율을 유지하면서 주어진 공간 안에 맞춥니다. */
+}
+
+
+
