@@ -1,7 +1,7 @@
 $(function () {
 	
 	// 1. 제출 유효성 검사 
-//	$('form').on('submit', onSubmitRequired);
+	$('form').on('submit', onSubmitRequired);
 		
 	// 2.근무 지역 선택
 	$('#major-region-list').on('click', handleMajorRegionClick);
@@ -137,6 +137,13 @@ function onSubmitRequired(e) {
 	      return false;
 	    }
 	 }
+	 
+	let date = new Date($('[name="end_date"]').val()) 
+	if (date < $.now()) {
+		alert('마감일은 오늘 이후로 설정하세요');
+		$('[name="end_date"]').val('');
+		return false;
+	}
 	return true;
 }
 //==============================2. 근무 지역 선택 ========================================
@@ -250,11 +257,6 @@ function renderJobs(getJobList) {
 	$('#jobs').empty();
 	let joblist = [];
 	for(let job of getJobList) {
-//		let el = $(`<div class="option-btn job" data-code='${job.code}'>
-//			${job.code_name}</div>`);
-//		if (el.text() == keyword.data('keyword')) {
-//			
-//		}
 		joblist.push($(`<div class="option-btn job" data-code='${job.code}'>
 			${job.code_name}</div>`));
 	}

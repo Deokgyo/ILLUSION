@@ -26,13 +26,12 @@
     <div class="page-container">
         <main class="main-content">
           	<div class="page-title-header">
-              	<p class="header-text"><strong>생성된 자기소개서</strong></p>
+              	<p class="header-text"><strong>자기소개서</strong></p>
           	</div>
             <div class="result-box">
-            
                 <!-- CL001: 생성된 자소서 -->
                 <c:if test="${coverletter.cl_type eq 'CL001'}">
-                    <h3 style="text-align: center">생성된 자소서</h3>
+                    <h3 style="text-align: center">자소서</h3>
                     <div class="result-meta">
                         <div class="char-count">
                             <i class="fa-solid fa-star"></i> 
@@ -87,21 +86,15 @@
                             <button id="copyBtn" class="btn btn-yellow">복사</button>
                         </div>
                     </div>
-                    <textarea id="generated-text" readonly>${coverletter.generated_cl_content }</textarea>
+                    <textarea id="generated-text" readonly>${coverletter.generated_cl_content}</textarea>
                 </c:if>
-                
-				
-                
                 <div class="text-center mt-4">
                     <button id="detele-btn" class="btn-yellow" onclick="history.back()">이전</button>
                 </div>
             </div>
         </main>
     </div>
-
     <jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
-
-    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/sidebar.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jobTools/coverletterResult.js"></script>
