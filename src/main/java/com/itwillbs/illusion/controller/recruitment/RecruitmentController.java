@@ -37,7 +37,7 @@ import com.itwillbs.illusion.vo.RecruitVO;
 public class RecruitmentController {
 	
 	// 업로드 할 가상 경로 
-	String virtualPath = "/resources/upload";
+	String virtualPath = "/resources/upload/";
 	
 	@Autowired
 	RecruitService service;
@@ -192,6 +192,10 @@ public class RecruitmentController {
 		String contextPath = req.getContextPath(); 
         String savePath = fileName.equals("") ? "" : contextPath + virtualPath + subDir + "/" + fileName;
 		apply.setApply_files_path(savePath);
+		
+		System.out.println("ddddddddddddddddddddddddd");
+		System.out.println(contextPath + virtualPath + subDir + "/" + fileName);
+		
 		int insertCnt = service.insertApply(apply);
 		
 		return "redirect:/recruitmentDetail?recruit_idx=" + apply.getRecruit_idx();
